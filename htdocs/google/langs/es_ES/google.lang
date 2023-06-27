@@ -49,7 +49,8 @@ AllowGoogleToLoginWithClientID=Puede crear su ID de cliente de Google <strong> y
 AllowGoogleToLoginWithClientSecret=Consulte la nota en la línea anterior para saber cómo obtener su secreto de cliente de Google.
 AllowGoogleToLoginWithServiceAccount=Puede crear su <strong>cuenta de servicio usuario/email</strong> desde la página <a href="%s" target="_blank">%s</a>, menú "API & Authentification" -> "Identification" . Hacer clic en "Crear un ID de cliente" y escoger "Cuenta de servicio" seguidamente "Crear". Obtendrá su nueva cuenta de servicio con un <strong>ID cliente de cuenta de servicio</strong> y un <strong>Email de cuenta de servicio</strong>.
 EnableAPI=También debe habilitar la API para su cuenta de Google. Para ello, vaya a la página <a href="%s" target="_blank">%s</a>, menu "API & Authentification" -> "API". Haga clic en activar la API para "%s".
-ShareCalendarWithServiceAccount=También es necesario compartir el calendario (permisos completos con la cuenta de servicio <strong>%s</strong>. Para ello, vaya al calendario de Google, seleccione "Configuración" y  vaya a la pestaña "Calendarios" (acceso directo vía <a href="https://www.google.com/calendar/render?tab=mc#i">este enlace</a>). Haga clic en "compartidos: Ajustes" al final del calendario a actualizar (Este debe ser el mismo calendario que indicó en el ID de parámetro "%s".) a continuación, agregue la cuenta de servicio de usuario/email en el campo Email, seleccione los permisos más completos y confirme haciendo clic en "Añadir usuario".
+ShareCalendarWithServiceAccount=You must also share the agenda (all permissions) with the service account user/email <strong>%s</strong>: For this, go into the Google calendar. It must be same Agenda than the one choosed on parameter "%s". Choose "Parameters" then click on your Agenda name to show the link "Share parameters with...". Click on it and add the service account user as a contact to share your agenda with. Choose permission "Edit events" and validate by clicking "Add user".
+ShareCalendarWithServiceAccount2=With <strong>Google Suite</strong> (not required for standard gmail account), permissions may be forced to "Ready only" instead of "Edit". If you can't choose "Edit" permission, go onto <a href="https://admin.google.com/AdminHome?pli=1&fral=1#AppDetails:service=Calendar&flyout=sharing" target="_blank">https://admin.google.com/AdminHome?pli=1&fral=1#AppDetails:service=Calendar&flyout=sharing</a> and check that sharing option of Agenda application allows sharing with external service account.
 GOOGLE_API_SERVERKEY=Clave API (escriba "Clave del servidor")
 GoogleUserConf=Configuración Google
 GoogleSetupIsGlobal=La sincronización se realiza a nivel global a el calendario <strong>%s</strong> para todo el mundo
@@ -69,6 +70,9 @@ ExportEventsToGoogle=Exportar los %s últimos eventos de Dolibarr al calendario 
 DeleteAllGoogleThirdparties=Eliminar todos los terceros provenientes de Dolibarr en GMail.
 DeleteAllGoogleContacts=Eliminar todos los contactos provenientes de Dolibarr en GMail.
 DeleteAllGoogleMembers=Eliminar todos los miembros provenientes de Dolibarr en GMail.
+FromId=From ID:
+ToId=to ID:
+IdSelectOptional=ID Range selection is optional
 DeleteAllGoogleEvents=Eliminar todos los eventos provenientes de Dolibarr en GMail.
 PushToGoogleSucess=Sincronización a los contactos de Google realizada, %sregistro(s).
 TagsCreatedSuccess=Sincronización de grupos con contactos de Google finalizada
@@ -115,7 +119,7 @@ MoreCloudHostingLink=<a target="_blank" href="https://www.dolicloud.com">Haga cl
 CompatibleWithDoliDroid=Este módulo es compatible con DoliDroid, la app Android para Dolibarr.
 LinkToThirdParty=Enlace a terceros
 LinkToContact=Enlace a contactos
-GoogleContactSyncInfo=Use una etiqueta de grupo a su gusto. El grupo se creará en los contactos de Google si no existe. Puede usar una de las etiquetas de grupos predefinidas por Google, como: <br>"System Group: My Contacts", "System Group: Friend", "System Group: CoWorker", "System Group: Family"<br>Tenga en cuenta que solamente el grupo predefinido "System Group: My Contacts" es compartido por la función "Delegación de contactos" de contactos de Google (Google Suite).
+GoogleContactSyncInfo=Use here any label of your choice. Group will be created into Google Contact if it does not exist. You can also use a label of one of any predefined Google system group like:<br>"contactGroups/myContacts", "contactGroups/coworkers", "contactGroups/family", "contactGroups/friends"<br>Note also that only the predefined system group "contactGroups/myContacts" is shared by the "Delegate contacts" feature available in Google contact of Google suite.
 XRecordDeleted=<strong>%s</strong> registros eliminados
 ThisFieldIsAGlobalSetup=Este campo se define en la configuración global del módulo
 FillAndSaveGoogleAccount=Complete y guarde primero su cuenta de Google y su ID de cliente de Google
@@ -134,3 +138,4 @@ IconTiers=Use un pictograma diferente para prospecto, cliente y proveedor
 CustomersOnly=solo clientes
 ProspectsOnly=Solo prospectos
 RefreshEventFromGoogle=Actualizar eventos de Google
+Tool=Outil

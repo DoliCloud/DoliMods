@@ -49,7 +49,8 @@ AllowGoogleToLoginWithClientID=Du kan opprette din <strong> Google-klient-ID og 
 AllowGoogleToLoginWithClientSecret=Se merknaden på forrige linje for å finne ut hvordan du får Google-klienthemmeligheten din.
 AllowGoogleToLoginWithServiceAccount=Du kan opprette din <strong>-tjenestekonto bruker/e-post </strong> fra side <a href="%s" target="_blank"> %s </a> , velg et prosjekt eller opprett en meny "API &C". Klikk på "Opprett/Legg til en klient-ID" og velg "Tjenestekonto" og deretter "Opprett". Du vil få en ny tjenestekonto med en <strong> tjenestekonto klient-ID </strong> og en <strong> tjenestekonto e-post </strong>. Her må du skrive inn <strong> tjenestekontoen e-post </strong> .
 EnableAPI=Du må også aktivere API for Google-kontoen din. For dette gå til side <a href="%s" target="_blank"> %s </a> , meny "API & Services" -> "API". Klikk for å aktivere API for "%s".
-ShareCalendarWithServiceAccount=Du må også dele agendaen (alle tillatelser) med tjenestekontobrukeren/e-posten <strong> %s </strong> : For dette, gå inn i Google-kalenderen. Det må være samme agenda enn den som er valgt på parameteren "%s". Velg "Parametere" og klikk deretter på agendanavnet ditt for å vise lenken "Del parametere med...". Klikk på den og legg til tjenestekontobrukeren som en kontakt å dele agendaen din med. Velg tillatelse "Rediger hendelser" og bekreft ved å klikke "Legg til bruker". Med <strong> Google Suite </strong> (ikke nødvendig for standard gmail-konto), kan tillatelser tvinges til "Kun klar" i stedet for "Rediger". Hvis du ikke kan velge "Rediger"-tillatelse, gå til <a href="https://admin.google.com/AdminHome?pli=1&fral=1#AppDetails:service=Calendar&flyout=sharing" target="_blank"> https://admin.google.com/AdminHome?pli=1&fral=1#AppDetails:service=Calendar&flyout=sharing </a> og sjekk at delingsalternativet for Agenda-applikasjonen tillater deling med ekstern tjenestekonto.
+ShareCalendarWithServiceAccount=You must also share the agenda (all permissions) with the service account user/email <strong>%s</strong>: For this, go into the Google calendar. It must be same Agenda than the one choosed on parameter "%s". Choose "Parameters" then click on your Agenda name to show the link "Share parameters with...". Click on it and add the service account user as a contact to share your agenda with. Choose permission "Edit events" and validate by clicking "Add user".
+ShareCalendarWithServiceAccount2=With <strong>Google Suite</strong> (not required for standard gmail account), permissions may be forced to "Ready only" instead of "Edit". If you can't choose "Edit" permission, go onto <a href="https://admin.google.com/AdminHome?pli=1&fral=1#AppDetails:service=Calendar&flyout=sharing" target="_blank">https://admin.google.com/AdminHome?pli=1&fral=1#AppDetails:service=Calendar&flyout=sharing</a> and check that sharing option of Agenda application allows sharing with external service account.
 GOOGLE_API_SERVERKEY=API-nøkkel (skriv "servernøkkel")
 GoogleUserConf=Google-oppsett
 GoogleSetupIsGlobal=Synkroniseringsoppsett gjøres globalt for alle brukere til agenda-ID <strong> %s </strong>.
@@ -69,6 +70,9 @@ ExportEventsToGoogle=Eksporter siste <strong> %s </strong> Dolibarr-hendelser ti
 DeleteAllGoogleThirdparties=Slett alle tredjeparter som kommer fra Dolibarr på Gmail.
 DeleteAllGoogleContacts=Slett alle kontakter/adresser som kommer fra Dolibarr på Gmail.
 DeleteAllGoogleMembers=Slett alle medlemmer som kommer fra Dolibarr på Gmail.
+FromId=From ID:
+ToId=to ID:
+IdSelectOptional=ID Range selection is optional
 DeleteAllGoogleEvents=Slett alle hendelser i Google-kalenderen <strong> %s </strong> knyttet til en Dolibarr
 PushToGoogleSucess=Synkronisering til Google-kontakt fullført for %s-post(er).
 TagsCreatedSuccess=Synkronisering av grupper til Google-kontakt fullført
@@ -115,7 +119,7 @@ MoreCloudHostingLink= <a target="_blank" href="https://www.dolicloud.com"> Klikk
 CompatibleWithDoliDroid=Denne modulen er også kompatibel med DoliDroid, Android-applikasjonen for Dolibarr.
 LinkToThirdParty=Link til tredjepart
 LinkToContact=Link til kontakt
-GoogleContactSyncInfo=Her kan du bruke hvilken som helst etikett. Gruppen opprettes i Google Kontakt hvis den ikke eksisterer. Du kan også bruke en etikett for en av forhåndsdefinerte Google-systemgrupper som: <br> "Systemgruppe: Mine kontakter", "Systemgruppe: Venn", "Systemgruppe: CoWorker", "Systemgruppe: Familie" <br> Merk også at kun den forhåndsdefinerte systemgruppen "Systemgruppe: Mine kontakter" deles av funksjonen "Delegert kontakter" som er tilgjengelig i Google-kontakt i Google Suite.
+GoogleContactSyncInfo=Use here any label of your choice. Group will be created into Google Contact if it does not exist. You can also use a label of one of any predefined Google system group like:<br>"contactGroups/myContacts", "contactGroups/coworkers", "contactGroups/family", "contactGroups/friends"<br>Note also that only the predefined system group "contactGroups/myContacts" is shared by the "Delegate contacts" feature available in Google contact of Google suite.
 XRecordDeleted= <strong> %s </strong> poster slettet
 ThisFieldIsAGlobalSetup=Dette feltet er definert i global oppsett av modulen
 FillAndSaveGoogleAccount=Fyll ut og lagre Google-kontoen din og Google Client ID først
@@ -134,3 +138,4 @@ IconTiers=Bruk et annet bilde for prospekt, kunde og leverandør
 CustomersOnly=Kun kunder
 ProspectsOnly=Kun prospekter
 RefreshEventFromGoogle=Oppdater hendelser fra Google
+Tool=Outil

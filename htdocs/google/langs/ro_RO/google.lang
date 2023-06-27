@@ -49,7 +49,8 @@ AllowGoogleToLoginWithClientID=Puteți să vă creați <strong> Google Client ID
 AllowGoogleToLoginWithClientSecret=Consultați nota de pe linia anterioară pentru a afla cum să obțineți secretul dvs. de client Google.
 AllowGoogleToLoginWithServiceAccount=Puteți să vă creați contul de serviciu <strong> utilizator/e-mail </strong> de pe pagina <a href="%s" target="_blank"> %s </a>, selectați un proiect sau creați unul, apoi meniul „C&APIredentials” -> „Căruiește și API”. Faceți clic pe „Creați/Adăugați un ID de client” și alegeți „Cont de serviciu”, apoi „Creați”. Veți obține un nou cont de serviciu cu un ID de client <strong> </strong> și un cont de serviciu <strong> E-mail </strong>. Aici trebuie să introduceți contul de serviciu <strong> E-mail </strong> .
 EnableAPI=De asemenea, trebuie să activați API-ul pentru contul dvs. Google. Pentru aceasta accesați pagina <a href="%s" target="_blank"> %s </a> , meniul „API & Servicii” -> „API”. Faceți clic pentru a activa API-ul pentru „%s”.
-ShareCalendarWithServiceAccount=De asemenea, trebuie să împărtășiți agenda (toate permisiunile) cu utilizatorul/e-mailul contului de serviciu <strong> %s </strong> : Pentru aceasta, accesați calendarul Google. Trebuie să fie aceeași agendă decât cea aleasă la parametrul „%s”. Alegeți „Parametri”, apoi faceți clic pe numele agendei pentru a afișa linkul „Partajați parametrii cu...”. Faceți clic pe el și adăugați utilizatorul contului de serviciu ca contact pentru a vă împărtăși agenda. Alegeți permisiunea „Editați evenimente” și validați făcând clic pe „Adăugați utilizator”. Cu <strong> Google Suite </strong> (nu este necesar pentru contul Gmail standard), permisiunile pot fi forțate să fie „Numai gata” în loc de „Editare”. Dacă nu puteți alege permisiunea „Editare”, accesați <a href="https://admin.google.com/AdminHome?pli=1&fral=1#AppDetails:service=Calendar&flyout=sharing" target="_blank"> https://admin.google.com/AdminHome?pli=1&fral=1#AppDetails:service=Calendar&flyout=sharing </a> și verificați dacă opțiunea de partajare a aplicației Agenda permite cu cont de serviciu extern.
+ShareCalendarWithServiceAccount=De asemenea, trebuie să partajezi agenda (cu toate permisiunile) cu utilizatorul/contul de email de serviciu <strong>%s</strong>: Pentru aceasta, accesează calendarul Google. Trebuie să fie aceeași Agendă ca cea aleasă la parametrul "%s". Alege "Parametri", apoi fă clic pe numele agendei pentru a afișa link-ul "Partajare parametri cu...". Fă clic pe el și adaugă utilizatorul contului de serviciu ca și contact cu care să partajați agenda. Alege permisiunea „Editare evenimente” și validează făcând clic pe "Adăugare utilizator".
+ShareCalendarWithServiceAccount2=Cu <strong>Google Suite</strong> (nu este necesar pentru contul Gmail standard), permisiunile pot fi forțate la "Doar citire" în loc de "Editare". Dacă nu poți alege permisiunea „Editare”, accesează <a href="https://admin.google.com/AdminHome?pli=1&fral=1#AppDetails:service=Calendar&flyout=sharing" target="_blank">https://admin.google.com/AdminHome?pli=1&fral=1#AppDetails:service=Calendar&flyout=sharing</a> și verifică dacă opțiunea de partajare a aplicației Agendă permite partajarea cu extern cont de serviciu.
 GOOGLE_API_SERVERKEY=Cheia API (tastați „Cheia serverului”)
 GoogleUserConf=Configurare Google
 GoogleSetupIsGlobal=Configurarea sincronizării se face la nivel global pentru toți utilizatorii la ID-ul agendei <strong> %s </strong>.
@@ -69,6 +70,9 @@ ExportEventsToGoogle=Exportați ultimele evenimente <strong> %s </strong> Doliba
 DeleteAllGoogleThirdparties=Ștergeți toate terțele părți care vin de la Dolibarr pe Gmail.
 DeleteAllGoogleContacts=Ștergeți toate contactele/adresele care vin de la Dolibarr pe Gmail.
 DeleteAllGoogleMembers=Ștergeți toți membrii care vin de la Dolibarr pe Gmail.
+FromId=De la ID:
+ToId=până la ID:
+IdSelectOptional=Selectarea intervalului de ID-uri este opțională 
 DeleteAllGoogleEvents=Ștergeți toate evenimentele din calendarul Google <strong> %s </strong> legate la un Dolibarr
 PushToGoogleSucess=Sincronizarea cu contactul Google s-a încheiat pentru înregistrările %s.
 TagsCreatedSuccess=Sincronizarea grupurilor cu contactul Google s-a încheiat
@@ -115,7 +119,7 @@ MoreCloudHostingLink= <a target="_blank" href="https://www.dolicloud.com"> Face�
 CompatibleWithDoliDroid=Acest module este compatibil și cu DoliDroid, aplicația Android pentru Dolibarr.
 LinkToThirdParty=Link către o terță parte
 LinkToContact=Link către contact
-GoogleContactSyncInfo=Folosiți aici orice etichetă la alegere. Grupul va fi creat în Google Contact dacă nu există. De asemenea, puteți utiliza o etichetă a unuia dintre orice grup de sistem Google predefinit, cum ar fi: <br> „Grup de sistem: Contactele mele”, „Grup de sistem: Prieten”, „Grup de sistem: CoWorker”, „Grup de sistem: Familie” <br> Rețineți că numai grupul de sistem predefinit „Grup de sistem: Contactele mele” este partajat de funcția „Delegați contactele” disponibilă în Google Contact din Google Suite.
+GoogleContactSyncInfo=Folosește aici orice etichetă la alegere. Grupul va fi creat în Google Contact dacă nu există. De asemenea, poți utiliza o etichetă a unuia dintre orice grup de sistem Google predefinit, cum ar fi: <br>"contactGroups/myContacts", "contactGroups/coworkers", "contactGroups/family", "contactGroups/friends" <br>Reține, de asemenea, că numai grupul de sistem predefinit "contactGroups/ myContacts" este partajat de funcția „Delegare contacte” disponibilă în Google Contact din Google Suite.
 XRecordDeleted= <strong> %s </strong> înregistrările au fost șterse
 ThisFieldIsAGlobalSetup=Acest câmp este definit în configurarea globală a modulului
 FillAndSaveGoogleAccount=Completați și salvați mai întâi contul dvs. Google și ID-ul de client Google
@@ -134,3 +138,4 @@ IconTiers=Utilizați o picto diferită pentru prospect, client și furnizor
 CustomersOnly=Numai clienții
 ProspectsOnly=Numai perspective
 RefreshEventFromGoogle=Actualizează evenimentele de la Google
+Tool=Instrument
