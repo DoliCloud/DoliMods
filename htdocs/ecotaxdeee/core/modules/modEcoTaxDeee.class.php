@@ -76,9 +76,6 @@ class modEcoTaxDeee extends DolibarrModules
 		// Data directories to create when module is enabled.
 		$this->dirs = array();
 
-		// Relative path to module style sheet if exists. Example: '/Composition/mycss.css'.
-		$this->style_sheet = '';
-
 		// Config pages. Put here list of php page names stored in admin directory used to setup module.
 		$this->config_page_url = array('index.php@ecotaxdeee');
 

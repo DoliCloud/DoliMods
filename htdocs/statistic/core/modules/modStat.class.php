@@ -78,9 +78,6 @@ class modStat extends DolibarrModules
 		$this->dirs = array();
 		$r=0;
 
-		// Relative path to module style sheet if exists. Example: '/statistic/css/mycss.css'.
-		$this->style_sheet = '';
-
 		// Config pages. Put here list of php page names stored in admmin directory used to setup module.
 		//$this->config_page_url = array("statisticSetup.php");
 
