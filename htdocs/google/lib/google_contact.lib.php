@@ -669,7 +669,7 @@ function googleDeleteGroup($client, $groupID) {
 	}
 	$addheaders=array('GData-Version'=>'3.0', 'Authorization'=>'Bearer '.$access_token, 'If-Match'=>'*');
 	$addheaderscurl=array('Content-Type: application/json','GData-Version: 3.0', 'Authorization: Bearer '.$access_token, 'If-Match: *');
-	$result = getURLContent('https://people.googleapis.com/v1/'.$groupID, 'DELETE', array(), 0, $addheaderscurl);
+	$result = getURLContent('https://people.googleapis.com/v1/'.$groupID, 'DELETE', '', 0, $addheaderscurl);
 	$jsonStr = $result['content'];
 	$json = json_decode($jsonStr);
 	if (!empty($json->error)) {
@@ -700,7 +700,7 @@ function googleUpdateGroup($client, $groupID, $name) {
 	// }
 	// $addheaders=array('GData-Version'=>'3.0', 'Authorization'=>'Bearer '.$access_token, 'If-Match'=>'*');
 	// $addheaderscurl=array('Content-Type: application/json','GData-Version: 3.0', 'Authorization: Bearer '.$access_token, 'If-Match: *');
-	// $result = getURLContent('https://people.googleapis.com/v1/'.$groupID, 'GET', array(), 0, $addheaderscurl);
+	// $result = getURLContent('https://people.googleapis.com/v1/'.$groupID, 'GET', '', 0, $addheaderscurl);
 	// $jsonStr = $result['content'];
 	// $json = json_decode($jsonStr);
 	// $json->name = $name;
@@ -1406,7 +1406,7 @@ function getGContactTypeGroupID($gdata, $type)
 		dol_syslog("We found the value of groupID into the cached constant GOOGLE_TAG_REF_EXT... = ".$groupID);
 		/* Removed, this is useless.
 		 // Check that the group exists
-		 $result = getURLContent('https://people.googleapis.com/v1/'.$groupID, 'GET', array(), 0, $addheaderscurl);
+		 $result = getURLContent('https://people.googleapis.com/v1/'.$groupID, 'GET', '', 0, $addheaderscurl);
 		 $jsonStr = $result['content'];
 		 $json = json_decode($jsonStr);
 		 if (empty($json->error)) {
@@ -1430,7 +1430,7 @@ function getGContactTypeGroupID($gdata, $type)
 			if (!empty($json->error)) {
 				if ($json->error->status == 'ALREADY_EXISTS') {
 					// If we got an error saying it already exists, we get list of all existing groups
-					$result = getURLContent('https://people.googleapis.com/v1/contactGroups', 'GET', array(), 0, $addheaderscurl);
+					$result = getURLContent('https://people.googleapis.com/v1/contactGroups', 'GET', '', 0, $addheaderscurl);
 					$jsonStrListOfGrp = $result['content'];
 					$jsonListOfGrp = json_decode($jsonStrListOfGrp, true);
 					if (!empty($jsonListOfGrp['contactGroups'])) {
@@ -1532,7 +1532,7 @@ function getGContactGroupID($gdata, $tag, $useremail = 'default') {
 		}
 		$addheaders=array('GData-Version'=>'3.0', 'Authorization'=>'Bearer '.$access_token, 'If-Match'=>'*');
 		$addheaderscurl=array('Content-Type: application/json','GData-Version: 3.0', 'Authorization: Bearer '.$access_token, 'If-Match: *');
-		$result = getURLContent('https://people.googleapis.com/v1/'.$groupID, 'GET', array(), 0, $addheaderscurl);
+		$result = getURLContent('https://people.googleapis.com/v1/'.$groupID, 'GET', '', 0, $addheaderscurl);
 		$jsonStr = $result['content'];
 		$json = json_decode($jsonStr);
 		if (!empty($json->error)) {

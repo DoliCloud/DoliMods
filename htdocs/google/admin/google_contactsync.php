@@ -915,7 +915,7 @@ if (!getDolGlobalString('GOOGLE_CONTACT_LOGIN') ||  !getDolGlobalString('OAUTH_G
 
 	$urltodelete = $redirect_uri.'&action=delete';
 	$urltodelete .= '&token='.newToken();
-	if (is_object($tokenobj)) {
+	if (!empty($tokenobj) && is_object($tokenobj)) {
 		$token_creation_entity = '';
 		$token_date_last_update = $_SESSION['google_web_token_'.$conf->entity]['created'] ?? $storage->date_modification;
 		$token_date_expire = $tokenobj->getEndOfLife();
@@ -979,7 +979,7 @@ print '<br><br>';
 
 // Thirdparties
 if (!empty($conf->societe->enabled)) {
-	if (! empty($conf->global->GOOGLE_DUPLICATE_INTO_THIRDPARTIES) && is_object($tokenobj)) {
+	if (!empty($conf->global->GOOGLE_DUPLICATE_INTO_THIRDPARTIES) && !empty($tokenobj) && is_object($tokenobj)) {
 		print '<div class="syncthirdparties">';
 		print '<hr><br>';
 		print img_picto('', 'company', 'class="pictofixedwidth"').' '.$langs->trans("Tool").' '.$langs->trans("ThirdParties").'<br><br>';

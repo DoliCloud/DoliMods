@@ -159,7 +159,7 @@ class gContactTest extends PHPUnit\Framework\TestCase
             $access_token=$tmp->access_token;
         }
         $addheaderscurl=array('Content-Type: application/json','GData-Version: 3.0', 'Authorization: Bearer '.$access_token, 'If-Match: *');
-        $result = getURLContent('https://people.googleapis.com/v1/contactGroups', 'GET', array(), 0, $addheaderscurl);
+        $result = getURLContent('https://people.googleapis.com/v1/contactGroups', 'GET', '', 0, $addheaderscurl);
         $this->assertEquals($result['http_code'], 200);
         print __METHOD__." connection try, http_code:".$result['http_code']."\n";
 
@@ -210,7 +210,7 @@ class gContactTest extends PHPUnit\Framework\TestCase
 		$addheaderscurl=array('Content-Type: application/json','GData-Version: 3.0', 'Authorization: Bearer '.$access_token, 'If-Match: *');
 
 		$personFields = "emailAddresses,names,phoneNumbers";
-        $fund = getURLContent('https://people.googleapis.com/v1/'.$contactID.'?personFields='.$personFields, 'GET', array(), 0, $addheaderscurl);
+        $fund = getURLContent('https://people.googleapis.com/v1/'.$contactID.'?personFields='.$personFields, 'GET', '', 0, $addheaderscurl);
 
 		$this->assertEquals($fund['http_code'], 200);
 
@@ -242,7 +242,7 @@ class gContactTest extends PHPUnit\Framework\TestCase
 		print __METHOD__." updated:".$result."\n";
 
 		// Test if infos are corrects on google contact
-		$fund = getURLContent('https://people.googleapis.com/v1/'.$contactID.'?personFields='.$personFields, 'GET', array(), 0, $addheaderscurl);
+		$fund = getURLContent('https://people.googleapis.com/v1/'.$contactID.'?personFields='.$personFields, 'GET', '', 0, $addheaderscurl);
 		$this->assertEquals($fund['http_code'], 200);
 
 		$ID = json_decode($fund['content'])->resourceName;
@@ -269,7 +269,7 @@ class gContactTest extends PHPUnit\Framework\TestCase
 		print __METHOD__." deleted:".$result."\n";
 
 		// Test if third party is not on google contact anymore
-		$fund = getURLContent('https://people.googleapis.com/v1/'.$contactID.'?personFields='.$personFields, 'GET', array(), 0, $addheaderscurl);
+		$fund = getURLContent('https://people.googleapis.com/v1/'.$contactID.'?personFields='.$personFields, 'GET', '', 0, $addheaderscurl);
 		$this->assertEquals($fund['http_code'], 404);
 
 		print __METHOD__." google contact deleted\n";
@@ -318,7 +318,7 @@ class gContactTest extends PHPUnit\Framework\TestCase
 		$addheaderscurl=array('Content-Type: application/json','GData-Version: 3.0', 'Authorization: Bearer '.$access_token, 'If-Match: *');
 
 		$personFields = "emailAddresses,names,phoneNumbers";
-        $fund = getURLContent('https://people.googleapis.com/v1/'.$contactID.'?personFields='.$personFields, 'GET', array(), 0, $addheaderscurl);
+        $fund = getURLContent('https://people.googleapis.com/v1/'.$contactID.'?personFields='.$personFields, 'GET', '', 0, $addheaderscurl);
 
 		$this->assertEquals($fund['http_code'], 200);
 
@@ -349,7 +349,7 @@ class gContactTest extends PHPUnit\Framework\TestCase
 		print __METHOD__." updated:".$result."\n";
 
 		// Test if infos are corrects on google contact
-		$fund = getURLContent('https://people.googleapis.com/v1/'.$contactID.'?personFields='.$personFields, 'GET', array(), 0, $addheaderscurl);
+		$fund = getURLContent('https://people.googleapis.com/v1/'.$contactID.'?personFields='.$personFields, 'GET', '', 0, $addheaderscurl);
 		$this->assertEquals($fund['http_code'], 200);
 
 		$firstName = json_decode($fund['content'])->names[0]['givenName'];
@@ -375,7 +375,7 @@ class gContactTest extends PHPUnit\Framework\TestCase
 		print __METHOD__." deleted:".$result.$object->ref_ext."\n";
 
 		// Test if third party is not on google contact anymore
-		$fund = getURLContent('https://people.googleapis.com/v1/'.$contactID.'?personFields='.$personFields, 'GET', array(), 0, $addheaderscurl);
+		$fund = getURLContent('https://people.googleapis.com/v1/'.$contactID.'?personFields='.$personFields, 'GET', '', 0, $addheaderscurl);
 		$this->assertEquals($fund['http_code'], 404);
 
 		print __METHOD__." google contact deleted\n";
@@ -423,7 +423,7 @@ class gContactTest extends PHPUnit\Framework\TestCase
 		$addheaderscurl=array('Content-Type: application/json','GData-Version: 3.0', 'Authorization: Bearer '.$access_token, 'If-Match: *');
 
 		$personFields = "emailAddresses,names,phoneNumbers";
-        $fund = getURLContent('https://people.googleapis.com/v1/'.$contactID.'?personFields='.$personFields, 'GET', array(), 0, $addheaderscurl);
+        $fund = getURLContent('https://people.googleapis.com/v1/'.$contactID.'?personFields='.$personFields, 'GET', '', 0, $addheaderscurl);
 
 		$this->assertEquals($fund['http_code'], 200);
 
@@ -454,7 +454,7 @@ class gContactTest extends PHPUnit\Framework\TestCase
 		print __METHOD__." updated:".$result."\n";
 
 		// Test if infos are corrects on google contact
-		$fund = getURLContent('https://people.googleapis.com/v1/'.$contactID.'?personFields='.$personFields, 'GET', array(), 0, $addheaderscurl);
+		$fund = getURLContent('https://people.googleapis.com/v1/'.$contactID.'?personFields='.$personFields, 'GET', '', 0, $addheaderscurl);
 		$this->assertEquals($fund['http_code'], 200);
 
 		$firstName = json_decode($fund['content'])->names[0]['givenName'];
@@ -480,7 +480,7 @@ class gContactTest extends PHPUnit\Framework\TestCase
 		print __METHOD__." deleted:".$result.$object->ref_ext."\n";
 
 		// Test if third party is not on google contact anymore
-		$fund = getURLContent('https://people.googleapis.com/v1/'.$contactID.'?personFields='.$personFields, 'GET', array(), 0, $addheaderscurl);
+		$fund = getURLContent('https://people.googleapis.com/v1/'.$contactID.'?personFields='.$personFields, 'GET', '', 0, $addheaderscurl);
 		$this->assertEquals($fund['http_code'], 404);
 
 		print __METHOD__." google contact deleted\n";
@@ -539,7 +539,7 @@ class gContactTest extends PHPUnit\Framework\TestCase
 		}
 		$addheaderscurl=array('Content-Type: application/json','GData-Version: 3.0', 'Authorization: Bearer '.$access_token, 'If-Match: *');
 
-        $fund = getURLContent('https://people.googleapis.com/v1/'.$groupID, 'GET', array(), 0, $addheaderscurl);
+        $fund = getURLContent('https://people.googleapis.com/v1/'.$groupID, 'GET', '', 0, $addheaderscurl);
 
 		$this->assertEquals($fund['http_code'], 200);
 		print __METHOD__." group found\n";
@@ -552,7 +552,7 @@ class gContactTest extends PHPUnit\Framework\TestCase
 		$result = $categ->del_type($object, 'supplier');
 		$this->assertLessThan($result, 0);
 		print __METHOD__." third party unlinked from category:".$result."\n";
-		$fund = getURLContent('https://people.googleapis.com/v1/'.$groupID, 'GET', array(), 0, $addheaderscurl);
+		$fund = getURLContent('https://people.googleapis.com/v1/'.$groupID, 'GET', '', 0, $addheaderscurl);
 		$this->assertEquals($fund['http_code'], 200);
 		print __METHOD__." group updated\n";
 		$memberCount = json_decode($fund['content'])->memberCount;
@@ -568,7 +568,7 @@ class gContactTest extends PHPUnit\Framework\TestCase
 		$this->assertLessThan($deleted, 0);
 		print __METHOD__." third party deleted:".$deleted."\n";
 
-		$fund = getURLContent('https://people.googleapis.com/v1/'.$groupID, 'GET', array(), 0, $addheaderscurl);
+		$fund = getURLContent('https://people.googleapis.com/v1/'.$groupID, 'GET', '', 0, $addheaderscurl);
 		$this->assertEquals($fund['http_code'], 200);
 		print __METHOD__." group updated\n";
 
@@ -581,7 +581,7 @@ class gContactTest extends PHPUnit\Framework\TestCase
 		$this->assertLessThan($deleted, 0);
 		print __METHOD__." category deleted:".$deleted."\n";
 
-		$fund = getURLContent('https://people.googleapis.com/v1/'.$groupID, 'GET', array(), 0, $addheaderscurl);
+		$fund = getURLContent('https://people.googleapis.com/v1/'.$groupID, 'GET', '', 0, $addheaderscurl);
 		$this->assertEquals($fund['http_code'], 404);
 		print __METHOD__." group deleted\n";
 	}
@@ -638,7 +638,7 @@ class gContactTest extends PHPUnit\Framework\TestCase
 		}
 		$addheaderscurl=array('Content-Type: application/json','GData-Version: 3.0', 'Authorization: Bearer '.$access_token, 'If-Match: *');
 
-        $fund = getURLContent('https://people.googleapis.com/v1/'.$groupID, 'GET', array(), 0, $addheaderscurl);
+        $fund = getURLContent('https://people.googleapis.com/v1/'.$groupID, 'GET', '', 0, $addheaderscurl);
 
 		$this->assertEquals($fund['http_code'], 200);
 		print __METHOD__." group found\n";
@@ -651,7 +651,7 @@ class gContactTest extends PHPUnit\Framework\TestCase
 		$result = $categ->del_type($object, 'contact');
 		$this->assertLessThan($result, 0);
 		print __METHOD__." contact unlinked from category:".$result."\n";
-		$fund = getURLContent('https://people.googleapis.com/v1/'.$groupID, 'GET', array(), 0, $addheaderscurl);
+		$fund = getURLContent('https://people.googleapis.com/v1/'.$groupID, 'GET', '', 0, $addheaderscurl);
 		$this->assertEquals($fund['http_code'], 200);
 		print __METHOD__." group updated\n";
 		$memberCount = json_decode($fund['content'])->memberCount;
@@ -667,7 +667,7 @@ class gContactTest extends PHPUnit\Framework\TestCase
 		$this->assertLessThan($deleted, 0);
 		print __METHOD__." contact deleted:".$deleted."\n";
 
-		$fund = getURLContent('https://people.googleapis.com/v1/'.$groupID, 'GET', array(), 0, $addheaderscurl);
+		$fund = getURLContent('https://people.googleapis.com/v1/'.$groupID, 'GET', '', 0, $addheaderscurl);
 		$this->assertEquals($fund['http_code'], 200);
 		print __METHOD__." group updated\n";
 
@@ -680,7 +680,7 @@ class gContactTest extends PHPUnit\Framework\TestCase
 		$this->assertLessThan($deleted, 0);
 		print __METHOD__." category deleted:".$deleted."\n";
 
-		$fund = getURLContent('https://people.googleapis.com/v1/'.$groupID, 'GET', array(), 0, $addheaderscurl);
+		$fund = getURLContent('https://people.googleapis.com/v1/'.$groupID, 'GET', '', 0, $addheaderscurl);
 		$this->assertEquals($fund['http_code'], 404);
 		print __METHOD__." group in google contact deleted\n";
 	}
@@ -737,7 +737,7 @@ class gContactTest extends PHPUnit\Framework\TestCase
 		}
 		$addheaderscurl=array('Content-Type: application/json','GData-Version: 3.0', 'Authorization: Bearer '.$access_token, 'If-Match: *');
 
-        $fund = getURLContent('https://people.googleapis.com/v1/'.$groupID, 'GET', array(), 0, $addheaderscurl);
+        $fund = getURLContent('https://people.googleapis.com/v1/'.$groupID, 'GET', '', 0, $addheaderscurl);
 
 		$this->assertEquals($fund['http_code'], 200);
 		print __METHOD__." group found\n";
@@ -750,7 +750,7 @@ class gContactTest extends PHPUnit\Framework\TestCase
 		$result = $categ->del_type($object, 'member');
 		$this->assertLessThan($result, 0);
 		print __METHOD__." member unlinked from category:".$result."\n";
-		$fund = getURLContent('https://people.googleapis.com/v1/'.$groupID, 'GET', array(), 0, $addheaderscurl);
+		$fund = getURLContent('https://people.googleapis.com/v1/'.$groupID, 'GET', '', 0, $addheaderscurl);
 		$this->assertEquals($fund['http_code'], 200);
 		print __METHOD__." group updated\n";
 		$memberCount = json_decode($fund['content'])->memberCount;
@@ -766,7 +766,7 @@ class gContactTest extends PHPUnit\Framework\TestCase
 		$this->assertLessThan($deleted, 0);
 		print __METHOD__." member deleted:".$deleted."\n";
 
-		$fund = getURLContent('https://people.googleapis.com/v1/'.$groupID, 'GET', array(), 0, $addheaderscurl);
+		$fund = getURLContent('https://people.googleapis.com/v1/'.$groupID, 'GET', '', 0, $addheaderscurl);
 		$this->assertEquals($fund['http_code'], 200);
 		print __METHOD__." group updated\n";
 
@@ -779,7 +779,7 @@ class gContactTest extends PHPUnit\Framework\TestCase
 		$this->assertLessThan($deleted, 0);
 		print __METHOD__." category deleted:".$deleted."\n";
 
-		$fund = getURLContent('https://people.googleapis.com/v1/'.$groupID, 'GET', array(), 0, $addheaderscurl);
+		$fund = getURLContent('https://people.googleapis.com/v1/'.$groupID, 'GET', '', 0, $addheaderscurl);
 		$this->assertEquals($fund['http_code'], 404);
 		print __METHOD__." group in google contact deleted\n";
 	}
