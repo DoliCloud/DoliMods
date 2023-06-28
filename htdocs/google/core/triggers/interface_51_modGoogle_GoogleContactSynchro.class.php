@@ -182,6 +182,7 @@ class InterfaceGoogleContactSynchro extends DolibarrTriggers
 							$type = ($object->element ? $object->element : 'unknown');
 							$type = ($type === 'societe' ? 'thirdparty' : $type);
 
+							// Check and update groups
 							$typeGroupID = getGContactTypeGroupID($servicearray, $type);
 							if ($typeGroupID && preg_match('/contactGroups\/.*/', $typeGroupID)) {
 								$ret = googleLinkGroup($servicearray, $typeGroupID, $contactID);

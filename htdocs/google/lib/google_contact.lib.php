@@ -1399,7 +1399,8 @@ function getGContactTypeGroupID($gdata, $type)
 		return -1;
 	}
 
-	// To be sur that group is in google contact, we search it.
+	// A groupID was set into setup.
+	// To be sur that group exists in google contact, we search it.
 	// Note: a groupID must be a hex number or a value among [contactGroups/all, contactGroups/blocked, contactGroups/chatBuddies, contactGroups/coworkers, contactGroups/family, contactGroups/friends, contactGroups/myContacts, contactGroups/starred]
 	if ($groupID) {
 		// We found the value of groupID into the cached constant GOOGLE_TAG_REF_EXT.... so we have it and we don't have to create it.
@@ -1418,14 +1419,28 @@ function getGContactTypeGroupID($gdata, $type)
 	// Group not found, we create it
 	// We create it
 	if (! in_array($label, array('contactGroups/all', 'contactGroups/blocked', 'contactGroups/chatBuddies', 'contactGroups/coworkers', 'contactGroups/family', 'contactGroups/friends', 'contactGroups/myContacts', 'contactGroups/starred'))) {
+
 		$jsonData = '{';
 		$jsonData .= '"contactGroup":{';
 		$jsonData .= '"name": "'.$label.'"';
 		$jsonData .= '}';
 		$jsonData .= '}';
+
+		// uncomment for debugging :
+		if (getDolGlobalInt('GOOGLE_DEBUG')) {
+			file_put_contents(DOL_DATA_ROOT . "/dolibarr_google_contactGroups.json", $jsonData);
+			@chmod(DOL_DATA_ROOT . "/dolibarr_google_contactGroups.json", octdec(empty($conf->global->MAIN_UMASK)?'0664':$conf->global->MAIN_UMASK));
+		}
+
 		$result = getURLContent('https://people.googleapis.com/v1/contactGroups', 'POST', $jsonData, 0, $addheaderscurl);
 		$jsonStr = $result['content'];
 		try {
+			// uncomment for debugging :
+			if (getDolGlobalInt('GOOGLE_DEBUG')) {
+				file_put_contents(DOL_DATA_ROOT . "/dolibarr_google_contactGroups_response.json", $jsonStr);
+				@chmod(DOL_DATA_ROOT . "/dolibarr_google_contactGroups_response.json", octdec(empty($conf->global->MAIN_UMASK)?'0664':$conf->global->MAIN_UMASK));
+			}
+
 			$json = json_decode($jsonStr);
 			if (!empty($json->error)) {
 				if ($json->error->status == 'ALREADY_EXISTS') {
