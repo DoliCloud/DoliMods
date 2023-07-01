@@ -33,6 +33,11 @@ class ActionsConcatPdf
 	public $error;
 	public $errors=array();
 
+	// For Hookmanager return
+	public $resprints;
+	public $results = array();
+
+
 	/**
 	 *	Constructor
 	 *
@@ -188,12 +193,17 @@ class ActionsConcatPdf
 		}
 
 		$check='alpha';
-		if (! empty($conf->global->CONCATPDF_MULTIPLE_CONCATENATION_ENABLED)) $check='array';
+		if (! empty($conf->global->CONCATPDF_MULTIPLE_CONCATENATION_ENABLED)) {
+			$check='array';
+		}
 
 		$concatpdffile = GETPOST('concatpdffile', $check);
 		if (! is_array($concatpdffile)) {
-			if (! empty($concatpdffile)) $concatpdffile = array($concatpdffile);
-			else $concatpdffile = array();
+			if (! empty($concatpdffile)) {
+				$concatpdffile = array($concatpdffile);
+			} else {
+				$concatpdffile = array();
+			}
 		}
 
 		// Defined $preselected value
@@ -204,14 +214,14 @@ class ActionsConcatPdf
 		// Includes default models if no model selection
 		if (empty($concatpdffile) && ! $formwassubmittedwithemptyselection) {
 			//var_dump($conf->global->CONCATPDF_PRESELECTED_MODELS);
-			if ($preselected == -1 && ! empty($conf->global->CONCATPDF_PRESELECTED_MODELS)) {
+			if ($preselected == -1 && getDolGlobalString('CONCATPDF_PRESELECTED_MODELS')) {
 
 				// List of value key into setup -> value for modulepart
 				$altkey=array('proposal'=>'propal', 'order'=>'commande', 'invoice'=>'facture', 'supplier_order'=>'order_supplier', 'supplier_invoice'=>'invoice_supplier');
 
 				// $conf->global->CONCATPDF_PRESELECTED_MODELS may contains value of preselected model with format
 				// propal:model1a,model1b;invoice:model2;...
-				$tmparray=explode(';', $conf->global->CONCATPDF_PRESELECTED_MODELS);
+				$tmparray=explode(';', getDolGlobalString('CONCATPDF_PRESELECTED_MODELS'));
 				$tmparray2=array();
 				foreach ($tmparray as $val) {
 					$tmp=explode(':', $val);
@@ -247,8 +257,9 @@ class ActionsConcatPdf
 
 		if (! empty($concatpdffile) && $concatpdffile[0] != -1) {
 			foreach ($concatpdffile as $concatfile) {
-				// We search which second file to add (or generate it if file to add as a name starting with pdf___)
+				// We search which second file to add (or generate it if file to add as a name matching pdf__...modules)
 				if (preg_match('/^pdf_(.*)+\.modules/', $concatfile)) {
+					// We will generate the file to concat
 					require_once DOL_DOCUMENT_ROOT."/core/lib/files.lib.php";
 
 					$file = $conf->concatpdf->dir_output.'/'.$element.'/'.$concatfile.'.php';

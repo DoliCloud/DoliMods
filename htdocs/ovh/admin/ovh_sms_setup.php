@@ -159,7 +159,11 @@ if ($action == 'send' && ! $_POST['cancel']) {
 
 		require_once DOL_DOCUMENT_ROOT."/core/class/CSMSFile.class.php";
 
-		$smsfile = new CSMSFile($sendto, $smsfrom, $body, $deliveryreceipt, $deferred, $priority, $class);  // This define OvhSms->login, pass, session and account
+		try {
+			$smsfile = new CSMSFile($sendto, $smsfrom, $body, $deliveryreceipt, $deferred, $priority, $class);  // This define OvhSms->login, pass, session and account
+		} catch(Exception $e) {
+			setEventMessages($e->getMessage(), null, 'errors');
+		}
 
 		$smsfile->nostop = GETPOST('disablestop', 'int');
 		$smsfile->socid = 0;
