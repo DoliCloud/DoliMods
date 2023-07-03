@@ -37,6 +37,8 @@ class ActionsConcatPdf
 	public $resprints;
 	public $results = array();
 
+	public $tpls;
+
 
 	/**
 	 *	Constructor
@@ -297,6 +299,7 @@ class ActionsConcatPdf
 
 				// Create empty PDF
 				$pdf=pdf_getInstance($format);
+				//$pdf->SetAutoPageBreak(1, 0);
 				if (class_exists('TCPDF')) {
 					$pdf->setPrintHeader(false);
 					$pdf->setPrintFooter(false);
@@ -357,16 +360,107 @@ class ActionsConcatPdf
 	{
 		require_once DOL_DOCUMENT_ROOT."/core/lib/files.lib.php";
 		$pagecount = 0;
+
 		foreach ($files as $file) {
-			if (dol_is_file($file)) {	// We ignore file if not found so if ile has been removed we can still generate the PDF.
+			if ($file == '/home/ldestailleur/git/dolibarr_16.0/documents/concatpdf/invoices/FA1803-0795.pdf') {
+				continue;
+			}
+			if (dol_is_file($file)) {	// We ignore file if not found so if file has been removed we can still generate the PDF.
 				$pagecounttmp = $pdf->setSourceFile($file);
 				if ($pagecounttmp) {
 					for ($i = 1; $i <= $pagecounttmp; $i++) {
 						try {
 							$tplidx = $pdf->ImportPage($i);
+
+							// TODO Read /Annot to get links and save same after useTemplate
+							/*
+							$pageno = $i;
+							$tpl =& $pdf->tpls[$tplidx];
+							$parser =& $tpl['parser'];
+							var_dump($parser);exit;
+
+							if (isset($parser->pages[$pageno - 1][1][1]['/Annots'])) {
+								$annots = $parser->pages[$pageno - 1][1][1]['/Annots'];
+
+								$annots = $this->resolve($parser, $annots);
+								var_dump($annots);
+								$links = array();
+								foreach ($annots[1] as $annot) if ($annot[0] == PDF_TYPE_DICTIONARY) {
+									// all links look like:  << /Type /Annot /Subtype /Link /Rect [...] ... >>
+									if ($annot[1]['/Type'][1] == '/Annot' && $annot[1]['/Subtype'][1] == '/Link') {
+										$rect = $annot[1]['/Rect'];
+										if ($rect[0] == PDF_TYPE_ARRAY && count($rect[1]) == 4) {
+											$x = $rect[1][0][1]; $y = $rect[1][1][1];
+											$x2 = $rect[1][2][1]; $y2 = $rect[1][3][1];
+											$w = $x2 - $x; $h = $y2 - $y;
+											$h = -$h;
+										}
+										if (isset($annot[1]['/A'])) {
+											$A = $annot[1]['/A'];
+
+											if ($A[0] == PDF_TYPE_DICTIONARY && isset($A[1]['/S'])) {
+												$S = $A[1]['/S'];
+
+												//  << /Type /Annot ... /A << /S /URI /URI ... >> >>
+												if ($S[1] == '/URI' && isset($A[1]['/URI'])) {
+													$URI = $A[1]['/URI'];
+
+													if (is_string($URI[1])) {
+														$uri = str_replace("\\000", '', trim($URI[1]));
+														if (!empty($uri)) {
+															$links[] = array($x, $y, $w, $h, $uri);
+														}
+													}
+
+													//  << /Type /Annot ... /A << /S /GoTo /D [%d 0 R /Fit] >> >>
+												} else if ($S[1] == '/GoTo' && isset($A[1]['/D'])) {
+													$D = $A[1]['/D'];
+													if ($D[0] == PDF_TYPE_ARRAY && count($D[1]) > 0 && $D[1][0][0] == PDF_TYPE_OBJREF) {
+														$target_pageno = $this->findPageNoForRef($parser, $D[1][0]);
+														if ($target_pageno >= 0) {
+															$links[] = array($x, $y, $w, $h, $target_pageno);
+														}
+													}
+												}
+											}
+
+										} else if (isset($annot[1]['/Dest'])) {
+											$Dest = $annot[1]['/Dest'];
+
+											//  << /Type /Annot ... /Dest [42 0 R ...] >>
+											if ($Dest[0] == PDF_TYPE_ARRAY && $Dest[0][1][0] == PDF_TYPE_OBJREF) {
+												$target_pageno = $this->findPageNoForRef($parser, $Dest[0][1][0]);
+												if ($target_pageno >= 0) {
+													$links[] = array($x, $y, $w, $h, $target_pageno);
+												}
+											}
+										}
+									}
+								}
+								$tpl['links'] = $links;
+							}
+							*/
+
 							$s = $pdf->getTemplatesize($tplidx);
 							$pdf->AddPage($s['h'] > $s['w'] ? 'P' : 'L');
 							$pdf->useTemplate($tplidx);
+
+
+							// apply links from the template
+							/*
+							$tpl =& $this->tpls[$tplidx];
+							if (isset($tpl['links'])) {
+								foreach ($tpl['links'] as $link) {
+									// $link[4] is either a string (external URL) or an integer (page number)
+									if (is_int($link[4])) {
+										$l = $this->AddLink();
+										$this->SetLink($l, 0, $link[4]);
+										$link[4] = $l;
+									}
+									$pdf->PageLinks[$this->page][] = $link;
+								}
+							}
+							*/
 						} catch (Exception $e) {
 							dol_syslog("Error when manipulating some PDF by concatpdf: ".$e->getMessage(), LOG_ERR);
 							$this->error = $e->getMessage();
@@ -386,4 +480,143 @@ class ActionsConcatPdf
 
 		return $pagecount;
 	}
+
+
+	// Add methods to complete the import and useTemplate
+
+	// default maxdepth prevents an infinite recursion on malformed PDFs (not theoretical, actually found in the wild)
+	function resolve(&$parser, $smt, $maxdepth=10) {
+		if ($maxdepth == 0)
+			return $smt;
+
+			if ($smt[0] == PDF_TYPE_OBJREF) {
+				$result = $this->pdf_resolve_object($parser->c, $smt, true, $parser);
+				return $this->resolve($parser, $result, $maxdepth-1);
+
+			} else if ($smt[0] == PDF_TYPE_OBJECT) {
+				return $this->resolve($parser, $smt[1], $maxdepth-1);
+
+			} else if ($smt[0] == PDF_TYPE_ARRAY) {
+				$result = array();
+				foreach ($smt[1] as $item) {
+					$result[] = $this->resolve($parser, $item, $maxdepth-1);
+				}
+				$smt[1] = $result;
+				return $smt;
+
+			} else if ($smt[0] == PDF_TYPE_DICTIONARY) {
+				$result = array();
+				foreach ($smt[1] as $key => $item) {
+					$result[$key] = $this->resolve($parser, $item, $maxdepth-1);
+				}
+				$smt[1] = $result;
+				return $smt;
+
+			} else {
+				return $smt;
+			}
+	}
+
+
+	/**
+	 * Resolve an object
+	 *
+	 * @param object $c pdf_context
+	 * @param array $obj_spec The object-data
+	 * @param boolean $encapsulate Must set to true, cause the parsing and fpdi use this method only without this para
+	 */
+	function pdf_resolve_object(&$c, $obj_spec, $encapsulate = true, $parser) {
+		// Exit if we get invalid data
+		if (!is_array($obj_spec)) {
+			$ret = false;
+			return $ret;
+		}
+
+		if ($obj_spec[0] == PDF_TYPE_OBJREF) {
+			var_dump($c);
+
+			// This is a reference, resolve it
+			if (isset($parser->xref['xref'][$obj_spec[1]][$obj_spec[2]])) {
+
+				// Save current file position
+				// This is needed if you want to resolve
+				// references while you're reading another object
+				// (e.g.: if you need to determine the length
+				// of a stream)
+
+					$old_pos = ftell($c->file);
+
+					// Reposition the file pointer and
+					// load the object header.
+					$c->reset($parser->xref['xref'][$obj_spec[1]][$obj_spec[2]]);
+
+					$header = $parser->pdf_read_value($c);
+
+					if ($header[0] != PDF_TYPE_OBJDEC || $header[1] != $obj_spec[1] || $header[2] != $obj_spec[2]) {
+						$toSearchFor = $obj_spec[1] . ' ' . $obj_spec[2] . ' obj';
+						if (preg_match('/' . $toSearchFor . '/', $c->buffer)) {
+							$c->offset = strpos($c->buffer, $toSearchFor) + strlen($toSearchFor);
+							// reset stack
+							$c->stack = array();
+						} else {
+							$parser->error("Unable to find object ({$obj_spec[1]}, {$obj_spec[2]}) at expected location");
+						}
+					}
+
+					// If we're being asked to store all the information
+					// about the object, we add the object ID and generation
+					// number for later use
+					$result = array();
+					$parser->actual_obj =& $result;
+					if ($encapsulate) {
+						$result = array (
+							PDF_TYPE_OBJECT,
+							'obj' => $obj_spec[1],
+							'gen' => $obj_spec[2]
+						);
+					}
+
+					// Now simply read the object data until
+					// we encounter an end-of-object marker
+					while(1) {
+						$value = $parser->pdf_read_value($c);
+						if ($value === false || count($result) > 4) {
+							// in this case the parser coudn't find an endobj so we break here
+							break;
+						}
+
+						if ($value[0] == PDF_TYPE_TOKEN && $value[1] === 'endobj') {
+							break;
+						}
+
+						$result[] = $value;
+					}
+
+					$c->reset($old_pos);
+
+					if (isset($result[2][0]) && $result[2][0] == PDF_TYPE_STREAM) {
+						$result[0] = PDF_TYPE_STREAM;
+					}
+
+					return $result;
+			}
+		} else {
+			return $obj_spec;
+		}
+	}
+
+
+	function findPageNoForRef(&$parser, $pageRef) {
+		$ref_obj = $pageRef[1]; $ref_gen = $pageRef[2];
+
+		foreach ($parser->pages as $index => $page) {
+			$page_obj = $page['obj']; $page_gen = $page['gen'];
+			if ($page_obj == $ref_obj && $page_gen == $ref_gen) {
+				return $index + 1;
+			}
+		}
+
+		return -1;
+	}
+
 }
