@@ -49,8 +49,8 @@ AllowGoogleToLoginWithClientID=Vous pouvez créer votre <strong>Google Client ID
 AllowGoogleToLoginWithClientSecret=Voir note précédente pour savoir comment obtenir un Google Secret client.
 AllowGoogleToLoginWithServiceAccount=Vous pouvez créer votre <strong>utilisateur/email compte de service</strong> depuis la page <a href="%s" target="_blank">%s</a>, menu "API & Services" -> "Identifiants" . Cliquer sur "Créer un client ID" et choisir "Compte de service" puis "Créer". Vous obtiendrez vote nouveau compte de service avec un <strong>ID client de compte de service</strong> et un <strong>Email de compte de service</strong>. C'est cet <strong>Email de compte de service</strong> qu'il faut renseigner ici.
 EnableAPI=Vous devez aussi activer les API pour votre compte Google. Pour cela, aller sur la page <a href="%s" target="_blank">%s</a>, menu "API & Services" -> "API". Cliquer sur activer API pour "%s".
-ShareCalendarWithServiceAccount=You must also share the agenda (all permissions) with the service account user/email <strong>%s</strong>: For this, go into the Google calendar. It must be same Agenda than the one choosed on parameter "%s". Choose "Parameters" then click on your Agenda name to show the link "Share parameters with...". Click on it and add the service account user as a contact to share your agenda with. Choose permission "Edit events" and validate by clicking "Add user".
-ShareCalendarWithServiceAccount2=With <strong>Google Suite</strong> (not required for standard gmail account), permissions may be forced to "Ready only" instead of "Edit". If you can't choose "Edit" permission, go onto <a href="https://admin.google.com/AdminHome?pli=1&fral=1#AppDetails:service=Calendar&flyout=sharing" target="_blank">https://admin.google.com/AdminHome?pli=1&fral=1#AppDetails:service=Calendar&flyout=sharing</a> and check that sharing option of Agenda application allows sharing with external service account.
+ShareCalendarWithServiceAccount=Vous devez également partager l'agenda (toutes autorisations) avec l'utilisateur/e-mail du compte de service <strong> %s </strong> : Pour cela, rendez-vous dans l'agenda Google. Il doit être le même Agenda que celui choisi sur le paramètre "%s". Choisissez "Paramètres" puis cliquez sur le nom de votre agenda pour afficher le lien "Partager les paramètres avec...". Cliquez dessus et ajoutez l'utilisateur du compte de service en tant que contact avec lequel partager votre agenda. Choisissez l'autorisation "Modifier les événements" et validez en cliquant sur "Ajouter un utilisateur".
+ShareCalendarWithServiceAccount2=Avec <strong> la suite Google </strong>  (non requis pour un compte gmail standard), les autorisations peuvent être forcées à "Prêt uniquement" au lieu de "Modifier". Si vous ne pouvez pas choisir l'autorisation "Modifier", accédez à <a href="https://admin.google.com/AdminHome?pli=1&fral=1#AppDetails:service=Calendar&flyout=sharing" target="_blank"> https://admin.google.com/AdminHome?pli=1&fral=1#AppDetails:service=Calendar&flyout=sharing </a>  et vérifiez que l'option de partage de l'application Agenda permet le partage avec un compte de service externe.
 GOOGLE_API_SERVERKEY=Clé API (de type "Server key")
 GoogleUserConf=Configuration Google
 GoogleSetupIsGlobal=La synchronisation est faite de manière globale vers l'agenda <strong>%s</strong> pour tout le monde
@@ -62,7 +62,7 @@ DueToGoogleLimitYouNeedToLogin=Pour des raisons de sécurité imposées par Goog
 AllowGoogleToLoginSetupKey=Afin d'intégrer cette phase d'authentification Google dans l'application (facultatif), il est possible de configurer une clé pour permettre à l'application de proposer la Logon Google si vous n'êtes pas connecté.
 AllowGoogleToLoginProp=Les informations à saisir ici s'obtiennent en créant une clé par ce lien <a href="%s" target="_blank">%s</a>: Choisir API Access, puis Créer un client ID de type Application Web, en saisissant comme url de redirection (Redirect URI), l'url <strong>%s</strong>
 AllowGoogleToLoginWithAccountService=Vous pouvez obtenir des informations pour cette page de configuration en créant une clé en utilisant ce lien <a href="%s" target="_blank"> %s </a> : Sélectionnez "API & Services" -> "Credentials". Cliquez ensuite sur "Créer un identifiant" et choisissez le type "service de compte".
-AllowGoogleToLoginWithServiceAccountP12=Une fois que vous avez créez votre user/email compte de service (voir note précédente), vous devez télécharger votre <strong>fichier sécurité json</strong> (inutile si il s'est téléchargé automatiquement à la création du compte). Aller sur la page <a href="%s" target="_blank">%s</a> et sélectionnez "API & Authentification" -> "Identifiants". Cliquez sur "Génerer clé p12" pour télécharger le fichier sur votre bureau. Ensuite, soumettez le via le formulaire.
+AllowGoogleToLoginWithServiceAccountP12=Une fois que vous avez créé votre compte de service utilisateur/email (voir note sur les champs précédents), vous devez télécharger votre <strong> fichier json de sécurité </strong>  (non requis si le fichier a été téléchargé automatiquement lors de la création précédente du compte). Si vous n'avez pas le fichier JSON, revenez sur <a href="%s" target="_blank"> %s </a>  et sélectionnez "API & Services" -> "Identifiants". Trouvez la ligne avec votre "service de compte" créé. Cliquez sur le bouton d'édition, puis onglet "Clés" et "Créer un fichier de clé - Format JSON". Cela téléchargera automatiquement un nouveau fichier JSON. Téléchargez ensuite le fichier à l'aide de ce formulaire.
 ExportThirdpartiesToGoogle=Exporter tous les tiers Dolibarr sous GMail contact (attention, il n'y a pas de gestion de doublon pour l'export de masse).
 ExportContactToGoogle=Exporter tous les contacts/adresses Dolibarr sous GMail contact (attention, il n'y a pas de gestion de doublon pour l'export de masse).
 ExportMembersToGoogle=Exporter tous les adhérents Dolibarr sous GMail contact (attention, il n'y a pas de gestion de doublon pour l'export de masse).
@@ -70,9 +70,9 @@ ExportEventsToGoogle=Exporter les <strong>%s</strong> derniers évênements Doli
 DeleteAllGoogleThirdparties=Effacer tous les tiers issus de Dolibarr dans GMail.
 DeleteAllGoogleContacts=Effacer tous les contacts issus de Dolibarr dans GMail.
 DeleteAllGoogleMembers=Effacer tous les adhérents issus de Dolibarr dans GMail.
-FromId=From ID:
-ToId=to ID:
-IdSelectOptional=ID Range selection is optional
+FromId=Depuis l'ID :
+ToId=jusque l'ID :
+IdSelectOptional=La sélection de la plage d'ID est facultative
 DeleteAllGoogleEvents=Effacer tous les évenements de Google calendar <strong>%s</strong> liés à un événement Dolibarr
 PushToGoogleSucess=Syncronisation vers Google contact terminée pour %s enregistrement(s).
 TagsCreatedSuccess=Synchronisation des groupes avec le contact Google terminée
@@ -119,7 +119,7 @@ MoreCloudHostingLink=<a target="_blank" href="https://www.dolicloud.com">Cliquez
 CompatibleWithDoliDroid=Ce module est aussi compatible avec DoliDroid, l'application Android pour Dolibarr.
 LinkToThirdParty=Lien vers le tiers
 LinkToContact=Lien vers le contact
-GoogleContactSyncInfo=Use here any label of your choice. Group will be created into Google Contact if it does not exist. You can also use a label of one of any predefined Google system group like:<br>"contactGroups/myContacts", "contactGroups/coworkers", "contactGroups/family", "contactGroups/friends"<br>Note also that only the predefined system group "contactGroups/myContacts" is shared by the "Delegate contacts" feature available in Google contact of Google suite.
+GoogleContactSyncInfo=Utilisez ici n'importe quelle libellé de groupe de votre choix. Le groupe sera créé dans Google Contact s'il n'existe pas. Vous pouvez également utiliser le libellé de l'un des groupes système Google prédéfinis, par exemple : <br> "contactGroups/myContacts", "contactGroups/coworkers", "contactGroups/family", "contactGroups/friends" <br> Notez également que seul le groupe système prédéfini "contactGroups/myContacts" est partagé par la fonctionnalité "Déléguer des contacts" disponible dans Google contact de la suite Google.
 XRecordDeleted=<strong>%s</strong> enregistrements effacés
 ThisFieldIsAGlobalSetup=Ce champ est défini de manière global au module par l'administrateur
 FillAndSaveGoogleAccount=Remplissez et sauver le compte Google, le Google Client ID et le Google Secret d'abord
@@ -138,4 +138,4 @@ IconTiers=Utilisez un picto différent pour le prospect, le client et le fournis
 CustomersOnly=Clients uniquement
 ProspectsOnly=Prospects uniquement
 RefreshEventFromGoogle=Refraichir les événements depuis Google
-Tool=Outil
+Tool=Outils
