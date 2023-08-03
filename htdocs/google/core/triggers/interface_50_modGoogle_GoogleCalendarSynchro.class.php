@@ -179,11 +179,12 @@ class InterfaceGoogleCalendarSynchro extends DolibarrTriggers
 
 			if (! is_array($servicearray) || $servicearray == null) {
 				$this->error = "Failed to login to Google with credentials provided into setup page ".$conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL.", ".$key_file_location;
+				$this->errors[] = "Failed to login to Google with credentials provided into setup page ".$conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL.", ".$key_file_location;
+				$this->errors[] = $this->error;
 				if ($servicearray) {
-					$this->error .= " - ".$servicearray;
+					$this->errors[] = $servicearray;
 				}
 				dol_syslog($this->error, LOG_ERR);
-				$this->errors[]=$this->error;
 				return -1;
 			} else {
 				// Event label can now include company and / or contact info, and url link to thirdparty or contact, see configuration

@@ -162,7 +162,9 @@ class InterfaceGoogleContactSynchro extends DolibarrTriggers
 
 			if (! is_array($servicearray) || $servicearray == null) {
 				$this->error="Failed to login to Google with current token";
-				if ($servicearray) $this->error.=" - ".$langs->trans($servicearray);
+				if ($servicearray) {
+					$this->error .= " - ".$langs->trans($servicearray);
+				}
 				dol_syslog($this->error, LOG_ERR);
 				$this->errors[] = $this->error;
 				return -1;
@@ -189,19 +191,19 @@ class InterfaceGoogleContactSynchro extends DolibarrTriggers
 								if ($ret > 0) {
 									return 1;
 								} else {
-									$this->error="Failed to link contact to group for ".$type." - ".$typeGroupID;
+									$this->error = "Failed to link contact to group for ".$type." - ".$typeGroupID;
 									dol_syslog($this->error, LOG_ERR);
 									$this->errors[]=$this->error;
 									return -1;
 								}
 							} else {
-								$this->error="Failed to get type group ID for ".$type." - ".$typeGroupID;
+								$this->error = "Failed to get type group ID for ".$type." - ".$typeGroupID;
 								dol_syslog($this->error, LOG_ERR);
 								$this->errors[]=$this->error;
 								return -1;
 							}
 						} else {
-							$this->error="Failed to get contact ID";
+							$this->error = "Failed to get contact ID";
 							dol_syslog($this->error, LOG_ERR);
 							$this->errors[]=$this->error;
 							return -1;
