@@ -526,7 +526,14 @@ print '</tr>';
 print '<tr class="oddeven">';
 print '<td class="fieldrequired">'.$langs->trans("GOOGLE_API_SERVICEACCOUNT_P12KEY")."</td>";
 print '<td>';
-if (! empty($conf->global->GOOGLE_API_SERVICEACCOUNT_P12KEY)) print getDolGlobalString('GOOGLE_API_SERVICEACCOUNT_P12KEY').'<br>';
+if (! empty($conf->global->GOOGLE_API_SERVICEACCOUNT_P12KEY)) {
+	print getDolGlobalString('GOOGLE_API_SERVICEACCOUNT_P12KEY');
+	if (!dol_is_file($conf->google->multidir_output[$conf->entity]."/".$conf->global->GOOGLE_API_SERVICEACCOUNT_P12KEY)) {
+		$langs->load("errors");
+		print ' '.img_warning($langs->trans("ErrorFileNotFound", $conf->google->multidir_output[$conf->entity]."/".$conf->global->GOOGLE_API_SERVICEACCOUNT_P12KEY));
+	}
+	print '<br>';
+}
 print '<input class="minwidth400" type="file" name="GOOGLE_API_SERVICEACCOUNT_P12KEY_file">';
 print '</td>';
 print '<td class="aaa">';

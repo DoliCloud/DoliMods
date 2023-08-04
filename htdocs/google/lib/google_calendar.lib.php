@@ -108,7 +108,9 @@ function getTokenFromServiceAccount($service_account_name, $key_file_location, $
 
 	$applicationname = "Dolibarr";
 
+	dol_syslog("getTokenFromServiceAccount Create a new Google_Client: client = new Google_Client()", LOG_DEBUG);
 	$client = new Google_Client();
+	dol_syslog("getTokenFromServiceAccount client = new setApplicationName(".$applicationname.")", LOG_DEBUG);
 	$client->setApplicationName($applicationname);	// Set prefix of User Agent. User agent is set by PHP API in method Client->execute() of PHP Google Lib.
 	//$client->setClassConfig('Google_Cache_File', 'directory', $conf->google->dir_temp);		// Force dir if cache used is Google_Cache_File
 
@@ -184,11 +186,11 @@ function getTokenFromServiceAccount($service_account_name, $key_file_location, $
 		  the service account
 		 ************************************************/
 		if (empty($force_do_not_use_session) && isset($_SESSION['google_service_token_'.$conf->entity])) {
-			dol_syslog("Get service token from session. service_token=".$_SESSION['google_service_token_'.$conf->entity]);
+			dol_syslog("Get service token from session with client->setAccessToken(".$_SESSION['google_service_token_'.$conf->entity].")", LOG_DEBUG);
 			$client->setAccessToken($_SESSION['google_service_token_'.$conf->entity]);
 		}
 
-		dol_syslog("getTokenFromServiceAccount service_account_name=".$service_account_name." key_file_location=".$key_file_location." force_do_not_use_session=".$force_do_not_use_session, LOG_DEBUG);
+		//dol_syslog("getTokenFromServiceAccount service_account_name=".$service_account_name." key_file_location=".$key_file_location." force_do_not_use_session=".$force_do_not_use_session, LOG_DEBUG);
 
 		// API v1
 		/*
@@ -206,13 +208,17 @@ function getTokenFromServiceAccount($service_account_name, $key_file_location, $
 
 		// API v2
 		if ($user_to_impersonate) {
+			dol_syslog("getTokenFromServiceAccount client->setSubject(".$user_to_impersonate.")", LOG_DEBUG);
 			$client->setSubject($user_to_impersonate);
 		}
 
 		try {
+			dol_syslog("getTokenFromServiceAccount client->setAuthConfig(".$key_file_location.")", LOG_DEBUG);
 			$client->setAuthConfig($key_file_location);
+			dol_syslog("getTokenFromServiceAccount client->setAccessType('offline')", LOG_DEBUG);
 			$client->setAccessType('offline');
 			$scopes = array('https://www.googleapis.com/auth/calendar','https://www.googleapis.com/auth/calendar.events');
+			dol_syslog("getTokenFromServiceAccount client->setScopes(array(".join(',', $scopes)."))", LOG_DEBUG);
 			$client->setScopes($scopes);
 		} catch (Exception $e) {
 			dol_syslog("getTokenFromServiceAccount Error ".$e->getMessage(), LOG_ERR);
@@ -231,13 +237,13 @@ function getTokenFromServiceAccount($service_account_name, $key_file_location, $
 			// API v2
 			$checktoken=$client->isAccessTokenExpired();
 			if ($checktoken) {
-				dol_syslog("getTokenFromServiceAccount token seems to be expired, we refresh it", LOG_DEBUG);
-				$result = $client->refreshTokenWithAssertion();
+				dol_syslog("getTokenFromServiceAccount client->isAccessTokenExpired() return a token ".$checktoken.", so token is expired. We try to refresh it with client->fetchAccessTokenWithAssertion()", LOG_DEBUG);
+				$result = $client->fetchAccessTokenWithAssertion();
 				//var_dump($result);
 			}
 			//var_dump($checktoken);
 		} catch (Exception $e) {
-			dol_syslog("getTokenFromServiceAccount Error ".$e->getMessage(), LOG_ERR);
+			dol_syslog("getTokenFromServiceAccount Error returned by Google with message: ".$e->getMessage(), LOG_ERR);
 			return $e->getMessage();
 		}
 	}
