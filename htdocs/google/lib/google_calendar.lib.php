@@ -192,20 +192,6 @@ function getTokenFromServiceAccount($service_account_name, $key_file_location, $
 
 		//dol_syslog("getTokenFromServiceAccount service_account_name=".$service_account_name." key_file_location=".$key_file_location." force_do_not_use_session=".$force_do_not_use_session, LOG_DEBUG);
 
-		// API v1
-		/*
-		$key = file_get_contents($key_file_location);
-		$cred = new Google_Auth_AssertionCredentials(
-			$service_account_name,
-			array('https://www.googleapis.com/auth/calendar','https://www.googleapis.com/auth/calendar.readonly'),
-			$key,
-			'notasecret',
-			'http://oauth.net/grant_type/jwt/1.0/bearer',
-			$user_to_impersonate
-		);
-		$client->setAssertionCredentials($cred);
-		*/
-
 		// API v2
 		if ($user_to_impersonate) {
 			dol_syslog("getTokenFromServiceAccount client->setSubject(".$user_to_impersonate.")", LOG_DEBUG);
@@ -226,14 +212,6 @@ function getTokenFromServiceAccount($service_account_name, $key_file_location, $
 		}
 
 		try {
-			// API v1
-			/*$checktoken=$client->getAuth()->isAccessTokenExpired();
-			if ($checktoken)
-			{
-				dol_syslog("getTokenFromServiceAccount token seems to be expired, we refresh it", LOG_DEBUG);
-				$client->getAuth()->refreshTokenWithAssertion($cred);
-			}*/
-
 			// API v2
 			$checktoken=$client->isAccessTokenExpired();
 			if ($checktoken) {
