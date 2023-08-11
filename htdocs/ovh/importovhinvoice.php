@@ -490,7 +490,7 @@ if ((float) DOL_VERSION < 18.0) {
 } else {
 	print $form->select_company($ovhthirdparty->id, 'idovhsupplier', '(s.fournisseur:=:1) AND (s.status:=:1)');
 }
-print '<br><br>';
+print '<br>';
 
 // Product to import on
 print $langs->trans("ProductGenericToUseForImport") . ': ';
