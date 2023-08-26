@@ -13,9 +13,9 @@ More information <a href="https://wiki.dolibarr.org/index.php/Module_OVH_(SMS,_C
 
 ### Screenshot - Invoice import
 
-![Screenshot invoice import](img/screen_shot_invoiceimport.png?raw=true "Invoice import"){imgmd}
+![Screenshot invoice import](img/screen_shot_invoiceimport.png?raw=true "Invoice import")
 
 
 ### Screenshot - Sending SMS
 
-![Screenshot sending sms](img/screen_shot_sms.png?raw=true "Sending SMS"){imgmd}
+![Screenshot sending sms](img/screen_shot_sms.png?raw=true "Sending SMS")

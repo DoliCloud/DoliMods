@@ -104,8 +104,8 @@ class modOvh extends DolibarrModules
 		// List of particular constants to add when module is enabled (key, 'chaine', value, desc, visible, 'current' or 'allentities', deleteonunactive)
 		// Example: $this->const=array(0=>array('MYMODULE_MYNEWCONST1','chaine','myvalue','This is a constant to add', 1, 'allentities', 1),
 		//                             1=>array('MYMODULE_MYNEWCONST2','chaine','myvalue','This is another constant to add', 0, 'current', 0)
-		$this->const = array(0=>array('MAIN_MODULE_OVH_SMS','chaine','ovh','This is to enable OVH SMS module',0,'current',1),
-							 1=>array('MAIN_SMS_SENDMODE','chaine','ovh','This is to enable OVH SMS engine',0,'current',1),
+		$this->const = array(0=>array('MAIN_MODULE_OVH_SMS','chaine','ovhsms@ovh','This is to declare the OVH SMS module as available',0,'current',1),
+							 1=>array('MAIN_SMS_SENDMODE','chaine','ovh','This is to autoset the SMS engine to OVH',0,'current',1),
 							 2=>array('MAIN_SMS_DEBUG','chaine','1','This is to enable OVH SMS debug',1,'allentities',0),
 							 3=>array('MAIN_MENU_ENABLE_MODULETOOLS','chaine','1','To enable module tools entry',0,'allentities',1),
 							 4=>array('MAIN_AGENDA_ACTIONAUTO_COMPANY_SENTBYSMS','chaine','1','To enable module tools entry',0,'allentities',1),
