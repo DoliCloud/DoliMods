@@ -4,6 +4,7 @@
 
 - FIX OAUth2 module for Google with scopes for people and calendar
 - GOOGLE_CAL_TZ_FIX accept +00:0x format
+- WARNING: Do not work with Dolibarr 17.0.0 and 17.0.1 and 17.0.2 (need 17.0.3)
 
 
 ## 6.6
