@@ -746,7 +746,7 @@ if ($conf->use_javascript_ajax) {
 	print '</script>'."\n";
 }
 
-if ($conf->societe->enabled) {
+if (isModEnabled('societe')) {
 	print $langs->trans("GoogleEnableSyncToThirdparties").' ';
 	$arraytmp=array(
 		'1'=>$langs->trans("Yes"),
@@ -757,8 +757,12 @@ if ($conf->societe->enabled) {
 	print $form->selectarray('GOOGLE_DUPLICATE_INTO_THIRDPARTIES', $arraytmp, $conf->global->GOOGLE_DUPLICATE_INTO_THIRDPARTIES);
 	print '<br>';
 }
-if ($conf->societe->enabled) print $langs->trans("GoogleEnableSyncToContacts").' '.$form->selectyesno("GOOGLE_DUPLICATE_INTO_CONTACTS", isset($_POST["GOOGLE_DUPLICATE_INTO_CONTACTS"])?$_POST["GOOGLE_DUPLICATE_INTO_CONTACTS"]:$conf->global->GOOGLE_DUPLICATE_INTO_CONTACTS, 1).'<br>';
-if ($conf->adherent->enabled) print $langs->trans("GoogleEnableSyncToMembers").' '.$form->selectyesno("GOOGLE_DUPLICATE_INTO_MEMBERS", isset($_POST["GOOGLE_DUPLICATE_INTO_MEMBERS"])?$_POST["GOOGLE_DUPLICATE_INTO_MEMBERS"]:$conf->global->GOOGLE_DUPLICATE_INTO_MEMBERS, 1).'<br>';
+if (isModEnabled('societe')) {
+	print $langs->trans("GoogleEnableSyncToContacts").' '.$form->selectyesno("GOOGLE_DUPLICATE_INTO_CONTACTS", isset($_POST["GOOGLE_DUPLICATE_INTO_CONTACTS"])?$_POST["GOOGLE_DUPLICATE_INTO_CONTACTS"]:$conf->global->GOOGLE_DUPLICATE_INTO_CONTACTS, 1).'<br>';
+}
+if (isModEnabled('adherent')) {
+	print $langs->trans("GoogleEnableSyncToMembers").' '.$form->selectyesno("GOOGLE_DUPLICATE_INTO_MEMBERS", isset($_POST["GOOGLE_DUPLICATE_INTO_MEMBERS"])?$_POST["GOOGLE_DUPLICATE_INTO_MEMBERS"]:$conf->global->GOOGLE_DUPLICATE_INTO_MEMBERS, 1).'<br>';
+}
 
 
 print '<div class="syncx">';
@@ -774,7 +778,7 @@ print '<td class="titlefieldcreate">'.$langs->trans("Parameter")."</td>";
 print "<td>".$langs->trans("Value")."</td>";
 print "</tr>";
 // Label to use for thirdparties
-if ($conf->societe->enabled) {
+if (isModEnabled('societe')) {
 	print '<tr class="oddeven" id="trsyncthirdparties">';
 	print '<td class="fieldrequired">'.$langs->trans("GOOGLE_TAG_PREFIX")."</td>";
 	print "<td>";
@@ -783,7 +787,7 @@ if ($conf->societe->enabled) {
 	print "</tr>";
 }
 // Label to use for contacts
-if ($conf->societe->enabled) {
+if (isModEnabled('societe')) {
 	print '<tr class="oddeven" id="trsynccontacts">';
 	print '<td class="fieldrequired">'.$langs->trans("GOOGLE_TAG_PREFIX_CONTACTS")."</td>";
 	print "<td>";
@@ -792,7 +796,7 @@ if ($conf->societe->enabled) {
 	print "</tr>";
 }
 // Label to use for members
-if ($conf->adherent->enabled) {
+if (isModEnabled('adherent')) {
 	print '<tr class="oddeven" id="trsyncmembers">';
 	print '<td class="fieldrequired">'.$langs->trans("GOOGLE_TAG_PREFIX_MEMBERS")."</td>";
 	print "<td>";
@@ -978,7 +982,7 @@ print '<br><br>';
 
 
 // Thirdparties
-if (!empty($conf->societe->enabled)) {
+if (isModEnabled('societe')) {
 	if (!empty($conf->global->GOOGLE_DUPLICATE_INTO_THIRDPARTIES) && !empty($tokenobj) && is_object($tokenobj)) {
 		print '<div class="syncthirdparties">';
 		print '<hr><br>';
@@ -1032,7 +1036,7 @@ if (!empty($conf->societe->enabled)) {
 }
 
 // Contacts
-if (!empty($conf->societe->enabled)) {
+if (isModEnabled('societe')) {
 	if (! empty($conf->global->GOOGLE_DUPLICATE_INTO_CONTACTS) && is_object($tokenobj)) {
 		print '<div class="synccontacts">';
 		print '<hr><br>';
@@ -1084,7 +1088,7 @@ if (!empty($conf->societe->enabled)) {
 }
 
 // Members
-if (!empty($conf->adherent->enabled)) {
+if (isModEnabled('adherent')) {
 	if (! empty($conf->global->GOOGLE_DUPLICATE_INTO_MEMBERS) && is_object($tokenobj)) {
 		print '<div class="syncmembers">';
 		print '<hr><br>';
