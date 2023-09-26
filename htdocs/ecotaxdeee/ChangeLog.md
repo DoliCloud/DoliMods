@@ -1,4 +1,10 @@
-# ChangeLog MODULE EXTERNALBACKUP FOR <a href="https://www.dolibarr.org">DOLIBARR ERP CRM</a>
+# ChangeLog MODULE EXOTAXDEEE FOR <a href="https://www.dolibarr.org">DOLIBARR ERP CRM</a>
+
+
+## 4.2
+
+- Need Dolibarr v16+.
+- Prepare compatibility with PHP 8.2
 
 
 ## 4.1.3
