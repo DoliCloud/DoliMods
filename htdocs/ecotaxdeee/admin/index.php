@@ -48,11 +48,11 @@ $action=GETPOST("action");
 if ($action == 'save') {
 	$db->begin();
 
-	$res=dolibarr_set_const($db, 'ECOTAXDEEE_USE_ON_PROPOSAL', trim($_POST["ECOTAXDEEE_USE_ON_PROPOSAL"]), 'chaine', 0, '', $conf->entity);
-	$res=dolibarr_set_const($db, 'ECOTAXDEEE_USE_ON_CUSTOMER_ORDER', trim($_POST["ECOTAXDEEE_USE_ON_CUSTOMER_ORDER"]), 'chaine', 0, '', $conf->entity);
-	$res=dolibarr_set_const($db, 'ECOTAXDEEE_USE_ON_CUSTOMER_INVOICE', trim($_POST["ECOTAXDEEE_USE_ON_CUSTOMER_INVOICE"]), 'chaine', 0, '', $conf->entity);
-	$res=dolibarr_set_const($db, 'ECOTAXDEEE_LABEL_LINE', trim($_POST["ECOTAXDEEE_LABEL_LINE"]), 'chaine', 0, '', $conf->entity);
-	$res=dolibarr_set_const($db, 'ECOTAXDEEE_DOC_FOOTER', trim($_POST["ECOTAXDEEE_DOC_FOOTER"]), 'chaine', 0, '', $conf->entity);
+	$res=dolibarr_set_const($db, 'ECOTAXDEEE_USE_ON_PROPOSAL', trim(GETPOST("ECOTAXDEEE_USE_ON_PROPOSAL")), 'chaine', 0, '', $conf->entity);
+	$res=dolibarr_set_const($db, 'ECOTAXDEEE_USE_ON_CUSTOMER_ORDER', trim(GETPOST("ECOTAXDEEE_USE_ON_CUSTOMER_ORDER")), 'chaine', 0, '', $conf->entity);
+	$res=dolibarr_set_const($db, 'ECOTAXDEEE_USE_ON_CUSTOMER_INVOICE', trim(GETPOST("ECOTAXDEEE_USE_ON_CUSTOMER_INVOICE")), 'chaine', 0, '', $conf->entity);
+	$res=dolibarr_set_const($db, 'ECOTAXDEEE_LABEL_LINE', trim(GETPOST("ECOTAXDEEE_LABEL_LINE")), 'chaine', 0, '', $conf->entity);
+	$res=dolibarr_set_const($db, 'ECOTAXDEEE_DOC_FOOTER', trim(GETPOST("ECOTAXDEEE_DOC_FOOTER")), 'chaine', 0, '', $conf->entity);
 
 	$product_wee=$_POST["WEEE_PRODUCT_ID"];
 	if ($product_wee < 0) $product_wee='';
@@ -109,7 +109,7 @@ print "</tr>";
 print '<tr class="oddeven">';
 print "<td>".$langs->trans("ECOTAXDEEE_USE_ON_PROPOSAL")."</td>";
 print "<td>";
-$selectedvalue=$conf->global->ECOTAXDEEE_USE_ON_PROPOSAL;
+$selectedvalue = getDolGlobalString('ECOTAXDEEE_USE_ON_PROPOSAL');
 print $form->selectyesno("ECOTAXDEEE_USE_ON_PROPOSAL", $selectedvalue, 1);
 print "</td>";
 print "</tr>";
@@ -117,7 +117,7 @@ print "</tr>";
 print '<tr class="oddeven">';
 print "<td>".$langs->trans("ECOTAXDEEE_USE_ON_CUSTOMER_ORDER")."</td>";
 print "<td>";
-$selectedvalue=$conf->global->ECOTAXDEEE_USE_ON_CUSTOMER_ORDER;
+$selectedvalue = getDolGlobalString('ECOTAXDEEE_USE_ON_CUSTOMER_ORDER');
 print $form->selectyesno("ECOTAXDEEE_USE_ON_CUSTOMER_ORDER", $selectedvalue, 1);
 print "</td>";
 print "</tr>";
@@ -125,7 +125,7 @@ print "</tr>";
 print '<tr class="oddeven">';
 print "<td>".$langs->trans("ECOTAXDEEE_USE_ON_CUSTOMER_INVOICE")."</td>";
 print "<td>";
-$selectedvalue=$conf->global->ECOTAXDEEE_USE_ON_CUSTOMER_INVOICE;
+$selectedvalue = getDolGlobalString('ECOTAXDEEE_USE_ON_CUSTOMER_INVOICE');
 print $form->selectyesno("ECOTAXDEEE_USE_ON_CUSTOMER_INVOICE", $selectedvalue, 1);
 print "</td>";
 print "</tr>";
@@ -135,13 +135,13 @@ print '<tr class="oddeven">';
 if (isModEnabled("produit") || isModEnabled("service")) {
 	print "<td>".$langs->trans("ECOTAXDEEE_PRODUCT_OR_LABEL_LINE")."</td>";
 	print "<td>";
-	print $form->select_produits($conf->global->WEEE_PRODUCT_ID, 'WEEE_PRODUCT_ID', '');
+	print $form->select_produits(getDolGlobalInt('WEEE_PRODUCT_ID'), 'WEEE_PRODUCT_ID', '');
 	print ' '.$langs->trans("OrLabelOfAFreeLine").' ';
 } else {
 	print "<td>".$langs->trans("ECOTAXDEEE_LABEL_LINE")."</td>";
 	print "<td>";
 }
-$selectedvalue=(empty($conf->global->ECOTAXDEEE_LABEL_LINE)?'':$conf->global->ECOTAXDEEE_LABEL_LINE);
+$selectedvalue = getDolGlobalString('ECOTAXDEEE_LABEL_LINE');
 print '<input type="text" class="flat" name="ECOTAXDEEE_LABEL_LINE" value="'.$selectedvalue.'">';
 // Add warning if category product does not exists
 print "</td>";
@@ -161,7 +161,7 @@ print "</tr>";
 print '<tr class="oddeven">';
 print "<td>".$langs->trans("ECOTAXDEEE_DOC_FOOTER")." (Dolibarr 3.6+)</td>";
 print "<td>";
-$selectedvalue=(empty($conf->global->ECOTAXDEEE_DOC_FOOTER)?'':$conf->global->ECOTAXDEEE_DOC_FOOTER);
+$selectedvalue=getDolGlobalString('ECOTAXDEEE_DOC_FOOTER');
 $doleditor=new DolEditor("ECOTAXDEEE_DOC_FOOTER", $selectedvalue, '', '250', 'dolibarr_details', 'In', 1, 1, 1, ROWS_8, '90%');
 $doleditor->Create(0, '');
 print '<br>';
@@ -206,9 +206,15 @@ print "</center>";
 print "</form>\n";
 
 $elements=array();
-if (! empty($conf->global->ECOTAXDEEE_USE_ON_CUSTOMER_ORDER) && $conf->global->ECOTAXDEEE_USE_ON_CUSTOMER_ORDER != 'no') $elements[]=$langs->transnoentitiesnoconv("CustomersOrders");
-if (! empty($conf->global->ECOTAXDEEE_USE_ON_PROPOSAL) && $conf->global->ECOTAXDEEE_USE_ON_PROPOSAL != 'no') $elements[]=$langs->transnoentitiesnoconv("Proposals");
-if (! empty($conf->global->ECOTAXDEEE_USE_ON_CUSTOMER_INVOICE) && $conf->global->ECOTAXDEEE_USE_ON_CUSTOMER_INVOICE != 'no') $elements[]=$langs->transnoentitiesnoconv("BillsCustomers");
+if (! empty($conf->global->ECOTAXDEEE_USE_ON_CUSTOMER_ORDER) && $conf->global->ECOTAXDEEE_USE_ON_CUSTOMER_ORDER != 'no') {
+	$elements[]=$langs->transnoentitiesnoconv("CustomersOrders");
+}
+if (! empty($conf->global->ECOTAXDEEE_USE_ON_PROPOSAL) && $conf->global->ECOTAXDEEE_USE_ON_PROPOSAL != 'no') {
+	$elements[]=$langs->transnoentitiesnoconv("Proposals");
+}
+if (! empty($conf->global->ECOTAXDEEE_USE_ON_CUSTOMER_INVOICE) && $conf->global->ECOTAXDEEE_USE_ON_CUSTOMER_INVOICE != 'no') {
+	$elements[]=$langs->transnoentitiesnoconv("BillsCustomers");
+}
 if (count($elements)) {
 	/*if (versioncompare(versiondolibarrarray(),array(3,6,-3)) >= 999)	// >= 0 if we are 3.6.0 alpha or +
 	{*/
