@@ -267,11 +267,12 @@ class InterfaceEcotaxdeee extends DolibarrTriggers
 
 			if ($line->special_code == 2) {				// This line is an already existing service line ecotax
 				$idlineecotax[$ecocateg]=($line->id ? $line->id : $line->rowid);
-				$amountlineecotax_ht[$ecocateg]=$line->total_ht;
-				$amountlineecotax_ttc[$ecocateg]=$line->total_ttc;
-				$amountlineecotax_vat[$ecocateg]=$line->total_vat;
+				$amountlineecotax_ht[$ecocateg] = $line->total_ht;
+				$amountlineecotax_ttc[$ecocateg] = $line->total_ttc;
+				$amountlineecotax_vat[$ecocateg] = (empty($line->total_vat) ? $line->total_tva : $line->total_vat);
 				$keylineecotax[$ecocateg]=$key;
-				$tmpecotaxline[$ecocateg]=$line;
+
+				$tmpecotaxline[$ecocateg] = $line;
 				continue;
 			}
 
@@ -286,6 +287,9 @@ class InterfaceEcotaxdeee extends DolibarrTriggers
 				$tmpproduct->fetch($line->fk_product);
 				include_once DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php';
 				if (! empty($tmpproduct->array_options['options_ecotaxdeee']) && $line->qty) {
+					if (empty($ecoamount[$ecocateg])) {	// To force init of var
+						$ecoamount[$ecocateg] = 0;
+					}
 					$ecoamount[$ecocateg] += ($tmpproduct->array_options['options_ecotaxdeee'] * $line->qty);
 				}
 			}
@@ -295,9 +299,13 @@ class InterfaceEcotaxdeee extends DolibarrTriggers
 		foreach ($tmpecotaxline as $ecocateg => $value) {
 			if (empty($ecoamount[$ecocateg])) {
 				if ((float) DOL_VERSION < 7.0) {
-					if (is_object($tmpecotaxline[$ecocateg])) $result=$tmpecotaxline[$ecocateg]->delete();
+					if (is_object($tmpecotaxline[$ecocateg])) {
+						$result=$tmpecotaxline[$ecocateg]->delete();
+					}
 				} else {
-					if (is_object($tmpecotaxline[$ecocateg])) $result=$tmpecotaxline[$ecocateg]->delete($user);
+					if (is_object($tmpecotaxline[$ecocateg])) {
+						$result=$tmpecotaxline[$ecocateg]->delete($user);
+					}
 				}
 			}
 		}
@@ -312,7 +320,7 @@ class InterfaceEcotaxdeee extends DolibarrTriggers
 		$result=0;
 		$error='';
 		foreach ($ecoamount as $ecocateg => $value) {
-			if (is_object($tmpecotaxline[$ecocateg]) && $idlineecotax[$ecocateg] > 0) {	// If ecotax line already exists for ecocateg
+			if (!empty($tmpecotaxline[$ecocateg]) && is_object($tmpecotaxline[$ecocateg]) && $idlineecotax[$ecocateg] > 0) {	// If ecotax line already exists for ecocateg
 				if ($ecoamount[$ecocateg]) {
 					// Update line
 					$tmpecotaxline[$ecocateg]->oldline = dol_clone($tmpecotaxline[$ecocateg]);
@@ -320,7 +328,7 @@ class InterfaceEcotaxdeee extends DolibarrTriggers
 					$tmpecotaxline[$ecocateg]->subprice = $ecoamount[$ecocateg];
 
 					$localtaxarray = getLocalTaxesFromRate($tmpecotaxline[$ecocateg]->tva_tx, 0, $buyer, $seller);
-					$tmparray = calcul_price_total($tmpecotaxline[$ecocateg]->qty, $tmpecotaxline[$ecocateg]->subprice, $tmpecotaxline[$ecocateg]->remise_percent, $tmpecotaxline[$ecocateg]->tva_tx, 0, 0, 0, 'HT', $tmpecotaxline[$ecocateg]->info_bits, $tmpecotaxline[$ecocateg]->type, $seller, $localtaxarray);
+					$tmparray = calcul_price_total($tmpecotaxline[$ecocateg]->qty, $tmpecotaxline[$ecocateg]->subprice, $tmpecotaxline[$ecocateg]->remise_percent, $tmpecotaxline[$ecocateg]->tva_tx, 0, 0, 0, 'HT', $tmpecotaxline[$ecocateg]->info_bits, isset($tmpecotaxline[$ecocateg]->type) ? $tmpecotaxline[$ecocateg]->type : $tmpecotaxline[$ecocateg]->product_type, $seller, $localtaxarray);
 
 					$tmpecotaxline[$ecocateg]->total_ht = $tmparray[0];
 					$tmpecotaxline[$ecocateg]->total_tva = $tmparray[1];
