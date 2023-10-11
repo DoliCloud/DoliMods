@@ -75,10 +75,10 @@ try {
 	dol_syslog("Token does not exist yet".$e->getMessage(), LOG_INFO);
 }
 
+
 /*
  * Actions
  */
-
 
 if ($action == 'save') {
 	$error=0;
@@ -773,7 +773,7 @@ print '<br><br>';
 print '<div class="div-table-responsive-no-min">';
 print '<table class="noborder centpercent">';
 
-print "<tr class=\"liste_titre\">";
+print '<tr class="liste_titre">';
 print '<td class="titlefieldcreate">'.$langs->trans("Parameter")."</td>";
 print "<td>".$langs->trans("Value")."</td>";
 print "</tr>";
@@ -921,15 +921,20 @@ if (!getDolGlobalString('GOOGLE_CONTACT_LOGIN') ||  !getDolGlobalString('OAUTH_G
 	$urltodelete .= '&token='.newToken();
 	if (!empty($tokenobj) && is_object($tokenobj)) {
 		$token_creation_entity = '';
-		$token_date_last_update = $_SESSION['google_web_token_'.$conf->entity]['created'] ?? $storage->date_modification;
+		$token_date_last_update = $storage->date_modification;
 		$token_date_expire = $tokenobj->getEndOfLife();
-		$token = $_SESSION['google_web_token_'.$conf->entity]['access_token'] ?? $tokenobj->getAccessToken();
+		$token_database = $tokenobj->getAccessToken();
+		$token = $_SESSION['google_web_token_'.$conf->entity]['access_token'] ?? $token_database;
 		$token_entity = $conf->entity;
+		print 'Saved token: '.showValueWithClipboardCPButton($token_database, 0, dol_trunc($token_database, 40)).'<br>'."\n";
 		print $langs->trans("DateCreation").'='.dol_print_date($token_date_last_update, 'dayhour').' - '.$langs->trans("Entity").'='.(int)$token_entity;
 		print ' - '.$langs->trans("DateExpiration").'='.dol_print_date($token_date_expire, 'dayhour').' - '.$langs->trans("Entity").'='.$token_entity;
-
 		print '<br>';
-		print 'Current session token:<br>';
+		print 'Current token in session';
+		if (!empty($_SESSION['google_web_token_'.$conf->entity]['created'])) {
+			print ' since '.dol_print_date($_SESSION['google_web_token_'.$conf->entity]['created'], 'dayhour');
+		}
+		print ':<br>';
 		if (! empty($_SESSION['google_web_token_'.$conf->entity])) {
 			//print '<div class="quatrevingtpercent" style="max-width: 800px; overflow: scroll; border: 1px solid #aaa;">';
 			if (is_array($_SESSION['google_web_token_'.$conf->entity]) && key_exists('access_token', $_SESSION['google_web_token_'.$conf->entity])) {
@@ -989,9 +994,9 @@ if (isModEnabled('societe')) {
 		print img_picto('', 'company', 'class="pictofixedwidth"').' '.$langs->trans("Tool").' '.$langs->trans("ThirdParties").'<br><br>';
 		print '<div class="tabsActions syncthirdparties">';
 		if (empty($conf->global->GOOGLE_CONTACT_LOGIN)) {
-			print '<div class="inline-block divButAction"><font class="butActionRefused small reposition" href="#">'.$langs->trans("TestCreateUpdateDelete")."</font></a></div>";
+			print '<div class="inline-block divButAction"><font class="butActionRefused small reposition" href="#" title="'.$langs->trans("ErrorFieldRequired", $langs->transnoentities("GoogleIDContact")).'">'.$langs->trans("TestCreateUpdateDelete")."</font></a></div>";
 
-			print '<div class="inline-block divButAction"><font class="butActionRefused small reposition" href="#">'.$langs->trans("TestCreate")."</font></a></div>";
+			print '<div class="inline-block divButAction"><font class="butActionRefused small reposition" href="#" title="'.$langs->trans("ErrorFieldRequired", $langs->transnoentities("GoogleIDContact")).'">'.$langs->trans("TestCreate")."</font></a></div>";
 		} else {
 			print '<div class="inline-block divButAction"><a class="butAction small reposition" href="'.$_SERVER['PHP_SELF'].'?action=testallthirdparties&token='.newToken().'">'.$langs->trans("TestCreateUpdateDelete")."</a></div>";
 
@@ -1043,9 +1048,9 @@ if (isModEnabled('societe')) {
 		print img_picto('', 'contact', 'class="pictofixedwidth"').' '.$langs->trans("Tool").' '.$langs->trans("Contacts").'<br><br>';
 		print '<div class="tabsActions synccontacts">';
 		if (empty($conf->global->GOOGLE_CONTACT_LOGIN)) {
-			print '<div class="inline-block divButAction"><font class="butActionRefused small reposition" href="#">'.$langs->trans("TestCreateUpdateDelete")."</font></a></div>";
+			print '<div class="inline-block divButAction"><font class="butActionRefused small reposition" href="#" title="'.$langs->trans("ErrorFieldRequired", $langs->transnoentities("GoogleIDContact")).'">'.$langs->trans("TestCreateUpdateDelete")."</font></a></div>";
 
-			print '<div class="inline-block divButAction"><font class="butActionRefused small reposition" href="#">'.$langs->trans("TestCreate")."</font></a></div>";
+			print '<div class="inline-block divButAction"><font class="butActionRefused small reposition" href="#" title="'.$langs->trans("ErrorFieldRequired", $langs->transnoentities("GoogleIDContact")).'">'.$langs->trans("TestCreate")."</font></a></div>";
 		} else {
 			print '<div class="inline-block divButAction"><a class="butAction small reposition" href="'.$_SERVER['PHP_SELF'].'?action=testallcontacts&token='.newToken().'">'.$langs->trans("TestCreateUpdateDelete")."</a></div>";
 
@@ -1095,9 +1100,9 @@ if (isModEnabled('adherent')) {
 		print img_picto('', 'member', 'class="pictofixedwidth"').' '.$langs->trans("Tool").' '.$langs->trans("Members").'<br><br>';
 		print '<div class="tabsActions syncmembers">';
 		if (empty($conf->global->GOOGLE_CONTACT_LOGIN)) {
-			print '<div class="inline-block divButAction"><font class="butActionRefused small reposition" href="#">'.$langs->trans("TestCreateUpdateDelete")."</font></a></div>";
+			print '<div class="inline-block divButAction"><font class="butActionRefused small reposition" href="#" title="'.$langs->trans("ErrorFieldRequired", $langs->transnoentities("GoogleIDContact")).'">'.$langs->trans("TestCreateUpdateDelete")."</font></a></div>";
 
-			print '<div class="inline-block divButAction"><font class="butActionRefused small reposition" href="#">'.$langs->trans("TestCreate")."</font></a></div>";
+			print '<div class="inline-block divButAction"><font class="butActionRefused small reposition" href="#" title="'.$langs->trans("ErrorFieldRequired", $langs->transnoentities("GoogleIDContact")).'">'.$langs->trans("TestCreate")."</font></a></div>";
 		} else {
 			print '<div class="inline-block divButAction"><a class="butAction small reposition" href="'.$_SERVER['PHP_SELF'].'?action=testallmembers&token='.newToken().'">'.$langs->trans("TestCreateUpdateDelete")."</a></div>";
 

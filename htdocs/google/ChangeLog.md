@@ -1,5 +1,11 @@
 # ChangeLog GOOGLE MODULE FOR <a href="https://www.dolibarr.org">DOLIBARR ERP CRM</a> 
 
+
+## 6.8
+
+- Add more information on setup page
+
+
 ## 6.7
 
 - FIX OAUth2 module for Google with scopes for people and calendar
