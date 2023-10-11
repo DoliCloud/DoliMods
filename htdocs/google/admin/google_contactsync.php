@@ -213,7 +213,7 @@ if (preg_match('/^test/', $action)) {
 
 	if ($result >= 0) {
 		if ($action == 'testallthirdparties') {
-			$object->oldcopy = dol_clone($object);
+			$object->oldcopy = dol_clone($object, 2);
 
 			$object->name='Test Synchro new Thirdparty (can be deleted)';
 			$object->lastname='Thirdparty (can be deleted)';
@@ -235,7 +235,7 @@ if (preg_match('/^test/', $action)) {
 			if ($result > 0) $result=$object->delete($object->id, $user);	// id of thirdparty to delete
 		}
 		if ($action == 'testallcontacts') {
-			$object->oldcopy = dol_clone($object);
+			$object->oldcopy = dol_clone($object, 2);
 
 			$object->name='Test Synchro new Contact (can be deleted)';
 			$object->lastname='Contact (can be deleted)';
@@ -250,7 +250,7 @@ if (preg_match('/^test/', $action)) {
 			if ($result > 0) $result=$object->delete(0, $user);	// notrigger=0
 		}
 		if ($action == 'testallmembers') {
-			$object->oldcopy = dol_clone($object);
+			$object->oldcopy = dol_clone($object, 2);
 
 			$object->name='Test Synchro new Member (can be deleted)';
 			$object->lastname='Member (can be deleted)';
@@ -392,7 +392,7 @@ if ($action == 'pushallcontacts') {
 		//var_dump($client); exit;
 
 		// Create client/token object
-		$key_file_location = $conf->google->multidir_output[$conf->entity]."/".$conf->global->GOOGLE_API_SERVICEACCOUNT_P12KEY;
+		$key_file_location = $conf->google->multidir_output[$conf->entity]."/" . getDolGlobalString('GOOGLE_API_SERVICEACCOUNT_P12KEY');
 		$force_do_not_use_session=false; // by default
 		$servicearray=getTokenFromServiceAccount($conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL, $key_file_location, $force_do_not_use_session, 'web');
 
@@ -486,7 +486,7 @@ if ($action == 'pushallmembers') {
 		//var_dump($client); exit;
 
 		// Create client/token object
-		$key_file_location = $conf->google->multidir_output[$conf->entity]."/".$conf->global->GOOGLE_API_SERVICEACCOUNT_P12KEY;
+		$key_file_location = $conf->google->multidir_output[$conf->entity]."/" . getDolGlobalString('GOOGLE_API_SERVICEACCOUNT_P12KEY');
 		$force_do_not_use_session=false; // by default
 		$servicearray=getTokenFromServiceAccount($conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL, $key_file_location, $force_do_not_use_session, 'web');
 
@@ -609,7 +609,7 @@ if ($action == 'deleteallcontacts') {
 	//var_dump($client); exit;
 
 	// Create client/token object
-	$key_file_location = $conf->google->multidir_output[$conf->entity]."/".$conf->global->GOOGLE_API_SERVICEACCOUNT_P12KEY;
+	$key_file_location = $conf->google->multidir_output[$conf->entity]."/" . getDolGlobalString('GOOGLE_API_SERVICEACCOUNT_P12KEY');
 	$force_do_not_use_session=false; // by default
 	$servicearray=getTokenFromServiceAccount($conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL, $key_file_location, $force_do_not_use_session, 'web');
 
@@ -649,7 +649,7 @@ if ($action == 'deleteallmembers') {
 	//var_dump($client); exit;
 
 	// Create client/token object
-	$key_file_location = $conf->google->multidir_output[$conf->entity]."/".$conf->global->GOOGLE_API_SERVICEACCOUNT_P12KEY;
+	$key_file_location = $conf->google->multidir_output[$conf->entity]."/" . getDolGlobalString('GOOGLE_API_SERVICEACCOUNT_P12KEY');
 	$force_do_not_use_session=false; // by default
 	$servicearray=getTokenFromServiceAccount($conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL, $key_file_location, $force_do_not_use_session, 'web');
 
