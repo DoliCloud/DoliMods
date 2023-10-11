@@ -158,7 +158,7 @@ if ($address && $address != $object->country) {		// $address != $object->country
 	// URL to include javascript map
 	$urlforjsmap='https://maps.googleapis.com/maps/api/js';
 	if (empty($conf->global->GOOGLE_API_SERVERKEY)) $urlforjsmap.="?sensor=true";
-	else $urlforjsmap.="?key=".$conf->global->GOOGLE_API_SERVERKEY;
+	else $urlforjsmap.="?key=" . getDolGlobalString('GOOGLE_API_SERVERKEY');
 
 	?>
 

@@ -170,7 +170,7 @@ print "</tr>";
 print '<tr class="oddeven">';
 print "<td>".$langs->trans("GoogleNbOfAgenda")."</td>";
 print "<td>";
-print '<input class="flat" type="text" size="2" name="GOOGLE_AGENDA_NB" value="'.$conf->global->GOOGLE_AGENDA_NB.'">';
+print '<input class="flat" type="text" size="2" name="GOOGLE_AGENDA_NB" value="' . getDolGlobalString('GOOGLE_AGENDA_NB').'">';
 print "</td>";
 print "</tr>";
 
@@ -200,8 +200,8 @@ while ($i <= $MAXAGENDA) {
 	$name='GOOGLE_AGENDA_NAME'.$key;
 	$src='GOOGLE_AGENDA_SRC'.$key;
 	$color='GOOGLE_AGENDA_COLOR'.$key;
-	print "<td><input type=\"text\" class=\"flat\" name=\"google_agenda_name".$key."\" value=\"". $conf->global->$name . "\" size=\"28\"></td>";
-	print "<td><input type=\"text\" class=\"flat\" name=\"google_agenda_src".$key."\" value=\"". $conf->global->$src . "\" size=\"60\"></td>";
+	print "<td><input type=\"text\" class=\"flat\" name=\"google_agenda_name".$key."\" value=\"" . getDolGlobalString($name) . "\" size=\"28\"></td>";
+	print "<td><input type=\"text\" class=\"flat\" name=\"google_agenda_src".$key."\" value=\"" . getDolGlobalString($src) . "\" size=\"60\"></td>";
 	print '<td class="nowrap" align="center">';
 	// Possible colors are limited by Google
 	//print $formadmin->selectColor($conf->global->$color, "google_agenda_color".$key, $colorlist);
@@ -244,7 +244,7 @@ print '</td></tr>';
 print '<tr class="oddeven">';
 print '<td class="fieldrequired">'.$langs->trans("GOOGLE_API_CLIENT_ID")."</td>";
 print "<td>";
-print '<input class="flat minwidth300" type="text" name="GOOGLE_AGENDA_CLIENT_ID" value="'.$conf->global->GOOGLE_AGENDA_CLIENT_ID.'">';
+print '<input class="flat minwidth300" type="text" name="GOOGLE_AGENDA_CLIENT_ID" value="' . getDolGlobalString('GOOGLE_AGENDA_CLIENT_ID').'">';
 print "</td>";
 
 print '<td>';
@@ -258,7 +258,7 @@ print "</tr>";
 print '<tr class="oddeven">';
 print '<td class="fieldrequired">'.$langs->trans("GOOGLE_API_CLIENT_SECRET")."</td>";
 print "<td>";
-print '<input class="flat minwidth300" type="text" name="GOOGLE_AGENDA_CLIENT_SECRET" value="'.$conf->global->GOOGLE_AGENDA_CLIENT_SECRET.'">';
+print '<input class="flat minwidth300" type="text" name="GOOGLE_AGENDA_CLIENT_SECRET" value="' . getDolGlobalString('GOOGLE_AGENDA_CLIENT_SECRET').'">';
 print "</td>";
 print '<td>';
 print $langs->trans("AllowGoogleToLoginWithClientSecret").'<br>';
