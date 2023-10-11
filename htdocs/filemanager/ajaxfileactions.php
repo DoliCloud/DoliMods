@@ -142,7 +142,7 @@ if (preg_match('/\.\./', $original_file) || preg_match('/[<>|]/', $original_file
 }
 
 // Check permissions
-if (! $user->rights->filemanager->read) accessforbidden();
+if (! $user->hasRight('filemanager', 'read')) accessforbidden();
 
 
 

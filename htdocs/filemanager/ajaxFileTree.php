@@ -70,7 +70,7 @@ if (preg_match('/\.\./', $selecteddir) || preg_match('/[<>|]/', $selecteddir)) {
 }
 
 // Check permissions
-if (! $user->rights->filemanager->read) {
+if (! $user->hasRight('filemanager', 'read')) {
 	accessforbidden();
 }
 

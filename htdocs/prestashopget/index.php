@@ -89,7 +89,7 @@ if ($mode != 'groupbycountryandvatrate') {
 	if (! $sortorder) $sortorder="ASC";
 }
 // Securite acces client
-if (! $user->rights->prestashopget->read) accessforbidden();
+if (! $user->hasRight('prestashopget', 'read')) accessforbidden();
 $socid=GETPOST('socid', 'int');
 if (isset($user->societe_id) && $user->societe_id > 0) {
 	$action = '';
