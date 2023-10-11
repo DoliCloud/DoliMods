@@ -187,8 +187,8 @@ if ($found > 0) {
 
 			// Name of agenda
 			$text.='<td>';
-			if ($found == 1) $text.=$langs->trans("Name").': '.$conf->global->$paramname.' ('.$langs->trans("GoogleIDAgenda").': '.$conf->global->$paramsrc.')';
-			else $text.='<a class="vsmenu" href="'.$link.'">'.$conf->global->$paramname.'</a> ('.$conf->global->$paramsrc.')';
+			if ($found == 1) $text.=$langs->trans("Name").': ' . getDolGlobalString($paramname).' ('.$langs->trans("GoogleIDAgenda").': ' . getDolGlobalString($paramsrc).')';
+			else $text.='<a class="vsmenu" href="'.$link.'">' . getDolGlobalString($paramname).'</a> (' . getDolGlobalString($paramsrc).')';
 			$text.='</td></tr>';
 
 			$text.='</table>';
@@ -273,7 +273,7 @@ while ($i <= $MAXAGENDA) {
 }
 
 // Add number of weeks (only if first day is monday)
-if ($conf->global->MAIN_START_WEEK == 1) {
+if (getDolGlobalInt('MAIN_START_WEEK') == 1) {
 	$frame.='&amp;src='.urlencode('e_2_fr#weeknum@group.v.calendar.google.com');
 }
 
