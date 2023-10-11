@@ -196,7 +196,7 @@ print '<table class="noborder" width="100%">';
 	$var=!$var;
 	print '<tr '.$bc[$var].'><td class="fieldrequired">';
 	print $langs->trans("SendgridApplicationKey").'</td><td>';
-	print '<input size="64" type="text" name="SENDGRIDAPPKEY" value="'.$conf->global->SENDGRIDAPPKEY.'">';
+	print '<input size="64" type="text" name="SENDGRIDAPPKEY" value="' . getDolGlobalString('SENDGRIDAPPKEY').'">';
 	print '</td><td>'.$langs->trans("Example").': Ld9GQ3AfaXDyZdsM';
 	print '</td></tr>';
 

@@ -78,7 +78,7 @@ if (!empty($_GET['type'])) {
 // Protection if external user
 if ($user->socid > 0) accessforbidden();
 
-if (empty($user->rights->ovh->sysadmin)) accessforbidden();
+if (!$user->hasRight('ovh', 'sysadmin')) accessforbidden();
 
 $endpoint = empty($conf->global->OVH_ENDPOINT)?'ovh-eu':$conf->global->OVH_ENDPOINT;    // Can be "soyoustart-eu" or "kimsufi-eu"
 

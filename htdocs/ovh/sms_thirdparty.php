@@ -212,7 +212,7 @@ if ($socid) {
 		}
 	}
 
-	dol_banner_tab($object, 'id', '', ! empty($user->rights->user->user->lire) || ! empty($user->admin));
+	dol_banner_tab($object, 'id', '', $user->hasRight('user', 'user', 'lire') || ! empty($user->admin));
 
 	print '<div class="underbanner clearboth"></div>';
 

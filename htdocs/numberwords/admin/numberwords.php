@@ -213,10 +213,10 @@ dol_fiche_end();
 list($whole, $decimal) = explode('.', $value);
 if ($level) {
 	if (strlen($decimal) > $conf->global->MAIN_MAX_DECIMALS_TOT) {
-		print '<font class="warning">'.$langs->trans("Note").': '.$langs->trans("MAIN_MAX_DECIMALS_TOT").': '.$conf->global->MAIN_MAX_DECIMALS_TOT.'</font>';
+		print '<font class="warning">'.$langs->trans("Note").': '.$langs->trans("MAIN_MAX_DECIMALS_TOT").': ' . getDolGlobalString('MAIN_MAX_DECIMALS_TOT').'</font>';
 		print ' - <a href="'.DOL_URL_ROOT.'/admin/limits.php">'.$langs->trans("SetupToChange").'</a>';
 	} else {
-		print '<font class="info">'.$langs->trans("Note").': '.$langs->trans("MAIN_MAX_DECIMALS_TOT").': '.$conf->global->MAIN_MAX_DECIMALS_TOT.'</font>';
+		print '<font class="info">'.$langs->trans("Note").': '.$langs->trans("MAIN_MAX_DECIMALS_TOT").': ' . getDolGlobalString('MAIN_MAX_DECIMALS_TOT').'</font>';
 		print ' - <a href="'.DOL_URL_ROOT.'/admin/limits.php">'.$langs->trans("SetupToChange").'</a>';
 	}
 }

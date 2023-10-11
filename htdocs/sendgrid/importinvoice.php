@@ -353,7 +353,7 @@ if ($action == 'refresh') {
 		$arrayinvoice=array();
 
 		try {
-			$addheaders = array('Authorization: Bearer '.$conf->global->SENDGRIDAPPKEY, 'Content-Type: application/json');
+			$addheaders = array('Authorization: Bearer ' . getDolGlobalString('SENDGRIDAPPKEY'), 'Content-Type: application/json');
 			$endpoint = 'https://api.sendgrid.com/v3/download/billing/invoices/';
 			$result = getURLContent($endpoint, 'GET', '', 1, $addheaders);
 		} catch (Exception $e) {

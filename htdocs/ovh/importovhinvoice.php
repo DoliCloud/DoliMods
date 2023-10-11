@@ -517,10 +517,10 @@ if (!empty($conf->global->OVH_USE_2_ACCOUNTS)) {
 	print $langs->trans("OVHAccount") . ': ';
 	$liste_opt = '<select name="compte" class="flat">';
 	$liste_opt .= '<option value="1">';
-	$liste_opt .= '1-' . $conf->global->OVHAPPNAME;
+	$liste_opt .= '1-' . getDolGlobalString('OVHAPPNAME');
 	$liste_opt .= '</option>';
 	$liste_opt .= '<option value="2">';
-	$liste_opt .= '2-' . $conf->global->OVHAPPNAME2;
+	$liste_opt .= '2-' . getDolGlobalString('OVHAPPNAME2');
 	$liste_opt .= '</option>';
 	$liste_opt .= "</select>";
 	print $liste_opt;

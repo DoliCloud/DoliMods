@@ -134,7 +134,7 @@ function numberwords_getLabelFromNumber($outlangs, $number, $isamount = '')
 	// Define label on currency and cent in the property of object handle
 	$handle->labelcurrency=$currencycode;	// By default (EUR, USD)
 	$handle->labelcents='cent';				// By default (s is removed)
-	if ($conf->global->MAIN_MAX_DECIMALS_TOT == 3) $handle->labelcents='thousandth'; // (s is removed)
+	if (getDolGlobalInt('MAIN_MAX_DECIMALS_TOT') == 3) $handle->labelcents='thousandth'; // (s is removed)
 
 	// Overwrite label of currency with ours
 	$labelcurrencysing=$outlangs->transnoentitiesnoconv("CurrencySing".$currencycode);
