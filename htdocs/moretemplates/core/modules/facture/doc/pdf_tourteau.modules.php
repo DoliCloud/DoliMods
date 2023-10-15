@@ -180,7 +180,7 @@ class pdf_tourteau extends ModelePDFFactures
 				$pdf->SetFont(pdf_getPDFFont($outputlangs));
 				// Set path to the background PDF File
 				if (empty($conf->global->MAIN_DISABLE_FPDI) && ! empty($conf->global->MAIN_ADD_PDF_BACKGROUND)) {
-					$pagecount = $pdf->setSourceFile($conf->mycompany->dir_output.'/'.$conf->global->MAIN_ADD_PDF_BACKGROUND);
+					$pagecount = $pdf->setSourceFile($conf->mycompany->dir_output.'/' . getDolGlobalString('MAIN_ADD_PDF_BACKGROUND'));
 					$tplidx = $pdf->importPage(1);
 				}
 
@@ -716,7 +716,7 @@ class pdf_tourteau extends ModelePDFFactures
 				$pdf->MultiCell($largcol2, $tab2_hl, price($sign * $object->total_tva), 0, 'R', 1);
 
 				// Total LocalTax1
-				if (! empty($conf->global->FACTURE_LOCAL_TAX1_OPTION) && $conf->global->FACTURE_LOCAL_TAX1_OPTION=='localtax1on' && $object->total_localtax1>0) {
+				if (getDolGlobalString('FACTURE_LOCAL_TAX1_OPTION') == 'localtax1on' && $object->total_localtax1>0) {
 					$index++;
 					$pdf->SetXY($col1x, $tab2_top + $tab2_hl * $index);
 					$pdf->MultiCell($col2x-$col1x, $tab2_hl, $outputlangs->transnoentities("TotalLT1".$mysoc->country_code), $useborder, 'L', 1);
@@ -725,7 +725,7 @@ class pdf_tourteau extends ModelePDFFactures
 				}
 
 				// Total LocalTax2
-				if (! empty($conf->global->FACTURE_LOCAL_TAX2_OPTION) && $conf->global->FACTURE_LOCAL_TAX2_OPTION=='localtax2on' && $object->total_localtax2>0) {
+				if (getDolGlobalString('FACTURE_LOCAL_TAX2_OPTION') == 'localtax2on' && $object->total_localtax2>0) {
 					$index++;
 					$pdf->SetXY($col1x, $tab2_top + $tab2_hl * $index);
 					$pdf->MultiCell($col2x-$col1x, $tab2_hl, $outputlangs->transnoentities("TotalLT2".$mysoc->country_code), $useborder, 'L', 1);
@@ -733,7 +733,7 @@ class pdf_tourteau extends ModelePDFFactures
 					$pdf->MultiCell($largcol2, $tab2_hl, price($sign * $object->total_localtax2), $useborder, 'R', 1);
 				}
 			} else {
-				if (! empty($conf->global->FACTURE_LOCAL_TAX1_OPTION) && $conf->global->FACTURE_LOCAL_TAX1_OPTION=='localtax1on') {
+				if (getDolGlobalString('FACTURE_LOCAL_TAX1_OPTION') == 'localtax1on') {
 					//Local tax 1
 					foreach ($this->localtax1 as $tvakey => $tvaval) {
 						if ($tvakey>0) {    // On affiche pas taux 0
@@ -757,7 +757,7 @@ class pdf_tourteau extends ModelePDFFactures
 					}
 				}
 
-				if (! empty($conf->global->FACTURE_LOCAL_TAX2_OPTION) && $conf->global->FACTURE_LOCAL_TAX2_OPTION=='localtax2on') {
+				if (getDolGlobalString('FACTURE_LOCAL_TAX2_OPTION') == 'localtax2on') {
 					//Local tax 2
 					foreach ($this->localtax2 as $tvakey => $tvaval) {
 						if ($tvakey>0) {    // On affiche pas taux 0

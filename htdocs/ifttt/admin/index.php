@@ -77,7 +77,7 @@ print "</tr>";
 print '<tr class="oddeven">';
 print '<td>'.$langs->trans("IFTTT_SERVICE_KEY").'</td>';
 print '<td>';
-print '<input type="text" name="IFTTT_SERVICE_KEY" value="'.$conf->global->IFTTT_SERVICE_KEY.'">';
+print '<input type="text" name="IFTTT_SERVICE_KEY" value="' . getDolGlobalString('IFTTT_SERVICE_KEY').'">';
 print '</td>';
 print '<td>'.$langs->trans("YouWillFindItOnYourIFTTTAccount").'</td>';
 print '</tr>';
@@ -85,7 +85,7 @@ print '</tr>';
 print '<tr class="oddeven">';
 print '<td>'.$langs->trans("IFTTT_DOLIBARR_ENDPOINT_SECUREKEY").'</td>';
 print '<td>';
-print '<input type="text" name="IFTTT_DOLIBARR_ENDPOINT_SECUREKEY" value="'.$conf->global->IFTTT_DOLIBARR_ENDPOINT_SECUREKEY.'">';
+print '<input type="text" name="IFTTT_DOLIBARR_ENDPOINT_SECUREKEY" value="' . getDolGlobalString('IFTTT_DOLIBARR_ENDPOINT_SECUREKEY').'">';
 print '</td>';
 print '<td></td>';
 print '</tr>';
@@ -109,7 +109,7 @@ $urlwithroot=$urlwithouturlroot.DOL_URL_ROOT;		// This is to use external domain
 
 // Show message
 $message='';
-$url=$urlwithroot.'/public/ifttt/index.php?securekey='.$conf->global->IFTTT_DOLIBARR_ENDPOINT_SECUREKEY;
+$url=$urlwithroot.'/public/ifttt/index.php?securekey=' . getDolGlobalString('IFTTT_DOLIBARR_ENDPOINT_SECUREKEY');
 $message.=$langs->trans("UrlForIFTTT").':<br>';
 $message.=img_picto('', 'object_globe.png').' <input type="text" class="quatrevingtpercent" id="endpointforifttt" name="endpointforifttt" value="'.$url.'">';
 print $message;

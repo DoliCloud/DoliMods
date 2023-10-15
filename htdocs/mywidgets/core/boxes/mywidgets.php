@@ -140,7 +140,7 @@ class mywidgetwidget1 extends ModeleBoxes
 					// HTML properties of the TD element
 					'td'           => '',
 					// Main text for content of cell
-					'text'         => 'First cell of first line '.$conf->global->MYWIDGET_BODY_1,
+					'text'         => 'First cell of first line ' . getDolGlobalString('MYWIDGET_BODY_1'),
 					// Link on 'text' and 'logo' elements
 					'url'          => '',
 					// Link's target HTML property

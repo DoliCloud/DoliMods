@@ -186,7 +186,7 @@ if (! empty($conf->global->THEME_ELDY_ENABLE_PERSONALIZED)) {
 	//print $formother->selectColor($defcolor,'THEME_ELDY_RGB','formcolor',1).'<br><br>';
 
 	// Font size
-	print $langs->trans("FontSize").': <input type="text" class="flat" name="THEME_ELDY_FONT_SIZE1" size="4" value="'.$conf->global->THEME_ELDY_FONT_SIZE1.'"><br>';
+	print $langs->trans("FontSize").': <input type="text" class="flat" name="THEME_ELDY_FONT_SIZE1" size="4" value="' . getDolGlobalString('THEME_ELDY_FONT_SIZE1').'"><br>';
 	print '<br>';
 
 	if (versioncompare(versiondolibarrarray(), array(3,8,-3)) >= 0) {

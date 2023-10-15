@@ -56,7 +56,7 @@ print "
 
 <frameset rows=\"".$heightforframes.",*\" border=0 framespacing=0 frameborder=0>
     <frame name=\"barre\" src=\"mantistop.php?mainmenu=".$mainmenu."&leftmenu=".$leftmenu."&idmenu=".$idmenu."&nobackground=1\" noresize scrolling=\"NO\" noborder>
-    <frame name=\"main\" src=\"".$conf->global->PHPMANTIS_URL."\">
+    <frame name=\"main\" src=\"" . getDolGlobalString('PHPMANTIS_URL')."\">
     <noframes>
     <body>
 

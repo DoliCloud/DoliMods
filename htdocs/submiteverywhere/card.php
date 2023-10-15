@@ -642,18 +642,18 @@ if ($action == 'create') {
 			print '</td></tr>';
 
 			// Description
-			print '<tr><td>'.$html->editfieldkey("MailTitle", 'desc', $object->label, 'id', $object->id, $user->rights->mailing->creer).'</td><td colspan="3">';
-			print $html->editfieldval("MailTitle", 'desc', $object->label, $object, $user->rights->mailing->creer);
+			print '<tr><td>'.$html->editfieldkey("MailTitle", 'desc', $object->label, 'id', $object->id, $user->hasRight('mailing', 'creer')).'</td><td colspan="3">';
+			print $html->editfieldval("MailTitle", 'desc', $object->label, $object, $user->hasRight('mailing', 'creer'));
 			print '</td></tr>';
 
 			// From
-			print '<tr><td>'.$html->editfieldkey("MailFrom", 'from', $object->email_from, 'id', $object->id, $user->rights->mailing->creer && $object->statut < 3, 'email').'</td><td colspan="3">';
-			print $html->editfieldval("MailFrom", 'from', $object->email_from, $object, $user->rights->mailing->creer && $object->statut < 3, 'email');
+			print '<tr><td>'.$html->editfieldkey("MailFrom", 'from', $object->email_from, 'id', $object->id, $user->hasRight('mailing', 'creer') && $object->statut < 3, 'email').'</td><td colspan="3">';
+			print $html->editfieldval("MailFrom", 'from', $object->email_from, $object, $user->hasRight('mailing', 'creer') && $object->statut < 3, 'email');
 			print '</td></tr>';
 
 			// Errors to
-			print '<tr><td>'.$html->editfieldkey("MailErrorsTo", 'errorsto', $object->email_errorsto, 'id', $object->id, $user->rights->mailing->creer && $object->statut < 3, 'email').'</td><td colspan="3">';
-			print $html->editfieldval("MailErrorsTo", 'errorsto', $object->email_errorsto, $object, $user->rights->mailing->creer && $object->statut < 3, 'email');
+			print '<tr><td>'.$html->editfieldkey("MailErrorsTo", 'errorsto', $object->email_errorsto, 'id', $object->id, $user->hasRight('mailing', 'creer') && $object->statut < 3, 'email').'</td><td colspan="3">';
+			print $html->editfieldval("MailErrorsTo", 'errorsto', $object->email_errorsto, $object, $user->hasRight('mailing', 'creer') && $object->statut < 3, 'email');
 			print '</td></tr>';
 
 			// Status
@@ -707,7 +707,7 @@ if ($action == 'create') {
 			  || in_array(GETPOST('action', 'aZ09'), array('valid','delete','sendall'))) {
 				print "\n\n<div class=\"tabsAction\">\n";
 
-				if ($object->statut == 0 && $user->rights->mailing->creer) {
+				if ($object->statut == 0 && $user->hasRight('mailing', 'creer')) {
 					print '<a class="butAction" href="'.$_SERVER['PHP_SELF'].'?action=edit&amp;id='.$object->id.'">'.$langs->trans("EditMailing").'</a>';
 				}
 
@@ -718,14 +718,14 @@ if ($action == 'create') {
 				if ($object->statut == 0) {
 					if ($object->nbemail <= 0) {
 						print '<a class="butActionRefused" href="#" title="'.dol_escape_htmltag($langs->trans("NoTargetYet")).'">'.$langs->trans("ValidMailing").'</a>';
-					} elseif (empty($user->rights->mailing->valider)) {
+					} elseif (!$user->hasRight('mailing', 'valider')) {
 						print '<a class="butActionRefused" href="#" title="'.dol_escape_htmltag($langs->trans("NotEnoughPermissions")).'">'.$langs->trans("ValidMailing").'</a>';
 					} else {
 						print '<a class="butAction" href="'.$_SERVER['PHP_SELF'].'?action=valid&amp;id='.$object->id.'">'.$langs->trans("ValidMailing").'</a>';
 					}
 				}
 
-				if (($object->statut == 1 || $object->statut == 2) && $object->nbemail > 0 && $user->rights->mailing->valider) {
+				if (($object->statut == 1 || $object->statut == 2) && $object->nbemail > 0 && $user->hasRight('mailing', 'valider')) {
 					if ($conf->global->MAILING_LIMIT_SENDBYWEB < 0) {
 						print '<a class="butActionRefused" href="#" title="'.dol_escape_htmltag($langs->trans("NotEnoughPermissions")).'">'.$langs->trans("SendMailing").'</a>';
 					} else {
@@ -733,15 +733,15 @@ if ($action == 'create') {
 					}
 				}
 
-				if ($user->rights->mailing->creer) {
+				if ($user->hasRight('mailing', 'creer')) {
 					print '<a class="butAction" href="'.$_SERVER['PHP_SELF'].'?action=clone&amp;object=emailing&amp;id='.$object->id.'">'.$langs->trans("ToClone").'</a>';
 				}
 
-				if (($object->statut == 2 || $object->statut == 3) && $user->rights->mailing->valider) {
+				if (($object->statut == 2 || $object->statut == 3) && $user->hasRight('mailing', 'valider')) {
 					print '<a class="butAction" href="'.$_SERVER['PHP_SELF'].'?action=reset&amp;id='.$object->id.'">'.$langs->trans("ResetMailing").'</a>';
 				}
 
-				if (($object->statut <= 1 && $user->rights->mailing->creer) || $user->rights->mailing->supprimer) {
+				if (($object->statut <= 1 && $user->hasRight('mailing', 'creer')) || $user->hasRight('mailing', 'supprimer')) {
 					print '<a class="butActionDelete" href="'.$_SERVER['PHP_SELF'].'?action=delete&amp;token='.newToken().'&amp;id='.$object->id.'">'.$langs->trans("DeleteMailing").'</a>';
 				}
 
