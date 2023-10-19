@@ -100,8 +100,8 @@ class ActionsGoogle
 				$userlogin = empty($conf->global->GOOGLE_LOGIN)?'':$conf->global->GOOGLE_LOGIN;
 				if (empty($userlogin)) $userlogin = empty($fuser->conf->GOOGLE_LOGIN)?'':$fuser->conf->GOOGLE_LOGIN;
 
-				$keyparam='GOOGLE_AGENDA_LASTSYNC_'.$userlogin;
-				$valparam=$conf->global->$keyparam;
+				$keyparam = 'GOOGLE_AGENDA_LASTSYNC_'.$userlogin;
+				$valparam = getDolGlobalString($keyparam);
 				if ($valparam) $dateminsync=dol_stringtotime($valparam, 1);
 				if (empty($dateminsync) || $dateminsync < ($now - ($notolderforsync * 24 * 3600))) $dateminsync=($now - ($notolderforsync * 24 * 3600));
 				$dateminsync = strtotime('-1 day', $dateminsync);
