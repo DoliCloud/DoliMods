@@ -35,6 +35,17 @@ class ActionsGoogle
 	var $priority = 70;
 
 	/**
+	 * @var string	String of results.
+	 */
+	public $resprints;
+
+	/**
+	 * @var array 	Array of results.
+	 */
+	public $results = array();
+
+
+	/**
 	 *	Constructor
 	 *
 	 *  @param		DoliDB		$db      Database handler
@@ -55,10 +66,9 @@ class ActionsGoogle
 	 */
 	function setContentSecurityPolicy($parameters, &$object, &$action, &$hookmanager)
 	{
-		global $conf,$user,$langs;
-
 		$tmp = ($hookmanager->resPrint ? $hookmanager->resPrint : $parameters['contentsecuritypolicy']);
 
+		// Add google to policies
 		$tmp = preg_replace('/script-src \'self\'/', 'script-src \'self\' *.googleapis.com *.google.com *.google-analytics.com', $tmp);
 		$tmp = preg_replace('/font-src \'self\'/', 'font-src \'self\' *.google.com', $tmp);
 		$tmp = preg_replace('/connect-src \'self\'/', 'connect-src \'self\' *.google.com', $tmp);
@@ -67,6 +77,7 @@ class ActionsGoogle
 		$hookmanager->resPrint = '';
 
 		$this->resprints = $tmp;
+
 		return 1;
 	}
 
