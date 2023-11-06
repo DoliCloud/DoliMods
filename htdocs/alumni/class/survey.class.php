@@ -387,7 +387,7 @@ class Survey extends CommonObject
 			$morewhere .= " AND firstname = '".$this->db->escape($firstname)."'";
 		}
 		if ($lastname) {
-			$morewhere .= " AND lastname = '".$this->db->escape($firstname)."'";
+			$morewhere .= " AND lastname = '".$this->db->escape($lastname)."'";
 		}
 		$result = $this->fetchCommon($id, $ref, $morewhere);
 		if ($result > 0 && !empty($this->table_element_line)) {
