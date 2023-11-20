@@ -58,5 +58,5 @@ BudgetMaxActiviteParPers=Max budget per user for activities
 BudgetMaxRepasParPers=Max budget per user for meals
 ComWhatsapp=What's app
 ChoixPerimetre=Scope choice
-ActiviteAssociees=Activitée associées
-ActiviteAssocieesNature=Nature activités
+ActiviteAssociees=Linked activities
+ActiviteAssocieesNature=Nature of activities
