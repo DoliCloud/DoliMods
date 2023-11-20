@@ -28,7 +28,7 @@ ModuleAlumniDesc = Module for organizing an alumni meeting event
 AlumniSetup = Alumni setup
 Settings = Settings
 AlumniSetupPage = Alumni setup page
-ALUMNI_YEAR=Year of the graduate
+ALUMNI_YEAR=Year since the graduate
 ALUMNI_PROMONAME=Name or number of the promotion
 
 
