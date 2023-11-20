@@ -96,68 +96,17 @@ if (!class_exists('FormSetup')) {
 
 $formSetup = new FormSetup($db);
 
-
-// HTTP HOST
-$item = $formSetup->newItem('NO_PARAM_JUST_TEXT');
-$item->fieldOverride = (empty($_SERVER['HTTPS']) ? 'http://' : 'https://') . $_SERVER['HTTP_HOST'];
-$item->cssClass = 'minwidth500';
+// Setup conf ALUMNI_MYPARAM1 as a simple string input
+$item = $formSetup->newItem('ALUMNI_YEAR');
+$item->defaultFieldValue = '25';
 
 // Setup conf ALUMNI_MYPARAM1 as a simple string input
-$item = $formSetup->newItem('ALUMNI_MYPARAM1');
-$item->defaultFieldValue = 'default value';
+$item = $formSetup->newItem('ALUMNI_PROMONAME');
+$item->defaultFieldValue = 'Promo 100';
 
-// Setup conf ALUMNI_MYPARAM2 as a simple textarea input but we replace the text of field title
-$item = $formSetup->newItem('ALUMNI_MYPARAM2');
-$item->nameText = $item->getNameText().' more html text ';
+// Setup conf for a selection of a boolean
+$formSetup->newItem('ALUMNI_ENABLE_SURVEY')->setAsYesNo();
 
-// Setup conf ALUMNI_MYPARAM3
-$item = $formSetup->newItem('ALUMNI_MYPARAM3');
-$item->setAsThirdpartyType();
-
-// Setup conf ALUMNI_MYPARAM4 : exemple of quick define write style
-$formSetup->newItem('ALUMNI_MYPARAM4')->setAsYesNo();
-
-// Setup conf ALUMNI_MYPARAM5
-$formSetup->newItem('ALUMNI_MYPARAM5')->setAsEmailTemplate('thirdparty');
-
-// Setup conf ALUMNI_MYPARAM6
-$formSetup->newItem('ALUMNI_MYPARAM6')->setAsSecureKey(); // disabled
-
-// Setup conf ALUMNI_MYPARAM7
-$formSetup->newItem('ALUMNI_MYPARAM7')->setAsProduct();
-
-$formSetup->newItem('Title')->setAsTitle();
-
-// Setup conf ALUMNI_MYPARAM8
-$item = $formSetup->newItem('ALUMNI_MYPARAM8');
-$TField = array(
-	'test01' => $langs->trans('test01'),
-	'test02' => $langs->trans('test02'),
-	'test03' => $langs->trans('test03'),
-	'test04' => $langs->trans('test04'),
-	'test05' => $langs->trans('test05'),
-	'test06' => $langs->trans('test06'),
-);
-$item->setAsMultiSelect($TField);
-$item->helpText = $langs->transnoentities('ALUMNI_MYPARAM8');
-
-
-// Setup conf ALUMNI_MYPARAM9
-$formSetup->newItem('ALUMNI_MYPARAM9')->setAsSelect($TField);
-
-
-// Setup conf ALUMNI_MYPARAM10
-$item = $formSetup->newItem('ALUMNI_MYPARAM10');
-$item->setAsColor();
-$item->defaultFieldValue = '#FF0000';
-$item->nameText = $item->getNameText().' more html text ';
-$item->fieldInputOverride = '';
-$item->helpText = $langs->transnoentities('AnHelpMessage');
-//$item->fieldValue = '';
-//$item->fieldAttr = array() ; // fields attribute only for compatible fields like input text
-//$item->fieldOverride = false; // set this var to override field output will override $fieldInputOverride and $fieldOutputOverride too
-//$item->fieldInputOverride = false; // set this var to override field input
-//$item->fieldOutputOverride = false; // set this var to override field output
 
 
 $setupnotempty += count($formSetup->items);

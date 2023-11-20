@@ -20,7 +20,7 @@
 # Module label 'ModuleAlumniName'
 ModuleAlumniName = Alumni
 # Module description 'ModuleAlumniDesc'
-ModuleAlumniDesc = Alumni description
+ModuleAlumniDesc = Module for organizing an alumni meeting event
 
 #
 # Admin page
@@ -28,10 +28,8 @@ ModuleAlumniDesc = Alumni description
 AlumniSetup = Alumni setup
 Settings = Settings
 AlumniSetupPage = Alumni setup page
-ALUMNI_MYPARAM1 = My param 1
-ALUMNI_MYPARAM1Tooltip = My param 1 tooltip
-ALUMNI_MYPARAM2=My param 2
-ALUMNI_MYPARAM2Tooltip=My param 2 tooltip
+ALUMNI_YEAR=Year of the graduate
+ALUMNI_PROMONAME=Name or number of the promotion
 
 
 #

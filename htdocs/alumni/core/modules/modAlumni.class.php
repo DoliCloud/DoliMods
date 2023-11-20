@@ -42,7 +42,7 @@ class modAlumni extends DolibarrModules
 		$this->db = $db;
 		// Id for module (must be unique).
 		// Use here a free id (See in Home -> System information -> Dolibarr for list of used modules id).
-		$this->numero = 101160; // TODO Go on page https://wiki.dolibarr.org/index.php/List_of_modules_id to reserve an id number for your module
+		$this->numero = 101170; // TODO Go on page https://wiki.dolibarr.org/index.php/List_of_modules_id to reserve an id number for your module
 		// Key text used to identify module (for permissions, menus, etc...)
 		$this->rights_class = 'alumni';
 		// Family can be 'base' (core modules),'crm','financial','hr','projects','products','ecm','technic' (transverse modules),'interface' (link with external tools),'other','...'
@@ -262,7 +262,7 @@ class modAlumni extends DolibarrModules
 		$this->rights[$r][4] = 'survey';
 		$this->rights[$r][5] = 'delete';
 		$r++;
-		
+
 		/* END MODULEBUILDER PERMISSIONS */
 		// Main menu entries to add
 		$this->menu = array();
@@ -306,7 +306,7 @@ class modAlumni extends DolibarrModules
 		$this->menu[$r++]=array(
 			 'fk_menu' => 'fk_mainmenu=alumni,fk_leftmenu=survey',
 			 'type' => 'left',
-			 'titre' => 'List Surveys',
+			 'titre' => 'Results',
 			 'mainmenu' => 'alumni',
 			 'leftmenu' => 'survey_list',
 			 'url' => '/alumni/survey_list.php',
@@ -322,7 +322,7 @@ class modAlumni extends DolibarrModules
 		$this->menu[$r++]=array(
 			 'fk_menu' => 'fk_mainmenu=alumni,fk_leftmenu=survey',
 			 'type' => 'left',
-			 'titre' => 'New Survey',
+			 'titre' => 'New entry',
 			 'mainmenu' => 'alumni',
 			 'leftmenu' => 'survey_list_new',
 			 'url' => '/alumni/survey_card.php?action=create',
@@ -340,7 +340,6 @@ class modAlumni extends DolibarrModules
 		// Exports profiles provided by this module
 		$r = 1;
 		/* BEGIN MODULEBUILDER EXPORT MYOBJECT */
-		/*
 		$langs->load("alumni@alumni");
 		$this->export_code[$r]=$this->rights_class.'_'.$r;
 		$this->export_label[$r]='SurveyLines';	// Translation key (used only if key ExportDataset_xxx_z not found)
@@ -365,7 +364,7 @@ class modAlumni extends DolibarrModules
 		//$this->export_sql_end[$r]  =' LEFT JOIN '.MAIN_DB_PREFIX.'survey_line as tl ON tl.fk_survey = t.rowid';
 		$this->export_sql_end[$r] .=' WHERE 1 = 1';
 		$this->export_sql_end[$r] .=' AND t.entity IN ('.getEntity('survey').')';
-		$r++; */
+		$r++;
 		/* END MODULEBUILDER EXPORT MYOBJECT */
 		// Imports profiles provided by this module
 		$r = 1;

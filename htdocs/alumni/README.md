@@ -2,7 +2,8 @@
 
 ## Features
 
-Description of the module...
+Module for organizing an alumni meeting event.
+The module provide a website to present the project and a survey to get the information from all alumnis
 
 <!--
 ![Screenshot alumni](img/screenshot_alumni.png?raw=true "Alumni"){imgmd}
@@ -22,15 +23,20 @@ For more informations, see the [translator's documentation](https://wiki.dolibar
 There is a [Transifex project](https://transifex.com/projects/p/dolibarr-module-template) for this module.
 -->
 
-<!--
+
 
 ## Installation
 
-### From the ZIP file and GUI interface
+Prerequisites: You must have the Dolibarr ERP CRM software installed. You can down it from [Dolistore.org](https://www.dolibarr.org).
+You can also get a ready to use instance in the cloud from htts://saas.dolibarr.org
+
+
+### From the ZIP file and the GUI interface
 
 If the module is a ready to deploy zip file, so with a name module_xxx-version.zip (like when downloading it from a market place like [Dolistore](https://www.dolistore.com)),
 go into menu ```Home - Setup - Modules - Deploy external module``` and upload the zip file.
 
+<!-- 
 Note: If this screen tell you that there is no "custom" directory, check that your setup is correct:
 
 - In your Dolibarr installation directory, edit the ```htdocs/conf/conf.php``` file and check that following lines are not commented:
@@ -55,6 +61,9 @@ Note: If this screen tell you that there is no "custom" directory, check that yo
         $dolibarr_main_url_root_alt = '/custom';
         $dolibarr_main_document_root_alt = 'C:/My Web Sites/Dolibarr/htdocs/custom';
         ```
+-->
+
+<!--
 
 ### From a GIT repository
 
@@ -65,7 +74,10 @@ cd ....../custom
 git clone git@github.com:gitlogin/alumni.git alumni
 ```
 
-### <a name="final_steps"></a>Final steps
+-->
+
+
+### Final steps
 
 From your browser:
 
@@ -73,7 +85,7 @@ From your browser:
   - Go to "Setup" -> "Modules"
   - You should now be able to find and enable the module
 
--->
+
 
 ## Licenses
 
