@@ -3,7 +3,7 @@
 ## Features
 
 Module for organizing an alumni meeting event.
-The module provide a website to present the project and a survey to get the information from all alumnis
+The module provide a website to present the project and a survey to get the information from all alumnis.
 
 <!--
 ![Screenshot alumni](img/screenshot_alumni.png?raw=true "Alumni"){imgmd}
@@ -11,80 +11,35 @@ The module provide a website to present the project and a survey to get the info
 
 Other external modules are available on [Dolistore.com](https://www.dolistore.com).
 
-## Translations
-
-Translations can be completed manually by editing files into directories *langs*.
-
-<!--
-This module contains also a sample configuration for Transifex, under the hidden directory [.tx](.tx), so it is possible to manage translation using this service.
-
-For more informations, see the [translator's documentation](https://wiki.dolibarr.org/index.php/Translator_documentation).
-
-There is a [Transifex project](https://transifex.com/projects/p/dolibarr-module-template) for this module.
--->
-
 
 
 ## Installation
 
-Prerequisites: You must have the Dolibarr ERP CRM software installed. You can down it from [Dolistore.org](https://www.dolibarr.org).
-You can also get a ready to use instance in the cloud from htts://saas.dolibarr.org
+### Prerequisites
+
+You must have the web application Dolibarr ERP CRM software installed. If you dont have it yet, you have 2 solutions:
+
+* A ready to use solution in 1 click: You can get a ready to use instance of the Dolibarr ERP CRM application in the cloud at https://www.dolicloud.com, or for very small associations, you can get a free instance at https://www.doliasso.org
+
+* A do it yourself solution: You can download the application and install it on a web server from [Dolistore.org](https://www.dolibarr.org).
 
 
-### From the ZIP file and the GUI interface
 
-If the module is a ready to deploy zip file, so with a name module_xxx-version.zip (like when downloading it from a market place like [Dolistore](https://www.dolistore.com)),
-go into menu ```Home - Setup - Modules - Deploy external module``` and upload the zip file.
+### Installation of the Addon Alumini: From the ZIP file and the GUI interface
 
-<!-- 
-Note: If this screen tell you that there is no "custom" directory, check that your setup is correct:
+Donwload the free module called module_alumni-X.Y.zip from the market place like [Dolistore](https://www.dolistore.com)).
 
-- In your Dolibarr installation directory, edit the ```htdocs/conf/conf.php``` file and check that following lines are not commented:
+Go into your Dolibarr ERP CRM application, into menu ```Home - Setup - Modules - Deploy external module``` and upload the zip file. The module is ready to be activated.
 
-    ```php
-    //$dolibarr_main_url_root_alt ...
-    //$dolibarr_main_document_root_alt ...
-    ```
+Go into menu ```Home - Setup - Modules``` to enable the module Alumni. Then go into the setup page to set your preferences.
 
-- Uncomment them if necessary (delete the leading ```//```) and assign a sensible value according to your Dolibarr installation
-
-    For example :
-
-    - UNIX:
-        ```php
-        $dolibarr_main_url_root_alt = '/custom';
-        $dolibarr_main_document_root_alt = '/var/www/Dolibarr/htdocs/custom';
-        ```
-
-    - Windows:
-        ```php
-        $dolibarr_main_url_root_alt = '/custom';
-        $dolibarr_main_document_root_alt = 'C:/My Web Sites/Dolibarr/htdocs/custom';
-        ```
--->
-
-<!--
-
-### From a GIT repository
-
-Clone the repository in ```$dolibarr_main_document_root_alt/alumni```
-
-```sh
-cd ....../custom
-git clone git@github.com:gitlogin/alumni.git alumni
-```
-
--->
+TODO... Enable the website...
 
 
-### Final steps
 
-From your browser:
+## Translations
 
-  - Log into Dolibarr as a super-administrator
-  - Go to "Setup" -> "Modules"
-  - You should now be able to find and enable the module
-
+Translations can be completed manually by editing files into directories *langs*.
 
 
 ## Licenses
