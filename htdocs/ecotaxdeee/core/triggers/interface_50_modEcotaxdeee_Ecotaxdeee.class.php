@@ -298,14 +298,8 @@ class InterfaceEcotaxdeee extends DolibarrTriggers
 		// Delete existing empty ecotax lines
 		foreach ($tmpecotaxline as $ecocateg => $value) {
 			if (empty($ecoamount[$ecocateg])) {
-				if ((float) DOL_VERSION < 7.0) {
-					if (is_object($tmpecotaxline[$ecocateg])) {
-						$result=$tmpecotaxline[$ecocateg]->delete();
-					}
-				} else {
-					if (is_object($tmpecotaxline[$ecocateg])) {
-						$result=$tmpecotaxline[$ecocateg]->delete($user);
-					}
+				if (is_object($tmpecotaxline[$ecocateg])) {
+					$result=$tmpecotaxline[$ecocateg]->delete($user);
 				}
 			}
 		}

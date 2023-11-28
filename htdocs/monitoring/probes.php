@@ -66,7 +66,7 @@ if ($action == 'confirm_deleteprobe' && ! GETPOST('cancel')) {
 
 	$db->begin();
 
-	$result=$probe->delete();
+	$result=$probe->delete($user);
 
 	if ($result > 0) {
 		$db->commit();
