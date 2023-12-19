@@ -195,7 +195,7 @@ if ($id) {
 
 		print '<div class="underbanner clearboth"></div>';
 	} else {
-		print '<table class="border" width="100%">';
+		print '<table class="border centpercent">';
 
 		// Ref
 		print '<tr><td width="20%">'.$langs->trans("Ref").'</td>';
@@ -261,11 +261,8 @@ if ($id) {
 	$formsms->param['returnurl']=$_SERVER["PHP_SELF"].'?id='.$object->id;
 
 
-	if ((float) DOL_VERSION >= 5.0) {	// For dolibarr 5.0.*
-		$formsms->show_form('', 0);
-	} else {
-		$formsms->show_form('20%');
-	}
+	$formsms->show_form('', 0);
+
 
 	dol_fiche_end();
 
