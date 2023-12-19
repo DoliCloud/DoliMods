@@ -769,10 +769,12 @@ if (isModEnabled('societe')) {
 	print '<br>';
 }
 if (isModEnabled('societe')) {
-	print $langs->trans("GoogleEnableSyncToContacts").' '.$form->selectyesno("GOOGLE_DUPLICATE_INTO_CONTACTS", isset($_POST["GOOGLE_DUPLICATE_INTO_CONTACTS"])?$_POST["GOOGLE_DUPLICATE_INTO_CONTACTS"]:$conf->global->GOOGLE_DUPLICATE_INTO_CONTACTS, 1).'<br>';
+	print $langs->trans("GoogleEnableSyncToContacts").' ';
+	print $form->selectyesno("GOOGLE_DUPLICATE_INTO_CONTACTS", GETPOSTISSET("GOOGLE_DUPLICATE_INTO_CONTACTS") ? GETPOST('GOOGLE_DUPLICATE_INTO_CONTACTS') : getDolGlobalString('GOOGLE_DUPLICATE_INTO_CONTACTS'), 1, false, 0, 1).'<br>';
 }
 if (isModEnabled('adherent')) {
-	print $langs->trans("GoogleEnableSyncToMembers").' '.$form->selectyesno("GOOGLE_DUPLICATE_INTO_MEMBERS", isset($_POST["GOOGLE_DUPLICATE_INTO_MEMBERS"])?$_POST["GOOGLE_DUPLICATE_INTO_MEMBERS"]:$conf->global->GOOGLE_DUPLICATE_INTO_MEMBERS, 1).'<br>';
+	print $langs->trans("GoogleEnableSyncToMembers").' ';
+	print $form->selectyesno("GOOGLE_DUPLICATE_INTO_MEMBERS", GETPOSTISSET("GOOGLE_DUPLICATE_INTO_MEMBERS") ? GETPOST("GOOGLE_DUPLICATE_INTO_MEMBERS") : getDolGlobalString('GOOGLE_DUPLICATE_INTO_MEMBERS'), 1, false, 0, 1).'<br>';
 }
 
 
