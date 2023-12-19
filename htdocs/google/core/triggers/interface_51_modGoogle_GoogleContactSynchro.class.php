@@ -187,7 +187,8 @@ class InterfaceGoogleContactSynchro extends DolibarrTriggers
 							$type = ($type === 'societe' ? 'thirdparty' : $type);
 
 							// Check and update groups
-							$typeGroupID = getGContactTypeGroupID($servicearray, $type);
+							$typeGroupID = getGContactTypeGroupID($servicearray, $type);	// $typeGroupID will be defined if grou already exists
+
 							if ($typeGroupID && preg_match('/contactGroups\/.*/', $typeGroupID)) {
 								$ret = googleLinkGroup($servicearray, $typeGroupID, $contactID);
 								if ($ret > 0) {

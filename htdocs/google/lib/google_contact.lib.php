@@ -623,13 +623,10 @@ function googleUpdateContact($client, $contactId, &$object, $useremail = 'defaul
  * @return int					<0 if KO, >0 if OK
  */
 function googleLinkGroup($client, $groupID, $contactID) {
-
-
 	// prepare json data
 	$jsonData = '{';
 	$jsonData .= '"resourceNamesToAdd":'. json_encode(array($contactID));
 	$jsonData .= '}';
-
 
 	// prepare request
 	$gdata = $client;
@@ -641,7 +638,19 @@ function googleLinkGroup($client, $groupID, $contactID) {
 	}
 	$addheaders=array('GData-Version'=>'3.0', 'Authorization'=>'Bearer '.$access_token, 'If-Match'=>'*');
 	$addheaderscurl=array('Content-Type: application/json','GData-Version: 3.0', 'Authorization: Bearer '.$access_token, 'If-Match: *');
+
+	// uncomment for debugging :
+	if (getDolGlobalInt('GOOGLE_DEBUG')) {
+		file_put_contents(DOL_DATA_ROOT . "/dolibarr_google_linkGroup.json", $jsonData);
+		@chmod(DOL_DATA_ROOT . "/dolibarr_google_linkGroup.json", octdec(empty($conf->global->MAIN_UMASK)?'0664':$conf->global->MAIN_UMASK));
+	}
+
+	dol_syslog('googleLinkGroup start', LOG_DEBUG);
+
 	$result = getURLContent('https://people.googleapis.com/v1/'.$groupID.'/members:modify', 'POST', $jsonData, 0, $addheaderscurl);
+
+	dol_syslog('googleLinkGroup end', LOG_DEBUG);
+
 	if ($result['http_code'] == 404) {
 		dol_syslog('Failed to link contact to group: '.$result['http_code'], LOG_ERR);
 		return -1;
