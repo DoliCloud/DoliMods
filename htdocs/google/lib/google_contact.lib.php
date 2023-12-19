@@ -150,6 +150,26 @@ function googleCreateContact($client, $object, $useremail = 'default')
 			];
 		}
 
+		// Set occupations
+		if (!empty($object->poste)) {
+			$person_array["occupations"][] = [
+				"value" => $object->poste
+			];
+		}
+		// Set company and job
+		if (!empty($object->socid) && $object->socid > 0) {
+			$result = $object->fetch_thirdparty();
+			if ($result > 0) {
+				$person_array["organizations"][0] = [
+					"name" => $object->thirdparty->name,
+					"location" => $object->thirdparty->getFullAddress()
+				];
+				if (!empty($object->poste)) {
+					$person_array["organizations"][0]['title'] = $object->poste;
+				}
+			}
+		}
+
 		//<gdata:structuredPostalAddress>
 		$person_array["addresses"][0]["country"] = $object->country_id>0 ? getCountry($object->country_id, 0, '', $langs, 0) : '';
 		$person_array["addresses"][0]["postalCode"] = !empty($object->zip) ? $object->zip : "";
@@ -329,7 +349,7 @@ function googleUpdateContact($client, $contactId, &$object, $useremail = 'defaul
 		$jsonData = "{";
 		$updatePersonFields = "";
 
-		//Names
+		// Names
 		if ($object->element != 'societe' && $object->element != 'thirdparty') {
 			$fullNameToUse = $object->getFullName($langs);
 		} else {
@@ -340,11 +360,31 @@ function googleUpdateContact($client, $contactId, &$object, $useremail = 'defaul
 		if (!empty($object->firstname)) $person_array["names"][0]["givenName"] = $object->firstname;
 		$updatePersonFields .= "names";
 
-		//Email Address
+		// Email Address
 		$person_array["emailAddresses"][0]["value"] = $object->email?$object->email:(strtolower(preg_replace('/\s/', '', (empty($object->name)?$object->lastname.$object->firstname:$object->name))).'@noemail.com');
 		$updatePersonFields .= ",emailAddresses";
 
-		//Address
+		// Set occupations
+		if (!empty($object->poste)) {
+			$person_array["occupations"][] = [
+				"value" => $object->poste
+			];
+		}
+		// Set company and job
+		if (!empty($object->socid) && $object->socid > 0) {
+			$result = $object->fetch_thirdparty();
+			if ($result > 0) {
+				$person_array["organizations"][0] = [
+					"name" => $object->thirdparty->name,
+					"location" => $object->thirdparty->getFullAddress()
+				];
+				if (!empty($object->poste)) {
+					$person_array["organizations"][0]['title'] = $object->poste;
+				}
+			}
+		}
+
+		// Address
 		$person_array["addresses"][0]["country"] = $object->country_id>0?getCountry($object->country_id, 0, '', $langs, 0):'';
 		$person_array["addresses"][0]["postalCode"] = $object->zip;
 		$person_array["addresses"][0]["streetAddress"] = $object->address;
@@ -354,7 +394,7 @@ function googleUpdateContact($client, $contactId, &$object, $useremail = 'defaul
 		$person_array["addresses"][0]["region"] = $tmpstate;
 		$updatePersonFields .= ",addresses";
 
-		//Phone
+		// Phone
 		$newphone = (empty($object->phone) ? (empty($object->phone_pro) ? '' : $object->phone_pro) : $object->phone);
 		if (!empty($newphone)){
 			$person_array["phoneNumbers"][] = [
@@ -545,12 +585,14 @@ function googleUpdateContact($client, $contactId, &$object, $useremail = 'defaul
 		$addheaders=array('If-Match'=>'*', 'GData-Version'=>'3.0', 'Authorization'=>'Bearer '.$access_token, 'Content-Type'=>'application/json');
 		$addheaderscurl=array('If-Match: *', 'GData-Version: 3.0', 'Authorization: Bearer '.$access_token, 'Content-Type: application/json');
 
+		//var_dump($person_array);exit;
+
 		// update entry.'&updatePersonFields='.$updatePersonFields
 		//$client_google = new Google_Client($client);
 		$google = new Google_Service_PeopleService($gdata["client"]);
 		$person = new Google_Service_PeopleService_Person($person_array);
 		$personParam['updatePersonFields'] = $updatePersonFields;
-		$response = $google->people->UpdateContact($newcontactid,$person,$personParam);
+		$response = $google->people->updateContact($newcontactid,$person,$personParam);
 		try {
 			//$url ='https://people.googleapis.com/v1/'.$newcontactid.':updateContact';
 			//$response = getURLContent($url, 'POSTALREADYFORMATED', $jsonData, 1, $addheaderscurl);

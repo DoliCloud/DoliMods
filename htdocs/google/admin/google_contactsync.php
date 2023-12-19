@@ -171,6 +171,7 @@ if (preg_match('/^test/', $action)) {
 	if ($action == 'testcreatemembers' || $action == 'testallmembers') $object=new Adherent($db);
 
 	if ($action == 'testcreatethirdparties' || $action == 'testallthirdparties') {
+		/** var Societe $object */
 		$result=$object->initAsSpecimen();
 
 		$object->name='Test Synchro Thirdparty & Co (can be deleted)';
@@ -189,17 +190,23 @@ if (preg_match('/^test/', $action)) {
 		$conf->global->SOCIETE_CODECLIENT_ADDON=$savoption;
 	}
 	if ($action == 'testcreatecontacts' || $action == 'testallcontacts') {
+		/** var Contact $object */
 		$result=$object->initAsSpecimen();
 
 		$object->name='Test Synchro Contact & Co (can be deleted)';
 		$object->lastname='Contact (can be deleted)';
 		$object->firstname='Test Synchro';
 		$object->note_public="New 'public' note with special char é and entity eacute &eacute; and html tag <strong>strong</strong>";
+
+		$object->poste = 'CEO';
+		$object->socid = 1;
+
 		/*$object->code_client=-1;
 		 $object->code_fournisseur=-1;*/
 		$result=$object->create($user);
 	}
 	if ($action == 'testcreatemembers' || $action == 'testallmembers') {
+		/** var Adherent $object */
 		$result=$object->initAsSpecimen();
 
 		$object->name='Test Synchro Member & Co (can be deleted)';
@@ -245,6 +252,10 @@ if (preg_match('/^test/', $action)) {
 			$object->note_public="New 'public' note with special char é and entity eacute &eacute; and html tag <strong>strong</strong>";
 			$object->street='New street';
 			$object->town='New town';
+
+			$object->poste = 'CEO - CTO';
+			$object->socid = 2;
+
 			$result=$object->update($object->id, $user);
 
 			if ($result > 0) $result=$object->delete(0, $user);	// notrigger=0

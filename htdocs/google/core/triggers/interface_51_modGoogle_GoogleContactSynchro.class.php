@@ -170,7 +170,9 @@ class InterfaceGoogleContactSynchro extends DolibarrTriggers
 				return -1;
 			} else {
 				if ($action == 'COMPANY_CREATE' || $action == 'CONTACT_CREATE' || $action == 'MEMBER_CREATE') {
+					// Create the object on google side
 					$ret = googleCreateContact($servicearray, $object, $userlogin);
+
 					if (! preg_match('/ERROR/', $ret)) {
 						if ($ret && ! preg_match('/google\.com/', $ret)) {
 							$ret='google:'.$ret;

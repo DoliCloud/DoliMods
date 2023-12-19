@@ -4,6 +4,7 @@
 ## 6.8
 
 - Add more information on setup page
+- NEW Add job position and company in synch of contacts
 
 
 ## 6.7
