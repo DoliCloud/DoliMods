@@ -199,7 +199,15 @@ if (preg_match('/^test/', $action)) {
 		$object->note_public="New 'public' note with special char é and entity eacute &eacute; and html tag <strong>strong</strong>";
 
 		$object->poste = 'CEO';
-		$object->socid = 1;
+		$object->socid = 0;	// change this to a company ID
+		$sql = "SELECT rowid FROM ".MAIN_DB_PREFIX."societe ORDER BY rowid ASC LIMIT 1";
+		$resql = $db->query($sql);
+		if ($resql) {
+			$obj = $db->fetch_object($resql);
+			if ($obj) {
+				$object->socid = $obj->rowid;
+			}
+		}
 
 		/*$object->code_client=-1;
 		 $object->code_fournisseur=-1;*/
@@ -220,6 +228,7 @@ if (preg_match('/^test/', $action)) {
 
 	if ($result >= 0) {
 		if ($action == 'testallthirdparties') {
+			/** var Societe $object */
 			$object->oldcopy = dol_clone($object, 2);
 
 			$object->name='Test Synchro new Thirdparty (can be deleted)';
@@ -239,9 +248,12 @@ if (preg_match('/^test/', $action)) {
 
 			$conf->global->SOCIETE_CODECLIENT_ADDON=$savoption;
 
-			if ($result > 0) $result=$object->delete($object->id, $user);	// id of thirdparty to delete
+			if ($result > 0) {
+				$result=$object->delete($object->id, $user);	// id of thirdparty to delete
+			}
 		}
 		if ($action == 'testallcontacts') {
+			/** var Contact $object */
 			$object->oldcopy = dol_clone($object, 2);
 
 			$object->name='Test Synchro new Contact (can be deleted)';
@@ -254,13 +266,24 @@ if (preg_match('/^test/', $action)) {
 			$object->town='New town';
 
 			$object->poste = 'CEO - CTO';
-			$object->socid = 2;
+			$object->socid = 0;	// Change this to test with a company ID
+			$sql = "SELECT rowid FROM ".MAIN_DB_PREFIX."societe ORDER BY rowid ASC LIMIT 2, 1";
+			$resql = $db->query($sql);
+			if ($resql) {
+				$obj = $db->fetch_object($resql);
+				if ($obj) {
+					$object->socid = $obj->rowid;
+				}
+			}
 
 			$result=$object->update($object->id, $user);
 
-			if ($result > 0) $result=$object->delete(0, $user);	// notrigger=0
+			if ($result > 0) {
+				$result=$object->delete(0, $user);	// notrigger=0
+			}
 		}
 		if ($action == 'testallmembers') {
+			/** var Adherent $object */
 			$object->oldcopy = dol_clone($object, 2);
 
 			$object->name='Test Synchro new Member (can be deleted)';
@@ -273,7 +296,9 @@ if (preg_match('/^test/', $action)) {
 			$object->town='New town';
 			$result=$object->update($user);
 
-			if ($result > 0) $result=$object->delete(0, $user);	// notrigger=0
+			if ($result > 0) {
+				$result=$object->delete(0, $user);	// notrigger=0
+			}
 		}
 	}
 
