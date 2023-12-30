@@ -63,10 +63,9 @@ function getCommentIDTag()
 function googleCreateContact($client, $object, $useremail = 'default')
 {
 	global $conf, $db, $langs;
+
 	global $dolibarr_main_url_root;
 	global $user;
-
-	global $conf,$langs;
 	global $tag_debug;
 
 	include_once DOL_DOCUMENT_ROOT.'/core/lib/company.lib.php';
@@ -269,10 +268,10 @@ function googleUpdateContact($client, $contactId, &$object, $useremail = 'defaul
 
 	include_once DOL_DOCUMENT_ROOT.'/core/lib/company.lib.php';
 
-	$google_nltechno_tag=getCommentIDTag();
+	$google_nltechno_tag = getCommentIDTag();
 
 	// Fields: http://tools.ietf.org/html/rfc4287
-	$gdata=$client;
+	$gdata = $client;
 
 	try {
 		if (is_array($gdata['google_web_token']) && key_exists('access_token', $gdata['google_web_token'])) {
@@ -788,7 +787,8 @@ function googleDeleteContactByRef($client, $ref, $useremail = 'default')
 	global $conf, $db, $langs;
 	global $tag_debug;
 
-	$newcontactid=$ref;
+	$newcontactid = $ref;
+	$reg = array();
 	if (preg_match('/google\.com\/.*\/([^\/]+)$/', $ref, $reg)) {
 		$newcontactid=$reg[1];
 	}
@@ -836,7 +836,7 @@ function googleDeleteContactByRef($client, $ref, $useremail = 'default')
  */
 function insertGContactsEntries($gdata, $gContacts, $objectstatic, $useremail = 'default')
 {
-	global $conf;
+	global $conf, $db;
 
 	$maxBatchLength = 98; //Google doc says max 100 entries.
 	$remainingContacts = $gContacts;
@@ -878,7 +878,7 @@ function insertGContactsEntries($gdata, $gContacts, $objectstatic, $useremail = 
 			@chmod(DOL_DATA_ROOT . "/dolibarr_google_massinsert.xml", octdec(empty($conf->global->MAIN_UMASK)?'0664':$conf->global->MAIN_UMASK));
 		}
 */
-		//People call
+		// People call
 		$jsonData = '{"contacts": [';
 		$nbcontacts = 1;
 		foreach ($firstContacts as $gContact) {
@@ -935,6 +935,31 @@ function insertGContactsEntries($gdata, $gContacts, $objectstatic, $useremail = 
 			// $jsonData .='"day": "21"},';
 			// $jsonData .='{ "type": "fête du village"';
 			// 	$jsonData .='}],';
+
+			//<gdata:occupations>
+			// Set occupations
+			if (!empty($gContact->poste)) {
+				$jsonData .='"occupations": [';
+				$jsonData .='{ "value": '.json_encode($gContact->poste).'}';
+				$jsonData .='],';
+			}
+			//<gdata:organizations>
+			// Set company and job
+			if (!empty($gContact->socid) && $gContact->socid > 0) {
+				$object = new Contact($db);
+				$object->socid = $gContact->socid;
+				$result = $object->fetch_thirdparty();
+				if ($result > 0) {
+					$jsonData .='"organizations": [';
+					$jsonData .='{"name": '.json_encode($object->thirdparty->name).'}';
+					$jsonData .=',{"location": '.json_encode($object->thirdparty->getFullAddress()).'}';
+					if (!empty($gContact->poste)) {
+						$jsonData .=',{"title": '.json_encode($gContact->poste).'}';
+					}
+					$jsonData .='],';
+				}
+			}
+
 			//<gdata:structuredPostalAddress>
 			if (!empty($gContact->addr)) {
 				$addresses = $gContact->addr;
@@ -960,6 +985,7 @@ function insertGContactsEntries($gdata, $gContacts, $objectstatic, $useremail = 
 				$jsonData .='{ "value": '.json_encode($gContact->email).'}';
 				$jsonData .='],';
 			}
+
 			//<gcontact:userDefinedField>
 			$jsonData .='"userDefined": [';
 			$jsonData .='{ "key": "dolibarr-id",';
@@ -1063,7 +1089,7 @@ function insertGContactsEntries($gdata, $gContacts, $objectstatic, $useremail = 
 				@chmod(DOL_DATA_ROOT . "/dolibarr_google_massinsert_response.json", octdec(empty($conf->global->MAIN_UMASK)?'0664':$conf->global->MAIN_UMASK));
 			}
 
-			$res=parseResponse($responseJson);
+			$res = parseResponse($responseJson);
 			if ($res->count != count($firstContacts) || $res->nbOfErrors) {
 				dol_syslog("Failed to batch insert count=".$res->count.", count(firstContacts)=".count($firstContacts).", nb of errors=".$res->nbOfErrors.", lasterror=".$res->lastError, LOG_ERR);
 				return sprintf("Google error : Nb of records to insert = %s, nb inserted = %s, error label = %s", count($firstContacts), $res->count, $res->lastError);

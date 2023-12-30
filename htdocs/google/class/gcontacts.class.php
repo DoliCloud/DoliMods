@@ -49,12 +49,17 @@ class GContact
 	var $phone_mobile;
 	var $fax;
 	var $email;
+
 	var $company;
 	var $orgName;
+	var $socid;
+
 	var $poste;
+
 	var $googleID;
 	var $lastMod;
 	var $tags;
+
 	public $doc;
 	public $atomEntry;
 
@@ -75,10 +80,15 @@ class GContact
 
 			$useremail = empty($conf->global->GOOGLE_CONTACT_LOGIN)?'':$conf->global->GOOGLE_CONTACT_LOGIN;
 
-			if ($type == 'thirdparty') $this->fetchThirdpartyFromDolibarr($gdata, $useremail);
-			elseif ($type == 'contact') $this->fetchContactFromDolibarr($gdata, $useremail);
-			elseif ($type == 'member') $this->fetchMemberFromDolibarr($gdata, $useremail);
-			else dol_print_error('', 'Bad value for type');
+			if ($type == 'thirdparty') {
+				$this->fetchThirdpartyFromDolibarr($gdata, $useremail);
+			} elseif ($type == 'contact') {
+				$this->fetchContactFromDolibarr($gdata, $useremail);
+			} elseif ($type == 'member') {
+				$this->fetchMemberFromDolibarr($gdata, $useremail);
+			} else {
+				dol_print_error('', 'Bad value for type');
+			}
 		} else {
 			$this->from='gmail';
 		}
@@ -371,11 +381,9 @@ class GContact
 	 */
 	private function fetchContactFromDolibarr($gdata, $useremail)
 	{
-		global $conf,$langs;
+		global $conf, $db, $langs;
 
 		if ($this->dolID==null) throw new Exception('Internal error: dolID is null');
-
-		global $db, $langs, $conf;
 
 		require_once DOL_DOCUMENT_ROOT."/contact/class/contact.class.php";
 		require_once DOL_DOCUMENT_ROOT."/societe/class/societe.class.php";
@@ -418,10 +426,10 @@ class GContact
 			if ($result <=0) throw new Exception($company->$error);
 			$this->orgName=$company->name;
 		}
-		$this->poste= $dolContact->poste;
+		$this->poste = $dolContact->poste;
 
-		$google_nltechno_tag=getCommentIDTag();
-		$idindolibarr=$this->dolID."/contact";
+		$google_nltechno_tag = getCommentIDTag();
+		$idindolibarr = $this->dolID."/contact";
 
 		$this->note_public = $dolContact->note_public;
 		if (strpos($this->note_public, $google_nltechno_tag) === false) $this->note_public .= "\n\n".$google_nltechno_tag.$idindolibarr;

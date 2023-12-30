@@ -221,7 +221,7 @@ class InterfaceGoogleContactSynchro extends DolibarrTriggers
 					if ($gid && preg_match('/google/i', $object->ref_ext)) { // This record is linked with Google Contact
 						$ret = googleUpdateContact($servicearray, $gid, $object, $userlogin);
 						if ($ret === 0) { // Fails to update because not found, we try to create
-							dol_syslog("Echec de la mise a jour, on force la création");
+							dol_syslog("Failed to update thirdparty, contact or member. It may have been deleted on Google side. we force the creation");
 							$ret = googleCreateContact($servicearray, $object, $userlogin);
 							//var_dump($ret); exit;
 

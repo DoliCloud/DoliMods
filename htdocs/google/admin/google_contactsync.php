@@ -388,7 +388,9 @@ if ($action == 'pushallthirdparties') {
 
 			$resultEntries=0;
 
-			if (count($gContacts)) $resultEntries=insertGContactsEntries($gdata, $gContacts, $objectstatic);
+			if (count($gContacts)) {
+				$resultEntries=insertGContactsEntries($gdata, $gContacts, $objectstatic);
+			}
 
 			if (is_numeric($resultEntries) && $resultEntries >= 0) {
 				$mesg = $langs->trans("PushToGoogleSucess", count($gContacts));
@@ -464,12 +466,14 @@ if ($action == 'pushallcontacts') {
 				exit;
 			}
 
-			$synclimit = GETPOST('syncto', 'int')?GETPOST('syncto', 'int'):(empty($conf->global->GOOGLE_SYNC_TO_POSITION)?0:$conf->global->GOOGLE_SYNC_TO_POSITION);		// 0 = all
+			$synclimit = (GETPOST('syncto', 'int') ? GETPOST('syncto', 'int') : getDolGlobalInt('GOOGLE_SYNC_TO_POSITION'));		// 0 = all
 			$i=0;
 			$gContacts = array();
 			while (($obj = $db->fetch_object($resql)) && ($i < $synclimit || empty($synclimit))) {
-				if (! empty($conf->global->GOOGLE_SYNC_FROM_POSITION) || GETPOST('syncfrom', 'int')) {
-					if (($i + 1) < (GETPOST('syncfrom', 'int')?GETPOST('syncfrom', 'int'):$conf->global->GOOGLE_SYNC_FROM_POSITION)) continue;
+				if (getDolGlobalInt('GOOGLE_SYNC_FROM_POSITION') || GETPOST('syncfrom', 'int')) {
+					if (($i + 1) < (GETPOST('syncfrom', 'int') ? GETPOST('syncfrom', 'int') : getDolGlobalInt('GOOGLE_SYNC_FROM_POSITION'))) {
+						continue;
+					}
 				}
 
 				try {
@@ -482,7 +486,9 @@ if ($action == 'pushallcontacts') {
 			}
 
 			$resultEntries=0;
-			if (count($gContacts)) $resultEntries=insertGContactsEntries($gdata, $gContacts, $objectstatic);
+			if (count($gContacts)) {
+				$resultEntries = insertGContactsEntries($gdata, $gContacts, $objectstatic);
+			}
 
 			if (is_numeric($resultEntries) && $resultEntries >= 0) {
 				$mesg = $langs->trans("PushToGoogleSucess", count($gContacts));
@@ -493,7 +499,9 @@ if ($action == 'pushallcontacts') {
 
 			if (!$error) {
 				$resultTags=0;
-				if (count($gContacts)) $resultTags=updateGContactGroups($gdata, $gContacts, 'contact');
+				if (count($gContacts)) {
+					$resultTags = updateGContactGroups($gdata, $gContacts, 'contact');
+				}
 
 				if (is_numeric($resultTags) && $resultTags >= 0) {
 					$mesg .= '<br>'.$langs->trans("TagsCreatedSuccess");
