@@ -94,9 +94,9 @@ class CaptureServer extends CommonObject
 	public $fields=array(
 		'rowid' => array('type'=>'integer', 'label'=>'TechnicalID', 'enabled'=>1, 'visible'=>-1, 'position'=>1, 'notnull'=>1, 'index'=>1, 'comment'=>"Id",),
 		'entity' => array('type'=>'integer', 'label'=>'Entity', 'enabled'=>1, 'visible'=>-1, 'position'=>20, 'notnull'=>1, 'default'=>'1', 'index'=>1,),
-		'ref' => array('type'=>'varchar(255)', 'label'=>'Ref', 'enabled'=>1, 'visible'=>1, 'position'=>30, 'notnull'=>-1, 'searchall'=>1, 'help'=>"Ref", ),
+		'ref' => array('type'=>'varchar(255)', 'label'=>'Ref', 'enabled'=>1, 'visible'=>1, 'position'=>30, 'notnull'=>-1, 'searchall'=>1, 'help'=>"Ref", 'csslist'=>'tdoverflowmax200'),
 		'type' => array('type'=>'varchar(32)', 'label'=>'Type', 'enabled'=>1, 'visible'=>1, 'position'=>31, 'notnull'=>1, 'searchall'=>1, 'help'=>"Type", ),
-		'label' => array('type'=>'varchar(255)', 'label'=>'Label', 'enabled'=>1, 'visible'=>1, 'position'=>32, 'notnull'=>-1, 'searchall'=>1, 'help'=>"Label", 'css'=>'minwidth300', 'cssview'=>'wordbreak'),
+		'label' => array('type'=>'varchar(255)', 'label'=>'Label', 'enabled'=>1, 'visible'=>1, 'position'=>32, 'notnull'=>-1, 'searchall'=>1, 'help'=>"Label", 'css'=>'minwidth300', 'csslist'=>'tdoverflowmax200', 'cssview'=>'wordbreak'),
 		'qty' => array('type'=>'real', 'label'=>'Qty', 'enabled'=>1, 'visible'=>1, 'position'=>45, 'notnull'=>-1, 'isameasure'=>'1', 'help'=>"Quantity",),
 		'ip' => array('type'=>'varchar(255)', 'label'=>'IPCreation', 'enabled'=>1, 'visible'=>1, 'position'=>400, 'notnull'=>-1,),
 		'date_creation' => array('type'=>'datetime', 'label'=>'DateCreation', 'enabled'=>1, 'visible'=>1, 'position'=>500, 'notnull'=>1, 'noteditable'=>1),
