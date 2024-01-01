@@ -169,8 +169,20 @@ if ($action == 'dolibarrping') {
 					$phpversion = join('.', array_slice(explode('.', GETPOST('php_version', 'alphanohtml')), 0, 2));
 					$dolversion = GETPOST('version', 'alphanohtml');
 					$dbversion = GETPOST('db_version', 'alphanohtml');
+					$distrib = GETPOST('distrib', 'alphanohtml');
 
-					$arraytags=array('version'=>$dolversion, 'dbtype'=>GETPOST('dbtype', 'alphanohtml'), 'country_code'=>GETPOST('country_code', 'aZ09'), 'php_version'=>$phpversion, 'db_version'=>$dbversion);
+					$osversionarray = preg_split('/\.\-/', GETPOST('os_version', 'alphanohtml'));
+					$osversion = '';
+					$i = 0;
+					foreach($osversionarray as $osversioncursor) {
+						if ($i >= 4) {
+							break;
+						}
+						$osversion .= (($i > 1) ? '.' : '').$osversioncursor;
+						$i++;
+					}
+
+					$arraytags=array('version'=>$dolversion, 'dbtype'=>GETPOST('dbtype', 'alphanohtml'), 'country_code'=>GETPOST('country_code', 'aZ09'), 'php_version'=>$phpversion, 'db_version'=>$dbversion, 'os_version'=>$osversion, 'distrib'=>$distrib);
 
 					dol_syslog("Send info to datadog");
 
