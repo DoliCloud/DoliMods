@@ -172,7 +172,8 @@ if ($action == 'dolibarrping') {
 					$distrib = GETPOST('distrib', 'alphanohtml');
 
 					// Protection against too accurate versions
-					$dbversion = preg_replace('/[\.\-]\d*ubuntu.*/', '', $dbversion);
+					$dbversion = preg_replace('/[\.\-]\d*ubuntu.*/i', '', $dbversion);
+					$dbversion = preg_replace('/([\.\-]\d*mariadb).*/i', '\1', $dbversion);
 
 					// Protection against too accurate versions
 					$osversionarray = preg_split('/\.\-/', GETPOST('os_version', 'alphanohtml'));
