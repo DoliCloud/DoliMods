@@ -171,18 +171,20 @@ if ($action == 'dolibarrping') {
 					$dbversion = GETPOST('db_version', 'alphanohtml');
 					$distrib = GETPOST('distrib', 'alphanohtml');
 
-					// Protection against too accurates versions
+					// Protection against too accurate versions
+					$dbversion = preg_replace('/[\.\-]\d*ubuntu.*/', '', $dbversion);
+
+					// Protection against too accurate versions
 					$osversionarray = preg_split('/\.\-/', GETPOST('os_version', 'alphanohtml'));
 					$osversion = '';
 					$i = 0;
 					foreach($osversionarray as $osversioncursor) {
-						if ($i >= 8) {
+						if ($i >= 4) {
 							break;
 						}
 						$osversion .= (($i > 1) ? '.' : '').$osversioncursor;
 						$i++;
 					}
-
 					$arraytags=array('version'=>$dolversion, 'dbtype'=>GETPOST('dbtype', 'alphanohtml'), 'country_code'=>GETPOST('country_code', 'aZ09'), 'php_version'=>$phpversion, 'db_version'=>$dbversion, 'os_version'=>$osversion, 'distrib'=>$distrib);
 
 					dol_syslog("Send info to datadog");
