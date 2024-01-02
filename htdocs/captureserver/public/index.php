@@ -171,11 +171,12 @@ if ($action == 'dolibarrping') {
 					$dbversion = GETPOST('db_version', 'alphanohtml');
 					$distrib = GETPOST('distrib', 'alphanohtml');
 
+					// Protection against too accurates versions
 					$osversionarray = preg_split('/\.\-/', GETPOST('os_version', 'alphanohtml'));
 					$osversion = '';
 					$i = 0;
 					foreach($osversionarray as $osversioncursor) {
-						if ($i >= 4) {
+						if ($i >= 8) {
 							break;
 						}
 						$osversion .= (($i > 1) ? '.' : '').$osversioncursor;
