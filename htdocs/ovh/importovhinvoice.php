@@ -358,14 +358,12 @@ if ($action == 'import' && $ovhthirdparty->id > 0) {
 							}
 							$dtFrom = '';
 							if ($d['periodStart'] && $d['periodStart'] != '0000-00-00' && $d['periodStart'] != '0000-00-00 00:00:00') {
-								$label .= $langs->trans("From") . ' ' . dol_print_date(strtotime($d['periodStart']),
-										'day');
+								$label .= $langs->trans("From") . ' ' . dol_print_date(strtotime($d['periodStart']), 'day');
 								$dtFrom = strtotime($d['periodStart']);
 							}
 							$dtTo = '';
 							if ($d['periodEnd'] && $d['periodEnd'] != '0000-00-00' && $d['periodEnd'] != '0000-00-00 00:00:00') {
-								$label .= ($d['periodStart'] ? ' ' : '') . $langs->trans("To") . ' ' . dol_print_date(strtotime($d['periodEnd']),
-										'day');
+								$label .= ($d['periodStart'] ? ' ' : '') . $langs->trans("To") . ' ' . dol_print_date(strtotime($d['periodEnd']), 'day');
 								$dtTo = strtotime($d['periodEnd']);
 							}
 							$amount = $d['unitPrice'];
