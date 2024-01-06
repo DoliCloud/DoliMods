@@ -366,6 +366,13 @@ if ($action == 'import' && $ovhthirdparty->id > 0) {
 								$label .= ($d['periodStart'] ? ' ' : '') . $langs->trans("To") . ' ' . dol_print_date(strtotime($d['periodEnd']), 'day');
 								$dtTo = strtotime($d['periodEnd']);
 							}
+							// Add a test to be sure date start if after end date. There is a bug in OVH invoice generation
+							if ($dtFrom && $dtTo && $dtFrom > $dtTo) {
+								$dtTmp = $dtFrom;
+								$dtFrom = $dtTo;
+								$dtTo = $dtTmp;
+							}
+
 							$amount = $d['unitPrice'];
 							$qty = $d['quantity'];
 							$price_base = 'HT';
@@ -385,8 +392,7 @@ if ($action == 'import' && $ovhthirdparty->id > 0) {
                                 $dtFrom = '';
                                 $dtTo = '';
                             }
-							$ret = $facfou->addline($label, $amount, $tauxtva, 0, 0, $qty, $fk_product, $remise_percent,
-								$dtFrom, $dtTo, '', 0, $price_base, $prod_type, -1, false, 0, null, 0, 0, $d['domain']);
+							$ret = $facfou->addline($label, $amount, $tauxtva, 0, 0, $qty, $fk_product, $remise_percent, $dtFrom, $dtTo, '', 0, $price_base, $prod_type, -1, false, 0, null, 0, 0, $d['domain']);
 							if ($ret < 0) {
 								$error++;
 								setEventMessage("ERROR: " . $facfou->error, 'errors');
