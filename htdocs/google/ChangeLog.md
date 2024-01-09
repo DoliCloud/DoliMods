@@ -5,6 +5,7 @@
 
 - Add more information on setup page
 - NEW Add job position and company in sync of contacts, add also in mass init sync.
+- NEW Add option GOOGLE_TAG_REF_EXT_NOCACHE to disable group cache constant
 
 
 ## 6.7

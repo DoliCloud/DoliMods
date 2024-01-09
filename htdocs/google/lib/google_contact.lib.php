@@ -1481,16 +1481,23 @@ function getGContactTypeGroupID($gdata, $type)
 	// Note: a groupID must be a hex number or a value among [contactGroups/all, contactGroups/blocked, contactGroups/chatBuddies, contactGroups/coworkers, contactGroups/family, contactGroups/friends, contactGroups/myContacts, contactGroups/starred]
 	if ($groupID) {
 		// We found the value of groupID into the cached constant GOOGLE_TAG_REF_EXT.... so we have it and we don't have to create it.
-		dol_syslog("We found the value of groupID into the cached constant GOOGLE_TAG_REF_EXT... = ".$groupID);
-		/* Removed, this is useless.
-		 // Check that the group exists
-		 $result = getURLContent('https://people.googleapis.com/v1/'.$groupID, 'GET', '', 0, $addheaderscurl);
-		 $jsonStr = $result['content'];
-		 $json = json_decode($jsonStr);
-		 if (empty($json->error)) {
-		 return $groupID;
-		 }*/
-		return $groupID;
+		if (getDolGlobaInt("GOOGLE_TAG_REF_EXT_NOCACHE") == 2) {
+			// Check that the group exists
+			$result = getURLContent('https://people.googleapis.com/v1/'.$groupID, 'GET', '', 0, $addheaderscurl);
+			$jsonStr = $result['content'];
+			$json = json_decode($jsonStr);
+			if (empty($json->error)) {
+				dol_syslog("We found the value of groupID = ".$groupID." for type = ".$type." and check on Google says it exists");
+				return $groupID;
+			} else {
+				dol_syslog("We found the value of groupID = ".$groupID." for type = ".$type." but check on Google says it does not exists so we continue as if it was not defined");
+			}
+		} elseif (getDolGlobaInt("GOOGLE_TAG_REF_EXT_NOCACHE") == 1) {
+			dol_syslog("We found the value of groupID = ".$groupID." for type = ".$type." but option GOOGLE_TAG_REF_EXT_NOCACHE ask to ignore it so we continue as if it was not defined");
+		} else {
+			dol_syslog("We found the value of groupID for type = ".$type." into the cached constant GOOGLE_TAG_REF_EXT... = ".$groupID);
+			return $groupID;
+		}
 	}
 
 	// Group not found, we create it
