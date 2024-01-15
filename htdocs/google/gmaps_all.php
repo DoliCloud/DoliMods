@@ -127,7 +127,7 @@ if (versioncompare(versiondolibarrarray(), array(3,7,-3)) >= 0) {
 	$countrylabelfield='label';
 }
 
-llxheader();
+llxHeader();
 
 $form=new Form($db);
 $formother = new FormOther($db);

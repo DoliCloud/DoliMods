@@ -74,7 +74,7 @@ if ($mode=='member') {
  * View
  */
 
-llxheader();
+llxHeader();
 
 $form=new Form($db);
 

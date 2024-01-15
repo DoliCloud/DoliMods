@@ -82,7 +82,7 @@ if (isset($object->logo) && !is_null($object->logo)){
 }
 if (isset($object->barcode_type) && !is_null($object->barcode_type)){
 	$showbarcode = true;
-}else{  
+}else{
 	$showbarcode = false;
 }
 
@@ -90,7 +90,7 @@ if (isset($object->barcode_type) && !is_null($object->barcode_type)){
  * View
  */
 
-llxheader();
+llxHeader();
 
 $form=new Form($db);
 
