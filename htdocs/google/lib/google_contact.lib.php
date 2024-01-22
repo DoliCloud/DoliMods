@@ -999,7 +999,7 @@ function insertGContactsEntries($gdata, $gContacts, $objectstatic, $useremail = 
 				$element = "unknown";
 			}
 			$jsonData .=' "value": '.json_encode($gContact->dolID.'/'.$element);
-			$jsonData .='}],';
+			$jsonData .='}]';
 
 			$jsonData .='}}';
 			$nbcontacts ++;
