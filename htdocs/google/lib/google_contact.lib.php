@@ -899,28 +899,28 @@ function insertGContactsEntries($gdata, $gContacts, $objectstatic, $useremail = 
 			$jsonData .='],';
 			//<gdata:phoneNumber>
 			if (!empty($gContact->phone_pro)) {
-				$jsonData .='"phoneNumbers": [';
-				$jsonData .='{ "type": "work"},';
-				$jsonData .='{ "value": '.json_encode($gContact->phone_pro).'}';
-				$jsonData .='],';
+				$jsonData .='"phoneNumbers": [{';
+				$jsonData .=' "type": "work",';
+				$jsonData .=' "value": '.json_encode($gContact->phone_pro).'}';
+				$jsonData .='}],';
 			}
 			if (!empty($gContact->phone_perso)) {
-				$jsonData .='"phoneNumbers": [';
-				$jsonData .='{ "type": "home"},';
-				$jsonData .='{ "value": '.json_encode($gContact->phone_perso).'}';
-				$jsonData .='],';
+				$jsonData .='"phoneNumbers": [{';
+				$jsonData .=' "type": "home",';
+				$jsonData .=' "value": '.json_encode($gContact->phone_perso);
+				$jsonData .='}],';
 			}
 			if (!empty($gContact->phone_mobile)) {
-				$jsonData .='"phoneNumbers": [';
-				$jsonData .='{ "type": "mobile"},';
-				$jsonData .='{ "value": '.json_encode($gContact->phone_mobile).'}';
-				$jsonData .='],';
+				$jsonData .='"phoneNumbers": [{';
+				$jsonData .=' "type": "mobile"},';
+				$jsonData .=' "value": '.json_encode($gContact->phone_mobile);
+				$jsonData .='}],';
 			}
 			if (!empty($gContact->fax)) {
-				$jsonData .='"phoneNumbers": [';
-				$jsonData .='{ "type": "workFax"},';
-				$jsonData .='{ "value": '.json_encode($gContact->fax).'}';
-				$jsonData .='],';
+				$jsonData .='"phoneNumbers": [{';
+				$jsonData .=' "type": "workFax",';
+				$jsonData .=' "value": '.json_encode($gContact->fax);
+				$jsonData .='}],';
 			}
 			//<gdata:membership> (tags)
 			// $jsonData .='"contactGroups": [';
@@ -950,45 +950,45 @@ function insertGContactsEntries($gdata, $gContacts, $objectstatic, $useremail = 
 				$object->socid = $gContact->socid;
 				$result = $object->fetch_thirdparty();
 				if ($result > 0) {
-					$jsonData .='"organizations": [';
-					$jsonData .='{"name": '.json_encode($object->thirdparty->name).'}';
-					$jsonData .=',{"location": '.json_encode($object->thirdparty->getFullAddress()).'}';
+					$jsonData .='"organizations": [{';
+					$jsonData .='"name": '.json_encode($object->thirdparty->name);
+					$jsonData .=', "location": '.json_encode($object->thirdparty->getFullAddress());
 					if (!empty($gContact->poste)) {
-						$jsonData .=',{"title": '.json_encode($gContact->poste).'}';
+						$jsonData .=', "title": '.json_encode($gContact->poste);
 					}
-					$jsonData .='],';
+					$jsonData .='}],';
 				}
 			}
 
 			//<gdata:structuredPostalAddress>
 			if (!empty($gContact->addr)) {
 				$addresses = $gContact->addr;
-				$jsonData .='"addresses": [';
-				$jsonData .='{"country": '.json_encode($addresses->country).'}';
+				$jsonData .='"addresses": [{';
+				$jsonData .=' "country": '.json_encode($addresses->country);
 				if (!empty($addresses->zip)) {
-					$jsonData .=',{"postalCode": '.json_encode($addresses->zip).'}';
+					$jsonData .=', "postalCode": '.json_encode($addresses->zip);
 				}
 				if (!empty($addresses->zip)) {
-					$jsonData .=',{"region": '.json_encode($addresses->state).'}';
+					$jsonData .=', "region": '.json_encode($addresses->state);
 				}
 				if (!empty($addresses->street)) {
-					$jsonData .=',{"streetAddress": '.json_encode($addresses->street).'}';
+					$jsonData .=', "streetAddress": '.json_encode($addresses->street);
 				}
 				if (!empty($addresses->town)) {
-					$jsonData .=',{"city": '.json_encode($addresses->town).'}';
+					$jsonData .=', "city": '.json_encode($addresses->town);
 				}
-				$jsonData .='],';
+				$jsonData .='}],';
 			}
 			//<gdata:email>
 			if (!empty($gContact->email)) {
-				$jsonData .='"emailAddresses": [';
-				$jsonData .='{ "value": '.json_encode($gContact->email).'}';
-				$jsonData .='],';
+				$jsonData .='"emailAddresses": [{';
+				$jsonData .=' "value": '.json_encode($gContact->email);
+				$jsonData .='}],';
 			}
 
 			//<gcontact:userDefinedField>
-			$jsonData .='"userDefined": [';
-			$jsonData .='{ "key": "dolibarr-id",';
+			$jsonData .='"userDefined": [{';
+			$jsonData .=' "key": "dolibarr-id",';
 			if ($objectstatic->element == "societe") {
 				$element = "thirdparty";
 			} elseif ($objectstatic->element == "contact") {
@@ -998,8 +998,8 @@ function insertGContactsEntries($gdata, $gContacts, $objectstatic, $useremail = 
 			} else {
 				$element = "unknown";
 			}
-			$jsonData .='"value": '.json_encode($gContact->dolID.'/'.$element).'}';
-			$jsonData .='],';
+			$jsonData .=' "value": '.json_encode($gContact->dolID.'/'.$element);
+			$jsonData .='}],';
 
 			$jsonData .='}}';
 			$nbcontacts ++;
