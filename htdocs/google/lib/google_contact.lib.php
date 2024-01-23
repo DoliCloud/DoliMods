@@ -887,21 +887,21 @@ function insertGContactsEntries($gdata, $gContacts, $objectstatic, $useremail = 
 			}
 			$jsonData .='{"contactPerson": {';
 			//<gdata:name>
-			$jsonData .='"names":[';
-			$jsonData .='{"familyName": '.json_encode(!empty($gContact->lastname)?$gContact->lastname:$gContact->fullName);
-				if (!empty($gContact->firstname)) {
-					$jsonData .=',"givenName": '.json_encode($gContact->firstname);
-				}
-				$jsonData .='}],';
+			$jsonData .='"names":[{';
+			$jsonData .=' "familyName": '.json_encode(!empty($gContact->lastname)?$gContact->lastname:$gContact->fullName);
+			if (!empty($gContact->firstname)) {
+				$jsonData .=',"givenName": '.json_encode($gContact->firstname);
+			}
+			$jsonData .='}],';
 			//<atom:content>
-			$jsonData .='"biographies": [';
-			$jsonData .='{ "value": '.json_encode($gContact->note_public).'}';
-			$jsonData .='],';
+			$jsonData .='"biographies": [{';
+			$jsonData .=' "value": '.json_encode($gContact->note_public);
+			$jsonData .='}],';
 			//<gdata:phoneNumber>
 			if (!empty($gContact->phone_pro)) {
 				$jsonData .='"phoneNumbers": [{';
 				$jsonData .=' "type": "work",';
-				$jsonData .=' "value": '.json_encode($gContact->phone_pro).'}';
+				$jsonData .=' "value": '.json_encode($gContact->phone_pro);
 				$jsonData .='}],';
 			}
 			if (!empty($gContact->phone_perso)) {
@@ -939,9 +939,9 @@ function insertGContactsEntries($gdata, $gContacts, $objectstatic, $useremail = 
 			//<gdata:occupations>
 			// Set occupations
 			if (!empty($gContact->poste)) {
-				$jsonData .='"occupations": [';
-				$jsonData .='{ "value": '.json_encode($gContact->poste).'}';
-				$jsonData .='],';
+				$jsonData .='"occupations": [{';
+				$jsonData .=' "value": '.json_encode($gContact->poste);
+				$jsonData .='}],';
 			}
 			//<gdata:organizations>
 			// Set company and job
