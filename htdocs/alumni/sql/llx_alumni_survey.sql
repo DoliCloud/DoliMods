@@ -35,7 +35,7 @@ CREATE TABLE llx_alumni_survey(
 	comemail integer, 
 	promodesortie integer, 
 	lienavecpromo varchar(128), 
-	preferencejour varchar(128), 
+	preferencejour varchar(250), 
 	optionsur2jours varchar(3), 
 	activiteassociees varchar(32), 
 	activiteassocieesnat varchar(32), 
