@@ -117,7 +117,7 @@ class Survey extends CommonObject
 		"entity" => array("type"=>"integer", "label"=>"Entity", "enabled"=>"1", 'position'=>10, 'notnull'=>1, "visible"=>"0", "default"=>"1", "index"=>"1",),
 		"description" => array("type"=>"text", "label"=>"Description", "enabled"=>"1", 'position'=>60, 'notnull'=>0, "visible"=>"3", "validate"=>"1",),
 		"note_public" => array("type"=>"html", "label"=>"NotePublic", "enabled"=>"1", 'position'=>61, 'notnull'=>0, "visible"=>"0", "cssview"=>"wordbreak", "validate"=>"1",),
-		"note_private" => array("type"=>"html", "label"=>"NotePrivate", "enabled"=>"1", 'position'=>62, 'notnull'=>0, "visible"=>"0", "cssview"=>"wordbreak", "validate"=>"1",),
+		"note_private" => array("type"=>"html", "label"=>"Comment", "enabled"=>"1", 'position'=>62, 'notnull'=>0, "visible"=>-1, "cssview"=>"wordbreak", 'csslist'=>'twolinesmax small'),
 		"date_creation" => array("type"=>"datetime", "label"=>"DateCreation", "enabled"=>"1", 'position'=>500, 'notnull'=>1, "visible"=>"-2",),
 		"tms" => array("type"=>"timestamp", "label"=>"DateModification", "enabled"=>"1", 'position'=>501, 'notnull'=>0, "visible"=>"-2",),
 		"fk_user_creat" => array("type"=>"integer:User:user/class/user.class.php", "label"=>"UserAuthor", "picto"=>"user", "enabled"=>"1", 'position'=>510, 'notnull'=>1, "visible"=>"-2", "csslist"=>"tdoverflowmax150",),
@@ -144,7 +144,6 @@ class Survey extends CommonObject
 		"budgetmaxrepasparpers" => array("type"=>"integer", "label"=>"BudgetMaxRepasParPers", "enabled"=>"isModEnabled('alumni')", 'position'=>55, 'notnull'=>0, "visible"=>"1",),
 		"lieu" => array("type"=>"varchar(24)", "label"=>"Lieu", "enabled"=>"isModEnabled('alumni')", 'position'=>50, 'notnull'=>0, "visible"=>"-1",),
 		"motivation" => array("type"=>"varchar(16)", "label"=>"Motivation", "enabled"=>"isModEnabled('alumni')", 'position'=>60, 'notnull'=>0, "visible"=>"1", 'csslist'=>'tdoverflowmax150 small', "arrayofkeyval"=>array("1" => "Pas du tout, je ne souhaite pas relier des liens avec l'ISEN, je suis passé a autre chose, probabilité de venir = 0%", "5" => "Intéressé mais des contraintes (éloignements, perso) m'empêcheront surement de venir, probabilité de venir < 5%", "25" => "Ca me fait ni chaud ni froid, probabilité de venir <25%", "50" => "Je suis intéressé, probabilité de venir entre 25 et 75%", "75" => "Je suis à fond, probabilité de venir > 75%"),),
-		"note_private" => array("type"=>"text", "label"=>"Comment", "enabled"=>"isModEnabled('alumni')", 'position'=>70, 'notnull'=>0, "visible"=>-1, 'csslist'=>'twolinesmax small'),
 	);
 	public $rowid;
 	public $entity;
