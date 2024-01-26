@@ -99,7 +99,6 @@ $formSetup = new FormSetup($db);
 
 // $item = $formSetup->newItem('HELLOASSO_GOOGLE_ACCOUNT');
 // $item->helpText = $langs->transnoentities('HELLOASSO_GOOGLE_ACCOUNT_HELP');
-$formSetup->newItem('HelloasssoTitleSection1')->setAsTitle();
 
 $item = $formSetup->newItem('HELLOASSO_TEST_CLIENT_ID');
 $item->helpText = $langs->transnoentities('HELLOASSO_TEST_CLIENT_ID_HELP');
@@ -127,7 +126,6 @@ $item = $formSetup->newItem('HELLOASSO_CLIENT_ORGANISATION');
 $item->helpText = $langs->transnoentities('HELLOASSO_CLIENT_ORGANISATION_HELP');
 
 $item = $formSetup->newItem('HELLOASSO_BANK_ACCOUNT_FOR_PAYMENTS')->setAsSelectBankAccount();
-$item->helpText = $langs->transnoentities('HELLOASSO_BANK_ACCOUNT_FOR_PAYMENTS_HELP');
 // $item = $formSetup->newItem('HELLOASSO_MYPARAM1');
 // $item->fieldOverride = (empty($_SERVER['HTTPS']) ? 'http://' : 'https://') . $_SERVER['HTTP_HOST'];
 // $item->cssClass = 'minwidth500';
@@ -616,7 +614,7 @@ foreach ($myTmpObjects as $myTmpObjectKey => $myTmpObjectArray) {
 	}
 }
 
-print dolGetButtonAction('','Test connect', 'default', $_SERVER["PHP_SELF"].'?action=testconnect');
+print dolGetButtonAction('',$langs->trans('TestConnectionHelloasso'), 'default', $_SERVER["PHP_SELF"].'?action=testconnect');
 
 if (empty($setupnotempty)) {
 	print '<br>'.$langs->trans("NothingToSetup");

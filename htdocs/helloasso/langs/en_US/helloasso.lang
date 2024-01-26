@@ -42,10 +42,11 @@ HELLOASSO_CLIENT_SECRET=Client secret live key
 HELLOASSO_SECRET_HELP=The live client ID secret key from your Helloasso API configuration
 HELLOASSO_CLIENT_ORGANISATION=Client organisation live
 HELLOASSO_CLIENT_ORGANISATION_HELP=The name of the association in your live Helloasso account
+HELLOASSO_BANK_ACCOUNT_FOR_PAYMENTS=Bank account for payments
 
 ExampleOfTestCreditCardHelloAsso=Example of credit card can be found on at this URL:<br> %s 
+TestConnectionHelloasso=Test Connection
 
-#
 # About page
 #
 About = About
