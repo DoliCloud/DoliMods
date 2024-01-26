@@ -233,7 +233,7 @@ $formproject = new FormProjets($db);
 $title = $langs->trans("Survey")." - ".$langs->trans('Card');
 //$title = $object->ref." - ".$langs->trans('Card');
 if ($action == 'create') {
-	$title = $langs->trans("NewObject", $langs->transnoentitiesnoconv("Survey"));
+	$title = $langs->trans("NewVoteEntry");
 }
 $help_url = '';
 

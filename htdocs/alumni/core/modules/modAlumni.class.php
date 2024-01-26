@@ -55,7 +55,7 @@ class modAlumni extends DolibarrModules
 		// Module label (no space allowed), used if translation string 'ModuleAlumniName' not found (Alumni is name of module).
 		$this->name = preg_replace('/^mod/i', '', get_class($this));
 		// Module description, used if translation string 'ModuleAlumniDesc' not found (Alumni is name of module).
-		$this->description = 'fa-globe-americashhh';
+		$this->description = 'fa-graduation-cap';
 		// Used only if file README.md and README-LL.md not found.
 		$this->descriptionlong = "AlumniDescription";
 		// Author
@@ -119,7 +119,7 @@ class modAlumni extends DolibarrModules
 		// A condition to hide module
 		$this->hidden = false;
 		// List of module class names that must be enabled if this module is enabled. Example: array('always'=>array('modModuleToEnable1','modModuleToEnable2'), 'FR'=>array('modModuleToEnableFR')...)
-		$this->depends = array('opensurvey', 'website', 'mailing');
+		$this->depends = array('modOpenSurvey', 'modWebsite', 'modMailing');
 		// List of module class names to disable if this one is disabled. Example: array('modModuleToDisable1', ...)
 		$this->requiredby = array();
 		// List of module class names this module is in conflict with. Example: array('modModuleToDisable1', ...)
@@ -322,7 +322,7 @@ class modAlumni extends DolibarrModules
 		$this->menu[$r++]=array(
 			 'fk_menu' => 'fk_mainmenu=alumni,fk_leftmenu=survey',
 			 'type' => 'left',
-			 'titre' => 'New entry',
+			 'titre' => 'NewVoteEntry',
 			 'mainmenu' => 'alumni',
 			 'leftmenu' => 'survey_list_new',
 			 'url' => '/alumni/survey_card.php?action=create',

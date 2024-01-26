@@ -31,7 +31,6 @@ AlumniSetupPage = Alumni setup page
 ALUMNI_YEAR=Year since the graduate
 ALUMNI_PROMONAME=Name or number of the promotion
 
-
 #
 # About page
 #
@@ -39,17 +38,8 @@ About = About
 AlumniAbout = About Alumni
 AlumniAboutPage = Alumni about page
 
-#
-# Sample page
-#
 AlumniArea = Home Alumni
-MyPageName = My page name
 
-#
-# Sample widget
-#
-MyWidget = My widget
-MyWidgetDescription = My widget description
 
 Lastname2=Maiden name
 BudgetMaxActiviteParPers=Max budget per user for activities
@@ -61,3 +51,5 @@ ActiviteAssocieesNature=Nature of activities
 
 PreferenceJour=Favorite day
 PreferenceMois=Favorite month
+Results=Results
+NewVoteEntry=New vote
