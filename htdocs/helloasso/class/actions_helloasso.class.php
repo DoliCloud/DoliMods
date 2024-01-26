@@ -826,7 +826,7 @@ class ActionsHelloAsso extends CommonHookActions
 		$errors = ""; // Error counter
 		$showonlinepaymenturl = 0;
 
-		if (in_array($parameters['currentcontext'], array('subscription'))){
+		if (in_array($parameters['currentcontext'], array('subscription', 'globalcard'))){
 			$showonlinepaymenturl = getDolGlobalInt('HELLOASSO_SHOW_ONLINE_PAYMENTS');		
 		}
 
