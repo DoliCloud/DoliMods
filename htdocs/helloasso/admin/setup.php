@@ -126,6 +126,8 @@ $item = $formSetup->newItem('HELLOASSO_CLIENT_ORGANISATION');
 $item->helpText = $langs->transnoentities('HELLOASSO_CLIENT_ORGANISATION_HELP');
 
 $item = $formSetup->newItem('HELLOASSO_BANK_ACCOUNT_FOR_PAYMENTS')->setAsSelectBankAccount();
+
+$item = $formSetup->newItem('HELLOASSO_SHOW_ONLINE_PAYMENTS')->setAsYesNo();
 // $item = $formSetup->newItem('HELLOASSO_MYPARAM1');
 // $item->fieldOverride = (empty($_SERVER['HTTPS']) ? 'http://' : 'https://') . $_SERVER['HTTP_HOST'];
 // $item->cssClass = 'minwidth500';

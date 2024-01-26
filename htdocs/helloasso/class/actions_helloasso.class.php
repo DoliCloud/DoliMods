@@ -461,7 +461,6 @@ class ActionsHelloAsso extends CommonHookActions
 	 */
 	public function doPayment($parameters, &$object, &$action, $hookmanager)
 	{
-		//TODO: Trouver un  moyen de secure avec FinalPaymentAmt
 		global $conf, $user, $langs,$db;
 
 		$error = 0; // Error counter
@@ -806,6 +805,35 @@ class ActionsHelloAsso extends CommonHookActions
 			return 1;
 		} else {
 			$this->errors[] = $langs->trans("BankAccountNotFound");
+			return -1;
+		}
+	}
+
+	/**
+	 * Overloading the doShowOnlinePaymentUrl function : replacing the parent's function with the one below
+	 *
+	 * @param   array           $parameters     Hook metadatas (context, etc...)
+	 * @param   CommonObject    $object         The object to process (an invoice if you are in invoice module, a propale in propale's module, etc...)
+	 * @param   string          $action         Current action (if set). Generally create or edit or null
+	 * @param   HookManager     $hookmanager    Hook manager propagated to allow calling another hook
+	 * @return  int                             Return integer < 0 on error, 0 on success, 1 to replace standard code
+	 */
+	public function doShowOnlinePaymentUrl($parameters, &$object, &$action, $hookmanager)
+	{
+		global $langs;
+
+		$error = 0; // Error counter
+		$errors = ""; // Error counter
+		$showonlinepaymenturl = 0;
+
+		if (in_array($parameters['currentcontext'], array('subscription'))){
+			$showonlinepaymenturl = getDolGlobalInt('HELLOASSO_SHOW_ONLINE_PAYMENTS');		
+		}
+
+		if (!$error) {
+			$this->results["showonlinepaymenturl"] = $showonlinepaymenturl;
+			return 1;
+		} else {
 			return -1;
 		}
 	}

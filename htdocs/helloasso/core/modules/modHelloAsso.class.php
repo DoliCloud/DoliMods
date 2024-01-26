@@ -117,6 +117,8 @@ class modHelloAsso extends DolibarrModules
 			'hooks' => array(
 				  'data' => array(
 				      'newpayment',
+					  'subscription',
+					  'globalcard',
 				  ),
 			),
 			// Set this to 1 if features of module are opened to external users
