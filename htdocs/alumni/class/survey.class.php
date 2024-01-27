@@ -126,7 +126,7 @@ class Survey extends CommonObject
 		"firstname" => array("type"=>"varchar(65)", "label"=>"Firstname", "enabled"=>"isModEnabled('alumni')", 'position'=>30, 'notnull'=>1, "visible"=>"1", "searchall"=>"1", "csslist"=>"tdoverflowmax150", "showoncombobox"=>"1",),
 		"lastname" => array("type"=>"varchar(64)", "label"=>"Lastname", "enabled"=>"isModEnabled('alumni')", 'position'=>30, 'notnull'=>1, "visible"=>"1", "index"=>"1", "searchall"=>"1", "csslist"=>"tdoverflowmax150", "showoncombobox"=>"1",),
 		"lastname2" => array("type"=>"varchar(128)", "label"=>"Lastname2", "enabled"=>"1", 'position'=>31, 'notnull'=>0, "visible"=>"1", "searchall"=>"1", "csslist"=>"tdoverflowmax150",),
-		"email" => array("type"=>"mail", "label"=>"Email", "enabled"=>"isModEnabled('alumni')", 'position'=>33, 'notnull'=>0, "visible"=>"1", "index"=>"1", "csslist"=>"tdoverflowmax150",),
+		"email" => array("type"=>"mail", "label"=>"Email", "enabled"=>"isModEnabled('alumni')", 'position'=>33, 'notnull'=>1, "visible"=>"1", "index"=>"1", "csslist"=>"tdoverflowmax150",),
 		"phone" => array("type"=>"phone", "label"=>"Phone", "enabled"=>"isModEnabled('alumni')", 'position'=>34, 'notnull'=>0, "visible"=>"1", "csslist"=>"tdoverflowmax150",),
 		"comwhatsapp" => array("type"=>"integer", "label"=>"ComWhatsapp", "enabled"=>"isModEnabled('alumni')", 'position'=>40, 'notnull'=>0, "visible"=>"-1",),
 		//"comemail" => array("type"=>"integer", "label"=>"ComEmail", "enabled"=>"isModEnabled('alumni')", 'position'=>41, 'notnull'=>0, "visible"=>"-1",),

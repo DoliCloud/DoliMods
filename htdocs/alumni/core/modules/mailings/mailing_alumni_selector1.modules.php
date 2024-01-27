@@ -9,7 +9,7 @@
  */
 
 include_once DOL_DOCUMENT_ROOT.'/core/modules/mailings/modules_mailings.php';
-//dol_include_once("/alumni/class/myobject.class.php");
+dol_include_once("/alumni/class/myobject.class.php");
 
 
 /**
@@ -20,7 +20,7 @@ class mailing_mailing_alumni_selector1 extends MailingTargets
 	// CHANGE THIS: Put here a name not already used
 	public $name = 'mailing_alumni_selector1';
 	// CHANGE THIS: Put here a description of your selector module
-	public $desc = 'List of alumni into the survey database';
+	public $desc = 'List of email from results of the survey';
 	// CHANGE THIS: Set to 1 if selector is available for admin users only
 	public $require_admin = 0;
 
@@ -61,8 +61,6 @@ class mailing_mailing_alumni_selector1 extends MailingTargets
 		global $langs;
 		$langs->load("members");
 
-		$form = new Form($this->db);
-
 		$arraystatus = array(1=>'Option 1', 2=>'Option 2');
 
 		$s = '';
@@ -87,7 +85,7 @@ class mailing_mailing_alumni_selector1 extends MailingTargets
 	 */
 	public function url($id)
 	{
-		return '<a href="'.dol_buildpath('/alumni/myobject_card.php', 1).'?id='.$id.'">'.img_object('', "generic").'</a>';
+		return '<a href="'.dol_buildpath('/alumni/survey_card.php', 1).'?id='.$id.'">'.img_object('', "generic").'</a>';
 	}
 
 
@@ -104,9 +102,9 @@ class mailing_mailing_alumni_selector1 extends MailingTargets
 		$target = array();
 		$j = 0;
 
-		$sql = " select rowid as id, label, firstname, lastname";
-		$sql .= " from ".MAIN_DB_PREFIX."myobject";
-		$sql .= " where email IS NOT NULL AND email <> ''";
+		$sql = "SELECT rowid as id, firstname, lastname, email";
+		$sql .= " FROM ".MAIN_DB_PREFIX."alumni_survey";
+		$sql .= " WHERE email IS NOT NULL AND email <> ''";
 		if (GETPOSTISSET('filter') && GETPOST('filter', 'alphanohtml') != 'none') {
 			$sql .= " AND status = '".$this->db->escape(GETPOST('filter', 'alphanohtml'))."'";
 		}
@@ -118,7 +116,7 @@ class mailing_mailing_alumni_selector1 extends MailingTargets
 			$num = $this->db->num_rows($result);
 			$i = 0;
 
-			dol_syslog("mailinglist_alumni_myobject.modules.php: mailing ".$num." targets found");
+			dol_syslog(__METHOD__.":add_to_target ".$num." targets found");
 
 			$old = '';
 			while ($i < $num) {
@@ -126,13 +124,13 @@ class mailing_mailing_alumni_selector1 extends MailingTargets
 				if ($old != $obj->email) {
 					$target[$j] = array(
 						'email' => $obj->email,
-						'name' => $obj->lastname,
 						'id' => $obj->id,
 						'firstname' => $obj->firstname,
-						'other' => $obj->label,
+						'lastname' => $obj->lastname,
+						//'other' => $obj->label,
 						'source_url' => $this->url($obj->id),
 						'source_id' => $obj->id,
-						'source_type' => 'myobject@alumni'
+						'source_type' => 'survey@alumni'
 					);
 					$old = $obj->email;
 					$j++;
@@ -169,7 +167,7 @@ class mailing_mailing_alumni_selector1 extends MailingTargets
 	 */
 	public function getSqlArrayForStats()
 	{
-		// CHANGE THIS: Optionnal
+		// CHANGE THIS: Optional
 
 		//var $statssql=array();
 		//$this->statssql[0]="SELECT field1 as label, count(distinct(email)) as nb FROM mytable WHERE email IS NOT NULL";
@@ -188,7 +186,9 @@ class mailing_mailing_alumni_selector1 extends MailingTargets
 	 */
 	public function getNbOfRecipients($sql = '')
 	{
-		$sql = "select count(distinct(email)) as nb from ".MAIN_DB_PREFIX."myobject as p where email IS NOT NULL AND email != ''";
+		$sql = "SELECT COUNT(DISTINCT(email)) as nb";
+		$sql .= " FROM ".MAIN_DB_PREFIX."alumni_survey as p";
+		$sql .= " WHERE email IS NOT NULL AND email <> ''";
 
 		$a = parent::getNbOfRecipients($sql);
 
