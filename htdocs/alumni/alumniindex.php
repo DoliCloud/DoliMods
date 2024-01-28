@@ -103,45 +103,41 @@ $formfile = new FormFile($db);
 
 llxHeader("", $langs->trans("AlumniArea"));
 
-print load_fiche_titre($langs->trans("AlumniArea"), '', 'alumni.png@alumni');
+print load_fiche_titre($langs->trans("AlumniArea"), '', 'fa-graduation-cap');
 
 print '<div class="fichecenter"><div class="fichethirdleft">';
 
 
-/* BEGIN MODULEBUILDER DRAFT MYOBJECT
 // Draft MyObject
-if (isModEnabled('alumni') && $user->rights->alumni->read)
-{
+if (isModEnabled('alumni')) {
 	$langs->load("orders");
 
-	$sql = "SELECT c.rowid, c.ref, c.ref_client, c.total_ht, c.tva as total_tva, c.total_ttc, s.rowid as socid, s.nom as name, s.client, s.canvas";
-	$sql.= ", s.code_client";
-	$sql.= " FROM ".MAIN_DB_PREFIX."commande as c";
-	$sql.= ", ".MAIN_DB_PREFIX."societe as s";
-	if (! $user->rights->societe->client->voir && ! $socid) $sql.= ", ".MAIN_DB_PREFIX."societe_commerciaux as sc";
-	$sql.= " WHERE c.fk_soc = s.rowid";
-	$sql.= " AND c.fk_statut = 0";
-	$sql.= " AND c.entity IN (".getEntity('commande').")";
-	if (! $user->rights->societe->client->voir && ! $socid) $sql.= " AND s.rowid = sc.fk_soc AND sc.fk_user = ".((int) $user->id);
-	if ($socid)	$sql.= " AND c.fk_soc = ".((int) $socid);
+	$sql = "SELECT COUNT(c.rowid) as nb";
+	$sql.= " FROM ".MAIN_DB_PREFIX."alumni_survey as c";
+	//$sql.= " WHERE c.entity IN (".getEntity('commande').")";
 
 	$resql = $db->query($sql);
 	if ($resql)
 	{
 		$total = 0;
 		$num = $db->num_rows($resql);
+		$obj = $db->fetch_object($resql);
 
 		print '<table class="noborder centpercent">';
 		print '<tr class="liste_titre">';
-		print '<th colspan="3">'.$langs->trans("DraftMyObjects").($num?'<span class="badge marginleftonlyshort">'.$num.'</span>':'').'</th></tr>';
+		print '<th colspan="2">'.$langs->trans("Statistics");
+		//print '<span class="badge marginleftonlyshort">'.$num.'</span>':'');
+		print '</th>';
+		print '</th></tr>';
 
+		print '<tr><td>'.$langs->trans("NbOfVotes").'</td><td class="right">'.$obj->nb.'</td></tr>';
+		/*
 		$var = true;
 		if ($num > 0)
 		{
 			$i = 0;
 			while ($i < $num)
 			{
-
 				$obj = $db->fetch_object($resql);
 				print '<tr class="oddeven"><td class="nowrap">';
 
@@ -170,7 +166,7 @@ if (isModEnabled('alumni') && $user->rights->alumni->read)
 		{
 
 			print '<tr class="oddeven"><td colspan="3" class="opacitymedium">'.$langs->trans("NoOrder").'</td></tr>';
-		}
+		}*/
 		print "</table><br>";
 
 		$db->free($resql);
@@ -180,7 +176,6 @@ if (isModEnabled('alumni') && $user->rights->alumni->read)
 		dol_print_error($db);
 	}
 }
-END MODULEBUILDER DRAFT MYOBJECT */
 
 
 print '</div><div class="fichetwothirdright">';

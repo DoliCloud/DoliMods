@@ -55,7 +55,7 @@ class modAlumni extends DolibarrModules
 		// Module label (no space allowed), used if translation string 'ModuleAlumniName' not found (Alumni is name of module).
 		$this->name = preg_replace('/^mod/i', '', get_class($this));
 		// Module description, used if translation string 'ModuleAlumniDesc' not found (Alumni is name of module).
-		$this->description = 'fa-graduation-cap';
+		$this->description = 'AlumniDescription';
 		// Used only if file README.md and README-LL.md not found.
 		$this->descriptionlong = "AlumniDescription";
 		// Author
