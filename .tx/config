@@ -1,6 +1,12 @@
 [main]
 host = https://www.transifex.com
 
+[o:dolicloud:p:dolimods:r:alumni]
+file_filter = htdocs/alumni/langs/<lang>/awstats.lang
+source_file = htdocs/alumni/langs/en_US/awstats.lang
+source_lang = en_US
+type        = MOZILLAPROPERTIES
+
 [o:dolicloud:p:dolimods:r:awstats]
 file_filter = htdocs/awstats/langs/<lang>/awstats.lang
 source_file = htdocs/awstats/langs/en_US/awstats.lang
