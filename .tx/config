@@ -2,8 +2,8 @@
 host = https://www.transifex.com
 
 [o:dolicloud:p:dolimods:r:alumni]
-file_filter = htdocs/alumni/langs/<lang>/awstats.lang
-source_file = htdocs/alumni/langs/en_US/awstats.lang
+file_filter = htdocs/alumni/langs/<lang>/alumni.lang
+source_file = htdocs/alumni/langs/en_US/alumni.lang
 source_lang = en_US
 type        = MOZILLAPROPERTIES
 
