@@ -118,11 +118,6 @@ class Survey extends CommonObject
 		"description" => array("type"=>"text", "label"=>"Description", "enabled"=>"1", 'position'=>60, 'notnull'=>0, "visible"=>"3", "validate"=>"1",),
 		"note_public" => array("type"=>"html", "label"=>"NotePublic", "enabled"=>"1", 'position'=>61, 'notnull'=>0, "visible"=>"0", "cssview"=>"wordbreak", "validate"=>"1",),
 		"note_private" => array("type"=>"html", "label"=>"Comment", "enabled"=>"1", 'position'=>62, 'notnull'=>0, "visible"=>-1, "cssview"=>"wordbreak", 'csslist'=>'twolinesmax small'),
-		"date_creation" => array("type"=>"datetime", "label"=>"DateCreation", "enabled"=>"1", 'position'=>500, 'notnull'=>1, "visible"=>"-2",),
-		"tms" => array("type"=>"timestamp", "label"=>"DateModification", "enabled"=>"1", 'position'=>501, 'notnull'=>0, "visible"=>"-2",),
-		"fk_user_creat" => array("type"=>"integer:User:user/class/user.class.php", "label"=>"UserAuthor", "picto"=>"user", "enabled"=>"1", 'position'=>510, 'notnull'=>1, "visible"=>"-2", "csslist"=>"tdoverflowmax150",),
-		"fk_user_modif" => array("type"=>"integer:User:user/class/user.class.php", "label"=>"UserModif", "picto"=>"user", "enabled"=>"1", 'position'=>511, 'notnull'=>-1, "visible"=>"-2", "csslist"=>"tdoverflowmax150",),
-		"import_key" => array("type"=>"varchar(14)", "label"=>"ImportId", "enabled"=>"1", 'position'=>1000, 'notnull'=>-1, "visible"=>"-2",),
 		"firstname" => array("type"=>"varchar(65)", "label"=>"Firstname", "enabled"=>"isModEnabled('alumni')", 'position'=>30, 'notnull'=>1, "visible"=>"1", "searchall"=>"1", "csslist"=>"tdoverflowmax150", "showoncombobox"=>"1",),
 		"lastname" => array("type"=>"varchar(64)", "label"=>"Lastname", "enabled"=>"isModEnabled('alumni')", 'position'=>30, 'notnull'=>1, "visible"=>"1", "index"=>"1", "searchall"=>"1", "csslist"=>"tdoverflowmax150", "showoncombobox"=>"1",),
 		"lastname2" => array("type"=>"varchar(128)", "label"=>"Lastname2", "enabled"=>"1", 'position'=>31, 'notnull'=>0, "visible"=>"1", "searchall"=>"1", "csslist"=>"tdoverflowmax150",),
@@ -144,6 +139,13 @@ class Survey extends CommonObject
 		"budgetmaxrepasparpers" => array("type"=>"integer", "label"=>"BudgetMaxRepasParPers", "enabled"=>"isModEnabled('alumni')", 'position'=>55, 'notnull'=>0, "visible"=>"1",),
 		"lieu" => array("type"=>"varchar(24)", "label"=>"Lieu", "enabled"=>"isModEnabled('alumni')", 'position'=>50, 'notnull'=>0, "visible"=>"-1",),
 		"motivation" => array("type"=>"varchar(16)", "label"=>"Motivation", "enabled"=>"isModEnabled('alumni')", 'position'=>60, 'notnull'=>0, "visible"=>"1", 'csslist'=>'tdoverflowmax150 small', "arrayofkeyval"=>array("1" => "Pas du tout, je ne souhaite pas relier des liens avec l'ISEN, je suis passé a autre chose, probabilité de venir = 0%", "5" => "Intéressé mais des contraintes (éloignements, perso) m'empêcheront surement de venir, probabilité de venir < 5%", "25" => "Ca me fait ni chaud ni froid, probabilité de venir <25%", "50" => "Je suis intéressé, probabilité de venir entre 25 et 75%", "75" => "Je suis à fond, probabilité de venir > 75%"),),
+		"date_creation" => array("type"=>"datetime", "label"=>"DateCreation", "enabled"=>"1", 'position'=>500, 'notnull'=>1, "visible"=>"-2",),
+		"tms" => array("type"=>"timestamp", "label"=>"DateModification", "enabled"=>"1", 'position'=>501, 'notnull'=>0, "visible"=>"-2",),
+		"fk_user_creat" => array("type"=>"integer:User:user/class/user.class.php", "label"=>"UserAuthor", "picto"=>"user", "enabled"=>"1", 'position'=>510, 'notnull'=>1, "visible"=>"-2", "csslist"=>"tdoverflowmax150",),
+		"fk_user_modif" => array("type"=>"integer:User:user/class/user.class.php", "label"=>"UserModif", "picto"=>"user", "enabled"=>"1", 'position'=>511, 'notnull'=>-1, "visible"=>"-2", "csslist"=>"tdoverflowmax150",),
+		"import_key" => array("type"=>"varchar(14)", "label"=>"ImportId", "enabled"=>"1", 'position'=>600, 'notnull'=>-1, "visible"=>"-2",),
+		"ip" => array("type"=>"ip", "label"=>"IP", "enabled"=>"isModEnabled('alumni')", 'position'=>610, 'notnull'=>0, "visible"=>"-1",),
+		"status" => array("type"=>"integer", "label"=>"Status", "enabled"=>"isModEnabled('alumni')", 'position'=>810, 'notnull'=>0, "default"=>0, "visible"=>"1", 'arrayofkeyval'=>array(0=>'Draft', 1=>'Validated', 9=>'Canceled')),
 	);
 	public $rowid;
 	public $entity;
@@ -176,6 +178,7 @@ class Survey extends CommonObject
 	public $budgetmaxrepasparpers;
 	public $lieu;
 	public $motivation;
+	public $ip;
 	// END MODULEBUILDER PROPERTIES
 
 
@@ -968,10 +971,10 @@ class Survey extends CommonObject
 			//$langs->load("alumni@alumni");
 			$this->labelStatus[self::STATUS_DRAFT] = $langs->transnoentitiesnoconv('Draft');
 			$this->labelStatus[self::STATUS_VALIDATED] = $langs->transnoentitiesnoconv('Enabled');
-			$this->labelStatus[self::STATUS_CANCELED] = $langs->transnoentitiesnoconv('Disabled');
+			$this->labelStatus[self::STATUS_CANCELED] = $langs->transnoentitiesnoconv('Canceled');
 			$this->labelStatusShort[self::STATUS_DRAFT] = $langs->transnoentitiesnoconv('Draft');
 			$this->labelStatusShort[self::STATUS_VALIDATED] = $langs->transnoentitiesnoconv('Enabled');
-			$this->labelStatusShort[self::STATUS_CANCELED] = $langs->transnoentitiesnoconv('Disabled');
+			$this->labelStatusShort[self::STATUS_CANCELED] = $langs->transnoentitiesnoconv('Canceled');
 		}
 
 		$statusType = 'status'.$status;
