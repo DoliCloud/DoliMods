@@ -1,0 +1,72 @@
+# Copyright (C) 2023 Alice Adminson 
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see .
+
+#
+# Generic
+#
+
+# Module label 'ModuleHelloAssoName'
+ModuleHelloAssoName = HelloAsso
+# Module description 'ModuleHelloAssoDesc'
+ModuleHelloAssoDesc = HelloAsso description
+
+#
+# Admin page
+#
+HelloAssoSetup = HelloAsso setup
+Settings = Settings
+HelloAssoSetupPage = HelloAsso setup page
+HELLOASSO_LIVE = Helloasso live enabled (otherwise test/sandbox mode)
+HELLOASSO_TEST_CLIENT_ID=Client id test key
+HELLOASSO_TEST_CLIENT_ID_HELP=The test client ID key from your Helloasso API configuration
+HELLOASSO_TEST_CLIENT_SECRET=Client secret test key
+HELLOASSO_TEST_SECRET_HELP=The test client ID secret key from your Helloasso API configuration
+HELLOASSO_TEST_CLIENT_ORGANISATION=Client organisation test
+HELLOASSO_TEST_CLIENT_ORGANISATION_HELP=The name of the association in your test Helloasso account
+
+HELLOASSO_CLIENT_ID=Client id live key
+HELLOASSO_CLIENT_ID_HELP=The live client ID key from your Helloasso API configuration
+HELLOASSO_CLIENT_SECRET=Client secret live key
+HELLOASSO_SECRET_HELP=The live client ID secret key from your Helloasso API configuration
+HELLOASSO_CLIENT_ORGANISATION=Client organisation live
+HELLOASSO_CLIENT_ORGANISATION_HELP=The name of the association in your live Helloasso account
+HELLOASSO_BANK_ACCOUNT_FOR_PAYMENTS=Bank account for payments
+HELLOASSO_SHOW_ONLINE_PAYMENTS=Show online payment page
+
+ExampleOfTestCreditCardHelloAsso=Example of credit card can be found on at this URL:<br> %s 
+TestConnectionHelloasso=Test Connection
+
+# About page
+#
+About = About
+HelloAssoAbout = About HelloAsso
+HelloAssoAboutPage = HelloAsso about page
+
+#
+# Sample page
+#
+HelloAssoArea = Home HelloAsso
+MyPageName = My page name
+
+#
+# Sample widget
+#
+MyWidget = My widget
+MyWidgetDescription = My widget description
+
+HelloAssoDoPayment = Pay with HelloAsso
+
+ErrorBadValueAmount=Please change your basket amount. It must be free or greater than €0.50 to authorize your payment
+ErrorValueFinalPaymentDiffers= Value of FinalPayment (%s) differs from value expected for membership (%s).
