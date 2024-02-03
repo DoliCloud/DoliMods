@@ -212,24 +212,17 @@ class OvhSms extends CommonObject
 				try {
 					//var_dump($content);
 					$resultPostJob = $this->conn->post('/sms/'. $this->account . '/jobs/', $content);
-					/*$resultPostJob = Array
-					(
+					/* Example of result:
+					$resultPostJob = array(
 						[totalCreditsRemoved] => 1
-						[invalidReceivers] => Array
-						(
-							)
-
-						[ids] => Array
-						(
+						[invalidReceivers] => array()
+						[ids] => array(
 							[0] => 26929925
 							)
-
-						[validReceivers] => Array
-						(
+						[validReceivers] => array(
 							[0] => +3366204XXXX
 							)
-
-						)*/
+					); */
 					//var_dump($resultPostJob);
 					if ($resultPostJob['totalCreditsRemoved'] > 0) {
 						$object = new stdClass();
@@ -279,23 +272,28 @@ class OvhSms extends CommonObject
 						}
 
 						return 1;
-					} else return -1;
+					} else {
+						$this->error = 'resultPostJob["totalCreditsRemoved"] not set. '.var_export($resultPostJob, true);
+						return -1;
+					}
 				} catch (Exception $e) {
-					$this->error=$e->getMessage();
-					return -1;
+					$this->error = $e->getMessage();
+					return -2;
 				}
 			}
 		} catch (SoapFault $fault) {
 			$errmsg="Error ".$fault->faultstring;
 			dol_syslog(get_class($this)."::SmsSend ".$errmsg, LOG_ERR);
-			$this->error.=($this->error?', '.$errmsg:$errmsg);
+			$this->error .= ($this->error?', '.$errmsg:$errmsg);
+			return -3;
 		} catch (Exception $e) {
 			$errmsg="Error ".$e->getMessage();
 			dol_syslog(get_class($this)."::SmsSend ".$errmsg, LOG_ERR);
-			$this->error.=($this->error?', '.$errmsg:$errmsg);
-			return -1;
+			$this->error .= ($this->error?', '.$errmsg:$errmsg);
+			return -4;
 		}
-		return -1;
+
+		return -5;
 	}
 
 	/**

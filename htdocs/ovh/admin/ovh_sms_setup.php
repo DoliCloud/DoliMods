@@ -49,15 +49,13 @@ use GuzzleHttp\Client as GClient;
 
 
 // Load traductions files requiredby by page
-$langs->load("admin");
-$langs->load("companies");
-$langs->load("ovh@ovh");
-$langs->load("sms");
+$langs->loadLangs(array("admin", "companies", "ovh@ovh", "sms"));
 
-if (!$user->admin)
-accessforbidden();
+if (!$user->admin) {
+	accessforbidden();
+}
+
 // Get parameters
-
 $action=GETPOST('action', 'aZ09');
 
 // Protection if external user
@@ -167,16 +165,16 @@ if ($action == 'send' && ! $_POST['cancel']) {
 
 		$smsfile->nostop = GETPOST('disablestop', 'int');
 		$smsfile->socid = 0;
-		$smsfile->contactid = 0;
+		//$smsfile->contactid = 0;
 		$smsfile->contact_id = 0;
 		$smsfile->fk_project = 0;
 
-		$result=$smsfile->sendfile(); // This send SMS
+		$result = $smsfile->sendfile(); // This send SMS
 
-		if ($result > 0) {
-			$mesg='<div class="ok">'.$langs->trans("SmsSuccessfulySent", $smsfrom, $sendto).'</div>';
+		if ($result) {
+			setEventMessages($langs->trans("SmsSuccessfulySent", $smsfrom, $sendto), null, 'mesgs');
 		} else {
-			$mesg='<div class="error">'.$langs->trans("ResultKo").'<br>'.$smsfile->error.'</div>';
+			setEventMessages($langs->trans("ResultKo").'<br>'.$smsfile->error, null, 'errors');
 		}
 
 		$action='';

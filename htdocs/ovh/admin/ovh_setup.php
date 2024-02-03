@@ -275,7 +275,7 @@ if (! empty($conf->global->OVH_OLDAPI)) {
 		print $langs->trans("Account").' 1<br>';
 	}
 
-	print '<table class="noborder" width="100%">';
+	print '<table class="noborder centpercent">';
 
 	// New API
 
@@ -319,7 +319,7 @@ if (! empty($conf->global->OVH_OLDAPI)) {
 		print "<br><br>\n";
 		print $langs->trans("Account").' 2<br>';
 
-		print '<table class="noborder" width="100%">';
+		print '<table class="noborder centpercent">';
 
 		// New API
 
