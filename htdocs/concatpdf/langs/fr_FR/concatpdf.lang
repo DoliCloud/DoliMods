@@ -7,6 +7,7 @@ ConcatPDfPutFileManually=Les fichiers PDF peuvent y être placés manuellement a
 NoPDFFileFound=Aucun fichier PDF trouvé dans le répertoire pour l'instant.
 ConcatFile=Concaténer le fichier PDF
 EnableMultipleConcatenation=Activer la possibilité de concaténer plusieurs documents.
+EnableMixedConcatenation=Affecter la concaténation sur le verso des pages ("mode CGU/CGV")
 ConcatPdf=Concat PDF
 Module101400Name=Concat PDF
 Module101400Desc=Module pour concatainer des PDF (conditions de ventes par exemples) à tout PDF générés (factures, commandes ou propositions commerciales)

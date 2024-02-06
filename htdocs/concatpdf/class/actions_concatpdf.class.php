@@ -22,7 +22,7 @@
  *	\brief      File to control actions
  */
 require_once DOL_DOCUMENT_ROOT."/core/class/commonobject.class.php";
-
+require_once DOL_DOCUMENT_ROOT."/core/lib/files.lib.php";
 
 /**
  *	Class to manage hooks for module ConcatPdf
@@ -292,7 +292,11 @@ class ActionsConcatPdf
 				}
 				//$pdf->SetCompression(false);
 
-				$pagecount = $this->concat($pdf, $filetoconcat);
+				if($conf->global->CONCATPDF_MIXED_CONCATENATION_ENABLED) {
+					$pagecount = $this->concatMixed($pdf, reset($filetoconcat1), $filetoconcat2);
+				} else {
+					$pagecount = $this->concat($pdf, $filetoconcat);
+				}
 
 				if ($pagecount > 0) {
 					$pdf->Output($filetoconcat1[0], 'F');
@@ -359,6 +363,75 @@ class ActionsConcatPdf
 			} else {
 				dol_syslog("Error: Can't find PDF file, for file ".$file, LOG_WARNING);
 			}
+		}
+
+		return $pagecount;
+	}
+
+
+	/**
+	 * Concat PDF files in mixed mode (only on back pages)
+	 *
+	 * @param 	PDF		$pdf    Pdf
+	 * @param 	array	$files  Array of files to concat.
+	 * @return	int				Number of files
+	 */
+	function concatMixed(&$pdf, $mainpdf, $files)
+	{
+		$totalcgupagecount = $pagecount = 0;
+		$cgupage = [];
+		foreach ($files as $file) {
+			if (dol_is_file($file)) {	// We ignore file if not found so if ile has been removed we can still generate the PDF.
+				$pagecounttmp = $pdf->setSourceFile($file);
+				for ($i = 1; $i <= $pagecounttmp; $i++) {
+					$totalcgupagecount++;
+					$cgupage[$totalcgupagecount] = $file;
+				}
+			}
+		}
+
+		$currentcgupagenum = 1;
+		$pagecounttmp = $pdf->setSourceFile($mainpdf);
+		if ($pagecounttmp) {
+			for ($i = 1; $i <= $pagecounttmp; $i++) {
+				try {
+					//front
+					$tplidx = $pdf->ImportPage($i);
+					$s = $pdf->getTemplatesize($tplidx);
+					$pdf->AddPage($s['h'] > $s['w'] ? 'P' : 'L');
+					$pdf->useTemplate($tplidx);
+
+					//back
+					if($currentcgupagenum < $totalcgupagecount) {
+						$pdf->setSourceFile($cgupage[$currentcgupagenum]);
+						$tplidx = $pdf->ImportPage($currentcgupagenum);
+						$s = $pdf->getTemplatesize($tplidx);
+						$pdf->AddPage($s['h'] > $s['w'] ? 'P' : 'L');
+						$pdf->useTemplate($tplidx);
+						$currentcgupagenum++;
+					}
+					//return to front for next turn
+					$pdf->setSourceFile($mainpdf);
+				} catch (Exception $e) {
+					dol_syslog("Error when manipulating some PDF by concatpdf: ".$e->getMessage(), LOG_ERR);
+					$this->error = $e->getMessage();
+					$this->errors[] = $e->getMessage();
+					dol_print_error('', $this->error);  // Remove this when dolibarr is able to report on screen errors reported by this hook.
+					return -1;
+				}
+			}
+			$pagecount += $pagecounttmp;
+		} else {
+			dol_syslog("Error: Can't read PDF content with setSourceFile, for file ".$file, LOG_ERR);
+		}
+
+		//add end of cgu if number page > main page
+		for ($i = $currentcgupagenum; $i <= $totalcgupagecount; $i++) {
+			$pdf->setSourceFile($cgupage[$currentcgupagenum]);
+			$tplidx = $pdf->ImportPage($currentcgupagenum);
+			$s = $pdf->getTemplatesize($tplidx);
+			$pdf->AddPage($s['h'] > $s['w'] ? 'P' : 'L');
+			$pdf->useTemplate($tplidx);
 		}
 
 		return $pagecount;
