@@ -912,7 +912,7 @@ function insertGContactsEntries($gdata, $gContacts, $objectstatic, $useremail = 
 			}
 			if (!empty($gContact->phone_mobile)) {
 				$jsonData .='"phoneNumbers": [{';
-				$jsonData .=' "type": "mobile"},';
+				$jsonData .=' "type": "mobile",';
 				$jsonData .=' "value": '.json_encode($gContact->phone_mobile);
 				$jsonData .='}],';
 			}
