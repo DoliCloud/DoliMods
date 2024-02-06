@@ -43,6 +43,10 @@ function ecotaxdeee_prepare_head()
 	$head[$h][2] = 'tababout';
 	$h++;
 
+	$head[$h][0] = 'setup.php';
+	$head[$h][1] = $langs->trans("MoreSetup");
+	$head[$h][2] = 'tabmoresetup';
+	$h++;
 
 	return $head;
 }
