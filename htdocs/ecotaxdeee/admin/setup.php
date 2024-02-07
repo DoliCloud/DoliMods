@@ -41,6 +41,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/class/html.formadmin.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.formother.class.php';
 dol_include_once("/ecotaxdeee/lib/ecotaxdeee.lib.php");
 
+require_once DOL_DOCUMENT_ROOT.'/ecotaxdeee/class/ecotaxdeee.class.php';
 
 if (!$user->admin) accessforbidden();
 
@@ -49,6 +50,39 @@ $langs->load("admin");
 $langs->load("other");
 $langs->load("ecotaxdeee@ecotaxdeee");
 
+/*
+ * Actions 
+ */
+$action = GETPOST('action', 'alpha');
+$code = GETPOST('codeecotax');
+$amount = GETPOST('amount');
+
+
+
+if ($action == 'save') {
+    $error = 0;
+    if (empty($code) || empty($amount)) {
+        $error++;
+        setEventMessages("Inputs required", null, 'errors');
+    }
+    
+    $ecotax = new Ecotaxdeee($db);
+    $ecotax->code = dol_escape_htmltag($code);
+    $ecotax->amount = dol_escape_htmltag($amount);
+    
+    if (!$error) {
+        $result = $ecotax->create($user);
+       
+        if ($result > 0) {
+            setEventMessages("record added successfully", null);
+            header("Location: ".$_SERVER['PHP_SELF']);
+            exit;
+        } else {
+            setEventMessages($ecotax->error, $ecotax->errors, 'errors');
+           
+        }
+    }
+}
 
 /*
  * View
