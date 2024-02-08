@@ -84,6 +84,40 @@ if ($action == 'save') {
     }
 }
 
+if ($action == 'update' && !GETPOST('cancel')) {
+    $key = GETPOST('key');
+    $ecotax = new Ecotaxdeee($db);
+    $object = $ecotax->fetch($key);
+    
+    $code_update = (empty(GETPOST('codeecotax')) ? $object->code : GETPOST('codeecotax'));
+    $amount_update = (empty(GETPOST('amount')) ? $object->amount : GETPOST('amount'));
+    $ecotax->code = $code_update;
+    $ecotax->amount = $amount_update;
+    $result = $ecotax->update($key);
+    if ($result > 0) {
+        setEventMessages("record updated successfully", null);
+        header("Location: ".$_SERVER['PHP_SELF']);
+        exit;
+    } else {
+        setEventMessages($ecotax->error, $ecotax->errors, 'errors');
+       
+    }
+}
+
+if ($action == 'delete') {
+    $key = GETPOST('key');
+    $ecotax = new Ecotaxdeee($db);
+    $result = $ecotax->delete($key);
+
+    if ($result > 0) {
+        setEventMessages("record deleted successfully", null);
+        header("Location: ".$_SERVER['PHP_SELF']);
+        exit;
+    } else {
+        setEventMessages($ecotax->error, $ecotax->errors, 'errors');
+       
+    }
+}
 /*
  * View
  */
@@ -99,38 +133,87 @@ $head=ecotaxdeee_prepare_head();
 
 print dol_get_fiche_head($head, 'tabmoresetup', $langs->trans("EcoTaxDeeMoreSetup"), -1, "");
 
+if ($action == 'create') {
+    print '<form name="ecotaxdeeeconfigmore" action="'.$_SERVER["PHP_SELF"].'" method="post">';
+    print '<input type="hidden" name="action" value="save">';
+    print '<input type="hidden" name="token" value="'.newToken().'">';
 
-print '<form name="ecotaxdeeeconfigmore" action="'.$_SERVER["PHP_SELF"].'" method="post">';
-print '<input type="hidden" name="action" value="save">';
-print '<input type="hidden" name="token" value="'.newToken().'">';
 
+    print "<table class=\"noborder\" width=\"100%\">";
 
-print "<table class=\"noborder\" width=\"100%\">";
+    print '<tr class="liste_titre">';
+    print '<td>'.$langs->trans("Parameter")."</td>";
+    print "<td>".$langs->trans("Value")."</td>";
+    print "</tr>";
+    // for code 
+    print '<tr class="oddeven">';
+    print "<td>".$langs->trans("CodeEcotax")."</td>";
+    print "<td><input type='text' name='codeecotax'/></td>";
+    print '</tr>';
+    //Amount
+    print '<tr class="oddeven">';
+    print "<td>".$langs->trans("Amount")."</td>";
+    print "<td><input type='text' name='amount'/></td>";
+    print '</tr>';
 
-print '<tr class="liste_titre">';
-print '<td>'.$langs->trans("Parameter")."</td>";
-print "<td>".$langs->trans("Value")."</td>";
-print "</tr>";
-// for code 
-print '<tr class="oddeven">';
-print "<td>".$langs->trans("CodeEcotax")."</td>";
-print "<td><input type='text' name='codeecotax'/></td>";
-print '</tr>';
-//Amount
-print '<tr class="oddeven">';
-print "<td>".$langs->trans("Amount")."</td>";
-print "<td><input type='text' name='amount'/></td>";
-print '</tr>';
+    print "</table>";
 
-print "</table>";
+    print '<center>';
 
-print '<center>';
+    print "<input type=\"submit\" name=\"save\" class=\"button\" value=\"".$langs->trans("Save")."\">";
+    print "</center>";
 
-print "<input type=\"submit\" name=\"save\" class=\"button\" value=\"".$langs->trans("Save")."\">";
-print "</center>";
+    print "</form>\n";
+} else{
+    $newcardbutton = '';
+    if ($user->admin) {
+        $newcardbutton .= dolGetButtonTitle($langs->trans('New'), '', 'fa fa-plus-circle', DOL_URL_ROOT.'/ecotaxdeee/admin/setup.php?action=create');
+    }
+    print_barre_liste('', $page, $_SERVER["PHP_SELF"], '', '', '', '', '', '', '', 0, $newcardbutton, '', '', 0, 0, 1);
 
-print "</form>\n";
-
+    $object = new Ecotaxdeee($db);
+    $records = $object->fetchAll();
+   
+    print '<table class="noborder" width="100%">';
+    if (!empty($records)) {
+        print '<tr class="liste_titre">';
+        print '<th>#</th>';
+        print '<th>Code</th>';
+        print '<th>Amount</th>';
+        print '<th style="float:right">Actions</th>';
+        print '</tr>';
+        $i = 1;
+        foreach ($records as $item) {
+            print '<tr>';
+            print '<td>'.$i.'</td>';
+            if ($action == 'edit' && GETPOST('key') == $item->rowid) {
+                print '<form action="'.$_SERVER["PHP_SELF"].'" method="post">';
+                print '<input type="hidden" name="token" value="'.newToken().'">';
+                print '<input type="hidden" name="action" value="update">'; 
+                print '<input type="hidden" name="key" value="'.$item->rowid.'"/>';
+                print '<td><input type="text" name="codeecotax" value="'.$item->code.'" /></td>';
+                print '<td><input type="text" name="amount" value="'.$item->amount.'" /></td>';
+                print '<td style="float:right">';
+                print '<input class="reposition button smallpaddingimp" type="submit" name="update" value="'.$langs->trans("Save").'">';
+                print '<input class="reposition button button-cancel smallpaddingimp" type="submit" name="cancel" value="'.$langs->trans("Cancel").'">';
+                print '</td>';
+                print '</form>';
+            } else {
+                print '<td>'.$item->code.'</td>';
+                print '<td>'.$item->amount.'</td>';
+                print '<td style="float:right">';
+                print '<a class="editfielda reposition marginleftonly marginrighttonly paddingright paddingleft" href="'.$_SERVER["PHP_SELF"].'?action=edit&token='.newToken().'&key='.urlencode($item->rowid).'">'.img_edit().'</a>';
+                print '<a class="reposition marginleftonly marginrighttonly paddingright paddingleft" href="'.$_SERVER["PHP_SELF"].'?action=delete&token='.newToken().'&key='.urlencode($item->rowid).'" onclick="return confirm(\''.$langs->trans("AreYouSure").'\')">'.img_delete().'</a>';
+                print '</td>';
+                print '</tr>';
+            }
+            $i++;
+        }
+    } else {
+        print $langs->trans("No records");
+    }
+    print '</table>';
+}
 
 // Page end
 print dol_get_fiche_end();
