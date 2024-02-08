@@ -106,10 +106,16 @@ $htmlother=new FormAdmin($db);
 
 llxHeader();
 
-$object=new stdClass();
-$object->id=1;
-$object->number='989';
-$object->total_ttc='989.99';
+$object = new stdClass();
+$object->id = 1;
+$object->number = '989';
+$object->total_ht = '824.99';
+$object->total_ttc = '989.99';
+$object->total_tva = '165.00';
+$object->multicurrency_total_ht = '824.99';
+$object->multicurrency_total_ttc = '989.99';
+$object->multicurrency_total_tva = '165.00';
+$object->multicurrency_code = $conf->currency;
 $substitutionarray=array();
 complete_substitutions_array($substitutionarray, $outputlangs, $object);
 
@@ -143,7 +149,7 @@ print $langs->trans("NUMBERWORDS_USE_CURRENCY_SYMBOL").' ';
 
 // Active
 if (! empty($conf->global->NUMBERWORDS_USE_CURRENCY_SYMBOL)) {
-	print '<a class="valignmiddle" href="' . $_SERVER["PHP_SELF"] . '?action=del&value=NUMBERWORDS_USE_CURRENCY_SYMBOL&level='.urlencode($level).'&valuetest='.urlencode($valuetest).'">';
+	print '<a class="valignmiddle" href="' . $_SERVER["PHP_SELF"] . '?action=del&value=NUMBERWORDS_USE_CURRENCY_SYMBOL&level='.urlencode($level).'&valuetest='.urlencode($valuetest).'&token='.$_SESSION['newtoken'].'">';
 	print img_picto($langs->trans("Enabled"), 'switch_on');
 	print '</a>';
 
@@ -152,14 +158,14 @@ if (! empty($conf->global->NUMBERWORDS_USE_CURRENCY_SYMBOL)) {
 	print $langs->trans("NUMBERWORDS_USE_ADD_SHORTCODE_WITH_SYMBOL").' ';
 	// Active
 	if (! empty($conf->global->NUMBERWORDS_USE_ADD_SHORTCODE_WITH_SYMBOL)) {
-		print '<a class="valignmiddle" href="' . $_SERVER["PHP_SELF"] . '?action=del&value=NUMBERWORDS_USE_ADD_SHORTCODE_WITH_SYMBOL&level='.urlencode($level).'&valuetest='.urlencode($valuetest).'">';
+		print '<a class="valignmiddle" href="' . $_SERVER["PHP_SELF"] . '?action=del&value=NUMBERWORDS_USE_ADD_SHORTCODE_WITH_SYMBOL&level='.urlencode($level).'&valuetest='.urlencode($valuetest).'&token='.$_SESSION['newtoken'].'">';
 		print img_picto($langs->trans("Enabled"), 'switch_on');
 		print '</a>';
 	} else {
-		print '<a class="valignmiddle" href="' . $_SERVER["PHP_SELF"] . '?action=set&value=NUMBERWORDS_USE_ADD_SHORTCODE_WITH_SYMBOL&level='.urlencode($level).'&valuetest='.urlencode($valuetest).'">' . img_picto($langs->trans("Disabled"), 'switch_off') . '</a>';
+		print '<a class="valignmiddle" href="' . $_SERVER["PHP_SELF"] . '?action=set&value=NUMBERWORDS_USE_ADD_SHORTCODE_WITH_SYMBOL&level='.urlencode($level).'&valuetest='.urlencode($valuetest).'&token='.$_SESSION['newtoken'].'">' . img_picto($langs->trans("Disabled"), 'switch_off') . '</a>';
 	}
 } else {
-	print '<a class="valignmiddle" href="' . $_SERVER["PHP_SELF"] . '?action=set&value=NUMBERWORDS_USE_CURRENCY_SYMBOL&level='.urlencode($level).'&valuetest='.urlencode($valuetest).'">' . img_picto($langs->trans("Disabled"), 'switch_off') . '</a>';
+	print '<a class="valignmiddle" href="' . $_SERVER["PHP_SELF"] . '?action=set&value=NUMBERWORDS_USE_CURRENCY_SYMBOL&level='.urlencode($level).'&valuetest='.urlencode($valuetest).'&token='.$_SESSION['newtoken'].'">' . img_picto($langs->trans("Disabled"), 'switch_off') . '</a>';
 }
 print '<br>';
 
