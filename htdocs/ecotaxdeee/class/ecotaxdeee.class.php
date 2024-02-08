@@ -190,7 +190,8 @@ class Ecotaxdeee extends CommonObject
             }else {
                 $sql = "UPDATE ".MAIN_DB_PREFIX."ecotax SET ";
                 $sql .= "code = '".$code."', ";
-                $sql .= "amount = '".$amount."' ";
+                $sql .= "amount = '".$amount."', ";
+                $sql .= "date_modification = '".$this->db->idate(dol_now())."' ";
                 $sql .= "WHERE rowid = ".((int) $id);
                 
                 $resql = $this->db->query($sql);
