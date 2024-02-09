@@ -63,7 +63,7 @@ if ($action == 'save') {
     $error = 0;
     if (empty($code) || empty($amount)) {
         $error++;
-        setEventMessages("Inputs required", null, 'errors');
+        setEventMessages("ErrorInputsRequired", null, 'errors');
     }
     
     $ecotax = new Ecotaxdeee($db);
@@ -74,7 +74,7 @@ if ($action == 'save') {
         $result = $ecotax->create($user);
        
         if ($result > 0) {
-            setEventMessages("record added successfully", null);
+            setEventMessages("recordAdded", null);
             header("Location: ".$_SERVER['PHP_SELF']);
             exit;
         } else {
@@ -95,7 +95,7 @@ if ($action == 'update' && !GETPOST('cancel')) {
     $ecotax->amount = $amount_update;
     $result = $ecotax->update($key);
     if ($result > 0) {
-        setEventMessages("record updated successfully", null);
+        setEventMessages("recordUpdated", null);
         header("Location: ".$_SERVER['PHP_SELF']);
         exit;
     } else {
@@ -110,7 +110,7 @@ if ($action == 'delete') {
     $result = $ecotax->delete($key);
 
     if ($result > 0) {
-        setEventMessages("record deleted successfully", null);
+        setEventMessages("recordDeleted", null);
         header("Location: ".$_SERVER['PHP_SELF']);
         exit;
     } else {
@@ -167,7 +167,7 @@ if ($action == 'create') {
 } else{
     $newcardbutton = '';
     if ($user->admin) {
-        $newcardbutton .= dolGetButtonTitle($langs->trans('New'), '', 'fa fa-plus-circle', DOL_URL_ROOT.'/ecotaxdeee/admin/setup.php?action=create');
+        $newcardbutton .= dolGetButtonTitle($langs->trans('NewEcotax'), '', 'fa fa-plus-circle', DOL_URL_ROOT.'/ecotaxdeee/admin/setup.php?action=create');
     }
     print_barre_liste('', $page, $_SERVER["PHP_SELF"], '', '', '', '', '', '', '', 0, $newcardbutton, '', '', 0, 0, 1);
 
@@ -178,8 +178,8 @@ if ($action == 'create') {
     if (!empty($records)) {
         print '<tr class="liste_titre">';
         print '<th>#</th>';
-        print '<th>Code</th>';
-        print '<th>Amount</th>';
+        print '<th>'.$langs->trans("CodeEcotax").'</th>';
+        print '<th>'.$langs->trans("Amount").'</th>';
         print '<th style="float:right">Actions</th>';
         print '</tr>';
         $i = 1;
@@ -210,7 +210,7 @@ if ($action == 'create') {
             $i++;
         }
     } else {
-        print $langs->trans("No records");
+        print $langs->trans("NoRecords");
     }
     print '</table>';
 }
