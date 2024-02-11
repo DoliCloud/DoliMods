@@ -59,18 +59,21 @@ class mailing_mailing_alumni_selector1 extends MailingTargets
 	public function formFilter()
 	{
 		global $langs;
-		$langs->load("members");
+		$langs->load("alumni@alumni");
 
-		$arraystatus = array(1=>'Option 1', 2=>'Option 2');
+		dol_include_once('/alumni/class/survey.class.php');
+		$tmp = new Survey($this->db);
+		$arrayfields = $tmp->fields['motivation']['arrayofkeyval'];
 
 		$s = '';
-		$s .= $langs->trans("Status").': ';
-		$s .= '<select name="filter" class="flat">';
+		$s .= $langs->trans($tmp->fields['motivation']['label']).': ';
+		$s .= '<select name="filter_motivation" id="filter_motivation" class="flat maxwidth200">';
 		$s .= '<option value="none">&nbsp;</option>';
-		foreach ($arraystatus as $status) {
-			$s .= '<option value="'.$status.'">'.$status.'</option>';
+		foreach ($arrayfields as $key => $val) {
+			$s .= '<option value="'.$key.'">'.$val.'</option>';
 		}
 		$s .= '</select>';
+		$s .= ajax_combobox('filter_motivation');
 		$s .= '<br>';
 
 		return $s;
@@ -102,13 +105,16 @@ class mailing_mailing_alumni_selector1 extends MailingTargets
 		$target = array();
 		$j = 0;
 
-		$sql = "SELECT rowid as id, firstname, lastname, email";
-		$sql .= " FROM ".MAIN_DB_PREFIX."alumni_survey";
-		$sql .= " WHERE email IS NOT NULL AND email <> ''";
-		if (GETPOSTISSET('filter') && GETPOST('filter', 'alphanohtml') != 'none') {
+		$sql = "SELECT asu.rowid as id, asu.firstname, asu.lastname, asu.email";
+		$sql .= " FROM ".MAIN_DB_PREFIX."alumni_survey as asu LEFT JOIN ".MAIN_DB_PREFIX."alumni_survey_extrafields as ase ON asu.rowid = ase.fk_object";
+		$sql .= " WHERE asu.email IS NOT NULL AND asu.email <> ''";
+		/*if (GETPOSTISSET('filter') && GETPOST('filter', 'alphanohtml') != 'none') {
 			$sql .= " AND status = '".$this->db->escape(GETPOST('filter', 'alphanohtml'))."'";
+		}*/
+		if (GETPOSTISSET('filter_motivation') && GETPOSTINT('filter_motivation') > 0) {
+			$sql .= " AND asu.motivation = ".((int) GETPOSTINT('filter_motivation'));
 		}
-		$sql .= " ORDER BY email";
+		$sql .= " ORDER BY asu.email";
 
 		// Store recipients in target
 		$result = $this->db->query($sql);
