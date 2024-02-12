@@ -101,11 +101,10 @@ class modAlumni extends DolibarrModules
 			),
 			// Set here all hooks context managed by module. To find available hook context, make a "grep -r '>initHooks(' *" on source code. You can also set hook context to 'all'
 			'hooks' => array(
-				//   'data' => array(
-				//       'hookcontext1',
-				//       'hookcontext2',
-				//   ),
-				//   'entity' => '0',
+				'data' => array(
+					'customreport',
+				),
+				'entity' => '0'
 			),
 			// Set this to 1 if features of module are opened to external users
 			'moduleforexternal' => 0,
@@ -302,6 +301,22 @@ class modAlumni extends DolibarrModules
 			 'user' => 2,
 		);
 		/* END LEFTMENU SURVEY */
+		/* LEFTMENU NEW SURVEY */
+		$this->menu[$r++]=array(
+			'fk_menu' => 'fk_mainmenu=alumni,fk_leftmenu=survey',
+			'type' => 'left',
+			'titre' => 'NewVoteEntry',
+			'mainmenu' => 'alumni',
+			'leftmenu' => 'survey_list_new',
+			'url' => '/alumni/survey_card.php?action=create',
+			'langs' => 'alumni@alumni',
+			'position' => 1003 + $r,
+			'enabled' => 'isModEnabled(\'alumni\')',
+			'perms' => '$user->hasRight(\'alumni\', \'survey\', \'write\')',
+			'target' => '',
+			'user' => 2,
+		);
+		/* END LEFTMENU NEW SURVEY */
 		/* LEFTMENU LIST SURVEYS */
 		$this->menu[$r++]=array(
 			 'fk_menu' => 'fk_mainmenu=alumni,fk_leftmenu=survey',
@@ -318,23 +333,21 @@ class modAlumni extends DolibarrModules
 			 'user' => 2,
 		);
 		/* END LEFTMENU LIST SURVEYS */
-		/* LEFTMENU NEW SURVEY */
-		$this->menu[$r++]=array(
-			 'fk_menu' => 'fk_mainmenu=alumni,fk_leftmenu=survey',
-			 'type' => 'left',
-			 'titre' => 'NewVoteEntry',
-			 'mainmenu' => 'alumni',
-			 'leftmenu' => 'survey_list_new',
-			 'url' => '/alumni/survey_card.php?action=create',
-			 'langs' => 'alumni@alumni',
-			 'position' => 1003 + $r,
-			 'enabled' => 'isModEnabled(\'alumni\')',
-			 'perms' => '$user->hasRight(\'alumni\', \'survey\', \'write\')',
-			 'target' => '',
-			 'user' => 2,
-		);
-		/* END LEFTMENU NEW SURVEY */
 
+		$this->menu[$r++]=array(
+			'fk_menu' => 'fk_mainmenu=alumni,fk_leftmenu=survey',
+			'type' => 'left',
+			'titre' => 'Reports',
+			'mainmenu' => 'alumni',
+			'leftmenu' => 'survey_list_report',
+			'url' => '/core/customreports.php?element=survey',
+			'langs' => 'alumni@alumni',
+			'position' => 1004 + $r,
+			'enabled' => 'isModEnabled(\'alumni\')',
+			'perms' => '$user->hasRight(\'alumni\', \'survey\', \'write\')',
+			'target' => '',
+			'user' => 2,
+		);
 
 		/* END MODULEBUILDER LEFTMENU MYOBJECT */
 		// Exports profiles provided by this module
