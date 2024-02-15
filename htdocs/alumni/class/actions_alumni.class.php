@@ -280,7 +280,7 @@ class ActionsAlumni extends CommonHookActions
 		*/
 
 		$arrayoftypes = array();
-		$arrayoftypes['alumni_survey'] = array('label' => 'Survey', 'picto'=>'fa-graduation-cap', 'ObjectClassName' => 'Survey', 'enabled' => isModEnabled('alumni'), 'ClassPath' => "/alumni/class/survey.class.php", 'langs'=>'alumni@alumni');
+		$arrayoftypes['survey@alumni'] = array('label' => 'Survey', 'picto'=>'fa-graduation-cap', 'ObjectClassName' => 'Survey', 'enabled' => isModEnabled('alumni'), 'ClassPath' => "/alumni/class/survey.class.php", 'langs'=>'alumni@alumni');
 
 		$this->results['arrayoftype'] = $arrayoftypes;
 

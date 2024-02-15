@@ -340,7 +340,7 @@ class modAlumni extends DolibarrModules
 			'titre' => 'Reports',
 			'mainmenu' => 'alumni',
 			'leftmenu' => 'survey_list_report',
-			'url' => '/core/customreports.php?objecttype=alumni_survey',
+			'url' => '/core/customreports.php?objecttype='.urlencode('survey@alumni'),
 			'langs' => 'alumni@alumni',
 			'position' => 1004 + $r,
 			'enabled' => 'isModEnabled(\'alumni\')',
