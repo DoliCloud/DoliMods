@@ -337,7 +337,7 @@ class modAlumni extends DolibarrModules
 		$this->menu[$r++]=array(
 			'fk_menu' => 'fk_mainmenu=alumni,fk_leftmenu=survey',
 			'type' => 'left',
-			'titre' => 'Reports',
+			'titre' => 'CustomReports',
 			'mainmenu' => 'alumni',
 			'leftmenu' => 'survey_list_report',
 			'url' => '/core/customreports.php?objecttype='.urlencode('survey@alumni'),
