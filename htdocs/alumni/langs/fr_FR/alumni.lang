@@ -1,0 +1,56 @@
+# Copyright (C) 2023 Alice Adminson 
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see .
+
+#
+# Generic
+#
+
+# Module label 'ModuleAlumniName'
+ModuleAlumniName = Alumni
+# Module description 'ModuleAlumniDesc'
+ModuleAlumniDesc = Module pour l'organisation d'une rencontre entre Alumni
+
+#
+# Admin page
+#
+AlumniSetup = Configuration du module Alumni
+Settings = Configuration
+AlumniSetupPage = Page de configuration du module Alumni
+ALUMNI_YEAR=Année depuis le diplôme
+ALUMNI_PROMONAME=Nom ou numéro de la promotion
+
+#
+# About page
+#
+About = A propos
+AlumniAbout = A propos d'Alumni
+AlumniAboutPage = Page à propos d'Alumni
+
+AlumniArea = Accueil Module Alumni
+
+
+Lastname2=Nom de jeune fille
+BudgetMaxActiviteParPers=Budget max par personne pour les activités
+BudgetMaxRepasParPers=Budget max par personne pour les repas
+ComWhatsapp=What's app
+ChoixPerimetre=Périmètre
+ActiviteAssociees=Activités liées
+ActiviteAssocieesNature=Nature des activités
+
+PreferenceJour=Jour de préférence
+PreferenceMois=Mois de préférence
+Results=Résultats
+NewVoteEntry=Nouveau vote
+NbOfVotes=Nombre de votes
