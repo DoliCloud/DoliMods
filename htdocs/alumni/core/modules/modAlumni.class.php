@@ -354,9 +354,10 @@ class modAlumni extends DolibarrModules
 		$r = 1;
 		/* BEGIN MODULEBUILDER EXPORT MYOBJECT */
 		$langs->load("alumni@alumni");
-		$this->export_code[$r]=$this->rights_class.'_'.$r;
-		$this->export_label[$r]='SurveyLines';	// Translation key (used only if key ExportDataset_xxx_z not found)
-		$this->export_icon[$r]='survey@alumni';
+
+		$this->export_code[$r] = $this->rights_class.'_'.$r;
+		$this->export_label[$r] = 'SurveyResults';	// Translation key (used only if key ExportDataset_xxx_z not found)
+		$this->export_icon[$r] = $this->picto;
 		// Define $this->export_fields_array, $this->export_TypeFields_array and $this->export_entities_array
 		$keyforclass = 'Survey'; $keyforclassfile='/alumni/class/survey.class.php'; $keyforelement='survey@alumni';
 		include DOL_DOCUMENT_ROOT.'/core/commonfieldsinexport.inc.php';
@@ -373,7 +374,7 @@ class modAlumni extends DolibarrModules
 		//$this->export_examplevalues_array[$r] = array('t.field'=>'Example');
 		//$this->export_help_array[$r] = array('t.field'=>'FieldDescHelp');
 		$this->export_sql_start[$r]='SELECT DISTINCT ';
-		$this->export_sql_end[$r]  =' FROM '.MAIN_DB_PREFIX.'survey as t';
+		$this->export_sql_end[$r]  =' FROM '.MAIN_DB_PREFIX.'alumni_survey as t';
 		//$this->export_sql_end[$r]  =' LEFT JOIN '.MAIN_DB_PREFIX.'survey_line as tl ON tl.fk_survey = t.rowid';
 		$this->export_sql_end[$r] .=' WHERE 1 = 1';
 		$this->export_sql_end[$r] .=' AND t.entity IN ('.getEntity('survey').')';
@@ -384,9 +385,9 @@ class modAlumni extends DolibarrModules
 		/* BEGIN MODULEBUILDER IMPORT MYOBJECT */
 		/*
 		$langs->load("alumni@alumni");
-		$this->import_code[$r]=$this->rights_class.'_'.$r;
-		$this->import_label[$r]='SurveyLines';	// Translation key (used only if key ExportDataset_xxx_z not found)
-		$this->import_icon[$r]='survey@alumni';
+		$this->import_code[$r] = $this->rights_class.'_'.$r;
+		$this->import_label[$r] = 'SurveyLines';	// Translation key (used only if key ExportDataset_xxx_z not found)
+		$this->import_icon[$r] = $this->picto;
 		$this->import_tables_array[$r] = array('t' => MAIN_DB_PREFIX.'alumni_survey', 'extra' => MAIN_DB_PREFIX.'alumni_survey_extrafields');
 		$this->import_tables_creator_array[$r] = array('t' => 'fk_user_author'); // Fields to store import user id
 		$import_sample = array();
