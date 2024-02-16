@@ -40,19 +40,19 @@ require_once DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php";
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.formadmin.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.formother.class.php';
 dol_include_once("/ecotaxdeee/lib/ecotaxdeee.lib.php");
+dol_include_once("/ecotaxdeee/class/ecotaxdeee.class.php");
 
-require_once DOL_DOCUMENT_ROOT.'/ecotaxdeee/class/ecotaxdeee.class.php';
+if (!$user->admin) {
+	accessforbidden();
+}
 
-if (!$user->admin) accessforbidden();
+$langs->loadLangs(array("admin", "other", "ecotaxdeee@ecotaxdeee"));
 
-
-$langs->load("admin");
-$langs->load("other");
-$langs->load("ecotaxdeee@ecotaxdeee");
 
 /*
- * Actions 
+ * Actions
  */
+
 $action = GETPOST('action', 'alpha');
 $code = GETPOST('codeecotax');
 $amount = GETPOST('amount');
@@ -65,21 +65,21 @@ if ($action == 'save') {
         $error++;
         setEventMessages("ErrorInputsRequired", null, 'errors');
     }
-    
+
     $ecotax = new Ecotaxdeee($db);
     $ecotax->code = dol_escape_htmltag($code);
     $ecotax->amount = dol_escape_htmltag($amount);
-    
+
     if (!$error) {
         $result = $ecotax->create($user);
-       
+
         if ($result > 0) {
             setEventMessages("recordAdded", null);
             header("Location: ".$_SERVER['PHP_SELF']);
             exit;
         } else {
             setEventMessages($ecotax->error, $ecotax->errors, 'errors');
-           
+
         }
     }
 }
@@ -88,7 +88,7 @@ if ($action == 'update' && !GETPOST('cancel')) {
     $key = GETPOST('key');
     $ecotax = new Ecotaxdeee($db);
     $object = $ecotax->fetch($key);
-    
+
     $code_update = (empty(GETPOST('codeecotax')) ? $object->code : GETPOST('codeecotax'));
     $amount_update = (empty(GETPOST('amount')) ? $object->amount : GETPOST('amount'));
     $ecotax->code = $code_update;
@@ -100,7 +100,7 @@ if ($action == 'update' && !GETPOST('cancel')) {
         exit;
     } else {
         setEventMessages($ecotax->error, $ecotax->errors, 'errors');
-       
+
     }
 }
 
@@ -115,7 +115,7 @@ if ($action == 'delete') {
         exit;
     } else {
         setEventMessages($ecotax->error, $ecotax->errors, 'errors');
-       
+
     }
 }
 /*
@@ -145,7 +145,7 @@ if ($action == 'create') {
     print '<td>'.$langs->trans("Parameter")."</td>";
     print "<td>".$langs->trans("Value")."</td>";
     print "</tr>";
-    // for code 
+    // for code
     print '<tr class="oddeven">';
     print "<td>".$langs->trans("CodeEcotax")."</td>";
     print "<td><input type='text' name='codeecotax'/></td>";
@@ -173,7 +173,7 @@ if ($action == 'create') {
 
     $object = new Ecotaxdeee($db);
     $records = $object->fetchAll();
-   
+
     print '<table class="noborder" width="100%">';
     if (!empty($records)) {
         print '<tr class="liste_titre">';
@@ -189,7 +189,7 @@ if ($action == 'create') {
             if ($action == 'edit' && GETPOST('key') == $item->rowid) {
                 print '<form action="'.$_SERVER["PHP_SELF"].'" method="post">';
                 print '<input type="hidden" name="token" value="'.newToken().'">';
-                print '<input type="hidden" name="action" value="update">'; 
+                print '<input type="hidden" name="action" value="update">';
                 print '<input type="hidden" name="key" value="'.$item->rowid.'"/>';
                 print '<td><input type="text" name="codeecotax" value="'.$item->code.'" /></td>';
                 print '<td><input type="text" name="amount" value="'.$item->amount.'" /></td>';

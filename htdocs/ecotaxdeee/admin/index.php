@@ -29,22 +29,19 @@ require_once DOL_DOCUMENT_ROOT.'/core/class/html.formother.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/doleditor.class.php';
 dol_include_once("/ecotaxdeee/lib/ecotaxdeee.lib.php");
 
-if (!$user->admin) accessforbidden();
+if (!$user->admin) {
+	accessforbidden();
+}
 
-$langs->load("ecotaxdeee@ecotaxdeee");
-$langs->load("admin");
-$langs->load("other");
-$langs->load("orders");
-$langs->load("bills");
-$langs->load("propal");
+$langs->loadLangs(array("admin", "other", "ecotaxdeee@ecotaxdeee", "orders", "bills", "propal"));
 
-$def = array();
-$action=GETPOST("action");
+$action = GETPOST("action");
 
 
 /*
  * Actions
  */
+
 if ($action == 'save') {
 	$db->begin();
 
