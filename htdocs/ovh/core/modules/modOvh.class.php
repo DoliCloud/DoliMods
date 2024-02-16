@@ -58,7 +58,7 @@ class modOvh extends DolibarrModules
 		$this->editor_name = 'DoliCloud';
 		$this->editor_url = 'https://www.dolicloud.com';
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
-		$this->version = '4.1';
+		$this->version = '4.2';
 		// Key used in llx_const table to save module status enabled/disabled (where MYMODULE is value of property name of module in uppercase)
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
 		// Name of image file used for this module.
@@ -71,7 +71,7 @@ class modOvh extends DolibarrModules
 		// for specific path of parts (eg: /mymodule/core/modules/barcode)
 		// for specific css file (eg: /mymodule/css/mymodule.css.php)
 		$this->module_parts = array(
-			'triggers' => 0,                                 	// Set this to 1 if module has its own trigger directory (core/triggers)
+			'triggers' => 1,                                 	// Set this to 1 if module has its own trigger directory (core/triggers)
 			'login' => 0,                                    	// Set this to 1 if module has its own login method directory (core/login)
 			'substitutions' => 0,    								'prefix' => img_picto('', $this->picto, 'class="paddingright pictofixedwidth valignmiddle"'),
 			// Set this to 1 if module has its own substitution function file (core/substitutions)
@@ -104,8 +104,8 @@ class modOvh extends DolibarrModules
 		// List of particular constants to add when module is enabled (key, 'chaine', value, desc, visible, 'current' or 'allentities', deleteonunactive)
 		// Example: $this->const=array(0=>array('MYMODULE_MYNEWCONST1','chaine','myvalue','This is a constant to add', 1, 'allentities', 1),
 		//                             1=>array('MYMODULE_MYNEWCONST2','chaine','myvalue','This is another constant to add', 0, 'current', 0)
-		$this->const = array(0=>array('MAIN_MODULE_OVH_SMS','chaine','ovh','This is to enable OVH SMS module',0,'current',1),
-							 1=>array('MAIN_SMS_SENDMODE','chaine','ovh','This is to enable OVH SMS engine',0,'current',1),
+		$this->const = array(0=>array('MAIN_MODULE_OVH_SMS','chaine','ovhsms@ovh','This is to declare the OVH SMS module as available',0,'current',1),
+							 1=>array('MAIN_SMS_SENDMODE','chaine','ovh','This is to autoset the SMS engine to OVH',0,'current',1),
 							 2=>array('MAIN_SMS_DEBUG','chaine','1','This is to enable OVH SMS debug',1,'allentities',0),
 							 3=>array('MAIN_MENU_ENABLE_MODULETOOLS','chaine','1','To enable module tools entry',0,'allentities',1),
 							 4=>array('MAIN_AGENDA_ACTIONAUTO_COMPANY_SENTBYSMS','chaine','1','To enable module tools entry',0,'allentities',1),
@@ -132,9 +132,9 @@ class modOvh extends DolibarrModules
 		// 'group'            to add a tab in group view
 		// 'contact'          to add a tab in contact view
 		// 'categories_x'	  to add a tab in category view (replace 'x' by type of category (0=product, 1=supplier, 2=customer, 3=member)
-		$this->tabs = array('thirdparty:+tabSMS:SMS:ovh@ovh:$user->rights->ovh->send:/ovh/sms_thirdparty.php?id=__ID__',
-							//'contact:+tabSMS:SMS:ovh@ovh:$user->rights->ovh->send:/ovh/sms_contact.php?id=__ID__',  // This is done from thirdparty tab
-							'member:+tabSMS:SMS:ovh@ovh:$user->rights->ovh->send:/ovh/sms_member.php?id=__ID__');
+		$this->tabs = array('thirdparty:+tabSMS:SMS:ovh@ovh:! empty($user->rights->ovh->send):/ovh/sms_thirdparty.php?id=__ID__',
+							//'contact:+tabSMS:SMS:ovh@ovh:! empty($user->rights->ovh->send):/ovh/sms_contact.php?id=__ID__',  // This is done from thirdparty tab
+							'member:+tabSMS:SMS:ovh@ovh:! empty($user->rights->ovh->send):/ovh/sms_member.php?id=__ID__');
 
 
 
@@ -188,8 +188,8 @@ class modOvh extends DolibarrModules
 									'prefix'=>img_picto('', $this->picto, 'class="paddingright pictofixedwidth valignmiddle" height="16"'),
 									'langs'=>'ovh@ovh',	        // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 									'position'=>500,
-									'enabled'=>'$conf->ovh->enabled',  // Define condition to show or hide menu entry. Use '$conf->mymodule->enabled' if entry must be visible if module is enabled. Use '$leftmenu==\'system\'' to show if leftmenu system is selected.
-									'perms'=>'$user->rights->ovh->importinvoice',	// Use 'perms'=>'$user->rights->mymodule->level1->level2' if you want your menu with a permission rules
+									'enabled'=>'isModEnabled("ovh")',
+									'perms'=>'$user->hasRight("ovh", "importinvoice")',	// Use 'perms'=>'$user->rights->mymodule->level1->level2' if you want your menu with a permission rules
 									'target'=>'',
 									'user'=>2);				                // 0=Menu for internal users, 1=external users, 2=both
 		$r++;
@@ -201,8 +201,8 @@ class modOvh extends DolibarrModules
 									'prefix'=>img_picto('', $this->picto, 'class="paddingright pictofixedwidth valignmiddle" height="16"'),
 									'langs'=>'ovh@ovh',	        // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 									'position'=>500,
-									'enabled'=>'$conf->ovh->enabled',  // Define condition to show or hide menu entry. Use '$conf->mymodule->enabled' if entry must be visible if module is enabled. Use '$leftmenu==\'system\'' to show if leftmenu system is selected.
-									'perms'=>'$user->rights->ovh->sysadmin',	// Use 'perms'=>'$user->rights->mymodule->level1->level2' if you want your menu with a permission rules
+									'enabled'=>'isModEnabled("ovh")',
+									'perms'=>'$user->hasRight("ovh", "sysadmin")',	// Use 'perms'=>'$user->rights->mymodule->level1->level2' if you want your menu with a permission rules
 									'target'=>'',
 									'user'=>2);				                // 0=Menu for internal users, 1=external users, 2=both
 		$r++;

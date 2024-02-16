@@ -280,7 +280,7 @@ while (($file = readdir($dir)) !== false) {
 if (count($files) == 0) {
 	$output_table = '<div align="'.$table_align.'">';
 	$output_table.= 'Sorry, No AWStats data files (awstatsYYMMDD.*) found into directory <b>'.$history_dir.'</b> for the selected filters.';
-	if (! empty($conf->global->AWSTATS_LIMIT_CONF)) $output_table.='<br>Note that search is restricted to config name <b>'.$conf->global->AWSTATS_LIMIT_CONF.'</b>';
+	if (! empty($conf->global->AWSTATS_LIMIT_CONF)) $output_table.='<br>Note that search is restricted to config name <b>' . getDolGlobalString('AWSTATS_LIMIT_CONF').'</b>';
 	$output_table.= '</div>';
 } else {
 	// Sort the files in ascending order and then reset the list of sites

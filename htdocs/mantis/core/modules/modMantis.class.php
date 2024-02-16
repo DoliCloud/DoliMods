@@ -60,8 +60,6 @@ class modMantis extends DolibarrModules
 		$this->version = '3.4';
 		// Id used in llx_const table to manage module status (enabled/disabled)
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
-		// Where to store the module in setup page (0=common,1=interface,2=other)
-		$this->special = 1;
 		// Name of png file (without png) used for this module
 		$this->picto='calendar';
 

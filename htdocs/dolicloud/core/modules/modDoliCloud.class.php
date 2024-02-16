@@ -49,8 +49,6 @@ class modDoliCloud extends DolibarrModules
 		$this->version = '3.4';
 		// Key used in llx_const table to save module status enabled/disabled (where MYMODULE is value of property name of module in uppercase)
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
-		// Where to store the module in setup page (0=common,1=interface,2=others,3=very specific)
-		$this->special = 1;
 		// Name of image file used for this module.
 		// If file is in theme/yourtheme/img directory under name object_pictovalue.png, use this->picto='pictovalue'
 		// If file is in module/img directory under name object_pictovalue.png, use this->picto='pictovalue@module'
@@ -101,7 +99,7 @@ class modDoliCloud extends DolibarrModules
 		$r=0;
 
 		// Main menu entries
-		$this->menus = array();			// List of menus to add
+		$this->menu = array();			// List of menus to add
 		$r=0;
 	}
 

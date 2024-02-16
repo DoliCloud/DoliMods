@@ -49,7 +49,8 @@ AllowGoogleToLoginWithClientID=U kunt uw <strong> Google-client-ID en geheim </s
 AllowGoogleToLoginWithClientSecret=Zie de opmerking op de vorige regel om te weten hoe u uw Google Client Secret kunt verkrijgen.
 AllowGoogleToLoginWithServiceAccount=U kunt uw <strong>-serviceaccount gebruiker/e-mail </strong> maken vanaf pagina <a href="%s" target="_blank"> %s </a> , een project selecteren of er een maken en vervolgens menu "API & Services" -> "Inloggegevens". Klik op "Create/Add a client ID" en kies "Service Account" en vervolgens "Create". U krijgt een nieuw serviceaccount met een <strong> Serviceaccount-client-ID </strong> en een <strong> Serviceaccount EMail </strong> . U moet hier het <strong> Service-account EMail </strong> invoeren.
 EnableAPI=U moet ook de API voor uw Google-account inschakelen. Ga hiervoor naar pagina <a href="%s" target="_blank"> %s </a> , menu "API & Services" -> "API". Klik om API voor "%s" in te schakelen.
-ShareCalendarWithServiceAccount=U moet de agenda (alle rechten) ook delen met de serviceaccount gebruiker/e-mail <strong> %s </strong> : Ga hiervoor naar de Google-agenda. Het moet dezelfde agenda zijn als degene die is gekozen voor parameter "%s". Kies "Parameters" en klik vervolgens op uw Agenda-naam om de link "Deel parameters met..." weer te geven. Klik erop en voeg de gebruiker van het serviceaccount toe als contactpersoon om uw agenda mee te delen. Kies toestemming "Evenementen bewerken" en valideer door op "Gebruiker toevoegen" te klikken. Met <strong> Google Suite </strong> (niet vereist voor standaard Gmail-account), kunnen machtigingen worden geforceerd naar "Alleen gereed" in plaats van "Bewerken". Als u de machtiging "Bewerken" niet kunt kiezen, gaat u naar <a href="https://admin.google.com/AdminHome?pli=1&fral=1#AppDetails:service=Calendar&flyout=sharing" target="_blank"> https://admin.google.com/AdminHome?pli=1&fral=1#AppDetails:service=Calendar&flyout=sharing </a> en controleert u of de optie voor delen van de Agenda-toepassing delen toestaat met externe serviceaccount.
+ShareCalendarWithServiceAccount=You must also share the agenda (all permissions) with the service account user/email <strong>%s</strong>: For this, go into the Google calendar. It must be same Agenda than the one choosed on parameter "%s". Choose "Parameters" then click on your Agenda name to show the link "Share parameters with...". Click on it and add the service account user as a contact to share your agenda with. Choose permission "Edit events" and validate by clicking "Add user".
+ShareCalendarWithServiceAccount2=With <strong>Google Suite</strong> (not required for standard gmail account), permissions may be forced to "Ready only" instead of "Edit". If you can't choose "Edit" permission, go onto <a href="https://admin.google.com/AdminHome?pli=1&fral=1#AppDetails:service=Calendar&flyout=sharing" target="_blank">https://admin.google.com/AdminHome?pli=1&fral=1#AppDetails:service=Calendar&flyout=sharing</a> and check that sharing option of Agenda application allows sharing with external service account.
 GOOGLE_API_SERVERKEY=API-sleutel (type "Serversleutel")
 GoogleUserConf=Google-configuratie
 GoogleSetupIsGlobal=De synchronisatie wordt globaal gedaan voor alle gebruikers met agenda-ID <strong> %s </strong> .
@@ -69,6 +70,9 @@ ExportEventsToGoogle=Exporteer laatste <strong> %s </strong> Dolibarr-evenemente
 DeleteAllGoogleThirdparties=Verwijder alle derde partijen die afkomstig zijn van Dolibarr op Gmail.
 DeleteAllGoogleContacts=Verwijder alle contacten/adressen die afkomstig zijn van Dolibarr op Gmail.
 DeleteAllGoogleMembers=Verwijder alle leden die afkomstig zijn van Dolibarr op Gmail.
+FromId=From ID:
+ToId=to ID:
+IdSelectOptional=ID Range selection is optional
 DeleteAllGoogleEvents=Verwijder alle evenementen van Google-agenda <strong> %s </strong> gekoppeld aan een Dolibarr
 PushToGoogleSucess=Synchronisatie met Google-contact voltooid voor %s record(s).
 TagsCreatedSuccess=Synchroniseren van groepen met Google-contact voltooid
@@ -115,7 +119,7 @@ MoreCloudHostingLink= <a target="_blank" href="https://www.dolicloud.com"> Klik 
 CompatibleWithDoliDroid=Deze module is ook compatibel met DoliDroid, de Android-applicatie voor Dolibarr.
 LinkToThirdParty=Link naar derde partij
 LinkToContact=Link naar contact
-GoogleContactSyncInfo=Gebruik hier een willekeurig etiket naar keuze. Er wordt een groep gemaakt in Google Contact als deze niet bestaat. U kunt ook een label van een van de vooraf gedefinieerde Google-systeemgroepen gebruiken, zoals: <br> "Systeemgroep: Mijn contacten", "Systeemgroep: vriend", "Systeemgroep: CoWorker", "Systeemgroep: Familie" <br> Merk ook op dat alleen de vooraf gedefinieerde systeemgroep "Systeemgroep: Mijn contacten" wordt gedeeld door de functie "Contacten delegeren" die beschikbaar is in Google Contact van Google Suite.
+GoogleContactSyncInfo=Use here any label of your choice. Group will be created into Google Contact if it does not exist. You can also use a label of one of any predefined Google system group like:<br>"contactGroups/myContacts", "contactGroups/coworkers", "contactGroups/family", "contactGroups/friends"<br>Note also that only the predefined system group "contactGroups/myContacts" is shared by the "Delegate contacts" feature available in Google contact of Google suite.
 XRecordDeleted= <strong> %s </strong> records verwijderd
 ThisFieldIsAGlobalSetup=Dit veld wordt gedefinieerd in de algemene instellingen van de module
 FillAndSaveGoogleAccount=Vul eerst uw Google-account en Google Client-ID in en sla deze op
@@ -134,3 +138,4 @@ IconTiers=Gebruik een ander picto voor prospect, klant en leverancier
 CustomersOnly=Alleen klanten
 ProspectsOnly=Alleen vooruitzichten
 RefreshEventFromGoogle=Evenementen vernieuwen van Google
+Tool=Outil

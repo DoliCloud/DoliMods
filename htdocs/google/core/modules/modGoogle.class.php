@@ -46,7 +46,7 @@ class modGoogle extends DolibarrModules
 		$this->editor_name = 'DoliCloud';
 		$this->editor_url = 'https://www.dolicloud.com';
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
-		$this->version = '6.5';
+		$this->version = '6.8.1';
 		// Key used in llx_const table to save module status enabled/disabled (where MYMODULE is value of property name of module in uppercase)
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
 		// Name of image file used for this module.
@@ -72,7 +72,7 @@ class modGoogle extends DolibarrModules
 		$this->depends = array();		// List of modules id that must be enabled if this module is enabled
 		$this->requiredby = array();	// List of modules id to disable if this one is disabled
 		$this->phpmin = array(7,2);					// Minimum version of PHP required by module
-		$this->need_dolibarr_version = array(14, 0, -4);	// Minimum version of Dolibarr required by module
+		$this->need_dolibarr_version = array(16, 0, -4);	// Minimum version of Dolibarr required by module
 		$this->langfiles = array("google@google");
 
 		// Constants
@@ -116,7 +116,7 @@ class modGoogle extends DolibarrModules
 		// $r++;
 
 		// Main menu entries
-		$this->menus = array();			// List of menus to add
+		$this->menu = array();			// List of menus to add
 		$r=0;
 
 		// Add here entries to declare new menus

@@ -65,8 +65,6 @@ class modStat extends DolibarrModules
 		$this->version = 'development';
 		// Key used in llx_const table to save module status enabled/disabled (where statistic is value of property name of module in uppercase)
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
-		// Where to store the module in setup page (0=common,1=interface,2=others,3=very specific)
-		$this->special = 2;
 		// Name of image file used for this module.
 		// If file is in theme/yourtheme/img directory under name object_pictovalue.png, use this->picto='pictovalue'
 		// If file is in module/img directory under name object_pictovalue.png, use this->picto='pictovalue@module'
@@ -79,9 +77,6 @@ class modStat extends DolibarrModules
 		// Example: this->dirs = array("/statistic/temp");
 		$this->dirs = array();
 		$r=0;
-
-		// Relative path to module style sheet if exists. Example: '/statistic/css/mycss.css'.
-		$this->style_sheet = '';
 
 		// Config pages. Put here list of php page names stored in admmin directory used to setup module.
 		//$this->config_page_url = array("statisticSetup.php");
@@ -141,7 +136,7 @@ class modStat extends DolibarrModules
 
 
 		// Main menu entries
-		$this->menus = array();			// List of menus to add
+		$this->menu = array();			// List of menus to add
 		$r=0;
 
 		// Add here entries to declare new menus

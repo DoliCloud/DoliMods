@@ -117,7 +117,7 @@ if ($step == 1 || $action == 'request' ) { //option to select the period
     $h++;
 	dol_fiche_head($head, $hselected, $langs->trans("MenuSaft"));
 	// Security check
-	if(!$user->rights->saftpt->exesaftpt->write)
+	if(!$user->hasRight('saftpt', 'exesaftpt', 'write'))
     {
         $errors[]=$langs->trans('CantCreateSaft');
     }

@@ -54,7 +54,7 @@ function llxFooterIFTTT()
 require '../../main.inc.php';
 
 // Security check
-if (empty($conf->ifttt->enabled)) accessforbidden('', 0, 0, 1);
+if (!isModEnabled("ifttt")) accessforbidden('', 0, 0, 1);
 
 // Check config
 if (empty($conf->global->IFTTT_DOLIBARR_ENDPOINT_SECUREKEY)) {

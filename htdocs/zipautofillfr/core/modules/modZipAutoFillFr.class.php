@@ -58,7 +58,7 @@ class modZipAutoFillFr extends DolibarrModules
 		$this->description = "Add zip codes and towns into database (France and Belgium)";
 
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
-		$this->version = '4.0';
+		$this->version = '12.0';
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
 		$this->picto='zipautofillfr@zipautofillfr';
 
@@ -67,7 +67,7 @@ class modZipAutoFillFr extends DolibarrModules
 
 		// Dependances
 		$this->depends = array();
-		$this->need_dolibarr_version = array(6,0,-3);   // Minimum version of Dolibarr required by module
+		$this->need_dolibarr_version = array(12,0,-3);   // Minimum version of Dolibarr required by module
 		$this->langfiles = array('zipautofillfr@zipautofillfr');
 
 		// Config pages
@@ -81,7 +81,7 @@ class modZipAutoFillFr extends DolibarrModules
 		$this->const = array(0=>array('MAIN_USE_ZIPTOWN_DICTIONNARY','chaine','1','Constant to enable usage of zip-town table',0,'current',1));
 
 		// Dictionnaries
-		$this->dictionnaries=array(
+		$this->dictionaries=array(
 			'langs'=>'',
 			'tabname'=>array("c_ziptown"),
 			'tablib'=>array("Zip and town"),
@@ -91,7 +91,7 @@ class modZipAutoFillFr extends DolibarrModules
 			'tabfieldvalue'=>array("zip,town,country"),
 			'tabfieldinsert'=>array("zip,town,fk_pays"),
 			'tabrowid'=>array(),
-			'tabcond'=>array(empty($conf->zipautofillfr->enabled)?0:$conf->zipautofillfr->enabled)
+			'tabcond'=>array(isModEnabled("zipautofillfr")?1:0)
 		);
 
 		// Boxes

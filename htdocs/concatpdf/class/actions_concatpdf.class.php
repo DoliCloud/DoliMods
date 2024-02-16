@@ -29,16 +29,23 @@ require_once DOL_DOCUMENT_ROOT."/core/lib/files.lib.php";
  */
 class ActionsConcatPdf
 {
-	var $db;
-	var $error;
-	var $errors=array();
+	public $db;
+	public $error;
+	public $errors=array();
+
+	// For Hookmanager return
+	public $resprints;
+	public $results = array();
+
+	public $tpls;
+
 
 	/**
 	 *	Constructor
 	 *
 	 *  @param		DoliDB		$db      Database handler
 	 */
-	function __construct($db)
+	public function __construct($db)
 	{
 		$this->db = $db;
 	}
@@ -53,7 +60,7 @@ class ActionsConcatPdf
 	 *                          		=0 if OK but we want to process standard actions too,
 	 *  	                            >0 if OK and we want to replace standard actions.
 	 */
-	function formBuilddocOptions($parameters, &$object)
+	public function formBuilddocOptions($parameters, &$object)
 	{
 		global $langs, $user, $conf, $form;
 
@@ -109,7 +116,7 @@ class ActionsConcatPdf
 				if (! empty($tmp[1])) $tmparray2[$tmp[0]]=$tmp[1];
 			}
 			foreach ($tmparray2 as $key => $val) {
-				if ($modulepart == $key || $modulepart == $altkey[$key]) $preselected=$val;		// $preselected is 'mytemplate' or 'mytemplate1,mytemplate2'
+				if ($modulepart == $key || (array_key_exists($key, $altkey) && $modulepart == $altkey[$key])) $preselected=$val;		// $preselected is 'mytemplate' or 'mytemplate1,mytemplate2'
 			}
 		}
 
@@ -172,14 +179,12 @@ class ActionsConcatPdf
 	 *                          		=0 if OK but we want to process standard actions too,
 	 *  	                            >0 if OK and we want to replace standard actions.
 	 */
-	function afterPDFCreation($parameters, &$pdfhandler, &$action)
+	public function afterPDFCreation($parameters, &$pdfhandler, &$action)
 	{
 		global $langs,$conf;
 		global $hookmanager;
 
 		$outputlangs=$langs;
-
-		//var_dump($parameters['object']);
 
 		$ret=0; $deltemp=array();
 		dol_syslog(get_class($this).'::executeHooks action='.$action);
@@ -190,14 +195,18 @@ class ActionsConcatPdf
 		}
 
 		$check='alpha';
-		if (! empty($conf->global->CONCATPDF_MULTIPLE_CONCATENATION_ENABLED)) $check='array';
+		if (! empty($conf->global->CONCATPDF_MULTIPLE_CONCATENATION_ENABLED)) {
+			$check='array';
+		}
 
 		$concatpdffile = GETPOST('concatpdffile', $check);
 		if (! is_array($concatpdffile)) {
-			if (! empty($concatpdffile)) $concatpdffile = array($concatpdffile);
-			else $concatpdffile = array();
+			if (! empty($concatpdffile)) {
+				$concatpdffile = array($concatpdffile);
+			} else {
+				$concatpdffile = array();
+			}
 		}
-
 
 		// Defined $preselected value
 		$preselected=(isset($parameters['object']->extraparams['concatpdf'][0])?$parameters['object']->extraparams['concatpdf'][0]:-1);	// string with preselected string
@@ -207,13 +216,14 @@ class ActionsConcatPdf
 		// Includes default models if no model selection
 		if (empty($concatpdffile) && ! $formwassubmittedwithemptyselection) {
 			//var_dump($conf->global->CONCATPDF_PRESELECTED_MODELS);
-			if ($preselected == -1 && ! empty($conf->global->CONCATPDF_PRESELECTED_MODELS)) {
+			if ($preselected == -1 && getDolGlobalString('CONCATPDF_PRESELECTED_MODELS')) {
+
 				// List of value key into setup -> value for modulepart
 				$altkey=array('proposal'=>'propal', 'order'=>'commande', 'invoice'=>'facture', 'supplier_order'=>'order_supplier', 'supplier_invoice'=>'invoice_supplier');
 
 				// $conf->global->CONCATPDF_PRESELECTED_MODELS may contains value of preselected model with format
 				// propal:model1a,model1b;invoice:model2;...
-				$tmparray=explode(';', $conf->global->CONCATPDF_PRESELECTED_MODELS);
+				$tmparray=explode(';', getDolGlobalString('CONCATPDF_PRESELECTED_MODELS'));
 				$tmparray2=array();
 				foreach ($tmparray as $val) {
 					$tmp=explode(':', $val);
@@ -221,29 +231,37 @@ class ActionsConcatPdf
 				}
 				foreach ($tmparray2 as $key => $val) {
 					//var_dump($key.' - '.$altkey[$key].' - '.$val.' - '.$parameters['object']->element);
-					if ($parameters['object']->element == $key || $parameters['object']->element == $altkey[$key]) $concatpdffile[]=$val;
+					if (isset($parameters['object']->element) && ($parameters['object']->element == $key || $parameters['object']->element == $altkey[$key])) {
+						$tmpval = explode(',', $val);
+						foreach($tmpval as $val2) {
+							$concatpdffile[]=$val2;
+						}
+					}
 				}
 			} else {
 				$concatpdffile = empty($parameters['object']->extraparams['concatpdf']) ? '' : $parameters['object']->extraparams['concatpdf'];
 			}
 		}
 
-		$element='';
-		if ($parameters['object']->element == 'propal')  $element='proposals';
-		if ($parameters['object']->element == 'order'   || $parameters['object']->element == 'commande') $element='orders';
-		if ($parameters['object']->element == 'invoice' || $parameters['object']->element == 'facture')  $element='invoices';
-		if ($parameters['object']->element == 'proposal_supplier' || $parameters['object']->element == 'supplier_proposal')  $element='supplier_proposals';
-		if ($parameters['object']->element == 'order_supplier' || $parameters['object']->element == 'commande_fournisseur')  $element='supplier_orders';
-		if ($parameters['object']->element == 'invoice_supplier' || $parameters['object']->element == 'facture_fournisseur')  $element='supplier_invoices';
-		if ($parameters['object']->element == 'contract' || $parameters['object']->element == 'contrat')  $element='contracts';
+		$element = '';
+		if (isset($parameters['object']->element)) {
+			if ($parameters['object']->element == 'propal')  $element='proposals';
+			if ($parameters['object']->element == 'order'   || $parameters['object']->element == 'commande') $element='orders';
+			if ($parameters['object']->element == 'invoice' || $parameters['object']->element == 'facture')  $element='invoices';
+			if ($parameters['object']->element == 'proposal_supplier' || $parameters['object']->element == 'supplier_proposal')  $element='supplier_proposals';
+			if ($parameters['object']->element == 'order_supplier' || $parameters['object']->element == 'commande_fournisseur')  $element='supplier_orders';
+			if ($parameters['object']->element == 'invoice_supplier' || $parameters['object']->element == 'facture_fournisseur')  $element='supplier_invoices';
+			if ($parameters['object']->element == 'contract' || $parameters['object']->element == 'contrat')  $element='contracts';
+		}
 
 		$filetoconcat1=array($parameters['file']);
 		$filetoconcat2=array();
 
 		if (! empty($concatpdffile) && $concatpdffile[0] != -1) {
 			foreach ($concatpdffile as $concatfile) {
-				// We search which second file to add (or generate it if file to add as a name starting with pdf___)
+				// We search which second file to add (or generate it if file to add as a name matching pdf__...modules)
 				if (preg_match('/^pdf_(.*)+\.modules/', $concatfile)) {
+					// We will generate the file to concat
 					require_once DOL_DOCUMENT_ROOT."/core/lib/files.lib.php";
 
 					$file = $conf->concatpdf->dir_output.'/'.$element.'/'.$concatfile.'.php';
@@ -281,6 +299,7 @@ class ActionsConcatPdf
 
 				// Create empty PDF
 				$pdf=pdf_getInstance($format);
+				//$pdf->SetAutoPageBreak(1, 0);
 				if (class_exists('TCPDF')) {
 					$pdf->setPrintHeader(false);
 					$pdf->setPrintFooter(false);
@@ -316,14 +335,20 @@ class ActionsConcatPdf
 
 				// Save selected files into extraparams
 				$params['concatpdf'] = $concatpdffile;
-				$parameters['object']->extraparams = array_merge($parameters['object']->extraparams, $params);
+				if (is_object($parameters['object'])) {
+					$parameters['object']->extraparams = array_merge(is_array($parameters['object']->extraparams) ? $parameters['object']->extraparams : array(), $params);
+				}
 			}
 		} else {
 			// Remove extraparams for concatpdf
-			if (isset($parameters['object']->extraparams['concatpdf'])) unset($parameters['object']->extraparams['concatpdf']);
+			if (isset($parameters['object']->extraparams['concatpdf'])) {
+				unset($parameters['object']->extraparams['concatpdf']);
+			}
 		}
 
-		if (is_object($parameters['object']) && method_exists($parameters['object'], 'setExtraParameters')) $result=$parameters['object']->setExtraParameters();
+		if (is_object($parameters['object']) && method_exists($parameters['object'], 'setExtraParameters')) {
+			$result = $parameters['object']->setExtraParameters();
+		}
 
 		return $ret;
 	}
@@ -335,19 +360,111 @@ class ActionsConcatPdf
 	 * @param 	array	$files  Array of files to concat.
 	 * @return	int				Number of files
 	 */
-	function concat(&$pdf, $files)
+	public function concat(&$pdf, $files)
 	{
+		require_once DOL_DOCUMENT_ROOT."/core/lib/files.lib.php";
 		$pagecount = 0;
+
 		foreach ($files as $file) {
-			if (dol_is_file($file)) {	// We ignore file if not found so if ile has been removed we can still generate the PDF.
+			if ($file == '/home/ldestailleur/git/dolibarr_16.0/documents/concatpdf/invoices/FA1803-0795.pdf') {
+				continue;
+			}
+			if (dol_is_file($file)) {	// We ignore file if not found so if file has been removed we can still generate the PDF.
 				$pagecounttmp = $pdf->setSourceFile($file);
 				if ($pagecounttmp) {
 					for ($i = 1; $i <= $pagecounttmp; $i++) {
 						try {
 							$tplidx = $pdf->ImportPage($i);
+
+							// TODO Read /Annot to get links and save same after useTemplate
+							/*
+							$pageno = $i;
+							$tpl =& $pdf->tpls[$tplidx];
+							$parser =& $tpl['parser'];
+							var_dump($parser);exit;
+
+							if (isset($parser->pages[$pageno - 1][1][1]['/Annots'])) {
+								$annots = $parser->pages[$pageno - 1][1][1]['/Annots'];
+
+								$annots = $this->resolve($parser, $annots);
+								var_dump($annots);
+								$links = array();
+								foreach ($annots[1] as $annot) if ($annot[0] == PDF_TYPE_DICTIONARY) {
+									// all links look like:  << /Type /Annot /Subtype /Link /Rect [...] ... >>
+									if ($annot[1]['/Type'][1] == '/Annot' && $annot[1]['/Subtype'][1] == '/Link') {
+										$rect = $annot[1]['/Rect'];
+										if ($rect[0] == PDF_TYPE_ARRAY && count($rect[1]) == 4) {
+											$x = $rect[1][0][1]; $y = $rect[1][1][1];
+											$x2 = $rect[1][2][1]; $y2 = $rect[1][3][1];
+											$w = $x2 - $x; $h = $y2 - $y;
+											$h = -$h;
+										}
+										if (isset($annot[1]['/A'])) {
+											$A = $annot[1]['/A'];
+
+											if ($A[0] == PDF_TYPE_DICTIONARY && isset($A[1]['/S'])) {
+												$S = $A[1]['/S'];
+
+												//  << /Type /Annot ... /A << /S /URI /URI ... >> >>
+												if ($S[1] == '/URI' && isset($A[1]['/URI'])) {
+													$URI = $A[1]['/URI'];
+
+													if (is_string($URI[1])) {
+														$uri = str_replace("\\000", '', trim($URI[1]));
+														if (!empty($uri)) {
+															$links[] = array($x, $y, $w, $h, $uri);
+														}
+													}
+
+													//  << /Type /Annot ... /A << /S /GoTo /D [%d 0 R /Fit] >> >>
+												} else if ($S[1] == '/GoTo' && isset($A[1]['/D'])) {
+													$D = $A[1]['/D'];
+													if ($D[0] == PDF_TYPE_ARRAY && count($D[1]) > 0 && $D[1][0][0] == PDF_TYPE_OBJREF) {
+														$target_pageno = $this->findPageNoForRef($parser, $D[1][0]);
+														if ($target_pageno >= 0) {
+															$links[] = array($x, $y, $w, $h, $target_pageno);
+														}
+													}
+												}
+											}
+
+										} else if (isset($annot[1]['/Dest'])) {
+											$Dest = $annot[1]['/Dest'];
+
+											//  << /Type /Annot ... /Dest [42 0 R ...] >>
+											if ($Dest[0] == PDF_TYPE_ARRAY && $Dest[0][1][0] == PDF_TYPE_OBJREF) {
+												$target_pageno = $this->findPageNoForRef($parser, $Dest[0][1][0]);
+												if ($target_pageno >= 0) {
+													$links[] = array($x, $y, $w, $h, $target_pageno);
+												}
+											}
+										}
+									}
+								}
+								$tpl['links'] = $links;
+							}
+							*/
+
 							$s = $pdf->getTemplatesize($tplidx);
 							$pdf->AddPage($s['h'] > $s['w'] ? 'P' : 'L');
 							$pdf->useTemplate($tplidx);
+
+
+							// apply links from the template
+							/*
+							$tpl =& $this->tpls[$tplidx];
+							if (isset($tpl['links'])) {
+								foreach ($tpl['links'] as $link) {
+									// $link[4] is either a string (external URL) or an integer (page number)
+									if (is_int($link[4])) {
+										$l = $this->AddLink();
+										$this->SetLink($l, 0, $link[4]);
+										$link[4] = $l;
+									}
+									$pdf->PageLinks[$this->page][] = $link;
+								}
+							}
+							*/
 						} catch (Exception $e) {
 							dol_syslog("Error when manipulating some PDF by concatpdf: ".$e->getMessage(), LOG_ERR);
 							$this->error = $e->getMessage();
@@ -367,7 +484,6 @@ class ActionsConcatPdf
 
 		return $pagecount;
 	}
-
 
 	/**
 	 * Concat PDF files in mixed mode (only on back pages)
@@ -436,4 +552,149 @@ class ActionsConcatPdf
 
 		return $pagecount;
 	}
+  
+  
+	// Add methods to complete the import and useTemplate
+
+	// default maxdepth prevents an infinite recursion on malformed PDFs (not theoretical, actually found in the wild)
+	function resolve(&$parser, $smt, $maxdepth=10) {
+		if ($maxdepth == 0)
+			return $smt;
+
+			if ($smt[0] == PDF_TYPE_OBJREF) {
+				$result = $this->pdf_resolve_object($parser->c, $smt, true, $parser);
+				return $this->resolve($parser, $result, $maxdepth-1);
+
+			} else if ($smt[0] == PDF_TYPE_OBJECT) {
+				return $this->resolve($parser, $smt[1], $maxdepth-1);
+
+			} else if ($smt[0] == PDF_TYPE_ARRAY) {
+				$result = array();
+				foreach ($smt[1] as $item) {
+					$result[] = $this->resolve($parser, $item, $maxdepth-1);
+				}
+				$smt[1] = $result;
+				return $smt;
+
+			} else if ($smt[0] == PDF_TYPE_DICTIONARY) {
+				$result = array();
+				foreach ($smt[1] as $key => $item) {
+					$result[$key] = $this->resolve($parser, $item, $maxdepth-1);
+				}
+				$smt[1] = $result;
+				return $smt;
+
+			} else {
+				return $smt;
+			}
+	}
+
+
+	/**
+	 * Resolve an object
+	 *
+	 * @param object $c pdf_context
+	 * @param array $obj_spec The object-data
+	 * @param boolean $encapsulate Must set to true, cause the parsing and fpdi use this method only without this para
+	 */
+	function pdf_resolve_object(&$c, $obj_spec, $encapsulate = true, $parser) {
+		// Exit if we get invalid data
+		if (!is_array($obj_spec)) {
+			$ret = false;
+			return $ret;
+		}
+
+		if ($obj_spec[0] == PDF_TYPE_OBJREF) {
+			//var_dump($c);
+
+			// This is a reference, resolve it
+			if (isset($parser->xref['xref'][$obj_spec[1]][$obj_spec[2]])) {
+
+				// Save current file position
+				// This is needed if you want to resolve
+				// references while you're reading another object
+				// (e.g.: if you need to determine the length
+				// of a stream)
+
+					$old_pos = ftell($c->file);
+
+					// Reposition the file pointer and
+					// load the object header.
+					$c->reset($parser->xref['xref'][$obj_spec[1]][$obj_spec[2]]);
+
+					$header = $parser->pdf_read_value($c);
+
+					if ($header[0] != PDF_TYPE_OBJDEC || $header[1] != $obj_spec[1] || $header[2] != $obj_spec[2]) {
+						$toSearchFor = $obj_spec[1] . ' ' . $obj_spec[2] . ' obj';
+						if (preg_match('/' . $toSearchFor . '/', $c->buffer)) {
+							$c->offset = strpos($c->buffer, $toSearchFor) + strlen($toSearchFor);
+							// reset stack
+							$c->stack = array();
+						} else {
+							$parser->error("Unable to find object ({$obj_spec[1]}, {$obj_spec[2]}) at expected location");
+						}
+					}
+
+					// If we're being asked to store all the information
+					// about the object, we add the object ID and generation
+					// number for later use
+					$result = array();
+					$parser->actual_obj =& $result;
+					if ($encapsulate) {
+						$result = array (
+							PDF_TYPE_OBJECT,
+							'obj' => $obj_spec[1],
+							'gen' => $obj_spec[2]
+						);
+					}
+
+					// Now simply read the object data until
+					// we encounter an end-of-object marker
+					while(1) {
+						$value = $parser->pdf_read_value($c);
+						if ($value === false || count($result) > 4) {
+							// in this case the parser coudn't find an endobj so we break here
+							break;
+						}
+
+						if ($value[0] == PDF_TYPE_TOKEN && $value[1] === 'endobj') {
+							break;
+						}
+
+						$result[] = $value;
+					}
+
+					$c->reset($old_pos);
+
+					if (isset($result[2][0]) && $result[2][0] == PDF_TYPE_STREAM) {
+						$result[0] = PDF_TYPE_STREAM;
+					}
+
+					return $result;
+			}
+		} else {
+			return $obj_spec;
+		}
+	}
+
+   /**
+    * findPageNoForRef
+    *
+    * @param  mixed    $parser     Parser
+    * @param  string   $pageRef    Page Ref
+    * @return int                  Return <0 if error
+    */
+	function findPageNoForRef(&$parser, $pageRef) {
+		$ref_obj = $pageRef[1]; $ref_gen = $pageRef[2];
+
+		foreach ($parser->pages as $index => $page) {
+			$page_obj = $page['obj']; $page_gen = $page['gen'];
+			if ($page_obj == $ref_obj && $page_gen == $ref_gen) {
+				return $index + 1;
+			}
+		}
+
+		return -1;
+	}
+
 }

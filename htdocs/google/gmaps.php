@@ -32,7 +32,7 @@ require_once DOL_DOCUMENT_ROOT."/core/lib/contact.lib.php";
 require_once DOL_DOCUMENT_ROOT."/core/lib/member.lib.php";
 require_once DOL_DOCUMENT_ROOT."/contact/class/contact.class.php";
 
-$langs->load("google@google");
+$langs->loadLangs(array("companies", "google@google"));
 
 // url is:  gmaps.php?mode=thirdparty|contact|member&id=id
 
@@ -74,7 +74,7 @@ if ($mode=='member') {
  * View
  */
 
-llxheader();
+llxHeader();
 
 $form=new Form($db);
 
@@ -158,7 +158,7 @@ if ($address && $address != $object->country) {		// $address != $object->country
 	// URL to include javascript map
 	$urlforjsmap='https://maps.googleapis.com/maps/api/js';
 	if (empty($conf->global->GOOGLE_API_SERVERKEY)) $urlforjsmap.="?sensor=true";
-	else $urlforjsmap.="?key=".$conf->global->GOOGLE_API_SERVERKEY;
+	else $urlforjsmap.="?key=" . getDolGlobalString('GOOGLE_API_SERVERKEY');
 
 	?>
 

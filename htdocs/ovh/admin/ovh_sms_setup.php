@@ -49,19 +49,17 @@ use GuzzleHttp\Client as GClient;
 
 
 // Load traductions files requiredby by page
-$langs->load("admin");
-$langs->load("companies");
-$langs->load("ovh@ovh");
-$langs->load("sms");
+$langs->loadLangs(array("admin", "companies", "ovh@ovh", "sms"));
 
-if (!$user->admin)
-accessforbidden();
+if (!$user->admin) {
+	accessforbidden();
+}
+
 // Get parameters
-
 $action=GETPOST('action', 'aZ09');
 
 // Protection if external user
-if ($user->societe_id > 0) {
+if ($user->socid > 0) {
 	//accessforbidden();
 }
 
@@ -159,13 +157,24 @@ if ($action == 'send' && ! $_POST['cancel']) {
 
 		require_once DOL_DOCUMENT_ROOT."/core/class/CSMSFile.class.php";
 
-		$smsfile = new CSMSFile($sendto, $smsfrom, $body, $deliveryreceipt, $deferred, $priority, $class);  // This define OvhSms->login, pass, session and account
-		$result=$smsfile->sendfile(); // This send SMS
+		try {
+			$smsfile = new CSMSFile($sendto, $smsfrom, $body, $deliveryreceipt, $deferred, $priority, $class);  // This define OvhSms->login, pass, session and account
+		} catch(Exception $e) {
+			setEventMessages($e->getMessage(), null, 'errors');
+		}
 
-		if ($result > 0) {
-			$mesg='<div class="ok">'.$langs->trans("SmsSuccessfulySent", $smsfrom, $sendto).'</div>';
+		$smsfile->nostop = GETPOST('disablestop', 'int');
+		$smsfile->socid = 0;
+		//$smsfile->contactid = 0;
+		$smsfile->contact_id = 0;
+		$smsfile->fk_project = 0;
+
+		$result = $smsfile->sendfile(); // This send SMS
+
+		if ($result) {
+			setEventMessages($langs->trans("SmsSuccessfulySent", $smsfrom, $sendto), null, 'mesgs');
 		} else {
-			$mesg='<div class="error">'.$langs->trans("ResultKo").'<br>'.$smsfile->error.'</div>';
+			setEventMessages($langs->trans("ResultKo").'<br>'.$smsfile->error, null, 'errors');
 		}
 
 		$action='';
@@ -180,9 +189,10 @@ if ($action == 'send' && ! $_POST['cancel']) {
  * View
  */
 
-$WS_DOL_URL = $conf->global->OVHSMS_SOAPURL;
+$WS_DOL_URL = empty($conf->global->OVHSMS_SOAPURL) ? '' : strval($conf->global->OVHSMS_SOAPURL);
 dol_syslog("Will use URL=".$WS_DOL_URL, LOG_DEBUG);
 
+$smsAccount = empty($conf->global->OVHSMS_ACCOUNT) ? '' : strval($conf->global->OVHSMS_ACCOUNT) ;
 
 llxHeader('', $langs->trans('OvhSmsSetup'), '', '');
 
@@ -224,7 +234,7 @@ if (! empty($conf->global->OVH_OLDAPI) && (empty($conf->global->OVHSMS_NICK) || 
 
 	print '<tr class="oddeven"><td class="fieldrequired">';
 	print $langs->trans("OvhSmsLabelAccount").'</td><td>';
-	print '<input type="text" name="OVHSMS_ACCOUNT" value="'.$conf->global->OVHSMS_ACCOUNT.'">';
+	print '<input type="text" name="OVHSMS_ACCOUNT" value="'.$smsAccount.'">';
 	print '<br><span class="opacitymedium">'.$langs->trans("Example").': sms-aa123-1</span>';
 	print '<td>'.'<a href="ovh_smsrecap.php" target="_blank">'.$langs->trans("ListOfSmsAccountsForNH").'</a>';
 	print '</td></tr>';
@@ -241,7 +251,7 @@ if (! empty($conf->global->OVH_OLDAPI) && (empty($conf->global->OVHSMS_NICK) || 
 
 	if ($action != 'testsms') {
 		print '<br>';
-		if (! empty($conf->global->OVHSMS_ACCOUNT)) {
+		if (! empty($smsAccount)) {
 			print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?action=testsms">'.$langs->trans("DoTestSend").'</a>';
 		} else {
 			print '<a class="butActionRefused" href="#">'.$langs->trans("DoTestSend").'</a>';

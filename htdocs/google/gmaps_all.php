@@ -54,7 +54,9 @@ $search_customer = GETPOST('search_customer', 'alpha');
 $search_supplier = GETPOST('search_supplier', 'alpha');
 $search_status = GETPOST('search_status', 'alpha');
 
-if ($search_status == '') $search_status = '1';
+if ($search_status == '') {
+	$search_status = '1';
+}
 
 // Load third party
 if (empty($mode) || $mode=='thirdparty') {
@@ -125,7 +127,7 @@ if (versioncompare(versiondolibarrarray(), array(3,7,-3)) >= 0) {
 	$countrylabelfield='label';
 }
 
-llxheader();
+llxHeader();
 
 $form=new Form($db);
 $formother = new FormOther($db);
@@ -147,24 +149,28 @@ if (empty($mode) || $mode=='thirdparty') {
 	$sql.= " g.rowid as gid, g.fk_object, g.latitude, g.longitude, g.address as gaddress, g.result_code, g.result_label, g.tms";
 	$sql.= " FROM ".MAIN_DB_PREFIX."societe as s";
 	$sql.= " LEFT JOIN ".MAIN_DB_PREFIX.$countrytable." as c ON s.fk_pays = c.rowid";
-	$sql.= " LEFT JOIN ".MAIN_DB_PREFIX."google_maps as g ON s.rowid = g.fk_object and g.type_object='".$type."'";
-	if ($search_sale || (!$user->rights->societe->client->voir && ! $socid)) $sql.= ", ".MAIN_DB_PREFIX."societe_commerciaux as sc";
+	$sql.= " LEFT JOIN ".MAIN_DB_PREFIX."google_maps as g ON s.rowid = g.fk_object and g.type_object = '".$db->escape($type)."'";
+	if ($search_sale > 0 || (!$user->hasRight('societe', 'client', 'voir') && ! $socid)) $sql.= ", ".MAIN_DB_PREFIX."societe_commerciaux as sc";
 	if ($search_departement != '' && $search_departement > 0) $sql.= ", ".MAIN_DB_PREFIX."c_departements as dp";
 	$sql.= " WHERE s.entity IN (".getEntity('societe', 1).")";
-	if ($search_sale == -1 || (! $user->rights->societe->client->voir && ! $socid))	$sql.= " AND s.rowid = sc.fk_soc AND sc.fk_user = " .$user->id;
-	if ($search_sale > 0)          $sql.= " AND s.rowid = sc.fk_soc AND sc.fk_user = " .$search_sale;
-	if ($search_departement != '' && $search_departement > 0) $sql.= " AND s.fk_departement = dp.rowid AND dp.rowid = ".$db->escape($search_departement);
+	if ($search_sale > 0 || (! $user->hasRight('societe', 'client', 'voir') && ! $socid))	$sql.= " AND s.rowid = sc.fk_soc AND sc.fk_user = " .((int) $user->id);
+	if ($search_sale > 0)          $sql.= " AND s.rowid = sc.fk_soc AND sc.fk_user = " .((int) $search_sale);
+	if ($search_departement != '' && $search_departement > 0) $sql.= " AND s.fk_departement = dp.rowid AND dp.rowid = ".((int) $search_departement);
 	if ($socid) $sql.= " AND s.rowid = ".$socid;	// protect for external user
-	if ($search_tag_customer > 0)           $sql.= " AND s.rowid IN (SELECT fk_soc FROM ".MAIN_DB_PREFIX."categorie_societe as cs WHERE fk_categorie = ".$db->escape($search_tag_customer).")";
-	if ($search_tag_supplier > 0)           $sql.= " AND s.rowid IN (SELECT fk_soc FROM ".MAIN_DB_PREFIX."categorie_fournisseur as cs WHERE fk_categorie = ".$db->escape($search_tag_supplier).")";
+	if ($search_tag_customer > 0)           $sql.= " AND s.rowid IN (SELECT fk_soc FROM ".MAIN_DB_PREFIX."categorie_societe as cs WHERE fk_categorie = ".((int) $search_tag_customer).")";
+	if ($search_tag_supplier > 0)           $sql.= " AND s.rowid IN (SELECT fk_soc FROM ".MAIN_DB_PREFIX."categorie_fournisseur as cs WHERE fk_categorie = ".((int) $search_tag_supplier).")";
 	if ($search_customer != '' && $search_customer != '-1') {
 		$filterclient = '1,2,3';
 		if ($search_customer == 2) $filterclient= '2,3';
 		if ($search_customer == 1) $filterclient= '1,3';
 		$sql.= " AND s.client IN (".$filterclient.")";
 	}
-	if ($search_supplier != '' && $search_supplier != '-1')               $sql.= " AND s.fournisseur IN (".$db->escape($search_supplier).")";
-	if ($search_status != '' && $search_status != '-1') $sql.= " AND s.status = ".(int) $search_status;
+	if ($search_supplier != '' && $search_supplier != '-1') {
+		$sql.= " AND s.fournisseur IN (".$db->sanitize($db->escape($search_supplier)).")";
+	}
+	if ($search_status != '' && $search_status != '-1') {
+		$sql.= " AND s.status = ".(int) $search_status;
+	}
 
 	$sql.= " ORDER BY g.tms ASC, s.rowid ASC";
 	//print $search_sale.'-'.$sql;
@@ -211,11 +217,11 @@ if (empty($mode) || $mode=='thirdparty') {
 	$sql.= " FROM ".MAIN_DB_PREFIX."societe as s";
 	$sql.= " LEFT JOIN ".MAIN_DB_PREFIX.$countrytable." as c ON s.fk_pays = c.rowid";
 	$sql.= " LEFT JOIN ".MAIN_DB_PREFIX."google_maps as g ON s.rowid = g.fk_object and g.type_object='".$type."'";
-	if ($search_sale || (!$user->rights->societe->client->voir && ! $socid)) $sql.= ", ".MAIN_DB_PREFIX."societe_commerciaux as sc";
+	if ($search_sale || (!$user->hasRight('societe', 'client', 'voir') && ! $socid)) $sql.= ", ".MAIN_DB_PREFIX."societe_commerciaux as sc";
 	if ($search_departement != '' && $search_departement > 0) $sql.= ", ".MAIN_DB_PREFIX."c_departements as dp";
 	$sql.= " WHERE s.canvas='patient@cabinetmed'";
 	$sql.= " AND s.entity IN (".getEntity('societe', 1).")";
-	if ($search_sale == -1 || (! $user->rights->societe->client->voir && ! $socid))	$sql.= " AND s.rowid = sc.fk_soc AND sc.fk_user = " .$user->id;
+	if ($search_sale == -1 || (! $user->hasRight('societe', 'client', 'voir') && ! $socid))	$sql.= " AND s.rowid = sc.fk_soc AND sc.fk_user = " .$user->id;
 	if ($search_sale > 0)          $sql.= " AND s.rowid = sc.fk_soc AND sc.fk_user = " .$search_sale;
 	if ($search_departement != '' && $search_departement > 0) $sql.= " AND s.fk_departement = dp.rowid AND dp.rowid = ".$db->escape($search_departement);
 	if ($socid) $sql.= " AND s.rowid = ".$socid;	// protect for external user
@@ -231,7 +237,7 @@ dol_fiche_head(array(), 'gmaps', '', 0);
 
 
 // If the user can view prospects other than his'
-if ($user->rights->societe->client->voir && empty($socid)) {
+if ($user->hasRight('societe', 'client', 'voir') && empty($socid)) {
 	if (empty($mode) || $mode=='thirdparty' || $mode=='patient' || $mode == 'member') {
 		$langs->loadLangs(array("commercial", "companies"));
 
@@ -250,7 +256,7 @@ if ($user->rights->societe->client->voir && empty($socid)) {
 			print '</select>';
 			print '</div>';
 
-			if (! empty($conf->fournisseur->enabled) && ! empty($user->rights->fournisseur->lire)) {
+			if (! empty($conf->fournisseur->enabled) && $user->hasRight('fournisseur', 'lire')) {
 				print '<div class="divsearchfield">'.$langs->trans('Supplier').' : ';
 				print $form->selectyesno("search_supplier", $search_supplier, 1, false, 1);
 				print '</div>';
@@ -531,7 +537,7 @@ function geocoding($address)
 	$encodeAddress = urlencode(withoutSpecialChars($address));
 	// URL to geoencode
 	$url = "https://maps.googleapis.com/maps/api/geocode/json?address=".$encodeAddress;
-	if (! empty($conf->global->GOOGLE_API_SERVERKEY)) $url.="&key=".$conf->global->GOOGLE_API_SERVERKEY;
+	if (! empty($conf->global->GOOGLE_API_SERVERKEY)) $url.="&key=" . getDolGlobalString('GOOGLE_API_SERVERKEY');
 
 	ini_set("allow_url_open", "1");
 	$response = googlegetURLContent($url, 'GET');

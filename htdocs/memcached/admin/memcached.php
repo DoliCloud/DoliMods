@@ -135,7 +135,7 @@ print "</tr>\n";
 $var=!$var;
 print '<tr '.$bc[$var].'><td>'.$langs->trans("Server").':'.$langs->trans("Port").'</td>';
 print '<td>';
-print '<input size="40" type="text" name="MEMCACHED_SERVER" value="'.$conf->global->MEMCACHED_SERVER.'">';
+print '<input size="40" type="text" name="MEMCACHED_SERVER" value="' . getDolGlobalString('MEMCACHED_SERVER').'">';
 print '</td>';
 print '<td>127.0.0.1:11211<br>localhost:11211</td>';
 print '<td>&nbsp;</td>';
@@ -202,7 +202,7 @@ if (! $error) {
 	} elseif (is_array($arraycache)) {
 		$newarraycache=array();
 		if (class_exists("Memcached")) $newarraycache=$arraycache;
-		elseif (class_exists("Memcache")) $newarraycache[$conf->global->MEMCACHED_SERVER]=$arraycache;
+		elseif (class_exists("Memcache")) $newarraycache[getDolGlobalString('MEMCACHED_SERVER')]=$arraycache;
 		else dol_print_error('', 'Should not happen');
 
 		foreach ($newarraycache as $key => $val) {

@@ -70,7 +70,7 @@ class modMemcached extends DolibarrModules
 		// Data directories to create when module is enabled
 		$this->dirs = array();
 
-		if (! empty($conf->memcached->enabled) && ! empty($dolibarr_memcached_setup_disable)) {
+		if (isModEnabled("memcached") && ! empty($dolibarr_memcached_setup_disable)) {
 			$this->always_enabled = true;	// Can't be disabled
 		}
 
@@ -107,7 +107,7 @@ class modMemcached extends DolibarrModules
 
 		// Menus
 		//------
-		$this->menus = array();			// List of menus to add
+		$this->menu = array();			// List of menus to add
 		$r=0;
 
 		// Top menu

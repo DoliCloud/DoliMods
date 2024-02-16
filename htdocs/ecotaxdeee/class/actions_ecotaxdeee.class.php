@@ -73,9 +73,13 @@ class ActionsEcotaxdeee
 		// If there is no ecotax lines.
 		$noecotax=1;
 		foreach ($parameters['object']->lines as $key => $line) {
-			if ($line->special_code == 2) $noecotax=0;
+			if ($line->special_code == 2) {
+				$noecotax=0;
+			}
 		}
-		if ($noecotax) return 0;
+		if ($noecotax) {
+			return 0;
+		}
 
 		$outputlangs=$parameters['outputlangs'];
 		$concatpdffile = 'tmpecotaxdeee'.(empty($user->id)?'':'_'.$user->id);
@@ -114,7 +118,7 @@ class ActionsEcotaxdeee
 		$pdf->SetFont(pdf_getPDFFont($outputlangs));
 		// Set path to the background PDF File
 		if (empty($conf->global->MAIN_DISABLE_FPDI) && ! empty($conf->global->MAIN_ADD_PDF_BACKGROUND)) {
-			$pagecount = $pdf->setSourceFile($conf->mycompany->dir_output.'/'.$conf->global->MAIN_ADD_PDF_BACKGROUND);
+			$pagecount = $pdf->setSourceFile($conf->mycompany->dir_output.'/' . getDolGlobalString('MAIN_ADD_PDF_BACKGROUND'));
 			$tplidx = $pdf->importPage(1);
 		}
 

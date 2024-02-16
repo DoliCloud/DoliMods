@@ -81,7 +81,7 @@ class modExternalBackup extends DolibarrModules
 		$this->const = array(0=>array('EXTERNAL_BACKUP_RCLONE_PATH','chaine','/usr/sbin/rclone','Full path to rclone tool',0,'current',1));
 
 		// Dictionnaries
-		$this->dictionnaries=array(
+		$this->dictionaries=array(
 		);
 
 		// Boxes

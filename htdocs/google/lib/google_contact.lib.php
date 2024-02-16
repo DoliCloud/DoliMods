@@ -63,10 +63,9 @@ function getCommentIDTag()
 function googleCreateContact($client, $object, $useremail = 'default')
 {
 	global $conf, $db, $langs;
+
 	global $dolibarr_main_url_root;
 	global $user;
-
-	global $conf,$langs;
 	global $tag_debug;
 
 	include_once DOL_DOCUMENT_ROOT.'/core/lib/company.lib.php';
@@ -98,13 +97,33 @@ function googleCreateContact($client, $object, $useremail = 'default')
 		];
 
 		//<gdata:phoneNumber>
-		$newphone=!empty($object->phone)?$object->phone_pro:$object->phone;
+		$newphone = (empty($object->phone) ? (empty($object->phone_pro) ? '' : $object->phone_pro) : $object->phone);
 		if (!empty($newphone)){
 			$person_array["phoneNumbers"][] = [
 				"value" => $newphone,
 				"type" => "work",
 			];
 		}
+		/*
+		if (!empty($object->office_phone)) {
+			$person_array["phoneNumbers"][] = [
+				"value" => $object->office_phone,
+				"type" => "work",
+			];
+		}
+		if (!empty($object->user_mobile)) {
+			$person_array["phoneNumbers"][] = [
+				"value" => $object->user_mobile,
+				"type" => "work",
+			];
+		}
+		if (!empty($object->personal_mobile)) {
+			$person_array["phoneNumbers"][] = [
+				"value" => $object->personal_mobile,
+				"type" => "home",
+			];
+		}
+		*/
 		if (!empty($object->phone_perso)) {
 			$person_array["phoneNumbers"][] = [
 				"value" => $object->phone_perso,
@@ -122,6 +141,32 @@ function googleCreateContact($client, $object, $useremail = 'default')
 				"value" => $object->fax,
 				"type" => "workFax",
 			];
+		}
+		if (!empty($object->office_fax)) {
+			$person_array["phoneNumbers"][] = [
+				"value" => $object->office_fax,
+				"type" => "workFax",
+			];
+		}
+
+		// Set occupations
+		if (!empty($object->poste)) {
+			$person_array["occupations"][] = [
+				"value" => $object->poste
+			];
+		}
+		// Set company and job
+		if (!empty($object->socid) && $object->socid > 0) {
+			$result = $object->fetch_thirdparty();
+			if ($result > 0) {
+				$person_array["organizations"][0] = [
+					"name" => $object->thirdparty->name,
+					"location" => $object->thirdparty->getFullAddress()
+				];
+				if (!empty($object->poste)) {
+					$person_array["organizations"][0]['title'] = $object->poste;
+				}
+			}
 		}
 
 		//<gdata:structuredPostalAddress>
@@ -223,10 +268,10 @@ function googleUpdateContact($client, $contactId, &$object, $useremail = 'defaul
 
 	include_once DOL_DOCUMENT_ROOT.'/core/lib/company.lib.php';
 
-	$google_nltechno_tag=getCommentIDTag();
+	$google_nltechno_tag = getCommentIDTag();
 
 	// Fields: http://tools.ietf.org/html/rfc4287
-	$gdata=$client;
+	$gdata = $client;
 
 	try {
 		if (is_array($gdata['google_web_token']) && key_exists('access_token', $gdata['google_web_token'])) {
@@ -303,7 +348,7 @@ function googleUpdateContact($client, $contactId, &$object, $useremail = 'defaul
 		$jsonData = "{";
 		$updatePersonFields = "";
 
-		//Names
+		// Names
 		if ($object->element != 'societe' && $object->element != 'thirdparty') {
 			$fullNameToUse = $object->getFullName($langs);
 		} else {
@@ -314,11 +359,31 @@ function googleUpdateContact($client, $contactId, &$object, $useremail = 'defaul
 		if (!empty($object->firstname)) $person_array["names"][0]["givenName"] = $object->firstname;
 		$updatePersonFields .= "names";
 
-		//Email Address
+		// Email Address
 		$person_array["emailAddresses"][0]["value"] = $object->email?$object->email:(strtolower(preg_replace('/\s/', '', (empty($object->name)?$object->lastname.$object->firstname:$object->name))).'@noemail.com');
 		$updatePersonFields .= ",emailAddresses";
 
-		//Address
+		// Set occupations
+		if (!empty($object->poste)) {
+			$person_array["occupations"][] = [
+				"value" => $object->poste
+			];
+		}
+		// Set company and job
+		if (!empty($object->socid) && $object->socid > 0) {
+			$result = $object->fetch_thirdparty();
+			if ($result > 0) {
+				$person_array["organizations"][0] = [
+					"name" => $object->thirdparty->name,
+					"location" => $object->thirdparty->getFullAddress()
+				];
+				if (!empty($object->poste)) {
+					$person_array["organizations"][0]['title'] = $object->poste;
+				}
+			}
+		}
+
+		// Address
 		$person_array["addresses"][0]["country"] = $object->country_id>0?getCountry($object->country_id, 0, '', $langs, 0):'';
 		$person_array["addresses"][0]["postalCode"] = $object->zip;
 		$person_array["addresses"][0]["streetAddress"] = $object->address;
@@ -328,8 +393,8 @@ function googleUpdateContact($client, $contactId, &$object, $useremail = 'defaul
 		$person_array["addresses"][0]["region"] = $tmpstate;
 		$updatePersonFields .= ",addresses";
 
-		//Phone
-		$newphone=empty($object->phone)?$object->phone_pro:$object->phone;
+		// Phone
+		$newphone = (empty($object->phone) ? (empty($object->phone_pro) ? '' : $object->phone_pro) : $object->phone);
 		if (!empty($newphone)){
 			$person_array["phoneNumbers"][] = [
 				"value" => $newphone,
@@ -519,12 +584,14 @@ function googleUpdateContact($client, $contactId, &$object, $useremail = 'defaul
 		$addheaders=array('If-Match'=>'*', 'GData-Version'=>'3.0', 'Authorization'=>'Bearer '.$access_token, 'Content-Type'=>'application/json');
 		$addheaderscurl=array('If-Match: *', 'GData-Version: 3.0', 'Authorization: Bearer '.$access_token, 'Content-Type: application/json');
 
+		//var_dump($person_array);exit;
+
 		// update entry.'&updatePersonFields='.$updatePersonFields
 		//$client_google = new Google_Client($client);
 		$google = new Google_Service_PeopleService($gdata["client"]);
 		$person = new Google_Service_PeopleService_Person($person_array);
 		$personParam['updatePersonFields'] = $updatePersonFields;
-		$response = $google->people->UpdateContact($newcontactid,$person,$personParam);
+		$response = $google->people->updateContact($newcontactid,$person,$personParam);
 		try {
 			//$url ='https://people.googleapis.com/v1/'.$newcontactid.':updateContact';
 			//$response = getURLContent($url, 'POSTALREADYFORMATED', $jsonData, 1, $addheaderscurl);
@@ -547,7 +614,7 @@ function googleUpdateContact($client, $contactId, &$object, $useremail = 'defaul
 }
 
 /**
- * Link a member to group in google contact
+ * Link a contact $contactID to group $groupID in google contact
  *
  * @param string  	$client 	Google client
  * @param string 	$groupID 	ID of group to update
@@ -555,13 +622,10 @@ function googleUpdateContact($client, $contactId, &$object, $useremail = 'defaul
  * @return int					<0 if KO, >0 if OK
  */
 function googleLinkGroup($client, $groupID, $contactID) {
-
-
 	// prepare json data
 	$jsonData = '{';
 	$jsonData .= '"resourceNamesToAdd":'. json_encode(array($contactID));
 	$jsonData .= '}';
-
 
 	// prepare request
 	$gdata = $client;
@@ -573,7 +637,19 @@ function googleLinkGroup($client, $groupID, $contactID) {
 	}
 	$addheaders=array('GData-Version'=>'3.0', 'Authorization'=>'Bearer '.$access_token, 'If-Match'=>'*');
 	$addheaderscurl=array('Content-Type: application/json','GData-Version: 3.0', 'Authorization: Bearer '.$access_token, 'If-Match: *');
+
+	// uncomment for debugging :
+	if (getDolGlobalInt('GOOGLE_DEBUG')) {
+		file_put_contents(DOL_DATA_ROOT . "/dolibarr_google_linkGroup.json", $jsonData);
+		@chmod(DOL_DATA_ROOT . "/dolibarr_google_linkGroup.json", octdec(empty($conf->global->MAIN_UMASK)?'0664':$conf->global->MAIN_UMASK));
+	}
+
+	dol_syslog('googleLinkGroup start', LOG_DEBUG);
+
 	$result = getURLContent('https://people.googleapis.com/v1/'.$groupID.'/members:modify', 'POST', $jsonData, 0, $addheaderscurl);
+
+	dol_syslog('googleLinkGroup end', LOG_DEBUG);
+
 	if ($result['http_code'] == 404) {
 		dol_syslog('Failed to link contact to group: '.$result['http_code'], LOG_ERR);
 		return -1;
@@ -643,7 +719,7 @@ function googleDeleteGroup($client, $groupID) {
 	}
 	$addheaders=array('GData-Version'=>'3.0', 'Authorization'=>'Bearer '.$access_token, 'If-Match'=>'*');
 	$addheaderscurl=array('Content-Type: application/json','GData-Version: 3.0', 'Authorization: Bearer '.$access_token, 'If-Match: *');
-	$result = getURLContent('https://people.googleapis.com/v1/'.$groupID, 'DELETE', array(), 0, $addheaderscurl);
+	$result = getURLContent('https://people.googleapis.com/v1/'.$groupID, 'DELETE', '', 0, $addheaderscurl);
 	$jsonStr = $result['content'];
 	$json = json_decode($jsonStr);
 	if (!empty($json->error)) {
@@ -674,7 +750,7 @@ function googleUpdateGroup($client, $groupID, $name) {
 	// }
 	// $addheaders=array('GData-Version'=>'3.0', 'Authorization'=>'Bearer '.$access_token, 'If-Match'=>'*');
 	// $addheaderscurl=array('Content-Type: application/json','GData-Version: 3.0', 'Authorization: Bearer '.$access_token, 'If-Match: *');
-	// $result = getURLContent('https://people.googleapis.com/v1/'.$groupID, 'GET', array(), 0, $addheaderscurl);
+	// $result = getURLContent('https://people.googleapis.com/v1/'.$groupID, 'GET', '', 0, $addheaderscurl);
 	// $jsonStr = $result['content'];
 	// $json = json_decode($jsonStr);
 	// $json->name = $name;
@@ -711,7 +787,8 @@ function googleDeleteContactByRef($client, $ref, $useremail = 'default')
 	global $conf, $db, $langs;
 	global $tag_debug;
 
-	$newcontactid=$ref;
+	$newcontactid = $ref;
+	$reg = array();
 	if (preg_match('/google\.com\/.*\/([^\/]+)$/', $ref, $reg)) {
 		$newcontactid=$reg[1];
 	}
@@ -759,7 +836,7 @@ function googleDeleteContactByRef($client, $ref, $useremail = 'default')
  */
 function insertGContactsEntries($gdata, $gContacts, $objectstatic, $useremail = 'default')
 {
-	global $conf;
+	global $conf, $db;
 
 	$maxBatchLength = 98; //Google doc says max 100 entries.
 	$remainingContacts = $gContacts;
@@ -801,7 +878,7 @@ function insertGContactsEntries($gdata, $gContacts, $objectstatic, $useremail = 
 			@chmod(DOL_DATA_ROOT . "/dolibarr_google_massinsert.xml", octdec(empty($conf->global->MAIN_UMASK)?'0664':$conf->global->MAIN_UMASK));
 		}
 */
-		//People call
+		// People call
 		$jsonData = '{"contacts": [';
 		$nbcontacts = 1;
 		foreach ($firstContacts as $gContact) {
@@ -810,40 +887,40 @@ function insertGContactsEntries($gdata, $gContacts, $objectstatic, $useremail = 
 			}
 			$jsonData .='{"contactPerson": {';
 			//<gdata:name>
-			$jsonData .='"names":[';
-			$jsonData .='{"familyName": '.json_encode(!empty($gContact->lastname)?$gContact->lastname:$gContact->fullName);
-				if (!empty($gContact->firstname)) {
-					$jsonData .=',"givenName": '.json_encode($gContact->firstname);
-				}
-				$jsonData .='}],';
+			$jsonData .='"names":[{';
+			$jsonData .=' "familyName": '.json_encode(!empty($gContact->lastname)?$gContact->lastname:$gContact->fullName);
+			if (!empty($gContact->firstname)) {
+				$jsonData .=',"givenName": '.json_encode($gContact->firstname);
+			}
+			$jsonData .='}],';
 			//<atom:content>
-			$jsonData .='"biographies": [';
-			$jsonData .='{ "value": '.json_encode($gContact->note_public).'}';
-			$jsonData .='],';
+			$jsonData .='"biographies": [{';
+			$jsonData .=' "value": '.json_encode($gContact->note_public);
+			$jsonData .='}],';
 			//<gdata:phoneNumber>
 			if (!empty($gContact->phone_pro)) {
-				$jsonData .='"phoneNumbers": [';
-				$jsonData .='{ "type": "work"},';
-				$jsonData .='{ "value": '.json_encode($gContact->phone_pro).'}';
-				$jsonData .='],';
+				$jsonData .='"phoneNumbers": [{';
+				$jsonData .=' "type": "work",';
+				$jsonData .=' "value": '.json_encode($gContact->phone_pro);
+				$jsonData .='}],';
 			}
 			if (!empty($gContact->phone_perso)) {
-				$jsonData .='"phoneNumbers": [';
-				$jsonData .='{ "type": "home"},';
-				$jsonData .='{ "value": '.json_encode($gContact->phone_perso).'}';
-				$jsonData .='],';
+				$jsonData .='"phoneNumbers": [{';
+				$jsonData .=' "type": "home",';
+				$jsonData .=' "value": '.json_encode($gContact->phone_perso);
+				$jsonData .='}],';
 			}
 			if (!empty($gContact->phone_mobile)) {
-				$jsonData .='"phoneNumbers": [';
-				$jsonData .='{ "type": "mobile"},';
-				$jsonData .='{ "value": '.json_encode($gContact->phone_mobile).'}';
-				$jsonData .='],';
+				$jsonData .='"phoneNumbers": [{';
+				$jsonData .=' "type": "mobile",';
+				$jsonData .=' "value": '.json_encode($gContact->phone_mobile);
+				$jsonData .='}],';
 			}
 			if (!empty($gContact->fax)) {
-				$jsonData .='"phoneNumbers": [';
-				$jsonData .='{ "type": "workFax"},';
-				$jsonData .='{ "value": '.json_encode($gContact->fax).'}';
-				$jsonData .='],';
+				$jsonData .='"phoneNumbers": [{';
+				$jsonData .=' "type": "workFax",';
+				$jsonData .=' "value": '.json_encode($gContact->fax);
+				$jsonData .='}],';
 			}
 			//<gdata:membership> (tags)
 			// $jsonData .='"contactGroups": [';
@@ -858,34 +935,60 @@ function insertGContactsEntries($gdata, $gContacts, $objectstatic, $useremail = 
 			// $jsonData .='"day": "21"},';
 			// $jsonData .='{ "type": "fête du village"';
 			// 	$jsonData .='}],';
+
+			//<gdata:occupations>
+			// Set occupations
+			if (!empty($gContact->poste)) {
+				$jsonData .='"occupations": [{';
+				$jsonData .=' "value": '.json_encode($gContact->poste);
+				$jsonData .='}],';
+			}
+			//<gdata:organizations>
+			// Set company and job
+			if (!empty($gContact->socid) && $gContact->socid > 0) {
+				$object = new Contact($db);
+				$object->socid = $gContact->socid;
+				$result = $object->fetch_thirdparty();
+				if ($result > 0) {
+					$jsonData .='"organizations": [{';
+					$jsonData .='"name": '.json_encode($object->thirdparty->name);
+					$jsonData .=', "location": '.json_encode($object->thirdparty->getFullAddress());
+					if (!empty($gContact->poste)) {
+						$jsonData .=', "title": '.json_encode($gContact->poste);
+					}
+					$jsonData .='}],';
+				}
+			}
+
 			//<gdata:structuredPostalAddress>
 			if (!empty($gContact->addr)) {
 				$addresses = $gContact->addr;
-				$jsonData .='"addresses": [';
-				$jsonData .='{"country": '.json_encode($addresses->country).'}';
+				$jsonData .='"addresses": [{';
+				$jsonData .=' "country": '.json_encode($addresses->country);
 				if (!empty($addresses->zip)) {
-					$jsonData .=',{"postalCode": '.json_encode($addresses->zip).'}';
+					$jsonData .=', "postalCode": '.json_encode($addresses->zip);
 				}
 				if (!empty($addresses->zip)) {
-					$jsonData .=',{"region": '.json_encode($addresses->state).'}';
+					$jsonData .=', "region": '.json_encode($addresses->state);
 				}
 				if (!empty($addresses->street)) {
-					$jsonData .=',{"streetAddress": '.json_encode($addresses->street).'}';
+					$jsonData .=', "streetAddress": '.json_encode($addresses->street);
 				}
 				if (!empty($addresses->town)) {
-					$jsonData .=',{"city": '.json_encode($addresses->town).'}';
+					$jsonData .=', "city": '.json_encode($addresses->town);
 				}
-				$jsonData .='],';
+				$jsonData .='}],';
 			}
 			//<gdata:email>
 			if (!empty($gContact->email)) {
-				$jsonData .='"emailAddresses": [';
-				$jsonData .='{ "value": '.json_encode($gContact->email).'}';
-				$jsonData .='],';
+				$jsonData .='"emailAddresses": [{';
+				$jsonData .=' "value": '.json_encode($gContact->email);
+				$jsonData .='}],';
 			}
+
 			//<gcontact:userDefinedField>
-			$jsonData .='"userDefined": [';
-			$jsonData .='{ "key": "dolibarr-id",';
+			$jsonData .='"userDefined": [{';
+			$jsonData .=' "key": "dolibarr-id",';
 			if ($objectstatic->element == "societe") {
 				$element = "thirdparty";
 			} elseif ($objectstatic->element == "contact") {
@@ -895,8 +998,8 @@ function insertGContactsEntries($gdata, $gContacts, $objectstatic, $useremail = 
 			} else {
 				$element = "unknown";
 			}
-			$jsonData .='"value": '.json_encode($gContact->dolID.'/'.$element).'}';
-			$jsonData .='],';
+			$jsonData .=' "value": '.json_encode($gContact->dolID.'/'.$element);
+			$jsonData .='}]';
 
 			$jsonData .='}}';
 			$nbcontacts ++;
@@ -986,7 +1089,7 @@ function insertGContactsEntries($gdata, $gContacts, $objectstatic, $useremail = 
 				@chmod(DOL_DATA_ROOT . "/dolibarr_google_massinsert_response.json", octdec(empty($conf->global->MAIN_UMASK)?'0664':$conf->global->MAIN_UMASK));
 			}
 
-			$res=parseResponse($responseJson);
+			$res = parseResponse($responseJson);
 			if ($res->count != count($firstContacts) || $res->nbOfErrors) {
 				dol_syslog("Failed to batch insert count=".$res->count.", count(firstContacts)=".count($firstContacts).", nb of errors=".$res->nbOfErrors.", lasterror=".$res->lastError, LOG_ERR);
 				return sprintf("Google error : Nb of records to insert = %s, nb inserted = %s, error label = %s", count($firstContacts), $res->count, $res->lastError);
@@ -1373,37 +1476,60 @@ function getGContactTypeGroupID($gdata, $type)
 		return -1;
 	}
 
-	// To be sur that group is in google contact, we search it.
+	// A groupID was set into setup.
+	// To be sur that group exists in google contact, we search it.
 	// Note: a groupID must be a hex number or a value among [contactGroups/all, contactGroups/blocked, contactGroups/chatBuddies, contactGroups/coworkers, contactGroups/family, contactGroups/friends, contactGroups/myContacts, contactGroups/starred]
 	if ($groupID) {
 		// We found the value of groupID into the cached constant GOOGLE_TAG_REF_EXT.... so we have it and we don't have to create it.
-		/* Removed, this is useless.
-		 // Check that the group exists
-		 $result = getURLContent('https://people.googleapis.com/v1/'.$groupID, 'GET', array(), 0, $addheaderscurl);
-		 $jsonStr = $result['content'];
-		 $json = json_decode($jsonStr);
-		 if (empty($json->error)) {
-		 return $groupID;
-		 }*/
-		return $groupID;
+		if (getDolGlobalInt("GOOGLE_TAG_REF_EXT_NOCACHE") == 2) {
+			// Check that the group exists
+			$result = getURLContent('https://people.googleapis.com/v1/'.$groupID, 'GET', '', 0, $addheaderscurl);
+			$jsonStr = $result['content'];
+			$json = json_decode($jsonStr);
+			if (empty($json->error)) {
+				dol_syslog("We found the value of groupID = ".$groupID." for type = ".$type." and check on Google says it exists");
+				return $groupID;
+			} else {
+				dol_syslog("We found the value of groupID = ".$groupID." for type = ".$type." but check on Google says it does not exists so we continue as if it was not defined");
+			}
+		} elseif (getDolGlobalInt("GOOGLE_TAG_REF_EXT_NOCACHE") == 1) {
+			dol_syslog("We found the value of groupID = ".$groupID." for type = ".$type." but option GOOGLE_TAG_REF_EXT_NOCACHE ask to ignore it so we continue as if it was not defined");
+		} else {
+			dol_syslog("We found the value of groupID for type = ".$type." into the cached constant GOOGLE_TAG_REF_EXT... = ".$groupID);
+			return $groupID;
+		}
 	}
 
 	// Group not found, we create it
 	// We create it
 	if (! in_array($label, array('contactGroups/all', 'contactGroups/blocked', 'contactGroups/chatBuddies', 'contactGroups/coworkers', 'contactGroups/family', 'contactGroups/friends', 'contactGroups/myContacts', 'contactGroups/starred'))) {
+
 		$jsonData = '{';
 		$jsonData .= '"contactGroup":{';
 		$jsonData .= '"name": "'.$label.'"';
 		$jsonData .= '}';
 		$jsonData .= '}';
+
+		// uncomment for debugging :
+		if (getDolGlobalInt('GOOGLE_DEBUG')) {
+			file_put_contents(DOL_DATA_ROOT . "/dolibarr_google_contactGroups.json", $jsonData);
+			@chmod(DOL_DATA_ROOT . "/dolibarr_google_contactGroups.json", octdec(empty($conf->global->MAIN_UMASK)?'0664':$conf->global->MAIN_UMASK));
+		}
+
 		$result = getURLContent('https://people.googleapis.com/v1/contactGroups', 'POST', $jsonData, 0, $addheaderscurl);
 		$jsonStr = $result['content'];
 		try {
+			// uncomment for debugging :
+			if (getDolGlobalInt('GOOGLE_DEBUG')) {
+				file_put_contents(DOL_DATA_ROOT . "/dolibarr_google_contactGroups_response.json", $jsonStr);
+				@chmod(DOL_DATA_ROOT . "/dolibarr_google_contactGroups_response.json", octdec(empty($conf->global->MAIN_UMASK)?'0664':$conf->global->MAIN_UMASK));
+			}
+
 			$json = json_decode($jsonStr);
 			if (!empty($json->error)) {
 				if ($json->error->status == 'ALREADY_EXISTS') {
 					// If we got an error saying it already exists, we get list of all existing groups
-					$result = getURLContent('https://people.googleapis.com/v1/contactGroups', 'GET', array(), 0, $addheaderscurl);
+					$result = getURLContent('https://people.googleapis.com/v1/contactGroups', 'GET', '', 0, $addheaderscurl);
 					$jsonStrListOfGrp = $result['content'];
 					$jsonListOfGrp = json_decode($jsonStrListOfGrp, true);
 					if (!empty($jsonListOfGrp['contactGroups'])) {
@@ -1505,7 +1631,7 @@ function getGContactGroupID($gdata, $tag, $useremail = 'default') {
 		}
 		$addheaders=array('GData-Version'=>'3.0', 'Authorization'=>'Bearer '.$access_token, 'If-Match'=>'*');
 		$addheaderscurl=array('Content-Type: application/json','GData-Version: 3.0', 'Authorization: Bearer '.$access_token, 'If-Match: *');
-		$result = getURLContent('https://people.googleapis.com/v1/'.$groupID, 'GET', array(), 0, $addheaderscurl);
+		$result = getURLContent('https://people.googleapis.com/v1/'.$groupID, 'GET', '', 0, $addheaderscurl);
 		$jsonStr = $result['content'];
 		$json = json_decode($jsonStr);
 		if (!empty($json->error)) {

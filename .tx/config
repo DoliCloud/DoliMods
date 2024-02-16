@@ -1,51 +1,57 @@
 [main]
 host = https://www.transifex.com
 
-[dolimods.awstats]
+[o:dolicloud:p:dolimods:r:alumni]
+file_filter = htdocs/alumni/langs/<lang>/alumni.lang
+source_file = htdocs/alumni/langs/en_US/alumni.lang
+source_lang = en_US
+type        = MOZILLAPROPERTIES
+
+[o:dolicloud:p:dolimods:r:awstats]
 file_filter = htdocs/awstats/langs/<lang>/awstats.lang
 source_file = htdocs/awstats/langs/en_US/awstats.lang
 source_lang = en_US
-type = MOZILLAPROPERTIES
+type        = MOZILLAPROPERTIES
 
-[dolimods.billedonorders]
+[o:dolicloud:p:dolimods:r:billedonorders]
 file_filter = htdocs/billedonorders/langs/<lang>/billedonorders.lang
 source_file = htdocs/billedonorders/langs/en_US/billedonorders.lang
 source_lang = en_US
-type = MOZILLAPROPERTIES
+type        = MOZILLAPROPERTIES
 
-[dolimods.concatpdf]
+[o:dolicloud:p:dolimods:r:concatpdf]
 file_filter = htdocs/concatpdf/langs/<lang>/concatpdf.lang
 source_file = htdocs/concatpdf/langs/en_US/concatpdf.lang
 source_lang = en_US
-type = MOZILLAPROPERTIES
+type        = MOZILLAPROPERTIES
 
-[dolimods.ecotaxdeee]
+[o:dolicloud:p:dolimods:r:ecotaxdeee]
 file_filter = htdocs/ecotaxdeee/langs/<lang>/ecotaxdeee.lang
 source_file = htdocs/ecotaxdeee/langs/en_US/ecotaxdeee.lang
 source_lang = en_US
-type = MOZILLAPROPERTIES
+type        = MOZILLAPROPERTIES
 
-[dolimods.filemanager]
+[o:dolicloud:p:dolimods:r:filemanager]
 file_filter = htdocs/filemanager/langs/<lang>/filemanager.lang
 source_file = htdocs/filemanager/langs/en_US/filemanager.lang
 source_lang = en_US
-type = MOZILLAPROPERTIES
+type        = MOZILLAPROPERTIES
 
-[dolimods.google]
+[o:dolicloud:p:dolimods:r:google]
 file_filter = htdocs/google/langs/<lang>/google.lang
 source_file = htdocs/google/langs/en_US/google.lang
 source_lang = en_US
-type = MOZILLAPROPERTIES
+type        = MOZILLAPROPERTIES
 
-[dolimods.numberwords]
+[o:dolicloud:p:dolimods:r:numberwords]
 file_filter = htdocs/numberwords/langs/<lang>/numberwords.lang
 source_file = htdocs/numberwords/langs/en_US/numberwords.lang
 source_lang = en_US
-type = MOZILLAPROPERTIES
+type        = MOZILLAPROPERTIES
 
-[dolimods.ovh]
+[o:dolicloud:p:dolimods:r:ovh]
 file_filter = htdocs/ovh/langs/<lang>/ovh.lang
 source_file = htdocs/ovh/langs/en_US/ovh.lang
 source_lang = en_US
-type = MOZILLAPROPERTIES
+type        = MOZILLAPROPERTIES
 

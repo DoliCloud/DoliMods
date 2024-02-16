@@ -18,3 +18,4 @@ MoreCloudHostingLink=<a target="_blank" href="https://www.dolicloud.com">Klicken
 CompatibleWithDoliDroid=Dieses Modul ist auch mit DoliDroid kompatibel, der Android App für Dolibarr.
 ErrorFileMustBeAPdf=Fehler, die Datei muss ein PDF sein
 WarningConcatPDFIsNotCompatibleWithOptionReadOnlyPDF=Concat PDF ist nicht kompatibel mit der PDF-Option: %s
+AddFilesToConcat=Upload file(s) to concat

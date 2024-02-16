@@ -133,7 +133,7 @@ $var = true;
 
 $var = ! $var;
 print '<tr '.$bc[$var].'><td>';
-print $langs->trans("EXTERNAL_BACKUP_RCLONE_PATH").': <input type="text" size="60" name="EXTERNAL_BACKUP_RCLONE_PATH" value="'.$conf->global->EXTERNAL_BACKUP_RCLONE_PATH.'">';
+print $langs->trans("EXTERNAL_BACKUP_RCLONE_PATH").': <input type="text" size="60" name="EXTERNAL_BACKUP_RCLONE_PATH" value="' . getDolGlobalString('EXTERNAL_BACKUP_RCLONE_PATH').'">';
 if (! dol_is_file($conf->global->EXTERNAL_BACKUP_RCLONE_PATH)) print ' '.img_warning("ErrorFileNotFound");
 print '</td><td>';
 print $langs->trans("Example").': /usr/sbin/rclone';
@@ -141,7 +141,7 @@ print '</td></tr>';
 
 $var = ! $var;
 print '<tr '.$bc[$var].'><td>';
-print $langs->trans("EXTERNAL_BACKUP_RCLONE_CONF_PATH").': <input type="text" size="60" name="EXTERNAL_BACKUP_RCLONE_CONF_PATH" value="'.$conf->global->EXTERNAL_BACKUP_RCLONE_CONF_PATH.'">';
+print $langs->trans("EXTERNAL_BACKUP_RCLONE_CONF_PATH").': <input type="text" size="60" name="EXTERNAL_BACKUP_RCLONE_CONF_PATH" value="' . getDolGlobalString('EXTERNAL_BACKUP_RCLONE_CONF_PATH').'">';
 if (! dol_is_file($conf->global->EXTERNAL_BACKUP_RCLONE_CONF_PATH)) print ' '.img_warning($langs->trans("ErrorFileNotFound", $conf->global->EXTERNAL_BACKUP_RCLONE_CONF_PATH));
 print '</td><td>';
 print $langs->trans("Example").': /home/backupuser/.rclone.conf';
@@ -149,7 +149,7 @@ print '</td></tr>';
 
 $var = ! $var;
 print '<tr '.$bc[$var].'><td>';
-print $langs->trans("EXTERNAL_BACKUP_RCLONE_TARGET").': <input type="text" size="20" name="EXTERNAL_BACKUP_RCLONE_TARGET" value="'.$conf->global->EXTERNAL_BACKUP_RCLONE_TARGET.'">';
+print $langs->trans("EXTERNAL_BACKUP_RCLONE_TARGET").': <input type="text" size="20" name="EXTERNAL_BACKUP_RCLONE_TARGET" value="' . getDolGlobalString('EXTERNAL_BACKUP_RCLONE_TARGET').'">';
 print '</td><td>';
 print $langs->trans("EXTERNAL_BACKUP_RCLONE_TARGETDesc").'<br>';
 print $langs->trans("Example").': hubic, googledrive, ...';

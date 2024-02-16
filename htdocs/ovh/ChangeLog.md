@@ -1,6 +1,15 @@
 # ChangeLog OVH MODULE FOR <a href="https://www.dolibarr.org">DOLIBARR ERP CRM</a>
 
-## 4.1 Unreleased
+
+## 4.2 Unreleased
+
+* FIX if dtfrom and dtto are inverted by OVH, we restore correct order
+* FIX Compatiblity Dolibarr 18 
+* NEW add a select all checkbox in the list
+* NEW add supplier and product selection in form
+* Better PHP 8.2 compatibility 
+
+## 4.1
 
 * Update ovh lib to v2.1.0 (php 5.6+) - guzzle v6.5.5
 * Add option OVH_DEBUG

@@ -334,7 +334,7 @@ class GoogleMapAPI
 		$encodeAddress = urlencode($this->withoutSpecialChars($address));
 		// URL to geoencode
 		$url = "https://maps.googleapis.com/maps/api/geocode/json?address=".$encodeAddress;
-		if (! empty($conf->global->GOOGLE_API_SERVERKEY)) $url.="&key=".$conf->global->GOOGLE_API_SERVERKEY;
+		if (! empty($conf->global->GOOGLE_API_SERVERKEY)) $url.="&key=" . getDolGlobalString('GOOGLE_API_SERVERKEY');
 
 		ini_set("allow_url_open", "1");
 		$data = file_get_contents($url);
@@ -646,7 +646,7 @@ class GoogleMapAPI
 		// http://code.google.com/apis/maps/documentation/javascript/reference.html
 		$url = "https://maps.googleapis.com/maps/api/js?language=" . $this->lang;
 		if (empty($conf->global->GOOGLE_API_SERVERKEY)) $url.="&sensor=true";
-		else $url.="&key=".$conf->global->GOOGLE_API_SERVERKEY;
+		else $url.="&key=" . getDolGlobalString('GOOGLE_API_SERVERKEY');
 
 		$this->content .= '<!-- GoogleMapAPIv3.init(): Include Google javascript map -->'."\n";
 		$this->content .= '<script type="text/javascript" src="'.$url.'">';

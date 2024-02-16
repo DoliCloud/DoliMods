@@ -52,7 +52,7 @@ function revertinvoiceAdminPrepareHead()
 	//$this->tabs = array(
 	//	'entity:-tabname:Title:@revertinvoice:/revertinvoice/mypage.php?id=__ID__'
 	//); // to remove a tab
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'revertinvoice');
+	complete_head_from_modules($conf, $langs, null, $head, $h, 'revertinvoice');
 
 	return $head;
 }

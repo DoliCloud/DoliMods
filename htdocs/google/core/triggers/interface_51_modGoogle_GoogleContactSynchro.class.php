@@ -140,8 +140,8 @@ class InterfaceGoogleContactSynchro extends DolibarrTriggers
 			if (preg_match('/^CATEGORY_/', $action) && $object->type == Categorie::TYPE_MEMBER && empty($conf->global->GOOGLE_DUPLICATE_INTO_MEMBERS)) return 0;
 			if (preg_match('/^CATEGORY_/', $action) && !in_array($object->type, array(Categorie::TYPE_CUSTOMER, Categorie::TYPE_SUPPLIER, Categorie::TYPE_CONTACT, Categorie::TYPE_MEMBER))) return 0;
 
-			if ($conf->global->GOOGLE_DUPLICATE_INTO_THIRDPARTIES == 'customersonly' && $object->client != 1 && $object->client != 3) return 0;
-			if ($conf->global->GOOGLE_DUPLICATE_INTO_THIRDPARTIES == 'prospectsonly' && $object->client != 2 && $object->client != 3) return 0;
+			if (getDolGlobalString('GOOGLE_DUPLICATE_INTO_THIRDPARTIES') == 'customersonly' && $object->client != 1 && $object->client != 3) return 0;
+			if (getDolGlobalString('GOOGLE_DUPLICATE_INTO_THIRDPARTIES') == 'prospectsonly' && $object->client != 2 && $object->client != 3) return 0;
 
 			dol_syslog("Trigger '" . $this->name . "' for action '$action' launched by " . __FILE__ . ". id=" . $object->id." element=".$object->element);
 
@@ -158,17 +158,21 @@ class InterfaceGoogleContactSynchro extends DolibarrTriggers
 			if (preg_match('/^testall/', GETPOST('action'))) $force_do_not_use_session=true;
 			if (preg_match('/^testcreate/', GETPOST('action'))) $force_do_not_use_session=true;
 
-			$servicearray=getTokenFromServiceAccount(!empty($conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL)?$conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL:"", $key_file_location, $force_do_not_use_session, 'web');
+			$servicearray = getTokenFromServiceAccount(!empty($conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL)?$conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL:"", $key_file_location, $force_do_not_use_session, 'web');
 
 			if (! is_array($servicearray) || $servicearray == null) {
 				$this->error="Failed to login to Google with current token";
-				if ($servicearray) $this->error.=" - ".$langs->trans($servicearray);
+				if ($servicearray) {
+					$this->error .= " - ".$langs->trans($servicearray);
+				}
 				dol_syslog($this->error, LOG_ERR);
-				$this->errors[]=$this->error;
+				$this->errors[] = $this->error;
 				return -1;
 			} else {
 				if ($action == 'COMPANY_CREATE' || $action == 'CONTACT_CREATE' || $action == 'MEMBER_CREATE') {
+					// Create the object on google side
 					$ret = googleCreateContact($servicearray, $object, $userlogin);
+
 					if (! preg_match('/ERROR/', $ret)) {
 						if ($ret && ! preg_match('/google\.com/', $ret)) {
 							$ret='google:'.$ret;
@@ -179,27 +183,30 @@ class InterfaceGoogleContactSynchro extends DolibarrTriggers
 						$reg = array();
 						if ($contactID && preg_match('/google:(people\/.*)/', $contactID, $reg)) {
 							$contactID = $reg[1];
-							$type = $object->element ? $object->element : 'unknown';
-							$type = $type === 'societe' ? 'thirdparty' : $type;
-							$typeGroupID = getGContactTypeGroupID($servicearray, $type);
+							$type = ($object->element ? $object->element : 'unknown');
+							$type = ($type === 'societe' ? 'thirdparty' : $type);
+
+							// Check and update groups
+							$typeGroupID = getGContactTypeGroupID($servicearray, $type);	// $typeGroupID will be defined if group already exists
+
 							if ($typeGroupID && preg_match('/contactGroups\/.*/', $typeGroupID)) {
 								$ret = googleLinkGroup($servicearray, $typeGroupID, $contactID);
 								if ($ret > 0) {
 									return 1;
 								} else {
-									$this->error="Failed to link contact to group".$typeGroupID.$type;
+									$this->error = "Failed to link contact to group for ".$type." - ".$typeGroupID;
 									dol_syslog($this->error, LOG_ERR);
 									$this->errors[]=$this->error;
 									return -1;
 								}
 							} else {
-								$this->error="Failed to get type group ID for ".$type." - ".$typeGroupID;
+								$this->error = "Failed to get type group ID for ".$type." - ".$typeGroupID;
 								dol_syslog($this->error, LOG_ERR);
 								$this->errors[]=$this->error;
 								return -1;
 							}
 						} else {
-							$this->error="Failed to get contact ID";
+							$this->error = "Failed to get contact ID";
 							dol_syslog($this->error, LOG_ERR);
 							$this->errors[]=$this->error;
 							return -1;
@@ -214,7 +221,7 @@ class InterfaceGoogleContactSynchro extends DolibarrTriggers
 					if ($gid && preg_match('/google/i', $object->ref_ext)) { // This record is linked with Google Contact
 						$ret = googleUpdateContact($servicearray, $gid, $object, $userlogin);
 						if ($ret === 0) { // Fails to update because not found, we try to create
-							dol_syslog("Echec de la mise a jour, on force la création");
+							dol_syslog("Failed to update thirdparty, contact or member. It may have been deleted on Google side. we force the creation");
 							$ret = googleCreateContact($servicearray, $object, $userlogin);
 							//var_dump($ret); exit;
 

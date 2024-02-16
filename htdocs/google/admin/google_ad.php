@@ -85,7 +85,7 @@ print '<input type="hidden" name="token" value="'.newToken().'">';
 
 $head=googleadmin_prepare_head();
 
-dol_fiche_head($head, 'tabadsense', $langs->trans("GoogleTools"), -1);
+dol_fiche_head($head, 'tabadsense', '', -1);
 
 print '<div class="fichecenter">';
 

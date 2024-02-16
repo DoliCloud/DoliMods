@@ -1,0 +1,15 @@
+# Dolibarr language file - el_GR - numberwords
+CHARSET=UTF-8
+Module101220Name=Number Words
+Module101220Desc=Μετατροπή αριθμού ή ποσού σε λέξεις(ολογράφως) (μερικές μόνο γλώσσες υποστηρίζονται)
+NumberWordsSetup=Ρύθμιση ενότητας Number Words
+DescNumberWords=Η ενότητα αυτή παρέχει functions για την μετατροπή αριθμού ή ποσού σε λέξεις (ολογράφως). Μπορεί να χρησιμοποιηθεί επίσης για την αντικατάσταση των παρακατώ __AMOUNT_TEXT__, __AMOUNT_CURRENCY_TEXT__, __AMOUNT_WO_TAX_TEXT__, __AMOUNT_CURRENCY_WO_TAX_TEXT__, __AMOUNT_VAT_TEXT__ or __AMOUNT_CURRENCY_VAT_TEXT__ σύνολο καθαρού ή συνολο Φ.Π.Α. σε όλα τα κείμενα που χρησιμποιούνται (free text on invoices, ...)
+AboutInfo=Αυτή η ενότητα αναπτύσσεται  και διανέμεται από τον Laurent Destailleur για την NLTechno, <a href="https://www.nltechno.com">www.nltechno.com</a> (Επίσημος συνεργάτης του Dolibarr).
+MoreModules=Άλλες ενότητες της NLTechno ειναι διαθέσιμες στο επίσημο DoliStore market place...
+MoreModulesLink=<a target="_blank" href="https://www.dolistore.com/search.php?search_query=nltechno">Πατήστε εδώ για να δείτε την πλήρη λίστα</a>  
+MoreCloudHosting=Προτιμήστε την ασφαλή πλατφόρμα φιλοξενίας του DoliCloud.
+MoreCloudHostingLink=<a target="_blank" href="https://www.dolicloud.com">Πατήστε εδώ για περισσότερες πληροφορίες</a>
+CompatibleWithDoliDroid=Αυτή η ενότητα είναι συμβατή με το  DoliDroid, την Android εφαρμογή για το Dolibarr.
+SetupToChange=Σελίδα επιλογής βασικού νομίσματος
+NUMBERWORDS_USE_CURRENCY_SYMBOL=Χρήση του συμβόλου νομίσματος αντί για κείμενο
+NUMBERWORDS_USE_ADD_SHORTCODE_WITH_SYMBOL=Προσθήκη του short code του νομίσματος πριν το σύμβολο

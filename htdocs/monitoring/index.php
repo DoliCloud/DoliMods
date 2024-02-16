@@ -43,7 +43,7 @@ dol_include_once("/monitoring/lib/monitoring.lib.php"); // We still use old writ
 dol_include_once("/monitoring/class/monitoring_probes.class.php"); // We still use old writing to be compatible with old version
 
 
-if (!$user->rights->monitoring->read) accessforbidden();
+if (!$user->hasRight('monitoring', 'read')) accessforbidden();
 
 
 $langs->load("admin");

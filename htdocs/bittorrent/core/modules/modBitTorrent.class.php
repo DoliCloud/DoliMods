@@ -64,8 +64,6 @@ class modBitTorrent extends DolibarrModules
 		$this->version = '3.4.1';
 		// Key used in llx_const table to save module status enabled/disabled (where MYMODULE is value of property name of module in uppercase)
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
-		// Where to store the module in setup page (0=common,1=interface,2=others,3=very specific)
-		$this->special = 1;
 		// Name of png file (without png) used for this module.
 		// Png file must be in theme/yourtheme/img directory under name object_pictovalue.png.
 		$this->picto='bittorrent@bittorrent';
@@ -119,7 +117,7 @@ class modBitTorrent extends DolibarrModules
 
 
 		// Main menu entries
-		$this->menus = array();			// List of menus to add
+		$this->menu = array();			// List of menus to add
 		$r=0;
 
 		// Add here entries to declare new menus
@@ -131,7 +129,7 @@ class modBitTorrent extends DolibarrModules
 									'url'=>'/bittorrent/admin.php',
 									'langs'=>'bittorrent',	// Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 									'position'=>100,
-									'enabled'=>'$conf->bittorrent->enabled',			// Define condition to show or hide menu entry. Use '$conf->mymodule->enabled' if entry must be visible if module is enabled.
+									'enabled'=>'isModEnabled("bittorent")',			// Define condition to show or hide menu entry. Use '$conf->mymodule->enabled' if entry must be visible if module is enabled.
 									'perms'=>'1',			// Use 'perms'=>'$user->rights->mymodule->level1->level2' if you want your menu with a permission rules
 									'target'=>'',
 									'user'=>2);				// 0=Menu for internal users, 1=external users, 2=both
@@ -144,7 +142,7 @@ class modBitTorrent extends DolibarrModules
 									'mainmenu'=>'bittorrent',
 									'url'=>'/bittorrent/admin.php',
 									'langs'=>'bittorrent',	// Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
-									'enabled'=>'$conf->bittorrent->enabled',			// Define condition to show or hide menu entry. Use '$conf->mymodule->enabled' if entry must be visible if module is enabled.
+									'enabled'=>'isModEnabled("bittorent")',			// Define condition to show or hide menu entry. Use '$conf->mymodule->enabled' if entry must be visible if module is enabled.
 									'position'=>100,
 									'perms'=>$user->admin,			// Use 'perms'=>'$user->rights->mymodule->level1->level2' if you want your menu with a permission rules
 									'target'=>'',

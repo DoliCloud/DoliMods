@@ -48,7 +48,7 @@ $action=GETPOST('action', 'alpha');
 
 
 // Securite acces client
-if (! $user->rights->captureserver->read) accessforbidden();
+if (! $user->hasRight('captureserver', 'read')) accessforbidden();
 $socid=GETPOST('socid', 'int');
 if (isset($user->societe_id) && $user->societe_id > 0) {
 	$action = '';
@@ -88,7 +88,7 @@ $max=3;
 
 /* BEGIN MODULEBUILDER LASTMODIFIED MYOBJECT
 // Last modified myobject
-if (! empty($conf->captureserver->enabled) && $user->rights->captureserver->read)
+if (isModEnabled("captureserver") && $user->rights->captureserver->read)
 {
 	$sql = "SELECT s.rowid, s.nom as name, s.client, s.datec, s.tms, s.canvas";
 	$sql.= ", s.code_client";

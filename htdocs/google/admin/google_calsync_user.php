@@ -179,7 +179,7 @@ if (GETPOST('cleanup')) {
 	$userlogin = empty($object->conf->GOOGLE_LOGIN)?'':$object->conf->GOOGLE_LOGIN;
 
 	// Create client/token object
-	$key_file_location = $conf->google->multidir_output[$conf->entity]."/".$conf->global->GOOGLE_API_SERVICEACCOUNT_P12KEY;
+	$key_file_location = $conf->google->multidir_output[$conf->entity]."/" . getDolGlobalString('GOOGLE_API_SERVICEACCOUNT_P12KEY');
 	$force_do_not_use_session=(in_array(GETPOST('action'), array('testall','testcreate'))?true:false);	// false by default
 	$servicearray=getTokenFromServiceAccount($conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL, $key_file_location, $force_do_not_use_session, 'service');
 
@@ -189,7 +189,7 @@ if (GETPOST('cleanup')) {
 	}
 
 	if ($servicearray == null) {
-		$txterror="Failed to login to Google with credentials provided into setup page ".$conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL.", ".$key_file_location;
+		$txterror="Failed to login to Google with credentials provided into setup page " . getDolGlobalString('GOOGLE_API_SERVICEACCOUNT_EMAIL').", ".$key_file_location;
 		dol_syslog($txterror, LOG_ERR);
 		$errors[]=$txterror;
 		$error++;
@@ -241,7 +241,7 @@ if ($action == 'pushallevents') {
 	$userlogin = empty($object->conf->GOOGLE_LOGIN)?'':$object->conf->GOOGLE_LOGIN;
 
 	// Create client/token object
-	$key_file_location = $conf->google->multidir_output[$conf->entity]."/".$conf->global->GOOGLE_API_SERVICEACCOUNT_P12KEY;
+	$key_file_location = $conf->google->multidir_output[$conf->entity]."/" . getDolGlobalString('GOOGLE_API_SERVICEACCOUNT_P12KEY');
 	$force_do_not_use_session=(in_array(GETPOST('action'), array('testall','testcreate'))?true:false);	// false by default
 	$servicearray=getTokenFromServiceAccount($conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL, $key_file_location, $force_do_not_use_session, 'service');
 
@@ -251,7 +251,7 @@ if ($action == 'pushallevents') {
 	}
 
 	if ($servicearray == null) {
-		$txterror="Failed to login to Google with credentials provided into setup page ".$conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL.", ".$key_file_location;
+		$txterror="Failed to login to Google with credentials provided into setup page " . getDolGlobalString('GOOGLE_API_SERVICEACCOUNT_EMAIL').", ".$key_file_location;
 		dol_syslog($txterror, LOG_ERR);
 		$error++;
 	}
@@ -261,7 +261,7 @@ if ($action == 'pushallevents') {
 			$service = new Google_Service_Calendar($servicearray['client']);
 
 			// Search all events
-			$sql = 'SELECT id, datep, datep2 as datef, code, label, transparency, priority, fulldayevent, punctual, percent, location, fk_soc, fk_contact, note';
+			$sql = 'SELECT id, datep, datep2 as datef, code, label, transparency, priority, fulldayevent, percent, location, fk_soc, fk_contact, note';
 			$sql.= ' FROM '.MAIN_DB_PREFIX.'actioncomm';
 			$sql.=$db->order('datep', 'DESC');
 			$sql.=$db->plimit($max);
@@ -283,7 +283,6 @@ if ($action == 'pushallevents') {
 				$objecttmp->transparency=$obj->transparency;
 				$objecttmp->priority=$obj->priority;
 				$objecttmp->fulldayevent=$obj->fulldayevent;
-				$objecttmp->punctual=$obj->punctual;
 				$objecttmp->percent=$obj->percent;
 				$objecttmp->location=$obj->location;
 				$objecttmp->socid=$obj->fk_soc;
@@ -368,9 +367,9 @@ print '<input type="hidden" name="id" value="'.$id.'">';
 
 
 $title = $langs->trans("User");
-dol_fiche_head($head, 'gsetup', $title, -1, 'user');
+dol_fiche_head($head, 'gsetup', '', -1, 'user');
 
-dol_banner_tab($object, 'id', '', $user->rights->user->user->lire || $user->admin);
+dol_banner_tab($object, 'id', '', $user->hasRight('user', 'user', 'lire') || $user->admin);
 
 print '<div class="underbanner clearboth"></div>';
 
@@ -416,7 +415,7 @@ if (! empty($userlogin)) {	// We use setup of user
 	print '<tr class="oddeven">';
 	print '<td class="fieldrequired">'.$langs->trans("GOOGLE_API_SERVICEACCOUNT_EMAIL")."</td>";
 	print '<td>';
-	print '<input class="flat" type="text" size="90" name="GOOGLE_API_SERVICEACCOUNT_EMAIL" value="'.$conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL.'" disabled="disabled">';
+	print '<input class="flat" type="text" size="90" name="GOOGLE_API_SERVICEACCOUNT_EMAIL" value="' . getDolGlobalString('GOOGLE_API_SERVICEACCOUNT_EMAIL').'" disabled="disabled">';
 	print '</td>';
 	print '<td>';
 	print $langs->trans("ThisFieldIsAGlobalSetup").'<br>';
@@ -427,7 +426,7 @@ if (! empty($userlogin)) {	// We use setup of user
 	print '<tr lass="oddeven">';
 	print '<td class="fieldrequired">'.$langs->trans("GOOGLE_API_SERVICEACCOUNT_P12KEY")."</td>";
 	print '<td>';
-	if (! empty($conf->global->GOOGLE_API_SERVICEACCOUNT_P12KEY)) print $conf->global->GOOGLE_API_SERVICEACCOUNT_P12KEY.'<br>';
+	if (! empty($conf->global->GOOGLE_API_SERVICEACCOUNT_P12KEY)) print getDolGlobalString('GOOGLE_API_SERVICEACCOUNT_P12KEY') . '<br>';
 	//print '<input type="file" name="GOOGLE_API_SERVICEACCOUNT_P12KEY_file">';
 	print '</td>';
 	print '<td>';
@@ -459,7 +458,10 @@ if (! empty($userlogin)) {	// We use setup of user
 
 	print info_admin($langs->trans("EnableAPI", "https://console.developers.google.com/apis/library/", "https://console.developers.google.com/apis/library/", "Calendar API"));
 
-	print info_admin($langs->trans("ShareCalendarWithServiceAccount", $conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL, $langs->transnoentitiesnoconv("GoogleIDAgenda")));
+	$htmltext = $langs->trans("ShareCalendarWithServiceAccount", $conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL, $langs->transnoentitiesnoconv("GoogleIDAgenda"));
+	$htmltext .= '<br>';
+	$htmltext .= $langs->trans("ShareCalendarWithServiceAccount2");
+	print info_admin($htmltext, 0, 0, '1', 'showifidagendaset');
 }
 
 dol_fiche_end();

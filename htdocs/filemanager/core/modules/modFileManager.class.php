@@ -139,7 +139,7 @@ class modFileManager extends DolibarrModules
 		//							'url'=>'/mymodule/pagetop.php',
 		//							'langs'=>'mylangfile',	// Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 		//							'position'=>100,
-		//							'enabled'=>'1',			// Define condition to show or hide menu entry. Use '$conf->mymodule->enabled' if entry must be visible if module is enabled.
+		//							'enabled'=>'1',			// Define condition to show or hide menu entry. Use 'isModEnabled("mymodule")' if entry must be visible if module is enabled.
 		//							'perms'=>'1',			// Use 'perms'=>'$user->rights->mymodule->level1->level2' if you want your menu with a permission rules
 		//							'target'=>'',
 		//							'user'=>2);				// 0=Menu for internal users, 1=external users, 2=both
@@ -152,7 +152,7 @@ class modFileManager extends DolibarrModules
 													'langs'=>'filemanager@filemanager',
 													'position'=>100,
 													'perms'=>'$user->rights->filemanager->read',
-													'enabled'=>'$conf->filemanager->enabled',
+													'enabled'=>'isModEnabled("filemanager")',
 													'target'=>'',
 													'user'=>2);
 		$r++;
