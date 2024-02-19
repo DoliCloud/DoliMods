@@ -188,7 +188,7 @@ class modEcoTaxDeee extends DolibarrModules
 		global $db;
 
         $sql = array();
-        $sql[] = "CREATE TABLE IF NOT EXISTS llx_ecotax (
+        $sql[] = "CREATE TABLE IF NOT EXISTS llx_ecotaxdeee (
                 rowid INTEGER AUTO_INCREMENT PRIMARY KEY,
                 code VARCHAR(255),
                 amount DECIMAL(10,2),
