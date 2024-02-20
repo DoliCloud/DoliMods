@@ -32,3 +32,6 @@ RecordAlreadyExists=Record already exist
 recordUpdated=Record updated successfully
 recordDeleted=Record deleted successfully
 recordAdded=Record added successfully
+InsertCodeForEcoTax=Enter the ecotax for a product by entering a Code and Amount
+SetCodeForEcotaxEnabled=Enable Tab for configure <b>Code</b> 
+SetCodeForEcotaxDisabled=Disabled Tab for configure <b>Code</b>
