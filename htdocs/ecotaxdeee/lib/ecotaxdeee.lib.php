@@ -38,7 +38,7 @@ function ecotaxdeee_prepare_head()
 	$head[$h][2] = 'tabsetup';
 	$h++;
 
-	$active_code = (!getDolGlobalString('SET_CODE_FOR_ECOTAXDEEE') ? false : true);
+	$active_code = (!getDolGlobalString('ECOXTAX_USE_CODE_FOR_ECOTAXDEEE') ? false : true);
 	if ($active_code) {
 		$head[$h][0] = 'setup.php';
 		$head[$h][1] = $langs->trans("CodeAndAmountTable");
