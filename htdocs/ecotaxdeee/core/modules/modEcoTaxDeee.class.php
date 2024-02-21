@@ -183,27 +183,6 @@ class modEcoTaxDeee extends DolibarrModules
 	 */
 	function load_tables()
 	{
-		//return $this->_load_tables('/ecotax/sql/');
-
-		global $db;
-
-        $sql = array();
-        $sql[] = "CREATE TABLE IF NOT EXISTS llx_ecotaxdeee (
-                rowid INTEGER AUTO_INCREMENT PRIMARY KEY,
-                code VARCHAR(255),
-                amount DECIMAL(10,2),
-                date_creation DATETIME,
-                date_modification DATETIME NULL
-        ) ENGINE=InnoDB;";
-
-        foreach($sql as $query) {
-           $db->query($query);
-           if ($db->error) {
-              print $db->lasterror();
-              return -1;
-           }
-	    }
-        
-        return 1;
+		return $this->_load_tables('/ecotaxdeee/sql/');
 	}
 }
