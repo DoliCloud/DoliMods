@@ -62,7 +62,7 @@ print_fiche_titre($langs->trans("EcoTaxDeeSetup"), $linkback, 'setup');
 
 $head=ecotaxdeee_prepare_head();
 
-dol_fiche_head($head, 'tababout', '', (((float) DOL_VERSION < 6) ? 0 : -1));
+dol_fiche_head($head, 'tababout', '', -1);
 
 dol_include_once('/ecotaxdeee/core/modules/modEcoTaxDeee.class.php');
 $tmpmodule = new modEcoTaxDeee($db);

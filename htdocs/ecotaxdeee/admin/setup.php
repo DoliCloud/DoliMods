@@ -118,6 +118,8 @@ if ($action == 'delete') {
 
     }
 }
+
+
 /*
  * View
  */
@@ -131,7 +133,7 @@ print load_fiche_titre($langs->trans("EcoTaxDeeSetup"), $linkback, 'setup');
 
 $head=ecotaxdeee_prepare_head();
 
-print dol_get_fiche_head($head, 'tabmoresetup', $langs->trans("EcoTaxDeeMoreSetup"), -1, "");
+print dol_get_fiche_head($head, 'tabmoresetup', '', -1);
 
 if ($action == 'create') {
     print '<form name="ecotaxdeeeconfigmore" action="'.$_SERVER["PHP_SELF"].'" method="post">';
@@ -139,7 +141,7 @@ if ($action == 'create') {
     print '<input type="hidden" name="token" value="'.newToken().'">';
 
 
-    print "<table class=\"noborder\" width=\"100%\">";
+    print '<table class="noborder centpercent">';
 
     print '<tr class="liste_titre">';
     print '<td>'.$langs->trans("Parameter")."</td>";
@@ -167,22 +169,23 @@ if ($action == 'create') {
 } else{
     $newcardbutton = '';
     if ($user->admin) {
-        $newcardbutton .= dolGetButtonTitle($langs->trans('NewEcotax'), '', 'fa fa-plus-circle', DOL_URL_ROOT.'/ecotaxdeee/admin/setup.php?action=create');
+        $newcardbutton .= dolGetButtonTitle($langs->trans('NewCodeAmount'), '', 'fa fa-plus-circle', dol_buildpath('/ecotaxdeee/admin/setup.php?action=create', 1));
+
     }
     print_barre_liste('', $page, $_SERVER["PHP_SELF"], '', '', '', '', '', '', '', 0, $newcardbutton, '', '', 0, 0, 1);
 
     $object = new Ecotaxdeee($db);
     $records = $object->fetchAll();
 
-    print '<table class="noborder" width="100%">';
+    print '<table class="noborder centpercent">';
+    print '<tr class="liste_titre">';
+    print '<th>#</th>';
+    print '<th>'.$langs->trans("CodeEcotax").'</th>';
+    print '<th>'.$langs->trans("Amount").'</th>';
+    print '<th class="right">Actions</th>';
+    print '</tr>';
     if (!empty($records)) {
-        print '<tr class="liste_titre">';
-        print '<th>#</th>';
-        print '<th>'.$langs->trans("CodeEcotax").'</th>';
-        print '<th>'.$langs->trans("Amount").'</th>';
-        print '<th style="float:right">Actions</th>';
-        print '</tr>';
-        $i = 1;
+	$i = 1;
         foreach ($records as $item) {
             print '<tr>';
             print '<td>'.$i.'</td>';
@@ -193,7 +196,7 @@ if ($action == 'create') {
                 print '<input type="hidden" name="key" value="'.$item->rowid.'"/>';
                 print '<td><input type="text" name="codeecotax" value="'.$item->code.'" /></td>';
                 print '<td><input type="text" name="amount" value="'.$item->amount.'" /></td>';
-                print '<td style="float:right">';
+                print '<td>';
                 print '<input class="reposition button smallpaddingimp" type="submit" name="update" value="'.$langs->trans("Save").'">';
                 print '<input class="reposition button button-cancel smallpaddingimp" type="submit" name="cancel" value="'.$langs->trans("Cancel").'">';
                 print '</td>';
@@ -201,16 +204,16 @@ if ($action == 'create') {
             } else {
                 print '<td>'.$item->code.'</td>';
                 print '<td>'.$item->amount.'</td>';
-                print '<td style="float:right">';
+                print '<td class="right">';
                 print '<a class="editfielda reposition marginleftonly marginrighttonly paddingright paddingleft" href="'.$_SERVER["PHP_SELF"].'?action=edit&token='.newToken().'&key='.urlencode($item->rowid).'">'.img_edit().'</a>';
-                print '<a class="reposition marginleftonly marginrighttonly paddingright paddingleft" href="'.$_SERVER["PHP_SELF"].'?action=delete&token='.newToken().'&key='.urlencode($item->rowid).'" onclick="return confirm(\''.$langs->trans("AreYouSure").'\')">'.img_delete().'</a>';
+                print '<a class="reposition marginleftonly marginrighttonly paddingright paddingleft" href="'.$_SERVER["PHP_SELF"].'?action=delete&token='.newToken().'&key='.urlencode($item->rowid).'" onclick="return confirm(\''.$langs->trans("AreYouSureYouWantToDelete").'\')">'.img_delete().'</a>';
                 print '</td>';
                 print '</tr>';
             }
             $i++;
         }
     } else {
-        print $langs->trans("NoRecords");
+        print '<tr><td colspan="4"><span class="opacitymedium">'.$langs->trans("None").'</span></td></tr>';
     }
     print '</table>';
 }
