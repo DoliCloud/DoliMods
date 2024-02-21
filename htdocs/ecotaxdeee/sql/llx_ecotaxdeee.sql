@@ -23,4 +23,4 @@ CREATE TABLE IF NOT EXISTS llx_ecotaxdeee (
                 amount DECIMAL(10,2),
                 date_creation DATETIME,
                 date_modification DATETIME NULL
-        ) ENGINE=InnoDB;";
+        ) ENGINE=InnoDB;
