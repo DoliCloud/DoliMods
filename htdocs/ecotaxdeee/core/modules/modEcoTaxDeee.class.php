@@ -33,7 +33,6 @@ include_once DOL_DOCUMENT_ROOT ."/core/modules/DolibarrModules.class.php";
  */
 class modEcoTaxDeee extends DolibarrModules
 {
-
 	/**
 	 *   Constructor. Define names, constants, directories, boxes, permissions
 	 *
@@ -41,8 +40,6 @@ class modEcoTaxDeee extends DolibarrModules
 	 */
 	function __construct($db)
 	{
-		global $conf;
-
 		$this->db = $db;
 
 		// Id for module (must be unique).
