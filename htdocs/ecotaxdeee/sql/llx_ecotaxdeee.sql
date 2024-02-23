@@ -22,5 +22,5 @@ CREATE TABLE IF NOT EXISTS llx_ecotaxdeee (
                 code VARCHAR(16),
                 amount DECIMAL(10,2),
                 date_creation DATETIME,
-                date_modification DATETIME NULL
+                date_modification DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
         ) ENGINE=InnoDB;
