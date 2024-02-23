@@ -300,6 +300,30 @@ class InterfaceEcotaxdeee extends DolibarrTriggers
 				}
 				if ($ecotaxCalculationMode == 1) {
 					// Implement another mode
+					$tmpproduct = new Product($this->db);
+					$tmpproduct->fetch($line->fk_product);
+					include_once DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php';
+					if (!empty($tmpproduct->array_options['option_ecotaxdeeecode']) && $line->qty) {
+						$ecotaxCode = $tmpproduct->array_options['option_ecotaxdeeecode'];
+
+						// search and get amount from code
+						$sql = "SELECT amount FROM ".MAIN_DB_PREFIX."ecotaxdeee";
+						$sql .= " WHERE code = '".$this->db->escape($ecotaxCode)."'";
+						$resql = $this->db->query($sql);
+						if ($resql) {
+							if ($this->db->num_rows($resql) > 0) {
+								$obj = $this->db->fetch_object($resql);
+								$ecotaxAmount = $obj->amount;
+								if (empty($ecoamount[$ecocateg])) {	// To force init of var
+									$ecoamount[$ecocateg] = 0;
+								}
+								
+								$ecoamount[$ecocateg] += ($ecotaxAmount * $line->qty);
+							}
+						}
+					} else {
+						dol_syslog(get_class($this).'::checkCode: code not founded');
+					}
 
 				}
 			}
