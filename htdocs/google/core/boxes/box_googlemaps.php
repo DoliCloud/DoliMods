@@ -79,7 +79,7 @@ class box_googlemaps extends ModeleBoxes
 		$this->info_box_head = array('text' => $langs->trans("BoxMaps", $max));
 
 		$i=0;
-		if ($conf->societe->enabled && $user->hasRight('societe', 'lire') && ! empty($conf->global->GOOGLE_ENABLE_GMAPS) && empty($conf->global->CABINETMED_HIDETHIRPARTIESMENU)) {
+		if (isModEnabled('societe') && $user->hasRight('societe', 'lire') && ! empty($conf->global->GOOGLE_ENABLE_GMAPS) && empty($conf->global->CABINETMED_HIDETHIRPARTIESMENU)) {
 			$something++;
 
 			$url=dol_buildpath("/google/gmaps_all.php", 1)."?mode=thirdparty";
@@ -94,7 +94,7 @@ class box_googlemaps extends ModeleBoxes
 
 			$i++;
 		}
-		if ($conf->societe->enabled && $user->hasRight('societe', 'lire') && ! empty($conf->global->GOOGLE_ENABLE_GMAPS_CONTACTS)) {
+		if (isModEnabled('societe') && $user->hasRight('societe', 'lire') && ! empty($conf->global->GOOGLE_ENABLE_GMAPS_CONTACTS)) {
 			$something++;
 
 			$url=dol_buildpath("/google/gmaps_all.php", 1)."?mode=contact";
@@ -109,7 +109,7 @@ class box_googlemaps extends ModeleBoxes
 
 			$i++;
 		}
-		if ($conf->adherent->enabled && $user->hasRight('adherent', 'lire') && ! empty($conf->global->GOOGLE_ENABLE_GMAPS_MEMBERS)) {
+		if (isModEnabled('adherent') && $user->hasRight('adherent', 'lire') && ! empty($conf->global->GOOGLE_ENABLE_GMAPS_MEMBERS)) {
 			$something++;
 
 			$url=dol_buildpath("/google/gmaps_all.php", 1)."?mode=member";
@@ -124,7 +124,7 @@ class box_googlemaps extends ModeleBoxes
 
 			$i++;
 		}
-		if ($conf->cabinetmed->enabled && $user->hasRight('cabinetmed', 'read')) {
+		if (isModEnabled('cabinetmed') && $user->hasRight('cabinetmed', 'read')) {
 			$something++;
 
 			$url=dol_buildpath("/google/gmaps_all.php", 1)."?mode=patient";
