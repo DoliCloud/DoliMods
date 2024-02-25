@@ -33,7 +33,7 @@ class Ecotaxdeee extends CommonObject
 	/**
 	 * @var string Name of table without prefix where object is stored
 	 */
-	public $table_element = 'ecotax';
+	public $table_element = 'ecotaxdeee';
 
     /**
 	 * @var DoliDB $db Database object
@@ -94,7 +94,7 @@ class Ecotaxdeee extends CommonObject
             return -1;
         }else {
 
-            $sql = "INSERT INTO ".MAIN_DB_PREFIX."ecotax (";
+            $sql = "INSERT INTO ".MAIN_DB_PREFIX."ecotaxdeee (";
             $sql .= "code, ";
             $sql .= "amount, ";
             $sql .= "date_creation";
@@ -123,7 +123,7 @@ class Ecotaxdeee extends CommonObject
 	public function fetchAll()
 	{
         $sql = "SELECT rowid,code, amount, date_creation";
-        $sql .= " FROM ".MAIN_DB_PREFIX."ecotax";
+        $sql .= " FROM ".MAIN_DB_PREFIX."ecotaxdeee";
        
         dol_syslog(get_class($this)."::fetchAll", LOG_DEBUG);
         $resql = $this->db->query($sql);
@@ -148,7 +148,7 @@ class Ecotaxdeee extends CommonObject
 	public function fetch($id)
 	{
         $sql = "SELECT rowid,code, amount, date_creation";
-        $sql .= " FROM ".MAIN_DB_PREFIX."ecotax";
+        $sql .= " FROM ".MAIN_DB_PREFIX."ecotaxdeee";
         if (!empty($id)) {
             $sql .= " WHERE rowid=".((int) $id);
         }
@@ -180,7 +180,7 @@ class Ecotaxdeee extends CommonObject
         
          // check if records already exists
 
-         $check = "SELECT code,amount FROM ".MAIN_DB_PREFIX."ecotax";
+         $check = "SELECT code,amount FROM ".MAIN_DB_PREFIX."ecotaxdeee";
          $check .= " WHERE code ='".$this->code."' AND amount=".$this->amount;
          $rslt = $this->db->query($check);
          $num = $this->db->num_rows($rslt);
@@ -214,7 +214,7 @@ class Ecotaxdeee extends CommonObject
     public function delete($id)
     {
         
-        $sql = "DELETE FROM ".MAIN_DB_PREFIX."ecotax WHERE rowid = ".((int) $id).";";
+        $sql = "DELETE FROM ".MAIN_DB_PREFIX."ecotaxdeee WHERE rowid = ".((int) $id).";";
 
         $resql = $this->db->query($sql);
         if (!$resql) {
