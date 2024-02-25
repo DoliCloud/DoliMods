@@ -133,12 +133,12 @@ class Survey extends CommonObject
 		"activiteassociees" => array("type"=>"varchar(128)", "label"=>"ActiviteAssociees", "enabled"=>"isModEnabled('alumni')", 'position'=>60, 'notnull'=>0, "visible"=>"-1",),
 		"activiteassocieesnat" => array("type"=>"varchar(128)", "label"=>"ActiviteAssocieesNature", "enabled"=>"isModEnabled('alumni')", 'position'=>61, 'notnull'=>0, "visible"=>"1",),
 		"prtorganiser" => array("type"=>"integer", "label"=>"Prêt à organiser", "enabled"=>"isModEnabled('alumni')", 'position'=>50, 'notnull'=>0, "visible"=>"1",),
-		"region" => array("type"=>"varchar(32)", "label"=>"Region", "enabled"=>"isModEnabled('alumni')", 'position'=>50, 'notnull'=>0, "visible"=>"-1",),
-		"choixperimetre" => array("type"=>"varchar(32)", "label"=>"ChoixPerimetre", "enabled"=>"isModEnabled('alumni')", 'position'=>54, 'notnull'=>0, "visible"=>"-1",),
-		"budgetmaxactivitepar" => array("type"=>"integer", "label"=>"BudgetMaxActiviteParPers", "enabled"=>"isModEnabled('alumni')", 'position'=>55, 'notnull'=>0, "visible"=>"-1",'isameasure'=>1),
-		"budgetmaxrepasparpers" => array("type"=>"integer", "label"=>"BudgetMaxRepasParPers", "enabled"=>"isModEnabled('alumni')", 'position'=>55, 'notnull'=>0, "visible"=>"1",'isameasure'=>1),
-		"lieu" => array("type"=>"varchar(24)", "label"=>"Lieu", "enabled"=>"isModEnabled('alumni')", 'position'=>50, 'notnull'=>0, "visible"=>"-1",),
-		"motivation" => array("type"=>"varchar(16)", "label"=>"Motivation", "enabled"=>"isModEnabled('alumni')", 'position'=>60, 'notnull'=>0, "visible"=>"1", 'csslist'=>'tdoverflowmax150 small', "arrayofkeyval"=>array("1" => "Pas du tout, je ne souhaite pas relier des liens avec l'ISEN, je suis passé a autre chose, probabilité de venir = 0%", "5" => "Intéressé mais des contraintes (éloignements, perso) m'empêcheront surement de venir, probabilité de venir < 5%", "25" => "Ca me fait ni chaud ni froid, probabilité de venir <25%", "50" => "Je suis intéressé, probabilité de venir entre 25 et 75%", "75" => "Je suis à fond, probabilité de venir > 75%"),),
+		"lieu" => array("type"=>"varchar(24)", "label"=>"Lieu", "enabled"=>"isModEnabled('alumni')", 'position'=>70, 'notnull'=>0, "visible"=>"-1",),
+		"region" => array("type"=>"varchar(32)", "label"=>"Region", "enabled"=>"isModEnabled('alumni')", 'position'=>71, 'notnull'=>0, "visible"=>"-1",),
+		"choixperimetre" => array("type"=>"varchar(32)", "label"=>"ChoixPerimetre", "enabled"=>"isModEnabled('alumni')", 'position'=>80, 'notnull'=>0, "visible"=>"-1",),
+		"budgetmaxactivitepar" => array("type"=>"integer", "label"=>"BudgetMaxActiviteParPers", "enabled"=>"isModEnabled('alumni')", 'position'=>90, 'notnull'=>0, "visible"=>"-1",'isameasure'=>1),
+		"budgetmaxrepasparpers" => array("type"=>"integer", "label"=>"BudgetMaxRepasParPers", "enabled"=>"isModEnabled('alumni')", 'position'=>91, 'notnull'=>0, "visible"=>"1",'isameasure'=>1),
+		"motivation" => array("type"=>"varchar(16)", "label"=>"Motivation", "enabled"=>"isModEnabled('alumni')", 'position'=>100, 'notnull'=>0, "visible"=>"1", 'csslist'=>'tdoverflowmax150 small', "arrayofkeyval"=>array("1" => "Pas du tout, je ne souhaite pas relier des liens avec l'ISEN, je suis passé a autre chose, probabilité de venir = 0%", "5" => "Intéressé mais des contraintes (éloignements, perso) m'empêcheront surement de venir, probabilité de venir < 5%", "25" => "Ca me fait ni chaud ni froid, probabilité de venir <25%", "50" => "Je suis intéressé, probabilité de venir entre 25 et 75%", "75" => "Je suis à fond, probabilité de venir > 75%"),),
 		"date_creation" => array("type"=>"datetime", "label"=>"DateCreation", "enabled"=>"1", 'position'=>500, 'notnull'=>1, "visible"=>"-2",),
 		"tms" => array("type"=>"timestamp", "label"=>"DateModification", "enabled"=>"1", 'position'=>501, 'notnull'=>0, "visible"=>"-2",),
 		"fk_user_creat" => array("type"=>"integer:User:user/class/user.class.php", "label"=>"UserAuthor", "picto"=>"user", "enabled"=>"1", 'position'=>510, 'notnull'=>1, "visible"=>"-2", "csslist"=>"tdoverflowmax150",),
@@ -449,7 +449,7 @@ class Survey extends CommonObject
 			foreach ($filter as $key => $value) {
 				if ($key == 't.rowid') {
 					$sqlwhere[] = $key." = ".((int) $value);
-				} elseif (in_array($this->fields[$key]['type'], array('date', 'datetime', 'timestamp'))) {
+				} elseif (property_exists($this->fields, $key) && in_array($this->fields[$key]['type'], array('date', 'datetime', 'timestamp'))) {
 					$sqlwhere[] = $key." = '".$this->db->idate($value)."'";
 				} elseif ($key == 'customsql') {
 					$sqlwhere[] = $value;	// For this case, $value never come from a user input but is a hard coded value in code
