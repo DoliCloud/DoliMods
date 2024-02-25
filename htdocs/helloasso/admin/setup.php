@@ -100,6 +100,8 @@ $formSetup = new FormSetup($db);
 // $item = $formSetup->newItem('HELLOASSO_GOOGLE_ACCOUNT');
 // $item->helpText = $langs->transnoentities('HELLOASSO_GOOGLE_ACCOUNT_HELP');
 
+$item = $formSetup->newItem('HELLOASSO_LIVE')->setAsYesNo();
+
 $item = $formSetup->newItem('HELLOASSO_TEST_CLIENT_ID');
 $item->helpText = $langs->transnoentities('HELLOASSO_TEST_CLIENT_ID_HELP');
 
