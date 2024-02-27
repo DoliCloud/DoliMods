@@ -2,7 +2,7 @@
 
 ## Features
 
-Description of the module...
+Provides a way to make an online checkout of any membership dues, donation, customer invoice or customer order with the HelloAsso API.
 
 <!--
 ![Screenshot helloasso](img/screenshot_helloasso.png?raw=true "HelloAsso"){imgmd}
@@ -25,8 +25,8 @@ There is a [Transifex project](https://transifex.com/projects/p/dolibarr-module-
 
 ## Installation
 
-Prerequisites: You must have the Dolibarr ERP CRM software installed. You can down it from [Dolistore.org](https://www.dolibarr.org).
-You can also get a ready to use instance in the cloud from htts://saas.dolibarr.org
+Prerequisites: You must have the Dolibarr ERP CRM software installed. You can download it from [Dolibarr.org](https://www.dolibarr.org).
+You can also get a ready to use instance in the cloud from [Dolicloud.com](https://www.dolicloud.com/fr/fr.php)
 
 
 ### From the ZIP file and GUI interface

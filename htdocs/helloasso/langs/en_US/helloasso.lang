@@ -20,7 +20,7 @@
 # Module label 'ModuleHelloAssoName'
 ModuleHelloAssoName = HelloAsso
 # Module description 'ModuleHelloAssoDesc'
-ModuleHelloAssoDesc = HelloAsso description
+ModuleHelloAssoDesc = Offer customers a HelloAsso online payment page (credit/debit cards). This can be used to allow your customers to make ad-hoc payments or payments related to a specific Dolibarr object (invoice, order etc...)
 
 #
 # Admin page
