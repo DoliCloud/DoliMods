@@ -1,6 +1,5 @@
 <?php
-/* Copyright (C) 2004-2017 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2023 Alice Adminson <myemail@mycompany.com>
+/* Copyright (C) 2024 Laurent Destailleur  <eldy@users.sourceforge.net>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -57,7 +56,6 @@ global $langs, $user;
 require_once DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php";
 require_once DOL_DOCUMENT_ROOT."/core/lib/geturl.lib.php";
 require_once '../lib/helloasso.lib.php';
-//require_once "../class/myclass.class.php";
 
 // Translations
 $langs->loadLangs(array("admin", "helloasso@helloasso"));
@@ -124,72 +122,7 @@ $item->helpText = $langs->transnoentities('HELLOASSO_CLIENT_ORGANISATION_HELP');
 
 $item = $formSetup->newItem('HELLOASSO_BANK_ACCOUNT_FOR_PAYMENTS')->setAsSelectBankAccount();
 
-// $item = $formSetup->newItem('HELLOASSO_MYPARAM1');
-// $item->fieldOverride = (empty($_SERVER['HTTPS']) ? 'http://' : 'https://') . $_SERVER['HTTP_HOST'];
-// $item->cssClass = 'minwidth500';
-
-// // Setup conf for selection of a simple string input
-// $item = $formSetup->newItem('HELLOASSO_MYPARAM2');
-// $item->defaultFieldValue = 'default value';
-
-// // Setup conf for selection of a simple textarea input but we replace the text of field title
-// $item = $formSetup->newItem('HELLOASSO_MYPARAM3');
-// $item->nameText = $item->getNameText().' more html text ';
-
-// // Setup conf for a selection of a thirdparty
-// $item = $formSetup->newItem('HELLOASSO_MYPARAM4');
-// $item->setAsThirdpartyType();
-
-// // Setup conf for a selection of a boolean
-// $formSetup->newItem('HELLOASSO_MYPARAM5')->setAsYesNo();
-
-// // Setup conf for a selection of an email template of type thirdparty
-// $formSetup->newItem('HELLOASSO_MYPARAM6')->setAsEmailTemplate('thirdparty');
-
-// // Setup conf for a selection of a secured key
-// //$formSetup->newItem('HELLOASSO_MYPARAM7')->setAsSecureKey();
-
-// // Setup conf for a selection of a product
-// $formSetup->newItem('HELLOASSO_MYPARAM8')->setAsProduct();
-
-// // Add a title for a new section
-// $formSetup->newItem('NewSection')->setAsTitle();
-
-// $TField = array(
-// 	'test01' => $langs->trans('test01'),
-// 	'test02' => $langs->trans('test02'),
-// 	'test03' => $langs->trans('test03'),
-// 	'test04' => $langs->trans('test04'),
-// 	'test05' => $langs->trans('test05'),
-// 	'test06' => $langs->trans('test06'),
-// );
-
-// // Setup conf for a simple combo list
-// $formSetup->newItem('HELLOASSO_MYPARAM9')->setAsSelect($TField);
-
-// // Setup conf for a multiselect combo list
-// $item = $formSetup->newItem('HELLOASSO_MYPARAM10');
-// $item->setAsMultiSelect($TField);
-// $item->helpText = $langs->transnoentities('HELLOASSO_MYPARAM10');
-
-
-
-// // Setup conf HELLOASSO_MYPARAM10
-// $item = $formSetup->newItem('HELLOASSO_MYPARAM10');
-// $item->setAsColor();
-// $item->defaultFieldValue = '#FF0000';
-// $item->nameText = $item->getNameText().' more html text ';
-// $item->fieldInputOverride = '';
-// $item->helpText = $langs->transnoentities('AnHelpMessage');
-//$item->fieldValue = '';
-//$item->fieldAttr = array() ; // fields attribute only for compatible fields like input text
-//$item->fieldOverride = false; // set this var to override field output will override $fieldInputOverride and $fieldOutputOverride too
-//$item->fieldInputOverride = false; // set this var to override field input
-//$item->fieldOutputOverride = false; // set this var to override field output
-
-
 $setupnotempty += count($formSetup->items);
-
 
 $dirmodels = array_merge(array('/'), (array) $conf->modules_parts['models']);
 
@@ -197,11 +130,6 @@ $dirmodels = array_merge(array('/'), (array) $conf->modules_parts['models']);
 /*
  * Actions
  */
-
-// For retrocompatibility Dolibarr < 15.0
-if (versioncompare(explode('.', DOL_VERSION), array(15)) < 0 && $action == 'update' && !empty($user->admin)) {
-	$formSetup->saveConfFromPost();
-}
 
 include DOL_DOCUMENT_ROOT.'/core/actions_setmoduleoptions.inc.php';
 
@@ -334,7 +262,7 @@ print load_fiche_titre($langs->trans($page_name), $linkback, 'title_setup');
 
 // Configuration header
 $head = helloassoAdminPrepareHead();
-print dol_get_fiche_head($head, 'settings', $langs->trans($page_name), -1, "helloasso@helloasso");
+print dol_get_fiche_head($head, 'settings', $langs->trans($page_name), -1, "");
 
 // Setup page goes here
 echo '<span class="opacitymedium">'.$langs->trans("ModuleHelloAssoDesc").'</span><br><br>';

@@ -612,17 +612,16 @@ class ActionsHelloAsso extends CommonHookActions
 			$amount = price2num($amount);
 			$_SESSION["FinalPaymentAmt"] = $amount;
 
-		} elseif (in_array($parameters['paymentmethod'], array('helloasso')) && $parameters['validpaymentmethod']["helloasso"] == "valid") {		// do something only for the context 'somecontext1' or 'somecontext2'
+		} elseif (in_array($parameters['paymentmethod'], array('helloasso')) && $parameters['validpaymentmethod']["helloasso"] == "valid") {
 			require_once DOL_DOCUMENT_ROOT."/core/lib/geturl.lib.php";
 			dol_include_once('helloasso/lib/helloasso.lib.php');
 			$urlback = $urlwithroot.'/public/payment/newpayment.php?';
 
-			$helloassourl = "api.helloasso.com";
-
 			//Verify if Helloasso module is in test mode
 			if (getDolGlobalInt("HELLOASSO_LIVE")) {
 				$client_organisation = getDolGlobalString("HELLOASSO_CLIENT_ORGANISATION");
-			} else{
+				$helloassourl = "api.helloasso.com";
+			} else {
 				$client_organisation = getDolGlobalString("HELLOASSO_TEST_CLIENT_ORGANISATION");
 				$helloassourl = "api.helloasso-sandbox.com";
 			}
@@ -658,7 +657,7 @@ class ActionsHelloAsso extends CommonHookActions
 			}
 			$urlback .= 'action=returnDoPaymentHelloAsso';
 
-			$result = doConnectionHelloasso();
+			$result = doConnectionHelloasso();	// @TODO LMR Get the token from database and OAuth module
 
 			if ($result <= 0) {
 				$errors = $langs->trans("ErrorBadClientIdOrSecret");

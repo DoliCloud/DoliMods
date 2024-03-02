@@ -94,7 +94,7 @@ print load_fiche_titre($langs->trans($page_name), $linkback, 'title_setup');
 
 // Configuration header
 $head = helloassoAdminPrepareHead();
-print dol_get_fiche_head($head, 'about', $langs->trans($page_name), 0, 'helloasso@helloasso');
+print dol_get_fiche_head($head, 'about', $langs->trans($page_name), 0, '');
 
 dol_include_once('/helloasso/core/modules/modHelloAsso.class.php');
 $tmpmodule = new modHelloAsso($db);
