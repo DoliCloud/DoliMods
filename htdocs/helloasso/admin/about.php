@@ -83,7 +83,7 @@ $backtopage = GETPOST('backtopage', 'alpha');
 $form = new Form($db);
 
 $help_url = '';
-$page_name = "HelloAssoAbout";
+$page_name = "HelloAssoSetup";
 
 llxHeader('', $langs->trans($page_name), $help_url, '', 0, 0, '', '', '', 'mod-helloasso page-admin_about');
 

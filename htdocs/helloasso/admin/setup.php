@@ -95,11 +95,6 @@ $formSetup = new FormSetup($db);
 
 // Enter here all parameters in your setup page
 
-// Setup conf for selection of an URL
-
-// $item = $formSetup->newItem('HELLOASSO_GOOGLE_ACCOUNT');
-// $item->helpText = $langs->transnoentities('HELLOASSO_GOOGLE_ACCOUNT_HELP');
-
 $item = $formSetup->newItem('HELLOASSO_LIVE')->setAsYesNo();
 
 $item = $formSetup->newItem('HELLOASSO_TEST_CLIENT_ID');
@@ -129,7 +124,6 @@ $item->helpText = $langs->transnoentities('HELLOASSO_CLIENT_ORGANISATION_HELP');
 
 $item = $formSetup->newItem('HELLOASSO_BANK_ACCOUNT_FOR_PAYMENTS')->setAsSelectBankAccount();
 
-$item = $formSetup->newItem('HELLOASSO_SHOW_ONLINE_PAYMENTS')->setAsYesNo();
 // $item = $formSetup->newItem('HELLOASSO_MYPARAM1');
 // $item->fieldOverride = (empty($_SERVER['HTTPS']) ? 'http://' : 'https://') . $_SERVER['HTTP_HOST'];
 // $item->cssClass = 'minwidth500';
@@ -317,6 +311,9 @@ if ($action == 'updateMask') {
 	}
 }
 
+if (empty($action) || $action == 'update') {
+	$action = 'edit';
+}
 
 
 /*
@@ -340,7 +337,7 @@ $head = helloassoAdminPrepareHead();
 print dol_get_fiche_head($head, 'settings', $langs->trans($page_name), -1, "helloasso@helloasso");
 
 // Setup page goes here
-echo '<span class="opacitymedium">'.$langs->trans("HelloAssoSetupPage").'</span><br><br>';
+echo '<span class="opacitymedium">'.$langs->trans("ModuleHelloAssoDesc").'</span><br><br>';
 
 
 if ($action == 'edit') {
@@ -623,6 +620,8 @@ print dolGetButtonAction('',$langs->trans('TestConnectionHelloasso'), 'default',
 if (empty($setupnotempty)) {
 	print '<br>'.$langs->trans("NothingToSetup");
 }
+
+print '<br><br>';
 
 print info_admin($langs->trans("ExampleOfTestCreditCardHelloAsso", "https://docs.sips.worldline-solutions.com/fr/cartes-de-test.html"));
 

@@ -27,7 +27,6 @@ ModuleHelloAssoDesc = Offer customers a HelloAsso online payment page (credit/de
 #
 HelloAssoSetup = HelloAsso setup
 Settings = Settings
-HelloAssoSetupPage = HelloAsso setup page
 HELLOASSO_LIVE = Helloasso live enabled (otherwise test/sandbox mode)
 HELLOASSO_TEST_CLIENT_ID=Client id test key
 HELLOASSO_TEST_CLIENT_ID_HELP=The test client ID key from your Helloasso API configuration
@@ -51,7 +50,6 @@ TestConnectionHelloasso=Test Connection
 # About page
 #
 About = About
-HelloAssoAbout = About HelloAsso
 HelloAssoAboutPage = HelloAsso about page
 
 #

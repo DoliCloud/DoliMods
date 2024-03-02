@@ -499,7 +499,7 @@ class ActionsHelloAsso extends CommonHookActions
 			require_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
 			require_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
 			require_once DOL_DOCUMENT_ROOT.'/commande/class/commande.class.php';
-			
+
 			$invoice = new Facture($db);
 			$don = new Don($db);
 			$member = new Adherent($db);
@@ -559,14 +559,14 @@ class ActionsHelloAsso extends CommonHookActions
 						if ($contractline->fk_product && getDolGlobalString('PAYMENT_USE_NEW_PRICE_FOR_CONTRACTLINES')) {
 							$product = new Product($db);
 							$result = $product->fetch($contractline->fk_product);
-				
+
 							// We define price for product (TODO Put this in a method in product class)
 							if (getDolGlobalString('PRODUIT_MULTIPRICES')) {
 								$pu_ttc = $product->multiprices_ttc[$contract->thirdparty->price_level];
 							} else {
 								$pu_ttc = $product->price_ttc;
 							}
-				
+
 							$amount = $pu_ttc;
 						}
 					}
@@ -600,7 +600,7 @@ class ActionsHelloAsso extends CommonHookActions
 
 				default:
 					$resultinvoice = $invoice->fetch($ref);
-					if ($resultinvoice <= 0) {	
+					if ($resultinvoice <= 0) {
 						$errors[] = $invoice->errors;
 						$error++;
 					} else {
@@ -608,11 +608,11 @@ class ActionsHelloAsso extends CommonHookActions
 					}
 					break;
 			}
-			
+
 			$amount = price2num($amount);
 			$_SESSION["FinalPaymentAmt"] = $amount;
 
-		} elseif (in_array($parameters['paymentmethod'], array('helloasso')) && $parameters['validpaymentmethod']["helloasso"] == "valid") {		// do something only for the context 'somecontext1' or 'somecontext2'	
+		} elseif (in_array($parameters['paymentmethod'], array('helloasso')) && $parameters['validpaymentmethod']["helloasso"] == "valid") {		// do something only for the context 'somecontext1' or 'somecontext2'
 			require_once DOL_DOCUMENT_ROOT."/core/lib/geturl.lib.php";
 			dol_include_once('helloasso/lib/helloasso.lib.php');
 			$urlback = $urlwithroot.'/public/payment/newpayment.php?';
@@ -620,7 +620,7 @@ class ActionsHelloAsso extends CommonHookActions
 			$helloassourl = "api.helloasso.com";
 
 			//Verify if Helloasso module is in test mode
-			if (getDolGlobalInt("HELLOASSO_LIVE")) { 
+			if (getDolGlobalInt("HELLOASSO_LIVE")) {
 				$client_organisation = getDolGlobalString("HELLOASSO_CLIENT_ORGANISATION");
 			} else{
 				$client_organisation = getDolGlobalString("HELLOASSO_TEST_CLIENT_ORGANISATION");
@@ -666,7 +666,7 @@ class ActionsHelloAsso extends CommonHookActions
 				$action = '';
 			}
 
-			
+
 			if (!$error) {
 				$fulltag = $FULLTAG;
 				$FinalPaymentAmt = $_SESSION["FinalPaymentAmt"];
@@ -675,7 +675,7 @@ class ActionsHelloAsso extends CommonHookActions
 					//Permit to format the amount string to call HelloAsso API
 					$posdot = strpos($amount, '.');
 					if ( $posdot === false) {
-						$amount .= '00'; 
+						$amount .= '00';
 					} else {
 						$amounttab = explode('.', $amount);
 						if (strlen($amounttab[1]) == 1) {
@@ -797,7 +797,7 @@ class ActionsHelloAsso extends CommonHookActions
 			$bankaccountid = getDolGlobalInt('HELLOASSO_BANK_ACCOUNT_FOR_PAYMENTS');
 			if ($bankaccountid == 0) {
 				$error++;
-			}		
+			}
 		}
 
 		if (!$error) {
@@ -805,35 +805,6 @@ class ActionsHelloAsso extends CommonHookActions
 			return 1;
 		} else {
 			$this->errors[] = $langs->trans("BankAccountNotFound");
-			return -1;
-		}
-	}
-
-	/**
-	 * Overloading the doShowOnlinePaymentUrl function : replacing the parent's function with the one below
-	 *
-	 * @param   array           $parameters     Hook metadatas (context, etc...)
-	 * @param   CommonObject    $object         The object to process (an invoice if you are in invoice module, a propale in propale's module, etc...)
-	 * @param   string          $action         Current action (if set). Generally create or edit or null
-	 * @param   HookManager     $hookmanager    Hook manager propagated to allow calling another hook
-	 * @return  int                             Return integer < 0 on error, 0 on success, 1 to replace standard code
-	 */
-	public function doShowOnlinePaymentUrl($parameters, &$object, &$action, $hookmanager)
-	{
-		global $langs;
-
-		$error = 0; // Error counter
-		$errors = ""; // Error counter
-		$showonlinepaymenturl = 0;
-
-		if (in_array($parameters['currentcontext'], array('subscription', 'globalcard'))){
-			$showonlinepaymenturl = getDolGlobalInt('HELLOASSO_SHOW_ONLINE_PAYMENTS');		
-		}
-
-		if (!$error) {
-			$this->results["showonlinepaymenturl"] = $showonlinepaymenturl;
-			return 1;
-		} else {
 			return -1;
 		}
 	}
