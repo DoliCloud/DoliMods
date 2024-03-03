@@ -33,14 +33,14 @@ HELLOASSO_TEST_CLIENT_ID_HELP=The test client ID key from your Helloasso API con
 HELLOASSO_TEST_CLIENT_SECRET=Client secret test key
 HELLOASSO_TEST_SECRET_HELP=The test client ID secret key from your Helloasso API configuration
 HELLOASSO_TEST_CLIENT_ORGANISATION=Client organisation test
-HELLOASSO_TEST_CLIENT_ORGANISATION_HELP=The name of the association in your test Helloasso account
+HELLOASSO_TEST_CLIENT_ORGANISATION_HELP=The name of the organization for test mode. Must match the name defined into the HelloAsso account
 
 HELLOASSO_CLIENT_ID=Client id live key
 HELLOASSO_CLIENT_ID_HELP=The live client ID key from your Helloasso API configuration
 HELLOASSO_CLIENT_SECRET=Client secret live key
 HELLOASSO_SECRET_HELP=The live client ID secret key from your Helloasso API configuration
 HELLOASSO_CLIENT_ORGANISATION=Client organisation live
-HELLOASSO_CLIENT_ORGANISATION_HELP=The name of the association in your live Helloasso account
+HELLOASSO_CLIENT_ORGANISATION_HELP=The name of the organization for production mode. Must match the name defined into the HelloAsso account
 HELLOASSO_BANK_ACCOUNT_FOR_PAYMENTS=Bank account for payments
 HELLOASSO_SHOW_ONLINE_PAYMENTS=Show online payment page
 

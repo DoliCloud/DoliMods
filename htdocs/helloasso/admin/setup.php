@@ -95,23 +95,28 @@ $formSetup = new FormSetup($db);
 
 $item = $formSetup->newItem('HELLOASSO_LIVE')->setAsYesNo();
 
-$item = $formSetup->newItem('HELLOASSO_TEST_CLIENT_ID');
-$item->helpText = $langs->transnoentities('HELLOASSO_TEST_CLIENT_ID_HELP');
-
-$item = $formSetup->newItem('HELLOASSO_TEST_CLIENT_SECRET');
-$item->helpText = $langs->transnoentities('HELLOASSO_TEST_SECRET_HELP');
-
 $item = $formSetup->newItem('HELLOASSO_TEST_CLIENT_ORGANISATION');
 $item->helpText = $langs->transnoentities('HELLOASSO_TEST_CLIENT_ORGANISATION_HELP');
 
-$item = $formSetup->newItem('HELLOASSO_CLIENT_ID');
-$item->helpText = $langs->transnoentities('HELLOASSO_CLIENT_ID_HELP');
+$item = $formSetup->newItem('HELLOASSO_TEST_CLIENT_ID');
+$item->cssClass = 'minwidth500';
+$item->helpText = $langs->transnoentities('HELLOASSO_TEST_CLIENT_ID_HELP');
 
-$item = $formSetup->newItem('HELLOASSO_CLIENT_SECRET');
-$item->helpText = $langs->transnoentities('HELLOASSO_SECRET_HELP');
+$item = $formSetup->newItem('HELLOASSO_TEST_CLIENT_SECRET');
+$item->cssClass = 'minwidth500';
+$item->helpText = $langs->transnoentities('HELLOASSO_TEST_SECRET_HELP');
 
 $item = $formSetup->newItem('HELLOASSO_CLIENT_ORGANISATION');
 $item->helpText = $langs->transnoentities('HELLOASSO_CLIENT_ORGANISATION_HELP');
+
+$item = $formSetup->newItem('HELLOASSO_CLIENT_ID');
+$item->cssClass = 'minwidth500';
+$item->helpText = $langs->transnoentities('HELLOASSO_CLIENT_ID_HELP');
+
+$item = $formSetup->newItem('HELLOASSO_CLIENT_SECRET');
+$item->cssClass = 'minwidth500';
+$item->helpText = $langs->transnoentities('HELLOASSO_SECRET_HELP');
+
 
 
 $item = $formSetup->newItem('HELLOASSO_CLIENT_ORGANISATION');
@@ -239,9 +244,7 @@ if ($action == 'updateMask') {
 	}
 }
 
-if (empty($action) || $action == 'update') {
-	$action = 'edit';
-}
+$action = 'edit';
 
 
 /*

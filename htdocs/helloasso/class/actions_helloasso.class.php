@@ -463,9 +463,11 @@ class ActionsHelloAsso extends CommonHookActions
 	{
 		global $conf, $user, $langs,$db;
 
-		$error = 0; // Error counter
 		$resprints = "";
+
+		$error = 0; // Error counter
 		$errors = array();
+
 		$urlwithroot = DOL_MAIN_URL_ROOT; // This is to use same domain name than current. For Paypal payment, we can use internal URL like localhost.
 
 		// Complete urls for post treatment
@@ -483,10 +485,12 @@ class ActionsHelloAsso extends CommonHookActions
 			if ($typereturn == "error") {
 				$urlredirect .= "paymentko.php?fulltag=".urlencode($FULLTAG);
 				header("Location: ".$urlredirect);
+				exit;
 			} elseif ($typereturn == "return") {
 				$code = GETPOST("code");
 				$urlredirect .= "paymentok.php?fulltag=".urlencode($FULLTAG).'&code='.urlencode($code);
 				header("Location: ".$urlredirect);
+				exit;
 			}
 		}
 
@@ -660,7 +664,7 @@ class ActionsHelloAsso extends CommonHookActions
 			$result = doConnectionHelloasso();	// @TODO LMR Get the token from database and OAuth module
 
 			if ($result <= 0) {
-				$errors = $langs->trans("ErrorBadClientIdOrSecret");
+				$errors[] = $langs->trans("ErrorFailedToGetTokenFromClientIdAndSecret");
 				$error++;
 				$action = '';
 			}
@@ -696,37 +700,73 @@ class ActionsHelloAsso extends CommonHookActions
 
 					if ($FinalPaymentAmt == $amounttotest) {
 						$headers = array();
-						$headers[] = "Authorization:".$result["token_type"]." ".$result["access_token"];
+						$headers[] = "Authorization: ".ucfirst($result["token_type"])." ".$result["access_token"];
 						$headers[] = "Accept: application/json";
 						$headers[] = "Content-Type: application/json";
 
 						$jsontosenddata = '{
 							"totalAmount": '.$amount.',
 							"initialAmount": '.$amount.',
-							"itemName": "'.$ref.'",
+							"itemName": "'.dol_escape_js($ref).'",
 							"backUrl": "'.$urlback.'&typereturn=back",
 							"returnUrl": "'.$urlback.'&typereturn=return",
 							"errorUrl": "'.$urlback.'&typereturn=error",
-							"containsDonation": false,
+							"containsDonation": false,';
+						// @TODO LMR Add information on payer
+						/*
+						$jsontosenddata .= '
+							"payer": {
+								"firstName": "John",
+								"lastName": "Doe",
+								"email": "john.doe@test.com",
+								"address": "23 rue du palmier",
+								"city": "Paris",
+								"zipCode": "75000",
+								"country": "FRA",
+								"companyName": "JJJ"
+							},';
+						*/
+						$jsontosenddata .= '
 							"metadata": {
 								"source": "'.dol_escape_js($source).'",
-								"ref": "'.$ref.'",
-							}
-						}';
+								"ref": "'.dol_escape_js($ref).'"
+							}';
+						$jsontosenddata .= '}';
 
-						$ret2 = getURLContent("https://".urlencode($helloassourl)."/v5/organizations/".urlencode($client_organisation)."/checkout-intents", 'POSTALREADYFORMATED', $jsontosenddata, 1, $headers);
+						$urlforcheckout = "https://".urlencode($helloassourl)."/v5/organizations/".urlencode($client_organisation)."/checkout-intents";
+
+						$ret2 = getURLContent($urlforcheckout, 'POSTALREADYFORMATED', $jsontosenddata, 1, $headers);
 						if ($ret2["http_code"] == 200) {
 							$result2 = $ret2["content"];
 							$json2 = json_decode($result2);
 							header("Location: ".$json2->redirectUrl);
+							exit;
 						} else {
-							$errors = $langs->trans("ErrorBadValueAmount");
+							$arrayofmessage = array();
+							if (!empty($ret2['content'])) {
+								$arrayofmessage = json_decode($ret2['content'], true);
+							}
+							if (!empty($arrayofmessage['message'])) {
+								$errors[] = $arrayofmessage['message'];
+							} else {
+								if (!empty($arrayofmessage['errors']) && is_array($arrayofmessage['errors'])) {
+									foreach($arrayofmessage['errors'] as $tmpkey => $tmpmessage) {
+										if (!empty($tmpmessage['message'])) {
+											$errors[] = $langs->trans("Error").' - '.$tmpmessage['message'];
+										} else {
+											$errors[] = $langs->trans("UnkownError").' - HTTP code = '.$ret2["http_code"];
+										}
+									}
+								} else {
+									$errors[] = $langs->trans("UnkownError").' - HTTP code = '.$ret2["http_code"];
+								}
+							}
 							$error++;
 							$action = '';
 						}
 					} else {
 						$error++;
-						$errors = $langs->trans("ErrorValueFinalPaymentDiffers", $FinalPaymentAmt, $amounttotest);
+						$errors[] = $langs->trans("ErrorValueFinalPaymentDiffers", $FinalPaymentAmt, $amounttotest);
 					}
 				}
 			}
@@ -736,7 +776,7 @@ class ActionsHelloAsso extends CommonHookActions
 			$this->resprints = $resprints;
 			return 1; // or return 1 to replace standard code
 		} else {
-			$this->errors[] = $errors;
+			$this->errors = $errors;
 			return -1;
 		}
 	}
@@ -755,7 +795,6 @@ class ActionsHelloAsso extends CommonHookActions
 		global $conf, $user, $langs,$db;
 
 		$error = 0; // Error counter
-		$errors = ""; // Error counter
 		$ispaymentok = true;
 
 		if (in_array($parameters['paymentmethod'], array('helloasso'))){
@@ -789,7 +828,7 @@ class ActionsHelloAsso extends CommonHookActions
 		global $langs;
 
 		$error = 0; // Error counter
-		$errors = ""; // Error counter
+
 		$bankaccountid = 0;
 
 		if (in_array($parameters['paymentmethod'], array('helloasso'))){

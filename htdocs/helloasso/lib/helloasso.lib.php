@@ -78,18 +78,15 @@ function helloassoAdminPrepareHead()
 /**
  * Connect to helloasso database
  *
- * @return array|int An array with the token_type and the access_token defined if OK or -1 if KO 
+ * @return array|int 	An array with the token_type and the access_token defined if OK or -1 if KO
  */
-
 function doConnectionHelloasso()
 {
-	global $langs, $conf;
-
 	$result = array();
 
 	$helloassourl = "api.helloasso.com";
 
-	//Verify if Helloasso module is in test mode
+	// Verify if Helloasso module is in test mode
 	if (getDolGlobalInt("HELLOASSO_LIVE")) {
 		$client_id = getDolGlobalString("HELLOASSO_CLIENT_ID");
 		$client_id_secret = getDolGlobalString("HELLOASSO_CLIENT_SECRET");
@@ -99,14 +96,18 @@ function doConnectionHelloasso()
 		$helloassourl = "api.helloasso-sandbox.com";
 	}
 
-	$ret = getURLContent("https://".urlencode($helloassourl)."/oauth2/token", 'POST', 'grant_type=client_credentials&client_id='.$client_id.'&client_secret='.$client_id_secret, 1, array('content-type: application/x-www-form-urlencoded'));
+	$url = "https://".urlencode($helloassourl)."/oauth2/token";
+
+	$ret = getURLContent($url, 'POST', 'grant_type=client_credentials&client_id='.$client_id.'&client_secret='.$client_id_secret, 1, array('content-type: application/x-www-form-urlencoded'));
 
 	if ($ret["http_code"] == 200) {
 		$jsondata = $ret["content"];
 		$json = json_decode($jsondata);
 		$result = array("token_type" => $json->token_type, "access_token" => $json->access_token);
 	} else {
+		//var_dump($ret);
 		$result = -1;
 	}
+
 	return $result;
 }
