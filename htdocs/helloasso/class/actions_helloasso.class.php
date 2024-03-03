@@ -621,6 +621,12 @@ class ActionsHelloAsso extends CommonHookActions
 			dol_include_once('helloasso/lib/helloasso.lib.php');
 			$urlback = $urlwithroot.'/public/payment/newpayment.php?';
 
+			if (!preg_match('/^https:/i', $urlback)) {
+				$langs->load("errors");
+				$error++;
+				$errors[] = $langs->trans("WarningAvailableOnlyForHTTPSServers");
+			}
+
 			//Verify if Helloasso module is in test mode
 			if (getDolGlobalInt("HELLOASSO_LIVE")) {
 				$client_organisation = getDolGlobalString("HELLOASSO_CLIENT_ORGANISATION");
