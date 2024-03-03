@@ -745,6 +745,9 @@ class ActionsHelloAsso extends CommonHookActions
 						if ($ret2["http_code"] == 200) {
 							$result2 = $ret2["content"];
 							$json2 = json_decode($result2);
+
+							dol_syslog("Send redirect to ".$json2->redirectUrl);
+
 							header("Location: ".$json2->redirectUrl);
 							exit;
 						} else {
