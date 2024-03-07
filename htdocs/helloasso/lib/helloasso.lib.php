@@ -111,3 +111,183 @@ function doConnectionHelloasso()
 
 	return $result;
 }
+
+function getDataFromObjects($source, $ref, $mode = 'amount', &$payerarray = null)
+{
+	global $db;
+
+	require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
+	require_once DOL_DOCUMENT_ROOT.'/don/class/don.class.php';
+	require_once DOL_DOCUMENT_ROOT.'/adherents/class/adherent.class.php';
+	require_once DOL_DOCUMENT_ROOT.'/adherents/class/adherent_type.class.php';
+	require_once DOL_DOCUMENT_ROOT.'/adherents/class/subscription.class.php';
+	require_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
+	require_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
+	require_once DOL_DOCUMENT_ROOT.'/commande/class/commande.class.php';
+
+	$amount = price2num(GETPOST("amount", 'alpha'));
+
+	$invoice = new Facture($db);
+	$don = new Don($db);
+	$member = new Adherent($db);
+	$adht = new AdherentType($db);
+	$contract = new Contrat($db);
+	$contractline = new ContratLigne($db);
+	$order = new Commande($db);
+
+	if ($source == "membersubscription") {
+		$source = 'member';
+	}
+	switch ($source) {
+		case 'donation':
+			$result = $don->fetch($ref);
+			if ($result <= 0) {
+				$errors[] = $don->error;
+				$error++;
+			} else {
+				if ($mode == 'amount') {
+					if (GETPOST("amount", 'alpha')) {
+						$amount = GETPOST("amount", 'alpha');
+					} else {
+						$amount = $don->getRemainToPay();
+					}
+				} else if($mode == 'payer' && !is_null($payerarray)) {
+					$payerarray['firstName'] = $don->firstname;
+					$payerarray['lastName'] = $don->lastname;
+					$payerarray['email'] = $don->email;
+					$payerarray['address'] = $don->address;
+					$payerarray['city'] = $don->town;
+					$payerarray['zipCode'] = $don->zip;
+					$payerarray['companyName'] = $don->societe;
+				}
+			}
+			break;
+
+		case 'member':
+			$result = $member->fetch('', $ref);
+			if ($result <= 0) {
+				$errors[] = $member->error;
+				$error++;
+			} else {
+				if ($mode == 'amount') {
+					$member->fetch_thirdparty();
+					$subscription = new Subscription($db);
+					$adht->fetch($member->typeid);
+					$amount = $subscription->total_ttc;
+					if (GETPOST("amount", 'alpha')) {
+						$amount = GETPOST("amount", 'alpha');
+					}
+					if (empty($amount)) {
+						$amount = $adht->amount;
+					}
+
+					if (!empty($member->last_subscription_amount) && !GETPOSTISSET('newamount') && is_numeric($amount)){
+						$amount = max($member->last_subscription_amount, $amount);
+					}
+					$amount = max(0, getDolGlobalString('MEMBER_MIN_AMOUNT'), $amount);
+				} else if($mode == 'payer' && !is_null($payerarray)) {
+					$payerarray['firstName'] = $member->firstname;
+					$payerarray['lastName'] = $member->lastname;
+					$payerarray['email'] = $member->email;
+					$payerarray['dateOfBirth'] = dol_print_date($member->birth, 'dayrfc');
+				}
+			}
+			break;
+
+		case 'contractline':
+			$result = $contractline->fetch('', $ref);
+			if ($result <= 0) {
+				$errors[] = $contractline->error;
+				$error++;
+			} else {
+				if ($mode == 'amount') {
+					$amount = $contractline->total_ttc;
+					if ($contractline->fk_product && getDolGlobalString('PAYMENT_USE_NEW_PRICE_FOR_CONTRACTLINES')) {
+						$product = new Product($db);
+						$result = $product->fetch($contractline->fk_product);
+
+						// We define price for product (TODO Put this in a method in product class)
+						if (getDolGlobalString('PRODUIT_MULTIPRICES')) {
+							$pu_ttc = $product->multiprices_ttc[$contract->thirdparty->price_level];
+						} else {
+							$pu_ttc = $product->price_ttc;
+						}
+
+						$amount = $pu_ttc;
+					}
+				} else if($mode == 'payer' && !is_null($payerarray)) {
+					$invoice->fetch_thirdparty();
+					$payerarray['companyName'] = $invoice->thirdparty->name;
+					$payerarray['address'] = $invoice->thirdparty->address;
+					$payerarray['zipCode'] = $invoice->thirdparty->zip;
+					$payerarray['city'] = $invoice->thirdparty->town;
+					$payerarray['email'] = $invoice->thirdparty->email;
+				}
+			}
+			break;
+
+		case 'invoice':
+			$result = $invoice->fetch('', $ref);
+			if ($result <= 0) {
+				$errors[] = $invoice->error;
+				$error++;
+			} else {
+				if ($mode == 'amount') {
+					$amount = price2num($invoice->total_ttc - ($invoice->getSommePaiement() + $invoice->getSumCreditNotesUsed() + $invoice->getSumDepositsUsed()));
+					if (GETPOST("amount", 'alpha')) {
+						$amount = GETPOST("amount", 'alpha');
+					}
+				} else if($mode == 'payer' && !is_null($payerarray)) {
+					$invoice->fetch_thirdparty();
+					$payerarray['companyName'] = $invoice->thirdparty->name;
+					$payerarray['address'] = $invoice->thirdparty->address;
+					$payerarray['zipCode'] = $invoice->thirdparty->zip;
+					$payerarray['city'] = $invoice->thirdparty->town;
+					$payerarray['email'] = $invoice->thirdparty->email;
+				}
+			}
+			break;
+
+		case 'order':
+			$result = $order->fetch('', $ref);
+			if ($result <= 0) {
+				$errors[] = $order->error;
+				$error++;
+			} else {
+				if ($mode == 'amount') {
+					$amount = $order->total_ttc;
+					if (GETPOST("amount", 'alpha')) {
+						$amount = GETPOST("amount", 'alpha');
+					}
+				} else if($mode == 'payer' && !is_null($payerarray)) {
+					$order->fetch_thirdparty();
+					$payerarray['companyName'] = $order->thirdparty->name;
+					$payerarray['address'] = $order->thirdparty->address;
+					$payerarray['zipCode'] = $order->thirdparty->zip;
+					$payerarray['city'] = $order->thirdparty->town;
+					$payerarray['email'] = $order->thirdparty->email;
+				}
+			}
+			break;
+
+		default:
+			$resultinvoice = $invoice->fetch($ref);
+			if ($resultinvoice <= 0) {
+				$errors[] = $invoice->errors;
+				$error++;
+			} else {
+				if ($mode == 'amount') {
+					$amount = $invoice->total_ttc;
+				} else if($mode == 'payer' && !is_null($payerarray)) {
+					$invoice->fetch_thirdparty();
+					$payerarray['companyName'] = $invoice->thirdparty->name;
+					$payerarray['address'] = $invoice->thirdparty->address;
+					$payerarray['zipCode'] = $invoice->thirdparty->zip;
+					$payerarray['city'] = $invoice->thirdparty->town;
+					$payerarray['email'] = $invoice->thirdparty->email;
+				}
+			}
+			break;
+	}
+	return $amount;
+}
