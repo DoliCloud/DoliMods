@@ -118,13 +118,6 @@ $item->cssClass = 'minwidth500';
 $item->helpText = $langs->transnoentities('HELLOASSO_SECRET_HELP');
 
 
-
-$item = $formSetup->newItem('HELLOASSO_CLIENT_ORGANISATION');
-$item->helpText = $langs->transnoentities('HELLOASSO_CLIENT_ORGANISATION_HELP');
-
-$item = $formSetup->newItem('HELLOASSO_CLIENT_ORGANISATION');
-$item->helpText = $langs->transnoentities('HELLOASSO_CLIENT_ORGANISATION_HELP');
-
 $item = $formSetup->newItem('HELLOASSO_BANK_ACCOUNT_FOR_PAYMENTS')->setAsSelectBankAccount();
 
 $setupnotempty += count($formSetup->items);

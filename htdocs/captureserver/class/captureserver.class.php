@@ -342,23 +342,14 @@ class CaptureServer extends CommonObject
 		$sql .= ' FROM ' . MAIN_DB_PREFIX . $this->table_element. ' as t';
 		if (isset($this->ismultientitymanaged) && $this->ismultientitymanaged == 1) $sql .= ' WHERE t.entity IN ('.getEntity($this->table_element).')';
 		else $sql .= ' WHERE 1 = 1';
+
 		// Manage filter
-		$sqlwhere = array();
-		if (count($filter) > 0) {
-			foreach ($filter as $key => $value) {
-				if ($key=='t.rowid') {
-					$sqlwhere[] = $key . '='. $value;
-				} elseif (strpos($key, 'date') !== false) {
-					$sqlwhere[] = $key.' = \''.$this->db->idate($value).'\'';
-				} elseif ($key=='customsql') {
-					$sqlwhere[] = $value;
-				} else {
-					$sqlwhere[] = $key . ' LIKE \'%' . $this->db->escape($value) . '%\'';
-				}
-			}
-		}
-		if (count($sqlwhere) > 0) {
-			$sql .= ' AND (' . implode(' '.$filtermode.' ', $sqlwhere).')';
+		$errormessage = '';
+		$sql .= forgeSQLFromUniversalSearchCriteria($filter, $errormessage);
+		if ($errormessage) {
+			$this->errors[] = $errormessage;
+			dol_syslog(__METHOD__.' '.join(',', $this->errors), LOG_ERR);
+			return -1;
 		}
 
 		if (!empty($sortfield)) {
@@ -603,7 +594,7 @@ class CaptureServer extends CommonObject
 		$this->lines=array();
 
 		$objectline = new CaptureServerLine($this->db);
-		$result = $objectline->fetchAll('ASC', 'position', 0, 0, array('customsql'=>'fk_captureserver = '.$this->id));
+		$result = $objectline->fetchAll('ASC', 'position', 0, 0, '(fk_captureserver:=:'.((int) $this->id).')');
 
 		if (is_numeric($result)) {
 			$this->error = $this->error;
