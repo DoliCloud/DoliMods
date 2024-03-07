@@ -112,6 +112,17 @@ function doConnectionHelloasso()
 	return $result;
 }
 
+/**
+ * Get data form an object
+ * 
+ * @param	$source 		The type of the object
+ * @param	$ref			The ref of the object
+ * @param	$mode			The mode to use for the function (amount or payer)
+ * @param	$payerarray		An array to fill the payer informations (Must be set with payer mode)
+ * 
+ * @return	int				The amount to pay if mode amount or fill $payerarray for payer mode
+ */
+
 function getDataFromObjects($source, $ref, $mode = 'amount', &$payerarray = null)
 {
 	global $db;
