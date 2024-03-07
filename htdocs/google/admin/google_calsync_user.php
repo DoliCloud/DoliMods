@@ -155,12 +155,20 @@ if (preg_match('/^test/', $action)) {
 		//$objectfortest->datef+=$testoffset;
 
 		$result=$objectfortest->update($user);
-		if ($result < 0) $error++;
+		if ($result < 0) {
+			$error++;
+		}
 	}
 
 	if ($action == 'testall' && ! $error) {
-		$result=$objectfortest->delete();
-		if ($result < 0) $error++;
+		if ((float) DOL_VERSION < 20) {
+			$result=$objectfortest->delete();
+		} else {
+			$result=$objectfortest->delete($user);
+		}
+		if ($result < 0) {
+			$error++;
+		}
 	}
 
 	if (! $error) {

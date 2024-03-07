@@ -370,7 +370,7 @@ class gContactTest extends PHPUnit\Framework\TestCase
 		print __METHOD__." google contact updated:".$firstName." ".$lastName." ".$email." ".$phone."\n";
 
 		// Test if delete properly
-		$result = $object->delete();
+		$result = $object->delete($user);
 		$this->assertLessThan($result, 0);
 		print __METHOD__." deleted:".$result.$object->ref_ext."\n";
 
@@ -475,7 +475,7 @@ class gContactTest extends PHPUnit\Framework\TestCase
 		print __METHOD__." google contact updated:".$firstName." ".$lastName." ".$email." ".$phone."\n";
 
 		// Test if delete properly
-		$result = $object->delete($object->id, $user);
+		$result = $object->delete($user);
 		$this->assertLessThan($result, 0);
 		print __METHOD__." deleted:".$result.$object->ref_ext."\n";
 
@@ -663,7 +663,7 @@ class gContactTest extends PHPUnit\Framework\TestCase
 		$this->assertLessThan($result, 0);
 		print __METHOD__." contact re-linked to category:".$result."\n";
 
-		$deleted = $object->delete();
+		$deleted = $object->delete($user);
 		$this->assertLessThan($deleted, 0);
 		print __METHOD__." contact deleted:".$deleted."\n";
 
@@ -762,7 +762,7 @@ class gContactTest extends PHPUnit\Framework\TestCase
 		$this->assertLessThan($result, 0);
 		print __METHOD__." member re-linked to category:".$result."\n";
 
-		$deleted = $object->delete($object->id, $user);
+		$deleted = $object->delete($user);
 		$this->assertLessThan($deleted, 0);
 		print __METHOD__." member deleted:".$deleted."\n";
 

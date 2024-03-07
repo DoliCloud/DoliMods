@@ -51,7 +51,7 @@ class Ecotaxdeee extends CommonObject
     public $amount;
 
     /**
-     * @var date  date creation 
+     * @var date  date creation
      */
     public $date_creation;
     /**
@@ -72,7 +72,7 @@ class Ecotaxdeee extends CommonObject
 	 * @return  int  		        Return integer <0 if KO, id of created ecotax if OK
 	 */
     public function create($user, $notrigger = 0)
-    {   
+    {
         global $langs;
 
 
@@ -88,7 +88,7 @@ class Ecotaxdeee extends CommonObject
         $check .= " WHERE code ='".$this->code."' AND amount=".$this->amount;
         $rslt = $this->db->query($check);
         $num = $this->db->num_rows($rslt);
-       
+
         if ($num > 1) {
             $this->error = $langs->trans('RecordAlreadyExists');
             return -1;
@@ -110,21 +110,21 @@ class Ecotaxdeee extends CommonObject
                 $this->db->rollback();
                 return -1;
             }
-            
+
             $this->db->commit();
             return 1;
         }
     }
 
         /**
-	 *      Load ecotax records from database	
+	 *      Load ecotax records from database
 	 *      @return     array|int     Return integer <0 if KO, >0 if OK
 	 */
 	public function fetchAll()
 	{
         $sql = "SELECT rowid,code, amount, date_creation";
         $sql .= " FROM ".MAIN_DB_PREFIX."ecotaxdeee";
-       
+
         dol_syslog(get_class($this)."::fetchAll", LOG_DEBUG);
         $resql = $this->db->query($sql);
 
@@ -141,7 +141,7 @@ class Ecotaxdeee extends CommonObject
     }
 
     /**
-	 *      Load ecotax records from database	
+	 *      Load ecotax records from database
      *      @param      int    $id    id of record
 	 *      @return     object|int     Return integer <0 if KO, >0 if OK
 	 */
@@ -152,12 +152,12 @@ class Ecotaxdeee extends CommonObject
         if (!empty($id)) {
             $sql .= " WHERE rowid=".((int) $id);
         }
-       
+
         dol_syslog(get_class($this)."::fetch", LOG_DEBUG);
         $resql = $this->db->query($sql);
 
         if ($resql) {
-            $obj = $this->db->fetch_object($resql);   
+            $obj = $this->db->fetch_object($resql);
             return $obj;
         } else {
             dol_print_error($this->db);
@@ -174,10 +174,10 @@ class Ecotaxdeee extends CommonObject
     {
         global $langs;
 
-        
+
         $code = $this->db->escape($this->code);
         $amount = ((float) $this->amount);
-        
+
          // check if records already exists
 
          $check = "SELECT code,amount FROM ".MAIN_DB_PREFIX."ecotaxdeee";
@@ -193,7 +193,7 @@ class Ecotaxdeee extends CommonObject
                 $sql .= "amount = '".$amount."', ";
                 $sql .= "date_modification = '".$this->db->idate(dol_now())."' ";
                 $sql .= "WHERE rowid = ".((int) $id);
-                
+
                 $resql = $this->db->query($sql);
             if (!$resql) {
                 $this->error = $this->db->lasterror();
@@ -202,28 +202,29 @@ class Ecotaxdeee extends CommonObject
             }
 
             $this->db->commit();
-            return 1; 
+            return 1;
         }
-    }   
+    }
 
     /**
-     * methods for remove a record in ecotx table
-     * @param   int   $id     id record
-     * @return  int   1 if OK, -1 if KO 
+     * Delete record in ecotax table
+     *
+     * @param   User   $user   	User making the deletion
+     * @return  int   			1 if OK, -1 if KO
      */
-    public function delete($id)
+    public function delete($user)
     {
-        
-        $sql = "DELETE FROM ".MAIN_DB_PREFIX."ecotaxdeee WHERE rowid = ".((int) $id).";";
+        $sql = "DELETE FROM ".MAIN_DB_PREFIX."ecotaxdeee";
+        $sql .= " WHERE rowid = ".((int) $this->id);
 
         $resql = $this->db->query($sql);
         if (!$resql) {
             $this->error = $this->db->lasterror();
             $this->db->rollback();
-            return -1; 
+            return -1;
         }
 
         $this->db->commit();
-        return 1; 
+        return 1;
     }
 }

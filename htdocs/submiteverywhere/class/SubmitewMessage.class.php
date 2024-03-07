@@ -413,7 +413,6 @@ class SubmitewMessage // extends CommonObject
 	 */
 	function delete($user, $notrigger = 0)
 	{
-		global $conf, $langs;
 		$error=0;
 
 		$sql = "DELETE FROM ".MAIN_DB_PREFIX."submitew_message";

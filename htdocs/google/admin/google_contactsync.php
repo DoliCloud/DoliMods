@@ -246,7 +246,7 @@ if (preg_match('/^test/', $action)) {
 
 			$result=$object->update($object->id, $user);
 
-			$conf->global->SOCIETE_CODECLIENT_ADDON=$savoption;
+			$conf->global->SOCIETE_CODECLIENT_ADDON = $savoption;
 
 			if ($result > 0) {
 				$result=$object->delete($object->id, $user);	// id of thirdparty to delete
