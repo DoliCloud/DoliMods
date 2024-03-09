@@ -105,9 +105,10 @@ if ($action == 'update' && !GETPOST('cancel')) {
 }
 
 if ($action == 'delete') {
-    $key = GETPOST('key');
+    $key = GETPOSTINT('key');
     $ecotax = new Ecotaxdeee($db);
-    $result = $ecotax->delete($key);
+    $ecotax->fetch($key);
+    $result = $ecotax->delete($user);
 
     if ($result > 0) {
         setEventMessages("recordDeleted", null);

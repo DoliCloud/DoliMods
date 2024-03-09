@@ -494,7 +494,7 @@ if ($action == 'confirm_delete') {
 		$object = new SubmitewMessage($db);
 		$object->fetch($id);
 
-		if ($object->delete($object->id)) {
+		if ($object->delete($user)) {
 			Header("Location: ".dol_buildpath("/submiteverywhere/list.php"));
 			exit;
 		}

@@ -201,7 +201,11 @@ if (preg_match('/^test/', $action)) {
 	}
 
 	if ($action == 'testall' && ! $error) {
-		$result=$object->delete();
+		if ((float) DOL_VERSION < 20) {
+			$result = $object->delete();
+		} else {
+			$result = $object->delete($user);
+		}
 		if ($result < 0) $error++;
 	}
 

@@ -865,7 +865,11 @@ function syncEventsFromGoogleCalendar($userlogin, User $fuser, $mindate, $max = 
 						if ($status == 'cancelled') {
 							$conf->global->GOOGLE_DELETEONDOL_WHEN_DELETEDONGOOGLE=1;
 							if (! empty($conf->global->GOOGLE_DELETEONDOL_WHEN_DELETEDONGOOGLE)) {
-								$result=$object->delete(1);
+								if ((float) DOL_VERSION < 20) {
+									$result=$object->delete(1);
+								} else {
+									$result=$object->delete($user, 1);
+								}
 								if ($result > 0) {
 									$nbdeleted++;
 								} else {
