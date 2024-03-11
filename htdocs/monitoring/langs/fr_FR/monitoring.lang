@@ -26,7 +26,6 @@ ListOfProbes=Liste des sondes
 AddProbe=Ajouter nouvelle sonde
 EditProbe=Editer sonde
 CheckKey=Chaine à tester
-Reports=Rapports
 DeleteProbe=Supprimer sonde
 ConfirmDeleteProbe=Etes-vous sur de vouloir effacer cette sonde (Tout son historique sera aussi détruit) ?
 MaxValue=Valeur maximale

@@ -81,7 +81,7 @@ $help_url='EN:Module_ThomsonPhoneBook_EN|FR:Module_ThomsonPhoneBook|ES:M&oacute;
 
 llxHeader('', '', $help_url);
 
-if (empty($conf->ipphone->enabled)) {
+if (!isModEnabled("ipphone")) {
 	dol_print_error($db, 'Module was not enabled');
 	exit;
 }
@@ -117,7 +117,7 @@ print "</tr>";
 
 print '<tr class="oddeven">';
 print '<td class="fieldrequired">'.$langs->trans("TagForXmlFile")."</td>";
-print '<td><input required="required" type="text" class="flat" id="IPPHONE_XMLTAG" name="IPPHONE_XMLTAG" value="' . (GETPOSTISSET('IPPHONE_XMLTAG')?GETPOST('IPPHONE_XMLTAG', 'alpha'):($conf->global->IPPHONE_XMLTAG ? $conf->global->IPPHONE_XMLTAG : 'CiscoIPPhoneDirectory')) . '">';
+print '<td><input required="required" type="text" class="flat" id="IPPHONE_XMLTAG" name="IPPHONE_XMLTAG" value="' . (GETPOSTISSET('IPPHONE_XMLTAG')?GETPOST('IPPHONE_XMLTAG', 'alpha'):(getDolGlobalString('IPPHONE_XMLTAG', 'CiscoIPPhoneDirectory'))) . '">';
 print '</td>';
 print "<td>CiscoIPPhoneDirectory, YealinkIPPhoneDirectory, ThompsonDirectory</td>";
 print "</tr>";
@@ -125,7 +125,7 @@ print "</tr>";
 
 print '<tr class="oddeven">';
 print '<td class="fieldrequired">'.$langs->trans("PasswordToallowRead")."</td>";
-print '<td><input required="required" type="text" class="flat minwidth300" id="IPPHONE_EXPORTKEY" name="IPPHONE_EXPORTKEY" value="' . (GETPOSTISSET('IPPHONE_EXPORTKEY')?GETPOST('IPPHONE_EXPORTKEY', 'alpha'):$conf->global->IPPHONE_EXPORTKEY) . '">';
+print '<td><input required="required" type="text" class="flat minwidth300" id="IPPHONE_EXPORTKEY" name="IPPHONE_EXPORTKEY" value="' . (GETPOSTISSET('IPPHONE_EXPORTKEY')?GETPOST('IPPHONE_EXPORTKEY', 'alpha') : getDolGlobalString('IPPHONE_EXPORTKEY')) . '">';
 if (! empty($conf->use_javascript_ajax))
 	print '&nbsp;'.img_picto($langs->trans('Generate'), 'refresh', 'id="generate_token" class="linkobject"');
 print '</td>';
@@ -146,10 +146,10 @@ print "</form>\n";
 print '<br><br>';
 print '<span class="opacitymedium">'.$langs->trans("ModuleEnabledUseURL").":</span><br><br>\n";
 $url=dol_buildpath('/ipphone/public/service.php', 1);
-$url=DOL_MAIN_URL_ROOT.(preg_replace('/'.preg_quote(DOL_URL_ROOT, '/').'/', '', $url)).'?format=xml&key='.$conf->global->IPPHONE_EXPORTKEY;
+$url=DOL_MAIN_URL_ROOT.(preg_replace('/'.preg_quote(DOL_URL_ROOT, '/').'/', '', $url)).'?format=xml&key=' . getDolGlobalString('IPPHONE_EXPORTKEY');
 print 'XML: <a href="'.$url.'">'.$url."</a><br>\n";
 $url=dol_buildpath('/ipphone/public/service.php', 1);
-$url=DOL_MAIN_URL_ROOT.(preg_replace('/'.preg_quote(DOL_URL_ROOT, '/').'/', '', $url)).'?format=csv&key='.$conf->global->IPPHONE_EXPORTKEY;
+$url=DOL_MAIN_URL_ROOT.(preg_replace('/'.preg_quote(DOL_URL_ROOT, '/').'/', '', $url)).'?format=csv&key=' . getDolGlobalString('IPPHONE_EXPORTKEY');
 print 'CSV: <a href="'.$url.'">'.$url."</a><br>\n";
 print '<br>';
 print $langs->trans("ItReturnListOfThirdAndContacts")."<br>\n";

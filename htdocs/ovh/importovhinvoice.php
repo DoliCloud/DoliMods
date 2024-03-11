@@ -76,20 +76,26 @@ $action = GETPOST('action', 'aZ09');
 $projectid = GETPOST('projectid', 'int');
 $excludenullinvoice = GETPOST('excludenullinvoice', 'alpha');
 $excludenulllines = GETPOST('excludenulllines', 'alpha');
-//$idovhsupplier=GETPOST('idovhsupplier');
-$idovhsupplier = empty($conf->global->OVH_THIRDPARTY_IMPORT) ? '' : $conf->global->OVH_THIRDPARTY_IMPORT;
+
+$idovhsupplier = GETPOST('idovhsupplier', 'int');
+if(empty($idovhsupplier)) $idovhsupplier = $conf->global->OVH_THIRDPARTY_IMPORT;
+$idovhproduct = GETPOST('idovhproduct', 'int');
+if(empty($idovhproduct)) $idovhproduct = $conf->global->OVH_IMPORT_SUPPLIER_INVOICE_PRODUCT_ID;
 
 $ovhthirdparty = new Societe($db);
 if ($idovhsupplier) {
 	$result = $ovhthirdparty->fetch($idovhsupplier);
 }
-
+$ovhproduct = new Product($db);
+if ($idovhproduct) {
+    $result = $ovhproduct->fetch($idovhproduct);
+}
 $fuser = $user;
 
 $now = dol_now();
 $datefrom = dol_mktime(0, 0, 0, GETPOST('datefrommonth', 'int'), GETPOST('datefromday', 'int'), GETPOST('datefromyear', 'int'));
 if (!$datefrom) {
-	$datefrom = dol_time_plus_duree($now, -6, 'm');
+	$datefrom = dol_time_plus_duree($now, -4, 'm');
 }
 
 /*
@@ -184,10 +190,6 @@ if ($action == 'import' && $ovhthirdparty->id > 0) {
 						}
 					}
 				}
-			}
-			$fourn = new Fournisseur($db);
-			if (!$fourn->fetch($idovhsupplier)) {
-				$fourn = null;
 			}
 
 			foreach ($listofref as $key => $val) {
@@ -290,10 +292,12 @@ if ($action == 'import' && $ovhthirdparty->id > 0) {
 
 				$facfou = new FactureFournisseur($db);
 
+				$facfou->special_code = null; // Prevent PHP8 warning over unset property
+
 				// Get default payment conditions and terms of supplier
-				if (is_object($fourn)) {
-					$facfou->cond_reglement_id = $fourn->cond_reglement_supplier_id;
-					$facfou->mode_reglement_id = $fourn->mode_reglement_supplier_id;
+				if (is_object($ovhthirdparty)) {
+					$facfou->cond_reglement_id = $ovhthirdparty->cond_reglement_supplier_id;
+					$facfou->mode_reglement_id = $ovhthirdparty->mode_reglement_supplier_id;
 				}
 
 				// Get default bank account
@@ -302,7 +306,7 @@ if ($action == 'import' && $ovhthirdparty->id > 0) {
 				}
 
 				$facfou->ref_supplier = $billnum;
-				$facfou->socid = $idovhsupplier;
+				$facfou->socid = $ovhthirdparty->id;
 				$facfou->libelle = "OVH " . $billnum;
 				if (!empty($conf->global->OVH_OLDAPI)) {
 					$facfou->date = dol_stringtotime($r->date, 1);
@@ -338,7 +342,7 @@ if ($action == 'import' && $ovhthirdparty->id > 0) {
 							$price_base = 'HT';
 							$tauxtva = vatrate($vatrate);
 							$remise_percent = 0;
-							$fk_product = ($conf->global->OVH_IMPORT_SUPPLIER_INVOICE_PRODUCT_ID > 0 ? $conf->global->OVH_IMPORT_SUPPLIER_INVOICE_PRODUCT_ID : null);
+							$fk_product = ($ovhproduct->id > 0 ? $ovhproduct->id : null);
 							$ret = $facfou->addline($label, $amount, $tauxtva, 0, 0, $qty, $fk_product, $remise_percent, $dtFrom, $dtTo, '', 0, $price_base);
 							if ($ret < 0) {
 								$error++;
@@ -354,16 +358,21 @@ if ($action == 'import' && $ovhthirdparty->id > 0) {
 							}
 							$dtFrom = '';
 							if ($d['periodStart'] && $d['periodStart'] != '0000-00-00' && $d['periodStart'] != '0000-00-00 00:00:00') {
-								$label .= $langs->trans("From") . ' ' . dol_print_date(strtotime($d['periodStart']),
-										'day');
+								$label .= $langs->trans("From") . ' ' . dol_print_date(strtotime($d['periodStart']), 'day');
 								$dtFrom = strtotime($d['periodStart']);
 							}
 							$dtTo = '';
 							if ($d['periodEnd'] && $d['periodEnd'] != '0000-00-00' && $d['periodEnd'] != '0000-00-00 00:00:00') {
-								$label .= ($d['periodStart'] ? ' ' : '') . $langs->trans("To") . ' ' . dol_print_date(strtotime($d['periodEnd']),
-										'day');
+								$label .= ($d['periodStart'] ? ' ' : '') . $langs->trans("To") . ' ' . dol_print_date(strtotime($d['periodEnd']), 'day');
 								$dtTo = strtotime($d['periodEnd']);
 							}
+							// Add a test to be sure date start if after end date. There is a bug in OVH invoice generation
+							if ($dtFrom && $dtTo && $dtFrom > $dtTo) {
+								$dtTmp = $dtFrom;
+								$dtFrom = $dtTo;
+								$dtTo = $dtTmp;
+							}
+
 							$amount = $d['unitPrice'];
 							$qty = $d['quantity'];
 							$price_base = 'HT';
@@ -373,21 +382,17 @@ if ($action == 'import' && $ovhthirdparty->id > 0) {
 								$tauxtva = vatrate($vatrate);
 							}
 							$remise_percent = 0;
-							$fk_product = ($conf->global->OVH_IMPORT_SUPPLIER_INVOICE_PRODUCT_ID > 0 ? $conf->global->OVH_IMPORT_SUPPLIER_INVOICE_PRODUCT_ID : null);
 							$prod_type = 1;
-							if (!empty($fk_product)) {
-								$product = new Product($db);
-								$product->fetch($fk_product);
-								if (!empty($product->id)) {
-									$prod_type = $product->type;
-								} else {
-									$prod_type = 0;
-									$dtFrom = '';
-									$dtTo = '';
-								}
-							}
-							$ret = $facfou->addline($label, $amount, $tauxtva, 0, 0, $qty, $fk_product, $remise_percent,
-								$dtFrom, $dtTo, '', 0, $price_base, $prod_type, -1, false, 0, null, 0, 0, $d['domain']);
+                            if (!empty($ovhproduct->id)) {
+                                $fk_product = $ovhproduct->id;
+                                $prod_type = $ovhproduct->type;
+                            } else {
+                                $fk_product = null;
+                                $prod_type = 0;
+                                $dtFrom = '';
+                                $dtTo = '';
+                            }
+							$ret = $facfou->addline($label, $amount, $tauxtva, 0, 0, $qty, $fk_product, $remise_percent, $dtFrom, $dtTo, '', 0, $price_base, $prod_type, -1, false, 0, null, 0, 0, $d['domain']);
 							if ($ret < 0) {
 								$error++;
 								setEventMessage("ERROR: " . $facfou->error, 'errors');
@@ -464,6 +469,7 @@ if ((float) DOL_VERSION >= 11.0) {
 } else {
 	print '<input type="hidden" name="token" value="' . $_SESSION['newtoken'] . '">';
 }
+print '<input type="hidden" name="lang" value="' . $langs->defaultlang . '">';
 
 print_fiche_titre($langs->trans("OvhInvoiceImportShort"));
 
@@ -474,24 +480,34 @@ print '<span class="opacitymedium">' . $langs->trans("OvhInvoiceImportDesc") . '
 
 // Thirdparty to import on
 print $langs->trans("SupplierToUseForImport") . ': ';
+/*
 if ($ovhthirdparty->id > 0) {
 	print $ovhthirdparty->getNomUrl(1, 'supplier');
 } else {
 	print '<strong>' . $langs->trans("NotDefined") . '</strong>';
 }
+*/
+//print '<br>' . $langs->trans('OrSelectAnotherOne') . ': ';
+print img_picto('', 'company', 'class="pictofixedwidth"');
+if ((float) DOL_VERSION < 18.0) {
+	print $form->select_company($ovhthirdparty->id, 'idovhsupplier', '(s.fournisseur = 1 AND  s.status = 1)');
+} else {
+	print $form->select_company($ovhthirdparty->id, 'idovhsupplier', '(s.fournisseur:=:1) AND (s.status:=:1)');
+}
 print '<br>';
+
 // Product to import on
 print $langs->trans("ProductGenericToUseForImport") . ': ';
-if ($conf->global->OVH_IMPORT_SUPPLIER_INVOICE_PRODUCT_ID > 0) {
-	$producttmp = new Product($db);
-	$producttmp->fetch($conf->global->OVH_IMPORT_SUPPLIER_INVOICE_PRODUCT_ID);
-	print $producttmp->getNomUrl(1);
-	print '<br>';
+/*
+if ($ovhproduct->id > 0) {
+	print $ovhproduct->getNomUrl(1) . ' - ' . $ovhproduct->label;
 } else {
 	print '<strong>' . $langs->trans("NoneLabelOnOvhLineWillBeUsed") . '</strong>';
-	print '<br>';
 }
-
+*/
+//print '<br>' . $langs->trans('OrSelectAnotherOne') . ': ';
+print img_picto('', 'product', 'class="pictofixedwidth"');
+print $form->select_produits($ovhproduct->id, 'idovhproduct', '', 0, 0, -1, 2, '', 1);
 print '<br><br>';
 
 print '<div class="tabBar">';
@@ -505,10 +521,10 @@ if (!empty($conf->global->OVH_USE_2_ACCOUNTS)) {
 	print $langs->trans("OVHAccount") . ': ';
 	$liste_opt = '<select name="compte" class="flat">';
 	$liste_opt .= '<option value="1">';
-	$liste_opt .= '1-' . $conf->global->OVHAPPNAME;
+	$liste_opt .= '1-' . getDolGlobalString('OVHAPPNAME');
 	$liste_opt .= '</option>';
 	$liste_opt .= '<option value="2">';
-	$liste_opt .= '2-' . $conf->global->OVHAPPNAME2;
+	$liste_opt .= '2-' . getDolGlobalString('OVHAPPNAME2');
 	$liste_opt .= '</option>';
 	$liste_opt .= "</select>";
 	print $liste_opt;
@@ -605,13 +621,14 @@ if ($action == 'refresh') {
 			} else {
 				print '<input type="hidden" name="token" value="' . $_SESSION['newtoken'] . '">';
 			}
+			print '<input type="hidden" name="lang" value="' . $langs->defaultlang . '">';
 
 			print '<div><div class="clearboth floatleft"><strong>' . $nbfound . '</strong> ' . $langs->trans("Invoices") . "</div>\n";
 
 			// Submit form to launch import
 			print '<div class="floatleft">';
 			// Project for invoices
-			if ($conf->project->enabled) {
+			if (isModEnabled("project")) {
 				$disabled = 0;
 				//if ($action == 'refresh') $disabled=1;
 				print $langs->trans("ProjectForImport") . ': ';
@@ -623,8 +640,11 @@ if ($action == 'refresh') {
 			print '<input type="hidden" name="datefromday" value="' . dol_print_date($datefrom, '%d') . '">';
 			print '<input type="hidden" name="datefrommonth" value="' . dol_print_date($datefrom, '%m') . '">';
 			print '<input type="hidden" name="datefromyear" value="' . dol_print_date($datefrom, '%Y') . '">';
+			print '<input type="hidden" name="lang" value="' . $langs->defaultlang . '">';
 
 			print '<input type="hidden" name="compte" value="' . GETPOST("compte", 'alpha') . '">';
+			print '<input type="hidden" name="idovhsupplier" value="' . $ovhthirdparty->id . '">';
+			print '<input type="hidden" name="idovhproduct" value="' . $ovhproduct->id . '">';
 
 			print '<input type="hidden" id="excludenullinvoicehidden" name="excludenullinvoice" value="' . $excludenullinvoice . '">';
 			print '<input type="hidden" id="excludenulllineshidden" name="excludenulllines" value="' . $excludenulllines . '">';
@@ -642,7 +662,7 @@ if ($action == 'refresh') {
 			print '<td align="right">' . $langs->trans("Currency") . '</td>';
 			//print '<td align="right">'.$langs->trans("VATRate").'</td>';
 			print '<td>' . $langs->trans("Description") . '</td>';
-			print '<td align="right">' . $langs->trans("Action") . '</td>';
+			print '<td align="right">' . $form->showCheckAddButtons('checkforselect', 1) . '</td>';
 			print '</tr>';
 
 			foreach ($arrayinvoice as $i => $r) {
@@ -650,55 +670,52 @@ if ($action == 'refresh') {
 
 				print '<tr class="oddeven">';
 				print '<td>' . $r['billnum'] . '</td><td align="center">' . dol_print_date($r['date'], 'day') . "</td>";
-				print '<td align="right amount">' . price($r['totalPrice']) . '</td>';
-				print '<td align="right amount">' . price($r['totalPriceWithVat']) . '</td>';
-				print '<td align="right">' . $r['currency'] . '</td>';
+				print '<td class="right amount nowraponall">' . price($r['totalPrice']) . '</td>';
+				print '<td class="right amount nowraponall">' . price($r['totalPriceWithVat']) . '</td>';
+				print '<td>' . $r['currency'] . '</td>';
 				//print '<td align="right">'.vatrate($vatrate).'</td>';
-				print "<td>";
 				$x = 0;
 				$olddomain = '';
 				$oldordernum = '';
+				$s = '';
 				if (!empty($r['details'])) {
 					foreach ($r['details'] as $detobj) {
-						print $detobj->description;
+						$s .= dol_escape_htmltag($detobj->description, 1, 1);
 						if (!empty($detobj->domain) && $olddomain != $detobj->domain) {
-							print ' (' . $detobj->domain . ') ';
+							$s .= ' (' . dol_escape_htmltag($detobj->domain, 1, 1) . ') ';
 						}
 						$olddomain = $detobj->domain;
 						//if (! empty($detobj->ordernum) && $oldordernum != $detobj->ordernum) print ' ('.$langs->trans("Order").': '.$detobj->ordernum.') ';
 						//$oldordernum=$detobj->ordernum;
-						print "\n";
+						$s .= "<br>\n";
 						$x++;
 					}
 				}
 				if (!empty($r['description'])) {
-					print $r['description'];
+					$s .= dol_escape_htmltag($r['description'], 1, 1);
 				}
 				if (!empty($r['ordernum'])) {
-					print ' (' . $langs->trans("Order") . ' OVH: ' . $r['ordernum'] . ') ';
+					$s .= '<br>(' . $langs->trans("Order") . ' OVH: ' . $r['ordernum'] . ') ';
 				}
-				//if (! empty($r['serialized']))     { print ($x?'<br>':''); print $r['serialized'];	 $x++; }	// No more defined
 				if (!empty($r['url'])) {
-					print ' (<a target="ovhinvoice" href="' . $r['url'] . '">' . $langs->trans("Link") . ' OVH</a>) ';
+					$s .= ' (<a target="ovhinvoice" href="' . dol_escape_htmltag($r['url']) . '">' . $langs->trans("Link") . ' OVH</a>) ';
 				}
+				print '<td title="'.dol_escape_htmltag($s).'">';
+				print '<div class="twolinesmax">';
+				print $s;
+				print '</div>';
 				print "</td>\n";
 
-				print '<td align="right" nowrap="nowrap">';
-
+				// Link to invoice
+				print '<td class="right minwidth200">';
 
 				// Search if invoice already exists
 				$facid = 0;
 
-				$version = preg_split('/[\.-]/', DOL_VERSION);
-				if (versioncompare($version, array(3, 4, -3)) >= 0) {    // For dolibarr >= 3.4.*
-					$sql = "SELECT rowid ";
-					$sql .= ' FROM ' . MAIN_DB_PREFIX . 'facture_fourn as f';
-					$sql .= " WHERE ref_supplier = '" . $db->escape($r['billnum']) . "' and fk_soc = " . $ovhthirdparty->id;
-				} else {
-					$sql = "SELECT rowid ";
-					$sql .= ' FROM ' . MAIN_DB_PREFIX . 'facture_fourn as f';
-					$sql .= " WHERE facnumber = '" . $db->escape($r['billnum']) . "' and fk_soc = " . $ovhthirdparty->id;
-				}
+				$sql = "SELECT rowid ";
+				$sql .= ' FROM ' . MAIN_DB_PREFIX . 'facture_fourn as f';
+				$sql .= " WHERE ref_supplier = '" . $db->escape($r['billnum']) . "' and fk_soc = " . $ovhthirdparty->id;
+
 				dol_syslog("Seach if invoice exists sql=" . $sql);
 				$resql = $db->query($sql);
 				$num = 0;
@@ -707,7 +724,7 @@ if ($action == 'refresh') {
 				}
 				if ($num == 0) {
 					print '<label>' . $langs->trans("NotFound") . '. ' . $langs->trans("ImportIt");
-					print ' <input class="flat" type="checkbox" name="billnum[]" value="' . $r['billnum'] . '"></label>';
+					print ' <input class="flat checkforselect" type="checkbox" name="billnum[]" value="' . $r['billnum'] . '"></label>';
 					print '<input type="hidden" name="billingCountry[]" value="' . $r['billingCountry'] . '">';
 					//print ' '.$langs->trans("VATRate").' <input class="flat" type="text" name="vat[]" value="'.vatrate($vatrate).'" size="3">';
 				} else {
@@ -746,8 +763,15 @@ if ($action == 'refresh') {
 								}
 
 								//print "<br>Get ".$url."\n";
-								file_put_contents($file_name_to_use, file_get_contents($url));
-								print "<br>" . $langs->trans("FileDownloadedAndAttached", basename($file_name_to_use)) . "\n";
+								include_once DOL_DOCUMENT_ROOT.'/core/lib/geturl.lib.php';
+								$resultget = getURLContent($url);
+								if ($resultget['http_code'] == 200) {
+									$resultput = file_put_contents($file_name_to_use, $resultget['content']);
+									print "<br>" . $langs->trans("FileDownloadedAndAttached", basename($file_name_to_use)) . "\n";
+								} else {
+									print "<br>" . $langs->trans("FailedToDownloadedFile", basename($file_name_to_use)) . "\n";
+									print $resultget['curl_error_msg'];
+								}
 							}
 						}
 						//$facfou->set_valid($fuser);

@@ -132,6 +132,7 @@ function read_file($file, $domain)
 	global $total;
 	global $max;
 
+	$reg = array();
 	if (! preg_match('/^awstats([0-9][0-9])([0-9][0-9][0-9][0-9])/', $file, $reg)) {
 		return -1;
 	}
@@ -280,7 +281,7 @@ while (($file = readdir($dir)) !== false) {
 if (count($files) == 0) {
 	$output_table = '<div align="'.$table_align.'">';
 	$output_table.= 'Sorry, No AWStats data files (awstatsYYMMDD.*) found into directory <b>'.$history_dir.'</b> for the selected filters.';
-	if (! empty($conf->global->AWSTATS_LIMIT_CONF)) $output_table.='<br>Note that search is restricted to config name <b>'.$conf->global->AWSTATS_LIMIT_CONF.'</b>';
+	if (! empty($conf->global->AWSTATS_LIMIT_CONF)) $output_table.='<br>Note that search is restricted to config name <b>' . getDolGlobalString('AWSTATS_LIMIT_CONF').'</b>';
 	$output_table.= '</div>';
 } else {
 	// Sort the files in ascending order and then reset the list of sites
@@ -514,8 +515,16 @@ $html =	'';
 print_fiche_titre(' &nbsp; '.$langs->trans("AWStatsSummary"), '', dol_buildpath('/awstats/images/awstats.png', 1), 1);
 
 print '<form action="'.$_SERVER["PHP_SELF"].'" method="POST">';
+print '<input type="hidden" name="token" value="'.newToken().'">';
+
 print '<table class="border" width="100%"><tr><td>'.$langs->trans("Year").':</td><td>';
-$yearsarray=array('2000'=>'2000','2001'=>'2001','2002'=>'2002','2003'=>'2003','2004'=>'2004','2005'=>'2005','2006'=>'2006','2007'=>'2007','2008'=>'2008','2009'=>'2009','2010'=>'2010','2011'=>'2011','2012'=>'2012','2013'=>'2013','2014'=>'2014','2015'=>'2015','all'=>$langs->trans("All"));
+$yearsarray=array('all'=>$langs->trans("All"));
+$currentyear = date('Y');
+$i = 2000;
+while($i <= $currentyear) {
+	$currentyear[$i] = $i;
+	$i++;
+}
 print $form->selectarray('filter_year', $yearsarray, ($filter_year?$filter_year:'all'), 0);
 print '</td>';
 print '<td rowspan="2" align="center"><input class="button" type="submit" value="'.$langs->trans("Update").'"></td>';

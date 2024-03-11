@@ -90,7 +90,7 @@ if (! empty($sms)) {  // Do not use here sms > 0 as a constructor return an obje
 		print $sms->error;
 	}
 
-	print '<table class="liste     centpercent" width="100%">';
+	print '<table class="liste centpercent">';
 	print '<tr class="liste_titre"><td>'.$langs->trans("Account").'</td>';
 	print '<td>'.$langs->trans("SendersAllowed").'</td>';
 	print '<td align="right">'.$langs->trans("NbSmsLeft").'</td>';

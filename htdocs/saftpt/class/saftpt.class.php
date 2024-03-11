@@ -75,7 +75,7 @@ class SaftPt
 		global $conf;
 
 		$res=-1;
-		if($conf->global->MAIN_MONNAIE=='EUR') $res=1;
+		if(getDolGlobalString('MAIN_MONNAIE') == 'EUR') $res=1;
 		return $res;
     }
 

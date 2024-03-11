@@ -570,7 +570,7 @@ class Numbers_Words_ru extends Numbers_Words
 		} else {
 			$num = str_pad($num, 3, '0', STR_PAD_LEFT);
 
-			$hundreds = (int) $num{0};
+			$hundreds = (int) $num[0];
 			if ($hundreds) {
 				$ret = $this->_hundreds[$hundreds];
 				if (substr($num, 1) != '00') {
@@ -580,8 +580,8 @@ class Numbers_Words_ru extends Numbers_Words
 				$case = 3;
 			}
 
-			$tens = (int) $num{1};
-			$ones = (int) $num{2};
+			$tens = (int) $num[1];
+			$ones = (int) $num[2];
 			if ($tens || $ones) {
 				if ($tens == 1 && $ones == 0) {
 					$ret .= 'äåñÿòü';
@@ -639,8 +639,10 @@ class Numbers_Words_ru extends Numbers_Words
 
 		$curr_names = $this->_currency_names[$int_curr];
 
+		$case = 0;
 		$ret  = trim($this->_toWordsWithCase($decimal, $case, $curr_names[0][0]));
-		$ret .= $this->_sep . $curr_names[0][$case];
+
+		$ret .= $this->_sep . empty($curr_names[0][$case]) ? '' : $curr_names[0][$case];
 
 		if ($fraction !== false) {
 			if ($convert_fraction) {

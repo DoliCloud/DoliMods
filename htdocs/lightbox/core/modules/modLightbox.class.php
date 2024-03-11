@@ -59,8 +59,6 @@ class modLightbox extends DolibarrModules
 		$this->version = 'development';
 		// Key used in llx_const table to save module status enabled/disabled (XXX is id value)
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
-		// Where to store the module in setup page (0=common,1=interface,2=others,3=very specific)
-		$this->special = 2;
 		// Name of png file (without png) used for this module
 		$this->picto='technic';
 
@@ -121,7 +119,7 @@ class modLightbox extends DolibarrModules
 
 		// Menus
 		//------
-		$this->menus = array();			// List of menus to add
+		$this->menu = array();			// List of menus to add
 		$r=0;
 
 		// Top menu

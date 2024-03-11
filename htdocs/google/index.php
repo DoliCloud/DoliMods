@@ -61,9 +61,9 @@ $urlwithroot=DOL_MAIN_URL_ROOT;						// This is to use same domain name than cur
 $urlwithouturlroot=preg_replace('/'.preg_quote(DOL_URL_ROOT, '/').'$/i', '', $urlwithroot);
 
 // You must allow Dolibarr to login to
-$client_id=$conf->global->GOOGLE_AGENDA_CLIENT_ID;
-$client_secret=$conf->global->GOOGLE_AGENDA_CLIENT_SECRET;
-$redirect_uri=$urlwithouturlroot.dol_buildpath('/google/index.php', 1);		// Must be an url without parameters
+$client_id = getDolGlobalString('GOOGLE_AGENDA_CLIENT_ID');
+$client_secret = getDolGlobalString('GOOGLE_AGENDA_CLIENT_SECRET');
+$redirect_uri = $urlwithouturlroot.dol_buildpath('/google/index.php', 1);		// Must be an url without parameters
 $url='https://accounts.google.com/o/oauth2/auth?client_id='.$client_id.'&redirect_uri='.urlencode($redirect_uri).'&scope=https://www.google.com/calendar/feeds/&response_type=code';	// Values for scope are here: https://developers.google.com/gdata/faq?hl=fr#AuthScopes
 
 $auth_code = GETPOST("code");
@@ -144,7 +144,7 @@ while ($i <= $MAXAGENDA) {
 	$paramname='GOOGLE_AGENDA_NAME'.$i;
 	$paramcolor='GOOGLE_AGENDA_COLOR'.$i;
 	//print $paramname;
-	if (! empty($conf->global->$paramname)) {
+	if (getDolGlobalString($paramname)) {
 		$found++;
 	}
 	$i++;
@@ -163,7 +163,7 @@ if ($found > 0) {
 		} else $addcolor=true;
 
 		$text='';
-		if (! empty($conf->global->$paramname)) {
+		if (getDolGlobalString($paramname)) {
 			$link=dol_buildpath("/google/index.php", 1)."?mainmenu=agenda&idmenu=".$_SESSION["idmenu"]."&nocal=".$i;
 
 			$text='';
@@ -187,8 +187,8 @@ if ($found > 0) {
 
 			// Name of agenda
 			$text.='<td>';
-			if ($found == 1) $text.=$langs->trans("Name").': '.$conf->global->$paramname.' ('.$langs->trans("GoogleIDAgenda").': '.$conf->global->$paramsrc.')';
-			else $text.='<a class="vsmenu" href="'.$link.'">'.$conf->global->$paramname.'</a> ('.$conf->global->$paramsrc.')';
+			if ($found == 1) $text.=$langs->trans("Name").': ' . getDolGlobalString($paramname).' ('.$langs->trans("GoogleIDAgenda").': ' . getDolGlobalString($paramsrc).')';
+			else $text.='<a class="vsmenu" href="'.$link.'">' . getDolGlobalString($paramname).'</a> (' . getDolGlobalString($paramsrc).')';
 			$text.='</td></tr>';
 
 			$text.='</table>';
@@ -257,7 +257,7 @@ while ($i <= $MAXAGENDA) {
 	$paramname='GOOGLE_AGENDA_NAME'.$i;
 	$paramsrc='GOOGLE_AGENDA_SRC'.$i;
 	$paramcolor='GOOGLE_AGENDA_COLOR'.$i;
-	if (! empty($conf->global->$paramname)) {
+	if (getDolGlobalString($paramname)) {
 		if (isset($_GET["nocal"])) {
 			if ($_GET["nocal"] == $i) {
 				$frame.='&amp;src='.urlencode($conf->global->$paramsrc);
@@ -273,11 +273,11 @@ while ($i <= $MAXAGENDA) {
 }
 
 // Add number of weeks (only if first day is monday)
-if ($conf->global->MAIN_START_WEEK == 1) {
+if (getDolGlobalInt('MAIN_START_WEEK') == 1) {
 	$frame.='&amp;src='.urlencode('e_2_fr#weeknum@group.v.calendar.google.com');
 }
 
-$frame.='&amp;ctz='.urlencode($conf->global->GOOGLE_AGENDA_TIMEZONE);
+$frame.='&amp;ctz='.urlencode(getDolGlobalString('GOOGLE_AGENDA_TIMEZONE'));
 $frame.='" style=" border-width:0 " ';
 $frame.='width="100%" ';
 $frame.='height="600" ';

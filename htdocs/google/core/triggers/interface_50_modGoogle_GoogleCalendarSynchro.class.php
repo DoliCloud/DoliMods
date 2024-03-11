@@ -167,7 +167,7 @@ class InterfaceGoogleCalendarSynchro extends DolibarrTriggers
 			}
 
 			// Create client/token object
-			$key_file_location = $conf->google->multidir_output[$conf->entity]."/".$conf->global->GOOGLE_API_SERVICEACCOUNT_P12KEY;
+			$key_file_location = $conf->google->multidir_output[$conf->entity]."/" . getDolGlobalString('GOOGLE_API_SERVICEACCOUNT_P12KEY');
 			$force_do_not_use_session=(in_array(GETPOST('action'), array('testall','testcreate'))?true:false);	// false by default
 
 			$user_to_impersonate = false;
@@ -178,12 +178,13 @@ class InterfaceGoogleCalendarSynchro extends DolibarrTriggers
 			$servicearray=getTokenFromServiceAccount($conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL, $key_file_location, $force_do_not_use_session, 'service', $user_to_impersonate);
 
 			if (! is_array($servicearray) || $servicearray == null) {
-				$this->error = "Failed to login to Google with credentials provided into setup page ".$conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL.", ".$key_file_location;
+				$this->error = "Failed to login to Google with credentials provided into setup page " . getDolGlobalString('GOOGLE_API_SERVICEACCOUNT_EMAIL').", ".$key_file_location;
+				$this->errors[] = "Failed to login to Google with credentials provided into setup page " . getDolGlobalString('GOOGLE_API_SERVICEACCOUNT_EMAIL').", ".$key_file_location;
+				$this->errors[] = $this->error;
 				if ($servicearray) {
-					$this->error .= " - ".$servicearray;
+					$this->errors[] = $servicearray;
 				}
 				dol_syslog($this->error, LOG_ERR);
-				$this->errors[]=$this->error;
 				return -1;
 			} else {
 				// Event label can now include company and / or contact info, and url link to thirdparty or contact, see configuration

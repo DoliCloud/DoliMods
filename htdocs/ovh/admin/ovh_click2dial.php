@@ -60,7 +60,7 @@ if (!$user->admin) accessforbidden();
 
 
 // Protection if external user
-if ($user->societe_id > 0) {
+if ($user->socid > 0) {
 	//accessforbidden();
 }
 
@@ -81,8 +81,8 @@ if ($action == 'setvalue_account' && $user->admin) {
 		$result=dolibarr_set_const($db, "OVHSMS_PASS", trim(GETPOST("OVHSMS_PASS")), 'chaine', 0, '', $conf->entity);
 		$result=dolibarr_set_const($db, "OVHSMS_SOAPURL", trim(GETPOST("OVHSMS_SOAPURL")), 'chaine', 0, '', $conf->entity);
 	} else {
-		$result=dolibarr_set_const($db, "OVHC2C_ACCOUNT", $_POST["OVHC2C_ACCOUNT"], 'chaine', 0, '', $conf->entity);
-		$result=dolibarr_set_const($db, "OVHSN_ACCOUNT", $_POST["OVHSN_ACCOUNT"], 'chaine', 0, '', $conf->entity);
+		$result=dolibarr_set_const($db, "OVHC2C_ACCOUNT", trim(GETPOST("OVHC2C_ACCOUNT")), 'chaine', 0, '', $conf->entity);
+		$result=dolibarr_set_const($db, "OVHSN_ACCOUNT", trim(GETPOST("OVHSN_ACCOUNT")), 'chaine', 0, '', $conf->entity);
 	}
 	if ($result >= 0) {
 		$mesg='<div class="ok">'.$langs->trans("SetupSaved").'</div>';
@@ -98,11 +98,14 @@ if ($action == 'setvalue_account' && $user->admin) {
  * View
  */
 
-$WS_DOL_URL = $conf->global->OVHSMS_SOAPURL;
+$WS_DOL_URL = empty($conf->global->OVHSMS_SOAPURL) ? '' : strval($conf->global->OVHSMS_SOAPURL);
 dol_syslog("Will use URL=".$WS_DOL_URL, LOG_DEBUG);
 
-$login = $conf->global->OVHC2C_ACCOUNT;
-$password = $conf->global->OVH_SMS_PASS;
+$c2cAccount = empty($conf->global->OVHC2C_ACCOUNT) ? '' : strval($conf->global->OVHC2C_ACCOUNT);
+$snAccount = empty($conf->global->OVHSN_ACCOUNT) ? '' : strval($conf->global->OVHSN_ACCOUNT);
+
+$oldLogin = empty($conf->global->OVHSMS_NICK) ? '' : strval($conf->global->OVHSMS_NICK);
+$oldPassword = empty($conf->global->OVHSMS_PASS) ? '' : strval($conf->global->OVHSMS_PASS);
 
 llxHeader('', $langs->trans('OvhSmsSetup'), '', '');
 
@@ -145,32 +148,32 @@ print "</tr>\n";
 if (! empty($conf->global->OVH_OLDAPI) || ! empty($conf->global->OVH_OLDAPI_FORCLICK2DIAL)) {
 	print '<tr class="oddeven"><td class="fieldrequired">';
 	print $langs->trans("OvhSmsNick").'</td><td>';
-	print '<input size="64" type="text" name="OVHSMS_NICK" value="'.$conf->global->OVHSMS_NICK.'">';
+	print '<input size="64" type="text" name="OVHSMS_NICK" value="'.dol_escape_htmltag($oldLogin).'">';
 	print '</td><td>'.$langs->trans("Example").': AA123-OVH';
 	print '</td></tr>';
 
 	print '<tr class="oddeven"><td class="fieldrequired">';
 	print $langs->trans("OvhSmsPass").'</td><td>';
-	print '<input size="64" type="password" name="OVHSMS_PASS" value="'.$conf->global->OVHSMS_PASS.'">';
+	print '<input size="64" type="password" name="OVHSMS_PASS" value="'.dol_escape_htmltag($oldPassword).'">';
 	print '</td><td></td></tr>';
 
 	print '<tr class="oddeven"><td class="fieldrequired">';
 	print $langs->trans("OvhSmsSoapUrl").'</td><td>';
-	print '<input size="64" type="text" name="OVHSMS_SOAPURL" value="'.$conf->global->OVHSMS_SOAPURL.'">';
+	print '<input size="64" type="text" name="OVHSMS_SOAPURL" value="'.dol_escape_htmltag($WS_DOL_URL).'">';
 	print '</td><td>'.$langs->trans("Example").': '.$urlexample;
 	print '</td></tr>';
 } else {
 	print '<tr class="oddeven"><td class="fieldrequired">';
 	$htmltext=$langs->trans("OvhTelAccountHelp");
 	print $form->textwithpicto($langs->trans("OvhBillingAccount"), $htmltext).'</td><td>';
-	print '<input size="64" type="text" name="OVHC2C_ACCOUNT" value="'.$conf->global->OVHC2C_ACCOUNT.'">';
+	print '<input size="64" type="text" name="OVHC2C_ACCOUNT" value="'.dol_escape_htmltag($c2cAccount).'">';
 	print '</td><td><span class="opacitymedium">'.$langs->trans("Example").': nh123-ovh-1</span>';
 	print '</td></tr>';
 
 	print '<tr class="oddeven"><td>';
 	$htmltext=$langs->trans("OvhServiceNameHelp");
 	print $form->textwithpicto($langs->trans("OvhServiceName"), $htmltext).'</td><td>';
-	print '<input size="64" type="text" name="OVHSN_ACCOUNT" value="'.$conf->global->OVHSN_ACCOUNT.'">';
+	print '<input size="64" type="text" name="OVHSN_ACCOUNT" value="'.dol_escape_htmltag($snAccount).'">';
 	print '</td><td><span class="opacitymedium">'.$langs->trans("Example").': 0033123456789</span>';
 	print '</td></tr>';
 }
@@ -185,7 +188,7 @@ $message='';
 
 $tmpurl='/ovh/wrapper.php?caller=__PHONEFROM__&called=__PHONETO__';
 if (empty($conf->global->OVH_OLDAPI)) {
-	$tmpurl.='&billingaccount='.(empty($conf->global->OVHC2C_ACCOUNT)?'???':$conf->global->OVHC2C_ACCOUNT).'&servicename='.(empty($conf->global->OVHSN_ACCOUNT)?'SIPLineNumber':$conf->global->OVHSN_ACCOUNT);
+	$tmpurl.='&billingaccount='.(empty($c2cAccount)?'???':$c2cAccount).'&servicename='.(empty($snAccount)?'SIPLineNumber':$snAccount);
 } else {
 	$tmpurl.='&login=__LOGIN__&password=__PASS__';
 }

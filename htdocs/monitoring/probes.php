@@ -50,7 +50,7 @@ dol_include_once("/monitoring/class/monitoring_probes.class.php"); // We still u
 $langs->load("admin");
 $langs->load("monitoring@monitoring");
 
-if (!$user->rights->monitoring->read) accessforbidden();
+if (!$user->hasRight('monitoring', 'read')) accessforbidden();
 
 $def = array();
 $action=GETPOST('action');
@@ -66,7 +66,7 @@ if ($action == 'confirm_deleteprobe' && ! GETPOST('cancel')) {
 
 	$db->begin();
 
-	$result=$probe->delete();
+	$result=$probe->delete($user);
 
 	if ($result > 0) {
 		$db->commit();
@@ -273,7 +273,7 @@ if ($action != 'edit') {
 	print '</table>';
 
 	print '<div align="center">';
-	if ($user->rights->monitoring->create) {
+	if ($user->hasRight('monitoring', 'create')) {
 		print '<input type="submit" class="button" value=" '.$langs->trans("Add").' ">';
 		print '<input type="hidden" name="action" value="add">';
 	} else {
@@ -346,7 +346,7 @@ if ($action != 'edit') {
 			}
 			print '</td>';*/
 			print '<td align="right">';
-			if ($user->rights->monitoring->create) {
+			if ($user->hasRight('monitoring', 'create')) {
 				print '<a href="'.$_SERVER["PHP_SELF"].'?id='.$obj->rowid.'&amp;action=edit">';
 				print img_edit();
 				print '</a>';
@@ -474,7 +474,7 @@ if ($action != 'edit') {
 	print '</table>';
 
 	print '<div align="center">';
-	if ($user->rights->monitoring->create) {
+	if ($user->hasRight('monitoring', 'create')) {
 		print '<input type="submit" class="button" name="save" value="'.$langs->trans("Save").'">';
 		print ' &nbsp; &nbsp; ';
 		print '<input type="submit" class="button" name="cancel" value="'.$langs->trans("Cancel").'">';

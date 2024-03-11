@@ -89,7 +89,7 @@ if ($mode != 'groupbycountryandvatrate') {
 	if (! $sortorder) $sortorder="ASC";
 }
 // Securite acces client
-if (! $user->rights->prestashopget->read) accessforbidden();
+if (! $user->hasRight('prestashopget', 'read')) accessforbidden();
 $socid=GETPOST('socid', 'int');
 if (isset($user->societe_id) && $user->societe_id > 0) {
 	$action = '';
@@ -218,7 +218,7 @@ $sql.=$db2->order($sortfield, $sortorder);
 
 // Count total nb of records
 $nbtotalofrecords = '';
-if (empty($conf->global->MAIN_DISABLE_FULL_SCANLIST)) {
+if (!getDolGlobalInt('MAIN_DISABLE_FULL_SCANLIST')) {
 	$resql = $db2->query($sql);
 	$nbtotalofrecords = $db2->num_rows($resql);
 	if (($page * $limit) > $nbtotalofrecords) {	// if total of record found is smaller than page * limit, goto and load page 0
@@ -451,7 +451,7 @@ foreach ($arryofobj as $key => $obj) {
 	if ($mode != 'groupbycountryandvatrate' && $mode != 'groupbyzoneandvatrate') print '<td class="tdoverflowmax150"><span title="'.$obj->email.'">'.$obj->email.'</span></td>';
 
 	// Country code
-	print '<td>';
+	print '<td class="nowraponall">';
 	if ($mode == 'groupbyzoneandvatrate') {
 		if (strpos($key, '1_1') === 0) print $langs->trans("Country".$mysoc->country_code);
 		elseif (strpos($key, '1_0') === 0) print $langs->trans("RestOfEurope");

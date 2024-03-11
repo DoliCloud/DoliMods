@@ -136,7 +136,7 @@ $head = user_prepare_head($object);
 $title = $langs->trans("User");
 dol_fiche_head($head, 'tabskincoloreditors', $title, ((float) DOL_VERSION <= 6) ? 0 : -1, 'user');
 
-dol_banner_tab($object, 'id', '', $user->rights->user->user->lire || $user->admin);
+dol_banner_tab($object, 'id', '', $user->hasRight('user', 'user', 'lire') || $user->admin);
 
 print '<div class="underbanner clearboth"></div>';
 

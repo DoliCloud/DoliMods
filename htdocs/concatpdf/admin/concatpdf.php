@@ -53,19 +53,19 @@ $actionsave=GETPOST('save', 'alpha');
 
 // Define list of object supported
 $modules = array();
-if (!empty($conf->propal->enabled)) $modules['proposals']=array('label'=>'Proposals', 'picto'=>img_picto('', 'propal', 'class="pictofixedwidth"'));
-if (!empty($conf->commande->enabled)) $modules['orders']=array('label'=>'Orders', 'picto'=>img_picto('', 'order', 'class="pictofixedwidth"'));
-if (!empty($conf->facture->enabled)) $modules['invoices']=array('label'=>'Invoices', 'picto'=>img_picto('', 'bill', 'class="pictofixedwidth"'));
-if (!empty($conf->supplier_proposal->enabled)) $modules['supplier_proposals']=array('label'=>'SupplierProposals', 'picto'=>img_picto('', 'supplier_proposal', 'class="pictofixedwidth"'));
-if (!empty($conf->fournisseur->enabled)) $modules['supplier_orders']=array('label'=>'SuppliersOrders', 'picto'=>img_picto('', 'supplier_order', 'class="pictofixedwidth"'));
-if (!empty($conf->fournisseur->enabled)) $modules['supplier_invoices']=array('label'=>'SuppliersInvoices', 'picto'=>img_picto('', 'supplier_invoice', 'class="pictofixedwidth"'));
-if (!empty($conf->contract->enabled)) $modules['contracts']=array('label'=>'Contracts', 'picto'=>img_picto('', 'contract', 'class="pictofixedwidth"'));
+if (isModEnabled("propal")) $modules['proposals']=array('label'=>'Proposals', 'picto'=>img_picto('', 'propal', 'class="pictofixedwidth"'));
+if (isModEnabled("commande")) $modules['orders']=array('label'=>'Orders', 'picto'=>img_picto('', 'order', 'class="pictofixedwidth"'));
+if (isModEnabled("facture")) $modules['invoices']=array('label'=>'Invoices', 'picto'=>img_picto('', 'bill', 'class="pictofixedwidth"'));
+if (isModEnabled("supplier_proposal")) $modules['supplier_proposals']=array('label'=>'SupplierProposals', 'picto'=>img_picto('', 'supplier_proposal', 'class="pictofixedwidth"'));
+if (isModEnabled("fournisseur")) $modules['supplier_orders']=array('label'=>'SuppliersOrders', 'picto'=>img_picto('', 'supplier_order', 'class="pictofixedwidth"'));
+if (isModEnabled("fournisseur")) $modules['supplier_invoices']=array('label'=>'SuppliersInvoices', 'picto'=>img_picto('', 'supplier_invoice', 'class="pictofixedwidth"'));
+if (isModEnabled("contrat")) $modules['contracts']=array('label'=>'Contracts', 'picto'=>img_picto('', 'contract', 'class="pictofixedwidth"'));
 // Add key data-html
 foreach($modules as $key => $value) {
 	$modules[$key]['data-html'] = dol_escape_htmltag($value['picto'].$langs->transnoentitiesnoconv($value['label']));
 }
 
-if (empty($conf->concatpdf->enabled)) {
+if (!isModEnabled("concatpdf")) {
 	accessforbidden();
 }
 
@@ -169,7 +169,8 @@ if ($action == 'save') {
 $form=new Form($db);
 $formfile=new FormFile($db);
 
-llxHeader('', 'ConcatPdf', $linktohelp);
+$help_url='EN:Module_Concat_PDF;FR:Module_Concat_PDF_FR;ES:Módulo_Concat_PDF';
+llxHeader('', 'ConcatPdf', $help_url);
 
 $linkback='<a href="'.DOL_URL_ROOT.'/admin/modules.php?restore_lastsearch_values=1">'.$langs->trans("BackToModuleList").'</a>';
 print_fiche_titre($langs->trans("ConcatPdfSetup"), $linkback, 'setup');
@@ -256,6 +257,24 @@ if (! empty($conf->global->MAIN_USE_JQUERY_MULTISELECT)) {
 	}
 	print '</td></tr>';
 
+	// Interleave ? or at the end ?
+	print '<tr class="oddeven">';
+	print '<td>'.$langs->trans("EnableMixedConcatenation").'</td>';
+	print '<td align="center" width="20">&nbsp;</td>';
+
+	print '<td align="center" width="100">';
+	if (! empty($conf->use_javascript_ajax)) {
+		print ajax_constantonoff('CONCATPDF_MIXED_CONCATENATION_ENABLED', '', 0);
+	} else {
+		if (empty($conf->global->CONCATPDF_MIXED_CONCATENATION_ENABLED)) {
+			print '<a href="'.$_SERVER['PHP_SELF'].'?action=set_CONCATPDF_MIXED_CONCATENATION_ENABLED">'.img_picto($langs->trans("Disabled"), 'off').'</a>';
+		} else {
+			print '<a href="'.$_SERVER['PHP_SELF'].'?action=del_CONCATPDF_MIXED_CONCATENATION_ENABLED">'.img_picto($langs->trans("Enabled"), 'on').'</a>';
+		}
+	}
+	print '</td></tr>';
+
+
 	print '</table>';
 }
 
@@ -285,8 +304,8 @@ print '<form action="'.$_SERVER["PHP_SELF"].'" mode="POST">';
 print '<input type="hidden" name="page_y">';
 print '<input type="hidden" name="action" value="save">';
 print '<input type="hidden" name="token" value="'.newToken().'">';
-print '<div class="opacitymedium">';
-print 'CONCATPDF_PRESELECTED_MODELS = <input type="text" name="CONCATPDF_PRESELECTED_MODELS" value="'.getDolGlobalString('CONCATPDF_PRESELECTED_MODELS').'">';
+print '<div class="">';
+print 'CONCATPDF_PRESELECTED_MODELS = <input type="text" class="minwidth300" name="CONCATPDF_PRESELECTED_MODELS" value="'.getDolGlobalString('CONCATPDF_PRESELECTED_MODELS').'">';
 print '<input type="submit" class="button smallpaddingimp reposition" value="'.$langs->trans("Save").'">';
 print '</div>';
 print '</form>';

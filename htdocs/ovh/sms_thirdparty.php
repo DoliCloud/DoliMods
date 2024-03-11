@@ -57,7 +57,7 @@ $action = GETPOST('action', 'aZ09');
 $mesg='';
 
 // Protection if external user
-if ($user->societe_id > 0) {
+if ($user->socid > 0) {
 	accessforbidden();
 }
 
@@ -130,7 +130,7 @@ if ($action == 'send' && ! $_POST['cancel']) {
 		//if (empty($sendcontext)) $sendcontext = 'standard';
 		$smsfile = new CSMSFile($sendto, $smsfrom, $body, $deliveryreceipt, $deferred, $priority, $class);  // This define OvhSms->login, pass, session and account
 
-		$smsfile->nostop=GETPOST('disablestop');
+		$smsfile->nostop = GETPOST('disablestop', 'int');
 		$smsfile->socid = $socid;
 		$smsfile->contactid = 0;
 		$smsfile->contact_id = 0;
@@ -212,7 +212,7 @@ if ($socid) {
 		}
 	}
 
-	dol_banner_tab($object, 'id', '', $user->rights->user->user->lire || $user->admin);
+	dol_banner_tab($object, 'id', '', $user->hasRight('user', 'user', 'lire') || ! empty($user->admin));
 
 	print '<div class="underbanner clearboth"></div>';
 

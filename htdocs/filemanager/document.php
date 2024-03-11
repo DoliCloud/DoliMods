@@ -149,7 +149,7 @@ if ($modulepart) {
 
 	// Wrapping for third parties
 	if ($modulepart == 'filemanager') {
-		if ($user->rights->filemanager->read || preg_match('/^specimen/i', $original_file)) {
+		if ($user->hasRight('filemanager', 'read') || preg_match('/^specimen/i', $original_file)) {
 			$accessallowed=1;
 		}
 		$original_file=$original_file;

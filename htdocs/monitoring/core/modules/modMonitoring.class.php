@@ -119,7 +119,7 @@ class modMonitoring extends DolibarrModules
 		$r++;
 
 		// Main menu entries
-		$this->menus = array();         // List of menus to add
+		$this->menu = array();         // List of menus to add
 		$r=0;
 
 		// Add here entries to declare new menus
@@ -165,13 +165,6 @@ class modMonitoring extends DolibarrModules
 								  'target'=>'',
 								  'user'=>2);             // 0=Menu for internal users, 1=external users, 2=both
 		$r++;
-
-		// Main menu entries
-		$this->menus = array();			// List of menus to add
-		$r=0;
-
-
-
 
 		// Exports
 		$r=1;

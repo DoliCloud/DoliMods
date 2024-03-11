@@ -63,7 +63,7 @@ if (isset($filename) && !isset($_POST["editdatabase"])) {
 	<input type="submit" value="<?php echo $langs->trans("Save"); ?>">
 	</form>
 
-	<?php
+<?php
 }
 
 //write data to database

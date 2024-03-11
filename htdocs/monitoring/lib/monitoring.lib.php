@@ -130,8 +130,8 @@ function init_probe($object)
 		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
 		curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
 		if ($object['useproxy']) {
-			curl_setopt($ch, CURLOPT_PROXY, $conf->global->MAIN_PROXY_HOST. ":" . $conf->global->MAIN_PROXY_PORT);
-			if (! empty($conf->global->MAIN_PROXY_USER)) curl_setopt($ch, CURLOPT_PROXYUSERPWD, $conf->global->MAIN_PROXY_USER. ":" . $conf->global->MAIN_PROXY_PASS);
+			curl_setopt($ch, CURLOPT_PROXY, getDolGlobalString('MAIN_PROXY_HOST') . ":" . getDolGlobalString('MAIN_PROXY_PORT'));
+			if (! empty($conf->global->MAIN_PROXY_USER)) curl_setopt($ch, CURLOPT_PROXYUSERPWD, getDolGlobalString('MAIN_PROXY_USER') . ":" . getDolGlobalString('MAIN_PROXY_PASS'));
 		}
 
 		if ($object['typeprot'] == 'GET') {

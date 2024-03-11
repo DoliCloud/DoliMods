@@ -33,7 +33,6 @@ include_once DOL_DOCUMENT_ROOT ."/core/modules/DolibarrModules.class.php";
  */
 class modConcatPdf extends DolibarrModules
 {
-
 	/**
 	 *   Constructor. Define names, constants, directories, boxes, permissions
 	 *
@@ -87,7 +86,7 @@ class modConcatPdf extends DolibarrModules
 		$this->depends = array();		// List of modules id that must be enabled if this module is enabled
 		$this->requiredby = array();	// List of modules id to disable if this one is disabled
 		$this->phpmin = array(4,3);                 // Minimum version of PHP required by module
-		$this->need_dolibarr_version = array(8,0,-3);  // Minimum version of Dolibarr required by module
+		$this->need_dolibarr_version = array(16,0,-3);  // Minimum version of Dolibarr required by module
 		$this->langfiles = array("concatpdf@concatpdf");
 
 		// Constants
@@ -113,7 +112,7 @@ class modConcatPdf extends DolibarrModules
 
 		// Menus
 		//------
-		$this->menus = array();			// List of menus to add
+		$this->menu = array();			// List of menus to add
 		$r=0;
 
 		// Top menu

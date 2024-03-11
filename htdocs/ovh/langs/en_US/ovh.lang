@@ -38,6 +38,7 @@ OvhInvoiceImportShort=OVH invoices import
 OvhInvoiceImportDesc=This page list all OVH invoices and suggest a way to import them. Click first onto button "Get invoice list". Then for each invoice not already present, check box and click onto "Import button".
 SupplierToUseForImport=Supplier to create imported invoices on
 ProductGenericToUseForImport=Product/Service to use for imported lines of invoices
+OrSelectAnotherOne=Or select another one
 ProjectForImport=Attach imported invoices to project
 KeepEmptyToSaveLinesAsFreeLines=Keep this field empty if you don't want to see imported lines using a generic predefined product/service 
 ScanOvhInvoices=Get invoices list

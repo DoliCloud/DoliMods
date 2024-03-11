@@ -1,11 +1,13 @@
 # ChangeLog MODULE CONCATPDF FOR <a href="https://www.dolibarr.org">DOLIBARR ERP CRM</a>
 
 
-# Unreleased
+# 6.0.3
 
+FIX: Fix fatal error on concat on contract
 FIX: Use page size in setup
-FIX: Minimum version is 8.0
+FIX: Minimum version is Dolibarr 16.0
 FIX: Failed to concat when var with name of file to concat ends with .PDF or .pdf
+NEW: Can set several default concat templates
 
 ## 6.0.2
 

@@ -147,7 +147,7 @@ if ($action == 'edit') {
 	foreach ($arrayofparameters as $key => $val) {
 		print '<tr class="oddeven"><td>';
 		print $form->textwithpicto($langs->trans($key), $langs->trans($key.'Tooltip'));
-		print '</td><td><input name="'.$key.'" class="flat '.(empty($val['css'])?'minwidth200':$val['css']).'" value="' . $conf->global->$key . '"></td>';
+		print '</td><td><input name="'.$key.'" class="flat '.(empty($val['css'])?'minwidth200':$val['css']).'" value="' . getDolGlobalString($key) . '"></td>';
 		print '<td>';
 		if ($key == 'TAWKTO_ID') print $langs->trans("Example").': 66e2d01e4851b82f32fa55e2';
 		print '</td>';
@@ -169,7 +169,7 @@ if ($action == 'edit') {
 	foreach ($arrayofparameters as $key => $val) {
 		print '<tr class="oddeven"><td>';
 		print $form->textwithpicto($langs->trans($key), $langs->trans($key.'Tooltip'));
-		print '</td><td>' . $conf->global->$key . '</td>';
+		print '</td><td>' . getDolGlobalString($key) . '</td>';
 		print '<td>';
 		if ($key == 'TAWKTO_ID') print $langs->trans("Example").': 66e2d01e4851b82f32fa55e2';
 		print '</td>';

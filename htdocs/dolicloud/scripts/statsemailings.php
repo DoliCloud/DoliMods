@@ -42,7 +42,7 @@ $langs->load("other");
 $socid = isset($_GET["socid"])?$_GET["socid"]:'';
 
 // Protection
-if (! $user->rights->sellyoursaas->emailings->voir) {
+if (! $user->hasRight('sellyoursaas', 'emailings', 'voir')) {
 	accessforbidden();
 	exit;
 }

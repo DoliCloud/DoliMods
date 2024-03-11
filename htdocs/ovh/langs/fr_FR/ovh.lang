@@ -38,6 +38,7 @@ OvhInvoiceImportShort=Import factures OVH
 OvhInvoiceImportDesc=Cet écran vous permet de lister les factures chez OVH et de les importer. Cliquez sur "Récuperer la liste" puis pour chaque facture non présente, cochez la case, et choisissez "Importer".
 SupplierToUseForImport=Fournisseur sur lequel importer les factures
 ProductGenericToUseForImport=Produit/Service à utiliser pour les lignes de factures importées
+OrSelectAnotherOne=Ou choisissez-en un autre
 ProjectForImport=Lier les factures importées au projet
 KeepEmptyToSaveLinesAsFreeLines=Garder ce champ vide si vous ne voulez par voir les lignes importées utiliser un produit/service prédéfini générique
 ScanOvhInvoices=Récuperer liste des factures

@@ -100,7 +100,7 @@ print '<input type="hidden" name="token" value="'.newToken().'">';
 
 $head=googleadmin_prepare_head();
 
-dol_fiche_head($head, 'tabgmaps', $langs->trans("GoogleTools"), -1);
+dol_fiche_head($head, 'tabgmaps', '', -1);
 
 print '<div class="fichecenter">';
 
@@ -175,7 +175,7 @@ print "</tr>";
 print '</table>';
 print '</div>';
 
-print info_admin($langs->trans("EnableAPI", "https://console.developers.google.com/apis/library/", "https://console.developers.google.com/apis/library/", "Google Maps Geocoding API, Google Maps Javascript API"));
+print info_admin($langs->trans("EnableAPI", "https://console.developers.google.com/apis/library/", "https://console.developers.google.com/apis/library/", "Maps Geocoding API, Maps Javascript API"));
 
 print '</div>';
 

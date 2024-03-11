@@ -161,7 +161,7 @@ if ($action == 'edit') {
 	foreach ($arrayofparameters as $key => $val) {
 		print '<tr class="oddeven"><td>';
 		print $form->textwithpicto($langs->trans($key), $langs->trans($key.'Tooltip'));
-		print '</td><td><input name="'.$key.'"  class="flat '.(empty($val['css'])?'minwidth200':$val['css']).'" value="' . $conf->global->$key . '"></td></tr>';
+		print '</td><td><input name="'.$key.'"  class="flat '.(empty($val['css'])?'minwidth200':$val['css']).'" value="' . getDolGlobalString($key) . '"></td></tr>';
 	}
 	print '</table>';
 
@@ -179,7 +179,7 @@ if ($action == 'edit') {
 		foreach ($arrayofparameters as $key => $val) {
 			print '<tr class="oddeven"><td>';
 			print $form->textwithpicto($langs->trans($key), $langs->trans($key.'Tooltip'));
-			print '</td><td>' . $conf->global->$key . '</td></tr>';
+			print '</td><td>' . getDolGlobalString($key) . '</td></tr>';
 		}
 
 		// Token
@@ -209,7 +209,7 @@ if ($action == 'edit') {
 					print ' - '.$langs->trans("DateCreation").'='.dol_print_date($token_date_last_update, 'dayhour').' - '.$langs->trans("Entity").'='.$token_entity;
 				} else dol_print_error($db);
 				print ':<br>';
-				if (! empty($conf->global->NETATMO_WEB_TOKEN)) print '<div class="quatrevingtpercent" style="max-width: 800px; overflow: scroll; border: 1px solid #aaa;">'.$conf->global->NETATMO_WEB_TOKEN.'</div>';
+				if (! empty($conf->global->NETATMO_WEB_TOKEN)) print '<div class="quatrevingtpercent" style="max-width: 800px; overflow: scroll; border: 1px solid #aaa;">' . getDolGlobalString('NETATMO_WEB_TOKEN').'</div>';
 				print '<br>';
 				print 'Current session token:<br>';
 				if (! empty($_SESSION['netatmo_web_token_'.$conf->entity])) print '<div class="quatrevingtpercent" style="max-width: 800px; overflow: scroll; border: 1px solid #aaa;">'.$_SESSION['netatmo_web_token_'.$conf->entity].'</div>';

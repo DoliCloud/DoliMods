@@ -123,7 +123,7 @@ $openeddir=GETPOST('openeddir');
 $id=GETPOST('id', 'int');
 
 // Check permissions
-if (! $user->rights->filemanager->read) {
+if (! $user->hasRight('filemanager', 'read')) {
 	accessforbidden();
 }
 
@@ -133,7 +133,7 @@ if (! $user->rights->filemanager->read) {
  */
 
 if (GETPOST('action')=='deletefile') {
-	if (empty($user->rights->filemanager->create)) {
+	if (!$user->hasRight('filemanager', 'create')) {
 		setEventMessages($langs->trans("NotEnoughPermissions"), null, 'errors');
 	} else {
 		$filetodelete=GETPOST('file');
@@ -153,7 +153,7 @@ if (GETPOST('action')=='deletefile') {
 }
 
 if (GETPOST('action')=='deletedir') {
-	if (empty($user->rights->filemanager->create)) {
+	if (!$user->hasRight('filemanager', 'create')) {
 		setEventMessages($langs->trans("NotEnoughPermissions"), null, 'errors');
 	} else {
 		$dirtodelete=GETPOST('dir');
@@ -591,7 +591,7 @@ if ($filemanagerroots->rootpath) {
 		jQuery("#aloadandeditcontent").removeAttr('href').animate({ opacity: 0.2 }, "fast");
 		jQuery("#adeletefile").removeAttr('href').animate({ opacity: 0.2 }, "fast");
 		<?php
-		if ($user->rights->filemanager->create) {
+		if ($user->hasRight('filemanager', 'create')) {
 			?>
 		jQuery("#anewdir").click(function() {
 			console.log("anewdir click");
