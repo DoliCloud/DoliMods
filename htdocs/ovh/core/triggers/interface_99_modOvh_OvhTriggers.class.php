@@ -88,7 +88,7 @@ class InterfaceOvhTriggers extends DolibarrTriggers
 	 * @param Conf 			$conf 		Object conf
 	 * @return int              		<0 if KO, 0 if no triggered ran, >0 if OK
 	 */
-	public function runTrigger(string $action, $object, User $user, Translate $langs, Conf $conf)
+	public function runTrigger($action, $object, User $user, Translate $langs, Conf $conf)
 	{
 		if (!isModEnabled("ovh")) {
 			return 0; // If module is not enabled, we do nothing
