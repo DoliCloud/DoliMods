@@ -94,7 +94,7 @@ class InterfaceEcotaxdeee extends DolibarrTriggers
 	 *      @param  Conf		$conf       Objet conf
 	 *      @return int         			<0 if KO, 0 if nothing is done, >0 if OK
 	 */
-	function runTrigger($action, $object, User $user, Translate $langs, Conf $conf)
+	function runTrigger(string $action, $object, User $user, Translate $langs, Conf $conf)
 	{
 		// Création / Mise à jour / Suppression d'un évènement dans Google contact
 		if (!isModEnabled("ecotaxdeee")) {
@@ -317,7 +317,7 @@ class InterfaceEcotaxdeee extends DolibarrTriggers
 								if (empty($ecoamount[$ecocateg])) {	// To force init of var
 									$ecoamount[$ecocateg] = 0;
 								}
-								
+
 								$ecoamount[$ecocateg] += ($ecotaxAmount * $line->qty);
 							}
 						}
