@@ -317,7 +317,7 @@ class InterfaceEcotaxdeee extends DolibarrTriggers
 								if (empty($ecoamount[$ecocateg])) {	// To force init of var
 									$ecoamount[$ecocateg] = 0;
 								}
-								
+
 								$ecoamount[$ecocateg] += ($ecotaxAmount * $line->qty);
 							}
 						}

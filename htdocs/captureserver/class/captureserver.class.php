@@ -325,11 +325,11 @@ class CaptureServer extends CommonObject
 	 * @param  string      $sortfield    Sort field
 	 * @param  int         $limit        limit
 	 * @param  int         $offset       Offset
-	 * @param  array       $filter       Filter array. Example array('field'=>'valueforlike', 'customurl'=>...)
+	 * @param  string      $filter       Filter USF.
 	 * @param  string      $filtermode   Filter mode (AND or OR)
 	 * @return array|int                 int <0 if KO, array of pages if OK
 	 */
-	public function fetchAll($sortorder = '', $sortfield = '', $limit = 0, $offset = 0, array $filter = array(), $filtermode = 'AND')
+	public function fetchAll($sortorder = '', $sortfield = '', $limit = 0, $offset = 0, $filter = '', $filtermode = 'AND')
 	{
 		global $conf;
 
@@ -348,7 +348,7 @@ class CaptureServer extends CommonObject
 		$sql .= forgeSQLFromUniversalSearchCriteria($filter, $errormessage);
 		if ($errormessage) {
 			$this->errors[] = $errormessage;
-			dol_syslog(__METHOD__.' '.join(',', $this->errors), LOG_ERR);
+			dol_syslog(__METHOD__.' '.implode(',', $this->errors), LOG_ERR);
 			return -1;
 		}
 

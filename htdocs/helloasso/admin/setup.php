@@ -149,7 +149,7 @@ if ($action == 'updateMask') {
 	}
 } elseif ($action == 'specimen') {
 	$modele = GETPOST('module', 'alpha');
-	$tmpobjectkey = GETPOST('object');
+	$tmpobjectkey = GETPOST('object', 'aZ09');
 
 	$tmpobject = new $tmpobjectkey($db);
 	$tmpobject->initAsSpecimen();
@@ -186,7 +186,7 @@ if ($action == 'updateMask') {
 	}
 } elseif ($action == 'setmod') {
 	// TODO Check if numbering module chosen can be activated by calling method canBeActivated
-	$tmpobjectkey = GETPOST('object');
+	$tmpobjectkey = GETPOST('object', 'aZ09');
 	if (!empty($tmpobjectkey)) {
 		$constforval = 'HELLOASSO_'.strtoupper($tmpobjectkey)."_ADDON";
 		dolibarr_set_const($db, $constforval, $value, 'chaine', 0, '', $conf->entity);
@@ -197,7 +197,7 @@ if ($action == 'updateMask') {
 } elseif ($action == 'del') {
 	$ret = delDocumentModel($value, $type);
 	if ($ret > 0) {
-		$tmpobjectkey = GETPOST('object');
+		$tmpobjectkey = GETPOST('object', 'aZ09');
 		if (!empty($tmpobjectkey)) {
 			$constforval = 'HELLOASSO_'.strtoupper($tmpobjectkey).'_ADDON_PDF';
 			if (getDolGlobalString($constforval) == "$value") {
@@ -207,7 +207,7 @@ if ($action == 'updateMask') {
 	}
 } elseif ($action == 'setdoc') {
 	// Set or unset default model
-	$tmpobjectkey = GETPOST('object');
+	$tmpobjectkey = GETPOST('object', 'aZ09');
 	if (!empty($tmpobjectkey)) {
 		$constforval = 'HELLOASSO_'.strtoupper($tmpobjectkey).'_ADDON_PDF';
 		if (dolibarr_set_const($db, $constforval, $value, 'chaine', 0, '', $conf->entity)) {
@@ -223,7 +223,7 @@ if ($action == 'updateMask') {
 		}
 	}
 } elseif ($action == 'unsetdoc') {
-	$tmpobjectkey = GETPOST('object');
+	$tmpobjectkey = GETPOST('object', 'aZ09');
 	if (!empty($tmpobjectkey)) {
 		$constforval = 'HELLOASSO_'.strtoupper($tmpobjectkey).'_ADDON_PDF';
 		dolibarr_del_const($db, $constforval, $conf->entity);

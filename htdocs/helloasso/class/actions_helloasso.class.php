@@ -463,6 +463,8 @@ class ActionsHelloAsso extends CommonHookActions
 	{
 		global $conf, $user, $langs,$db;
 
+		dol_include_once('helloasso/lib/helloasso.lib.php');
+
 		$resprints = "";
 
 		$error = 0; // Error counter
@@ -494,131 +496,12 @@ class ActionsHelloAsso extends CommonHookActions
 			}
 		}
 
-		if (in_array($parameters['context'],array('newpayment')) && empty($parameters['paymentmethod'])) {
-			require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
-			require_once DOL_DOCUMENT_ROOT.'/don/class/don.class.php';
-			require_once DOL_DOCUMENT_ROOT.'/adherents/class/adherent.class.php';
-			require_once DOL_DOCUMENT_ROOT.'/adherents/class/adherent_type.class.php';
-			require_once DOL_DOCUMENT_ROOT.'/adherents/class/subscription.class.php';
-			require_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
-			require_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
-			require_once DOL_DOCUMENT_ROOT.'/commande/class/commande.class.php';
-
-			$invoice = new Facture($db);
-			$don = new Don($db);
-			$member = new Adherent($db);
-			$adht = new AdherentType($db);
-			$contract = new Contrat($db);
-			$contractline = new ContratLigne($db);
-			$order = new Commande($db);
-			if ($source == "membersubscription") {
-				$source = 'member';
-			}
-			switch ($source) {
-				case 'donation':
-					$result = $don->fetch($ref);
-					if ($result <= 0) {
-						$errors[] = $don->error;
-						$error++;
-					} else {
-						if (GETPOST("amount", 'alpha')) {
-							$amount = GETPOST("amount", 'alpha');
-						} else {
-							$amount = $don->getRemainToPay();
-						}
-					}
-					break;
-
-				case 'member':
-					$result = $member->fetch('', $ref);
-					if ($result <= 0) {
-						$errors[] = $member->error;
-						$error++;
-					} else {
-						$member->fetch_thirdparty();
-						$subscription = new Subscription($db);
-						$adht->fetch($member->typeid);
-						$amount = $subscription->total_ttc;
-						if (GETPOST("amount", 'alpha')) {
-							$amount = GETPOST("amount", 'alpha');
-						}
-						if (empty($amount)) {
-							$amount = $adht->amount;
-						}
-
-						if (!empty($member->last_subscription_amount) && !GETPOSTISSET('newamount') && is_numeric($amount)){
-							$amount = max($member->last_subscription_amount, $amount);
-						}
-						$amount = max(0, getDolGlobalString('MEMBER_MIN_AMOUNT'), $amount);
-					}
-					break;
-
-				case 'contractline':
-					$result = $contractline->fetch('', $ref);
-					if ($result <= 0) {
-						$errors[] = $contractline->error;
-						$error++;
-					} else {
-						$amount = $contractline->total_ttc;
-						if ($contractline->fk_product && getDolGlobalString('PAYMENT_USE_NEW_PRICE_FOR_CONTRACTLINES')) {
-							$product = new Product($db);
-							$result = $product->fetch($contractline->fk_product);
-
-							// We define price for product (TODO Put this in a method in product class)
-							if (getDolGlobalString('PRODUIT_MULTIPRICES')) {
-								$pu_ttc = $product->multiprices_ttc[$contract->thirdparty->price_level];
-							} else {
-								$pu_ttc = $product->price_ttc;
-							}
-
-							$amount = $pu_ttc;
-						}
-					}
-					break;
-
-				case 'invoice':
-					$result = $invoice->fetch('', $ref);
-					if ($result <= 0) {
-						$errors[] = $invoice->error;
-						$error++;
-					} else {
-						$amount = price2num($invoice->total_ttc - ($invoice->getSommePaiement() + $invoice->getSumCreditNotesUsed() + $invoice->getSumDepositsUsed()));
-						if (GETPOST("amount", 'alpha')) {
-							$amount = GETPOST("amount", 'alpha');
-						}
-					}
-					break;
-
-				case 'order':
-					$result = $order->fetch('', $ref);
-					if ($result <= 0) {
-						$errors[] = $order->error;
-						$error++;
-					} else {
-						$amount = $order->total_ttc;
-						if (GETPOST("amount", 'alpha')) {
-							$amount = GETPOST("amount", 'alpha');
-						}
-					}
-					break;
-
-				default:
-					$resultinvoice = $invoice->fetch($ref);
-					if ($resultinvoice <= 0) {
-						$errors[] = $invoice->errors;
-						$error++;
-					} else {
-						$amount = $invoice->total_ttc;
-					}
-					break;
-			}
-
-			$amount = price2num($amount);
+		if (in_array($parameters['context'],array('newpayment')) && empty($parameters['paymentmethod'])) {	
+			$amount = price2num(getDataFromObjects($source, $ref));
 			$_SESSION["FinalPaymentAmt"] = $amount;
 
 		} elseif (in_array($parameters['paymentmethod'], array('helloasso')) && $parameters['validpaymentmethod']["helloasso"] == "valid") {
 			require_once DOL_DOCUMENT_ROOT."/core/lib/geturl.lib.php";
-			dol_include_once('helloasso/lib/helloasso.lib.php');
 			$urlback = $urlwithroot.'/public/payment/newpayment.php?';
 
 			if (!preg_match('/^https:/i', $urlback)) {
@@ -677,6 +560,8 @@ class ActionsHelloAsso extends CommonHookActions
 
 
 			if (!$error) {
+				$payerarray = array();
+				getDataFromObjects($source, $ref, 'payer', $payerarray);
 				$fulltag = $FULLTAG;
 				$FinalPaymentAmt = $_SESSION["FinalPaymentAmt"];
 				$amounttotest = $amount;
@@ -718,20 +603,21 @@ class ActionsHelloAsso extends CommonHookActions
 							"returnUrl": "'.$urlback.'&typereturn=return",
 							"errorUrl": "'.$urlback.'&typereturn=error",
 							"containsDonation": false,';
-						// @TODO LMR Add information on payer
-						/*
-						$jsontosenddata .= '
-							"payer": {
-								"firstName": "John",
-								"lastName": "Doe",
-								"email": "john.doe@test.com",
-								"address": "23 rue du palmier",
-								"city": "Paris",
-								"zipCode": "75000",
-								"country": "FRA",
-								"companyName": "JJJ"
-							},';
-						*/
+
+							if (!empty($payerarray)) {
+								$jsontosenddata .= '
+									"payer": {
+										'.(!empty($payerarray['firstName']) ? '"firstName": "'.$payerarray['firstName'].'",' : '' ).'
+										'.(!empty($payerarray['lastName']) ? '"lastName": "'.$payerarray['lastName'].'",' : '' ).'
+										'.(!empty($payerarray['email']) ? '"email": "'.$payerarray['email'].'",' : '' ).'
+										'.(!empty($payerarray['dateOfBirth']) ? '"dateOfBirth": "'.$payerarray['dateOfBirth'].'",' : '' ).'
+										'.(!empty($payerarray['address']) ? '"address": "'.$payerarray['address'].'",' : '' ).'
+										'.(!empty($payerarray['city']) ? '"city": "'.$payerarray['city'].'",' : '' ).'
+										'.(!empty($payerarray['zipCode']) ? '"zipCode": "'.$payerarray['zipCode'].'",' : '' ).'
+										'.(!empty($payerarray['country']) ? '"country": "'.$payerarray['country'].'",' : '' ).'
+										'.(!empty($payerarray['companyName']) ? '"companyName": "'.$payerarray['companyName'].'",' : '' ).'
+									},';
+							}
 						$jsontosenddata .= '
 							"metadata": {
 								"source": "'.dol_escape_js($source).'",
