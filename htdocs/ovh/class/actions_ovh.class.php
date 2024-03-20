@@ -28,7 +28,7 @@ class ActionsOVH
 		$langs->load("sms");
 		$massaction = GETPOST('massaction');
 
-		if (in_array('contactlist', explode(':', $parameters['context'])) && !empty($conf->global->OVHSMS_ACCOUNT)) {
+		if (in_array('contactlist', explode(':', $parameters['context'])) && getDolGlobalString('OVHSMS_ACCOUNT')) {
 			$labelAction = img_picto('', 'fontawesome_sms', '') . $langs->trans("SendSMS");
 			$this->resprints = '<option value="presendsms" data-html="' . dol_escape_htmltag($labelAction) . '"';
 
@@ -66,7 +66,7 @@ class ActionsOVH
 		$massaction = GETPOST('massaction');
 
 		if (in_array('contactlist', explode(':', $parameters['context']))) {
-			if ($massaction == 'presendsms' && !GETPOST('cancel', 'alpha')) {
+			if ($massaction == 'presendsms' && !GETPOST('cancel', 'aZ09')) {
 				include_once DOL_DOCUMENT_ROOT . '/core/class/html.formsms.class.php';
 
 				print dol_get_fiche_head();
@@ -130,7 +130,7 @@ class ActionsOVH
 	{
 		global $user, $db, $langs;
 
-		if (GETPOST('sendsms') && !$_POST['cancel']) {
+		if (GETPOST('sendsms') && empty(GETPOST('cancel', 'aZ09'))) {
 			$error = 0;
 			$langs->load('ovh@ovh');
 			$langs->load("sms");
