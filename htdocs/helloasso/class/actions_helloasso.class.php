@@ -550,7 +550,7 @@ class ActionsHelloAsso extends CommonHookActions
 			}
 			$urlback .= 'action=returnDoPaymentHelloAsso';
 
-			$result = doConnectionHelloasso();	// @TODO LMR Get the token from database and OAuth module
+			$result = doConnectionHelloasso();
 
 			if ($result <= 0) {
 				$errors[] = $langs->trans("ErrorFailedToGetTokenFromClientIdAndSecret");
