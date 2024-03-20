@@ -69,13 +69,15 @@ class ActionsOVH
 			if ($massaction == 'presendsms' && !GETPOST('cancel', 'aZ09')) {
 				include_once DOL_DOCUMENT_ROOT . '/core/class/html.formsms.class.php';
 
-				print dol_get_fiche_head();
 
 				$receivers = $this->getReceivers($parameters['toselect']);
 
+				$receivers_string ='';
 				if (!empty($receivers) && !empty($receivers['phone_numbers'])) {
 					$receivers_string = implode(', ', $receivers['phone_numbers']);
 				}
+				if (empty($receivers_string)) {
+					print dol_get_fiche_head();
 
 				$formsms = new FormSms($db);
 				$formsms->fromtype = 'user';
@@ -105,6 +107,9 @@ class ActionsOVH
 				print '</div>';
 
 				print dol_get_fiche_end();
+				} else {
+					setEventMessage($langs->trans('NoneValidPhoneNumbers'));
+				}
 			}
 		}
 
