@@ -73,6 +73,15 @@ $substitutionarrayfortest=array(
 
 // Activate error interceptions
 if (! empty($conf->global->MAIN_ENABLE_EXCEPTION)) {
+	/**
+	 * @param $code string code
+	 * @param $message string message
+	 * @param $fichier string filename
+	 * @param $ligne string lien id
+	 * @param $contexte string context
+	 * @return void
+	 * @throws Exception
+	 */
 	function traitementErreur($code, $message, $fichier, $ligne, $contexte)
 	{
 		if (error_reporting() & $code) {
@@ -378,7 +387,7 @@ if (! empty($conf->global->OVH_OLDAPI)) {
 	dol_syslog("Will use URL=".$WS_DOL_URL, LOG_DEBUG);
 
 	if (empty($conf->global->OVHSMS_NICK) || empty($WS_DOL_URL)) {
-		echo '<br>'.'<div class="warning">'.$langs->trans("OvhSmsNotConfigured").'</div>';
+		echo '<br><div class="warning">'.$langs->trans("OvhSmsNotConfigured").'</div>';
 	} else {
 		print '<br>';
 		print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?action=test">'.$langs->trans("TestLoginToAPI").'</a><br><br>';
@@ -461,6 +470,7 @@ $db->close();
  * @param string	$str       Str
  * @param string	$file      File
  * @param string	$line      Line
+ * @return void
  */
 function my_error_handler($no, $str, $file, $line)
 {
