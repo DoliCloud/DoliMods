@@ -79,34 +79,34 @@ class ActionsOVH
 				if (empty($receivers_string)) {
 					print dol_get_fiche_head();
 
-				$formsms = new FormSms($db);
-				$formsms->fromtype = 'user';
-				$formsms->fromid = $user->id;
-				$formsms->fromsms = $user->user_mobile;
-				$formsms->withfrom = 1;
-				$formsms->withfromreadonly = 0;
-				$formsms->withto = $receivers_string;
-				$formsms->withtoreadonly = 1;
-				$formsms->withbody = 1;
-				$formsms->withcancel = 0;
-				// Tableau des substitutions
-				$formsms->substit['__CONTACTREF__'] = $object->ref;
-				// Tableau des parametres complementaires du post
-				$formsms->param['action'] = 'send';
-				$formsms->param['models'] = '';
-				$formsms->param['id'] = $object->id;
-				$formsms->param['returnurl'] = $_SERVER["PHP_SELF"] . '?id=' . $object->id;
+                    $formsms = new FormSms($db);
+                    $formsms->fromtype = 'user';
+                    $formsms->fromid = $user->id;
+                    $formsms->fromsms = $user->user_mobile;
+                    $formsms->withfrom = 1;
+                    $formsms->withfromreadonly = 0;
+                    $formsms->withto = $receivers_string;
+                    $formsms->withtoreadonly = 1;
+                    $formsms->withbody = 1;
+                    $formsms->withcancel = 0;
+                    // Tableau des substitutions
+                    $formsms->substit['__CONTACTREF__'] = $object->ref;
+                    // Tableau des parametres complementaires du post
+                    $formsms->param['action'] = 'send';
+                    $formsms->param['models'] = '';
+                    $formsms->param['id'] = $object->id;
+                    $formsms->param['returnurl'] = $_SERVER["PHP_SELF"] . '?id=' . $object->id;
 
-				$formsms->show_form('', 0);
+                    $formsms->show_form('', 0);
 
-				print '<br>';
-				print '<div class="center">';
-				print '<input class="button" type="submit" name="sendsms" value="' . dol_escape_htmltag($langs->trans("SendSms")) . '">';
-				print '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
-				print '<input class="button" type="submit" name="cancel" value="' . dol_escape_htmltag($langs->trans("Cancel")) . '">';
-				print '</div>';
+                    print '<br>';
+                    print '<div class="center">';
+                    print '<input class="button" type="submit" name="sendsms" value="' . dol_escape_htmltag($langs->trans("SendSms")) . '">';
+                    print '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+                    print '<input class="button" type="submit" name="cancel" value="' . dol_escape_htmltag($langs->trans("Cancel")) . '">';
+                    print '</div>';
 
-				print dol_get_fiche_end();
+                    print dol_get_fiche_end();
 				} else {
 					setEventMessage($langs->trans('NoneValidPhoneNumbers'));
 				}
