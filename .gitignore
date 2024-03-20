@@ -6,3 +6,4 @@ master.inc.php
 /.pydevproject
 .vscode/launch.json
 /.asciidoctorconfig.adoc
+.idea
