@@ -36,6 +36,9 @@ if (! defined('NOREQUIREAJAX'))   define('NOREQUIREAJAX', '1');
 //if (! defined('XFRAMEOPTIONS_ALLOWALL'))   define('XFRAMEOPTIONS_ALLOWALL', '1');
 
 // C'est un wrapper, donc header vierge
+/**
+ * @return void
+ */
 function llxHeader()
 {
 	print '<html>'."\n";

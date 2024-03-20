@@ -40,7 +40,7 @@ class modOvh extends DolibarrModules
 	 *
 	 *   @param		DoliDB		$db		Database handler
 	 */
-	function __construct($db)
+	public function __construct($db)
 	{
 		$this->db = $db;
 
@@ -82,7 +82,7 @@ class modOvh extends DolibarrModules
 			'models' => 0,                                   	// Set this to 1 if module has its own models directory (core/modules/xxx)
 			'css' => array(),						            // Set this to relative path of css file if module has its own css file
 			'js' => array(),                                    // Set this to relative path of js file if module must load a js on all pages
-			'hooks' => array() 	                                // Set here all hooks context managed by module. You can also set hook context 'all'
+			'hooks' => array('contactlist') 	                // Set here all hooks context managed by module. You can also set hook context 'all'
 		);
 
 		// Data directories to create when module is enabled.
@@ -109,7 +109,7 @@ class modOvh extends DolibarrModules
 							 2=>array('MAIN_SMS_DEBUG','chaine','1','This is to enable OVH SMS debug',1,'allentities',0),
 							 3=>array('MAIN_MENU_ENABLE_MODULETOOLS','chaine','1','To enable module tools entry',0,'allentities',1),
 							 4=>array('MAIN_AGENDA_ACTIONAUTO_COMPANY_SENTBYSMS','chaine','1','To enable module tools entry',0,'allentities',1),
-						     5=>array('MAIN_AGENDA_ACTIONAUTO_MEMBER_SENTBYSMS','chaine','1','To enable module tools entry',0,'allentities',1),
+							 5=>array('MAIN_AGENDA_ACTIONAUTO_MEMBER_SENTBYSMS','chaine','1','To enable module tools entry',0,'allentities',1),
 		);			// List of particular constants to add when module is enabled
 
 		// Array to add new pages in new tabs
@@ -219,11 +219,17 @@ class modOvh extends DolibarrModules
 	 *      @param      string	$options    Options when enabling module ('', 'noboxes')
 	 *      @return     int             	1 if OK, 0 if KO
 	 */
-	function init($options = '')
+	public function init($options = '')
 	{
 		$sql = array();
 
-		$result = $this->load_tables();
+		$result = $this->_load_tables('/ovh/sql/');
+		if ($result < 0) {
+			return -1; // Do not activate module if error 'not allowed' returned when loading module SQL queries (the _load_table run sql with run_sql with the error allowed parameter set to 'default')
+		}
+
+		// Permissions
+		$this->remove($options);
 
 		return $this->_init($sql, $options);
 	}
@@ -236,24 +242,10 @@ class modOvh extends DolibarrModules
 	 *      @param      string	$options    Options when enabling module ('', 'noboxes')
 	 *      @return     int             	1 if OK, 0 if KO
 	 */
-	function remove($options = '')
+	public function remove($options = '')
 	{
 		$sql = array();
 
 		return $this->_remove($sql, $options);
-	}
-
-
-	/**
-	 *	Create tables, keys and data required by module
-	 * 	Files llx_table1.sql, llx_table1.key.sql llx_data.sql with create table, create keys
-	 * 	and create data commands must be stored in directory /mymodule/sql/
-	 *	This function is called by this->init.
-	 *
-	 * 	@return		int		<=0 if KO, >0 if OK
-	 */
-	function load_tables()
-	{
-		return $this->_load_tables('/ovh/sql/');
 	}
 }

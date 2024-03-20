@@ -208,6 +208,13 @@ if (!empty($conf->global->OVH_OLDAPI) && (empty($conf->global->OVHSMS_NICK) || e
 	print $langs->trans("OVHVatKeepEmptyToAcceptAll");
 	print '</td></tr>';
 
+	print '<tr class="oddeven"><td>';
+	print $langs->trans("OVH_USE_LAST_INVOCIE_VALIDATED_DATE") . '</td><td>';
+	print ajax_constantonoff('OVH_USE_LAST_INVOCIE_VALIDATED_DATE');
+	print '</td><td>';
+	print '';
+	print '</td></tr>';
+
 	print '</table>';
 
 	dol_fiche_end();

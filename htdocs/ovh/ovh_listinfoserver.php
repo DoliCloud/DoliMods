@@ -143,7 +143,7 @@ $linkback='';
 
 //print_fiche_titre($langs->trans('OvhServers'),$linkback,'setup');
 
-print '<!-- OVH_OLDAPI = '.(isset($conf->global->OVH_OLDAPI) ? var_export($conf->global->OVH_OLDAPI, true) : '(unset)').' -->';
+print '<!-- OVH_OLDAPI = '.$conf->global->OVH_OLDAPI.' -->';
 
 $head=ovhsysadmin_prepare_head();
 

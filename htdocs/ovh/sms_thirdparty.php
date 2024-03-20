@@ -244,7 +244,7 @@ if ($socid) {
 	dol_fiche_end();
 
 	print '<div class="center">';
-	print '<input class="button" type="submit" name="sendmail" value="'.dol_escape_htmltag($langs->trans("SendSms")).'">';
+	print '<input class="button" type="submit" name="sendsms" value="'.dol_escape_htmltag($langs->trans("SendSms")).'">';
 	if ($formsms->withcancel) {
 		print '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
 		print '<input class="button" type="submit" name="cancel" value="'.dol_escape_htmltag($langs->trans("Cancel")).'">';

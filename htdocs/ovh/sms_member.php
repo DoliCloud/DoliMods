@@ -261,8 +261,11 @@ if ($id) {
 	$formsms->param['returnurl']=$_SERVER["PHP_SELF"].'?id='.$object->id;
 
 
-	$formsms->show_form('', 0);
-
+	if ((float) DOL_VERSION >= 5.0) {	// For dolibarr 5.0.*
+		$formsms->show_form('', 0);
+	} else {
+		$formsms->show_form('20%');
+	}
 
 	dol_fiche_end();
 
