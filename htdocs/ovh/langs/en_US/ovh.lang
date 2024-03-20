@@ -82,6 +82,7 @@ OVHAccount=OVH Account
 OvhDefaultBankAccount=Default bank account on invoices
 OvhValidVatList=List of valid VAT values
 OVHVatKeepEmptyToAcceptAll=Keep this field empty if you want to accept all VAT values (auto). Warning: OVH return sometimes bad rounded VAT rates, so setting VAT rates here force application to use the nearest valid value instead of OVH value.
+InvalidMobilePhoneNumberForContact=Phone number %s is invalid : %s (must have international format +33123456789)
 SendSMS=Send SMS
 OVH_USE_LAST_INVOCIE_VALIDATED_DATE=Suggest last supplier invoice date from supplier on import invoice tools
 ValidImportedInvoice=Valid imported invoices
