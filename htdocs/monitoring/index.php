@@ -366,7 +366,7 @@ if (empty($id)) {
 			}
 
 			print "<form name=\"externalrssconfig\" action=\"".$_SERVER["PHP_SELF"]."\" method=\"post\">";
-			print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
+			print '<input type="hidden" name="token" value="'.newToken().'">';
 
 			$var=!$var;
 			print "<tr ".$bc[$var].">";

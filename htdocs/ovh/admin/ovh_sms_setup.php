@@ -209,11 +209,7 @@ if (! empty($conf->global->OVH_OLDAPI) && (empty($conf->global->OVHSMS_NICK) || 
 
 	// Formulaire d'ajout de compte SMS qui sera valable pour tout Dolibarr
 	print '<form method="post" action="'.$_SERVER["PHP_SELF"].'">';
-	if ((float) DOL_VERSION >= 11.0) {
-		print '<input type="hidden" name="token" value="'.newToken().'">';
-	} else {
-		print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
-	}
+	print '<input type="hidden" name="token" value="'.newToken().'">';
 	print '<input type="hidden" name="action" value="setvalue_account">';
 
 	dol_fiche_head($head, 'sms', $langs->trans("Ovh"), -1);

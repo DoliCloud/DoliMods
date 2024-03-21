@@ -328,11 +328,7 @@ if ($conf->global->SENDGRID_IMPORT_SUPPLIER_INVOICE_PRODUCT_ID > 0) {
 print '<br><br>';
 
 print '<form name="refresh" action="'.$_SERVER["PHP_SELF"].'" method="POST">';
-if ((float) DOL_VERSION >= 11.0) {
-	print '<input type="hidden" name="token" value="'.newToken().'">';
-} else {
-	print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
-}
+print '<input type="hidden" name="token" value="'.newToken().'">';
 
 print '<div class="tabBar">';
 print '<table class="notopnoborder"><tr><td>';
