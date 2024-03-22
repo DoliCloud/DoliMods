@@ -76,7 +76,7 @@ class ActionsOVH
 				if (!empty($receivers) && !empty($receivers['phone_numbers'])) {
 					$receivers_string = implode(', ', $receivers['phone_numbers']);
 				}
-				if (empty($receivers_string)) {
+				if (!empty($receivers_string)) {
 					print dol_get_fiche_head();
 
                     $formsms = new FormSms($db);
