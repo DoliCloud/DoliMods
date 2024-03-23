@@ -94,6 +94,7 @@ $toselect   = GETPOST('toselect', 'array');												// Array of ids of elemen
 $contextpage= GETPOST('contextpage', 'aZ') ? GETPOST('contextpage', 'aZ') : 'captureserverlist';   // To manage different context of search
 $backtopage = GETPOST('backtopage', 'alpha');											// Go back to a dedicated page
 $optioncss  = GETPOST('optioncss', 'aZ');												// Option for the css output (always '' except when 'print')
+$mode = GETPOST('mode', 'aZ09');
 
 $id			= GETPOST('id', 'int');
 
@@ -143,7 +144,9 @@ foreach ($object->fields as $key => $val) {
 // List of fields to search into when doing a "search in all"
 $fieldstosearchall = array();
 foreach ($object->fields as $key => $val) {
-	if ($val['searchall']) $fieldstosearchall['t.'.$key]=$val['label'];
+	if (!empty($val['searchall'])) {
+		$fieldstosearchall['t.'.$key]=$val['label'];
+	}
 }
 
 // Definition of fields for list
@@ -169,7 +172,7 @@ $arrayfields = dol_sort_array($arrayfields, 'position');
 
 // Security check
 $socid=0;
-if ($user->societe_id > 0) {	// Protection if external user
+if ($user->socid > 0) {	// Protection if external user
 	//$socid = $user->societe_id;
 	accessforbidden();
 }
@@ -339,7 +342,7 @@ if (!getDolGlobalInt('MAIN_DISABLE_FULL_SCANLIST')) {
 	/* The fast and low memory method to get and count full list converts the sql into a sql count */
 	$sqlforcount = preg_replace('/^'.preg_quote($sqlfields, '/').'/', 'SELECT COUNT(*) as nbtotalofrecords', $sql);
 	$sqlforcount = preg_replace('/GROUP BY .*$/', '', $sqlforcount);
-	
+
 	$resql = $db->query($sqlforcount);
 	if ($resql) {
 		$objforcount = $db->fetch_object($resql);
@@ -347,7 +350,7 @@ if (!getDolGlobalInt('MAIN_DISABLE_FULL_SCANLIST')) {
 	} else {
 		dol_print_error($db);
 	}
-	
+
 	if (($page * $limit) > $nbtotalofrecords) {	// if total resultset is smaller than the paging size (filtering), goto and load page 0
 		$page = 0;
 		$offset = 0;
@@ -673,17 +676,17 @@ while ($i < $imaxinloop) {
 		} elseif ($key == 'status') {
 			$cssforfield .= ($cssforfield ? ' ' : '').'center';
 		}
-		
+
 		if (in_array($val['type'], array('timestamp'))) {
 			$cssforfield .= ($cssforfield ? ' ' : '').'nowraponall';
 		} elseif ($key == 'ref') {
 			$cssforfield .= ($cssforfield ? ' ' : '').'nowraponall';
 		}
-		
+
 		if (in_array($val['type'], array('double(24,8)', 'double(6,3)', 'integer', 'real', 'price')) && !in_array($key, array('id', 'rowid', 'ref', 'status')) && empty($val['arrayofkeyval'])) {
 			$cssforfield .= ($cssforfield ? ' ' : '').'right';
 		}
-		
+
 		if (! empty($arrayfields['t.'.$key]['checked'])) {
 			print '<td'.($cssforfield ? ' class="'.$cssforfield.'"' : '').'>';
 			if ($key == 'status') print $object->getLibStatut(5);
@@ -729,7 +732,7 @@ while ($i < $imaxinloop) {
 			$totalarray['nbfield']++;
 		}
 	}
-	
+
 	print '</tr>'."\n";
 
 	$i++;
@@ -775,7 +778,7 @@ if (in_array('builddoc', $arrayofmassactions) && ($nbtotalofrecords === '' || $n
 	$filedir=$diroutputmassaction;
 	$genallowed = $permissiontoread;
 	$delallowed = $permissiontoadd;
-	
+
 	print $formfile->showdocuments('massfilesarea_captureserver', '', $filedir, $urlsource, 0, $delallowed, '', 1, 1, 0, 48, 1, $param, $title, '', '', '', null, $hidegeneratedfilelistifempty);
 }
 
