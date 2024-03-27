@@ -144,8 +144,8 @@ class modEcoTaxDeee extends DolibarrModules
 		// Create extrafields
 		include_once DOL_DOCUMENT_ROOT.'/core/class/extrafields.class.php';
 		$extrafields = new ExtraFields($this->db);
-		$result1=$extrafields->addExtraField('ecotaxdeee', $langs->trans("EcotaxAmount"), 'double', 41, '24,8', 'product', 0, 0, '', '', 1, '', -1, '', '', '', 'ecotaxdeee@ecotaxdeee', '!getDolGlobalString("ECOXTAX_USE_CODE_FOR_ECOTAXDEEE")');
-		$result1=$extrafields->addExtraField('ecotaxdeeecode', $langs->trans("CodeEcotax"), 'varchar', 42, '16', 'product', 0, 0, '', '', 1, '', -1, '', '', '', 'ecotaxdeee@ecotaxdeee', 'getDolGlobalString("ECOXTAX_USE_CODE_FOR_ECOTAXDEEE")');
+		$result1=$extrafields->addExtraField('ecotaxdeee', $langs->trans("EcotaxAmount"), 'double', 41, '24,8', 'product', 0, 0, '', '', 1, '', -1, '', '', '', 'ecotaxdeee@ecotaxdeee', '!getDolGlobalString("ECOTAX_CALCULATION_MODE")');
+		$result1=$extrafields->addExtraField('ecotaxdeeecode', $langs->trans("CodeEcotax"), 'varchar', 42, '16', 'product', 0, 0, '', '', 1, '', -1, '', '', '', 'ecotaxdeee@ecotaxdeee', 'getDolGlobalString("ECOTAX_CALCULATION_MODE")');
 		if (! $result1) {
 			$this->error=$extrafields->error;
 			return -1;

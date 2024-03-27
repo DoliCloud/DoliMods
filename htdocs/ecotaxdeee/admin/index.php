@@ -35,7 +35,7 @@ if (!$user->admin) {
 
 $langs->loadLangs(array("admin", "other", "ecotaxdeee@ecotaxdeee", "orders", "bills", "propal"));
 
-$action = GETPOST("action");
+$action = GETPOST("action", 'aZ09');
 
 
 /*
@@ -67,7 +67,7 @@ if ($action == 'save') {
 if ($action == 'setCode') {
 	$status = GETPOST('status', 'alpha');
 
-	if (dolibarr_set_const($db, 'ECOXTAX_USE_CODE_FOR_ECOTAXDEEE', $status, 'chaine', 0, '', 0) > 0) {
+	if (dolibarr_set_const($db, 'ECOTAX_CALCULATION_MODE', $status, 'chaine', 0, '', 0) > 0) {
 		if ($status == 1){
 			setEventMessages("SetCodeForEcotaxEnabled", null);
 		}else {
@@ -175,7 +175,7 @@ print "</tr>";
 print '<tr class="oddeven">';
 print "<td>".$langs->trans("InsertCodeForEcoTax")."</td>";
 
-$active_code = (!getDolGlobalString('ECOXTAX_USE_CODE_FOR_ECOTAXDEEE') ? false : true);
+$active_code = (!getDolGlobalString('ECOTAX_CALCULATION_MODE') ? false : true);
 if ($active_code) {
 	print '<td><a class="reposition" href="'.$_SERVER['PHP_SELF'].'?action=setCode&token='.newToken().'&status=0">';
 	print img_picto($langs->trans("Activated"), 'switch_on');
