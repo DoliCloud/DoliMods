@@ -102,29 +102,51 @@ class ActionsConcatPdf
 		$modulepart = $parameters['modulepart'];
 
 		// Defined $preselected value
-		$preselected=(isset($object->extraparams['concatpdf'][0])?$object->extraparams['concatpdf'][0]:-1);	// string with preselected string
-		if ($preselected == -1 && ! empty($conf->global->CONCATPDF_PRESELECTED_MODELS)) {
+		//$preselected = (isset($object->extraparams['concatpdf'][0]) ? $object->extraparams['concatpdf'][0] : -1);	// string with the saved preselected string or -1
+		$arraypreselected = (isset($object->extraparams['concatpdf']) ? $object->extraparams['concatpdf'] : -1);	// array with the saved preselected string or -1
+
+		// Get $arraydefaultselection
+		$arraydefaultselection = array();
+		if (getDolGlobalString('CONCATPDF_PRESELECTED_MODELS')) {
 			// List of value key into setup -> value for modulepart
 			$altkey=array('proposal'=>'propal', 'order'=>'commande', 'invoice'=>'facture', 'supplier_order'=>'commande_fournisseur', 'invoice_order'=>'facture_fournisseur');
 
 			// $conf->global->CONCATPDF_PRESELECTED_MODELS may contains value of preselected model with format
 			// propal:model1a,model1b;invoice:model2;...
-			$tmparray=explode(';', $conf->global->CONCATPDF_PRESELECTED_MODELS);
+			$tmparray=explode(';', getDolGlobalString('CONCATPDF_PRESELECTED_MODELS'));
 			$tmparray2=array();
 			foreach ($tmparray as $val) {
 				$tmp=explode(':', $val);
-				if (! empty($tmp[1])) $tmparray2[$tmp[0]]=$tmp[1];
+				if (! empty($tmp[1])) {
+					$tmparray2[$tmp[0]]=$tmp[1];
+				}
 			}
+			// Extract the string with preselected template for the object type
 			foreach ($tmparray2 as $key => $val) {
-				if ($modulepart == $key || (array_key_exists($key, $altkey) && $modulepart == $altkey[$key])) $preselected=$val;		// $preselected is 'mytemplate' or 'mytemplate1,mytemplate2'
+				if ($modulepart == $key || (array_key_exists($key, $altkey) && $modulepart == $altkey[$key])) {
+					$arraydefaultselection = explode(',', $val);		// $preselected is 'mytemplate' or 'mytemplate1,mytemplate2'
+					break;
+				}
 			}
 		}
+		// Here, $arraydefaultselection is array('mytemplate') or array('mytemplate1', 'mytemplate2')
 
-		if (! empty($staticpdf)) {
+		if (!is_array($arraypreselected)) {
+			$arraypreselected = $arraydefaultselection;
+		}
+		if (!is_array($arraypreselected)) {
+			$arraypreselected = array();
+		}
+
+		// Define $morefile, the list of possible files to concat (changing the label)
+		if (! empty($staticpdf)) {	// array of default file to select, defined into setup
 			foreach ($staticpdf as $filename) {
 				$newfilekey=basename($filename, ".pdf");	// We do not remove extension if it is uppercase .PDF otherwise there is no way to retrieve file name later
 				$newfilelabel=$newfilekey;
-				if ($preselected && $newfilekey == $preselected) $newfilelabel.=' ('.$langs->trans("Default").')';
+
+				if (!empty($arraydefaultselection) && in_array($newfilekey, $arraydefaultselection)) {
+					$newfilelabel.=' ('.$langs->trans("Default").')';
+				}
 				$morefiles[$newfilekey] = $newfilelabel;
 			}
 		}
@@ -132,7 +154,9 @@ class ActionsConcatPdf
 			foreach ($modelpdf as $filename) {
 				$newfilekey=basename($filename, ".php");
 				$newfilelabel=$newfilekey;
-				if ($preselected && $newfilekey == $preselected) $newfilelabel.=' ('.$langs->trans("Default").')';
+				if (!empty($arraydefaultselection) && in_array($newfilekey, $arraydefaultselection)) {
+					$newfilelabel.=' ('.$langs->trans("Default").')';
+				}
 				$morefiles[$newfilekey] = $newfilelabel;
 			}
 		}
@@ -146,16 +170,15 @@ class ActionsConcatPdf
 			$out.='<td align="left" colspan="'.$colspan.'" class="formdoc">';
 			$out.='<div class="valignmiddle inline-block hideonsmartphone">'.$langs->trans("ConcatFile").'</div> ';
 
-			if (!empty($conf->global->CONCATPDF_MULTIPLE_CONCATENATION_ENABLED)) {
-				$arraypreselected = explode(',', $preselected);
+			if (getDolGlobalString('CONCATPDF_MULTIPLE_CONCATENATION_ENABLED')) {
 				foreach($arraypreselected as $tmpkey => $tmpval) {
 					$arraypreselected[$tmpkey] = preg_replace('/\.pdf$/i', '', $tmpval);
 				}
 				$out.='<div class="valignmiddle inline-block minwidth300imp">';
-				$out.= $form->multiselectarray('concatpdffile', $morefiles, (! empty($object->extraparams['concatpdf'])?$object->extraparams['concatpdf']:$arraypreselected), 0, 0, 'minwidth100', 1, '95%');
+				$out.= $form->multiselectarray('concatpdffile', $morefiles, $arraypreselected, 0, 0, 'minwidth100', 1, '95%');
 				$out.='</div>';
 			} else {
-				$preselected = preg_replace('/\.pdf$/i', '', $preselected);
+				$preselected = preg_replace('/\.pdf$/i', '', reset($arraypreselected));
 				$out.= '<!-- preselected value is '.$preselected.' (key to set preselected value in CONCATPDF_PRESELECTED_MODELS is '.$parameters['modulepart'].') -->';
 				$out.= $form->selectarray('concatpdffile', $morefiles, $preselected, 1, 0, 0);
 			}
@@ -552,8 +575,8 @@ class ActionsConcatPdf
 
 		return $pagecount;
 	}
-  
-  
+
+
 	// Add methods to complete the import and useTemplate
 
 	// default maxdepth prevents an infinite recursion on malformed PDFs (not theoretical, actually found in the wild)
