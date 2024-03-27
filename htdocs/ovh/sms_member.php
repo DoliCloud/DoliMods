@@ -171,11 +171,7 @@ if ($id) {
 	// Show tabs
 
 	print "<form method=\"POST\" name=\"smsform\" enctype=\"multipart/form-data\" action=\"".$_SERVER["PHP_SELF"].'?id='.$object->id."\">\n";
-	if ((float) DOL_VERSION >= 11.0) {
-		print '<input type="hidden" name="token" value="'.newToken().'">';
-	} else {
-		print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
-	}
+	print '<input type="hidden" name="token" value="'.newToken().'">';
 
 	$head = member_prepare_head($object);
 	dol_fiche_head($head, 'tabSMS', $langs->trans("Member"), 0, 'user');

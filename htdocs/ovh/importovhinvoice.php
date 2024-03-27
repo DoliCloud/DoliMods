@@ -464,11 +464,7 @@ if ($ovhthirdparty->id <= 0) {
 
 
 print '<form name="refresh" action="' . $_SERVER["PHP_SELF"] . '" method="POST">';
-if ((float) DOL_VERSION >= 11.0) {
-	print '<input type="hidden" name="token" value="' . newToken() . '">';
-} else {
-	print '<input type="hidden" name="token" value="' . $_SESSION['newtoken'] . '">';
-}
+print '<input type="hidden" name="token" value="' . newToken() . '">';
 print '<input type="hidden" name="lang" value="' . $langs->defaultlang . '">';
 
 print_fiche_titre($langs->trans("OvhInvoiceImportShort"));
@@ -616,11 +612,7 @@ if ($action == 'refresh') {
 			print $langs->trans("NoRecordFound") . "<br><br>\n";
 		} else {
 			print '<form name="import" action="' . $_SERVER["PHP_SELF"] . '" method="POST">';
-			if ((float) DOL_VERSION >= 11.0) {
-				print '<input type="hidden" name="token" value="' . newToken() . '">';
-			} else {
-				print '<input type="hidden" name="token" value="' . $_SESSION['newtoken'] . '">';
-			}
+			print '<input type="hidden" name="token" value="' . newToken() . '">';
 			print '<input type="hidden" name="lang" value="' . $langs->defaultlang . '">';
 
 			print '<div><div class="clearboth floatleft"><strong>' . $nbfound . '</strong> ' . $langs->trans("Invoices") . "</div>\n";
@@ -636,7 +628,7 @@ if ($action == 'refresh') {
 				//print '<br>';
 			}
 			print '<input type="hidden" name="action" value="import">';
-			print '<input type="hidden" name="token" value="' . $_SESSION['newtoken'] . '">';
+			print '<input type="hidden" name="token" value="' . newToken() . '">';
 			print '<input type="hidden" name="datefromday" value="' . dol_print_date($datefrom, '%d') . '">';
 			print '<input type="hidden" name="datefrommonth" value="' . dol_print_date($datefrom, '%m') . '">';
 			print '<input type="hidden" name="datefromyear" value="' . dol_print_date($datefrom, '%Y') . '">';

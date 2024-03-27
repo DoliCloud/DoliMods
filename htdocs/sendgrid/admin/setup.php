@@ -172,7 +172,7 @@ $head=sendgridadmin_prepare_head();
 
 
 print '<form method="post" action="'.$_SERVER["PHP_SELF"].'">';
-print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
+print '<input type="hidden" name="token" value="'.newToken().'">';
 print '<input type="hidden" name="action" value="setvalue">';
 
 if (! empty($conf->global->SENDGRID_OLDAPI)) {

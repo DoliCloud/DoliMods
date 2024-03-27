@@ -215,11 +215,7 @@ $head=ovhadmin_prepare_head();
 
 
 print '<form method="post" action="'.$_SERVER["PHP_SELF"].'">';
-if ((float) DOL_VERSION >= 11.0) {
-	print '<input type="hidden" name="token" value="'.newToken().'">';
-} else {
-	print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
-}
+print '<input type="hidden" name="token" value="'.newToken().'">';
 print '<input type="hidden" name="action" value="setvalue">';
 
 if (! empty($conf->global->OVH_OLDAPI)) {

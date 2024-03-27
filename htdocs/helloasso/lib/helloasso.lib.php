@@ -21,6 +21,8 @@
  * \brief   Library files with common functions for HelloAsso
  */
 
+use OAuth\Common\Storage\DoliStorage;
+use OAuth\OAuth2\Token\StdOAuth2Token;
 /**
  * Prepare admin pages header
  *
@@ -76,39 +78,97 @@ function helloassoAdminPrepareHead()
 }
 
 /**
+ * Refresh connection token
+ * 
+ * @throws Exception
+ * @return TokenInterface|int	Token if OK
+ */
+
+ function refreshToken($storage, $service, $tokenobj, $client_id, $urltocall) {
+	include_once DOL_DOCUMENT_ROOT.'/core/lib/geturl.lib.php';
+	$refreshtoken = $tokenobj->getRefreshToken();
+	$ret = getURLContent($urltocall, 'POST', 'grant_type=refresh_token&client_id='.$client_id.'&refresh_token='.$refreshtoken, 1, array('content-type: application/x-www-form-urlencoded'));
+
+	if ($ret["http_code"] == 200) {
+		$jsondata = $ret["content"];
+		$json = json_decode($jsondata);
+		$ttl = dol_time_plus_duree(dol_now(), $json->expires_in, 's');
+		$newtokenobj = new StdOAuth2Token();
+		$newtokenobj->setAccessToken($json->access_token);
+		$newtokenobj->setRefreshToken($json->refresh_token);
+		$newtokenobj->setEndOfLife($ttl);
+
+		$params = array("scope" => $urltocall, "token_type" => $json->token_type);
+		$newtokenobj->setExtraParams($params);
+		$storage->storeAccessToken($service, $newtokenobj);
+	} else {
+		throw new Exception("Refresh token expires", 1);
+	}
+	return $storage->retrieveAccessToken($service);
+ }
+
+/**
  * Connect to helloasso database
  *
  * @return array|int 	An array with the token_type and the access_token defined if OK or -1 if KO
  */
 function doConnectionHelloasso()
 {
+	require_once DOL_DOCUMENT_ROOT.'/includes/OAuth/bootstrap.php';
+	include_once DOL_DOCUMENT_ROOT.'/core/lib/date.lib.php';
+	include_once DOL_DOCUMENT_ROOT.'/core/lib/security.lib.php';
+	include_once DOL_DOCUMENT_ROOT.'/core/lib/geturl.lib.php';
+
+	global $db, $conf;
 	$result = array();
 
-	$helloassourl = "api.helloasso.com";
+	$helloassourl = "api.helloasso-sandbox.com";
+	$service = "Helloasso-Test";
 
 	// Verify if Helloasso module is in test mode
 	if (getDolGlobalInt("HELLOASSO_LIVE")) {
 		$client_id = getDolGlobalString("HELLOASSO_CLIENT_ID");
 		$client_id_secret = getDolGlobalString("HELLOASSO_CLIENT_SECRET");
+		$helloassourl = "api.helloasso.com";
+		$service = "Helloasso-Live";
 	} else{
 		$client_id = getDolGlobalString("HELLOASSO_TEST_CLIENT_ID");
 		$client_id_secret = getDolGlobalString("HELLOASSO_TEST_CLIENT_SECRET");
-		$helloassourl = "api.helloasso-sandbox.com";
 	}
 
 	$url = "https://".urlencode($helloassourl)."/oauth2/token";
 
-	$ret = getURLContent($url, 'POST', 'grant_type=client_credentials&client_id='.$client_id.'&client_secret='.$client_id_secret, 1, array('content-type: application/x-www-form-urlencoded'));
+	// Dolibarr storage
+	$storage = new DoliStorage($db, $conf);
+	try {
+		$tokenobj = $storage->retrieveAccessToken($service);
+		$ttl = $tokenobj->getEndOfLife();
+		if ($ttl <= dol_now()) {
+			$tokenobj = refreshToken($storage, $service, $tokenobj, $client_id, $url);
+		}
+		$result = array("token_type" => $tokenobj->getExtraParams()["token_type"], "access_token" => $tokenobj->getAccessToken());
+	} catch (Exception $e) {
+		$ret = getURLContent($url, 'POST', 'grant_type=client_credentials&client_id='.$client_id.'&client_secret='.$client_id_secret, 1, array('content-type: application/x-www-form-urlencoded'));
 
-	if ($ret["http_code"] == 200) {
-		$jsondata = $ret["content"];
-		$json = json_decode($jsondata);
-		$result = array("token_type" => $json->token_type, "access_token" => $json->access_token);
-	} else {
-		//var_dump($ret);
-		$result = -1;
+		if ($ret["http_code"] == 200) {
+			$jsondata = $ret["content"];
+			$json = json_decode($jsondata);
+			$result = array("token_type" => $json->token_type, "access_token" => $json->access_token);
+
+			$ttl = dol_time_plus_duree(dol_now(), $json->expires_in, 's');
+			$tokenobj = new StdOAuth2Token();
+			$tokenobj->setAccessToken($json->access_token);
+			$tokenobj->setRefreshToken($json->refresh_token);
+			$tokenobj->setEndOfLife($ttl);
+
+			$params = array("scope" => $url, "token_type" => $json->token_type);
+			$tokenobj->setExtraParams($params);
+
+			$storage->storeAccessToken($service, $tokenobj);
+		} else {
+			$result = -1;
+		}
 	}
-
 	return $result;
 }
 

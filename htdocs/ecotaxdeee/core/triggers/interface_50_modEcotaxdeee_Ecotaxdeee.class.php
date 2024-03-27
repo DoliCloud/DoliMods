@@ -303,8 +303,9 @@ class InterfaceEcotaxdeee extends DolibarrTriggers
 					$tmpproduct = new Product($this->db);
 					$tmpproduct->fetch($line->fk_product);
 					include_once DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php';
-					if (!empty($tmpproduct->array_options['option_ecotaxdeeecode']) && $line->qty) {
-						$ecotaxCode = $tmpproduct->array_options['option_ecotaxdeeecode'];
+
+					if (!empty($tmpproduct->array_options['options_ecotaxdeeecode']) && $line->qty) {
+						$ecotaxCode = $tmpproduct->array_options['options_ecotaxdeeecode'];
 
 						// search and get amount from code
 						$sql = "SELECT amount FROM ".MAIN_DB_PREFIX."ecotaxdeee";
