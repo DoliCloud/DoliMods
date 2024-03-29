@@ -78,9 +78,9 @@ $excludenullinvoice = GETPOST('excludenullinvoice', 'alpha');
 $excludenulllines = GETPOST('excludenulllines', 'alpha');
 
 $idovhsupplier = GETPOST('idovhsupplier', 'int');
-if(empty($idovhsupplier)) $idovhsupplier = $conf->global->OVH_THIRDPARTY_IMPORT;
+if (empty($idovhsupplier)) $idovhsupplier = $conf->global->OVH_THIRDPARTY_IMPORT;
 $idovhproduct = GETPOST('idovhproduct', 'int');
-if(empty($idovhproduct)) $idovhproduct = $conf->global->OVH_IMPORT_SUPPLIER_INVOICE_PRODUCT_ID;
+if (empty($idovhproduct)) $idovhproduct = $conf->global->OVH_IMPORT_SUPPLIER_INVOICE_PRODUCT_ID;
 
 $ovhthirdparty = new Societe($db);
 if ($idovhsupplier) {
@@ -88,14 +88,35 @@ if ($idovhsupplier) {
 }
 $ovhproduct = new Product($db);
 if ($idovhproduct) {
-    $result = $ovhproduct->fetch($idovhproduct);
+	$result = $ovhproduct->fetch($idovhproduct);
 }
 $fuser = $user;
 
+$error = 0;
+
 $now = dol_now();
+
 $datefrom = dol_mktime(0, 0, 0, GETPOST('datefrommonth', 'int'), GETPOST('datefromday', 'int'), GETPOST('datefromyear', 'int'));
 if (!$datefrom) {
-	$datefrom = dol_time_plus_duree($now, -4, 'm');
+	if (!getDolGlobalInt('OVH_USE_LAST_INVOCIE_VALIDATED_DATE') || !getDolGlobalInt('OVH_THIRDPARTY_IMPORT')) {
+		$datefrom = dol_time_plus_duree($now, -4, 'm');
+	} else {
+		$sql = "SELECT MAX(datef) as maxdatef FROM " . $db->prefix() . "facture_fourn";
+		$sql .= " WHERE fk_soc=" . getDolGlobalInt('OVH_THIRDPARTY_IMPORT');
+		$sql .= " AND fk_statut>=" . FactureFournisseur::STATUS_VALIDATED;
+		$resql = $db->query($sql);
+		if (!$resql) {
+			setEventMessage($db->error, 'errors');
+		} else {
+			$obj = $db->fetch_object($resql);
+			if (!empty($obj->maxdatef)) {
+				$datefrom = $obj->maxdatef;
+			}
+		}
+		if (!$datefrom) {
+			$datefrom = dol_time_plus_duree($now, -4, 'm');
+		}
+	}
 }
 
 /*
@@ -155,8 +176,10 @@ if (!empty($action)) {
 
 if ($action == 'import' && $ovhthirdparty->id > 0) {
 	if (!$error) {
-		$listofref = $_POST['billnum'];
-		$listofbillingcountry = $_POST['billingCountry'];
+		$validInvoice = GETPOST('valid_invoice');
+
+		$listofref = GETPOST('billnum', 'array');
+		$listofbillingcountry = GETPOST('billingCountry', 'array');
 		//$listofvat=$_POST['vat'];
 
 		if (count($listofref) == 0) {
@@ -191,6 +214,8 @@ if ($action == 'import' && $ovhthirdparty->id > 0) {
 					}
 				}
 			}
+
+			$invoiceToValidate=array();
 
 			foreach ($listofref as $key => $val) {
 				$billnum = $val;
@@ -383,15 +408,15 @@ if ($action == 'import' && $ovhthirdparty->id > 0) {
 							}
 							$remise_percent = 0;
 							$prod_type = 1;
-                            if (!empty($ovhproduct->id)) {
-                                $fk_product = $ovhproduct->id;
-                                $prod_type = $ovhproduct->type;
-                            } else {
-                                $fk_product = null;
-                                $prod_type = 0;
-                                $dtFrom = '';
-                                $dtTo = '';
-                            }
+							if (!empty($ovhproduct->id)) {
+								$fk_product = $ovhproduct->id;
+								$prod_type = $ovhproduct->type;
+							} else {
+								$fk_product = null;
+								$prod_type = 0;
+								$dtFrom = '';
+								$dtTo = '';
+							}
 							$ret = $facfou->addline($label, $amount, $tauxtva, 0, 0, $qty, $fk_product, $remise_percent, $dtFrom, $dtTo, '', 0, $price_base, $prod_type, -1, false, 0, null, 0, 0, $d['domain']);
 							if ($ret < 0) {
 								$error++;
@@ -412,6 +437,10 @@ if ($action == 'import' && $ovhthirdparty->id > 0) {
 							}
 						}
 					}
+
+					if (!empty($validInvoice) && empty($error)) {
+						$invoiceToValidate[]=$facfou->id;
+					}
 				} else {
 					$error++;
 					setEventMessage("ERROR: " . $facfou->error, 'errors');
@@ -422,6 +451,17 @@ if ($action == 'import' && $ovhthirdparty->id > 0) {
 					$db->commit();
 				} else {
 					$db->rollback();
+				}
+			}
+
+			if (!empty($invoiceToValidate)) {
+				foreach ($invoiceToValidate as $idInvoice) {
+					$facfou = new FactureFournisseur($db);
+					$facfou->fetch($idInvoice);
+					$result = $facfou->validate($user);
+					if ($result < 0) {
+						setEventMessage("Fail To Validate: " . $facfou->error, 'errors');
+					}
 				}
 			}
 
@@ -627,6 +667,8 @@ if ($action == 'refresh') {
 				print $formproject->select_projects(-1, $projectid, 'projectid', 0, 0, 1, 1, 0, $disabled, 0, '', 0, 0, 'maxwidth500');
 				//print '<br>';
 			}
+			print $langs->trans("ValidImportedInvoice") . ': ';
+			print '<input type="checkbox" name="valid_invoice" value="valid_invoice">';
 			print '<input type="hidden" name="action" value="import">';
 			print '<input type="hidden" name="token" value="' . newToken() . '">';
 			print '<input type="hidden" name="datefromday" value="' . dol_print_date($datefrom, '%d') . '">';
