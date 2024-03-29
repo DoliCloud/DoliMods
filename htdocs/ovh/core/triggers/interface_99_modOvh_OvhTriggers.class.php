@@ -1,5 +1,5 @@
 <?php
-/* Copyright (C) ---Put here your own copyright and developer email---
+/* Copyright (C) 2024 Laurent Destailleur  <eldy@users.sourceforge.net>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,18 +16,9 @@
  */
 
 /**
- * \file    core/triggers/interface_99_modMyModule_MyModuleTriggers.class.php
- * \ingroup mymodule
- * \brief   Example trigger.
- *
- * Put detailed description here.
- *
- * \remarks You can create other triggers by copying this one.
- * - File name should be either:
- *      - interface_99_modMyModule_MyTrigger.class.php
- *      - interface_99_all_MyTrigger.class.php
- * - The file must stay in core/triggers
- * - The class name must be InterfaceMytrigger
+ * \file    core/triggers/interface_99_modMOvh_OvhTriggers.class.php
+ * \ingroup ovh
+ * \brief   Trigger to add an event on SENTBYSMS.
  */
 
 require_once DOL_DOCUMENT_ROOT.'/core/triggers/dolibarrtriggers.class.php';
@@ -94,6 +85,7 @@ class InterfaceOvhTriggers extends DolibarrTriggers
 			return 0; // If module is not enabled, we do nothing
 		}
 
+		// TODO Move this in Dolibarr core. Do it only for old versions
 		if (preg_match('/SENTBYSMS/', $action)) {
 			dol_syslog("Trigger '" . $this->name . "' for action '$action' launched by " . __FILE__ . ". id=" . $object->id);
 			require_once DOL_DOCUMENT_ROOT . '/comm/action/class/actioncomm.class.php';

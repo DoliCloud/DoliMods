@@ -23,13 +23,13 @@ class ActionsOVH
 	public function addMoreMassActions($parameters, &$object, &$action, $hookmanager)
 	{
 		$error = 0; // Error counter
-		global $langs, $conf;
+		global $langs;
 		$langs->load('ovh@ovh');
 		$langs->load("sms");
 		$massaction = GETPOST('massaction');
 
 		if (in_array('contactlist', explode(':', $parameters['context'])) && getDolGlobalString('OVHSMS_ACCOUNT')) {
-			$labelAction = img_picto('', 'fontawesome_sms', '') . $langs->trans("SendSMS");
+			$labelAction = img_picto('', 'fontawesome_sms', 'class="pictofixedwidth"') . $langs->trans("SendSMS");
 			$this->resprints = '<option value="presendsms" data-html="' . dol_escape_htmltag($labelAction) . '"';
 
 			if ($massaction == 'presendsms') {
