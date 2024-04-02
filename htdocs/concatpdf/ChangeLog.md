@@ -1,6 +1,11 @@
 # ChangeLog MODULE CONCATPDF FOR <a href="https://www.dolibarr.org">DOLIBARR ERP CRM</a>
 
 
+# 6.0.4
+
+FIX: The value shown as the Default is wrong when you allow selection of several files to concat 
+
+
 # 6.0.3
 
 FIX: Fix fatal error on concat on contract
