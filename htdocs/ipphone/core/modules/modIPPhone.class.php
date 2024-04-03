@@ -57,6 +57,7 @@ class modIPPhone extends DolibarrModules
 		$this->description = "Make your Dolibarr able to answer an IP Phone request for annuary content";
 		$this->editor_name = 'DoliCloud';
 		$this->editor_url = 'https://www.dolicloud.com';
+		$this->editor_squarred_logo = 'dolicloud_favicon.png@ipphone';
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
 		$this->version = '4.0';
 		// Key used in llx_const table to save module status enabled/disabled (where MYMODULE is value of property name of module in uppercase)
