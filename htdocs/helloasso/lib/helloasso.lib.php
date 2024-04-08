@@ -104,6 +104,7 @@ function helloassoAdminPrepareHead()
 		$newtokenobj->setExtraParams($params);
 		$storage->storeAccessToken($service, $newtokenobj);
 	} else {
+		dol_syslog('Error: refreshToken Refresh token expires');
 		throw new Exception("Refresh token expires", 1);
 	}
 	return $storage->retrieveAccessToken($service);
