@@ -86,6 +86,8 @@ function helloassoAdminPrepareHead()
 
  function refreshToken($storage, $service, $tokenobj, $client_id, $urltocall) {
 	include_once DOL_DOCUMENT_ROOT.'/core/lib/geturl.lib.php';
+	dol_syslog('HelloAsso::refreshToken clientid='.$client_id.', service='.$service);
+
 	$refreshtoken = $tokenobj->getRefreshToken();
 	$ret = getURLContent($urltocall, 'POST', 'grant_type=refresh_token&client_id='.$client_id.'&refresh_token='.$refreshtoken, 1, array('content-type: application/x-www-form-urlencoded'));
 
@@ -102,6 +104,7 @@ function helloassoAdminPrepareHead()
 		$newtokenobj->setExtraParams($params);
 		$storage->storeAccessToken($service, $newtokenobj);
 	} else {
+		dol_syslog('Error: refreshToken Refresh token expires');
 		throw new Exception("Refresh token expires", 1);
 	}
 	return $storage->retrieveAccessToken($service);
@@ -121,6 +124,8 @@ function doConnectionHelloasso()
 
 	global $db, $conf;
 	$result = array();
+
+	dol_syslog('HelloAsso::doConnectionHelloasso');
 
 	$helloassourl = "api.helloasso-sandbox.com";
 	$service = "Helloasso-Test";
@@ -166,6 +171,9 @@ function doConnectionHelloasso()
 
 			$storage->storeAccessToken($service, $tokenobj);
 		} else {
+			$jsondata = $ret["content"];
+			$json = json_decode($jsondata);
+			dol_syslog('Error: getURLContent http_code='.$ret["http_code"].' message='.$json->error_description);
 			$result = -1;
 		}
 	}
