@@ -47,7 +47,7 @@ class modNumberWords extends DolibarrModules
 		$this->editor_name = 'DoliCloud';
 		$this->editor_url = 'https://www.dolicloud.com';
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
-		$this->version = '5.0.2';
+		$this->version = '5.0.3';
 		// Key used in llx_const table to save module status enabled/disabled (where MYMODULE is value of property name of module in uppercase)
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
 		// Name of image file used for this module.
@@ -66,7 +66,7 @@ class modNumberWords extends DolibarrModules
 		// Dependencies
 		$this->depends = array();		// List of modules id that must be enabled if this module is enabled
 		$this->requiredby = array();	// List of modules id to disable if this one is disabled
-		$this->phpmin = array(4,3);					// Minimum version of PHP required by module
+		$this->phpmin = array(7,0);					// Minimum version of PHP required by module
 		$this->need_dolibarr_version = array(4,0,-3);	// Minimum version of Dolibarr required by module
 		$this->langfiles = array('numberwords@numberwords');
 
