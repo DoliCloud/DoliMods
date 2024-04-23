@@ -1,5 +1,10 @@
 # NUMBERWORDS MODULE FOR <a href="https://www.dolibarr.org">DOLIBARR ERP CRM</a>
 
+## 5.0.3
+
+NEW Better support for Greek
+
+
 ## 5.0.2
 
 NEW Add Support for english canadian
