@@ -353,7 +353,7 @@ class InterfaceEcotaxdeee extends DolibarrTriggers
 			if (!empty($tmpecotaxline[$ecocateg]) && is_object($tmpecotaxline[$ecocateg]) && $idlineecotax[$ecocateg] > 0) {
 				if ($ecoamount[$ecocateg]) {
 					// Update line
-					$tmpecotaxline[$ecocateg]->oldline = dol_clone($tmpecotaxline[$ecocateg]);
+					$tmpecotaxline[$ecocateg]->oldline = dol_clone($tmpecotaxline[$ecocateg], 0);
 					$tmpecotaxline[$ecocateg]->qty = 1;
 					$tmpecotaxline[$ecocateg]->subprice = $ecoamount[$ecocateg];
 
