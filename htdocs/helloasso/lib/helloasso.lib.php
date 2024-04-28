@@ -296,10 +296,19 @@ function getDataFromObjects($source, $ref, $mode = 'amount', &$payerarray = null
 					}
 				} else if($mode == 'payer' && !is_null($payerarray)) {
 					$invoice->fetch_thirdparty();
-					$payerarray['companyName'] = $invoice->thirdparty->name;
-					$payerarray['address'] = $invoice->thirdparty->address;
-					$payerarray['zipCode'] = $invoice->thirdparty->zip;
-					$payerarray['city'] = $invoice->thirdparty->town;
+					if ($invoice->thirdparty->isACompany()) {
+						$payerarray['companyName'] = $invoice->thirdparty->name;
+						$payerarray['address'] = $invoice->thirdparty->address;
+						$payerarray['zipCode'] = $invoice->thirdparty->zip;
+						$payerarray['city'] = $invoice->thirdparty->town;
+					} else {
+						$result = $member->fetch(0, '', $invoice->thirdparty->id);
+						if ($resut > 0) {
+							$payerarray['firstName'] = $member->firstname;
+							$payerarray['lastName'] = $member->lastname;
+							$payerarray['dateOfBirth'] = dol_print_date($member->birth, 'dayrfc');
+						}
+					}
 					$payerarray['email'] = $invoice->thirdparty->email;
 				}
 			}
@@ -318,10 +327,19 @@ function getDataFromObjects($source, $ref, $mode = 'amount', &$payerarray = null
 					}
 				} else if($mode == 'payer' && !is_null($payerarray)) {
 					$invoice->fetch_thirdparty();
-					$payerarray['companyName'] = $invoice->thirdparty->name;
-					$payerarray['address'] = $invoice->thirdparty->address;
-					$payerarray['zipCode'] = $invoice->thirdparty->zip;
-					$payerarray['city'] = $invoice->thirdparty->town;
+					if ($invoice->thirdparty->isACompany()) {
+						$payerarray['companyName'] = $invoice->thirdparty->name;
+						$payerarray['address'] = $invoice->thirdparty->address;
+						$payerarray['zipCode'] = $invoice->thirdparty->zip;
+						$payerarray['city'] = $invoice->thirdparty->town;
+					} else {
+						$result = $member->fetch(0, '', $invoice->thirdparty->id);
+						if ($result > 0) {
+							$payerarray['firstName'] = $member->firstname;
+							$payerarray['lastName'] = $member->lastname;
+							$payerarray['dateOfBirth'] = dol_print_date($member->birth, 'dayrfc');
+						}
+					}
 					$payerarray['email'] = $invoice->thirdparty->email;
 				}
 			}
@@ -340,10 +358,19 @@ function getDataFromObjects($source, $ref, $mode = 'amount', &$payerarray = null
 					}
 				} else if($mode == 'payer' && !is_null($payerarray)) {
 					$order->fetch_thirdparty();
-					$payerarray['companyName'] = $order->thirdparty->name;
-					$payerarray['address'] = $order->thirdparty->address;
-					$payerarray['zipCode'] = $order->thirdparty->zip;
-					$payerarray['city'] = $order->thirdparty->town;
+					if ($order->thirdparty->isACompany()) {
+						$payerarray['companyName'] = $order->thirdparty->name;
+						$payerarray['address'] = $order->thirdparty->address;
+						$payerarray['zipCode'] = $order->thirdparty->zip;
+						$payerarray['city'] = $order->thirdparty->town;
+					} else {
+						$result = $member->fetch(0, '', $order->thirdparty->id);
+						if ($resut > 0) {
+							$payerarray['firstName'] = $member->firstname;
+							$payerarray['lastName'] = $member->lastname;
+							$payerarray['dateOfBirth'] = dol_print_date($member->birth, 'dayrfc');
+						}
+					}
 					$payerarray['email'] = $order->thirdparty->email;
 				}
 			}
@@ -359,10 +386,20 @@ function getDataFromObjects($source, $ref, $mode = 'amount', &$payerarray = null
 					$amount = $invoice->total_ttc;
 				} else if($mode == 'payer' && !is_null($payerarray)) {
 					$invoice->fetch_thirdparty();
-					$payerarray['companyName'] = $invoice->thirdparty->name;
-					$payerarray['address'] = $invoice->thirdparty->address;
-					$payerarray['zipCode'] = $invoice->thirdparty->zip;
-					$payerarray['city'] = $invoice->thirdparty->town;
+					$invoice->fetch_thirdparty();
+					if ($invoice->thirdparty->isACompany()) {
+						$payerarray['companyName'] = $invoice->thirdparty->name;
+						$payerarray['address'] = $invoice->thirdparty->address;
+						$payerarray['zipCode'] = $invoice->thirdparty->zip;
+						$payerarray['city'] = $invoice->thirdparty->town;
+					} else {
+						$result = $member->fetch(0, '', $invoice->thirdparty->id);
+						if ($resut > 0) {
+							$payerarray['firstName'] = $member->firstname;
+							$payerarray['lastName'] = $member->lastname;
+							$payerarray['dateOfBirth'] = dol_print_date($member->birth, 'dayrfc');
+						}
+					}
 					$payerarray['email'] = $invoice->thirdparty->email;
 				}
 			}
