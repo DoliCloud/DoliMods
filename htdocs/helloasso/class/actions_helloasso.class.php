@@ -482,6 +482,8 @@ class ActionsHelloAsso extends CommonHookActions
 		$amount = price2num(GETPOST("amount", 'alpha'));
 
 		if ($action == "returnDoPaymentHelloAsso") {
+			dol_syslog("Data after redirect from helloasso payment page with session FinalPaymentAmt = ".$_SESSION["FinalPaymentAmt"]." currencycodeType = ".$_SESSION["currencyCodeType"], LOG_DEBUG);
+
 			$urlredirect = $urlwithroot.'/public/payment/';
 			$typereturn = GETPOST("typereturn");
 			if ($typereturn == "error") {
@@ -498,7 +500,13 @@ class ActionsHelloAsso extends CommonHookActions
 
 		if (in_array($parameters['context'],array('newpayment')) && empty($parameters['paymentmethod'])) {	
 			$amount = price2num(getDataFromObjects($source, $ref));
+			if (!GETPOST("currency", 'alpha')) {
+				$currency = $conf->currency;
+			} else {
+				$currency = GETPOST("currency", 'aZ09');
+			}
 			$_SESSION["FinalPaymentAmt"] = $amount;
+			$_SESSION["currencyCodeType"] = $currency;
 
 		} elseif (in_array($parameters['paymentmethod'], array('helloasso')) && $parameters['validpaymentmethod']["helloasso"] == "valid") {
 			require_once DOL_DOCUMENT_ROOT."/core/lib/geturl.lib.php";
@@ -626,6 +634,8 @@ class ActionsHelloAsso extends CommonHookActions
 						$jsontosenddata .= '}';
 
 						$urlforcheckout = "https://".urlencode($helloassourl)."/v5/organizations/".urlencode($client_organisation)."/checkout-intents";
+
+						dol_syslog("Send Post to url=".$urlforcheckout." with session FinalPaymentAmt = ".$FinalPaymentAmt." currencyCodeType = ".$_SESSION["currencyCodeType"], LOG_DEBUG);
 
 						$ret2 = getURLContent($urlforcheckout, 'POSTALREADYFORMATED', $jsontosenddata, 1, $headers);
 						if ($ret2["http_code"] == 200) {
