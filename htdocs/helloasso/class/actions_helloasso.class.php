@@ -430,10 +430,9 @@ class ActionsHelloAsso extends CommonHookActions
 	 */
 	public function getValidPayment($parameters, &$object, &$action, $hookmanager)
 	{
-		global $conf, $user, $langs;
+		global $langs;
 
 		$error = 0; // Error counter
-		$resprints = "";
 		$error = "";
 
 		if (array_key_exists("paymentmethod", $parameters) && (empty($parameters["paymentmethod"]) || $parameters["paymentmethod"] == 'helloasso') && isModEnabled('helloasso')) {
@@ -443,7 +442,7 @@ class ActionsHelloAsso extends CommonHookActions
 
 		if (!$error) {
 			$this->results["validpaymentmethod"] = $validpaymentmethod;
-			return 1; // or return 1 to replace standard code
+			return 0;
 		} else {
 			$this->errors[] = $error;
 			return -1;
@@ -498,7 +497,7 @@ class ActionsHelloAsso extends CommonHookActions
 			}
 		}
 
-		if (in_array($parameters['context'],array('newpayment')) && empty($parameters['paymentmethod'])) {	
+		if (in_array($parameters['context'],array('newpayment')) && empty($parameters['paymentmethod'])) {
 			$amount = price2num(getDataFromObjects($source, $ref));
 			if (!GETPOST("currency", 'alpha')) {
 				$currency = $conf->currency;
