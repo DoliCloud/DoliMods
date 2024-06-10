@@ -131,20 +131,20 @@ if (!empty($action)) {
 		$params = getSoapParams();
 		ini_set('default_socket_timeout', $params['response_timeout']);
 
-		if (!empty($conf->global->OVH_OLDAPI)) {
-			if (empty($conf->global->OVHSMS_SOAPURL)) {
+		if (getDolGlobalString('OVH_OLDAPI')) {
+			if (!getDolGlobalString('OVHSMS_SOAPURL')) {
 				print 'Error: ' . $langs->trans("ModuleSetupNotComplete") . "\n";
 				exit;
 			}
 			//use_soap_error_handler(true);
 
-			$soap = new SoapClient($conf->global->OVHSMS_SOAPURL, $params);
+			$soap = new SoapClient(getDolGlobalString('OVHSMS_SOAPURL'), $params);
 
 			$language = "en";
 			$multisession = false;
 
 			//login
-			$session = $soap->login($conf->global->OVHSMS_NICK, $conf->global->OVHSMS_PASS, $language, $multisession);
+			$session = $soap->login(getDolGlobalString('OVHSMS_NICK'), getDolGlobalString('OVHSMS_PASS'), $language, $multisession);
 			dol_syslog("login successfull");
 
 			$result = $soap->billingGetAccessByNic($session);
@@ -152,19 +152,19 @@ if (!empty($action)) {
 			//print "GetAccessByNic: ".join(',',$result)."<br>\n";
 		} else {
 			if (GETPOST('compte', 'alpha') == 2) {
-				if (empty($conf->global->OVHCONSUMERKEY2)) {
+				if (!getDolGlobalString('OVHCONSUMERKEY2')) {
 					print 'Error: ' . $langs->trans("ModuleSetupNotComplete") . "\n";
 					exit;
 				}
 
-				$conn = new Api($conf->global->OVHAPPKEY2, $conf->global->OVHAPPSECRET2, $endpoint, $conf->global->OVHCONSUMERKEY2);
+				$conn = new Api(getDolGlobalString('OVHAPPKEY2'), getDolGlobalString('OVHAPPSECRET2'), $endpoint, getDolGlobalString('OVHCONSUMERKEY2'));
 			} else {
-				if (empty($conf->global->OVHCONSUMERKEY)) {
+				if (!getDolGlobalString('OVHCONSUMERKEY')) {
 					print 'Error: ' . $langs->trans("ModuleSetupNotComplete") . "\n";
 					exit;
 				}
 
-				$conn = new Api($conf->global->OVHAPPKEY, $conf->global->OVHAPPSECRET, $endpoint, $conf->global->OVHCONSUMERKEY);
+				$conn = new Api(getDolGlobalString('OVHAPPKEY'), getDolGlobalString('OVHAPPSECRET'), $endpoint, getDolGlobalString('OVHCONSUMERKEY'));
 			}
 		}
 	} catch (SoapFault $fault) {
@@ -191,14 +191,13 @@ if ($action == 'import' && $ovhthirdparty->id > 0) {
 		if (!$error) {
 			//billingInvoiceList
 			$validVatList = array();
-			if (!empty($conf->global->OVH_OLDAPI)) {
+			if (getDolGlobalString('OVH_OLDAPI')) {
 				try {
 					$result = $soap->billingInvoiceList($session);
 
 					file_put_contents(DOL_DATA_ROOT . "/dolibarr_ovh_billingInvoiceList.xml",
-						$soap->__getLastResponse());
-					@chmod(DOL_DATA_ROOT . "/dolibarr_ovh_billingInvoiceList.xml",
-						octdec(empty($conf->global->MAIN_UMASK) ? '0664' : $conf->global->MAIN_UMASK));
+					$soap->__getLastResponse());
+					dolChmod(DOL_DATA_ROOT . "/dolibarr_ovh_billingInvoiceList.xml");
 				} catch (Exception $e) {
 					echo 'Exception soap->billingInvoiceList: ' . $e->getMessage() . "\n";
 				}
