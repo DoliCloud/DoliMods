@@ -29,10 +29,10 @@ require_once DOL_DOCUMENT_ROOT."/core/class/commonobject.class.php";
  */
 class ActionsGoogle
 {
-	var $db;
-	var $error;
-	var $errors=array();
-	var $priority = 70;
+	public $db;
+	public $error;
+	public $errors=array();
+	public $priority = 70;
 
 	/**
 	 * @var string	String of results.
@@ -100,9 +100,9 @@ class ActionsGoogle
 		if ($conf->google->enabled) {
 			if (! empty($conf->global->GOOGLE_DUPLICATE_INTO_GCAL)) {
 				// Define $max, $maxgoogle and $notolderforsync
-				$max=(empty($conf->global->GOOGLE_MAX_FOR_MASS_AGENDA_SYNC)?50:$conf->global->GOOGLE_MAX_FOR_MASS_AGENDA_SYNC);
+				$max = getDolGlobalInt('GOOGLE_MAX_FOR_MASS_AGENDA_SYNC', 50);
 				$maxgoogle=2500;
-				$notolderforsync=(empty($conf->global->GOOGLE_MAXOLDDAYS_FOR_MASS_AGENDA_SYNC)?20:$conf->global->GOOGLE_MAXOLDDAYS_FOR_MASS_AGENDA_SYNC);   // nb days max
+				$notolderforsync = getDolGlobalInt('GOOGLE_MAXOLDDAYS_FOR_MASS_AGENDA_SYNC', 20);   // nb days max
 				$testoffset=3600;
 
 				$fuser = $user;
