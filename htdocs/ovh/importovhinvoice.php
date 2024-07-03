@@ -672,8 +672,8 @@ if ($action == 'refresh') {
 				print $formproject->select_projects(-1, $projectid, 'projectid', 0, 0, 1, 1, 0, $disabled, 0, '', 0, 0, 'maxwidth500');
 				//print '<br>';
 			}
-			print $langs->trans("ValidImportedInvoice") . ': ';
-			print '<input type="checkbox" name="valid_invoice" value="valid_invoice">';
+			print ' &nbsp; &nbsp; <label for="valid_invoice">'.$langs->trans("ValidImportedInvoice") . '</label>: ';
+			print '<input type="checkbox" name="valid_invoice" id="valid_invoice" value="valid_invoice">';
 			print '<input type="hidden" name="action" value="import">';
 			print '<input type="hidden" name="token" value="' . newToken() . '">';
 			print '<input type="hidden" name="datefromday" value="' . dol_print_date($datefrom, '%d') . '">';
@@ -692,13 +692,13 @@ if ($action == 'refresh') {
 
 			print '</div><div style="clear: both"></div><br>';
 
-			print '<table class="noborder" width="100%">';
+			print '<table class="noborder centpercent">';
 			print '<tr class="liste_titre">';
 			print '<td>' . $langs->trans("Invoice") . ' OVH</td>';
 			print '<td class="center">' . $langs->trans("Date") . '</td>';
 			print '<td align="right">' . $langs->trans("AmountHT") . '</td>';
 			print '<td align="right">' . $langs->trans("AmountTTC") . '</td>';
-			print '<td align="right">' . $langs->trans("Currency") . '</td>';
+			print '<td align="center">' . $langs->trans("Currency") . '</td>';
 			//print '<td align="right">'.$langs->trans("VATRate").'</td>';
 			print '<td>' . $langs->trans("Description") . '</td>';
 			print '<td align="right">' . $form->showCheckAddButtons('checkforselect', 1) . '</td>';
