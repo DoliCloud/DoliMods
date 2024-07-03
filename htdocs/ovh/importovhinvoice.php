@@ -197,7 +197,11 @@ if ($action == 'import' && $ovhthirdparty->id > 0) {
 
 					file_put_contents(DOL_DATA_ROOT . "/dolibarr_ovh_billingInvoiceList.xml",
 					$soap->__getLastResponse());
-					dolChmod(DOL_DATA_ROOT . "/dolibarr_ovh_billingInvoiceList.xml");
+					if (function_exists('dolChmod')) {
+						dolChmod(DOL_DATA_ROOT . "/dolibarr_ovh_billingInvoiceList.xml");
+					} else {
+						@chmod(DOL_DATA_ROOT . "/dolibarr_ovh_billingInvoiceList.xml", octdec(!getDolGlobalString('MAIN_UMASK') ? '0664' : getDolGlobalString('MAIN_UMASK')));
+					}
 				} catch (Exception $e) {
 					echo 'Exception soap->billingInvoiceList: ' . $e->getMessage() . "\n";
 				}
@@ -219,7 +223,7 @@ if ($action == 'import' && $ovhthirdparty->id > 0) {
 			foreach ($listofref as $key => $val) {
 				$billnum = $val;
 				$keyresult = 0;
-				if (!empty($conf->global->OVH_OLDAPI)) {
+				if (getDolGlobalString('OVH_OLDAPI')) {
 					$billingcountry = $listofbillingcountry[$key];
 					//$vatrate=$listofvat[$key];
 
@@ -237,14 +241,16 @@ if ($action == 'import' && $ovhthirdparty->id > 0) {
 				// Invoice does not exists
 				$db->begin();
 
-				if (!empty($conf->global->OVH_OLDAPI)) {
+				if (getDolGlobalString('OVH_OLDAPI')) {
 					$result[$keyresult]->info = $soap->billingInvoiceInfo($session, $billnum, null,
 						$billingcountry); //on recupere les details
 
-					file_put_contents(DOL_DATA_ROOT . "/dolibarr_ovh_billingInvoiceInfo.xml",
-						$soap->__getLastResponse());
-					@chmod(DOL_DATA_ROOT . "/dolibarr_ovh_billingInvoiceInfo.xml",
-						octdec(empty($conf->global->MAIN_UMASK) ? '0664' : $conf->global->MAIN_UMASK));
+					file_put_contents(DOL_DATA_ROOT . "/dolibarr_ovh_billingInvoiceInfo.xml", $soap->__getLastResponse());
+					if (function_exists('dolChmod')) {
+						dolChmod(DOL_DATA_ROOT . "/dolibarr_ovh_billingInvoiceList.xml");
+					} else {
+						@chmod(DOL_DATA_ROOT . "/dolibarr_ovh_billingInvoiceInfo.xml",	octdec(!getDolGlobalString('MAIN_UMASK') ? '0664' : getDolGlobalString('MAIN_UMASK')));
+					}
 				} else {
 					$r = $conn->get('/me/bill/' . $billnum);
 					$r2 = $conn->get('/me/bill/' . $val . '/details');
@@ -289,7 +295,7 @@ if ($action == 'import' && $ovhthirdparty->id > 0) {
 
 				$vatrate = 0;
 				$vatrateNew = null;
-				if (!empty($conf->global->OVH_OLDAPI)) {
+				if (getDolGlobalString('OVH_OLDAPI')) {
 					if ($r->info->taxrate < 1) {
 						$vatrate = price2num($r->info->taxrate * 100);
 					} else {
@@ -325,8 +331,8 @@ if ($action == 'import' && $ovhthirdparty->id > 0) {
 				}
 
 				// Get default bank account
-				if (!empty($conf->global->OVH_DEFAULT_BANK_ACCOUNT)) {
-					$facfou->fk_account = $conf->global->OVH_DEFAULT_BANK_ACCOUNT;
+				if (getDolGlobalInt('OVH_DEFAULT_BANK_ACCOUNT')) {
+					$facfou->fk_account = getDolGlobalInt('OVH_DEFAULT_BANK_ACCOUNT');
 				}
 
 				$facfou->ref_supplier = $billnum;
@@ -348,7 +354,7 @@ if ($action == 'import' && $ovhthirdparty->id > 0) {
 
 				$facid = $facfou->create($fuser);
 				if ($facid > 0) {
-					if (!empty($conf->global->OVH_OLDAPI)) {
+					if (getDolGlobalString('OVH_OLDAPI')) {
 						foreach ($r->info->details as $d) {
 							$label = '<strong>ref :' . $d->service . '</strong><br>' . $d->description . '<br>';
 							$dtFrom = '';
@@ -431,7 +437,7 @@ if ($action == 'import' && $ovhthirdparty->id > 0) {
 								$facfou->update_price(0, '0');
 								if (price2num($facfou->total_ttc, 'MT') != round($r['totalPriceWithVat'], 'MT') || price2num($facfou->total_tva, 'MT') != price2num($r['vat'], 'MT')) {
 									// ne set pas $error mais affiche le message
-									setEventMessage("ALERT: Amount of invoice {$facfou->libelle} is not correct.", 'warnings');
+									setEventMessage("ALERT: Amount of invoice ".$facfou->label." is not correct.", 'warnings');
 								}
 							}
 						}
@@ -481,14 +487,14 @@ $formproject = new FormProjets($db);
 
 llxHeader('', $langs->trans("OvhInvoiceImportShort"), '');
 
-if (!empty($conf->global->OVH_OLDAPI)) {
-	if (empty($conf->global->OVHSMS_SOAPURL)) {
+if (getDolGlobalString('OVH_OLDAPI')) {
+	if (!getDolGlobalString('OVHSMS_SOAPURL')) {
 		$langs->load("errors");
 		setEventMessage($langs->trans("ErrorModuleSetupNotComplete"), 'errors');
 		$mesg = '<div class="errors">' . $langs->trans("ErrorModuleSetupNotComplete") . '/<div>';
 	}
 } else {
-	if (empty($conf->global->OVHCONSUMERKEY)) {
+	if (!getDolGlobalString('OVHCONSUMERKEY')) {
 		$langs->load("errors");
 		setEventMessage($langs->trans("ErrorModuleSetupNotComplete"), 'errors');
 		$mesg = '<div class="errors">' . $langs->trans("ErrorModuleSetupNotComplete") . '/<div>';
@@ -734,7 +740,7 @@ if ($action == 'refresh') {
 					$s .= ' (<a target="ovhinvoice" href="' . dol_escape_htmltag($r['url']) . '">' . $langs->trans("Link") . ' OVH</a>) ';
 				}
 				print '<td title="'.dol_escape_htmltag($s).'">';
-				print '<div class="twolinesmax">';
+				print '<div class="twolinesmax small">';
 				print $s;
 				print '</div>';
 				print "</td>\n";
