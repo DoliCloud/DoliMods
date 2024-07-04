@@ -331,15 +331,14 @@ class Api
     private function decodeResponse(Response $response)
     {
     	// @Change DOL_LDR
-    	global $conf;
-    	if (!empty($conf->global->OVH_DEBUG)) {
-    		$logfile=DOL_DATA_ROOT.'/dolibarr_ovh.log';
+    	if (getDolGlobalString("OVH_DEBUG")) {
+    		$logfile = DOL_DATA_ROOT.'/dolibarr_ovh.log';
     		$filefd = fopen($logfile, 'a+');
     		if ($filefd)
     		{
-    			fwrite($filefd, var_export($response->getBody(), true)."\n");
+    			fwrite($filefd, var_export((string) $response->getBody(), true)."\n");
     			fclose($filefd);
-    			@chmod($logfile, octdec(empty($conf->global->MAIN_UMASK)?'0664':$conf->global->MAIN_UMASK));
+    			@chmod($logfile, octdec(getDolGlobalString("MAIN_UMASK", '0664')));
     		}
     	}
 

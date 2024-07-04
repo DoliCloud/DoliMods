@@ -208,8 +208,8 @@ if ($action == 'import' && $ovhthirdparty->id > 0) {
 				//echo "billingInvoiceList successfull (".count($result)." ".$langs->trans("Invoices").")\n";
 			} else {
 				$result = array();
-				if (!empty($conf->global->OVH_VAT_VALID_LIST)) {
-					$validVatList0 = explode(';', $conf->global->OVH_VAT_VALID_LIST);
+				if (getDolGlobalString("OVH_VAT_VALID_LIST")) {
+					$validVatList0 = explode(';', getDolGlobalString("OVH_VAT_VALID_LIST"));
 					foreach ($validVatList0 as $vatid) {
 						if ($vat = getTaxesFromId($vatid)) {
 							$validVatList[$vat['rowid']] = $vat;
@@ -259,6 +259,7 @@ if ($action == 'import' && $ovhthirdparty->id > 0) {
 					$pos = 0;
 					foreach ($r2 as $key2 => $val2) {
 						$r2d = $conn->get('/me/bill/' . $val . '/details/' . $val2);
+
 						if (!$excludenulllines || $r2d['totalPrice']['value']) {
 							$description .= $r2d['description'] . "<br>\n";
 							$details[$pos]['billId'] = $billnum;
@@ -303,7 +304,7 @@ if ($action == 'import' && $ovhthirdparty->id > 0) {
 					}
 				} else {
 					$nbdigits = 2;
-					if (!empty($conf->global->OVH_VAT_RATE_ON_ONE_DIGIT)) {
+					if (getDolGlobalString('OVH_VAT_RATE_ON_ONE_DIGIT')) {
 						$nbdigits = 1;
 					}
 					if ($r['totalPrice'] > 0) {
@@ -337,8 +338,9 @@ if ($action == 'import' && $ovhthirdparty->id > 0) {
 
 				$facfou->ref_supplier = $billnum;
 				$facfou->socid = $ovhthirdparty->id;
-				$facfou->libelle = "OVH " . $billnum;
-				if (!empty($conf->global->OVH_OLDAPI)) {
+				$facfou->libelle = "OVH ".$billnum;
+				$facfou->label = "OVH ".$billnum;
+				if (getDolGlobalString("OVH_OLDAPI")) {
 					$facfou->date = dol_stringtotime($r->date, 1);
 					$facfou->date_echeance = dol_stringtotime($r->date, 1);
 				} else {
