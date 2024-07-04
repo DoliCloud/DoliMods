@@ -429,14 +429,15 @@ if ($action == 'import' && $ovhthirdparty->id > 0) {
 								break;
 							}
 						}
-						// Vérification que le calcule de TVA est conforme :
+
+						// Check that the VAT calculation is ok :
 						if (price2num($facfou->total_ttc, 'MT') != price2num($r['totalPriceWithVat'], 'MT') || price2num($facfou->total_tva, 'MT') != price2num($r['vat'], 'MT')) {
 							//'0'=Force mode total of rounding, '1'=Force mode rounding of total
 							$facfou->update_price(0, '1');
 							if (price2num($facfou->total_ttc, 'MT') != price2num($r['totalPriceWithVat'], 'MT') || price2num($facfou->total_tva, 'MT') != price2num($r['vat'], 'MT')) {
 								$facfou->update_price(0, '0');
-								if (price2num($facfou->total_ttc, 'MT') != round($r['totalPriceWithVat'], 'MT') || price2num($facfou->total_tva, 'MT') != price2num($r['vat'], 'MT')) {
-									// ne set pas $error mais affiche le message
+								if (price2num($facfou->total_ttc, 'MT') != price2num($r['totalPriceWithVat'], 'MT') || price2num($facfou->total_tva, 'MT') != price2num($r['vat'], 'MT')) {
+									// do not set $error but show a warning message
 									setEventMessage("ALERT: Amount of invoice ".(empty($facfou->label) ? $facfou->libelle : $facfou->label)." is not correct.", 'warnings');
 								}
 							}
