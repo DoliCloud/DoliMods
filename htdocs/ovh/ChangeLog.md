@@ -4,11 +4,12 @@
 ## 5.0 Unreleased
 
 * FIX If dtfrom and dtto are inverted by OVH, we restore correct order
-* FIX Compatiblity Dolibarr 18 
+* FIX Compatiblity Dolibarr 18
+* FIX round replaced with price2num
 * NEW Add a select all checkbox in the list
 * NEW Add supplier and product selection in form
 * NEW Add mass action send SMS
-* Better PHP 8.2 compatibility 
+* Better PHP 8.2 compatibility
 * QUAL CLean code to follow Dolibarr precommit rules
 
 ## 4.1
