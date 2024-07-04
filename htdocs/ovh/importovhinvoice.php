@@ -437,7 +437,7 @@ if ($action == 'import' && $ovhthirdparty->id > 0) {
 								$facfou->update_price(0, '0');
 								if (price2num($facfou->total_ttc, 'MT') != round($r['totalPriceWithVat'], 'MT') || price2num($facfou->total_tva, 'MT') != price2num($r['vat'], 'MT')) {
 									// ne set pas $error mais affiche le message
-									setEventMessage("ALERT: Amount of invoice ".$facfou->label." is not correct.", 'warnings');
+									setEventMessage("ALERT: Amount of invoice ".(empty($facfou->label) ? $facfou->libelle : $facfou->label)." is not correct.", 'warnings');
 								}
 							}
 						}
