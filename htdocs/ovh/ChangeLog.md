@@ -9,6 +9,7 @@
 * NEW Add a select all checkbox in the list
 * NEW Add supplier and product selection in form
 * NEW Add mass action send SMS
+* NEW Can set end date for invoice import
 * Better PHP 8.2 compatibility
 * QUAL CLean code to follow Dolibarr precommit rules
 

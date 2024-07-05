@@ -69,7 +69,7 @@ $langs->loadLangs(array("bills", "orders", "ovh@ovh"));
 
 $url_pdf = "https://www.ovh.com/cgi-bin/order/facture.pdf";
 
-$endpoint = empty($conf->global->OVH_ENDPOINT) ? 'ovh-eu' : $conf->global->OVH_ENDPOINT;    // Can be "soyoustart-eu" or "kimsufi-eu"
+$endpoint = getDolGlobalString('OVH_ENDPOINT', 'ovh-eu');    // Can be "soyoustart-eu" or "kimsufi-eu"
 
 
 $action = GETPOST('action', 'aZ09');
@@ -118,6 +118,8 @@ if (!$datefrom) {
 		}
 	}
 }
+$dateto = dol_mktime(0, 0, 0, GETPOST('datetomonth', 'int'), GETPOST('datetoday', 'int'), GETPOST('datetoyear', 'int'));
+
 
 /*
  * Actions
@@ -560,6 +562,8 @@ print '<input type="checkbox" name="excludenullinvoice"' . ((!isset($_POST["excl
 print ' &nbsp; <input type="checkbox" name="excludenulllines"' . ((isset($_POST["excludenulllines"]) && GETPOST('excludenulllines')) ? ' checked="true"' : '') . '"> ' . $langs->trans("ExcludeNullLines") . '<br>';
 print $langs->trans("FromThe") . ': ';
 print $form->selectDate($datefrom, 'datefrom');
+print ' &nbsp; '.$langs->trans("ToThe") . ': ';
+print $form->selectDate($dateto ? $dateto : -1, 'dateto');
 if (!empty($conf->global->OVH_USE_2_ACCOUNTS)) {
 	print '<br>';
 	print $langs->trans("OVHAccount") . ': ';
@@ -585,7 +589,7 @@ print '<br>';
 if ($action == 'refresh') {
 	try {
 		$arrayinvoice = array();
-		if (!empty($conf->global->OVH_OLDAPI)) {
+		if (getDolGlobalString('OVH_OLDAPI')) {
 			//billingInvoiceList
 			$result = $soap->billingInvoiceList($session);
 			dol_syslog("billingInvoiceList successfull (" . count($result) . " invoices)");
@@ -614,7 +618,11 @@ if ($action == 'refresh') {
 			}
 		} else {
 			try {
-				$result = $conn->get('/me/bill?date.from=' . dol_print_date($datefrom, 'dayrfc'));
+				$url = '/me/bill?date.from=' . dol_print_date($datefrom, 'dayrfc');
+				if ($dateto) {
+					$url .= '&date.to=' . dol_print_date($dateto, 'dayrfc');
+				}
+				$result = $conn->get($url);
 			} catch (Exception $e) {
 				echo 'Exception /me/bill: ' . $e->getMessage() . "\n";
 			}
@@ -682,6 +690,9 @@ if ($action == 'refresh') {
 			print '<input type="hidden" name="datefromday" value="' . dol_print_date($datefrom, '%d') . '">';
 			print '<input type="hidden" name="datefrommonth" value="' . dol_print_date($datefrom, '%m') . '">';
 			print '<input type="hidden" name="datefromyear" value="' . dol_print_date($datefrom, '%Y') . '">';
+			print '<input type="hidden" name="datetoday" value="' . dol_print_date($dateto, '%d') . '">';
+			print '<input type="hidden" name="datetomonth" value="' . dol_print_date($dateto, '%m') . '">';
+			print '<input type="hidden" name="datetoyear" value="' . dol_print_date($dateto, '%Y') . '">';
 			print '<input type="hidden" name="lang" value="' . $langs->defaultlang . '">';
 
 			print '<input type="hidden" name="compte" value="' . GETPOST("compte", 'alpha') . '">';

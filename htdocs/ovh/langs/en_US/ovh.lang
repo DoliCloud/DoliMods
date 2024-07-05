@@ -69,6 +69,7 @@ ListOfExistingAPIApp=Note: You can find list of already created application on p
 ClickHereToLoginAndGetYourConsumerKey=Click <a href="%s"> here to login and get a new consumer key</a> (You must choose <strong>UNLIMITED</strong> validity)
 Authentication=Authentication
 FromThe=From the
+ToThe=to the
 PleaseFillOtherFieldFirst=Please fill the other fields first...
 IfYouChangeHereChangeAlsoClickToDial=If you change data here, don't forget to update also the link into module ClickToDial
 ToGoOnClickToDialSetup=To go on ClickToDial module setup
