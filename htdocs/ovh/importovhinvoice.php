@@ -620,7 +620,7 @@ if ($action == 'refresh') {
 			try {
 				$url = '/me/bill?date.from=' . dol_print_date($datefrom, 'dayrfc');
 				if ($dateto) {
-					$url .= '&date.to=' . dol_print_date($dateto, 'dayrfc');
+					$url .= '&date.to=' . dol_print_date($dateto + 3600 * 24, 'dayrfc');
 				}
 				$result = $conn->get($url);
 			} catch (Exception $e) {
