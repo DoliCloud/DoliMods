@@ -751,7 +751,7 @@ if ($action == 'refresh') {
 					$s .= '<br>(' . $langs->trans("Order") . ' OVH: ' . $r['ordernum'] . ') ';
 				}
 				if (!empty($r['url'])) {
-					$s .= ' (<a target="ovhinvoice" href="' . dol_escape_htmltag($r['url']) . '">' . $langs->trans("Link") . ' OVH</a>) ';
+					$s = img_picto($langs->trans("Link").' OVH', 'url', 'class="pictofixedwidth"').'<a target="ovhinvoice" href="' . dol_escape_htmltag($r['url']) . '">' . $langs->trans("Link") . ' OVH</a><br>'.$s;
 				}
 				print '<td title="'.dol_escape_htmltag($s).'">';
 				print '<div class="twolinesmax small">';
