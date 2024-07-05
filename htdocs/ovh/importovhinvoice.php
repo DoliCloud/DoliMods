@@ -629,14 +629,30 @@ if ($action == 'refresh') {
 			$i = 0;
 			foreach ($result as $key => $val) {
 				$r = $conn->get('/me/bill/' . $val);
+
 				if (!$excludenullinvoice || !empty($r['priceWithoutTax']['value'])) {
-					$r2 = $conn->get('/me/bill/' . $val . '/details');
 					$description = '';
+
+					$r2 = $conn->get('/me/bill/' . $val . '/details');
+
+					$nblineofdetail = 0;
+					$MAXLINESINDETAIL = 3;
 					foreach ($r2 as $key2 => $val2) {
 						$r2d = $conn->get('/me/bill/' . $val . '/details/' . $val2);
 						//var_dump($r2d['description']);
+
+						$nblineofdetail++;
 						$description .= $r2d['description'] . "<br>\n";
+
+						if ($nblineofdetail >= $MAXLINESINDETAIL) {
+							if (is_countable($r2) && count($r2) > 1) {
+								$description .= '...(truncated)...';
+							}
+
+							break;	// We stop after 2 lines found.
+						}
 					}
+
 					$arrayinvoice[] = array(
 						'id' => $r['billId'],
 						'billnum' => $r['billId'],
@@ -660,8 +676,7 @@ if ($action == 'refresh') {
 			}
 		}
 
-		$arrayinvoice = dol_sort_array($arrayinvoice, 'date',
-			(empty($conf->global->OVH_IMPORT_SORTORDER) ? 'desc' : $conf->global->OVH_IMPORT_SORTORDER));
+		$arrayinvoice = dol_sort_array($arrayinvoice, 'date', getDolGlobalString('OVH_IMPORT_SORTORDER', 'desc'));
 
 		$nbfound = count($arrayinvoice);
 		if (!$nbfound) {
@@ -726,6 +741,7 @@ if ($action == 'refresh') {
 				print '<td class="right amount nowraponall">' . price($r['totalPrice']) . '</td>';
 				print '<td class="right amount nowraponall">' . price($r['totalPriceWithVat']) . '</td>';
 				print '<td>' . $r['currency'] . '</td>';
+
 				//print '<td align="right">'.vatrate($vatrate).'</td>';
 				$x = 0;
 				$olddomain = '';
@@ -745,17 +761,20 @@ if ($action == 'refresh') {
 					}
 				}
 				if (!empty($r['description'])) {
-					$s .= dol_escape_htmltag($r['description'], 1, 1);
+					$s .= $r['description'];
+				}
+				$linktoovh = '';
+				if (!empty($r['url'])) {
+					$linktoovh = img_picto($langs->trans("Link").' OVH', 'url', 'class="pictofixedwidth"').'<a target="ovhinvoice" href="' . dol_escape_htmltag($r['url']) . '">' . $langs->trans("Link") . ' OVH</a>';
 				}
 				if (!empty($r['ordernum'])) {
-					$s .= '<br>(' . $langs->trans("Order") . ' OVH: ' . $r['ordernum'] . ') ';
+					$linktoovh .= ($linktoovh ? ' - ' : '');
+					$linktoovh .= '(' . $langs->trans("Order") . ' OVH: ' . $r['ordernum'] . ') ';
 				}
-				if (!empty($r['url'])) {
-					$s = img_picto($langs->trans("Link").' OVH', 'url', 'class="pictofixedwidth"').'<a target="ovhinvoice" href="' . dol_escape_htmltag($r['url']) . '">' . $langs->trans("Link") . ' OVH</a><br>'.$s;
-				}
-				print '<td title="'.dol_escape_htmltag($s).'">';
+				print '<td class="classfortooltip" title="'.(function_exists('dolPrintHTMLForAttribute') ? dolPrintHTMLForAttribute($s) : dol_escape_htmltag($s)).'">';
 				print '<div class="twolinesmax small">';
-				print $s;
+				print $linktoovh ? $linktoovh.'<br>' : $linktoovh;
+				print (function_exists('dolPrintHTML') ? dolPrintHTML($s) : dol_escape_htmltag($s));
 				print '</div>';
 				print "</td>\n";
 
@@ -795,7 +814,7 @@ if ($action == 'refresh') {
 						$file_name_bis = ($upload_dir . "/" . $facfou->ref . '-' . $facfou->ref_supplier . ".pdf");
 						$file_name_ter = ($upload_dir . "/" . $facfou->ref . '_' . $facfou->ref_supplier . ".pdf");        // Old version made import with this name
 
-						$file_name_to_use = (empty($conf->global->MAIN_DISABLE_SUGGEST_REF_AS_PREFIX) ? $file_name_bis : $file_name);
+						$file_name_to_use = (getDolGlobalString('MAIN_DISABLE_SUGGEST_REF_AS_PREFIX') ? $file_name : $file_name_bis);
 
 						if (file_exists($file_name) || file_exists($file_name_bis) || file_exists($file_name_ter)) {
 							print $langs->trans("InvoicePDFFoundIntoDolibarr") . " " . $facfou->getNomUrl(1) . "\n";
@@ -806,7 +825,7 @@ if ($action == 'refresh') {
 								dol_mkdir($upload_dir);
 							}
 							if (is_dir($upload_dir)) {
-								if (!empty($conf->global->OVH_OLDAPI)) {
+								if (getDolGlobalString('OVH_OLDAPI')) {
 									$result[$i]->info = $soap->billingInvoiceInfo($session, $r['billnum'], null,
 										$r['billingCountry']); //on recupere les details
 									$r2 = $result[$i];
@@ -840,7 +859,7 @@ if ($action == 'refresh') {
 
 
 		//logout
-		if (!empty($conf->global->OVH_OLDAPI)) {
+		if (getDolGlobalString('OVH_OLDAPI')) {
 			$soap->logout($session);
 		}
 
