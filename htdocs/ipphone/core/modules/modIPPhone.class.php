@@ -56,7 +56,7 @@ class modIPPhone extends DolibarrModules
 		// Module description, used if translation string 'ModuleXXXDesc' not found (where XXX is value of numeric property 'numero' of module)
 		$this->description = "Make your Dolibarr able to answer an IP Phone request for annuary content";
 		$this->editor_name = 'DoliCloud';
-		$this->editor_url = 'https://www.dolicloud.com';
+		$this->editor_url = 'https://www.dolicloud.com?origin=dolimods';
 		$this->editor_squarred_logo = 'dolicloud_favicon.png@ipphone';
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
 		$this->version = '4.0';

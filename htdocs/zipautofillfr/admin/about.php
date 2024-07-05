@@ -91,7 +91,7 @@ print '<a href="'.$url.'" target="_blank"><img border="0" width="180" src="'.DOL
 print '<br>';
 print $langs->trans("MoreCloudHosting").'<br>';
 print '&nbsp; &nbsp; &nbsp; '.$langs->trans("MoreCloudHostingLink").'<br>';
-$url='https://www.dolicloud.com';
+$url='https://www.dolicloud.com?origin=dolimods';
 print '<a href="'.$url.'" target="_blank"><img border="0" width="180" src="../img/dolicloud_logo.png"></a><br><br><br>';
 
 print '<br>';
