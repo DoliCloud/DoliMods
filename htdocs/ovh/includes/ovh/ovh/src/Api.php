@@ -342,7 +342,7 @@ class Api
     		}
     	}
 
-        return json_decode($response->getBody(), true);
+        return json_decode((string) $response->getBody(), true);
     }
 
     /**
@@ -358,7 +358,7 @@ class Api
      */
     public function get($path, $content = null, $headers = null, $is_authenticated = true)
     {
-        if(preg_match('/^\/[^\/]+\.json$/', $path))
+        if (preg_match('/^\/[^\/]+\.json$/', $path))
         {
           // Schema description must be access without authentication
           return $this->decodeResponse(
