@@ -659,7 +659,7 @@ if ($action == 'refresh') {
 								$description .= '...(truncated - '.count($r2).' lines)...';
 							}
 
-							break;	// We stop after 2 lines found.
+							break;	// We stop after $MAXLINESINDETAIL lines found.
 						}
 					}
 
