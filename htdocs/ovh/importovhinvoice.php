@@ -607,8 +607,7 @@ if ($action == 'refresh') {
 			//var_dump($result[0]->date.' '.dol_print_date(dol_stringtotime($r->date,1),'day'));exit;
 
 			file_put_contents(DOL_DATA_ROOT . "/dolibarr_ovh_billingInvoiceList.xml", $soap->__getLastResponse());
-			@chmod(DOL_DATA_ROOT . "/dolibarr_ovh_billingInvoiceList.xml",
-				octdec(empty($conf->global->MAIN_UMASK) ? '0664' : $conf->global->MAIN_UMASK));
+			@chmod(DOL_DATA_ROOT . "/dolibarr_ovh_billingInvoiceList.xml", octdec(getDolGlobalString('MAIN_UMASK', '0664')));
 
 			// Set qualified invoices into arrayinvoice
 			foreach ($result as $i => $r) {
@@ -657,7 +656,7 @@ if ($action == 'refresh') {
 
 						if ($nblineofdetail >= $MAXLINESINDETAIL) {
 							if (is_countable($r2) && count($r2) > 1) {
-								$description .= '...(truncated)...';
+								$description .= '...(truncated - '.count($r2).' lines)...';
 							}
 
 							break;	// We stop after 2 lines found.
