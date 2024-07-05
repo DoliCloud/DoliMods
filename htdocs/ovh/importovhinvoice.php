@@ -240,12 +240,11 @@ if ($action == 'import' && $ovhthirdparty->id > 0) {
 
 				//print "We try to create supplier invoice billnum ".$billnum." ".$billingcountry.", key in listofref = ".$key.", key in result ".$keyresult." ...<br>\n";
 
-				// Invoice does not exists
+				// Invoice does not exists, we make 1 transaction per invoice.
 				$db->begin();
 
 				if (getDolGlobalString('OVH_OLDAPI')) {
-					$result[$keyresult]->info = $soap->billingInvoiceInfo($session, $billnum, null,
-						$billingcountry); //on recupere les details
+					$result[$keyresult]->info = $soap->billingInvoiceInfo($session, $billnum, null,	$billingcountry); // get details
 
 					file_put_contents(DOL_DATA_ROOT . "/dolibarr_ovh_billingInvoiceInfo.xml", $soap->__getLastResponse());
 					if (function_exists('dolChmod')) {
@@ -255,12 +254,15 @@ if ($action == 'import' && $ovhthirdparty->id > 0) {
 					}
 				} else {
 					$r = $conn->get('/me/bill/' . $billnum);
-					$r2 = $conn->get('/me/bill/' . $val . '/details');
+
+					$r2 = $conn->get('/me/bill/' . $val . '/details');	// Return list of billDetailId (id of lines on OVH side)
+
 					$description = '';
 					$details = array();
 					$pos = 0;
 					foreach ($r2 as $key2 => $val2) {
 						$r2d = $conn->get('/me/bill/' . $val . '/details/' . $val2);
+						dol_syslog("/me/bill/" . $val . '/details/' . $val2 ." => ".var_export($r2d, true));
 
 						if (!$excludenulllines || $r2d['totalPrice']['value']) {
 							$description .= $r2d['description'] . "<br>\n";
