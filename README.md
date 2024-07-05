@@ -5,7 +5,7 @@ DoliCloud (Dolibarr Preferred Partner since 2009 - https://www.dolicloud.com?ori
 
 All modules are free and Open Source GPL v3+.
 
-This is a monorepo repository. Each modules is stored into the directory *htdocs/modulename*
+This is a monorepo repository. Each module is stored into the directory *htdocs/modulename*
 
 WARNING:
 
