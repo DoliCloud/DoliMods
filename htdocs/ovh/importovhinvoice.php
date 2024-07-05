@@ -558,13 +558,13 @@ print '<br><br>';
 
 print '<div class="tabBar">';
 print '<table class="notopnoborder"><tr><td>';
-print '<input type="checkbox" name="excludenullinvoice"' . ((!isset($_POST["excludenullinvoice"]) || GETPOST('excludenullinvoice')) ? ' checked="true"' : '') . '"> ' . $langs->trans("ExcludeNullInvoices") . '';
-print ' &nbsp; <input type="checkbox" name="excludenulllines"' . ((isset($_POST["excludenulllines"]) && GETPOST('excludenulllines')) ? ' checked="true"' : '') . '"> ' . $langs->trans("ExcludeNullLines") . '<br>';
+print '<input type="checkbox" id="excludenullinvoice" name="excludenullinvoice"' . ((!GETPOSTISSET("excludenullinvoice") || GETPOST('excludenullinvoice')) ? ' checked="true"' : '') . '"><label for="excludenullinvoice">' . $langs->trans("ExcludeNullInvoices") . '</label>';
+print ' &nbsp; <input type="checkbox" id="excludenulllines" name="excludenulllines"' . ((GETPOSTISSET("excludenulllines") && GETPOST('excludenulllines')) ? ' checked="true"' : '') . '"><label for="excludenulllines"> ' . $langs->trans("ExcludeNullLines") . '</label><br>';
 print $langs->trans("FromThe") . ': ';
 print $form->selectDate($datefrom, 'datefrom');
 print ' &nbsp; '.$langs->trans("ToThe") . ': ';
 print $form->selectDate($dateto ? $dateto : -1, 'dateto');
-if (!empty($conf->global->OVH_USE_2_ACCOUNTS)) {
+if (getDolGlobalString('OVH_USE_2_ACCOUNTS')) {
 	print '<br>';
 	print $langs->trans("OVHAccount") . ': ';
 	$liste_opt = '<select name="compte" class="flat">';
