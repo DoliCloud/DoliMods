@@ -407,8 +407,19 @@ if ($action == 'import' && $ovhthirdparty->id > 0) {
 								$dtTo = $dtTmp;
 							}
 
+							$amountqty = $d['totalPrice'];
 							$amount = $d['unitPrice'];
 							$qty = $d['quantity'];
+
+							// Test if API is bugged
+							if (getDolGlobalString('OVH_FIX_API_BUGS_OF_QTY_IN_PRORATAS')) {
+								if (price2num($amountqty, 'MT') != price2num($amount * $qty, 'MT')) {
+									// There is a bug in OVH API. It is often the qty that is wrong
+									dol_syslog("Bug in OVH API qty * unitprice differs from total in values returned by API. We suppose problem is in qty and autofix qty.");
+									$qty = $amountqty / $amount;
+								}
+							}
+
 							$price_base = 'HT';
 							if ($vatRateNew) {
 								$tauxtva = '(' . $vatRateNew['code'] . ')' . $vatRateNew['rate'];

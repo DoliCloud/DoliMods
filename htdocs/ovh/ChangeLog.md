@@ -10,6 +10,7 @@
 * NEW Add supplier and product selection in form
 * NEW Add mass action send SMS
 * NEW Can set end date for invoice import
+* NEW OVH_FIX_API_BUGS_OF_QTY_IN_PRORATAS
 * Better PHP 8.2 compatibility
 * QUAL CLean code to follow Dolibarr precommit rules
 
