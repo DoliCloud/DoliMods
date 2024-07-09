@@ -262,6 +262,7 @@ print dol_get_fiche_head($head, 'settings', $langs->trans($page_name), -1, "");
 
 // Setup page goes here
 echo '<span class="opacitymedium">'.$langs->trans("ModuleHelloAssoDesc").'</span><br><br>';
+echo '<div class="info">'.$langs->trans("HelloAssoExplanatoryText").'</div><br><br>';
 
 
 if ($action == 'edit') {
