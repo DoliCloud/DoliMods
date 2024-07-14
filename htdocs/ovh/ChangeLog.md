@@ -1,8 +1,13 @@
 # ChangeLog OVH MODULE FOR <a href="https://www.dolibarr.org">DOLIBARR ERP CRM</a>
 
 
-## 5.0 Unreleased
+## 5.1 Unreleased
 
+Nothing yet
+
+## 5.0
+
+* FIX OVH APIs make sometimes a response that is not correclty UTF8 encoded. A compensation has been introduce to ignore the OVH bug.
 * FIX If dtfrom and dtto are inverted by OVH, we restore correct order
 * FIX Compatiblity Dolibarr 18
 * FIX round replaced with price2num

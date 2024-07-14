@@ -342,7 +342,11 @@ class Api
     		}
     	}
 
-        return json_decode((string) $response->getBody(), true);
+    	if (version_compare(PHP_VERSION, '7.2', '<')) {
+    		return json_decode((string) $response->getBody(), true);
+    	} else {
+    		return json_decode((string) $response->getBody(), true, 512, JSON_INVALID_UTF8_IGNORE|JSON_INVALID_UTF8_SUBSTITUTE);
+    	}
     }
 
     /**
