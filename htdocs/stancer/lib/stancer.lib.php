@@ -88,7 +88,7 @@ function stancerAdminPrepareHead()
  * @return	int				The amount to pay if mode amount
  */
 
-function getStancerDataFromObjects($source, $ref, $mode = 'amount')
+function stancerGetDataFromObjects($source, $ref, $mode = 'amount')
 {
 	global $db;
 
@@ -100,6 +100,8 @@ function getStancerDataFromObjects($source, $ref, $mode = 'amount')
 	require_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
 	require_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
 	require_once DOL_DOCUMENT_ROOT.'/commande/class/commande.class.php';
+
+	dol_syslog('Stancer::stancerGetDataFromObjects');
 
 	$amount = price2num(GETPOST("amount", 'alpha'));
 

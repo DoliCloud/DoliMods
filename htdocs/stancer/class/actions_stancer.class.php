@@ -518,7 +518,7 @@ class ActionsStancer extends CommonHookActions
 		}
 
 		if (in_array($parameters['context'],array('newpayment')) && empty($parameters['paymentmethod'])) {
-			$amount = price2num(getStancerDataFromObjects($source, $ref));
+			$amount = price2num(stancerGetDataFromObjects($source, $ref));
 			if (!GETPOST("currency", 'alpha')) {
 				$currency = $conf->currency;
 			} else {
