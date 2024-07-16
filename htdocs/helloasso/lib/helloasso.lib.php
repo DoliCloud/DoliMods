@@ -84,9 +84,9 @@ function helloassoAdminPrepareHead()
  * @return TokenInterface|int	Token if OK
  */
 
- function refreshToken($storage, $service, $tokenobj, $client_id, $urltocall) {
+ function helloassoRefreshToken($storage, $service, $tokenobj, $client_id, $urltocall) {
 	include_once DOL_DOCUMENT_ROOT.'/core/lib/geturl.lib.php';
-	dol_syslog('HelloAsso::refreshToken clientid='.$client_id.', service='.$service);
+	dol_syslog('HelloAsso::helloassoRefreshToken clientid='.$client_id.', service='.$service);
 
 	$refreshtoken = $tokenobj->getRefreshToken();
 	$ret = getURLContent($urltocall, 'POST', 'grant_type=refresh_token&client_id='.$client_id.'&refresh_token='.$refreshtoken, 1, array('content-type: application/x-www-form-urlencoded'));
@@ -104,7 +104,7 @@ function helloassoAdminPrepareHead()
 		$newtokenobj->setExtraParams($params);
 		$storage->storeAccessToken($service, $newtokenobj);
 	} else {
-		dol_syslog('Error: refreshToken Refresh token expires');
+		dol_syslog('Error: helloassoRefreshToken Refresh token expires');
 		throw new Exception("Refresh token expires", 1);
 	}
 	return $storage->retrieveAccessToken($service);
@@ -115,7 +115,7 @@ function helloassoAdminPrepareHead()
  *
  * @return array|int 	An array with the token_type and the access_token defined if OK or -1 if KO
  */
-function doConnectionHelloasso()
+function helloassoDoConnection()
 {
 	require_once DOL_DOCUMENT_ROOT.'/includes/OAuth/bootstrap.php';
 	include_once DOL_DOCUMENT_ROOT.'/core/lib/date.lib.php';
@@ -125,7 +125,7 @@ function doConnectionHelloasso()
 	global $db, $conf;
 	$result = array();
 
-	dol_syslog('HelloAsso::doConnectionHelloasso');
+	dol_syslog('HelloAsso::helloassoDoConnection');
 
 	$helloassourl = "api.helloasso-sandbox.com";
 	$service = "Helloasso-Test";
@@ -149,7 +149,7 @@ function doConnectionHelloasso()
 		$tokenobj = $storage->retrieveAccessToken($service);
 		$ttl = $tokenobj->getEndOfLife();
 		if ($ttl <= dol_now()) {
-			$tokenobj = refreshToken($storage, $service, $tokenobj, $client_id, $url);
+			$tokenobj = helloassoRefreshToken($storage, $service, $tokenobj, $client_id, $url);
 		}
 		$result = array("token_type" => $tokenobj->getExtraParams()["token_type"], "access_token" => $tokenobj->getAccessToken());
 	} catch (Exception $e) {
@@ -191,7 +191,7 @@ function doConnectionHelloasso()
  * @return	int				The amount to pay if mode amount or fill $payerarray for payer mode
  */
 
-function getDataFromObjects($source, $ref, $mode = 'amount', &$payerarray = null)
+function helloassoGetDataFromObjects($source, $ref, $mode = 'amount', &$payerarray = null)
 {
 	global $db;
 
