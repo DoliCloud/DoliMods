@@ -154,19 +154,18 @@ print "</form>\n";
 
 dol_fiche_end();
 
-
 if (! $error) {
 	if (class_exists("Memcached")) $m=new Memcached();
 	elseif (class_exists("Memcache")) $m=new Memcache();
 	else dol_print_error('', 'Should not happen');
 
-	if (! empty($conf->global->MEMCACHED_SERVER)) {
-		$tmparray=explode(':', $conf->global->MEMCACHED_SERVER);
+	if (getDolGlobalString('MEMCACHED_SERVER')) {
+		$tmparray=explode(':', getDolGlobalString('MEMCACHED_SERVER'));
 		$server=$tmparray[0];
-		$port=$tmparray[1]?$tmparray[1]:11211;
+		$port = (empty($tmparray[1]) ? 0 : $tmparray[1]);
 
 		dol_syslog("Try to connect to server ".$server." port ".$port." with class ".get_class($m));
-		$result=$m->addServer($server, $port);
+		$result=$m->addServer($server, ($port || strpos($tmparray[0], '/') !== false) ? $port : 11211);
 		//$m->setOption(Memcached::OPT_COMPRESSION, false);
 		//print "xxx".$result;
 
@@ -185,8 +184,7 @@ if (! $error) {
 
 
 		// Read cache
-		$arraycache=$m->getStats();
-		//var_dump($arraycache);
+		$arraycache = $m->getStats();
 	}
 
 	// Action
@@ -204,22 +202,22 @@ if (! $error) {
 	print '<table class="noborder" width="60%">';
 	print '<tr class="liste_titre"><td colspan="2">'.$langs->trans("Status").'</td></tr>';
 
-	if (empty($conf->global->MEMCACHED_SERVER)) {
+	if (!getDolGlobalString('MEMCACHED_SERVER')) {
 		print '<tr><td colspan="2">'.$langs->trans("ConfigureParametersFirst").'</td></tr>';
 	} elseif (is_array($arraycache)) {
-		$newarraycache=array();
-		if (class_exists("Memcached")) $newarraycache=$arraycache;
-		elseif (class_exists("Memcache")) $newarraycache[getDolGlobalString('MEMCACHED_SERVER')]=$arraycache;
+		$newarraycache = array();
+		if (class_exists("Memcached")) $newarraycache = $arraycache;
+		elseif (class_exists("Memcache")) $newarraycache[getDolGlobalString('MEMCACHED_SERVER')] = $arraycache;
 		else dol_print_error('', 'Should not happen');
 
 		foreach ($newarraycache as $key => $val) {
-			print '<tr '.$bc[0].'><td>'.$langs->trans("MemcachedServer").'</td>';
+			print '<tr class="oddeven"><td>'.$langs->trans("MemcachedServer").'</td>';
 			print '<td>'.$key.'</td></tr>';
 
-			print '<tr '.$bc[1].'><td>'.$langs->trans("Version").'</td>';
+			print '<tr class="oddeven"><td>'.$langs->trans("Version").'</td>';
 			print '<td>'.$val['version'].'</td></tr>';
 
-			print '<tr '.$bc[0].'><td>'.$langs->trans("Status").'</td>';
+			print '<tr class="oddeven"><td>'.$langs->trans("Status").'</td>';
 			print '<td>'.$langs->trans("On").'</td></tr>';
 		}
 	} else {

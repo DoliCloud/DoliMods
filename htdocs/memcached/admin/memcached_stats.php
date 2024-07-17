@@ -94,10 +94,15 @@ function sendMemcacheCommands($command)
  */
 function sendMemcacheCommand($server, $port, $command)
 {
+	if (strpos($server, '/') !== false) {
+		if (!preg_match('/^unix:/', $server)) {
+			$server = 'unix://'.$server;
+		}
+	}
 
-	$s = @fsockopen($server, $port);
+	$s = fsockopen($server, $port);
 	if (!$s) {
-		die("Cant connect to:".$server.':'.$port);
+		die("Cant connect to: ".$server.':'.$port);
 	}
 
 	fwrite($s, $command."\r\n");
@@ -507,7 +512,7 @@ function getFooter()
  */
 function getMenu()
 {
-	global $PHP_SELF,$langs;
+	global $PHP_SELF, $langs;
 	echo "<ol class=menu>";
 	echo menu_entry(1, $langs->trans("Refresh"));
 	// echo menu_entry(2,$langs->trans('Variables'));
@@ -693,8 +698,6 @@ if (isset($_GET['IMG'])) {
 
 $header=getHeader();
 
-$html=new Form($db);
-
 $help_url="EN:Module_MemCached_En|FR:Module_MemCached|ES:M&oacute;dulo_MemCached";
 llxHeader($header, $langs->trans("MemcachedSetup"), $help_url);
 
@@ -707,7 +710,7 @@ $head=memcached_prepare_head();
 $tabval='serverstats';
 if ($_GET["op"] > 1) $tabval='cachebrowser';
 
-dol_fiche_head($head, $tabval, '');
+dol_fiche_head($head, $tabval, '', -1);
 
 
 // Show refresh button
@@ -810,16 +813,16 @@ EOB;
 		<table class="border" width="100%"><tbody>
 EOB;
 
-			print '<tr '.$bc[1].'><td>'.$langs->trans("ItemsInCache").'</td>';
+			print '<tr class="oddeven"><td>'.$langs->trans("ItemsInCache").'</td>';
 			print '<td>'.$curr_items.' ('.$total_items.')</td></tr>';
-			print '<tr '.$bc[0].'><td>'.$langs->trans("NumberOfCacheInsert").'</td>';
+			print '<tr class="oddeven"><td>'.$langs->trans("NumberOfCacheInsert").'</td>';
 			print '<td>'.$sets.'</td></tr>';
-			print '<tr '.$bc[1].'><td>'.$langs->trans("NumberOfCacheRead").'</td>';
+			print '<tr class="oddeven"><td>'.$langs->trans("NumberOfCacheRead").'</td>';
 			print '<td>'.$hits.' / '.($hits+$misses).' &nbsp; '.sprintf(" (%.1f%%)", $hits*100/($hits+$misses)).'</td></tr>';
-			print '<tr '.$bc[0].'><td>Request Rate (success hits + misses)</td><td>'.$req_rate.' cache requests/second</td></tr>';
-			print '<tr '.$bc[1].'><td>Hit Rate</td><td>'.$hit_rate.' cache requests/second</td></tr>';
-			print '<tr '.$bc[0].'><td>Miss Rate</td><td>'.$miss_rate.' cache requests/second</td></tr>';
-			print '<tr '.$bc[1].'><td>Set Rate</td><td>'.$set_rate.' cache requests/second</td></tr>';
+			print '<tr class="oddeven"><td>Request Rate (success hits + misses)</td><td>'.$req_rate.' cache requests/second</td></tr>';
+			print '<tr class="oddeven"><td>Hit Rate</td><td>'.$hit_rate.' cache requests/second</td></tr>';
+			print '<tr class="oddeven"><td>Miss Rate</td><td>'.$miss_rate.' cache requests/second</td></tr>';
+			print '<tr class="oddeven"><td>Set Rate</td><td>'.$set_rate.' cache requests/second</td></tr>';
 		print <<<EOB
 		</tbody></table>
 		</div>
