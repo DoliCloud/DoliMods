@@ -60,8 +60,8 @@ $action=GETPOST('action');
 if ($action == 'set') {
 	$error=0;
 
-	if (GETPOST("MEMCACHED_SERVER") && ! preg_match('/:/', GETPOST("MEMCACHED_SERVER"))) {
-		$mesg='<div class="error">'.$langs->trans("ErrorBadParameters").'</div>';
+	if (GETPOST("MEMCACHED_SERVER") && !preg_match('/:/', GETPOST("MEMCACHED_SERVER")) && !preg_match('/\//', GETPOST("MEMCACHED_SERVER"))) {
+		setEventMessages($langs->trans("ErrorBadParameters"), null, 'errors');
 		$error++;
 	}
 
@@ -88,7 +88,8 @@ print_fiche_titre($langs->trans('MemcachedSetup'), $linkback, 'setup');
 print '<br>';
 
 $head=memcached_prepare_head();
-dol_fiche_head($head, 'serversetup', '');
+
+dol_fiche_head($head, 'serversetup', '', -1);
 
 print $langs->trans("MemcachedDesc")."<br>\n";
 print "<br>\n";
@@ -125,23 +126,29 @@ print '<form action="'.$_SERVER["PHP_SELF"].'" method="post">';
 print '<input type="hidden" name="token" value="'.newToken().'">';
 print '<input type="hidden" name="action" value="set">';
 
-print '<table class="noborder" width="100%">';
+print '<div class="div-table-responsive-no-min">';
+print '<table class="noborder centpercent">';
 print '<tr class="liste_titre">';
 print '<td>'.$langs->trans("Parameter").'</td><td>'.$langs->trans("Value").'</td>';
 print '<td>'.$langs->trans("Examples").'</td>';
 print '<td align="right"><input type="submit" class="button" value="'.$langs->trans("Modify").'"></td>';
 print "</tr>\n";
 
-$var=!$var;
-print '<tr '.$bc[$var].'><td>'.$langs->trans("Server").':'.$langs->trans("Port").'</td>';
+print '<tr class="oddeven"><td>'.$langs->trans("Server").':'.$langs->trans("Port");
+print '<br><span class="opacitymedium">'.$langs->trans("or").'</span><br>';
+print $langs->trans("SocketPath");
+print '</td>';
 print '<td>';
 print '<input size="40" type="text" name="MEMCACHED_SERVER" value="' . getDolGlobalString('MEMCACHED_SERVER').'">';
 print '</td>';
-print '<td>127.0.0.1:11211<br>localhost:11211</td>';
+print '<td>127.0.0.1:11211<br>localhost:11211<br>';
+print '/var/run/memcached/memcached.sock';
+print '</td>';
 print '<td>&nbsp;</td>';
 print '</tr>';
 
 print '</table>';
+print '</div>';
 
 print "</form>\n";
 
