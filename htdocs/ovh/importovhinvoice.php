@@ -69,7 +69,7 @@ $langs->loadLangs(array("bills", "orders", "ovh@ovh"));
 
 $url_pdf = "https://www.ovh.com/cgi-bin/order/facture.pdf";
 
-$endpoint = empty($conf->global->OVH_ENDPOINT) ? 'ovh-eu' : $conf->global->OVH_ENDPOINT;    // Can be "soyoustart-eu" or "kimsufi-eu"
+$endpoint = getDolGlobalString('OVH_ENDPOINT', 'ovh-eu');    // Can be "soyoustart-eu" or "kimsufi-eu"
 
 
 $action = GETPOST('action', 'aZ09');
@@ -78,9 +78,9 @@ $excludenullinvoice = GETPOST('excludenullinvoice', 'alpha');
 $excludenulllines = GETPOST('excludenulllines', 'alpha');
 
 $idovhsupplier = GETPOST('idovhsupplier', 'int');
-if(empty($idovhsupplier)) $idovhsupplier = $conf->global->OVH_THIRDPARTY_IMPORT;
+if (empty($idovhsupplier)) $idovhsupplier = $conf->global->OVH_THIRDPARTY_IMPORT;
 $idovhproduct = GETPOST('idovhproduct', 'int');
-if(empty($idovhproduct)) $idovhproduct = $conf->global->OVH_IMPORT_SUPPLIER_INVOICE_PRODUCT_ID;
+if (empty($idovhproduct)) $idovhproduct = $conf->global->OVH_IMPORT_SUPPLIER_INVOICE_PRODUCT_ID;
 
 $ovhthirdparty = new Societe($db);
 if ($idovhsupplier) {
@@ -88,15 +88,38 @@ if ($idovhsupplier) {
 }
 $ovhproduct = new Product($db);
 if ($idovhproduct) {
-    $result = $ovhproduct->fetch($idovhproduct);
+	$result = $ovhproduct->fetch($idovhproduct);
 }
 $fuser = $user;
 
+$error = 0;
+
 $now = dol_now();
+
 $datefrom = dol_mktime(0, 0, 0, GETPOST('datefrommonth', 'int'), GETPOST('datefromday', 'int'), GETPOST('datefromyear', 'int'));
 if (!$datefrom) {
-	$datefrom = dol_time_plus_duree($now, -4, 'm');
+	if (!getDolGlobalInt('OVH_USE_LAST_INVOCIE_VALIDATED_DATE') || !getDolGlobalInt('OVH_THIRDPARTY_IMPORT')) {
+		$datefrom = dol_time_plus_duree($now, -4, 'm');
+	} else {
+		$sql = "SELECT MAX(datef) as maxdatef FROM " . $db->prefix() . "facture_fourn";
+		$sql .= " WHERE fk_soc=" . getDolGlobalInt('OVH_THIRDPARTY_IMPORT');
+		$sql .= " AND fk_statut>=" . FactureFournisseur::STATUS_VALIDATED;
+		$resql = $db->query($sql);
+		if (!$resql) {
+			setEventMessage($db->error, 'errors');
+		} else {
+			$obj = $db->fetch_object($resql);
+			if (!empty($obj->maxdatef)) {
+				$datefrom = $obj->maxdatef;
+			}
+		}
+		if (!$datefrom) {
+			$datefrom = dol_time_plus_duree($now, -4, 'm');
+		}
+	}
 }
+$dateto = dol_mktime(0, 0, 0, GETPOST('datetomonth', 'int'), GETPOST('datetoday', 'int'), GETPOST('datetoyear', 'int'));
+
 
 /*
  * Actions
@@ -110,20 +133,20 @@ if (!empty($action)) {
 		$params = getSoapParams();
 		ini_set('default_socket_timeout', $params['response_timeout']);
 
-		if (!empty($conf->global->OVH_OLDAPI)) {
-			if (empty($conf->global->OVHSMS_SOAPURL)) {
+		if (getDolGlobalString('OVH_OLDAPI')) {
+			if (!getDolGlobalString('OVHSMS_SOAPURL')) {
 				print 'Error: ' . $langs->trans("ModuleSetupNotComplete") . "\n";
 				exit;
 			}
 			//use_soap_error_handler(true);
 
-			$soap = new SoapClient($conf->global->OVHSMS_SOAPURL, $params);
+			$soap = new SoapClient(getDolGlobalString('OVHSMS_SOAPURL'), $params);
 
 			$language = "en";
 			$multisession = false;
 
 			//login
-			$session = $soap->login($conf->global->OVHSMS_NICK, $conf->global->OVHSMS_PASS, $language, $multisession);
+			$session = $soap->login(getDolGlobalString('OVHSMS_NICK'), getDolGlobalString('OVHSMS_PASS'), $language, $multisession);
 			dol_syslog("login successfull");
 
 			$result = $soap->billingGetAccessByNic($session);
@@ -131,19 +154,19 @@ if (!empty($action)) {
 			//print "GetAccessByNic: ".join(',',$result)."<br>\n";
 		} else {
 			if (GETPOST('compte', 'alpha') == 2) {
-				if (empty($conf->global->OVHCONSUMERKEY2)) {
+				if (!getDolGlobalString('OVHCONSUMERKEY2')) {
 					print 'Error: ' . $langs->trans("ModuleSetupNotComplete") . "\n";
 					exit;
 				}
 
-				$conn = new Api($conf->global->OVHAPPKEY2, $conf->global->OVHAPPSECRET2, $endpoint, $conf->global->OVHCONSUMERKEY2);
+				$conn = new Api(getDolGlobalString('OVHAPPKEY2'), getDolGlobalString('OVHAPPSECRET2'), $endpoint, getDolGlobalString('OVHCONSUMERKEY2'));
 			} else {
-				if (empty($conf->global->OVHCONSUMERKEY)) {
+				if (!getDolGlobalString('OVHCONSUMERKEY')) {
 					print 'Error: ' . $langs->trans("ModuleSetupNotComplete") . "\n";
 					exit;
 				}
 
-				$conn = new Api($conf->global->OVHAPPKEY, $conf->global->OVHAPPSECRET, $endpoint, $conf->global->OVHCONSUMERKEY);
+				$conn = new Api(getDolGlobalString('OVHAPPKEY'), getDolGlobalString('OVHAPPSECRET'), $endpoint, getDolGlobalString('OVHCONSUMERKEY'));
 			}
 		}
 	} catch (SoapFault $fault) {
@@ -155,8 +178,10 @@ if (!empty($action)) {
 
 if ($action == 'import' && $ovhthirdparty->id > 0) {
 	if (!$error) {
-		$listofref = $_POST['billnum'];
-		$listofbillingcountry = $_POST['billingCountry'];
+		$validInvoice = GETPOST('valid_invoice');
+
+		$listofref = GETPOST('billnum', 'array');
+		$listofbillingcountry = GETPOST('billingCountry', 'array');
 		//$listofvat=$_POST['vat'];
 
 		if (count($listofref) == 0) {
@@ -168,22 +193,25 @@ if ($action == 'import' && $ovhthirdparty->id > 0) {
 		if (!$error) {
 			//billingInvoiceList
 			$validVatList = array();
-			if (!empty($conf->global->OVH_OLDAPI)) {
+			if (getDolGlobalString('OVH_OLDAPI')) {
 				try {
 					$result = $soap->billingInvoiceList($session);
 
 					file_put_contents(DOL_DATA_ROOT . "/dolibarr_ovh_billingInvoiceList.xml",
-						$soap->__getLastResponse());
-					@chmod(DOL_DATA_ROOT . "/dolibarr_ovh_billingInvoiceList.xml",
-						octdec(empty($conf->global->MAIN_UMASK) ? '0664' : $conf->global->MAIN_UMASK));
+					$soap->__getLastResponse());
+					if (function_exists('dolChmod')) {
+						dolChmod(DOL_DATA_ROOT . "/dolibarr_ovh_billingInvoiceList.xml");
+					} else {
+						@chmod(DOL_DATA_ROOT . "/dolibarr_ovh_billingInvoiceList.xml", octdec(!getDolGlobalString('MAIN_UMASK') ? '0664' : getDolGlobalString('MAIN_UMASK')));
+					}
 				} catch (Exception $e) {
 					echo 'Exception soap->billingInvoiceList: ' . $e->getMessage() . "\n";
 				}
 				//echo "billingInvoiceList successfull (".count($result)." ".$langs->trans("Invoices").")\n";
 			} else {
 				$result = array();
-				if (!empty($conf->global->OVH_VAT_VALID_LIST)) {
-					$validVatList0 = explode(';', $conf->global->OVH_VAT_VALID_LIST);
+				if (getDolGlobalString("OVH_VAT_VALID_LIST")) {
+					$validVatList0 = explode(';', getDolGlobalString("OVH_VAT_VALID_LIST"));
 					foreach ($validVatList0 as $vatid) {
 						if ($vat = getTaxesFromId($vatid)) {
 							$validVatList[$vat['rowid']] = $vat;
@@ -192,10 +220,12 @@ if ($action == 'import' && $ovhthirdparty->id > 0) {
 				}
 			}
 
+			$invoiceToValidate=array();
+
 			foreach ($listofref as $key => $val) {
 				$billnum = $val;
 				$keyresult = 0;
-				if (!empty($conf->global->OVH_OLDAPI)) {
+				if (getDolGlobalString('OVH_OLDAPI')) {
 					$billingcountry = $listofbillingcountry[$key];
 					//$vatrate=$listofvat[$key];
 
@@ -210,25 +240,30 @@ if ($action == 'import' && $ovhthirdparty->id > 0) {
 
 				//print "We try to create supplier invoice billnum ".$billnum." ".$billingcountry.", key in listofref = ".$key.", key in result ".$keyresult." ...<br>\n";
 
-				// Invoice does not exists
+				// Invoice does not exists, we make 1 transaction per invoice.
 				$db->begin();
 
-				if (!empty($conf->global->OVH_OLDAPI)) {
-					$result[$keyresult]->info = $soap->billingInvoiceInfo($session, $billnum, null,
-						$billingcountry); //on recupere les details
+				if (getDolGlobalString('OVH_OLDAPI')) {
+					$result[$keyresult]->info = $soap->billingInvoiceInfo($session, $billnum, null,	$billingcountry); // get details
 
-					file_put_contents(DOL_DATA_ROOT . "/dolibarr_ovh_billingInvoiceInfo.xml",
-						$soap->__getLastResponse());
-					@chmod(DOL_DATA_ROOT . "/dolibarr_ovh_billingInvoiceInfo.xml",
-						octdec(empty($conf->global->MAIN_UMASK) ? '0664' : $conf->global->MAIN_UMASK));
+					file_put_contents(DOL_DATA_ROOT . "/dolibarr_ovh_billingInvoiceInfo.xml", $soap->__getLastResponse());
+					if (function_exists('dolChmod')) {
+						dolChmod(DOL_DATA_ROOT . "/dolibarr_ovh_billingInvoiceList.xml");
+					} else {
+						@chmod(DOL_DATA_ROOT . "/dolibarr_ovh_billingInvoiceInfo.xml",	octdec(!getDolGlobalString('MAIN_UMASK') ? '0664' : getDolGlobalString('MAIN_UMASK')));
+					}
 				} else {
 					$r = $conn->get('/me/bill/' . $billnum);
-					$r2 = $conn->get('/me/bill/' . $val . '/details');
+
+					$r2 = $conn->get('/me/bill/' . $val . '/details');	// Return list of billDetailId (id of lines on OVH side)
+
 					$description = '';
 					$details = array();
 					$pos = 0;
 					foreach ($r2 as $key2 => $val2) {
 						$r2d = $conn->get('/me/bill/' . $val . '/details/' . $val2);
+						dol_syslog("/me/bill/" . $val . '/details/' . $val2 ." => ".var_export($r2d, true));
+
 						if (!$excludenulllines || $r2d['totalPrice']['value']) {
 							$description .= $r2d['description'] . "<br>\n";
 							$details[$pos]['billId'] = $billnum;
@@ -265,7 +300,7 @@ if ($action == 'import' && $ovhthirdparty->id > 0) {
 
 				$vatrate = 0;
 				$vatrateNew = null;
-				if (!empty($conf->global->OVH_OLDAPI)) {
+				if (getDolGlobalString('OVH_OLDAPI')) {
 					if ($r->info->taxrate < 1) {
 						$vatrate = price2num($r->info->taxrate * 100);
 					} else {
@@ -273,7 +308,7 @@ if ($action == 'import' && $ovhthirdparty->id > 0) {
 					}
 				} else {
 					$nbdigits = 2;
-					if (!empty($conf->global->OVH_VAT_RATE_ON_ONE_DIGIT)) {
+					if (getDolGlobalString('OVH_VAT_RATE_ON_ONE_DIGIT')) {
 						$nbdigits = 1;
 					}
 					if ($r['totalPrice'] > 0) {
@@ -301,14 +336,15 @@ if ($action == 'import' && $ovhthirdparty->id > 0) {
 				}
 
 				// Get default bank account
-				if (!empty($conf->global->OVH_DEFAULT_BANK_ACCOUNT)) {
-					$facfou->fk_account = $conf->global->OVH_DEFAULT_BANK_ACCOUNT;
+				if (getDolGlobalInt('OVH_DEFAULT_BANK_ACCOUNT')) {
+					$facfou->fk_account = getDolGlobalInt('OVH_DEFAULT_BANK_ACCOUNT');
 				}
 
 				$facfou->ref_supplier = $billnum;
 				$facfou->socid = $ovhthirdparty->id;
-				$facfou->libelle = "OVH " . $billnum;
-				if (!empty($conf->global->OVH_OLDAPI)) {
+				$facfou->libelle = "OVH ".$billnum;
+				$facfou->label = "OVH ".$billnum;
+				if (getDolGlobalString("OVH_OLDAPI")) {
 					$facfou->date = dol_stringtotime($r->date, 1);
 					$facfou->date_echeance = dol_stringtotime($r->date, 1);
 				} else {
@@ -324,7 +360,7 @@ if ($action == 'import' && $ovhthirdparty->id > 0) {
 
 				$facid = $facfou->create($fuser);
 				if ($facid > 0) {
-					if (!empty($conf->global->OVH_OLDAPI)) {
+					if (getDolGlobalString('OVH_OLDAPI')) {
 						foreach ($r->info->details as $d) {
 							$label = '<strong>ref :' . $d->service . '</strong><br>' . $d->description . '<br>';
 							$dtFrom = '';
@@ -373,8 +409,19 @@ if ($action == 'import' && $ovhthirdparty->id > 0) {
 								$dtTo = $dtTmp;
 							}
 
+							$amountqty = $d['totalPrice'];
 							$amount = $d['unitPrice'];
 							$qty = $d['quantity'];
+
+							// Test if API is bugged
+							if (getDolGlobalString('OVH_FIX_API_BUGS_OF_QTY_IN_PRORATAS')) {
+								if (price2num($amountqty, 'MT') != price2num($amount * $qty, 'MT')) {
+									// There is a bug in OVH API. It is often the qty that is wrong
+									dol_syslog("Bug in OVH API qty * unitprice differs from total in values returned by API. We suppose problem is in qty and autofix qty.");
+									$qty = $amountqty / $amount;
+								}
+							}
+
 							$price_base = 'HT';
 							if ($vatRateNew) {
 								$tauxtva = '(' . $vatRateNew['code'] . ')' . $vatRateNew['rate'];
@@ -383,15 +430,15 @@ if ($action == 'import' && $ovhthirdparty->id > 0) {
 							}
 							$remise_percent = 0;
 							$prod_type = 1;
-                            if (!empty($ovhproduct->id)) {
-                                $fk_product = $ovhproduct->id;
-                                $prod_type = $ovhproduct->type;
-                            } else {
-                                $fk_product = null;
-                                $prod_type = 0;
-                                $dtFrom = '';
-                                $dtTo = '';
-                            }
+							if (!empty($ovhproduct->id)) {
+								$fk_product = $ovhproduct->id;
+								$prod_type = $ovhproduct->type;
+							} else {
+								$fk_product = null;
+								$prod_type = 0;
+								$dtFrom = '';
+								$dtTo = '';
+							}
 							$ret = $facfou->addline($label, $amount, $tauxtva, 0, 0, $qty, $fk_product, $remise_percent, $dtFrom, $dtTo, '', 0, $price_base, $prod_type, -1, false, 0, null, 0, 0, $d['domain']);
 							if ($ret < 0) {
 								$error++;
@@ -399,18 +446,23 @@ if ($action == 'import' && $ovhthirdparty->id > 0) {
 								break;
 							}
 						}
-						// Vérification que le calcule de TVA est conforme :
+
+						// Check that the VAT calculation is ok :
 						if (price2num($facfou->total_ttc, 'MT') != price2num($r['totalPriceWithVat'], 'MT') || price2num($facfou->total_tva, 'MT') != price2num($r['vat'], 'MT')) {
 							//'0'=Force mode total of rounding, '1'=Force mode rounding of total
 							$facfou->update_price(0, '1');
 							if (price2num($facfou->total_ttc, 'MT') != price2num($r['totalPriceWithVat'], 'MT') || price2num($facfou->total_tva, 'MT') != price2num($r['vat'], 'MT')) {
 								$facfou->update_price(0, '0');
-								if (price2num($facfou->total_ttc, 'MT') != round($r['totalPriceWithVat'], 'MT') || price2num($facfou->total_tva, 'MT') != price2num($r['vat'], 'MT')) {
-									// ne set pas $error mais affiche le message
-									setEventMessage("ALERT: Amount of invoice {$facfou->libelle} is not correct.", 'warnings');
+								if (price2num($facfou->total_ttc, 'MT') != price2num($r['totalPriceWithVat'], 'MT') || price2num($facfou->total_tva, 'MT') != price2num($r['vat'], 'MT')) {
+									// do not set $error but show a warning message
+									setEventMessage("ALERT: Amount of invoice ".(empty($facfou->label) ? $facfou->libelle : $facfou->label)." is not correct.", 'warnings');
 								}
 							}
 						}
+					}
+
+					if (!empty($validInvoice) && empty($error)) {
+						$invoiceToValidate[]=$facfou->id;
 					}
 				} else {
 					$error++;
@@ -422,6 +474,17 @@ if ($action == 'import' && $ovhthirdparty->id > 0) {
 					$db->commit();
 				} else {
 					$db->rollback();
+				}
+			}
+
+			if (!empty($invoiceToValidate)) {
+				foreach ($invoiceToValidate as $idInvoice) {
+					$facfou = new FactureFournisseur($db);
+					$facfou->fetch($idInvoice);
+					$result = $facfou->validate($user);
+					if ($result < 0) {
+						setEventMessage("Fail To Validate: " . $facfou->error, 'errors');
+					}
 				}
 			}
 
@@ -442,14 +505,14 @@ $formproject = new FormProjets($db);
 
 llxHeader('', $langs->trans("OvhInvoiceImportShort"), '');
 
-if (!empty($conf->global->OVH_OLDAPI)) {
-	if (empty($conf->global->OVHSMS_SOAPURL)) {
+if (getDolGlobalString('OVH_OLDAPI')) {
+	if (!getDolGlobalString('OVHSMS_SOAPURL')) {
 		$langs->load("errors");
 		setEventMessage($langs->trans("ErrorModuleSetupNotComplete"), 'errors');
 		$mesg = '<div class="errors">' . $langs->trans("ErrorModuleSetupNotComplete") . '/<div>';
 	}
 } else {
-	if (empty($conf->global->OVHCONSUMERKEY)) {
+	if (!getDolGlobalString('OVHCONSUMERKEY')) {
 		$langs->load("errors");
 		setEventMessage($langs->trans("ErrorModuleSetupNotComplete"), 'errors');
 		$mesg = '<div class="errors">' . $langs->trans("ErrorModuleSetupNotComplete") . '/<div>';
@@ -464,11 +527,7 @@ if ($ovhthirdparty->id <= 0) {
 
 
 print '<form name="refresh" action="' . $_SERVER["PHP_SELF"] . '" method="POST">';
-if ((float) DOL_VERSION >= 11.0) {
-	print '<input type="hidden" name="token" value="' . newToken() . '">';
-} else {
-	print '<input type="hidden" name="token" value="' . $_SESSION['newtoken'] . '">';
-}
+print '<input type="hidden" name="token" value="' . newToken() . '">';
 print '<input type="hidden" name="lang" value="' . $langs->defaultlang . '">';
 
 print_fiche_titre($langs->trans("OvhInvoiceImportShort"));
@@ -512,11 +571,13 @@ print '<br><br>';
 
 print '<div class="tabBar">';
 print '<table class="notopnoborder"><tr><td>';
-print '<input type="checkbox" name="excludenullinvoice"' . ((!isset($_POST["excludenullinvoice"]) || GETPOST('excludenullinvoice')) ? ' checked="true"' : '') . '"> ' . $langs->trans("ExcludeNullInvoices") . '';
-print ' &nbsp; <input type="checkbox" name="excludenulllines"' . ((isset($_POST["excludenulllines"]) && GETPOST('excludenulllines')) ? ' checked="true"' : '') . '"> ' . $langs->trans("ExcludeNullLines") . '<br>';
+print '<input type="checkbox" id="excludenullinvoice" name="excludenullinvoice"' . ((!GETPOSTISSET("excludenullinvoice") || GETPOST('excludenullinvoice')) ? ' checked="true"' : '') . '"><label for="excludenullinvoice">' . $langs->trans("ExcludeNullInvoices") . '</label>';
+print ' &nbsp; <input type="checkbox" id="excludenulllines" name="excludenulllines"' . ((GETPOSTISSET("excludenulllines") && GETPOST('excludenulllines')) ? ' checked="true"' : '') . '"><label for="excludenulllines"> ' . $langs->trans("ExcludeNullLines") . '</label><br>';
 print $langs->trans("FromThe") . ': ';
 print $form->selectDate($datefrom, 'datefrom');
-if (!empty($conf->global->OVH_USE_2_ACCOUNTS)) {
+print ' &nbsp; '.$langs->trans("ToThe") . ': ';
+print $form->selectDate($dateto ? $dateto : -1, 'dateto');
+if (getDolGlobalString('OVH_USE_2_ACCOUNTS')) {
 	print '<br>';
 	print $langs->trans("OVHAccount") . ': ';
 	$liste_opt = '<select name="compte" class="flat">';
@@ -541,15 +602,14 @@ print '<br>';
 if ($action == 'refresh') {
 	try {
 		$arrayinvoice = array();
-		if (!empty($conf->global->OVH_OLDAPI)) {
+		if (getDolGlobalString('OVH_OLDAPI')) {
 			//billingInvoiceList
 			$result = $soap->billingInvoiceList($session);
 			dol_syslog("billingInvoiceList successfull (" . count($result) . " invoices)");
 			//var_dump($result[0]->date.' '.dol_print_date(dol_stringtotime($r->date,1),'day'));exit;
 
 			file_put_contents(DOL_DATA_ROOT . "/dolibarr_ovh_billingInvoiceList.xml", $soap->__getLastResponse());
-			@chmod(DOL_DATA_ROOT . "/dolibarr_ovh_billingInvoiceList.xml",
-				octdec(empty($conf->global->MAIN_UMASK) ? '0664' : $conf->global->MAIN_UMASK));
+			@chmod(DOL_DATA_ROOT . "/dolibarr_ovh_billingInvoiceList.xml", octdec(getDolGlobalString('MAIN_UMASK', '0664')));
 
 			// Set qualified invoices into arrayinvoice
 			foreach ($result as $i => $r) {
@@ -570,21 +630,41 @@ if ($action == 'refresh') {
 			}
 		} else {
 			try {
-				$result = $conn->get('/me/bill?date.from=' . dol_print_date($datefrom, 'dayrfc'));
+				$url = '/me/bill?date.from=' . dol_print_date($datefrom, 'dayrfc');
+				if ($dateto) {
+					$url .= '&date.to=' . dol_print_date($dateto + 3600 * 24, 'dayrfc');
+				}
+				$result = $conn->get($url);
 			} catch (Exception $e) {
 				echo 'Exception /me/bill: ' . $e->getMessage() . "\n";
 			}
 			$i = 0;
 			foreach ($result as $key => $val) {
 				$r = $conn->get('/me/bill/' . $val);
+
 				if (!$excludenullinvoice || !empty($r['priceWithoutTax']['value'])) {
-					$r2 = $conn->get('/me/bill/' . $val . '/details');
 					$description = '';
+
+					$r2 = $conn->get('/me/bill/' . $val . '/details');
+
+					$nblineofdetail = 0;
+					$MAXLINESINDETAIL = 3;
 					foreach ($r2 as $key2 => $val2) {
 						$r2d = $conn->get('/me/bill/' . $val . '/details/' . $val2);
 						//var_dump($r2d['description']);
+
+						$nblineofdetail++;
 						$description .= $r2d['description'] . "<br>\n";
+
+						if ($nblineofdetail >= $MAXLINESINDETAIL) {
+							if (is_countable($r2) && count($r2) > 1) {
+								$description .= '...(truncated - '.count($r2).' lines)...';
+							}
+
+							break;	// We stop after $MAXLINESINDETAIL lines found.
+						}
 					}
+
 					$arrayinvoice[] = array(
 						'id' => $r['billId'],
 						'billnum' => $r['billId'],
@@ -608,19 +688,14 @@ if ($action == 'refresh') {
 			}
 		}
 
-		$arrayinvoice = dol_sort_array($arrayinvoice, 'date',
-			(empty($conf->global->OVH_IMPORT_SORTORDER) ? 'desc' : $conf->global->OVH_IMPORT_SORTORDER));
+		$arrayinvoice = dol_sort_array($arrayinvoice, 'date', getDolGlobalString('OVH_IMPORT_SORTORDER', 'desc'));
 
 		$nbfound = count($arrayinvoice);
 		if (!$nbfound) {
 			print $langs->trans("NoRecordFound") . "<br><br>\n";
 		} else {
 			print '<form name="import" action="' . $_SERVER["PHP_SELF"] . '" method="POST">';
-			if ((float) DOL_VERSION >= 11.0) {
-				print '<input type="hidden" name="token" value="' . newToken() . '">';
-			} else {
-				print '<input type="hidden" name="token" value="' . $_SESSION['newtoken'] . '">';
-			}
+			print '<input type="hidden" name="token" value="' . newToken() . '">';
 			print '<input type="hidden" name="lang" value="' . $langs->defaultlang . '">';
 
 			print '<div><div class="clearboth floatleft"><strong>' . $nbfound . '</strong> ' . $langs->trans("Invoices") . "</div>\n";
@@ -635,11 +710,16 @@ if ($action == 'refresh') {
 				print $formproject->select_projects(-1, $projectid, 'projectid', 0, 0, 1, 1, 0, $disabled, 0, '', 0, 0, 'maxwidth500');
 				//print '<br>';
 			}
+			print ' &nbsp; &nbsp; <label for="valid_invoice">'.$langs->trans("ValidImportedInvoice") . '</label>: ';
+			print '<input type="checkbox" name="valid_invoice" id="valid_invoice" value="valid_invoice">';
 			print '<input type="hidden" name="action" value="import">';
-			print '<input type="hidden" name="token" value="' . $_SESSION['newtoken'] . '">';
+			print '<input type="hidden" name="token" value="' . newToken() . '">';
 			print '<input type="hidden" name="datefromday" value="' . dol_print_date($datefrom, '%d') . '">';
 			print '<input type="hidden" name="datefrommonth" value="' . dol_print_date($datefrom, '%m') . '">';
 			print '<input type="hidden" name="datefromyear" value="' . dol_print_date($datefrom, '%Y') . '">';
+			print '<input type="hidden" name="datetoday" value="' . dol_print_date($dateto, '%d') . '">';
+			print '<input type="hidden" name="datetomonth" value="' . dol_print_date($dateto, '%m') . '">';
+			print '<input type="hidden" name="datetoyear" value="' . dol_print_date($dateto, '%Y') . '">';
 			print '<input type="hidden" name="lang" value="' . $langs->defaultlang . '">';
 
 			print '<input type="hidden" name="compte" value="' . GETPOST("compte", 'alpha') . '">';
@@ -653,13 +733,13 @@ if ($action == 'refresh') {
 
 			print '</div><div style="clear: both"></div><br>';
 
-			print '<table class="noborder" width="100%">';
+			print '<table class="noborder centpercent">';
 			print '<tr class="liste_titre">';
 			print '<td>' . $langs->trans("Invoice") . ' OVH</td>';
 			print '<td class="center">' . $langs->trans("Date") . '</td>';
 			print '<td align="right">' . $langs->trans("AmountHT") . '</td>';
 			print '<td align="right">' . $langs->trans("AmountTTC") . '</td>';
-			print '<td align="right">' . $langs->trans("Currency") . '</td>';
+			print '<td align="center">' . $langs->trans("Currency") . '</td>';
 			//print '<td align="right">'.$langs->trans("VATRate").'</td>';
 			print '<td>' . $langs->trans("Description") . '</td>';
 			print '<td align="right">' . $form->showCheckAddButtons('checkforselect', 1) . '</td>';
@@ -673,6 +753,7 @@ if ($action == 'refresh') {
 				print '<td class="right amount nowraponall">' . price($r['totalPrice']) . '</td>';
 				print '<td class="right amount nowraponall">' . price($r['totalPriceWithVat']) . '</td>';
 				print '<td>' . $r['currency'] . '</td>';
+
 				//print '<td align="right">'.vatrate($vatrate).'</td>';
 				$x = 0;
 				$olddomain = '';
@@ -692,17 +773,20 @@ if ($action == 'refresh') {
 					}
 				}
 				if (!empty($r['description'])) {
-					$s .= dol_escape_htmltag($r['description'], 1, 1);
+					$s .= $r['description'];
+				}
+				$linktoovh = '';
+				if (!empty($r['url'])) {
+					$linktoovh = img_picto($langs->trans("Link").' OVH', 'url', 'class="pictofixedwidth"').'<a target="ovhinvoice" href="' . dol_escape_htmltag($r['url']) . '">' . $langs->trans("Link") . ' OVH</a>';
 				}
 				if (!empty($r['ordernum'])) {
-					$s .= '<br>(' . $langs->trans("Order") . ' OVH: ' . $r['ordernum'] . ') ';
+					$linktoovh .= ($linktoovh ? ' - ' : '');
+					$linktoovh .= '(' . $langs->trans("Order") . ' OVH: ' . $r['ordernum'] . ') ';
 				}
-				if (!empty($r['url'])) {
-					$s .= ' (<a target="ovhinvoice" href="' . dol_escape_htmltag($r['url']) . '">' . $langs->trans("Link") . ' OVH</a>) ';
-				}
-				print '<td title="'.dol_escape_htmltag($s).'">';
-				print '<div class="twolinesmax">';
-				print $s;
+				print '<td class="classfortooltip" title="'.(function_exists('dolPrintHTMLForAttribute') ? dolPrintHTMLForAttribute($s) : dol_escape_htmltag($s)).'">';
+				print '<div class="twolinesmax small">';
+				print $linktoovh ? $linktoovh.'<br>' : $linktoovh;
+				print (function_exists('dolPrintHTML') ? dolPrintHTML($s) : dol_escape_htmltag($s));
 				print '</div>';
 				print "</td>\n";
 
@@ -742,7 +826,7 @@ if ($action == 'refresh') {
 						$file_name_bis = ($upload_dir . "/" . $facfou->ref . '-' . $facfou->ref_supplier . ".pdf");
 						$file_name_ter = ($upload_dir . "/" . $facfou->ref . '_' . $facfou->ref_supplier . ".pdf");        // Old version made import with this name
 
-						$file_name_to_use = (empty($conf->global->MAIN_DISABLE_SUGGEST_REF_AS_PREFIX) ? $file_name_bis : $file_name);
+						$file_name_to_use = (getDolGlobalString('MAIN_DISABLE_SUGGEST_REF_AS_PREFIX') ? $file_name : $file_name_bis);
 
 						if (file_exists($file_name) || file_exists($file_name_bis) || file_exists($file_name_ter)) {
 							print $langs->trans("InvoicePDFFoundIntoDolibarr") . " " . $facfou->getNomUrl(1) . "\n";
@@ -753,7 +837,7 @@ if ($action == 'refresh') {
 								dol_mkdir($upload_dir);
 							}
 							if (is_dir($upload_dir)) {
-								if (!empty($conf->global->OVH_OLDAPI)) {
+								if (getDolGlobalString('OVH_OLDAPI')) {
 									$result[$i]->info = $soap->billingInvoiceInfo($session, $r['billnum'], null,
 										$r['billingCountry']); //on recupere les details
 									$r2 = $result[$i];
@@ -787,7 +871,7 @@ if ($action == 'refresh') {
 
 
 		//logout
-		if (!empty($conf->global->OVH_OLDAPI)) {
+		if (getDolGlobalString('OVH_OLDAPI')) {
 			$soap->logout($session);
 		}
 

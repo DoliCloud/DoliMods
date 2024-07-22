@@ -73,6 +73,15 @@ $substitutionarrayfortest=array(
 
 // Activate error interceptions
 if (! empty($conf->global->MAIN_ENABLE_EXCEPTION)) {
+	/**
+	 * @param $code string code
+	 * @param $message string message
+	 * @param $fichier string filename
+	 * @param $ligne string lien id
+	 * @param $contexte string context
+	 * @return void
+	 * @throws Exception
+	 */
 	function traitementErreur($code, $message, $fichier, $ligne, $contexte)
 	{
 		if (error_reporting() & $code) {
@@ -215,11 +224,7 @@ $head=ovhadmin_prepare_head();
 
 
 print '<form method="post" action="'.$_SERVER["PHP_SELF"].'">';
-if ((float) DOL_VERSION >= 11.0) {
-	print '<input type="hidden" name="token" value="'.newToken().'">';
-} else {
-	print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
-}
+print '<input type="hidden" name="token" value="'.newToken().'">';
 print '<input type="hidden" name="action" value="setvalue">';
 
 if (! empty($conf->global->OVH_OLDAPI)) {
@@ -378,7 +383,7 @@ if (! empty($conf->global->OVH_OLDAPI)) {
 	dol_syslog("Will use URL=".$WS_DOL_URL, LOG_DEBUG);
 
 	if (empty($conf->global->OVHSMS_NICK) || empty($WS_DOL_URL)) {
-		echo '<br>'.'<div class="warning">'.$langs->trans("OvhSmsNotConfigured").'</div>';
+		echo '<br><div class="warning">'.$langs->trans("OvhSmsNotConfigured").'</div>';
 	} else {
 		print '<br>';
 		print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?action=test">'.$langs->trans("TestLoginToAPI").'</a><br><br>';
@@ -461,6 +466,7 @@ $db->close();
  * @param string	$str       Str
  * @param string	$file      File
  * @param string	$line      Line
+ * @return void
  */
 function my_error_handler($no, $str, $file, $line)
 {

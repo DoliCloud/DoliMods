@@ -110,8 +110,8 @@ class InterfaceEcotaxdeee extends DolibarrTriggers
 			return 0;           // To avoid to add ecotax line during cloning
 		}
 
-		if (! empty($conf->global->ECOTAXDEEE_USE_ON_CUSTOMER_ORDER)) {
-			if ($action == 'LINEORDER_INSERT') {
+		if (getDolGlobalString('ECOTAXDEEE_USE_ON_CUSTOMER_ORDER')) {
+			if ($action == 'LINEORDER_INSERT' || $action == 'LINEORDER_CREATE') {
 				return $this->_add_replace_ecotax($action, $object, $user, $langs, $conf);
 			}
 			if ($action == 'LINEORDER_UPDATE' || $action == 'LINEORDER_MODIFY') {
@@ -121,8 +121,8 @@ class InterfaceEcotaxdeee extends DolibarrTriggers
 				return $this->_add_replace_ecotax($action, $object, $user, $langs, $conf);
 			}
 		}
-		if (! empty($conf->global->ECOTAXDEEE_USE_ON_PROPOSAL)) {
-			if ($action == 'LINEPROPAL_INSERT') {
+		if (getDolGlobalString('ECOTAXDEEE_USE_ON_PROPOSAL')) {
+			if ($action == 'LINEPROPAL_INSERT' || $action == 'LINEPROPAL_CREATE') {
 				//var_dump($object);
 				return $this->_add_replace_ecotax($action, $object, $user, $langs, $conf);
 			}
@@ -133,8 +133,8 @@ class InterfaceEcotaxdeee extends DolibarrTriggers
 				return $this->_add_replace_ecotax($action, $object, $user, $langs, $conf);
 			}
 		}
-		if (! empty($conf->global->ECOTAXDEEE_USE_ON_CUSTOMER_INVOICE)) {
-			if ($action == 'LINEBILL_INSERT') {
+		if (getDolGlobalString('ECOTAXDEEE_USE_ON_CUSTOMER_INVOICE')) {
+			if ($action == 'LINEBILL_INSERT' || $action == 'LINEBILL_CREATE') {
 				return $this->_add_replace_ecotax($action, $object, $user, $langs, $conf);
 			}
 			if ($action == 'LINEBILL_UPDATE' || $action == 'LINEBILL_MODIFY') {
@@ -145,7 +145,7 @@ class InterfaceEcotaxdeee extends DolibarrTriggers
 			}
 		}
 		/* TODO
-		if (! empty($conf->global->ECOTAXDEEE_USE_ON_SUPPLIER_ORDER))
+		if (getDolGlobalString('ECOTAXDEEE_USE_ON_SUPPLIER_ORDER'))
 		{
 			if ($action == 'LINEORDER_SUPPLIER_INSERT' || $action == 'LINEORDER_SUPPLIER_CREATE')
 			{
@@ -160,7 +160,7 @@ class InterfaceEcotaxdeee extends DolibarrTriggers
 				return $this->_add_replace_ecotax($action,$object,$user,$langs,$conf);
 			}
 		}
-		if (! empty($conf->global->ECOTAXDEEE_USE_ON_SUPPLIER_INVOICE))
+		if (getDolGlobalString('ECOTAXDEEE_USE_ON_SUPPLIER_INVOICE'))
 		{
 			if ($action == 'LINEBILL_SUPPLIER_INSERT' || $action == 'LINEBILL_SUPPLIER_CREATE')
 			{
@@ -303,8 +303,9 @@ class InterfaceEcotaxdeee extends DolibarrTriggers
 					$tmpproduct = new Product($this->db);
 					$tmpproduct->fetch($line->fk_product);
 					include_once DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php';
-					if (!empty($tmpproduct->array_options['option_ecotaxdeeecode']) && $line->qty) {
-						$ecotaxCode = $tmpproduct->array_options['option_ecotaxdeeecode'];
+
+					if (!empty($tmpproduct->array_options['options_ecotaxdeeecode']) && $line->qty) {
+						$ecotaxCode = $tmpproduct->array_options['options_ecotaxdeeecode'];
 
 						// search and get amount from code
 						$sql = "SELECT amount FROM ".MAIN_DB_PREFIX."ecotaxdeee";
@@ -317,7 +318,7 @@ class InterfaceEcotaxdeee extends DolibarrTriggers
 								if (empty($ecoamount[$ecocateg])) {	// To force init of var
 									$ecoamount[$ecocateg] = 0;
 								}
-								
+
 								$ecoamount[$ecocateg] += ($ecotaxAmount * $line->qty);
 							}
 						}
@@ -352,7 +353,7 @@ class InterfaceEcotaxdeee extends DolibarrTriggers
 			if (!empty($tmpecotaxline[$ecocateg]) && is_object($tmpecotaxline[$ecocateg]) && $idlineecotax[$ecocateg] > 0) {
 				if ($ecoamount[$ecocateg]) {
 					// Update line
-					$tmpecotaxline[$ecocateg]->oldline = dol_clone($tmpecotaxline[$ecocateg]);
+					$tmpecotaxline[$ecocateg]->oldline = dol_clone($tmpecotaxline[$ecocateg], 0);
 					$tmpecotaxline[$ecocateg]->qty = 1;
 					$tmpecotaxline[$ecocateg]->subprice = $ecoamount[$ecocateg];
 

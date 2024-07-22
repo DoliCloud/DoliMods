@@ -44,7 +44,7 @@ HELLOASSO_CLIENT_ORGANISATION_HELP=The name of the organization for production m
 HELLOASSO_BANK_ACCOUNT_FOR_PAYMENTS=Bank account for payments
 HELLOASSO_SHOW_ONLINE_PAYMENTS=Show online payment page
 
-ExampleOfTestCreditCardHelloAsso=Example of credit card can be found on at this URL:<br> %s 
+ExampleOfTestCreditCardHelloAsso=Example of credit card can be found at this URL:<br> %s 
 TestConnectionHelloasso=Test Connection
 
 # About page

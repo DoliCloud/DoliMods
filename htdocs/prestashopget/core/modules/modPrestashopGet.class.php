@@ -65,7 +65,7 @@ class modPrestashopGet extends DolibarrModules
 		$this->descriptionlong = "Add features to get summarized information on sales on a Prestashop eCommerce.";
 
 		$this->editor_name = 'DoliCloud';
-		$this->editor_url = 'https://www.dolicloud.com';
+		$this->editor_url = 'https://www.dolicloud.com?origin=dolimods';
 
 		// Possible values for version are: 'development', 'experimental', 'dolibarr', 'dolibarr_deprecated' or a version string like 'x.y.z'
 		$this->version = '1.0';

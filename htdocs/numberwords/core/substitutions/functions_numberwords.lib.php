@@ -35,8 +35,6 @@
  */
 function numberwords_completesubstitutionarray(&$substitutionarray, $outlangs, $object)
 {
-	global $conf;
-
 	if (is_object($object) && ($object->id > 0 || $object->specimen)) {	// We do not add substitution entries if object is not instantiated (->id not > 0)
 		$numbertext=$outlangs->getLabelFromNumber((isset($object->total_ttc) ? $object->total_ttc : ''), 1);
 		//$substitutionarray['__TOTAL_TTC_WORDS__']=$numbertext;    	// deprecated
@@ -74,8 +72,10 @@ function numberwords_completesubstitutionarray(&$substitutionarray, $outlangs, $
 		$substitutionarray['__AMOUNT_MULTICURRENCY_VAT_TEXT__'] = (!empty($object->multicurrency_code) ? $numbertext : '');
 
 		// Use number words for property ->number of object with __NUMBER_WORDS__
-		$numbertext=$outlangs->getLabelFromNumber((isset($object->number) ? $object->number : ''), 0);
-		$substitutionarray['__NUMBER_WORDS__'] = $numbertext;
+		if (property_exists($object, 'number')) {
+			$numbertext=$outlangs->getLabelFromNumber((isset($object->number) ? $object->number : ''), 0);
+			$substitutionarray['__NUMBER_WORDS__'] = $numbertext;
+		}
 	}
 }
 

@@ -113,7 +113,7 @@ dol_htmloutput_mesg($mesg);
 
 // Formulaire d'ajout de compte SMS qui sera valable pour tout Dolibarr
 print '<form method="post" action="'.$_SERVER["PHP_SELF"].'">';
-print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
+print '<input type="hidden" name="token" value="'.newToken().'">';
 print '<input type="hidden" name="action" value="setvalue">';
 
 

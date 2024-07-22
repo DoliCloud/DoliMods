@@ -173,7 +173,7 @@ if ($action == 'create') {
         $newcardbutton .= dolGetButtonTitle($langs->trans('NewCodeAmount'), '', 'fa fa-plus-circle', dol_buildpath('/ecotaxdeee/admin/setup.php?action=create', 1));
 
     }
-    print_barre_liste('', $page, $_SERVER["PHP_SELF"], '', '', '', '', '', '', '', 0, $newcardbutton, '', '', 0, 0, 1);
+    print_barre_liste('', 0, $_SERVER["PHP_SELF"], '', '', '', '', '', '', '', 0, $newcardbutton, '', '', 0, 0, 1);
 
     $object = new Ecotaxdeee($db);
     $records = $object->fetchAll();

@@ -96,7 +96,7 @@ if (preg_match('/del_(.*)/', $action, $reg)) {
 }
 
 // Send file
-if (GETPOST('sendit') && ! empty($conf->global->MAIN_UPLOAD_DOC)) {
+if (GETPOST('sendit') && getDolGlobalString('MAIN_UPLOAD_DOC')) {
 	$error=0;
 	if (! GETPOST('module', 'alpha') || is_numeric(GETPOST('module', 'alpha'))) {
 		$error++;

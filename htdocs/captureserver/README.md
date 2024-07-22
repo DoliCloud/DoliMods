@@ -1,7 +1,7 @@
 # CAPTURESERVER FOR <a href="https://www.dolibarr.org">DOLIBARR ERP CRM</a>
 
 ## Features
-Capture Server is a module that add an EndPoint to your Dolibarr to capture data send by other servers to him.
+Capture Server is a module that adds an EndPoint to capture and store into a tracking table data sent by external clients
 
 It can be used for example to receive anonymous first pings done by Dolibarr installation.
 

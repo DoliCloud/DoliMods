@@ -44,7 +44,7 @@ class modOpenStreetMap extends DolibarrModules
 		// Module description used if translation string 'ModuleXXXDesc' not found (XXX is value MyModule)
 		$this->description = "Module to integrate OpenStreetMap tools in dolibarr";
 		$this->editor_name = 'DoliCloud';
-		$this->editor_url = 'https://www.dolicloud.com';
+		$this->editor_url = 'https://www.dolicloud.com?origin=dolimods';
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
 		$this->version = '3.4';
 		// Key used in llx_const table to save module status enabled/disabled (where MYMODULE is value of property name of module in uppercase)

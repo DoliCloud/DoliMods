@@ -58,7 +58,7 @@ class modSkinColorEditor extends DolibarrModules
 		// Module description, used if translation string 'ModuleXXXDesc' not found (where XXX is value of numeric property 'numero' of module)
 		$this->description = "Module to edit and personalized colors of skin eldy";
 		$this->editor_name = 'DoliCloud';
-		$this->editor_url = 'https://www.dolicloud.com';
+		$this->editor_url = 'https://www.dolicloud.com?origin=dolimods';
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
 		$this->version = '3.4.1';
 		// Key used in llx_const table to save module status enabled/disabled (where MYMODULE is value of property name of module in uppercase)

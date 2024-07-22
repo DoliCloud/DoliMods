@@ -54,7 +54,7 @@ class modMyWidgets extends DolibarrModules
 		// Module description used if translation string 'ModuleXXXDesc' not found (XXX is id value)
 		$this->description = "Add a widgets for home dashboard with editable HTML content";
 		$this->editor_name = 'DoliCloud';
-		$this->editor_url = 'https://www.dolicloud.com';
+		$this->editor_url = 'https://www.dolicloud.com?origin=dolimods';
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
 		$this->version = '1.0';
 		// Key used in llx_const table to save module status enabled/disabled (XXX is id value)

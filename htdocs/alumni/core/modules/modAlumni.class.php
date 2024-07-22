@@ -60,7 +60,7 @@ class modAlumni extends DolibarrModules
 		$this->descriptionlong = "AlumniDescription";
 		// Author
 		$this->editor_name = 'DoliCloud';
-		$this->editor_url = 'https://www.dolicloud.com';
+		$this->editor_url = 'https://www.dolicloud.com?origin=dolimods';
 		// Possible values for version are: 'development', 'experimental', 'dolibarr', 'dolibarr_deprecated', 'experimental_deprecated' or a version string like 'x.y.z'
 		$this->version = '1.02';
 		// Url to the file with your last numberversion of this module
@@ -118,7 +118,7 @@ class modAlumni extends DolibarrModules
 		// A condition to hide module
 		$this->hidden = false;
 		// List of module class names that must be enabled if this module is enabled. Example: array('always'=>array('modModuleToEnable1','modModuleToEnable2'), 'FR'=>array('modModuleToEnableFR')...)
-		$this->depends = array('modOpenSurvey', 'modWebsite', 'modMailing');
+		$this->depends = array('modAgenda', 'modEventOrganization', 'modOpenSurvey', 'modWebsite', 'modMailing');
 		// List of module class names to disable if this one is disabled. Example: array('modModuleToDisable1', ...)
 		$this->requiredby = array();
 		// List of module class names this module is in conflict with. Example: array('modModuleToDisable1', ...)
@@ -310,7 +310,7 @@ class modAlumni extends DolibarrModules
 			'leftmenu' => 'survey_list_new',
 			'url' => '/alumni/survey_card.php?action=create',
 			'langs' => 'alumni@alumni',
-			'position' => 1003 + $r,
+			'position' => 1002 + $r,
 			'enabled' => 'isModEnabled(\'alumni\')',
 			'perms' => '$user->hasRight(\'alumni\', \'survey\', \'write\')',
 			'target' => '',
@@ -326,7 +326,7 @@ class modAlumni extends DolibarrModules
 			 'leftmenu' => 'survey_list',
 			 'url' => '/alumni/survey_list.php',
 			 'langs' => 'alumni@alumni',
-			 'position' => 1002 + $r,
+			 'position' => 1003 + $r,
 			 'enabled' => 'isModEnabled(\'alumni\')',
 			 'perms' => '$user->hasRight(\'alumni\', \'survey\', \'read\')',
 			 'target' => '',

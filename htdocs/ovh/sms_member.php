@@ -55,6 +55,7 @@ $langs->load("ovh@ovh");
 // Get parameters
 $id = GETPOST('id', 'int');
 $action = GETPOST('action', 'aZ09');
+$cancel = GETPOST('cancel', 'aZ09');
 $mesg='';
 
 // Protection if external user
@@ -69,7 +70,7 @@ if ($user->socid > 0) {
  ********************************************************************/
 
 /* Envoi d'un SMS */
-if ($action == 'send' && ! $_POST['cancel']) {
+if ($action == 'send' && empty($cancel)) {
 	$error=0;
 
 	$smsfrom='';
@@ -171,11 +172,7 @@ if ($id) {
 	// Show tabs
 
 	print "<form method=\"POST\" name=\"smsform\" enctype=\"multipart/form-data\" action=\"".$_SERVER["PHP_SELF"].'?id='.$object->id."\">\n";
-	if ((float) DOL_VERSION >= 11.0) {
-		print '<input type="hidden" name="token" value="'.newToken().'">';
-	} else {
-		print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
-	}
+	print '<input type="hidden" name="token" value="'.newToken().'">';
 
 	$head = member_prepare_head($object);
 	dol_fiche_head($head, 'tabSMS', $langs->trans("Member"), 0, 'user');
@@ -238,7 +235,7 @@ if ($id) {
 		print '<br>';
 	}
 
-	print_fiche_titre($langs->trans("Sms"), '', 'phone.png@ovh');
+	print load_fiche_titre($langs->trans("Sms"), '', 'phone.png@ovh');
 
 	// Cree l'objet formulaire mail
 	include_once DOL_DOCUMENT_ROOT.'/core/class/html.formsms.class.php';
@@ -260,11 +257,9 @@ if ($id) {
 	$formsms->param['id']=$object->id;
 	$formsms->param['returnurl']=$_SERVER["PHP_SELF"].'?id='.$object->id;
 
-
 	$formsms->show_form('', 0);
 
-
-	dol_fiche_end();
+	print dol_get_fiche_end();
 
 	print '<div class="center">';
 	print '<input class="button" type="submit" name="sendmail" value="'.dol_escape_htmltag($langs->trans("SendSms")).'">';

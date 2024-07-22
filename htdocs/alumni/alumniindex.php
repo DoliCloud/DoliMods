@@ -62,7 +62,8 @@ $langs->loadLangs(array("alumni@alumni"));
 
 $action = GETPOST('action', 'aZ09');
 
-$max = 5;
+$NBMAX = getDolGlobalInt('MAIN_SIZE_SHORTLIST_LIMIT', 5);
+$max = getDolGlobalInt('MAIN_SIZE_SHORTLIST_LIMIT', 5);
 $now = dol_now();
 
 // Security check - Protection if external user
@@ -180,9 +181,6 @@ if (isModEnabled('alumni')) {
 
 print '</div><div class="fichetwothirdright">';
 
-
-$NBMAX = getDolGlobalInt('MAIN_SIZE_SHORTLIST_LIMIT');
-$max = getDolGlobalInt('MAIN_SIZE_SHORTLIST_LIMIT');
 
 /* BEGIN MODULEBUILDER LASTMODIFIED MYOBJECT
 // Last modified myobject

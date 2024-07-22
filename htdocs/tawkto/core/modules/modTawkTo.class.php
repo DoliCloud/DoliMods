@@ -68,7 +68,7 @@ class modTawkTo extends DolibarrModules
 		$this->picto='tawkto@tawkto';
 
 		$this->editor_name = 'DoliCloud';
-		$this->editor_url = 'https://www.dolicloud.com';
+		$this->editor_url = 'https://www.dolicloud.com?origin=dolimods';
 
 		// Defined all module parts (triggers, login, substitutions, menus, css, etc...)
 		// for default path (eg: /mymodule/core/xxxxx) (0=disable, 1=enable)

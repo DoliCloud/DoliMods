@@ -114,6 +114,7 @@ function getTokenFromServiceAccount($service_account_name, $key_file_location, $
 	$client->setApplicationName($applicationname);	// Set prefix of User Agent. User agent is set by PHP API in method Client->execute() of PHP Google Lib.
 	//$client->setClassConfig('Google_Cache_File', 'directory', $conf->google->dir_temp);		// Force dir if cache used is Google_Cache_File
 
+
 	if ($mode == 'web') {    // use to synch contact
 		if (!getDolGlobalString('OAUTH_GOOGLE-CONTACT_ID')) return 'ErrorModuleGoogleNoGoogleClientId';
 		if (!getDolGlobalString('OAUTH_GOOGLE-CONTACT_SECRET')) return 'ErrorModuleGoogleNoGoogleClientSecret';
@@ -127,8 +128,13 @@ function getTokenFromServiceAccount($service_account_name, $key_file_location, $
 			$client->setAccessToken($_SESSION['google_web_token_'.$conf->entity]);
 		}
 
-
 		// Dolibarr storage
+		//var_dump("ggggg");
+		//var_dump(spl_autoload_functions());
+		//var_dump(class_exists('aaa', true));
+		//var_dump(spl_autoload_functions());
+		//var_dump("hhhhh");
+
 		$storage = new DoliStorage($db, $conf);
 		try {
 			$servicename = isset($_SESSION['servicename']) ? $_SESSION['servicename'] : 'contact'; // We'll go for contact by default

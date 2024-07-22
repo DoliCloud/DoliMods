@@ -122,11 +122,7 @@ dol_htmloutput_mesg($mesg);
 
 // Formulaire d'ajout de compte SMS qui sera valable pour tout Dolibarr
 print '<form method="post" action="' . $_SERVER["PHP_SELF"] . '">';
-if ((float) DOL_VERSION >= 11.0) {
-	print '<input type="hidden" name="token" value="'.newToken().'">';
-} else {
-	print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
-}
+print '<input type="hidden" name="token" value="'.newToken().'">';
 print '<input type="hidden" name="action" value="setvalue">';
 
 
@@ -206,6 +202,13 @@ if (!empty($conf->global->OVH_OLDAPI) && (empty($conf->global->OVHSMS_NICK) || e
 		'', '', '', '200');
 	print '<td>';
 	print $langs->trans("OVHVatKeepEmptyToAcceptAll");
+	print '</td></tr>';
+
+	print '<tr class="oddeven"><td>';
+	print $langs->trans("OVH_USE_LAST_INVOCIE_VALIDATED_DATE") . '</td><td>';
+	print ajax_constantonoff('OVH_USE_LAST_INVOCIE_VALIDATED_DATE');
+	print '</td><td>';
+	print '';
 	print '</td></tr>';
 
 	print '</table>';

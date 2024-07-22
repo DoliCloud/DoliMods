@@ -54,6 +54,7 @@ $langs->load("ovh@ovh");
 // Get parameters
 $socid = GETPOST('socid', 'int')?GETPOST('socid', 'int'):GETPOST('id', 'int');
 $action = GETPOST('action', 'aZ09');
+$cancel = GETPOST('cancel', 'aZ09');
 $mesg='';
 
 // Protection if external user
@@ -68,7 +69,7 @@ if ($user->socid > 0) {
  ********************************************************************/
 
 /* Envoi d'un SMS */
-if ($action == 'send' && ! $_POST['cancel']) {
+if ($action == 'send' && empty($cancel)) {
 	$error=0;
 
 	$smsfrom='';
@@ -191,18 +192,14 @@ if ($socid) {
 
 
 	print "<form method=\"POST\" name=\"smsform\" enctype=\"multipart/form-data\" action=\"".$_SERVER["PHP_SELF"].'?id='.$object->id."\">\n";
-	if ((float) DOL_VERSION >= 11.0) {
-		print '<input type="hidden" name="token" value="'.newToken().'">';
-	} else {
-		print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
-	}
+	print '<input type="hidden" name="token" value="'.newToken().'">';
 
 
 	/*
 	 * Show tabs
 	 */
 	$head = societe_prepare_head($object);
-	dol_fiche_head($head, 'tabSMS', $langs->trans("ThirdParty"), 0, 'company');
+	print dol_get_fiche_head($head, 'tabSMS', $langs->trans("ThirdParty"), 0, 'company');
 
 	if ($mesg) {
 		if (preg_match('/class="error"/', $mesg)) dol_htmloutput_mesg($mesg, '', 'error');
@@ -216,7 +213,7 @@ if ($socid) {
 
 	print '<div class="underbanner clearboth"></div>';
 
-	print_fiche_titre($langs->trans("Sms"), '', 'phone.png@ovh');
+	print load_fiche_titre($langs->trans("Sms"), '', 'phone.png@ovh');
 
 	// Cree l'objet formulaire mail
 	include_once DOL_DOCUMENT_ROOT.'/core/class/html.formsms.class.php';
@@ -241,10 +238,10 @@ if ($socid) {
 
 	$formsms->show_form('', 0);
 
-	dol_fiche_end();
+	print dol_get_fiche_end();
 
 	print '<div class="center">';
-	print '<input class="button" type="submit" name="sendmail" value="'.dol_escape_htmltag($langs->trans("SendSms")).'">';
+	print '<input class="button" type="submit" name="sendsms" value="'.dol_escape_htmltag($langs->trans("SendSms")).'">';
 	if ($formsms->withcancel) {
 		print '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
 		print '<input class="button" type="submit" name="cancel" value="'.dol_escape_htmltag($langs->trans("Cancel")).'">';

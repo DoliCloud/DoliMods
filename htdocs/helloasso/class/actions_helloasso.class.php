@@ -430,10 +430,9 @@ class ActionsHelloAsso extends CommonHookActions
 	 */
 	public function getValidPayment($parameters, &$object, &$action, $hookmanager)
 	{
-		global $conf, $user, $langs;
+		global $langs;
 
 		$error = 0; // Error counter
-		$resprints = "";
 		$error = "";
 
 		if (array_key_exists("paymentmethod", $parameters) && (empty($parameters["paymentmethod"]) || $parameters["paymentmethod"] == 'helloasso') && isModEnabled('helloasso')) {
@@ -443,7 +442,7 @@ class ActionsHelloAsso extends CommonHookActions
 
 		if (!$error) {
 			$this->results["validpaymentmethod"] = $validpaymentmethod;
-			return 1; // or return 1 to replace standard code
+			return 0;
 		} else {
 			$this->errors[] = $error;
 			return -1;
@@ -482,6 +481,8 @@ class ActionsHelloAsso extends CommonHookActions
 		$amount = price2num(GETPOST("amount", 'alpha'));
 
 		if ($action == "returnDoPaymentHelloAsso") {
+			dol_syslog("Data after redirect from helloasso payment page with session FinalPaymentAmt = ".$_SESSION["FinalPaymentAmt"]." currencycodeType = ".$_SESSION["currencyCodeType"], LOG_DEBUG);
+
 			$urlredirect = $urlwithroot.'/public/payment/';
 			$typereturn = GETPOST("typereturn");
 			if ($typereturn == "error") {
@@ -496,9 +497,15 @@ class ActionsHelloAsso extends CommonHookActions
 			}
 		}
 
-		if (in_array($parameters['context'],array('newpayment')) && empty($parameters['paymentmethod'])) {	
+		if (in_array($parameters['context'],array('newpayment')) && empty($parameters['paymentmethod'])) {
 			$amount = price2num(getDataFromObjects($source, $ref));
+			if (!GETPOST("currency", 'alpha')) {
+				$currency = $conf->currency;
+			} else {
+				$currency = GETPOST("currency", 'aZ09');
+			}
 			$_SESSION["FinalPaymentAmt"] = $amount;
+			$_SESSION["currencyCodeType"] = $currency;
 
 		} elseif (in_array($parameters['paymentmethod'], array('helloasso')) && $parameters['validpaymentmethod']["helloasso"] == "valid") {
 			require_once DOL_DOCUMENT_ROOT."/core/lib/geturl.lib.php";
@@ -550,7 +557,7 @@ class ActionsHelloAsso extends CommonHookActions
 			}
 			$urlback .= 'action=returnDoPaymentHelloAsso';
 
-			$result = doConnectionHelloasso();	// @TODO LMR Get the token from database and OAuth module
+			$result = doConnectionHelloasso();
 
 			if ($result <= 0) {
 				$errors[] = $langs->trans("ErrorFailedToGetTokenFromClientIdAndSecret");
@@ -626,6 +633,8 @@ class ActionsHelloAsso extends CommonHookActions
 						$jsontosenddata .= '}';
 
 						$urlforcheckout = "https://".urlencode($helloassourl)."/v5/organizations/".urlencode($client_organisation)."/checkout-intents";
+
+						dol_syslog("Send Post to url=".$urlforcheckout." with session FinalPaymentAmt = ".$FinalPaymentAmt." currencyCodeType = ".$_SESSION["currencyCodeType"], LOG_DEBUG);
 
 						$ret2 = getURLContent($urlforcheckout, 'POSTALREADYFORMATED', $jsontosenddata, 1, $headers);
 						if ($ret2["http_code"] == 200) {
@@ -740,6 +749,24 @@ class ActionsHelloAsso extends CommonHookActions
 			$this->errors[] = $langs->trans("BankAccountNotFound");
 			return -1;
 		}
+	}
+
+	/**
+	 * Overloading the getBankAccountPaymentMethod function : replacing the parent's function with the one below
+	 *
+	 * @param   array           $parameters     Hook metadatas (context, etc...)
+	 * @param   CommonObject    $object         The object to process (an invoice if you are in invoice module, a propale in propale's module, etc...)
+	 * @param   string          $action         Current action (if set). Generally create or edit or null
+	 * @param   HookManager     $hookmanager    Hook manager propagated to allow calling another hook
+	 * @return  int                             Return integer < 0 on error, 0 on success, 1 to replace standard code
+	 */
+	public function doShowOnlinePaymentUrl($parameters, &$object, &$action, $hookmanager){
+		if (isModEnabled('helloasso')) {
+			$this->results['showonlinepaymenturl'] = isModEnabled('helloasso');
+		}else {
+			return -1;
+		}
+		return 1;
 	}
 }
 

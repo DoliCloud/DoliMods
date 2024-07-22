@@ -331,19 +331,22 @@ class Api
     private function decodeResponse(Response $response)
     {
     	// @Change DOL_LDR
-    	global $conf;
-    	if (!empty($conf->global->OVH_DEBUG)) {
-    		$logfile=DOL_DATA_ROOT.'/dolibarr_ovh.log';
+    	if (getDolGlobalString("OVH_DEBUG")) {
+    		$logfile = DOL_DATA_ROOT.'/dolibarr_ovh.log';
     		$filefd = fopen($logfile, 'a+');
     		if ($filefd)
     		{
-    			fwrite($filefd, var_export($response->getBody(), true)."\n");
+    			fwrite($filefd, var_export((string) $response->getBody(), true)."\n");
     			fclose($filefd);
-    			@chmod($logfile, octdec(empty($conf->global->MAIN_UMASK)?'0664':$conf->global->MAIN_UMASK));
+    			@chmod($logfile, octdec(getDolGlobalString("MAIN_UMASK", '0664')));
     		}
     	}
 
-        return json_decode($response->getBody(), true);
+    	if (version_compare(PHP_VERSION, '7.2', '<')) {
+    		return json_decode((string) $response->getBody(), true);
+    	} else {
+    		return json_decode((string) $response->getBody(), true, 512, JSON_INVALID_UTF8_IGNORE|JSON_INVALID_UTF8_SUBSTITUTE);
+    	}
     }
 
     /**
@@ -359,7 +362,7 @@ class Api
      */
     public function get($path, $content = null, $headers = null, $is_authenticated = true)
     {
-        if(preg_match('/^\/[^\/]+\.json$/', $path))
+        if (preg_match('/^\/[^\/]+\.json$/', $path))
         {
           // Schema description must be access without authentication
           return $this->decodeResponse(

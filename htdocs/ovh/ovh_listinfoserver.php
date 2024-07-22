@@ -236,7 +236,7 @@ if (! empty($conf->global->OVH_OLDAPI) && (empty($conf->global->OVHSMS_NICK) || 
 			$object->id = $server;
 			$object->ref = $resultinfo->name;
 
-			$linkback = '<a href="' . dol_buildpath('/ovh/ovh_listinfoserver.php', 1).'?mode=publiccloud' . '">' . $langs->trans("BackToList") . '</a>';
+			$linkback = '<a href="' . dol_buildpath('/ovh/ovh_listinfoserver.php', 1).'?mode=publiccloud">' . $langs->trans("BackToList") . '</a>';
 
 			dol_banner_tab($object, 'ref', $linkback, 1, 'none');
 
@@ -301,7 +301,7 @@ if (! empty($conf->global->OVH_OLDAPI) && (empty($conf->global->OVHSMS_NICK) || 
 			$object->id = $server;
 			$object->ref = empty($resultinfo->name)?$server:$resultinfo->name;
 
-			$linkback = '<a href="' . dol_buildpath('/ovh/ovh_listinfoserver.php', 1).'?mode=dedicated' . '">' . $langs->trans("BackToList") . '</a>';
+			$linkback = '<a href="' . dol_buildpath('/ovh/ovh_listinfoserver.php', 1).'?mode=dedicated">' . $langs->trans("BackToList") . '</a>';
 
 			dol_banner_tab($object, 'ref', $linkback, 1, 'none');
 

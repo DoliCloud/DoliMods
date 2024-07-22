@@ -195,14 +195,15 @@ $newval=make_substitutions('__AMOUNT_TEXT__', $substitutionarray);
 print '<td>'.$newval.'</td></tr>';
 
 print '<tr class="oddeven">';
-print '<td><select class="flat" name="level">';
-print '<option value="0" '.($level=='0'?'SELECTED':'').'>'.$langs->trans("Number").'</option>';
-print '<option value="1" '.($level=='1'?'SELECTED':'').'>'.$langs->trans("Amount").'</option>';
+print '<td><select class="flat" name="level" id="numberwordtype">';
+print '<option value="0" '.($level=='0'?'SELECTED':'').'>'.$langs->trans("Number").' (integer)</option>';
+print '<option value="1" '.($level=='1'?'SELECTED':'').'>'.$langs->trans("Amount").' ('.getDolGlobalInt('MAIN_MAX_DECIMALS_TOT', 2).' digits max)</option>';
 print '</select>';
+print ajax_combobox("numberwordtype");
 print '</td>';
-print '<td><input type="text" name="valuetest" class="flat" value="'.$valuetest.'"></td>';
+print '<td><input type="text" name="valuetest" class="flat maxwidth125" value="'.$valuetest.'"></td>';
 print '<td>';
-print $htmlother->select_language(GETPOST('lang_id', 'alpha')?GETPOST('lang_id', 'alpha'):$langs->defaultlang, 'lang_id');
+print $htmlother->select_language(GETPOST('lang_id', 'alpha')?GETPOST('lang_id', 'alpha'):$langs->defaultlang, 'lang_id', 0, [], '', 0, 0, 'maxwidth200');
 print '</td>';
 print '<td><input type="submit" class="button" value="'.$langs->trans("ToTest").'"></td>';
 print '<td><strong>'.$newvaltest.'</strong>';
@@ -219,15 +220,15 @@ dol_fiche_end();
 list($whole, $decimal) = explode('.', $value);
 if ($level) {
 	if (strlen($decimal) > $conf->global->MAIN_MAX_DECIMALS_TOT) {
-		print '<font class="warning">'.$langs->trans("Note").': '.$langs->trans("MAIN_MAX_DECIMALS_TOT").': ' . getDolGlobalString('MAIN_MAX_DECIMALS_TOT').'</font>';
+		print '<font class="warning">'.$langs->trans("Note").':<br>* '.$langs->trans("MAIN_MAX_DECIMALS_TOT").': ' . getDolGlobalString('MAIN_MAX_DECIMALS_TOT').'</font>';
 		print ' - <a href="'.DOL_URL_ROOT.'/admin/limits.php">'.$langs->trans("SetupToChange").'</a>';
 	} else {
-		print '<font class="info">'.$langs->trans("Note").': '.$langs->trans("MAIN_MAX_DECIMALS_TOT").': ' . getDolGlobalString('MAIN_MAX_DECIMALS_TOT').'</font>';
+		print '<font class="info">'.$langs->trans("Note").':<br>* '.$langs->trans("MAIN_MAX_DECIMALS_TOT").': ' . getDolGlobalString('MAIN_MAX_DECIMALS_TOT').'</font>';
 		print ' - <a href="'.DOL_URL_ROOT.'/admin/limits.php">'.$langs->trans("SetupToChange").'</a>';
 	}
 }
 print '<br>';
-print '<font class="info">'.$langs->trans("CompanyCurrency").': '.$conf->currency.'</font>';
+print '* <font class="info">'.$langs->trans("CompanyCurrency").': '.$conf->currency.'</font>';
 print ' - <a href="'.DOL_URL_ROOT.'/admin/company.php">'.$langs->trans("SetupToChange").'</a>';
 
 

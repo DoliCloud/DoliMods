@@ -20,7 +20,7 @@
 # Module label 'ModuleCaptureServerName'
 ModuleCaptureServerName = CaptureServer
 # Module description 'ModuleCaptureServerDesc'
-ModuleCaptureServerDesc = Description de CaptureServer
+ModuleCaptureServerDesc = Add an EndPoint to capture and store into a tracking table data sent by external clients.
 
 #
 # Page d'administration

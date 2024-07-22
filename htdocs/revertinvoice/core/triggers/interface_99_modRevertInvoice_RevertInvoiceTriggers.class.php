@@ -158,9 +158,6 @@ class InterfaceRevertInvoiceTriggers extends DolibarrTriggers
 			//case 'ORDER_SENTBYMAIL':
 			//case 'ORDER_CLASSIFY_BILLED':
 			//case 'ORDER_SETDRAFT':
-			//case 'LINEORDER_INSERT':
-			//case 'LINEORDER_UPDATE':
-			//case 'LINEORDER_DELETE':
 
 			// Supplier orders
 			//case 'ORDER_SUPPLIER_CREATE':
@@ -185,9 +182,6 @@ class InterfaceRevertInvoiceTriggers extends DolibarrTriggers
 			//case 'PROPAL_CLOSE_SIGNED':
 			//case 'PROPAL_CLOSE_REFUSED':
 			//case 'PROPAL_DELETE':
-			//case 'LINEPROPAL_INSERT':
-			//case 'LINEPROPAL_UPDATE':
-			//case 'LINEPROPAL_DELETE':
 
 			// SupplierProposal
 			//case 'SUPPLIER_PROPOSAL_CREATE':
@@ -197,9 +191,6 @@ class InterfaceRevertInvoiceTriggers extends DolibarrTriggers
 			//case 'SUPPLIER_PROPOSAL_CLOSE_SIGNED':
 			//case 'SUPPLIER_PROPOSAL_CLOSE_REFUSED':
 			//case 'SUPPLIER_PROPOSAL_DELETE':
-			//case 'LINESUPPLIER_PROPOSAL_INSERT':
-			//case 'LINESUPPLIER_PROPOSAL_UPDATE':
-			//case 'LINESUPPLIER_PROPOSAL_DELETE':
 
 			// Contracts
 			//case 'CONTRACT_CREATE':
@@ -208,9 +199,6 @@ class InterfaceRevertInvoiceTriggers extends DolibarrTriggers
 			//case 'CONTRACT_CANCEL':
 			//case 'CONTRACT_CLOSE':
 			//case 'CONTRACT_DELETE':
-			//case 'LINECONTRACT_INSERT':
-			//case 'LINECONTRACT_UPDATE':
-			//case 'LINECONTRACT_DELETE':
 
 			// Bills
 			//case 'BILL_CREATE':
@@ -309,9 +297,6 @@ class InterfaceRevertInvoiceTriggers extends DolibarrTriggers
 			//case 'BILL_CANCEL':
 			//case 'BILL_DELETE':
 			//case 'BILL_PAYED':
-			//case 'LINEBILL_INSERT':
-			//case 'LINEBILL_UPDATE':
-			//case 'LINEBILL_DELETE':
 
 			//Supplier Bill
 			//case 'BILL_SUPPLIER_CREATE':
