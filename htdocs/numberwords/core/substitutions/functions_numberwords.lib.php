@@ -38,19 +38,19 @@ function numberwords_completesubstitutionarray(&$substitutionarray, $outlangs, $
 	if (is_object($object) && ($object->id > 0 || $object->specimen)) {	// We do not add substitution entries if object is not instantiated (->id not > 0)
 		$numbertext=$outlangs->getLabelFromNumber((isset($object->total_ttc) ? $object->total_ttc : ''), 1);
 		//$substitutionarray['__TOTAL_TTC_WORDS__']=$numbertext;    	// deprecated
-		$substitutionarray['__AMOUNT_TEXT__'] = $numbertext;
+		$substitutionarray['__AMOUNT_TEXT__'] = numberwordsStrToUpper($numbertext);
 
 		if (isset($object->multicurrency_total_ttc)) {
 			$numbertext = $outlangs->getLabelFromNumber((isset($object->multicurrency_total_ttc) ? $object->multicurrency_total_ttc : ''), $object->multicurrency_code);
 		} else {
 			$numbertext = '';
 		}
-		$substitutionarray['__AMOUNT_MULTICURRENCY_TEXT__'] = (!empty($object->multicurrency_code) ? $numbertext : '');
+		$substitutionarray['__AMOUNT_MULTICURRENCY_TEXT__'] = (!empty($object->multicurrency_code) ? numberwordsStrToUpper($numbertext) : '');
 
 		$numbertext=$outlangs->getLabelFromNumber((isset($object->total_ht) ? $object->total_ht : ''), 1);
 		//$substitutionarray['__TOTAL_HT_WORDS__']=$numbertext;    	// deprecated
 		//$substitutionarray['__AMOUNT_WO_TAX_TEXT__']=$numbertext;	// deprecated
-		$substitutionarray['__AMOUNT_EXCL_TAX_TEXT__'] = $numbertext;
+		$substitutionarray['__AMOUNT_EXCL_TAX_TEXT__'] = numberwordsStrToUpper($numbertext);
 
 		if (isset($object->multicurrency_total_ht)) {
 			$numbertext = $outlangs->getLabelFromNumber((isset($object->multicurrency_total_ht) ? $object->multicurrency_total_ht : ''), $object->multicurrency_code);
@@ -58,26 +58,44 @@ function numberwords_completesubstitutionarray(&$substitutionarray, $outlangs, $
 			$numbertext = '';
 		}
 		//$substitutionarray['__AMOUNT_CURRENCY_WO_TAX_TEXT__']=$numbertext;
-		$substitutionarray['__AMOUNT_MULTICURRENCY_EXCL_TAX_TEXT__'] = (!empty($object->multicurrency_code) ? $numbertext : '');
+		$substitutionarray['__AMOUNT_MULTICURRENCY_EXCL_TAX_TEXT__'] = (!empty($object->multicurrency_code) ? numberwordsStrToUpper($numbertext) : '');
 
 		$numbertext=$outlangs->getLabelFromNumber((isset($object->total_vat) ? $object->total_vat : $object->total_tva), 1);
 		//$substitutionarray['__TOTAL_VAT_WORDS__']=$numbertext;    	// deprecated
-		$substitutionarray['__AMOUNT_VAT_TEXT__'] = $numbertext;
+		$substitutionarray['__AMOUNT_VAT_TEXT__'] = numberwordsStrToUpper($numbertext);
 
 		if (isset($object->multicurrency_total_tva)) {
 			$numbertext = $outlangs->getLabelFromNumber((isset($object->multicurrency_total_tva) ? $object->multicurrency_total_tva : ''), $object->multicurrency_code);
 		} else {
 			$numbertext = '';
 		}
-		$substitutionarray['__AMOUNT_MULTICURRENCY_VAT_TEXT__'] = (!empty($object->multicurrency_code) ? $numbertext : '');
+		$substitutionarray['__AMOUNT_MULTICURRENCY_VAT_TEXT__'] = (!empty($object->multicurrency_code) ? numberwordsStrToUpper($numbertext) : '');
 
 		// Use number words for property ->number of object with __NUMBER_WORDS__
 		if (property_exists($object, 'number')) {
 			$numbertext=$outlangs->getLabelFromNumber((isset($object->number) ? $object->number : ''), 0);
-			$substitutionarray['__NUMBER_WORDS__'] = $numbertext;
+			$substitutionarray['__NUMBER_WORDS__'] = numberwordsStrToUpper($numbertext);
 		}
+
+
 	}
 }
+
+/**
+ * 	Function called to force upper case if option is on.
+ *
+ *	@param	string		$string				String to upper
+ * 	@return	string							String modified
+ */
+function numberwordsStrToUpper($string)
+{
+	if (getDolGlobalString('NUMBERWORDS_FORCE_UPPERCASE')) {
+		return strtoupper($string);
+	}
+
+	return $string;
+}
+
 
 /**
  *  Return full text translated to language label for a key. Store key-label in a cache.
@@ -132,32 +150,36 @@ function numberwords_getLabelFromNumber($outlangs, $number, $isamount = '')
 	}
 
 	// Define label on currency and cent in the property of object handle
-	$handle->labelcurrency=$currencycode;	// By default (EUR, USD)
-	$handle->labelcents='cent';				// By default (s is removed)
+	$handle->labelcurrency = $currencycode;	// By default (EUR, USD)
+	$handle->labelcents = 'cent';				// By default (s is removed)
 	if (getDolGlobalInt('MAIN_MAX_DECIMALS_TOT') == 3) $handle->labelcents='thousandth'; // (s is removed)
 
 	// Overwrite label of currency with ours
 	$labelcurrencysing=$outlangs->transnoentitiesnoconv("CurrencySing".$currencycode);
 	//print "CurrencySing".$currencycode."=>".$labelcurrencysing;
 	if ($labelcurrencysing && $labelcurrencysing != -1 && $labelcurrencysing != 'CurrencySing'.$currencycode) {
-		$handle->labelcurrencysing=$labelcurrencysing;
+		$handle->labelcurrencysing = $labelcurrencysing;
 	}
 	$labelcurrency=$outlangs->transnoentitiesnoconv("Currency".$currencycode);
 	if ($labelcurrency && $labelcurrency != -1 && $labelcurrency != 'Currency'.$currencycode) {
 		$handle->labelcurrency=$labelcurrency;
 	}
-	if (empty($handle->labelcurrencysing)) $handle->labelcurrencysing=$handle->labelcurrency;
-	if (empty($handle->labelcurrency)) $handle->labelcurrency=$handle->labelcurrencysing;
+	if (empty($handle->labelcurrencysing)) {
+		$handle->labelcurrencysing = $handle->labelcurrency;
+	}
+	if (empty($handle->labelcurrency)) {
+		$handle->labelcurrency = $handle->labelcurrencysing;
+	}
 
 	// Overwrite label of decimals to ours
 	//print $outlangs->transnoentitiesnoconv("Currency".ucfirst($handle->labelcents)."Sing".$currencycode);
-	$transforsingnotfound=false;
-	$savlabelcents=$handle->labelcents;
+	$transforsingnotfound = false;
+	$savlabelcents = $handle->labelcents;
 	$labelcurrencycentsing=$outlangs->transnoentitiesnoconv("Currency".ucfirst($savlabelcents)."Sing".$currencycode);
 	if ($labelcurrencycentsing && $labelcurrencycentsing != -1 && $labelcurrencycentsing != 'Currency'.ucfirst($savlabelcents).'Sing'.$currencycode) {
 		$handle->labelcents=$labelcurrencycentsing;
 	} else {
-		$transforsingnotfound=true;
+		$transforsingnotfound = true;
 	}
 
 	$decimal = 0;
@@ -168,7 +190,7 @@ function numberwords_getLabelFromNumber($outlangs, $number, $isamount = '')
 	if ($decimal > 1 || $transforsingnotfound) {
 		$labelcurrencycent=$outlangs->transnoentitiesnoconv("Currency".ucfirst($savlabelcents).$currencycode);
 		if ($labelcurrencycent && $labelcurrencycent != 'Currency'.ucfirst($savlabelcents).$currencycode) {
-			$handle->labelcents=preg_replace('/s$/', '', $labelcurrencycent);  // The s is added by the toCurrency() method.
+			$handle->labelcents = preg_replace('/s$/', '', $labelcurrencycent);  // The s is added by the toCurrency() method.
 		}
 		//var_dump("Currency".ucfirst($handle->labelcents).$currencycode);
 	}
@@ -178,7 +200,7 @@ function numberwords_getLabelFromNumber($outlangs, $number, $isamount = '')
 	// Call method of object handle to make convertion
 	if ($isamount && empty($conf->global->NUMBERWORDS_USE_CURRENCY_SYMBOL)) {
 		//print "currency: ".$currencycode;
-		$numberwords=$handle->toCurrency($number, $outlang, $currencycode);
+		$numberwords = $handle->toCurrency($number, $outlang, $currencycode);
 
 		$numberwords = preg_replace('/(\s+cfa)(\sBEAC|\sBCEAO|s)/i', '\1', $numberwords);   // Replace 'Francs cfas' with 'Francs cfa'
 	} elseif ($isamount && ! empty($conf->global->NUMBERWORDS_USE_CURRENCY_SYMBOL)) {
@@ -189,14 +211,14 @@ function numberwords_getLabelFromNumber($outlangs, $number, $isamount = '')
 		if (in_array($currencycode, $listofcurrenciesbefore) || in_array($outlangs->defaultlang, $listoflanguagesbefore)) {
 			$cursymbolbefore.=$outlangs->getCurrencySymbol($currencycode);
 		} else {
-			$tmpcur=$outlangs->getCurrencySymbol($currencycode);
-			$cursymbolafter.=($tmpcur == $currencycode ? ' '.$tmpcur : $tmpcur);
+			$tmpcur = $outlangs->getCurrencySymbol($currencycode);
+			$cursymbolafter .= ($tmpcur == $currencycode ? ' '.$tmpcur : $tmpcur);
 		}
 		if ($cursymbolbefore && (! empty($conf->global->NUMBERWORDS_USE_ADD_SHORTCODE_WITH_SYMBOL) || ! empty($conf->global->MAIN_CURRENCY_ADD_SHORTCODE_WITH_SYMBOL))) {
-			$cursymbolbefore=substr($currencycode, 0, 2).$cursymbolbefore;
+			$cursymbolbefore = substr($currencycode, 0, 2).$cursymbolbefore;
 		}
 		if ($cursymbolafter && (! empty($conf->global->NUMBERWORDS_USE_ADD_SHORTCODE_WITH_SYMBOL) || ! empty($conf->global->MAIN_CURRENCY_ADD_SHORTCODE_WITH_SYMBOL))) {
-			$cursymbolafter=substr($currencycode, 0, 2).$cursymbolafter;
+			$cursymbolafter = substr($currencycode, 0, 2).$cursymbolafter;
 		}
 		if (in_array($currencycode, $listofcurrenciesbefore) || in_array($outlangs->defaultlang, $listoflanguagesbefore)) {
 			$numberwords = $handle->toCurrency($number, $outlang);
@@ -212,9 +234,12 @@ function numberwords_getLabelFromNumber($outlangs, $number, $isamount = '')
 		}
 		//$numberwords=$cursymbolbefore.($cursymbolbefore?' ':'').$texttouse.($cursymbolafter?' ':'').$cursymbolafter;
 	} else {
-		$numberwords=$handle->toWords($number, $outlang);
+		$numberwords = $handle->toWords($number, $outlang);
 	}
 
-	if (empty($handle->error)) return $numberwords;
-	else return $handle->error;
+	if (empty($handle->error)) {
+		return $numberwords;
+	} else {
+		return $handle->error;
+	}
 }

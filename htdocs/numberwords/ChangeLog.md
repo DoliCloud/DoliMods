@@ -3,6 +3,7 @@
 ## 5.0.3
 
 NEW Better support for Greek
+NEW Can force text in uppercase
 
 
 ## 5.0.2

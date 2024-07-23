@@ -1,5 +1,5 @@
 <?php
-/* Copyright (C) 2008 Laurent Destailleur  <eldy@users.sourceforge.net>
+/* Copyright (C) 2008-2024 Laurent Destailleur  <eldy@users.sourceforge.net>
  *
  * Licensed under the GNU GPL v3 or higher (See file gpl-3.0.html)
  */
@@ -12,16 +12,16 @@
 /**
  *       \file       htdocs/numberworkds/core/modules/modNumberWords.class.php
  *       \ingroup    numberwords
- *       \brief      Fichier de description et activation du module agenda
+ *       \brief      File to describe and activate the module NumberWord
  */
 include_once DOL_DOCUMENT_ROOT ."/core/modules/DolibarrModules.class.php";
+
 
 /**
  *	Class to describe and activate module NumberWords
  */
 class modNumberWords extends DolibarrModules
 {
-
 	/**
 	 *   Constructor. Define names, constants, directories, boxes, permissions
 	 *
