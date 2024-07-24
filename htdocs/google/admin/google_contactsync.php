@@ -972,10 +972,11 @@ if (!getDolGlobalString('GOOGLE_CONTACT_LOGIN') ||  !getDolGlobalString('OAUTH_G
 		$token_database = $tokenobj->getAccessToken();
 		$token = $_SESSION['google_web_token_'.$conf->entity]['access_token'] ?? $token_database;
 		$token_entity = $conf->entity;
-		print 'Saved token: '.showValueWithClipboardCPButton($token_database, 0, dol_trunc($token_database, 40)).'<br>'."\n";
+		print 'Saved token in database: '.showValueWithClipboardCPButton($token_database, 0, dol_trunc($token_database, 40)).'<br>'."\n";
+		print '<textarea class="quatrevingtpercent small" rows="'.ROWS_5.'">'.var_export($tokenobj, true).'</textarea><br>'."\n";
 		print $langs->trans("DateCreation").'='.dol_print_date($token_date_last_update, 'dayhour').' - '.$langs->trans("Entity").'='.(int)$token_entity;
 		print ' - '.$langs->trans("DateExpiration").'='.dol_print_date($token_date_expire, 'dayhour').' - '.$langs->trans("Entity").'='.$token_entity;
-		print '<br>';
+		print '<br><br>';
 		print 'Current token in session';
 		if (!empty($_SESSION['google_web_token_'.$conf->entity]['created'])) {
 			print ' since '.dol_print_date($_SESSION['google_web_token_'.$conf->entity]['created'], 'dayhour');
