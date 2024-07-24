@@ -475,7 +475,7 @@ print "</tr>";
 // Google TZ fix Dolibarr -> Google
 print '<tr class="oddeven">';
 print '<td>'.$langs->trans("GOOGLE_FIX_TZ")."</td>";
-print "<td>";
+print '<td class="nowraponall">';
 print '<input class="flat" type="text" size="4" name="GOOGLE_CAL_TZ_FIX" value="'.getDolGlobalString('GOOGLE_CAL_TZ_FIX').'">';
 print ' '.$form->textwithpicto('', $langs->trans("FillThisOnlyIfRequired"));
 print "</td>";
@@ -483,7 +483,7 @@ print "</tr>";
 // Google TZ fix Google -> Dolibarr
 print '<tr class="oddeven">';
 print '<td>'.$langs->trans("GOOGLE_FIX_TZ_G2D")."</td>";
-print "<td>";
+print '<td class="nowraponall">';
 print '<input class="flat" type="text" size="4" name="GOOGLE_CAL_TZ_FIX_G2D" value="'.getDolGlobalString('GOOGLE_CAL_TZ_FIX_G2D').'">';
 print ' '.$form->textwithpicto('', $langs->trans("FillThisOnlyIfRequired"));
 print "</td>";
@@ -509,9 +509,9 @@ print '</table>';
 print '<br>';
 
 
-print "<table class=\"noborder\" width=\"100%\">";
+print '<table class="noborder centpercent">'."\n";
 
-print "<tr class=\"liste_titre\">";
+print '<tr class="liste_titre">';
 print '<td class="nowrap">'.$langs->trans("Parameter").' ('.$langs->trans("ParametersForGoogleAPIv3Usage", "Calendar").')'."</td>";
 print "<td>".$langs->trans("Value")."</td>";
 print "<td>".$langs->trans("Note")."</td>";
