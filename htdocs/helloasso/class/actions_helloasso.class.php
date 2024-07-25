@@ -498,7 +498,7 @@ class ActionsHelloAsso extends CommonHookActions
 		}
 
 		if (in_array($parameters['context'],array('newpayment')) && empty($parameters['paymentmethod'])) {
-			$amount = price2num(getDataFromObjects($source, $ref));
+			$amount = price2num(helloassoGetDataFromObjects($source, $ref));
 			if (!GETPOST("currency", 'alpha')) {
 				$currency = $conf->currency;
 			} else {
@@ -557,7 +557,7 @@ class ActionsHelloAsso extends CommonHookActions
 			}
 			$urlback .= 'action=returnDoPaymentHelloAsso';
 
-			$result = doConnectionHelloasso();
+			$result = helloassoDoConnection();
 
 			if ($result <= 0) {
 				$errors[] = $langs->trans("ErrorFailedToGetTokenFromClientIdAndSecret");
@@ -568,7 +568,7 @@ class ActionsHelloAsso extends CommonHookActions
 
 			if (!$error) {
 				$payerarray = array();
-				getDataFromObjects($source, $ref, 'payer', $payerarray);
+				helloassoGetDataFromObjects($source, $ref, 'payer', $payerarray);
 				$fulltag = $FULLTAG;
 				$FinalPaymentAmt = $_SESSION["FinalPaymentAmt"];
 				$amounttotest = $amount;

@@ -229,7 +229,7 @@ if ($action == 'updateMask') {
 		dolibarr_del_const($db, $constforval, $conf->entity);
 	}
 } elseif ($action == 'testconnect') {
-	$res = doConnectionHelloasso();
+	$res = helloassoDoConnection();
 	if ($res <= 0) {
 		setEventMessages("", $langs->trans("ErrorBadClientIdOrSecret"), 'errors');
 	} else {
