@@ -67,7 +67,7 @@ class modNumberWords extends DolibarrModules
 		$this->depends = array();		// List of modules id that must be enabled if this module is enabled
 		$this->requiredby = array();	// List of modules id to disable if this one is disabled
 		$this->phpmin = array(7,0);					// Minimum version of PHP required by module
-		$this->need_dolibarr_version = array(4,0,-3);	// Minimum version of Dolibarr required by module
+		$this->need_dolibarr_version = array(17, 0, -4);	// Minimum version of Dolibarr required by module
 		$this->langfiles = array('numberwords@numberwords');
 
 		$this->module_parts = array('substitutions' => 1);

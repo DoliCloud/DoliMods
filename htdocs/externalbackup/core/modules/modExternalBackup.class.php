@@ -67,7 +67,7 @@ class modExternalBackup extends DolibarrModules
 
 		// Dependances
 		$this->depends = array();
-		$this->need_dolibarr_version = array(3,9,-4);   // Minimum version of Dolibarr required by module
+		$this->need_dolibarr_version = array(17, 0, -4);   // Minimum version of Dolibarr required by module
 		$this->langfiles = array('externalbackup@externalbackup');
 
 		// Config pages

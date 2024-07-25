@@ -127,7 +127,7 @@ class modAlumni extends DolibarrModules
 		$this->langfiles = array("alumni@alumni");
 		// Prerequisites
 		$this->phpmin = array(7, 0); // Minimum version of PHP required by module
-		$this->need_dolibarr_version = array(11, -3); // Minimum version of Dolibarr required by module
+		$this->need_dolibarr_version = array(17, 0, -4); // Minimum version of Dolibarr required by module
 		$this->need_javascript_ajax = 0;
 		// Messages at activation
 		$this->warnings_activation = array(); // Warning to show when we activate module. array('always'='text') or array('FR'='textfr','MX'='textmx'...)

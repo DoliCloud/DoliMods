@@ -116,7 +116,7 @@ class modSaftPt extends DolibarrModules
         // Minimum version of PHP required by module
         $this->phpmin = array(5, 3);
         // Minimum version of Dolibarr required by module
-        $this->need_dolibarr_version = array(3, 2);
+        $this->need_dolibarr_version = array(17, 0, -4);
         $this->langfiles = array("saftpt@saftpt"); // langfiles@saftpt
         // Constants
         // List of particular constants to add when module is enabled
