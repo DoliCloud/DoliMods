@@ -108,8 +108,9 @@ function getTokenFromServiceAccount($service_account_name, $key_file_location, $
 
 	$applicationname = "Dolibarr";
 
-	dol_syslog("getTokenFromServiceAccount Create a new Google_Client: client = new Google_Client()", LOG_DEBUG);
+	dol_syslog("getTokenFromServiceAccount Create a new Google_Client: client = new Google_Client() to use with mode ".$mode, LOG_DEBUG);
 	$client = new Google_Client();
+
 	dol_syslog("getTokenFromServiceAccount client = new setApplicationName(".$applicationname.")", LOG_DEBUG);
 	$client->setApplicationName($applicationname);	// Set prefix of User Agent. User agent is set by PHP API in method Client->execute() of PHP Google Lib.
 	//$client->setClassConfig('Google_Cache_File', 'directory', $conf->google->dir_temp);		// Force dir if cache used is Google_Cache_File
@@ -179,6 +180,7 @@ function getTokenFromServiceAccount($service_account_name, $key_file_location, $
 			}
 		}
 	}
+
 	if ($mode == 'service') {    // used to sync events-calendar
 		if (empty($service_account_name)) return 'ErrorModuleGoogleNoServiceAccountName';
 		if (empty($key_file_location) || ! file_exists($key_file_location)) return 'ErrorModuleGoogleKeyFileNotFound';
@@ -207,11 +209,31 @@ function getTokenFromServiceAccount($service_account_name, $key_file_location, $
 		try {
 			dol_syslog("getTokenFromServiceAccount client->setAuthConfig(".$key_file_location.")", LOG_DEBUG);
 			$client->setAuthConfig($key_file_location);
+
 			dol_syslog("getTokenFromServiceAccount client->setAccessType('offline')", LOG_DEBUG);
 			$client->setAccessType('offline');
+
+			// Google_Service_Calendar::CALENDAR_EVENTS = 'https://www.googleapis.com/auth/calendar.events'
+			// ??? = 'https://www.googleapis.com/auth/calendar'
 			$scopes = array('https://www.googleapis.com/auth/calendar','https://www.googleapis.com/auth/calendar.events');
+			//$scopes = array('https://www.googleapis.com/auth/calendar.events');
 			dol_syslog("getTokenFromServiceAccount client->setScopes(array(".join(',', $scopes)."))", LOG_DEBUG);
 			$client->setScopes($scopes);
+
+			// Test from simple samples that does not use token but use directly the API
+			/*
+			$service = new Google_Service_Calendar($client);
+			// ID de l'agenda à lire
+			$calendarId = 'testldrdev@gmail.com'; // Remplacez par l'ID de votre agenda si nécessaire
+			// Options pour la requête
+			$options = array(
+				'maxResults' => 10,
+				'orderBy' => 'startTime',
+				'singleEvents' => true,
+				'timeMin' => date('c')
+			);
+			$events = $service->events->listEvents($calendarId, $options);
+			*/
 		} catch (Exception $e) {
 			dol_syslog("getTokenFromServiceAccount Error ".$e->getMessage(), LOG_ERR);
 			return $e->getMessage();
@@ -219,7 +241,7 @@ function getTokenFromServiceAccount($service_account_name, $key_file_location, $
 
 		try {
 			// API v2
-			$checktoken=$client->isAccessTokenExpired();
+			$checktoken = $client->isAccessTokenExpired();
 			if ($checktoken) {
 				dol_syslog("getTokenFromServiceAccount client->isAccessTokenExpired() return a token ".$checktoken.", so token is expired. We try to refresh it with client->fetchAccessTokenWithAssertion()", LOG_DEBUG);
 				$result = $client->fetchAccessTokenWithAssertion();

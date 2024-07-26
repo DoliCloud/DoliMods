@@ -110,7 +110,7 @@ class InterfaceGoogleCalendarSynchro extends DolibarrTriggers
 
 		if (!$conf->google->enabled) return 0; // Module non actif
 
-		if (empty($conf->global->GOOGLE_INCLUDE_AUTO_EVENT) && isset($object->type_code) && $object->type_code == 'AC_OTH_AUTO') {
+		if (!getDolGlobalString('GOOGLE_INCLUDE_AUTO_EVENT') && isset($object->type_code) && $object->type_code == 'AC_OTH_AUTO') {
 			return 0;
 		}
 
@@ -118,9 +118,9 @@ class InterfaceGoogleCalendarSynchro extends DolibarrTriggers
 		if ($action == 'ACTION_CREATE' || $action == 'ACTION_MODIFY' || $action == 'ACTION_DELETE') {
 			dol_syslog("Trigger '" . $this->name . "' for action '$action' launched by " . __FILE__ . ". id=" . $object->id);
 
-			$userlogin = empty($conf->global->GOOGLE_LOGIN)?'':$conf->global->GOOGLE_LOGIN;
+			$userlogin = getDolGlobalString('GOOGLE_LOGIN');
 			if (empty($userlogin)) {	// We use setup of user
-				if (empty($conf->global->GOOGLE_SYNC_EVENT_TO_SALE_REPRESENTATIVE)) {
+				if (!getDolGlobalString('GOOGLE_SYNC_EVENT_TO_SALE_REPRESENTATIVE')) {
 					// L'utilisateur concerné est l'utilisateur propriétaire de l'évènement (proprio dans Dolibarr)
 					if (! empty($object->userownerid)) {
 						$fuser = new User($this->db);
@@ -171,11 +171,11 @@ class InterfaceGoogleCalendarSynchro extends DolibarrTriggers
 			$force_do_not_use_session=(in_array(GETPOST('action'), array('testall','testcreate'))?true:false);	// false by default
 
 			$user_to_impersonate = false;
-			if (! empty($conf->global->GOOGLE_INCLUDE_ATTENDEES)) {
+			if (getDolGlobalString('GOOGLE_INCLUDE_ATTENDEES')) {
 				$user_to_impersonate = $userlogin;
 			}
 
-			$servicearray=getTokenFromServiceAccount($conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL, $key_file_location, $force_do_not_use_session, 'service', $user_to_impersonate);
+			$servicearray=getTokenFromServiceAccount(getDolGlobalString('GOOGLE_API_SERVICEACCOUNT_EMAIL'), $key_file_location, $force_do_not_use_session, 'service', $user_to_impersonate);
 
 			if (! is_array($servicearray) || $servicearray == null) {
 				$this->error = "Failed to login to Google with credentials provided into setup page " . getDolGlobalString('GOOGLE_API_SERVICEACCOUNT_EMAIL').", ".$key_file_location;

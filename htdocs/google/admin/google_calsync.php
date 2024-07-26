@@ -65,12 +65,13 @@ $langs->load("google@google");
 $langs->load("admin");
 $langs->load("other");
 
-$def = array();
 $action=GETPOST("action");
 
 
-if (empty($conf->global->GOOGLE_AGENDA_NB)) $conf->global->GOOGLE_AGENDA_NB=5;
-$MAXAGENDA=empty($conf->global->GOOGLE_AGENDA_NB)?5:$conf->global->GOOGLE_AGENDA_NB;
+if (!getDolGlobalString('GOOGLE_AGENDA_NB')) {
+	$conf->global->GOOGLE_AGENDA_NB=5;
+}
+$MAXAGENDA = getDolGlobalInt('GOOGLE_AGENDA_NB', 5);
 
 // List of Google colors (A lot of colors are ignored by Google)
 $colorlist=array('7A367A','B1365F','5229A3','7A367A','29527A','2952A3','1B887A','28754E','0D7813','528800','88880E','AB8B00',
@@ -177,7 +178,7 @@ if (preg_match('/^test/', $action)) {
 		$object->thirdparty=$tmpsoc;
 	}
 
-	if (! empty($conf->global->GOOGLE_INCLUDE_ATTENDEES)) {
+	if (getDolGlobalString('GOOGLE_INCLUDE_ATTENDEES')) {
 		$idofotheruser = 0;
 		//$idofotheruser = 18;		// Add id of another user here to allow test with attendees
 		if ($idofotheruser > 0 && $idofotheruser != $user->id) {
@@ -396,7 +397,6 @@ if ($action == 'syncfromgoogle') {
 
 
 
-
 /*
  * View
  */
@@ -527,14 +527,18 @@ print $langs->trans("AllowGoogleToLoginWithServiceAccount", "https://console.dev
 print '</td>';
 print '</tr>';
 
+// Google file (JSON or P12). JSON is now recommended.
 print '<tr class="oddeven">';
 print '<td class="fieldrequired">'.$langs->trans("GOOGLE_API_SERVICEACCOUNT_P12KEY")."</td>";
 print '<td>';
-if (! empty($conf->global->GOOGLE_API_SERVICEACCOUNT_P12KEY)) {
+if (getDolGlobalString('GOOGLE_API_SERVICEACCOUNT_P12KEY')) {
 	print getDolGlobalString('GOOGLE_API_SERVICEACCOUNT_P12KEY');
-	if (!dol_is_file($conf->google->multidir_output[$conf->entity]."/" . getDolGlobalString('GOOGLE_API_SERVICEACCOUNT_P12KEY'))) {
+	$pathtojsonfile = $conf->google->multidir_output[$conf->entity]."/" . getDolGlobalString('GOOGLE_API_SERVICEACCOUNT_P12KEY');
+	if (!dol_is_file($pathtojsonfile)) {
 		$langs->load("errors");
 		print ' '.img_warning($langs->trans("ErrorFileNotFound", $conf->google->multidir_output[$conf->entity]."/" . getDolGlobalString('GOOGLE_API_SERVICEACCOUNT_P12KEY')));
+	} else {
+		print '<span class="opacitymedium small"> - '.dol_print_date(dol_filemtime($pathtojsonfile), 'dayhour', 'tzserver').' (server TZ)</span>';
 	}
 	print '<br>';
 }
