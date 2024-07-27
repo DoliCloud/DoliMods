@@ -182,12 +182,12 @@ if (preg_match('/^test/', $action)) {
 		$object->code_fournisseur=-1;*/
 
 		// Force a numbering rule with no check
-		$savoption=$conf->global->SOCIETE_CODECLIENT_ADDON;
-		$conf->global->SOCIETE_CODECLIENT_ADDON='mod_codeclient_leopard';
+		$savoption = getDolGlobalString('SOCIETE_CODECLIENT_ADDON');
+		$conf->global->SOCIETE_CODECLIENT_ADDON = 'mod_codeclient_leopard';
 
 		$result=$object->create($user);
 
-		$conf->global->SOCIETE_CODECLIENT_ADDON=$savoption;
+		$conf->global->SOCIETE_CODECLIENT_ADDON = $savoption;
 	}
 	if ($action == 'testcreatecontacts' || $action == 'testallcontacts') {
 		/** var Contact $object */
@@ -241,8 +241,8 @@ if (preg_match('/^test/', $action)) {
 			$object->town='New town';
 
 			// Force a numbering rule with no check
-			$savoption=$conf->global->SOCIETE_CODECLIENT_ADDON;
-			$conf->global->SOCIETE_CODECLIENT_ADDON='mod_codeclient_leopard';
+			$savoption = getDolGlobalString('SOCIETE_CODECLIENT_ADDON');
+			$conf->global->SOCIETE_CODECLIENT_ADDON = 'mod_codeclient_leopard';
 
 			$result=$object->update($object->id, $user);
 
@@ -320,8 +320,8 @@ if ($action == 'pushallthirdparties') {
 	} else {
 		$objectstatic=new Societe($db);
 
-		$googleuser = empty($conf->global->GOOGLE_CONTACT_LOGIN)?'':$conf->global->GOOGLE_CONTACT_LOGIN;
-		$googlepwd  = empty($conf->global->GOOGLE_CONTACT_PASSWORD)?'':$conf->global->GOOGLE_CONTACT_PASSWORD;
+		$googleuser = getDolGlobalString('GOOGLE_CONTACT_LOGIN');
+		$googlepwd  = getDolGlobalString('GOOGLE_CONTACT_PASSWORD');
 
 		// Create client object
 		//$service= 'cp';		// cl = calendar, cp=contact, ... Search on AUTH_SERVICE_NAME into Zend API for full list
@@ -329,9 +329,9 @@ if ($action == 'pushallthirdparties') {
 		//var_dump($client); exit;
 
 		// Create client/token object
-		$key_file_location = $conf->google->multidir_output[$conf->entity]."/".(!empty($conf->global->GOOGLE_API_SERVICEACCOUNT_P12KEY)?$conf->global->GOOGLE_API_SERVICEACCOUNT_P12KEY:"");
+		$key_file_location = $conf->google->multidir_output[$conf->entity]."/".getDolGlobalString('GOOGLE_API_SERVICEACCOUNT_P12KEY');
 		$force_do_not_use_session=false; // by default
-		$servicearray=getTokenFromServiceAccount(!empty($conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL)?$conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL:"", $key_file_location, $force_do_not_use_session, 'web');
+		$servicearray=getTokenFromServiceAccount(getDolGlobalString('GOOGLE_API_SERVICEACCOUNT_EMAIL'), $key_file_location, $force_do_not_use_session, 'web');
 
 		if (! is_array($servicearray) || $servicearray == null) {
 			$txterror="Failed to login to Google with current token";
@@ -368,13 +368,15 @@ if ($action == 'pushallthirdparties') {
 				exit;
 			}
 
-			// Sync from $conf->global->GOOGLE_SYNC_FROM_POSITION to $conf->global->GOOGLE_SYNC_TO_POSITION (1 to n)
-			$synclimit = GETPOST('syncto', 'int')?GETPOST('syncto', 'int'):(empty($conf->global->GOOGLE_SYNC_TO_POSITION)?0:$conf->global->GOOGLE_SYNC_TO_POSITION);		// 0 = all
+			// Sync from getDolGlobalString('GOOGLE_SYNC_FROM_POSITION') to getDolGlobalString('GOOGLE_SYNC_TO_POSITION') (1 to n)
+			$synclimit = GETPOST('syncto', 'int') ? GETPOST('syncto', 'int') : getDolGlobalInt('GOOGLE_SYNC_TO_POSITION');		// 0 = all
 			$i=0;
 			$gContacts = array();
 			while (($obj = $db->fetch_object($resql)) && ($i < $synclimit || empty($synclimit))) {
-				if (! empty($conf->global->GOOGLE_SYNC_FROM_POSITION) || GETPOST('syncfrom', 'int')) {
-					if (($i + 1) < (GETPOST('syncfrom', 'int')?GETPOST('syncfrom', 'int'):$conf->global->GOOGLE_SYNC_FROM_POSITION)) continue;
+				if (getDolGlobalString('GOOGLE_SYNC_FROM_POSITION') || GETPOST('syncfrom', 'int')) {
+					if (($i + 1) < (GETPOST('syncfrom', 'int') ? GETPOST('syncfrom', 'int') : getDolGlobalInt('GOOGLE_SYNC_FROM_POSITION'))) {
+						continue;
+					}
 				}
 
 				try {
@@ -416,13 +418,13 @@ if ($action == 'pushallthirdparties') {
 
 if ($action == 'pushallcontacts') {
 	if ((GETPOST('fromidcontacts') && !GETPOST('toidcontacts') || !GETPOST('fromidcontacts') && GETPOST('toidcontacts'))) {
-		$txterror="ID range incomplete";
+		$txterror = "ID range incomplete";
 		setEventMessage($txterror, 'errors');
 	} else {
 		$objectstatic=new Contact($db);
 
-		$googleuser = empty($conf->global->GOOGLE_CONTACT_LOGIN)?'':$conf->global->GOOGLE_CONTACT_LOGIN;
-		$googlepwd  = empty($conf->global->GOOGLE_CONTACT_PASSWORD)?'':$conf->global->GOOGLE_CONTACT_PASSWORD;
+		$googleuser = getDolGlobalString('GOOGLE_CONTACT_LOGIN');
+		$googlepwd  = getDolGlobalString('GOOGLE_CONTACT_PASSWORD');
 
 		// Create client object
 		//$service= 'cp';		// cl = calendar, cp=contact, ... Search on AUTH_SERVICE_NAME into Zend API for full list
@@ -432,12 +434,12 @@ if ($action == 'pushallcontacts') {
 		// Create client/token object
 		$key_file_location = $conf->google->multidir_output[$conf->entity]."/" . getDolGlobalString('GOOGLE_API_SERVICEACCOUNT_P12KEY');
 		$force_do_not_use_session=false; // by default
-		$servicearray=getTokenFromServiceAccount($conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL, $key_file_location, $force_do_not_use_session, 'web');
+		$servicearray=getTokenFromServiceAccount(getDolGlobalString('GOOGLE_API_SERVICEACCOUNT_EMAIL'), $key_file_location, $force_do_not_use_session, 'web');
 
 		if (! is_array($servicearray) || $servicearray == null) {
-			$txterror="Failed to login to Google with current token";
+			$txterror = "Failed to login to Google with current token";
 			dol_syslog($txterror, LOG_ERR);
-			$errors[]=$txterror;
+			$errors[] = $txterror;
 			return -1;
 		} else {
 			$client = $servicearray;
@@ -521,8 +523,8 @@ if ($action == 'pushallmembers') {
 	} else {
 		$objectstatic=new Adherent($db);
 
-		$googleuser = empty($conf->global->GOOGLE_CONTACT_LOGIN)?'':$conf->global->GOOGLE_CONTACT_LOGIN;
-		$googlepwd  = empty($conf->global->GOOGLE_CONTACT_PASSWORD)?'':$conf->global->GOOGLE_CONTACT_PASSWORD;
+		$googleuser = getDolGlobalString('GOOGLE_CONTACT_LOGIN');
+		$googlepwd  = getDolGlobalString('GOOGLE_CONTACT_PASSWORD');
 
 		// Create client object
 		//$service= 'cp';		// cl = calendar, cp=contact, ... Search on AUTH_SERVICE_NAME into Zend API for full list
@@ -532,7 +534,7 @@ if ($action == 'pushallmembers') {
 		// Create client/token object
 		$key_file_location = $conf->google->multidir_output[$conf->entity]."/" . getDolGlobalString('GOOGLE_API_SERVICEACCOUNT_P12KEY');
 		$force_do_not_use_session=false; // by default
-		$servicearray=getTokenFromServiceAccount($conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL, $key_file_location, $force_do_not_use_session, 'web');
+		$servicearray=getTokenFromServiceAccount(getDolGlobalString('GOOGLE_API_SERVICEACCOUNT_EMAIL'), $key_file_location, $force_do_not_use_session, 'web');
 
 		if (! is_array($servicearray) || $servicearray == null) {
 			$txterror="Failed to login to Google with current token";
@@ -566,12 +568,12 @@ if ($action == 'pushallmembers') {
 				exit;
 			}
 
-			$synclimit = GETPOST('syncto', 'int')?GETPOST('syncto', 'int'):(empty($conf->global->GOOGLE_SYNC_TO_POSITION)?0:$conf->global->GOOGLE_SYNC_TO_POSITION);		// 0 = all
+			$synclimit = GETPOST('syncto', 'int') ? GETPOST('syncto', 'int') : getDolGlobalInt('GOOGLE_SYNC_TO_POSITION');		// 0 = all
 			$i=0;
 			$gContacts = array();
 			while (($obj = $db->fetch_object($resql)) && ($i < $synclimit || empty($synclimit))) {
-				if (! empty($conf->global->GOOGLE_SYNC_FROM_POSITION) || GETPOST('syncfrom', 'int')) {
-					if (($i + 1) < (GETPOST('syncfrom', 'int')?GETPOST('syncfrom', 'int'):$conf->global->GOOGLE_SYNC_FROM_POSITION)) continue;
+				if (getDolGlobalString('GOOGLE_SYNC_FROM_POSITION') || GETPOST('syncfrom', 'int')) {
+					if (($i + 1) < (GETPOST('syncfrom', 'int') ? GETPOST('syncfrom', 'int') : getDolGlobalInt('GOOGLE_SYNC_FROM_POSITION'))) continue;
 				}
 
 				$gContacts[] = new GContact($obj->rowid, 'member', $gdata);
@@ -604,8 +606,8 @@ if ($action == 'pushallmembers') {
 }
 
 if ($action == 'deleteallthirdparties') {
-	$googleuser = empty($conf->global->GOOGLE_CONTACT_LOGIN)?'':$conf->global->GOOGLE_CONTACT_LOGIN;
-	$googlepwd  = empty($conf->global->GOOGLE_CONTACT_PASSWORD)?'':$conf->global->GOOGLE_CONTACT_PASSWORD;
+	$googleuser = getDolGlobalString('GOOGLE_CONTACT_LOGIN');
+	$googlepwd  = getDolGlobalString('GOOGLE_CONTACT_PASSWORD');
 
 	// Create client object
 	//$service= 'cp';		// cl = calendar, cp=contact, ... Search on AUTH_SERVICE_NAME into Zend API for full list
@@ -613,9 +615,9 @@ if ($action == 'deleteallthirdparties') {
 	//var_dump($client); exit;
 
 	// Create client/token object
-	$key_file_location = $conf->google->multidir_output[$conf->entity]."/".(!empty($conf->global->GOOGLE_API_SERVICEACCOUNT_P12KEY)?$conf->global->GOOGLE_API_SERVICEACCOUNT_P12KEY:"");
+	$key_file_location = $conf->google->multidir_output[$conf->entity]."/".getDolGlobalString('GOOGLE_API_SERVICEACCOUNT_P12KEY');
 	$force_do_not_use_session=false; // by default
-	$servicearray=getTokenFromServiceAccount(!empty($conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL)?$conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL:"", $key_file_location, $force_do_not_use_session, 'web');
+	$servicearray=getTokenFromServiceAccount(getDolGlobalString('GOOGLE_API_SERVICEACCOUNT_EMAIL'), $key_file_location, $force_do_not_use_session, 'web');
 
 	if (! is_array($servicearray) || $servicearray == null) {
 		$txterror="Failed to login to Google with current token";
@@ -644,8 +646,8 @@ if ($action == 'deleteallthirdparties') {
 }
 
 if ($action == 'deleteallcontacts') {
-	$googleuser = empty($conf->global->GOOGLE_CONTACT_LOGIN)?'':$conf->global->GOOGLE_CONTACT_LOGIN;
-	$googlepwd  = empty($conf->global->GOOGLE_CONTACT_PASSWORD)?'':$conf->global->GOOGLE_CONTACT_PASSWORD;
+	$googleuser = getDolGlobalString('GOOGLE_CONTACT_LOGIN');
+	$googlepwd  = getDolGlobalString('GOOGLE_CONTACT_PASSWORD');
 
 	// Create client object
 	//$service= 'cp';		// cl = calendar, cp=contact, ... Search on AUTH_SERVICE_NAME into Zend API for full list
@@ -655,7 +657,7 @@ if ($action == 'deleteallcontacts') {
 	// Create client/token object
 	$key_file_location = $conf->google->multidir_output[$conf->entity]."/" . getDolGlobalString('GOOGLE_API_SERVICEACCOUNT_P12KEY');
 	$force_do_not_use_session=false; // by default
-	$servicearray=getTokenFromServiceAccount($conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL, $key_file_location, $force_do_not_use_session, 'web');
+	$servicearray=getTokenFromServiceAccount(getDolGlobalString('GOOGLE_API_SERVICEACCOUNT_EMAIL'), $key_file_location, $force_do_not_use_session, 'web');
 
 	if (! is_array($servicearray) || $servicearray == null) {
 		$txterror="Failed to login to Google with current token";
@@ -684,8 +686,8 @@ if ($action == 'deleteallcontacts') {
 }
 
 if ($action == 'deleteallmembers') {
-	$googleuser = empty($conf->global->GOOGLE_CONTACT_LOGIN)?'':$conf->global->GOOGLE_CONTACT_LOGIN;
-	$googlepwd  = empty($conf->global->GOOGLE_CONTACT_PASSWORD)?'':$conf->global->GOOGLE_CONTACT_PASSWORD;
+	$googleuser = getDolGlobalString('GOOGLE_CONTACT_LOGIN');
+	$googlepwd  = getDolGlobalString('GOOGLE_CONTACT_PASSWORD');
 
 	// Create client object
 	//$service= 'cp';		// cl = calendar, cp=contact, ... Search on AUTH_SERVICE_NAME into Zend API for full list
@@ -695,7 +697,7 @@ if ($action == 'deleteallmembers') {
 	// Create client/token object
 	$key_file_location = $conf->google->multidir_output[$conf->entity]."/" . getDolGlobalString('GOOGLE_API_SERVICEACCOUNT_P12KEY');
 	$force_do_not_use_session=false; // by default
-	$servicearray=getTokenFromServiceAccount($conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL, $key_file_location, $force_do_not_use_session, 'web');
+	$servicearray=getTokenFromServiceAccount(getDolGlobalString('GOOGLE_API_SERVICEACCOUNT_EMAIL'), $key_file_location, $force_do_not_use_session, 'web');
 
 	if (! is_array($servicearray) || $servicearray == null) {
 		$txterror="Failed to login to Google with current token";
@@ -799,7 +801,7 @@ if (isModEnabled('societe')) {
 		//'prospectsonly'=>$langs->trans("ProspectsOnly"),
 		'0'=>$langs->trans("No")
 	);
-	print $form->selectarray('GOOGLE_DUPLICATE_INTO_THIRDPARTIES', $arraytmp, $conf->global->GOOGLE_DUPLICATE_INTO_THIRDPARTIES);
+	print $form->selectarray('GOOGLE_DUPLICATE_INTO_THIRDPARTIES', $arraytmp, getDolGlobalString('GOOGLE_DUPLICATE_INTO_THIRDPARTIES'));
 	print '<br>';
 }
 if (isModEnabled('societe')) {
@@ -888,29 +890,6 @@ print $langs->trans("Example").": yourlogin@gmail.com, email@mydomain.com<br>";
 print '</td>';
 print "</tr>";
 
-/*
-print '<tr class="oddeven">';
-print '<td class="fieldrequired">'.$langs->trans("GOOGLE_API_SERVICEACCOUNT_EMAIL")."</td>";
-print '<td>';
-print '<input class="flat" type="text" size="90" name="GOOGLE_API_SERVICEACCOUNT_EMAIL" value="'.$conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL.'">';
-print '</td>';
-print '<td>';
-print $langs->trans("AllowGoogleToLoginWithServiceAccount","https://console.developers.google.com/apis/credentials","https://console.developers.google.com/apis/credentials").'<br>';
-print '</td>';
-print '</tr>';
-
-print '<tr class="oddeven">';
-print '<td class="fieldrequired">'.$langs->trans("GOOGLE_API_SERVICEACCOUNT_P12KEY")."</td>";
-print '<td>';
-if (! empty($conf->global->GOOGLE_API_SERVICEACCOUNT_P12KEY)) print $conf->global->GOOGLE_API_SERVICEACCOUNT_P12KEY.'<br>';
-print '<input type="file" name="GOOGLE_API_SERVICEACCOUNT_P12KEY_file">';
-print '</td>';
-print '<td>';
-print $langs->trans("AllowGoogleToLoginWithServiceAccountP12","https://console.developers.google.com/apis/credentials","https://console.developers.google.com/apis/credentials").'<br>';
-print '</td>';
-print '</tr>';
-*/
-
 
 /*
 		// Define $urlwithroot
@@ -953,13 +932,13 @@ if (!getDolGlobalString('GOOGLE_CONTACT_LOGIN') ||  !getDolGlobalString('OAUTH_G
 } else {
 	// https://developers.google.com/identity/protocols/OAuth2UserAgent
 	// $completeoauthurl=$oauthurl;
-	// $completeoauthurl.='?response_type=code&client_id='.urlencode($conf->global->GOOGLE_API_CLIENT_ID);
+	// $completeoauthurl.='?response_type=code&client_id='.urlencode(getDolGlobalString('GOOGLE_API_CLIENT_ID'));
 	// $completeoauthurl.='&redirect_uri='.urlencode($redirect_uri);
 	// $completeoauthurl.='&scope='.urlencode('https://www.googleapis.com/auth/contacts');
 	// $completeoauthurl.='&state=dolibarrtokenrequest-googleadmincontactsync';		// To know we are coming from this page
 	// $completeoauthurl.='&access_type=offline';
 	// $completeoauthurl.='&approval_prompt=force';
-	// $completeoauthurl.='&login_hint='.urlencode($conf->global->GOOGLE_CONTACT_LOGIN);
+	// $completeoauthurl.='&login_hint='.urlencode(getDolGlobalString('GOOGLE_CONTACT_LOGIN'));
 	// $completeoauthurl.='&include_granted_scopes=true';
 
 	$redirect_uri	.=	'?state=dolibarrtokenrequest-googleadmincontactsync';		// To know we are coming from this page
@@ -979,8 +958,14 @@ if (!getDolGlobalString('GOOGLE_CONTACT_LOGIN') ||  !getDolGlobalString('OAUTH_G
 		$token_entity = $conf->entity;
 		print 'Saved token in database:'.showValueWithClipboardCPButton($token_database, 0, dol_trunc($token_database, 40)).'<br>'."\n";
 		print '<textarea class="quatrevingtpercent small" rows="'.ROWS_5.'">'.var_export($tokenobj, true).'</textarea><br>'."\n";
-		print $langs->trans("DateCreation").'='.dol_print_date($token_date_last_update, 'dayhour').' - '.$langs->trans("Entity").'='.(int)$token_entity;
-		print ' - '.$langs->trans("DateExpiration").'='.dol_print_date($token_date_expire, 'dayhour').' - '.$langs->trans("Entity").'='.$token_entity;
+		if ($storage->date_creation) {
+			print $langs->trans("DateCreation").'='.dol_print_date($storage->date_creation, 'dayhour', 'gmt'). ' GMT';
+			print ' - ';
+		}
+		print $langs->trans("DateModification").'='.dol_print_date($token_date_last_update, 'dayhour', 'gmt'). ' GMT';
+		print ' - ';
+		print $langs->trans("DateExpiration").'='.dol_print_date($token_date_expire, 'dayhour', 'gmt').' GMT';
+		print ' - '.$langs->trans("Entity").'='.(int) $token_entity;
 		print '<br><br>';
 		print 'Current token in session';
 		if (!empty($_SESSION['google_web_token_'.$conf->entity]['created'])) {
@@ -1036,12 +1021,12 @@ print '<br><br>';
 
 // Thirdparties
 if (isModEnabled('societe')) {
-	if (!empty($conf->global->GOOGLE_DUPLICATE_INTO_THIRDPARTIES) && !empty($tokenobj) && is_object($tokenobj)) {
+	if (getDolGlobalString('GOOGLE_DUPLICATE_INTO_THIRDPARTIES') && !empty($tokenobj) && is_object($tokenobj)) {
 		print '<div class="syncthirdparties">';
 		print '<hr><br>';
 		print img_picto('', 'company', 'class="pictofixedwidth"').' '.$langs->trans("Tool").' '.$langs->trans("ThirdParties").'<br><br>';
 		print '<div class="tabsActions syncthirdparties">';
-		if (empty($conf->global->GOOGLE_CONTACT_LOGIN)) {
+		if (!getDolGlobalString('GOOGLE_CONTACT_LOGIN')) {
 			print '<div class="inline-block divButAction"><font class="butActionRefused small reposition" href="#" title="'.$langs->trans("ErrorFieldRequired", $langs->transnoentities("GoogleIDContact")).'">'.$langs->trans("TestCreateUpdateDelete")."</font></a></div>";
 
 			print '<div class="inline-block divButAction"><font class="butActionRefused small reposition" href="#" title="'.$langs->trans("ErrorFieldRequired", $langs->transnoentities("GoogleIDContact")).'">'.$langs->trans("TestCreate")."</font></a></div>";
@@ -1090,12 +1075,12 @@ if (isModEnabled('societe')) {
 
 // Contacts
 if (isModEnabled('societe')) {
-	if (! empty($conf->global->GOOGLE_DUPLICATE_INTO_CONTACTS) && is_object($tokenobj)) {
+	if (getDolGlobalString('GOOGLE_DUPLICATE_INTO_CONTACTS') && is_object($tokenobj)) {
 		print '<div class="synccontacts">';
 		print '<hr><br>';
 		print img_picto('', 'contact', 'class="pictofixedwidth"').' '.$langs->trans("Tool").' '.$langs->trans("Contacts").'<br><br>';
 		print '<div class="tabsActions synccontacts">';
-		if (empty($conf->global->GOOGLE_CONTACT_LOGIN)) {
+		if (!getDolGlobalString('GOOGLE_CONTACT_LOGIN')) {
 			print '<div class="inline-block divButAction"><font class="butActionRefused small reposition" href="#" title="'.$langs->trans("ErrorFieldRequired", $langs->transnoentities("GoogleIDContact")).'">'.$langs->trans("TestCreateUpdateDelete")."</font></a></div>";
 
 			print '<div class="inline-block divButAction"><font class="butActionRefused small reposition" href="#" title="'.$langs->trans("ErrorFieldRequired", $langs->transnoentities("GoogleIDContact")).'">'.$langs->trans("TestCreate")."</font></a></div>";
@@ -1142,12 +1127,12 @@ if (isModEnabled('societe')) {
 
 // Members
 if (isModEnabled('adherent')) {
-	if (! empty($conf->global->GOOGLE_DUPLICATE_INTO_MEMBERS) && is_object($tokenobj)) {
+	if (getDolGlobalString('GOOGLE_DUPLICATE_INTO_MEMBERS') && is_object($tokenobj)) {
 		print '<div class="syncmembers">';
 		print '<hr><br>';
 		print img_picto('', 'member', 'class="pictofixedwidth"').' '.$langs->trans("Tool").' '.$langs->trans("Members").'<br><br>';
 		print '<div class="tabsActions syncmembers">';
-		if (empty($conf->global->GOOGLE_CONTACT_LOGIN)) {
+		if (!getDolGlobalString('GOOGLE_CONTACT_LOGIN')) {
 			print '<div class="inline-block divButAction"><font class="butActionRefused small reposition" href="#" title="'.$langs->trans("ErrorFieldRequired", $langs->transnoentities("GoogleIDContact")).'">'.$langs->trans("TestCreateUpdateDelete")."</font></a></div>";
 
 			print '<div class="inline-block divButAction"><font class="butActionRefused small reposition" href="#" title="'.$langs->trans("ErrorFieldRequired", $langs->transnoentities("GoogleIDContact")).'">'.$langs->trans("TestCreate")."</font></a></div>";
