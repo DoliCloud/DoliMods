@@ -765,6 +765,7 @@ if ($conf->use_javascript_ajax) {
 	print 'jQuery(document).ready(function () {
 		function initfields()
 		{
+			console.log("initifields called");
 			if (jQuery("#GOOGLE_DUPLICATE_INTO_THIRDPARTIES").val() != "0" || jQuery("#GOOGLE_DUPLICATE_INTO_CONTACTS").val() > 0 || jQuery("#GOOGLE_DUPLICATE_INTO_MEMBERS").val() > 0) jQuery(".syncx").show();
 			else jQuery(".syncx").hide();
 
@@ -791,7 +792,7 @@ if ($conf->use_javascript_ajax) {
 }
 
 if (isModEnabled('societe')) {
-	print $langs->trans("GoogleEnableSyncToThirdparties").' ';
+	print img_picto('', 'company', 'class="pictofixedwidth"').$langs->trans("GoogleEnableSyncToThirdparties").' ';
 	$arraytmp=array(
 		'1'=>$langs->trans("Yes"),
 		'customersonly'=>$langs->trans("CustomersOnly"),
@@ -802,18 +803,22 @@ if (isModEnabled('societe')) {
 	print '<br>';
 }
 if (isModEnabled('societe')) {
-	print $langs->trans("GoogleEnableSyncToContacts").' ';
+	print img_picto('', 'contact', 'class="pictofixedwidth"').$langs->trans("GoogleEnableSyncToContacts").' ';
 	print $form->selectyesno("GOOGLE_DUPLICATE_INTO_CONTACTS", GETPOSTISSET("GOOGLE_DUPLICATE_INTO_CONTACTS") ? GETPOST('GOOGLE_DUPLICATE_INTO_CONTACTS') : getDolGlobalString('GOOGLE_DUPLICATE_INTO_CONTACTS'), 1, false, 0, 1).'<br>';
 }
 if (isModEnabled('adherent')) {
-	print $langs->trans("GoogleEnableSyncToMembers").' ';
+	print img_picto('', 'member', 'class="pictofixedwidth"').$langs->trans("GoogleEnableSyncToMembers").' ';
 	print $form->selectyesno("GOOGLE_DUPLICATE_INTO_MEMBERS", GETPOSTISSET("GOOGLE_DUPLICATE_INTO_MEMBERS") ? GETPOST("GOOGLE_DUPLICATE_INTO_MEMBERS") : getDolGlobalString('GOOGLE_DUPLICATE_INTO_MEMBERS'), 1, false, 0, 1).'<br>';
 }
 
 
 print '<div class="syncx">';
 
-print '<br><br>';
+print '<br>';
+
+print info_admin($langs->trans("EnableAPI", "https://console.developers.google.com/apis/library/", "https://console.developers.google.com/apis/library/", "Contact API, People API"));
+
+print '<br>';
 
 
 print '<div class="div-table-responsive-no-min">';
@@ -1014,19 +1019,15 @@ print '</tr>';
 print "</table>";
 print "</div>";
 
-print info_admin($langs->trans("EnableAPI", "https://console.developers.google.com/apis/library/", "https://console.developers.google.com/apis/library/", "Contact API, People API"));
-
-//print info_admin($langs->trans("ShareContactWithServiceAccount",$conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL,$langs->transnoentitiesnoconv("GoogleIDContact")));
-
 print '</div>';
 
 print '</div>';
-
-dol_fiche_end();
 
 print '<div align="center">';
 print '<input type="submit" name="save" class="button reposition" value="'.$langs->trans("Save").'">';
 print "</div>";
+
+dol_fiche_end();
 
 print "</form>\n";
 

@@ -437,8 +437,12 @@ if ($conf->use_javascript_ajax) {
 	print 'jQuery(document).ready(function () {
 		function initfields()
 		{
-			if (jQuery("#GOOGLE_DUPLICATE_INTO_GCAL").val() > 0) jQuery(".synccal").show();
-			else jQuery(".synccal").hide();
+			console.log("initfields is called");
+			if (jQuery("#GOOGLE_DUPLICATE_INTO_GCAL").val() > 0) {
+				jQuery(".synccal").show();
+			} else {
+				jQuery(".synccal").hide();
+			}
             if (jQuery("#GOOGLE_LOGIN").val() != "")
             {
                 jQuery(".showifidagendaset").show();
@@ -459,12 +463,17 @@ if ($conf->use_javascript_ajax) {
 	print '</script>'."\n";
 }
 
-print $langs->trans("GoogleEnableSyncToCalendar").' '.$form->selectyesno("GOOGLE_DUPLICATE_INTO_GCAL", GETPOSTISSET("GOOGLE_DUPLICATE_INTO_GCAL") ? GETPOST("GOOGLE_DUPLICATE_INTO_GCAL") : getDolGlobalString('GOOGLE_DUPLICATE_INTO_GCAL'), 1).'<br>';
 
-$var=false;
+print img_picto('', 'action', 'class="pictofixedwidth"').$langs->trans("GoogleEnableSyncToCalendar").' '.$form->selectyesno("GOOGLE_DUPLICATE_INTO_GCAL", GETPOSTISSET("GOOGLE_DUPLICATE_INTO_GCAL") ? GETPOST("GOOGLE_DUPLICATE_INTO_GCAL") : getDolGlobalString('GOOGLE_DUPLICATE_INTO_GCAL'), 1).'<br>';
+
 
 print '<div class="synccal">';
+
 print '<br>';
+
+print info_admin($langs->trans("EnableAPI", "https://console.developers.google.com/apis/library/", "https://console.developers.google.com/apis/library/", "Calendar API"), 0, 0, '1', 'showifidagendaset');
+
+print '<br><br>';
 
 print '<table class="noborder centpercent">';
 
@@ -497,7 +506,11 @@ print "</td>";
 print "</tr>";
 // Include attendees
 print '<tr class="oddeven">';
-print '<td>'.$langs->trans("GOOGLE_INCLUDE_ATTENDEES")."</td>";
+print '<td>'.$langs->trans("GOOGLE_INCLUDE_ATTENDEES");
+if (getDolGlobalString('GOOGLE_INCLUDE_ATTENDEES')) {
+	print img_warning($langs->trans("GOOGLE_INCLUDE_ATTENDEESWarning"), '');
+}
+print "</td>";
 print "<td>";
 print $form->selectyesno("GOOGLE_INCLUDE_ATTENDEES", getDolGlobalString('GOOGLE_INCLUDE_ATTENDEES'), 1);
 print "</td>";
@@ -561,10 +574,10 @@ print '<br>';
 print $langs->trans("GoogleSetupHelp").'<br>';
 print '<br>';
 print $langs->trans("KeepEmptyYoUseLoginPassOfEventUser").'<br>';
-if (empty($conf->global->GOOGLE_LOGIN)) {
+if (!getDolGlobalString('GOOGLE_LOGIN')) {
 	print '<br>';
 	//print '<u>'.$langs->trans("TargetUser").'</u>: ';
-	if (empty($conf->global->GOOGLE_SYNC_EVENT_TO_SALE_REPRESENTATIVE)) {
+	if (!getDolGlobalString('GOOGLE_SYNC_EVENT_TO_SALE_REPRESENTATIVE')) {
 		print $langs->trans("KeepEmptyYoUseLoginPassOfEventUserAssigned");
 	} else {
 		print $langs->trans("KeepEmptyYoUseLoginPassOfEventUserSaleRep");
@@ -575,37 +588,35 @@ print "</tr>";
 
 print "</table>";
 
-print info_admin($langs->trans("EnableAPI", "https://console.developers.google.com/apis/library/", "https://console.developers.google.com/apis/library/", "Calendar API"), 0, 0, '1', 'showifidagendaset');
-
-$htmltext = $langs->trans("ShareCalendarWithServiceAccount", $conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL, $langs->transnoentitiesnoconv("GoogleIDAgenda"));
+$htmltext = $langs->trans("ShareCalendarWithServiceAccount", getDolGlobalString('GOOGLE_API_SERVICEACCOUNT_EMAIL'), $langs->transnoentitiesnoconv("GoogleIDAgenda"));
 $htmltext .= '<br>';
 $htmltext .= $langs->trans("ShareCalendarWithServiceAccount2");
-print info_admin($htmltext, 0, 0, '1', 'showifidagendaset');
+print info_admin($htmltext, 0, 0, 'warning', 'showifidagendaset');
 
 
 print '</div>';
 
 print '</div>';
-
-dol_fiche_end();
 
 print '<div align="center">';
 print '<input type="submit" name="save" class="button" value="'.$langs->trans("Save").'">';
 print '</div>';
 
-print "</form>\n";
+dol_fiche_end();
 
-print '<br><br><br>';
+print "</form>\n";
 
 
 // Test area
 
-print '<div class="tabsActions">';
+print '<div class="tabsActions synccal">';
+
+print '<br><br><hr><br>';
 
 print '<div class="synccal showifidagendaset">';
-if (empty($conf->global->GOOGLE_DUPLICATE_INTO_GCAL) || empty($conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL) || empty($conf->global->GOOGLE_LOGIN)) {
+if (!getDolGlobalString('GOOGLE_DUPLICATE_INTO_GCAL') || !getDolGlobalString('GOOGLE_API_SERVICEACCOUNT_EMAIL') || !getDolGlobalString('GOOGLE_LOGIN')) {
 	// We do not show test buttons
-	if (!empty($conf->global->GOOGLE_DUPLICATE_INTO_GCAL)) {
+	if (getDolGlobalString('GOOGLE_DUPLICATE_INTO_GCAL')) {
 		print '<a class="butActionRefused small" href="#">'.$langs->trans("TestCreateUpdateDelete")."</a>";
 		print '<a class="butActionRefused small" href="#">'.$langs->trans("TestCreateUpdate")."</a>";
 	}
@@ -617,14 +628,15 @@ if (empty($conf->global->GOOGLE_DUPLICATE_INTO_GCAL) || empty($conf->global->GOO
 }
 print '</div>';
 
-print '</div>';
-
 print '<br>';
 
+print '</div>';
 
-print '<div class="synccal showifidagendaset">';
 
-if (! empty($conf->global->GOOGLE_DUPLICATE_INTO_GCAL)) {
+print '<div class="synccal">';
+print '<div class="showifidagendaset">';
+
+if (getDolGlobalString('GOOGLE_DUPLICATE_INTO_GCAL')) {
 	print '<br>';
 
 	print '<form name="googleconfig" action="'.$_SERVER["PHP_SELF"].'" method="post">';
@@ -632,7 +644,7 @@ if (! empty($conf->global->GOOGLE_DUPLICATE_INTO_GCAL)) {
 	print '<input type="hidden" name="action" value="pushallevents">';
 	print $langs->trans("ExportEventsToGoogle", $max, getDolGlobalString('GOOGLE_LOGIN'))." ";
 	print '<input type="submit" name="pushall" class="button small" value="'.$langs->trans("Run").'"';
-	if (empty($conf->global->GOOGLE_LOGIN)) print ' disabled="disabled"';
+	if (!getDolGlobalString('GOOGLE_LOGIN')) print ' disabled="disabled"';
 	print '>';
 	print "</form>\n";
 
@@ -642,12 +654,12 @@ if (! empty($conf->global->GOOGLE_DUPLICATE_INTO_GCAL)) {
 	print $langs->trans("DeleteAllGoogleEvents", getDolGlobalString('GOOGLE_LOGIN'))." ";
 	print '('.$langs->trans("OperationMayBeLong").') ';
 	print '<input type="submit" name="cleanup" class="button small" value="'.$langs->trans("Run").'"';
-	if (empty($conf->global->GOOGLE_LOGIN)) print ' disabled="disabled"';
+	if (!getDolGlobalString('GOOGLE_LOGIN')) print ' disabled="disabled"';
 	print '>';
 	print "</form>\n";
 }
 
-if (! empty($conf->global->GOOGLE_DUPLICATE_INTO_GCAL)) {
+if (getDolGlobalString('GOOGLE_DUPLICATE_INTO_GCAL')) {
 	if (versioncompare(versiondolibarrarray(), array(3,7,2)) >= 0) {
 		print '<form name="googleconfig" action="'.$_SERVER["PHP_SELF"].'" method="post">';
 		print '<input type="hidden" name="token" value="'.newToken().'">';
@@ -656,12 +668,13 @@ if (! empty($conf->global->GOOGLE_DUPLICATE_INTO_GCAL)) {
 		$now = dol_now() - ($notolderforsync * 24 * 3600);
 		print $form->selectDate($dateminsync ? $dateminsync : $now, 'sync', 1, 1, 0, '', 1, 0, empty($conf->global->GOOGLE_LOGIN)?1:0);
 		print '<input type="submit" name="getall" class="button small" value="'.$langs->trans("Run").'"';
-		if (empty($conf->global->GOOGLE_LOGIN)) print ' disabled="disabled"';
+		if (!getDolGlobalString('GOOGLE_LOGIN')) print ' disabled="disabled"';
 		print '>';
 		print "</form>\n";
 	}
 }
 
+print '</div>';
 print '</div>';
 
 llxFooter();
