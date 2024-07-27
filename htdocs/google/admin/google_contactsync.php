@@ -1027,11 +1027,11 @@ if (isModEnabled('societe')) {
 		print img_picto('', 'company', 'class="pictofixedwidth"').' '.$langs->trans("Tool").' '.$langs->trans("ThirdParties").'<br><br>';
 		print '<div class="tabsActions syncthirdparties">';
 		if (!getDolGlobalString('GOOGLE_CONTACT_LOGIN')) {
-			print '<div class="inline-block divButAction"><font class="butActionRefused small reposition" href="#" title="'.$langs->trans("ErrorFieldRequired", $langs->transnoentities("GoogleIDContact")).'">'.$langs->trans("TestCreateUpdateDelete")."</font></a></div>";
+			print '<div class="inline-block divButAction"><font class="butActionRefused small reposition nomarginleft" href="#" title="'.$langs->trans("ErrorFieldRequired", $langs->transnoentities("GoogleIDContact")).'">'.$langs->trans("TestCreateUpdateDelete")."</font></a></div>";
 
 			print '<div class="inline-block divButAction"><font class="butActionRefused small reposition" href="#" title="'.$langs->trans("ErrorFieldRequired", $langs->transnoentities("GoogleIDContact")).'">'.$langs->trans("TestCreate")."</font></a></div>";
 		} else {
-			print '<div class="inline-block divButAction"><a class="butAction small reposition" href="'.$_SERVER['PHP_SELF'].'?action=testallthirdparties&token='.newToken().'">'.$langs->trans("TestCreateUpdateDelete")."</a></div>";
+			print '<div class="inline-block divButAction"><a class="butAction small reposition nomarginleft" href="'.$_SERVER['PHP_SELF'].'?action=testallthirdparties&token='.newToken().'">'.$langs->trans("TestCreateUpdateDelete")."</a></div>";
 
 			print '<div class="inline-block divButAction"><a class="butAction small reposition" href="'.$_SERVER['PHP_SELF'].'?action=testcreatethirdparties&token='.newToken().'">'.$langs->trans("TestCreate")."</a></div>";
 		}
@@ -1081,11 +1081,11 @@ if (isModEnabled('societe')) {
 		print img_picto('', 'contact', 'class="pictofixedwidth"').' '.$langs->trans("Tool").' '.$langs->trans("Contacts").'<br><br>';
 		print '<div class="tabsActions synccontacts">';
 		if (!getDolGlobalString('GOOGLE_CONTACT_LOGIN')) {
-			print '<div class="inline-block divButAction"><font class="butActionRefused small reposition" href="#" title="'.$langs->trans("ErrorFieldRequired", $langs->transnoentities("GoogleIDContact")).'">'.$langs->trans("TestCreateUpdateDelete")."</font></a></div>";
+			print '<div class="inline-block divButAction"><font class="butActionRefused small reposition nomarginleft" href="#" title="'.$langs->trans("ErrorFieldRequired", $langs->transnoentities("GoogleIDContact")).'">'.$langs->trans("TestCreateUpdateDelete")."</font></a></div>";
 
 			print '<div class="inline-block divButAction"><font class="butActionRefused small reposition" href="#" title="'.$langs->trans("ErrorFieldRequired", $langs->transnoentities("GoogleIDContact")).'">'.$langs->trans("TestCreate")."</font></a></div>";
 		} else {
-			print '<div class="inline-block divButAction"><a class="butAction small reposition" href="'.$_SERVER['PHP_SELF'].'?action=testallcontacts&token='.newToken().'">'.$langs->trans("TestCreateUpdateDelete")."</a></div>";
+			print '<div class="inline-block divButAction"><a class="butAction small reposition nomarginleft" href="'.$_SERVER['PHP_SELF'].'?action=testallcontacts&token='.newToken().'">'.$langs->trans("TestCreateUpdateDelete")."</a></div>";
 
 			print '<div class="inline-block divButAction"><a class="butAction small reposition" href="'.$_SERVER['PHP_SELF'].'?action=testcreatecontacts&token='.newToken().'">'.$langs->trans("TestCreate")."</a></div>";
 		}
@@ -1133,11 +1133,11 @@ if (isModEnabled('adherent')) {
 		print img_picto('', 'member', 'class="pictofixedwidth"').' '.$langs->trans("Tool").' '.$langs->trans("Members").'<br><br>';
 		print '<div class="tabsActions syncmembers">';
 		if (!getDolGlobalString('GOOGLE_CONTACT_LOGIN')) {
-			print '<div class="inline-block divButAction"><font class="butActionRefused small reposition" href="#" title="'.$langs->trans("ErrorFieldRequired", $langs->transnoentities("GoogleIDContact")).'">'.$langs->trans("TestCreateUpdateDelete")."</font></a></div>";
+			print '<div class="inline-block divButAction"><font class="butActionRefused small reposition nomarginleft" href="#" title="'.$langs->trans("ErrorFieldRequired", $langs->transnoentities("GoogleIDContact")).'">'.$langs->trans("TestCreateUpdateDelete")."</font></a></div>";
 
 			print '<div class="inline-block divButAction"><font class="butActionRefused small reposition" href="#" title="'.$langs->trans("ErrorFieldRequired", $langs->transnoentities("GoogleIDContact")).'">'.$langs->trans("TestCreate")."</font></a></div>";
 		} else {
-			print '<div class="inline-block divButAction"><a class="butAction small reposition" href="'.$_SERVER['PHP_SELF'].'?action=testallmembers&token='.newToken().'">'.$langs->trans("TestCreateUpdateDelete")."</a></div>";
+			print '<div class="inline-block divButAction"><a class="butAction small reposition nomarginleft" href="'.$_SERVER['PHP_SELF'].'?action=testallmembers&token='.newToken().'">'.$langs->trans("TestCreateUpdateDelete")."</a></div>";
 
 			print '<div class="inline-block divButAction"><a class="butAction small reposition" href="'.$_SERVER['PHP_SELF'].'?action=testcreatemembers&token='.newToken().'">'.$langs->trans("TestCreate")."</a></div>";
 		}
