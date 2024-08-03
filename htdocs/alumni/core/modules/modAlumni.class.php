@@ -448,9 +448,6 @@ class modAlumni extends DolibarrModules
 		$myTmpObjects = array();
 		$myTmpObjects['Survey'] = array('includerefgeneration'=>0, 'includedocgeneration'=>0);
 		foreach ($myTmpObjects as $myTmpObjectKey => $myTmpObjectArray) {
-			if ($myTmpObjectKey == 'Survey') {
-				continue;
-			}
 			if ($myTmpObjectArray['includerefgeneration']) {
 				$src = DOL_DOCUMENT_ROOT.'/install/doctemplates/'.$moduledir.'/template_surveys.odt';
 				$dirodt = DOL_DATA_ROOT.'/doctemplates/'.$moduledir;
