@@ -283,7 +283,7 @@ if ($action == 'import' && $ovhthirdparty->id > 0) {
 						'totalPriceWithVat' => $r['priceWithTax']['value'],
 						'currency' => $r['priceWithTax']['currencyCode'],
 						'description' => $description,
-						'details' => $details,
+						'details' => $details,			// all the lines
 						'billingCountry' => '???',
 						'ordernum' => $r['orderId'],
 						'serialized' => '???',
@@ -585,15 +585,15 @@ print '<br>';
 if ($action == 'refresh') {
 	try {
 		$arrayinvoice = array();
-		if (!empty($conf->global->OVH_OLDAPI)) {
+		if (getDolGlobalString('OVH_OLDAPI')) {
 			//billingInvoiceList
 			$result = $soap->billingInvoiceList($session);
 			dol_syslog("billingInvoiceList successfull (" . count($result) . " invoices)");
 			//var_dump($result[0]->date.' '.dol_print_date(dol_stringtotime($r->date,1),'day'));exit;
 
 			file_put_contents(DOL_DATA_ROOT . "/dolibarr_ovh_billingInvoiceList.xml", $soap->__getLastResponse());
-			@chmod(DOL_DATA_ROOT . "/dolibarr_ovh_billingInvoiceList.xml",
-				octdec(empty($conf->global->MAIN_UMASK) ? '0664' : $conf->global->MAIN_UMASK));
+			//dolChmod(DOL_DATA_ROOT . "/dolibarr_ovh_billingInvoiceList.xml");
+			@chmod(DOL_DATA_ROOT . "/dolibarr_ovh_billingInvoiceList.xml", octdec(getDolGlobalString('MAIN_UMASK', '0664')));
 
 			// Set qualified invoices into arrayinvoice
 			foreach ($result as $i => $r) {
@@ -829,7 +829,7 @@ if ($action == 'refresh') {
 
 
 		//logout
-		if (!empty($conf->global->OVH_OLDAPI)) {
+		if (getDolGlobalString('OVH_OLDAPI')) {
 			$soap->logout($session);
 		}
 
