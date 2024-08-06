@@ -342,7 +342,11 @@ class Api
     		}
     	}
 
-        return json_decode($response->getBody(), true);
+    	if (version_compare(PHP_VERSION, '7.2', '<')) {
+    		return json_decode((string) $response->getBody(), true);
+    	} else {
+    		return json_decode((string) $response->getBody(), true, 512, JSON_INVALID_UTF8_IGNORE|JSON_INVALID_UTF8_SUBSTITUTE);
+    	}
     }
 
     /**
@@ -358,7 +362,7 @@ class Api
      */
     public function get($path, $content = null, $headers = null, $is_authenticated = true)
     {
-        if(preg_match('/^\/[^\/]+\.json$/', $path))
+        if (preg_match('/^\/[^\/]+\.json$/', $path))
         {
           // Schema description must be access without authentication
           return $this->decodeResponse(

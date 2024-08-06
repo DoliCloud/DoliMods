@@ -104,32 +104,69 @@ dol_fiche_head($head, 'tabgmaps', '', -1);
 
 print '<div class="fichecenter">';
 
-print $langs->trans("GoogleEnableThisToolThirdParties").': ';
-if ($conf->societe->enabled) {
-	print $form->selectyesno("GOOGLE_ENABLE_GMAPS", GETPOSTISSET("GOOGLE_ENABLE_GMAPS") ? GETPOST("GOOGLE_ENABLE_GMAPS") : getDolGlobalString('GOOGLE_ENABLE_GMAPS'), 1);
-} else print $langs->trans("ModuleMustBeEnabledFirst", $langs->transnoentitiesnoconv("Module1Name"));
+if ($conf->use_javascript_ajax) {
+	print "\n".'<script type="text/javascript" language="javascript">';
+	print 'jQuery(document).ready(function () {
+		function initfields()
+		{
+			console.log("initifields called");
+			if (jQuery("#GOOGLE_ENABLE_GMAPS").val() > 0 || jQuery("#GOOGLE_ENABLE_GMAPS_CONTACTS").val() > 0 || jQuery("#GOOGLE_ENABLE_GMAPS_MEMBERS").val() > 0) {
+				jQuery(".syncx").show();
+			} else {
+				jQuery(".syncx").hide();
+			}
+		}
+		initfields();
+		jQuery("#GOOGLE_ENABLE_GMAPS").change(function() {
+			initfields();
+		});
+		jQuery("#GOOGLE_ENABLE_GMAPS_CONTACTS").change(function() {
+			initfields();
+		});
+		jQuery("#GOOGLE_ENABLE_GMAPS_MEMBERS").change(function() {
+			initfields();
+		});
+	})';
+	print '</script>'."\n";
+}
+
+if (isModEnabled('societe')) {
+	print img_picto('', 'company', 'class="pictofixedwidth"').$langs->trans("GoogleEnableThisToolThirdParties").': ';
+	if ($conf->societe->enabled) {
+		print $form->selectyesno("GOOGLE_ENABLE_GMAPS", GETPOSTISSET("GOOGLE_ENABLE_GMAPS") ? GETPOST("GOOGLE_ENABLE_GMAPS") : getDolGlobalString('GOOGLE_ENABLE_GMAPS'), 1);
+	} else print $langs->trans("ModuleMustBeEnabledFirst", $langs->transnoentitiesnoconv("Module1Name"));
+	print '<br>';
+}
+
+if (isModEnabled('societe')) {
+	print img_picto('', 'contact', 'class="pictofixedwidth"').$langs->trans("GoogleEnableThisToolContacts").': ';
+	if ($conf->societe->enabled) {
+		print $form->selectyesno("GOOGLE_ENABLE_GMAPS_CONTACTS", GETPOSTISSET("GOOGLE_ENABLE_GMAPS_CONTACTS") ? GETPOST("GOOGLE_ENABLE_GMAPS_CONTACTS") : getDolGlobalString('GOOGLE_ENABLE_GMAPS_CONTACTS'), 1);
+	} else print $langs->trans("ModuleMustBeEnabledFirst", $langs->transnoentitiesnoconv("Module1Name"));
+	print '<br>';
+}
+
+if (isModEnabled('member')) {
+	print img_picto('', 'member', 'class="pictofixedwidth"').$langs->trans("GoogleEnableThisToolMembers").': ';
+	if ($conf->adherent->enabled) {
+		print $form->selectyesno("GOOGLE_ENABLE_GMAPS_MEMBERS", GETPOSTISSET("GOOGLE_ENABLE_GMAPS_MEMBERS") ? GETPOST("GOOGLE_ENABLE_GMAPS_MEMBERS") : getDolGlobalString('GOOGLE_ENABLE_GMAPS_MEMBERS'), 1);
+	} else print $langs->trans("ModuleMustBeEnabledFirst", $langs->transnoentitiesnoconv("Module310Name"));
+	print '<br>';
+}
+
 print '<br>';
 
-//print '<br>';
-print $langs->trans("GoogleEnableThisToolContacts").': ';
-if ($conf->societe->enabled) {
-	print $form->selectyesno("GOOGLE_ENABLE_GMAPS_CONTACTS", GETPOSTISSET("GOOGLE_ENABLE_GMAPS_CONTACTS") ? GETPOST("GOOGLE_ENABLE_GMAPS_CONTACTS") : getDolGlobalString('GOOGLE_ENABLE_GMAPS_CONTACTS'), 1);
-} else print $langs->trans("ModuleMustBeEnabledFirst", $langs->transnoentitiesnoconv("Module1Name"));
-print '<br>';
 
-//print '<br>';
-print $langs->trans("GoogleEnableThisToolMembers").': ';
-if ($conf->adherent->enabled) {
-	print $form->selectyesno("GOOGLE_ENABLE_GMAPS_MEMBERS", GETPOSTISSET("GOOGLE_ENABLE_GMAPS_MEMBERS") ? GETPOST("GOOGLE_ENABLE_GMAPS_MEMBERS") : getDolGlobalString('GOOGLE_ENABLE_GMAPS_MEMBERS'), 1);
-} else print $langs->trans("ModuleMustBeEnabledFirst", $langs->transnoentitiesnoconv("Module310Name"));
-print '<br>';
+print '<div class="syncx">';
+
+print info_admin($langs->trans("EnableAPI", "https://console.developers.google.com/apis/library/", "https://console.developers.google.com/apis/library/", "Maps Geocoding API, Maps Javascript API"));
 
 print '<br>';
 
 
-print "<table class=\"noborder\" width=\"100%\">";
+print '<table class="noborder centpercent">';
 
-print "<tr class=\"liste_titre\">";
+print '<tr class="liste_titre">';
 print '<td class="titlefield">'.$langs->trans("Parameter")."</td>";
 print "<td>".$langs->trans("Value")."</td>";
 print "</tr>";
@@ -145,8 +182,6 @@ if (! empty($conf->global->GOOGLE_CAN_USE_PROSPECT_ICONS) && ! empty($conf->soci
 	print $form->selectyesno("GOOGLE_ENABLE_GMAPS_TICON", GETPOSTISSET("GOOGLE_ENABLE_GMAPS_TICON") ? GETPOST("GOOGLE_ENABLE_GMAPS_TICON") : getDolGlobalString('GOOGLE_ENABLE_GMAPS_TICON'), 1);
 	print '</td></tr>';
 }
-
-
 
 print '</table>';
 
@@ -175,21 +210,24 @@ print "</tr>";
 print '</table>';
 print '</div>';
 
-print info_admin($langs->trans("EnableAPI", "https://console.developers.google.com/apis/library/", "https://console.developers.google.com/apis/library/", "Maps Geocoding API, Maps Javascript API"));
-
 print '</div>';
-
-dol_fiche_end();
 
 print '<div align="center">';
 print '<input type="submit" name="save" class="button" value="'.$langs->trans("Save").'">';
 print "</div>";
 
+print '</div>';
+
+dol_fiche_end();
+
 print "</form>\n";
 
-print '<br>';
+print '<div class="syncx">';
+
+print '<br><hr><br>';
 print '<a class="butAction small" href="'.$_SERVER["PHP_SELF"].'?action=gmap_deleteerrors&token='.newToken().'">'.$langs->trans("ResetGeoEncodingErrors").'</a><br>';
 
+print'</div>';
 
 dol_htmloutput_mesg($mesg);
 

@@ -148,7 +148,7 @@ print '<input type="hidden" name="action" value="test">';
 print $langs->trans("NUMBERWORDS_USE_CURRENCY_SYMBOL").' ';
 
 // Active
-if (! empty($conf->global->NUMBERWORDS_USE_CURRENCY_SYMBOL)) {
+if (getDolGlobalString('NUMBERWORDS_USE_CURRENCY_SYMBOL')) {
 	print '<a class="valignmiddle" href="' . $_SERVER["PHP_SELF"] . '?action=del&value=NUMBERWORDS_USE_CURRENCY_SYMBOL&level='.urlencode($level).'&valuetest='.urlencode($valuetest).'&token='.newToken().'">';
 	print img_picto($langs->trans("Enabled"), 'switch_on');
 	print '</a>';
@@ -157,7 +157,7 @@ if (! empty($conf->global->NUMBERWORDS_USE_CURRENCY_SYMBOL)) {
 
 	print $langs->trans("NUMBERWORDS_USE_ADD_SHORTCODE_WITH_SYMBOL").' ';
 	// Active
-	if (! empty($conf->global->NUMBERWORDS_USE_ADD_SHORTCODE_WITH_SYMBOL)) {
+	if (getDolGlobalString('NUMBERWORDS_USE_ADD_SHORTCODE_WITH_SYMBOL')) {
 		print '<a class="valignmiddle" href="' . $_SERVER["PHP_SELF"] . '?action=del&value=NUMBERWORDS_USE_ADD_SHORTCODE_WITH_SYMBOL&level='.urlencode($level).'&valuetest='.urlencode($valuetest).'&token='.newToken().'">';
 		print img_picto($langs->trans("Enabled"), 'switch_on');
 		print '</a>';
@@ -169,9 +169,25 @@ if (! empty($conf->global->NUMBERWORDS_USE_CURRENCY_SYMBOL)) {
 }
 print '<br>';
 
+// Uppercase
+print $langs->trans("NUMBERWORDS_FORCE_UPPERCASE").' ';
+if (!getDolGlobalString('NUMBERWORDS_FORCE_UPPERCASE')) {
+	// Button off, click to enable
+	$enabledisablehtml .= '<a class="reposition valignmiddle" href="'.$_SERVER["PHP_SELF"].'?action=set&value=NUMBERWORDS_FORCE_UPPERCASE&token='.newToken().'">';
+	$enabledisablehtml .= img_picto($langs->trans("Disabled"), 'switch_off');
+	$enabledisablehtml .= '</a>';
+} else {
+	// Button on, click to disable
+	$enabledisablehtml .= '<a class="reposition valignmiddle" href="'.$_SERVER["PHP_SELF"].'?action=del&value=NUMBERWORDS_FORCE_UPPERCASE&token='.newToken().'">';
+	$enabledisablehtml .= img_picto($langs->trans("Activated"), 'switch_on');
+	$enabledisablehtml .= '</a>';
+}
+print $enabledisablehtml;
 print '<br>';
 
-print '<table class="noborder" width="100%">';
+print '<br>';
+
+print '<table class="noborder centpercent">';
 print '<tr class="liste_titre">';
 print '<td>'.$langs->trans("Type").'</td>';
 print '<td>'.$langs->trans("Example").'</td>';

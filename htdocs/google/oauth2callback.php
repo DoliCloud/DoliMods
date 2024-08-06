@@ -21,7 +21,9 @@ if (! $res) die("Include of main fails");
 require_once DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php";
 require_once DOL_DOCUMENT_ROOT."/core/lib/date.lib.php";
 require_once DOL_DOCUMENT_ROOT."/core/lib/geturl.lib.php";
-require_once DOL_DOCUMENT_ROOT.'/core/lib/json.lib.php';
+if (file_exists(DOL_DOCUMENT_ROOT.'/core/lib/json.lib.php')) {
+	require_once DOL_DOCUMENT_ROOT.'/core/lib/json.lib.php';
+}
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.formadmin.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.formother.class.php';
 
@@ -76,10 +78,10 @@ $storage = new DoliStorage($db, $conf, $servicename);
 $apiService = $serviceFactory->createService('Google', $credentials, $storage, explode(',', $shortscope));
 $apiService->setAccessType('offline');
 
-/*
-* Actions
-*/
 
+/*
+ * Actions
+ */
 
 if ($action == 'delete') {
 	$langs->load("oauth");

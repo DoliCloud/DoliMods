@@ -60,7 +60,7 @@ class modAlumni extends DolibarrModules
 		$this->descriptionlong = "AlumniDescription";
 		// Author
 		$this->editor_name = 'DoliCloud';
-		$this->editor_url = 'https://www.dolicloud.com';
+		$this->editor_url = 'https://www.dolicloud.com?origin=dolimods';
 		// Possible values for version are: 'development', 'experimental', 'dolibarr', 'dolibarr_deprecated', 'experimental_deprecated' or a version string like 'x.y.z'
 		$this->version = '1.02';
 		// Url to the file with your last numberversion of this module
@@ -127,7 +127,7 @@ class modAlumni extends DolibarrModules
 		$this->langfiles = array("alumni@alumni");
 		// Prerequisites
 		$this->phpmin = array(7, 0); // Minimum version of PHP required by module
-		$this->need_dolibarr_version = array(11, -3); // Minimum version of Dolibarr required by module
+		$this->need_dolibarr_version = array(17, 0, -4); // Minimum version of Dolibarr required by module
 		$this->need_javascript_ajax = 0;
 		// Messages at activation
 		$this->warnings_activation = array(); // Warning to show when we activate module. array('always'='text') or array('FR'='textfr','MX'='textmx'...)
@@ -448,9 +448,6 @@ class modAlumni extends DolibarrModules
 		$myTmpObjects = array();
 		$myTmpObjects['Survey'] = array('includerefgeneration'=>0, 'includedocgeneration'=>0);
 		foreach ($myTmpObjects as $myTmpObjectKey => $myTmpObjectArray) {
-			if ($myTmpObjectKey == 'Survey') {
-				continue;
-			}
 			if ($myTmpObjectArray['includerefgeneration']) {
 				$src = DOL_DOCUMENT_ROOT.'/install/doctemplates/'.$moduledir.'/template_surveys.odt';
 				$dirodt = DOL_DATA_ROOT.'/doctemplates/'.$moduledir;

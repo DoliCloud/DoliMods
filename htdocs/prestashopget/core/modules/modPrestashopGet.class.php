@@ -65,7 +65,7 @@ class modPrestashopGet extends DolibarrModules
 		$this->descriptionlong = "Add features to get summarized information on sales on a Prestashop eCommerce.";
 
 		$this->editor_name = 'DoliCloud';
-		$this->editor_url = 'https://www.dolicloud.com';
+		$this->editor_url = 'https://www.dolicloud.com?origin=dolimods';
 
 		// Possible values for version are: 'development', 'experimental', 'dolibarr', 'dolibarr_deprecated' or a version string like 'x.y.z'
 		$this->version = '1.0';
@@ -109,7 +109,7 @@ class modPrestashopGet extends DolibarrModules
 		$this->conflictwith = array();	// List of module class names as string this module is in conflict with. Example: array('modModuleToDisable1', ...)
 		$this->langfiles = array("prestashopget@prestashopget");
 		//$this->phpmin = array(5,4);					// Minimum version of PHP required by module
-		$this->need_dolibarr_version = array(4,0);		// Minimum version of Dolibarr required by module
+		$this->need_dolibarr_version = array(17, 0, -4);		// Minimum version of Dolibarr required by module
 		$this->warnings_activation = array();			// Warning to show when we activate module. array('always'='text') or array('FR'='textfr','ES'='textes'...)
 		$this->warnings_activation_ext = array();		// Warning to show when we activate an external module. array('always'='text') or array('FR'='textfr','ES'='textes'...)
 		//$this->automatic_activation = array('FR'=>'PrestashopGetWasAutomaticallyActivatedBecauseOfYourCountryChoice');

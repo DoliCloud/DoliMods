@@ -58,7 +58,7 @@ class modPHPSysInfo extends DolibarrModules
 		// Module description, used if translation string 'ModuleXXXDesc' not found (where XXX is value of numeric property 'numero' of module)
 		$this->description = "Add a system information page into your Tools menu";
 		$this->editor_name = 'DoliCloud';
-		$this->editor_url = 'https://www.dolicloud.com';
+		$this->editor_url = 'https://www.dolicloud.com?origin=dolimods';
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
 		$this->version = '3.9';
 		// Key used in llx_const table to save module status enabled/disabled (where MYMODULE is value of property name of module in uppercase)
@@ -79,7 +79,7 @@ class modPHPSysInfo extends DolibarrModules
 		$this->depends = array();		// List of modules id that must be enabled if this module is enabled
 		$this->requiredby = array();	// List of modules id to disable if this one is disabled
 		$this->phpmin = array(5,2);					    // Minimum version of PHP required by module
-		$this->need_dolibarr_version = array(3,2,-3);	// Minimum version of Dolibarr required by module
+		$this->need_dolibarr_version = array(17, 0, -4);	// Minimum version of Dolibarr required by module
 		$this->langfiles = array("phpsysinfo@phpsysinfo");
 
 		// Constants

@@ -55,7 +55,7 @@ class modExternalBackup extends DolibarrModules
 		$this->name = preg_replace('/^mod/i', '', get_class($this));
 		$this->description = "Allow you to make external backup on any Cloud storage services";
 		$this->editor_name = 'DoliCloud';
-		$this->editor_url = 'https://www.dolicloud.com';
+		$this->editor_url = 'https://www.dolicloud.com?origin=dolimods';
 
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
 		$this->version = '4.0';
@@ -67,7 +67,7 @@ class modExternalBackup extends DolibarrModules
 
 		// Dependances
 		$this->depends = array();
-		$this->need_dolibarr_version = array(3,9,-4);   // Minimum version of Dolibarr required by module
+		$this->need_dolibarr_version = array(17, 0, -4);   // Minimum version of Dolibarr required by module
 		$this->langfiles = array('externalbackup@externalbackup');
 
 		// Config pages

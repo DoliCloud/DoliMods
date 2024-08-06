@@ -48,7 +48,7 @@ class modFileManager extends DolibarrModules
 		$this->name = preg_replace('/^mod/i', '', get_class($this));
 		$this->description = "A file manager";
 		$this->editor_name = 'DoliCloud';
-		$this->editor_url = 'https://www.dolicloud.com';
+		$this->editor_url = 'https://www.dolicloud.com?origin=dolimods';
 		$this->version = '6.0.0';                        // 'experimental' or 'dolibarr' or version
 		// Key used in llx_const table to save module status enabled/disabled (where MYMODULE is value of property name of module in uppercase)
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
@@ -81,7 +81,7 @@ class modFileManager extends DolibarrModules
 		$this->depends = array();
 		$this->requiredby = array();
 		$this->phpmin = array(4,1);                    // Minimum version of PHP required by module
-		$this->need_dolibarr_version = array(3,6,-2);  // Minimum version of Dolibarr required by module
+		$this->need_dolibarr_version = array(17, 0, -4);  // Minimum version of Dolibarr required by module
 		$this->langfiles = array("companies","filemanager@filemanager");
 
 		// Constantes

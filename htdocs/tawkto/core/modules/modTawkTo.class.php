@@ -68,7 +68,7 @@ class modTawkTo extends DolibarrModules
 		$this->picto='tawkto@tawkto';
 
 		$this->editor_name = 'DoliCloud';
-		$this->editor_url = 'https://www.dolicloud.com';
+		$this->editor_url = 'https://www.dolicloud.com?origin=dolimods';
 
 		// Defined all module parts (triggers, login, substitutions, menus, css, etc...)
 		// for default path (eg: /mymodule/core/xxxxx) (0=disable, 1=enable)
@@ -104,7 +104,7 @@ class modTawkTo extends DolibarrModules
 		$this->requiredby = array();	// List of modules id to disable if this one is disabled
 		$this->conflictwith = array();	// List of modules id this module is in conflict with
 		$this->phpmin = array(5,3);					// Minimum version of PHP required by module
-		$this->need_dolibarr_version = array(6,0);	// Minimum version of Dolibarr required by module
+		$this->need_dolibarr_version = array(17, 0, -4);	// Minimum version of Dolibarr required by module
 		$this->langfiles = array("tawkto@tawkto");
 
 		// Constants

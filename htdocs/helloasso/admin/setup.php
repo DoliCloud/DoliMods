@@ -229,7 +229,7 @@ if ($action == 'updateMask') {
 		dolibarr_del_const($db, $constforval, $conf->entity);
 	}
 } elseif ($action == 'testconnect') {
-	$res = doConnectionHelloasso();
+	$res = helloassoDoConnection();
 	if ($res <= 0) {
 		setEventMessages("", $langs->trans("ErrorBadClientIdOrSecret"), 'errors');
 	} else {
@@ -262,6 +262,7 @@ print dol_get_fiche_head($head, 'settings', $langs->trans($page_name), -1, "");
 
 // Setup page goes here
 echo '<span class="opacitymedium">'.$langs->trans("ModuleHelloAssoDesc").'</span><br><br>';
+echo '<div class="info">'.$langs->trans("HelloAssoExplanatoryText").'</div><br><br>';
 
 
 if ($action == 'edit') {

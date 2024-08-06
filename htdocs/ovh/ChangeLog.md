@@ -1,14 +1,21 @@
 # ChangeLog OVH MODULE FOR <a href="https://www.dolibarr.org">DOLIBARR ERP CRM</a>
 
 
-## 5.0 Unreleased
+## 5.1 Unreleased
 
+Nothing yet
+
+## 5.0
+
+* FIX OVH APIs make sometimes a response that is not correclty UTF8 encoded. A compensation has been introduce to ignore the OVH bug.
 * FIX If dtfrom and dtto are inverted by OVH, we restore correct order
 * FIX Compatiblity Dolibarr 18
 * FIX round replaced with price2num
 * NEW Add a select all checkbox in the list
 * NEW Add supplier and product selection in form
 * NEW Add mass action send SMS
+* NEW Can set end date for invoice import
+* NEW OVH_FIX_API_BUGS_OF_QTY_IN_PRORATAS
 * Better PHP 8.2 compatibility
 * QUAL CLean code to follow Dolibarr precommit rules
 

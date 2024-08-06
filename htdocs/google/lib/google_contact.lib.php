@@ -636,7 +636,7 @@ function googleLinkGroup($client, $groupID, $contactID) {
 		$access_token=$tmp->access_token;
 	}
 	$addheaders=array('GData-Version'=>'3.0', 'Authorization'=>'Bearer '.$access_token, 'If-Match'=>'*');
-	$addheaderscurl=array('Content-Type: application/json','GData-Version: 3.0', 'Authorization: Bearer '.$access_token, 'If-Match: *');
+	$addheaderscurl=array('Content-Type: application/json', 'GData-Version: 3.0', 'Authorization: Bearer '.$access_token, 'If-Match: *');
 
 	// uncomment for debugging :
 	if (getDolGlobalInt('GOOGLE_DEBUG')) {
@@ -1680,10 +1680,10 @@ function insertGContactGroup($gdata, $tag, $objectstatic, $useremail = 'default'
 
 	// Send request to Google
 	if (is_array($gdata['google_web_token']) && key_exists('access_token', $gdata['google_web_token'])) {
-		$access_token=$gdata['google_web_token']['access_token'];
+		$access_token = $gdata['google_web_token']['access_token'];
 	} else {
 		$tmp=json_decode($gdata['google_web_token']);
-		$access_token=$tmp->access_token;
+		$access_token = $tmp->access_token;
 	}
 
 	$addheaders=array('GData-Version'=>'3.0', 'Authorization'=>'Bearer '.$access_token);
