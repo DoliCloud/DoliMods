@@ -287,7 +287,7 @@ if ($action == 'import' && $ovhthirdparty->id > 0) {
 						'totalPriceWithVat' => $r['priceWithTax']['value'],
 						'currency' => $r['priceWithTax']['currencyCode'],
 						'description' => $description,
-						'details' => $details,
+						'details' => $details,			// all the lines
 						'billingCountry' => '???',
 						'ordernum' => $r['orderId'],
 						'serialized' => '???',
@@ -609,6 +609,7 @@ if ($action == 'refresh') {
 			//var_dump($result[0]->date.' '.dol_print_date(dol_stringtotime($r->date,1),'day'));exit;
 
 			file_put_contents(DOL_DATA_ROOT . "/dolibarr_ovh_billingInvoiceList.xml", $soap->__getLastResponse());
+			//dolChmod(DOL_DATA_ROOT . "/dolibarr_ovh_billingInvoiceList.xml");
 			@chmod(DOL_DATA_ROOT . "/dolibarr_ovh_billingInvoiceList.xml", octdec(getDolGlobalString('MAIN_UMASK', '0664')));
 
 			// Set qualified invoices into arrayinvoice

@@ -149,8 +149,8 @@ function getTokenFromServiceAccount($service_account_name, $key_file_location, $
 		if ((!isset($_SESSION['google_web_token_'.$conf->entity]) || !empty($force_do_not_use_session)) && is_object($tokenobj)) {
 			// Look into database for the full token. Example:
 			// OAuth\OAuth2\Token\StdOAuth2Token::__set_state(array(
-			//	'accessToken' => 'ya29.a0AcM612zxqd5VfRzm6I_u6cqvNK23jelZetxWp6R2W3HvN9DMsUOpjbZQ2toU58WulqTQuy1R3Ctzon6IWwA-6aZURzjIIPogPfyzydg0PBxrbL0gwx-RgBDqBBvwcJZJaxzqhnXMRk7EEgi_IA1M_Ndx0u7gq6Ovdsn2aCgYKAZgSARASFQHGX2MitnCYD3wDZdT1dra8Tm_nXA0171',
-			//	'refreshToken' => '1//03PA-MSULZ8QlCgYIARAAGAMSNwF-L9IrACRCMpinA-lj4Rkaojv1WRvTyLTy0wi3-QnKE3N6wHKJ4UEVFFliyIDNGwOe_8Ksedg',
+			//	'accessToken' => 'ya29.testtesttesttesttesttesttest.....',
+			//	'refreshToken' => '1//testtesttesttesttest',
 			//	'endOfLife' => 1722528462,
 			//	'extraParams' =>
 			//	array (
