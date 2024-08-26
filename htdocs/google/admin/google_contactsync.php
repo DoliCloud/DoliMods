@@ -891,14 +891,16 @@ print '</td>';
 print "</tr>";
 
 
-/*
-		// Define $urlwithroot
-		$urlwithouturlroot=preg_replace('/'.preg_quote(DOL_URL_ROOT,'/').'$/i','',trim($dolibarr_main_url_root));
-		$urlwithroot=$urlwithouturlroot.DOL_URL_ROOT;		// This is to use external domain name found into config file
-		//$urlwithroot=DOL_MAIN_URL_ROOT;					// This is to use same domain name than current
-*/
+// Define $urlwithroot
+$urlwithouturlroot=preg_replace('/'.preg_quote(DOL_URL_ROOT,'/').'$/i','',trim($dolibarr_main_url_root));
+$urlwithroot=$urlwithouturlroot.DOL_URL_ROOT;		// This is to use external domain name found into config file
+//$urlwithroot=DOL_MAIN_URL_ROOT;					// This is to use same domain name than current
+$redirect_uri_core = $urlwithroot.'/core/modules/oauth/google_oauthcallback.php';
+
 $redirect_uri=dol_buildpath('/google/oauth2callback.php', 3);
-$jsallowed=preg_replace('/(https*:\/\/[^\/]+\/).*$/', '\1', $redirect_uri);
+
+
+//$jsallowed=preg_replace('/(https*:\/\/[^\/]+\/).*$/', '\1', $redirect_uri);
 
 $urltocreateidclientoauth = 'https://console.developers.google.com/apis/credentials';
 
@@ -908,7 +910,9 @@ print '<td>';
 print '<input class="flat minwidth500" type="text" name="OAUTH_GOOGLE-CONTACT_ID" value="'.getDolGlobalString('OAUTH_GOOGLE-CONTACT_ID').'">';
 print '</td>';
 print '<td>';
-print $langs->trans("AllowGoogleToLoginWithClientID", $urltocreateidclientoauth, $urltocreateidclientoauth, $redirect_uri).'<br>';
+$s = $langs->trans("AllowGoogleToLoginWithClientID", $urltocreateidclientoauth, $urltocreateidclientoauth, '{s1}');
+$s = str_replace('{s1}', $redirect_uri.'<br>'.$redirect_uri_core, $s);
+print $s;
 print '</td>';
 print '</tr>';
 
