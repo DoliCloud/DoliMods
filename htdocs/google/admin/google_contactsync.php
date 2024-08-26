@@ -910,8 +910,9 @@ print '<input class="flat minwidth500" type="text" name="OAUTH_GOOGLE-CONTACT_ID
 print '</td>';
 print '<td>';
 $s = $langs->trans("AllowGoogleToLoginWithClientID", $urltocreateidclientoauth, $urltocreateidclientoauth, '{s1}');
-$s = str_replace('{s1}', $redirect_uri.'<br>'.$redirect_uri_core, $s);
+$s = str_replace('{s1}', '<textarea class="small centpercent" id="redirecturigoogle" spellcheck="false">'.$redirect_uri."\n".$redirect_uri_core.'</textarea>', $s);
 print $s;
+print ajax_autoselect('redirecturigoogle');
 print '</td>';
 print '</tr>';
 
