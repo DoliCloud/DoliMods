@@ -899,7 +899,6 @@ $redirect_uri_core = $urlwithroot.'/core/modules/oauth/google_oauthcallback.php'
 
 $redirect_uri=dol_buildpath('/google/oauth2callback.php', 3);
 
-
 //$jsallowed=preg_replace('/(https*:\/\/[^\/]+\/).*$/', '\1', $redirect_uri);
 
 $urltocreateidclientoauth = 'https://console.developers.google.com/apis/credentials';
