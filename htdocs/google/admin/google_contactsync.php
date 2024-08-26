@@ -818,7 +818,7 @@ print '<div class="syncx">';
 
 print '<br>';
 
-print info_admin($langs->trans("EnableAPI", "https://console.developers.google.com/apis/library/", "https://console.developers.google.com/apis/library/", "Contact API, People API"));
+print info_admin($langs->trans("EnableAPI", "https://console.developers.google.com/apis/library/", "https://console.developers.google.com/apis/library/", "People API + Contacts API"));
 
 print '<br>';
 
