@@ -150,19 +150,23 @@ function numberwords_getLabelFromNumber($outlangs, $number, $isamount = '')
 	}
 
 	// Define label on currency and cent in the property of object handle
-	$handle->labelcurrency = $currencycode;	// By default (EUR, USD)
-	$handle->labelcents = 'cent';				// By default (s is removed)
-	if (getDolGlobalInt('MAIN_MAX_DECIMALS_TOT') == 3) $handle->labelcents='thousandth'; // (s is removed)
+	$handle->labelcurrency = $currencycode;		// By default (EUR, USD)
+	$handle->labelcents = 'cents';				// By default
+	$handle->labelcentsing = 'cent';			// By default (s is removed)
+	if (getDolGlobalInt('MAIN_MAX_DECIMALS_TOT') == 3) {
+		$handle->labelcents='thousandths';
+		$handle->labelcentsing='thousandth'; // (s is removed)
+	}
 
 	// Overwrite label of currency with ours
-	$labelcurrencysing=$outlangs->transnoentitiesnoconv("CurrencySing".$currencycode);
+	$labelcurrencysing = $outlangs->transnoentitiesnoconv("CurrencySing".$currencycode);
 	//print "CurrencySing".$currencycode."=>".$labelcurrencysing;
 	if ($labelcurrencysing && $labelcurrencysing != -1 && $labelcurrencysing != 'CurrencySing'.$currencycode) {
 		$handle->labelcurrencysing = $labelcurrencysing;
 	}
-	$labelcurrency=$outlangs->transnoentitiesnoconv("Currency".$currencycode);
+	$labelcurrency = $outlangs->transnoentitiesnoconv("Currency".$currencycode);
 	if ($labelcurrency && $labelcurrency != -1 && $labelcurrency != 'Currency'.$currencycode) {
-		$handle->labelcurrency=$labelcurrency;
+		$handle->labelcurrency = $labelcurrency;
 	}
 	if (empty($handle->labelcurrencysing)) {
 		$handle->labelcurrencysing = $handle->labelcurrency;
@@ -172,33 +176,60 @@ function numberwords_getLabelFromNumber($outlangs, $number, $isamount = '')
 	}
 
 	// Overwrite label of decimals to ours
+	$labelcentsing = $outlangs->transnoentitiesnoconv("CurrencyCentSing".$currencycode);
+	//print "CurrencyCentSing".$currencycode."=>".$labelcentsing;
+	if ($labelcentsing && $labelcentsing != -1 && $labelcentsing != 'CurrencyCentSing'.$currencycode) {
+		$handle->labelcentsing = $labelcentsing;
+	}
+	$labelcents = $outlangs->transnoentitiesnoconv("CurrencyCent".$currencycode);
+	if ($labelcurrency && $labelcents != -1 && $labelcents != 'CurrencyCent'.$currencycode) {
+		$handle->labelcents = $labelcents;
+	}
+	if (empty($handle->labelcentsing)) {
+		$handle->labelcentsing = $handle->labelcents;
+	}
+	if (empty($handle->labelcents)) {
+		$handle->labelcents = $handle->labelcentsing;
+	}
+	$transforsingnotfound = true;
+
 	//print $outlangs->transnoentitiesnoconv("Currency".ucfirst($handle->labelcents)."Sing".$currencycode);
+	/*
 	$transforsingnotfound = false;
 	$savlabelcents = $handle->labelcents;
-	$labelcurrencycentsing=$outlangs->transnoentitiesnoconv("Currency".ucfirst($savlabelcents)."Sing".$currencycode);
-	if ($labelcurrencycentsing && $labelcurrencycentsing != -1 && $labelcurrencycentsing != 'Currency'.ucfirst($savlabelcents).'Sing'.$currencycode) {
-		$handle->labelcents=$labelcurrencycentsing;
+	$savlabelcentsing = $handle->labelcentsing;
+	$labelcurrencycentsing = $outlangs->transnoentitiesnoconv("CurrencyCentSing".$currencycode);
+	$labelcurrencycents = $outlangs->transnoentitiesnoconv("CurrencyCent".$currencycode);
+	if ($labelcurrencycentsing && $labelcurrencycentsing != -1 && $labelcurrencycentsing != 'Currency'.ucfirst($savlabelcentsing).'Sing'.$currencycode) {
+		$handle->labelcentsing = $labelcurrencycentsing;
 	} else {
 		$transforsingnotfound = true;
 	}
+	*/
 
 	$decimal = 0;
 	if (strpos($number, '.') !== false) {
-		list($whole, $decimal) = explode('.', $number);
+		$tmp = explode('.', $number);
+		$whole = $tmp[0];
+		$decimal = $tmp[1];
 	}
 	//var_dump($number.'->'.$decimal);
+
+	/*
 	if ($decimal > 1 || $transforsingnotfound) {
-		$labelcurrencycent=$outlangs->transnoentitiesnoconv("Currency".ucfirst($savlabelcents).$currencycode);
+		$labelcurrencycent = $outlangs->transnoentitiesnoconv("Currency".ucfirst($savlabelcents).$currencycode);
 		if ($labelcurrencycent && $labelcurrencycent != 'Currency'.ucfirst($savlabelcents).$currencycode) {
-			$handle->labelcents = preg_replace('/s$/', '', $labelcurrencycent);  // The s is added by the toCurrency() method.
+			$handle->labelcentsing = preg_replace('/s$/', '', $labelcurrencycent);  // The s is added by the toCurrency() method.
 		}
 		//var_dump("Currency".ucfirst($handle->labelcents).$currencycode);
 	}
+	*/
+
 	//var_dump($handle->labelcurrency.'-'.$handle->labelcents);
 	//var_dump($labelcurrencycentsing.'-'.$labelcurrencycent);
 
 	// Call method of object handle to make convertion
-	if ($isamount && empty($conf->global->NUMBERWORDS_USE_CURRENCY_SYMBOL)) {
+	if ($isamount && !getDolGlobalString('NUMBERWORDS_USE_CURRENCY_SYMBOL')) {
 		//print "currency: ".$currencycode;
 		$numberwords = $handle->toCurrency($number, $outlang, $currencycode);
 
@@ -214,10 +245,10 @@ function numberwords_getLabelFromNumber($outlangs, $number, $isamount = '')
 			$tmpcur = $outlangs->getCurrencySymbol($currencycode);
 			$cursymbolafter .= ($tmpcur == $currencycode ? ' '.$tmpcur : $tmpcur);
 		}
-		if ($cursymbolbefore && (! empty($conf->global->NUMBERWORDS_USE_ADD_SHORTCODE_WITH_SYMBOL) || ! empty($conf->global->MAIN_CURRENCY_ADD_SHORTCODE_WITH_SYMBOL))) {
+		if ($cursymbolbefore && (getDolGlobalString('NUMBERWORDS_USE_ADD_SHORTCODE_WITH_SYMBOL') || getDolGlobalString('MAIN_CURRENCY_ADD_SHORTCODE_WITH_SYMBOL'))) {
 			$cursymbolbefore = substr($currencycode, 0, 2).$cursymbolbefore;
 		}
-		if ($cursymbolafter && (! empty($conf->global->NUMBERWORDS_USE_ADD_SHORTCODE_WITH_SYMBOL) || ! empty($conf->global->MAIN_CURRENCY_ADD_SHORTCODE_WITH_SYMBOL))) {
+		if ($cursymbolafter && (getDolGlobalString('NUMBERWORDS_USE_ADD_SHORTCODE_WITH_SYMBOL') || getDolGlobalString('MAIN_CURRENCY_ADD_SHORTCODE_WITH_SYMBOL'))) {
 			$cursymbolafter = substr($currencycode, 0, 2).$cursymbolafter;
 		}
 		if (in_array($currencycode, $listofcurrenciesbefore) || in_array($outlangs->defaultlang, $listoflanguagesbefore)) {

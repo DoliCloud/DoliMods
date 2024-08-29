@@ -249,8 +249,8 @@ class Numbers_Words_en_IN extends Numbers_Words
 	  'HUF' => array(array('forint'), array('filler')),
 	  'ILS' => array(array('new sheqel','new sheqels'), array('agora','agorot')),
 	  // @CHANGE
-	  'IND' => array(array('dollar','dollars'), array('paisa','paise')),
-	  'INR' => array(array('dollar','dollars'), array('paisa','paise')),
+	  'IND' => array(array('dollar','dollars'), array('paisa','paise')),	//paisa in the singular and paise in the plural
+	  'INR' => array(array('dollar','dollars'), array('paisa','paise')),	//paisa in the singular and paise in the plural
 	  'ISK' => array(array('Icelandic krona'), array('aurar')),
 	  'JPY' => array(array('yen'), array('sen')),
 	  'LTL' => array(array('litas'), array('cent')),
@@ -360,7 +360,13 @@ class Numbers_Words_en_IN extends Numbers_Words
 		}
 
 		if ($h) {
-			$ret .= $this->_sep . $this->_digits[$h] . $this->_sep . 'hundred';
+			if (function_exists('getDolGlobalString') && getDolGlobalString("MAIN_INDIAN_FORMAT_NUMBER_WITH_EN_IN")) {
+				// Indian format: 246800.40 is  2,46,800.40
+				$ret .= $this->_sep . $this->_digits[$h] . $this->_sep . ($power == 3 ? 'lakh' : 'hundred');
+			} else {
+				// International format: 246800.40 is 246,800.40
+				$ret .= $this->_sep . $this->_digits[$h] . $this->_sep . 'hundred';
+			}
 
 			// in English only - add ' and' for [1-9]01..[1-9]99
 			// (also for 1001..1099, 10001..10099 but it is harder)
@@ -489,6 +495,7 @@ class Numbers_Words_en_IN extends Numbers_Words
 			$int_curr = $this->def_currency;
 		}
 		$curr_names = $this->_currency_names[$int_curr];
+		//var_dump($int_curr.' '.$decimal.' '.$fraction.' '.$curr_names[1]);
 
 		$ret = trim($this->_toWords($decimal));
 		$lev = ($decimal == 1) ? 0 : 1;

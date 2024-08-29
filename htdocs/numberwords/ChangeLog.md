@@ -4,6 +4,7 @@
 
 NEW Better support for Greek
 NEW Can force text in uppercase
+NEW Support option MAIN_INDIAN_FORMAT_NUMBER_WITH_EN_IN
 
 
 ## 5.0.2
