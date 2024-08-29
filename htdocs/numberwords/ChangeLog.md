@@ -1,10 +1,15 @@
 # NUMBERWORDS MODULE FOR <a href="https://www.dolibarr.org">DOLIBARR ERP CRM</a>
 
+
+## Unreleased
+
+NEW Support option MAIN_INDIAN_FORMAT_NUMBER_WITH_EN_IN
+NEW Add option MAIN_INDIAN_CURRENCY_KEEP_INDIAN to not remove the text "indian" into "indian rupees"
+
 ## 5.0.3
 
 NEW Better support for Greek
 NEW Can force text in uppercase
-NEW Support option MAIN_INDIAN_FORMAT_NUMBER_WITH_EN_IN
 
 
 ## 5.0.2

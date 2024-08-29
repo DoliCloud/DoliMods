@@ -495,7 +495,13 @@ class Numbers_Words_en_IN extends Numbers_Words
 			$int_curr = $this->def_currency;
 		}
 		$curr_names = $this->_currency_names[$int_curr];
-		//var_dump($int_curr.' '.$decimal.' '.$fraction.' '.$curr_names[1]);
+
+		if (!getDolGlobalString('MAIN_INDIAN_CURRENCY_KEEP_INDIAN')) {
+			$curr_names[0][0] = preg_replace('/indian\s*/i', '', $curr_names[0][0]);
+			$curr_names[0][1] = preg_replace('/indian\s*/i', '', $curr_names[0][1]);
+			$curr_names[1][0] = preg_replace('/indian\s*/i', '', $curr_names[1][0]);
+			$curr_names[1][1] = preg_replace('/indian\s*/i', '', $curr_names[1][1]);
+		}
 
 		$ret = trim($this->_toWords($decimal));
 		$lev = ($decimal == 1) ? 0 : 1;
