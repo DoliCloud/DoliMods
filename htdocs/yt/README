@@ -2,6 +2,9 @@ YTMusic API
 -----------
 See https://ytmusicapi.readthedocs.io/
 
-First generate the browser.json file
+1) pip install ytmusicapi
 
-Then call the script
+2) generate the browser.json file
+
+3) then run script with APIs
+
