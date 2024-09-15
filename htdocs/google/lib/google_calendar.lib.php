@@ -295,8 +295,9 @@ function getTokenFromServiceAccount($service_account_name, $key_file_location, $
 			// API v2
 			$expire = $client->isAccessTokenExpired();
 			if ($expire) {
-				$refreshtoken = $tokenobj->getRefreshToken();
-				dol_syslog("getTokenFromServiceAccount token seems to be expired, we refresh it with the refresh token = ".$refreshtoken);
+				//$refreshtoken = $tokenobj->getRefreshToken();
+				//dol_syslog("getTokenFromServiceAccount token seems to be expired, we refresh it with the refresh token = ".$refreshtoken);
+				dol_syslog("getTokenFromServiceAccount token seems to be expired. We try to refresh it with client->fetchAccessTokenWithAssertion()", LOG_DEBUG);
 				$result = $client->fetchAccessTokenWithAssertion();
 				//var_dump($result);
 			}
