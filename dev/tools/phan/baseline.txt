@@ -1,0 +1,407 @@
+<?php
+/**
+ * This is an automatically generated baseline for Phan issues.
+ * When Phan is invoked with --load-baseline=path/to/baseline.php,
+ * The pre-existing issues listed in this file won't be emitted.
+ *
+ * This file can be updated by invoking Phan with --save-baseline=path/to/baseline.php
+ * (can be combined with --load-baseline)
+ */
+return [
+    // # Issue statistics:
+    // PhanRedefinedClassReference : 670+ occurrences
+    // PhanTypeMismatchArgument : 510+ occurrences
+    // PhanUndeclaredFunction : 270+ occurrences
+    // PhanDeprecatedFunction : 240+ occurrences
+    // PhanUndeclaredGlobalVariable : 240+ occurrences
+    // PhanPossiblyUndeclaredGlobalVariable : 170+ occurrences
+    // PhanUndeclaredProperty : 160+ occurrences
+    // PhanPluginDuplicateConditionalTernaryDuplication : 150+ occurrences
+    // PhanUndeclaredClassMethod : 150+ occurrences
+    // PhanTypeMismatchArgumentProbablyReal : 140+ occurrences
+    // PhanUndeclaredMethod : 120+ occurrences
+    // PhanTypeMismatchArgumentNullable : 110+ occurrences
+    // PhanTypeSuspiciousStringExpression : 100+ occurrences
+    // PhanUndeclaredVariableDim : 80+ occurrences
+    // PhanPluginRedundantAssignment : 75+ occurrences
+    // PhanTypeMismatchArgumentInternal : 70+ occurrences
+    // PhanUndeclaredVariable : 65+ occurrences
+    // PhanDeprecatedFunctionInternal : 60+ occurrences
+    // PhanTypeExpectedObjectPropAccess : 55+ occurrences
+    // PhanPluginNotFullyQualifiedFunctionCall : 50+ occurrences
+    // PhanTypeArraySuspiciousNullable : 50+ occurrences
+    // PhanNonClassMethodCall : 45+ occurrences
+    // PhanPluginMoreSpecificActualReturnType : 45+ occurrences
+    // PhanDeprecatedProperty : 40+ occurrences
+    // PhanPluginDuplicateAdjacentStatement : 40+ occurrences
+    // PhanPluginNotFullyQualifiedOptimizableFunctionCall : 40+ occurrences
+    // PhanTypeMismatchReturn : 40+ occurrences
+    // PhanRedefineFunction : 35+ occurrences
+    // PhanTypeInvalidUnaryOperandIncOrDec : 35+ occurrences
+    // PhanPossiblyUndeclaredVariable : 30+ occurrences
+    // PhanTypeInvalidDimOffset : 30+ occurrences
+    // PhanTypeInvalidLeftOperandOfAdd : 30+ occurrences
+    // PhanTypeMismatchReturnProbablyReal : 30+ occurrences
+    // PhanPluginDuplicateExpressionAssignmentOperation : 25+ occurrences
+    // PhanPluginEmptyStatementIf : 25+ occurrences
+    // PhanPluginNotFullyQualifiedGlobalConstant : 25+ occurrences
+    // PhanTypeArraySuspicious : 25+ occurrences
+    // PhanTypeMismatchProperty : 25+ occurrences
+    // PhanUndeclaredClassProperty : 25+ occurrences
+    // PhanUndeclaredTypeParameter : 25+ occurrences
+    // PhanParamTooMany : 20+ occurrences
+    // PhanTypeInvalidLeftOperandOfNumericOp : 20+ occurrences
+    // PhanTypeInvalidRightOperandOfNumericOp : 20+ occurrences
+    // PhanPluginAlwaysReturnMethod : 15+ occurrences
+    // PhanPluginRedundantAssignmentInGlobalScope : 15+ occurrences
+    // PhanTypeMismatchArgumentNullableInternal : 15+ occurrences
+    // PhanUndeclaredConstant : 15+ occurrences
+    // PhanParamSignatureMismatch : 10+ occurrences
+    // PhanPluginSimplifyExpressionBool : 10+ occurrences
+    // PhanPluginUnreachableCode : 10+ occurrences
+    // PhanTypeInvalidRightOperandOfAdd : 10+ occurrences
+    // PhanTypeMismatchDefault : 10+ occurrences
+    // PhanTypeVoidAssignment : 10+ occurrences
+    // PhanUnreferencedUseNormal : 10+ occurrences
+    // PhanEmptyPublicMethod : 9 occurrences
+    // PhanTypeMissingReturn : 9 occurrences
+    // PhanPluginMoreSpecificActualReturnTypeContainsFQSEN : 8 occurrences
+    // PhanPluginPossiblyStaticPrivateMethod : 8 occurrences
+    // PhanPluginPossiblyStaticProtectedMethod : 8 occurrences
+    // PhanTypeExpectedObjectPropAccessButGotNull : 8 occurrences
+    // PhanPluginEmptyStatementForeachLoop : 7 occurrences
+    // PhanTypeArraySuspiciousNull : 7 occurrences
+    // PhanCompatiblePHP8PHP4Constructor : 6 occurrences
+    // PhanEmptyFunction : 6 occurrences
+    // PhanEmptyProtectedMethod : 6 occurrences
+    // PhanPluginDuplicateExpressionBinaryOp : 6 occurrences
+    // PhanRedefineFunctionInternal : 6 occurrences
+    // PhanTypeExpectedObjectOrClassName : 6 occurrences
+    // PhanTypeObjectUnsetDeclaredProperty : 6 occurrences
+    // PhanUndeclaredVariableAssignOp : 6 occurrences
+    // PhanPluginDuplicateExpressionAssignment : 5 occurrences
+    // PhanTypeConversionFromArray : 5 occurrences
+    // PhanCompatibleDimAlternativeSyntax : 4 occurrences
+    // PhanPluginPrintfIncompatibleArgumentTypeWeak : 4 occurrences
+    // PhanUndeclaredTypeReturnType : 4 occurrences
+    // PhanEmptyFQSENInClasslike : 3 occurrences
+    // PhanParamTooFewInternal : 3 occurrences
+    // PhanTypeMagicVoidWithReturn : 3 occurrences
+    // PhanTypeMismatchArgumentInternalReal : 3 occurrences
+    // PhanTypeMismatchDimAssignment : 3 occurrences
+    // PhanTypeMismatchDimFetch : 3 occurrences
+    // PhanUndeclaredClassCatch : 3 occurrences
+    // PhanUndeclaredExtendedClass : 3 occurrences
+    // PhanAccessMethodProtected : 2 occurrences
+    // PhanAccessPropertyProtected : 2 occurrences
+    // PhanClassContainsAbstractMethod : 2 occurrences
+    // PhanEmptyFile : 2 occurrences
+    // PhanParamSignatureRealMismatchTooFewParameters : 2 occurrences
+    // PhanParamTooFew : 2 occurrences
+    // PhanPluginDuplicateConditionalUnnecessary : 2 occurrences
+    // PhanPluginInconsistentReturnFunction : 2 occurrences
+    // PhanPluginInconsistentReturnMethod : 2 occurrences
+    // PhanRedefineClass : 2 occurrences
+    // PhanTypeComparisonFromArray : 2 occurrences
+    // PhanTypeMismatchDeclaredParam : 2 occurrences
+    // PhanTypeMismatchPropertyProbablyReal : 2 occurrences
+    // PhanUndeclaredThis : 2 occurrences
+    // PhanCommentParamWithoutRealParam : 1 occurrence
+    // PhanDeprecatedImplicitNullableParam : 1 occurrence
+    // PhanNoopBinaryOperator : 1 occurrence
+    // PhanParamReqAfterOpt : 1 occurrence
+    // PhanParamSpecial1 : 1 occurrence
+    // PhanPluginDuplicateArrayKey : 1 occurrence
+    // PhanPluginDuplicateIfStatements : 1 occurrence
+    // PhanPluginUndeclaredVariableIsset : 1 occurrence
+    // PhanPluginUnsafeShellExecDynamic : 1 occurrence
+    // PhanPossiblyNullTypeMismatchProperty : 1 occurrence
+    // PhanTypeInvalidLeftOperandOfBitwiseOp : 1 occurrence
+    // PhanTypeInvalidPropertyName : 1 occurrence
+    // PhanTypeMismatchArgumentInternalProbablyReal : 1 occurrence
+    // PhanTypeMismatchDeclaredParamNullable : 1 occurrence
+    // PhanTypeMismatchPropertyDefault : 1 occurrence
+    // PhanTypeSuspiciousEcho : 1 occurrence
+    // PhanUndeclaredTypeProperty : 1 occurrence
+    // PhanUnextractableAnnotationElementName : 1 occurrence
+    // PhanUnextractableAnnotationSuffix : 1 occurrence
+
+    // Currently, file_suppressions and directory_suppressions are the only supported suppressions
+    'file_suppressions' => [
+        'htdocs/alumni/admin/about.php' => ['PhanPluginDuplicateConditionalTernaryDuplication'],
+        'htdocs/alumni/admin/setup.php' => ['PhanEmptyFQSENInClasslike', 'PhanPluginDuplicateConditionalTernaryDuplication', 'PhanTypeExpectedObjectOrClassName', 'PhanTypeMismatchArgument', 'PhanTypeMismatchArgumentNullableInternal', 'PhanUndeclaredVariableDim'],
+        'htdocs/alumni/class/actions_alumni.class.php' => ['PhanPluginEmptyStatementForeachLoop', 'PhanPluginEmptyStatementIf'],
+        'htdocs/alumni/class/survey.class.php' => ['PhanPluginDuplicateAdjacentStatement', 'PhanPluginDuplicateConditionalTernaryDuplication', 'PhanPluginMoreSpecificActualReturnTypeContainsFQSEN', 'PhanTypeInvalidLeftOperandOfBitwiseOp', 'PhanTypeMismatchArgument', 'PhanTypeObjectUnsetDeclaredProperty', 'PhanUndeclaredProperty'],
+        'htdocs/alumni/core/modules/modAlumni.class.php' => ['PhanPluginRedundantAssignment', 'PhanTypeMismatchArgument'],
+        'htdocs/alumni/lib/alumni.lib.php' => ['PhanPluginMoreSpecificActualReturnType'],
+        'htdocs/alumni/lib/alumni_survey.lib.php' => ['PhanPluginMoreSpecificActualReturnType'],
+        'htdocs/alumni/survey_agenda.php' => ['PhanPluginDuplicateConditionalTernaryDuplication', 'PhanTypeInvalidLeftOperandOfNumericOp', 'PhanTypeMismatchArgumentInternal'],
+        'htdocs/alumni/survey_card.php' => ['PhanPluginDuplicateAdjacentStatement', 'PhanPluginDuplicateConditionalTernaryDuplication', 'PhanTypeMismatchArgument', 'PhanTypeMismatchArgumentNullable', 'PhanTypeMismatchArgumentProbablyReal', 'PhanUndeclaredGlobalVariable', 'PhanUndeclaredProperty'],
+        'htdocs/alumni/survey_document.php' => ['PhanPluginDuplicateConditionalTernaryDuplication', 'PhanPossiblyUndeclaredGlobalVariable', 'PhanTypeInvalidLeftOperandOfNumericOp', 'PhanTypeMismatchArgumentNullable'],
+        'htdocs/alumni/survey_list.php' => ['PhanDeprecatedFunctionInternal', 'PhanParamSpecial1', 'PhanPluginDuplicateConditionalTernaryDuplication', 'PhanPluginRedundantAssignmentInGlobalScope', 'PhanPossiblyUndeclaredGlobalVariable', 'PhanTypeInvalidLeftOperandOfNumericOp', 'PhanTypeMismatchArgument', 'PhanTypeMismatchArgumentProbablyReal', 'PhanUndeclaredGlobalVariable', 'PhanUndeclaredVariableDim'],
+        'htdocs/awstats/admin/about.php' => ['PhanDeprecatedFunction', 'PhanUndeclaredVariableDim'],
+        'htdocs/awstats/admin/awstats.php' => ['PhanDeprecatedFunction', 'PhanPluginDuplicateConditionalTernaryDuplication', 'PhanPossiblyUndeclaredGlobalVariable', 'PhanTypeMismatchArgumentNullable', 'PhanUndeclaredGlobalVariable', 'PhanUndeclaredVariableDim'],
+        'htdocs/awstats/core/modules/modAWStats.class.php' => ['PhanPluginRedundantAssignment', 'PhanTypeMismatchProperty'],
+        'htdocs/awstats/index.php' => ['PhanDeprecatedFunction', 'PhanPluginDuplicateConditionalTernaryDuplication', 'PhanPluginDuplicateIfStatements', 'PhanPluginInconsistentReturnFunction', 'PhanPossiblyUndeclaredGlobalVariable', 'PhanTypeInvalidDimOffset', 'PhanTypeMismatchArgument', 'PhanTypeMismatchArgumentNullableInternal', 'PhanUndeclaredGlobalVariable', 'PhanUndeclaredVariableAssignOp', 'PhanUndeclaredVariableDim'],
+        'htdocs/billedonorders/admin/about.php' => ['PhanDeprecatedFunction', 'PhanUndeclaredVariableDim'],
+        'htdocs/billedonorders/admin/billedonorders.php' => ['PhanDeprecatedFunction', 'PhanUndeclaredGlobalVariable', 'PhanUndeclaredVariableDim'],
+        'htdocs/billedonorders/class/actions_billedonorders.class.php' => ['PhanDeprecatedProperty', 'PhanPluginDuplicateConditionalTernaryDuplication', 'PhanPossiblyUndeclaredVariable', 'PhanTypeMismatchReturn'],
+        'htdocs/billedonorders/core/modules/modBilledOnOrders.class.php' => ['PhanPluginRedundantAssignment'],
+        'htdocs/bittorrent/BDecode.php' => ['PhanTypeArraySuspicious', 'PhanTypeMismatchArgumentNullableInternal', 'PhanUndeclaredVariableDim'],
+        'htdocs/bittorrent/BEncode.php' => ['PhanPluginInconsistentReturnMethod'],
+        'htdocs/bittorrent/DumpTorrentCGI.php' => ['PhanDeprecatedFunction', 'PhanUndeclaredGlobalVariable'],
+        'htdocs/bittorrent/admin.php' => ['PhanDeprecatedFunction', 'PhanTypeSuspiciousStringExpression'],
+        'htdocs/bittorrent/batch_upload.php' => ['PhanTypeMismatchDimFetch', 'PhanDeprecatedFunction', 'PhanDeprecatedFunctionInternal', 'PhanPluginDuplicateExpressionAssignmentOperation', 'PhanPluginSimplifyExpressionBool', 'PhanPossiblyUndeclaredGlobalVariable', 'PhanTypeMismatchArgumentInternal', 'PhanTypeMismatchArgumentNullableInternal', 'PhanTypeSuspiciousStringExpression', 'PhanUndeclaredConstant', 'PhanUndeclaredFunction', 'PhanUndeclaredGlobalVariable'],
+        'htdocs/bittorrent/core/modules/modBitTorrent.class.php' => ['PhanPluginRedundantAssignment'],
+        'htdocs/bittorrent/deleter.php' => ['PhanDeprecatedFunction', 'PhanTypeSuspiciousStringExpression', 'PhanUndeclaredFunction'],
+        'htdocs/bittorrent/dltorrent.php' => ['PhanTypeSuspiciousStringExpression', 'PhanUndeclaredFunction'],
+        'htdocs/bittorrent/edit_database.php' => ['PhanDeprecatedFunction', 'PhanTypeSuspiciousStringExpression', 'PhanUndeclaredFunction', 'PhanUndeclaredGlobalVariable'],
+        'htdocs/bittorrent/editconfig.php' => ['PhanDeprecatedFunction', 'PhanPluginDuplicateAdjacentStatement', 'PhanTypeSuspiciousStringExpression'],
+        'htdocs/bittorrent/funcsv2.php' => ['PhanDeprecatedEncapsVar', 'PhanDeprecatedFunctionInternal', 'PhanPluginInconsistentReturnFunction', 'PhanRedefineFunction', 'PhanRedefineFunctionInternal', 'PhanTypeMismatchArgumentInternal', 'PhanTypeMismatchArgumentNullableInternal', 'PhanUndeclaredFunction', 'PhanUndeclaredVariableDim'],
+        'htdocs/bittorrent/index.php' => ['PhanDeprecatedEncapsVar', 'PhanDeprecatedFunction', 'PhanPluginDuplicateExpressionAssignmentOperation', 'PhanTypeSuspiciousStringExpression', 'PhanUndeclaredFunction'],
+        'htdocs/bittorrent/newtorrents.php' => ['PhanTypeMismatchDimFetch', 'PhanDeprecatedFunction', 'PhanPluginDuplicateExpressionAssignmentOperation', 'PhanPluginSimplifyExpressionBool', 'PhanTypeArraySuspiciousNullable', 'PhanTypeSuspiciousStringExpression', 'PhanUndeclaredFunction'],
+        'htdocs/bittorrent/rss_generator.php' => ['PhanPossiblyUndeclaredGlobalVariable', 'PhanTypeSuspiciousStringExpression', 'PhanUndeclaredFunction', 'PhanUndeclaredGlobalVariable'],
+        'htdocs/bittorrent/sanity.php' => ['PhanDeprecatedEncapsVar', 'PhanDeprecatedFunction', 'PhanRedefineFunction', 'PhanTypeSuspiciousStringExpression', 'PhanUndeclaredFunction'],
+        'htdocs/bittorrent/sanity_no_output.php' => ['PhanDeprecatedEncapsVar', 'PhanRedefineFunction', 'PhanTypeSuspiciousStringExpression', 'PhanUndeclaredFunction', 'PhanUndeclaredGlobalVariable'],
+        'htdocs/bittorrent/seed.php' => ['PhanRedefineFunction', 'PhanTypeInvalidLeftOperandOfNumericOp', 'PhanTypeInvalidRightOperandOfNumericOp', 'PhanTypeMismatchArgumentInternal', 'PhanUndeclaredFunction'],
+        'htdocs/bittorrent/sha1lib.php' => ['PhanCompatibleDimAlternativeSyntax', 'PhanDeprecatedFunctionInternal', 'PhanRedefineFunctionInternal', 'PhanTypeInvalidDimOffset', 'PhanTypeMismatchArgumentInternal', 'PhanUndeclaredConstant'],
+        'htdocs/bittorrent/statistics.php' => ['PhanDeprecatedFunction', 'PhanPluginDuplicateExpressionAssignmentOperation', 'PhanTypeInvalidLeftOperandOfNumericOp', 'PhanTypeSuspiciousStringExpression', 'PhanUndeclaredFunction'],
+        'htdocs/bittorrent/torrent_functions.php' => ['PhanTypeMismatchDimAssignment', 'PhanTypeMismatchDimFetch', 'PhanPluginDuplicateExpressionAssignmentOperation', 'PhanPluginUndeclaredVariableIsset', 'PhanPossiblyUndeclaredGlobalVariable', 'PhanTypeArraySuspiciousNull', 'PhanTypeArraySuspiciousNullable', 'PhanTypeSuspiciousStringExpression', 'PhanUndeclaredFunction', 'PhanUndeclaredGlobalVariable'],
+        'htdocs/bittorrent/tracker.php' => ['PhanDeprecatedEncapsVar', 'PhanPossiblyUndeclaredGlobalVariable', 'PhanTypeMismatchArgumentInternal', 'PhanUndeclaredFunction'],
+        'htdocs/bittorrent/uploadstats.php' => ['PhanDeprecatedFunction', 'PhanTypeSuspiciousStringExpression', 'PhanUndeclaredFunction'],
+        'htdocs/captureserver/admin/about.php' => ['PhanDeprecatedFunction'],
+        'htdocs/captureserver/admin/setup.php' => ['PhanDeprecatedFunction', 'PhanPluginDuplicateConditionalTernaryDuplication'],
+        'htdocs/captureserver/captureserver_card.php' => ['PhanDeprecatedFunction', 'PhanPluginDuplicateAdjacentStatement', 'PhanPluginDuplicateConditionalTernaryDuplication', 'PhanPossiblyUndeclaredGlobalVariable', 'PhanTypeMismatchArgument', 'PhanTypeMismatchArgumentNullable', 'PhanUndeclaredGlobalVariable', 'PhanUndeclaredProperty'],
+        'htdocs/captureserver/captureserver_list.php' => ['PhanDeprecatedFunctionInternal', 'PhanPluginDuplicateConditionalTernaryDuplication', 'PhanPluginRedundantAssignmentInGlobalScope', 'PhanTypeMismatchArgument', 'PhanTypeMismatchArgumentProbablyReal'],
+        'htdocs/captureserver/class/captureserver.class.php' => ['PhanDeprecatedFunctionInternal', 'PhanDeprecatedProperty', 'PhanParamTooMany', 'PhanPluginAlwaysReturnMethod', 'PhanPluginDuplicateConditionalTernaryDuplication', 'PhanPluginDuplicateExpressionAssignment', 'PhanPluginMoreSpecificActualReturnTypeContainsFQSEN', 'PhanTypeMismatchArgument', 'PhanTypeObjectUnsetDeclaredProperty', 'PhanUndeclaredMethod', 'PhanUndeclaredProperty'],
+        'htdocs/captureserver/core/includes/php-datadogstatsd/src/BatchedDogStatsd.php' => ['PhanDeprecatedFunctionInternal', 'PhanPluginNotFullyQualifiedFunctionCall'],
+        'htdocs/captureserver/core/includes/php-datadogstatsd/src/DogStatsd.php' => ['PhanPluginAlwaysReturnMethod', 'PhanPluginNotFullyQualifiedFunctionCall', 'PhanPluginNotFullyQualifiedGlobalConstant', 'PhanPluginNotFullyQualifiedOptimizableFunctionCall', 'PhanPluginPossiblyStaticPrivateMethod', 'PhanPluginPrintfIncompatibleArgumentTypeWeak', 'PhanTypeMismatchReturnProbablyReal', 'PhanTypeMissingReturn', 'PhanUndeclaredProperty'],
+        'htdocs/captureserver/core/includes/php-datadogstatsd/tests/TestHelpers/CurlSpy.php' => ['PhanUndeclaredProperty'],
+        'htdocs/captureserver/core/includes/php-datadogstatsd/tests/TestHelpers/CurlSpyTestCase.php' => ['PhanPluginPossiblyStaticProtectedMethod'],
+        'htdocs/captureserver/core/includes/php-datadogstatsd/tests/TestHelpers/SocketSpyTestCase.php' => ['PhanPluginPossiblyStaticProtectedMethod'],
+        'htdocs/captureserver/core/includes/php-datadogstatsd/tests/UnitTests/BatchedDogStatsdTest.php' => ['PhanPluginNotFullyQualifiedOptimizableFunctionCall'],
+        'htdocs/captureserver/core/includes/php-datadogstatsd/tests/UnitTests/DogStatsd/CurlTest.php' => ['PhanPluginNotFullyQualifiedFunctionCall', 'PhanPluginNotFullyQualifiedGlobalConstant', 'PhanPluginNotFullyQualifiedOptimizableFunctionCall', 'PhanPluginPossiblyStaticPrivateMethod', 'PhanPluginPrintfIncompatibleArgumentTypeWeak', 'PhanTypeMismatchArgument', 'PhanTypeMismatchPropertyProbablyReal', 'PhanUnreferencedUseNormal'],
+        'htdocs/captureserver/core/includes/php-datadogstatsd/tests/UnitTests/DogStatsd/SocketsTest.php' => ['PhanPluginNotFullyQualifiedGlobalConstant', 'PhanPluginNotFullyQualifiedOptimizableFunctionCall', 'PhanPluginPossiblyStaticPrivateMethod', 'PhanTypeMismatchArgumentProbablyReal'],
+        'htdocs/captureserver/core/includes/php-datadogstatsd/tests/curl_and_error_log_function_stubs.php' => ['PhanPluginNotFullyQualifiedFunctionCall', 'PhanPluginMoreSpecificActualReturnType'],
+        'htdocs/captureserver/core/includes/php-datadogstatsd/tests/mt_rand_function_stubs.php' => ['PhanPluginMoreSpecificActualReturnType', 'PhanPluginNotFullyQualifiedOptimizableFunctionCall'],
+        'htdocs/captureserver/core/includes/php-datadogstatsd/tests/socket_function_stubs.php' => ['PhanPluginNotFullyQualifiedFunctionCall'],
+        'htdocs/captureserver/lib/captureserver.lib.php' => ['PhanPluginMoreSpecificActualReturnType', 'PhanUndeclaredVariable'],
+        'htdocs/captureserver/lib/captureserver_captureserver.lib.php' => ['PhanPluginMoreSpecificActualReturnType'],
+        'htdocs/captureserver/public/index.php' => ['PhanDeprecatedFunctionInternal'],
+        'htdocs/concatpdf/admin/about.php' => ['PhanDeprecatedFunction', 'PhanUndeclaredVariableDim'],
+        'htdocs/concatpdf/admin/concatpdf.php' => ['PhanDeprecatedFunction', 'PhanTypeArraySuspiciousNull', 'PhanTypeInvalidDimOffset', 'PhanTypeMismatchArgument', 'PhanTypeMismatchArgumentProbablyReal', 'PhanUndeclaredVariableDim'],
+        'htdocs/concatpdf/class/actions_concatpdf.class.php' => ['PhanDeprecatedFunctionInternal', 'PhanParamReqAfterOpt', 'PhanPluginDuplicateExpressionBinaryOp', 'PhanPluginInconsistentReturnMethod', 'PhanPossiblyUndeclaredVariable', 'PhanRedefinedClassReference', 'PhanTypeMismatchArgument', 'PhanTypeMismatchArgumentNullableInternal', 'PhanUndeclaredMethod', 'PhanUndeclaredVariableDim'],
+        'htdocs/concatpdf/core/modules/modConcatPdf.class.php' => ['PhanPluginRedundantAssignment'],
+        'htdocs/des_fr/index.php' => ['PhanEmptyFunction', 'PhanPossiblyUndeclaredGlobalVariable', 'PhanTypeInvalidUnaryOperandIncOrDec', 'PhanUndeclaredFunction', 'PhanUndeclaredGlobalVariable', 'PhanUndeclaredVariableDim'],
+        'htdocs/dolicloud/class/actions_dolicloud.class.php' => ['PhanCompatiblePHP8PHP4Constructor', 'PhanTypeMismatchReturn', 'PhanUndeclaredProperty', 'PhanUndeclaredVariableAssignOp'],
+        'htdocs/dolicloud/core/modules/modDoliCloud.class.php' => ['PhanPluginDuplicateAdjacentStatement', 'PhanPluginRedundantAssignment'],
+        'htdocs/dolicloud/core/triggers/interface_50_modDoliCloud_DoliCloudSynchro.class.php' => ['PhanUndeclaredProperty'],
+        'htdocs/dolicloud/scripts/statsemailings.php' => ['PhanPossiblyUndeclaredGlobalVariable', 'PhanTypeArraySuspiciousNullable', 'PhanUndeclaredFunction', 'PhanUndeclaredGlobalVariable', 'PhanUndeclaredVariableDim'],
+        'htdocs/ecotaxdeee/admin/about.php' => ['PhanDeprecatedFunction'],
+        'htdocs/ecotaxdeee/admin/index.php' => ['PhanDeprecatedFunction', 'PhanDeprecatedFunctionInternal', 'PhanPluginSimplifyExpressionBool', 'PhanTypeMismatchArgument', 'PhanUndeclaredGlobalVariable'],
+        'htdocs/ecotaxdeee/admin/setup.php' => ['PhanTypeMismatchArgument', 'PhanTypeMismatchArgumentProbablyReal', 'PhanTypeMismatchProperty'],
+        'htdocs/ecotaxdeee/class/actions_ecotaxdeee.class.php' => ['PhanPluginDuplicateExpressionBinaryOp', 'PhanPossiblyUndeclaredVariable', 'PhanTypeConversionFromArray', 'PhanTypeMismatchArgument', 'PhanTypeMismatchArgumentProbablyReal', 'PhanUndeclaredClassMethod', 'PhanUndeclaredTypeParameter'],
+        'htdocs/ecotaxdeee/class/ecotaxdeee.class.php' => ['PhanPluginDuplicateConditionalTernaryDuplication', 'PhanPluginMoreSpecificActualReturnType', 'PhanUndeclaredTypeProperty'],
+        'htdocs/ecotaxdeee/core/modules/modEcoTaxDeee.class.php' => ['PhanPluginRedundantAssignment', 'PhanTypeMismatchArgument'],
+        'htdocs/ecotaxdeee/core/triggers/interface_50_modEcotaxdeee_Ecotaxdeee.class.php' => ['PhanDeprecatedProperty', 'PhanPluginDuplicateConditionalTernaryDuplication', 'PhanPossiblyNullTypeMismatchProperty', 'PhanTypeMismatchArgument', 'PhanTypeMismatchArgumentProbablyReal', 'PhanUndeclaredProperty'],
+        'htdocs/ecotaxdeee/lib/ecotaxdeee.lib.php' => ['PhanPluginMoreSpecificActualReturnType', 'PhanPluginSimplifyExpressionBool'],
+        'htdocs/externalbackup/admin/about.php' => ['PhanDeprecatedFunction', 'PhanUndeclaredVariableDim'],
+        'htdocs/externalbackup/admin/externalbackup.php' => ['PhanDeprecatedFunction', 'PhanUndeclaredGlobalVariable'],
+        'htdocs/facturxutil/admin/about.php' => ['PhanDeprecatedFunction'],
+        'htdocs/facturxutil/admin/setup.php' => ['PhanDeprecatedFunction', 'PhanPluginDuplicateConditionalTernaryDuplication'],
+        'htdocs/facturxutil/class/actions_facturx.class.php' => ['PhanPluginEmptyStatementForeachLoop', 'PhanPluginEmptyStatementIf', 'PhanUndeclaredVariable'],
+        'htdocs/facturxutil/lib/facturxutil.lib.php' => ['PhanPluginMoreSpecificActualReturnType'],
+        'htdocs/filemanager/admin/about.php' => ['PhanDeprecatedFunction', 'PhanUndeclaredVariableDim'],
+        'htdocs/filemanager/admin/filemanager.php' => ['PhanDeprecatedFunction', 'PhanPluginRedundantAssignmentInGlobalScope', 'PhanPossiblyUndeclaredGlobalVariable', 'PhanTypeMismatchArgument', 'PhanUndeclaredVariableDim'],
+        'htdocs/filemanager/ajaxFileTree.php' => ['PhanEmptyFunction', 'PhanRedefineFunction', 'PhanTypeMismatchArgumentProbablyReal', 'PhanUndeclaredGlobalVariable'],
+        'htdocs/filemanager/ajaxfileactions.php' => ['PhanDeprecatedFunctionInternal', 'PhanEmptyFunction', 'PhanPossiblyUndeclaredGlobalVariable', 'PhanRedefineFunction', 'PhanTypeMismatchArgument', 'PhanTypeMismatchArgumentProbablyReal', 'PhanUndeclaredGlobalVariable'],
+        'htdocs/filemanager/ajaxfileuploader.php' => ['PhanPossiblyUndeclaredGlobalVariable'],
+        'htdocs/filemanager/ajaxshowpreview.php' => ['PhanDeprecatedFunctionInternal', 'PhanEmptyFunction', 'PhanPluginDuplicateConditionalTernaryDuplication', 'PhanRedefineFunction', 'PhanTypeInvalidLeftOperandOfNumericOp', 'PhanTypeMismatchArgument', 'PhanTypeMismatchArgumentProbablyReal'],
+        'htdocs/filemanager/class/filemanagerroots.class.php' => ['PhanTypeMagicVoidWithReturn', 'PhanTypeMismatchArgument', 'PhanTypeMismatchReturnProbablyReal', 'PhanUndeclaredClassMethod', 'PhanUndeclaredClassProperty'],
+        'htdocs/filemanager/core/modules/modFileManager.class.php' => ['PhanParamSignatureMismatch', 'PhanTypeMismatchProperty', 'PhanTypeMismatchReturn'],
+        'htdocs/filemanager/document.php' => ['PhanEmptyFunction', 'PhanPluginDuplicateExpressionAssignment', 'PhanRedefineFunction', 'PhanTypeMismatchArgument', 'PhanTypeMismatchArgumentProbablyReal'],
+        'htdocs/filemanager/index.php' => ['PhanDeprecatedFunction', 'PhanRedefineFunction', 'PhanTypeMismatchArgument', 'PhanTypeMismatchArgumentProbablyReal', 'PhanTypeMismatchDefault', 'PhanUndeclaredGlobalVariable'],
+        'htdocs/filemanager/viewimage.php' => ['PhanEmptyFunction', 'PhanRedefineFunction', 'PhanTypeMismatchArgument', 'PhanTypeMismatchArgumentProbablyReal'],
+        'htdocs/form/core/modules/modForm.class.php' => ['PhanPluginRedundantAssignment', 'PhanUndeclaredProperty'],
+        'htdocs/google/admin/about.php' => ['PhanDeprecatedFunction'],
+        'htdocs/google/admin/google.php' => ['PhanDeprecatedFunction', 'PhanPluginDuplicateAdjacentStatement', 'PhanTypeSuspiciousEcho'],
+        'htdocs/google/admin/google_ad.php' => ['PhanDeprecatedFunction', 'PhanPluginDuplicateAdjacentStatement', 'PhanPossiblyUndeclaredGlobalVariable', 'PhanTypeMismatchArgumentNullable', 'PhanUndeclaredGlobalVariable'],
+        'htdocs/google/admin/google_an.php' => ['PhanDeprecatedFunction', 'PhanPluginDuplicateAdjacentStatement', 'PhanPossiblyUndeclaredGlobalVariable', 'PhanTypeMismatchArgumentNullable', 'PhanUndeclaredGlobalVariable'],
+        'htdocs/google/admin/google_calsync.php' => ['PhanDeprecatedFunction', 'PhanDeprecatedProperty', 'PhanParamTooFew', 'PhanPluginDuplicateAdjacentStatement', 'PhanPluginDuplicateConditionalTernaryDuplication', 'PhanPluginSimplifyExpressionBool', 'PhanPossiblyUndeclaredGlobalVariable', 'PhanTypeArraySuspiciousNullable', 'PhanTypeMismatchArgument', 'PhanTypeMismatchArgumentNullable', 'PhanUndeclaredVariableDim'],
+        'htdocs/google/admin/google_calsync_user.php' => ['PhanDeprecatedFunction', 'PhanDeprecatedProperty', 'PhanParamTooFew', 'PhanPluginDuplicateAdjacentStatement', 'PhanPluginDuplicateConditionalTernaryDuplication', 'PhanPluginSimplifyExpressionBool', 'PhanPossiblyUndeclaredGlobalVariable', 'PhanTypeArraySuspiciousNullable', 'PhanTypeInvalidUnaryOperandIncOrDec', 'PhanTypeMismatchArgument', 'PhanTypeMismatchArgumentNullable', 'PhanUndeclaredGlobalVariable', 'PhanUndeclaredVariableDim'],
+        'htdocs/google/admin/google_contactsync.php' => ['PhanDeprecatedFunction', 'PhanDeprecatedFunctionInternal', 'PhanPluginDuplicateAdjacentStatement', 'PhanPluginDuplicateConditionalTernaryDuplication', 'PhanPossiblyUndeclaredGlobalVariable', 'PhanTypeInvalidUnaryOperandIncOrDec', 'PhanTypeMismatchArgument', 'PhanTypeMismatchArgumentNullable', 'PhanTypeMismatchArgumentProbablyReal', 'PhanTypeMismatchProperty', 'PhanUndeclaredClassMethod', 'PhanUndeclaredGlobalVariable', 'PhanUndeclaredVariableDim'],
+        'htdocs/google/admin/google_gmaps.php' => ['PhanDeprecatedFunction', 'PhanPluginDuplicateAdjacentStatement', 'PhanPossiblyUndeclaredGlobalVariable', 'PhanTypeMismatchArgumentNullable'],
+        'htdocs/google/admin/test.php' => ['PhanDeprecatedProperty'],
+        'htdocs/google/class/actions_google.class.php' => ['PhanPluginDuplicateConditionalTernaryDuplication'],
+        'htdocs/google/class/gcontacts.class.php' => ['PhanDeprecatedFunctionInternal', 'PhanDeprecatedImplicitNullableParam', 'PhanNonClassMethodCall', 'PhanPluginAlwaysReturnMethod', 'PhanPluginDuplicateConditionalTernaryDuplication', 'PhanPluginDuplicateExpressionAssignment', 'PhanPluginMoreSpecificActualReturnType', 'PhanPossiblyUndeclaredVariable', 'PhanTypeArraySuspicious', 'PhanTypeArraySuspiciousNullable', 'PhanTypeInvalidPropertyName', 'PhanTypeMismatchArgument', 'PhanTypeMismatchArgumentInternal', 'PhanTypeMismatchArgumentInternalReal', 'PhanTypeMismatchDeclaredParamNullable', 'PhanTypeMismatchReturn', 'PhanTypeMismatchReturnProbablyReal', 'PhanTypeMissingReturn', 'PhanTypeSuspiciousStringExpression', 'PhanUndeclaredFunction', 'PhanUndeclaredProperty', 'PhanUndeclaredTypeParameter', 'PhanUndeclaredVariable'],
+        'htdocs/google/class/googlemaps.class.php' => ['PhanCompatiblePHP8PHP4Constructor', 'PhanPluginEmptyStatementIf', 'PhanTypeMismatchArgument'],
+        'htdocs/google/core/boxes/box_googlemaps.php' => ['PhanParamSignatureMismatch', 'PhanTypeMismatchReturn'],
+        'htdocs/google/core/modules/modGoogle.class.php' => ['PhanPluginRedundantAssignment'],
+        'htdocs/google/core/triggers/interface_50_modGoogle_GoogleCalendarSynchro.class.php' => ['PhanPluginSimplifyExpressionBool', 'PhanPossiblyUndeclaredVariable', 'PhanTypeMismatchArgument', 'PhanTypeMismatchArgumentInternal', 'PhanTypeVoidAssignment'],
+        'htdocs/google/core/triggers/interface_51_modGoogle_GoogleContactSynchro.class.php' => ['PhanPluginDuplicateConditionalTernaryDuplication', 'PhanPossiblyUndeclaredVariable', 'PhanTypeMismatchArgument', 'PhanTypeMismatchArgumentProbablyReal'],
+        'htdocs/google/gmaps.php' => ['PhanDeprecatedFunction', 'PhanPossiblyUndeclaredGlobalVariable', 'PhanTypeMismatchArgument', 'PhanTypeMismatchArgumentNullable', 'PhanTypeMismatchProperty', 'PhanUndeclaredGlobalVariable'],
+        'htdocs/google/gmaps_all.php' => ['PhanDeprecatedFunction', 'PhanDeprecatedFunctionInternal', 'PhanPluginDuplicateConditionalTernaryDuplication', 'PhanPluginMoreSpecificActualReturnType', 'PhanPossiblyUndeclaredGlobalVariable', 'PhanTypeMismatchArgument', 'PhanTypeMismatchArgumentNullable', 'PhanTypeMismatchArgumentProbablyReal', 'PhanTypeMismatchProperty', 'PhanUndeclaredClassMethod', 'PhanUndeclaredClassProperty'],
+        'htdocs/google/index.php' => ['PhanDeprecatedFunction', 'PhanPossiblyUndeclaredGlobalVariable', 'PhanUndeclaredGlobalVariable'],
+        'htdocs/google/lib/google.lib.php' => ['PhanPluginMoreSpecificActualReturnType', 'PhanTypeMismatchArgumentNullableInternal', 'PhanTypeMismatchDeclaredParam'],
+        'htdocs/google/lib/google_calendar.lib.php' => ['PhanDeprecatedFunctionInternal', 'PhanDeprecatedProperty', 'PhanPluginDuplicateConditionalTernaryDuplication', 'PhanPluginMoreSpecificActualReturnType', 'PhanPluginMoreSpecificActualReturnTypeContainsFQSEN', 'PhanPossiblyUndeclaredVariable', 'PhanTypeExpectedObjectPropAccess', 'PhanTypeInvalidUnaryOperandIncOrDec', 'PhanTypeMismatchArgument', 'PhanTypeMismatchArgumentNullable', 'PhanTypeMismatchArgumentProbablyReal', 'PhanTypeMismatchDefault', 'PhanTypeMismatchReturn', 'PhanTypeMismatchReturnProbablyReal', 'PhanTypeSuspiciousStringExpression', 'PhanUndeclaredClassMethod', 'PhanUndeclaredProperty', 'PhanUndeclaredVariable', 'PhanUndeclaredVariableDim'],
+        'htdocs/google/lib/google_contact.lib.php' => ['PhanCommentParamWithoutRealParam', 'PhanDeprecatedFunctionInternal', 'PhanNonClassMethodCall', 'PhanPluginDuplicateAdjacentStatement', 'PhanPluginDuplicateConditionalTernaryDuplication', 'PhanPluginMoreSpecificActualReturnType', 'PhanPluginPrintfIncompatibleArgumentTypeWeak', 'PhanPossiblyUndeclaredVariable', 'PhanRedefineFunction', 'PhanTypeConversionFromArray', 'PhanTypeExpectedObjectPropAccess', 'PhanTypeExpectedObjectPropAccessButGotNull', 'PhanTypeMismatchArgument', 'PhanTypeMismatchArgumentInternal', 'PhanTypeMismatchArgumentProbablyReal', 'PhanTypeMismatchDimAssignment', 'PhanTypeMismatchDimFetch', 'PhanTypeMismatchReturn', 'PhanUndeclaredVariable', 'PhanUndeclaredVariableDim'],
+        'htdocs/google/oauth2callback.php' => ['PhanPluginDuplicateConditionalTernaryDuplication', 'PhanUndeclaredClassMethod', 'PhanUndeclaredGlobalVariable'],
+        'htdocs/google/test/phpunit/gContactTest.php' => ['PhanDeprecatedFunctionInternal', 'PhanPluginAlwaysReturnMethod', 'PhanTypeMissingReturn', 'PhanTypeSuspiciousStringExpression', 'PhanUndeclaredTypeReturnType', 'PhanUndeclaredVariable'],
+        'htdocs/helloasso/admin/about.php' => ['PhanPluginDuplicateConditionalTernaryDuplication'],
+        'htdocs/helloasso/admin/setup.php' => ['PhanEmptyFQSENInClasslike', 'PhanPluginDuplicateConditionalTernaryDuplication', 'PhanTypeExpectedObjectOrClassName', 'PhanTypeMismatchArgument', 'PhanTypeMismatchArgumentNullableInternal', 'PhanUndeclaredVariableDim'],
+        'htdocs/helloasso/class/actions_helloasso.class.php' => ['PhanPluginDuplicateConditionalTernaryDuplication', 'PhanPluginEmptyStatementForeachLoop', 'PhanPluginEmptyStatementIf', 'PhanPossiblyUndeclaredVariable', 'PhanUndeclaredVariableDim'],
+        'htdocs/helloasso/core/modules/modHelloAsso.class.php' => ['PhanPluginDuplicateAdjacentStatement', 'PhanPluginRedundantAssignment', 'PhanTypeMismatchArgument'],
+        'htdocs/helloasso/lib/helloasso.lib.php' => ['PhanPluginDuplicateAdjacentStatement', 'PhanPluginMoreSpecificActualReturnType', 'PhanTypeInvalidUnaryOperandIncOrDec', 'PhanTypeMismatchArgument', 'PhanTypeMismatchArgumentProbablyReal', 'PhanTypeMismatchReturn', 'PhanUndeclaredClassMethod', 'PhanUndeclaredTypeReturnType', 'PhanUndeclaredVariable', 'PhanUndeclaredVariableDim'],
+        'htdocs/helloasso/test/phpunit/functionnal/HelloAssoFunctionalTest.php' => ['PhanEmptyProtectedMethod', 'PhanEmptyPublicMethod', 'PhanPluginDuplicateAdjacentStatement', 'PhanPluginMoreSpecificActualReturnType', 'PhanPluginNotFullyQualifiedFunctionCall', 'PhanPluginPossiblyStaticProtectedMethod', 'PhanUndeclaredClassCatch', 'PhanUndeclaredExtendedClass', 'PhanUndeclaredMethod'],
+        'htdocs/ifttt/admin/index.php' => ['PhanPluginDuplicateAdjacentStatement'],
+        'htdocs/ifttt/core/modules/modIFTTT.class.php' => ['PhanPluginRedundantAssignment'],
+        'htdocs/includes/ckfinder/config.php' => ['PhanUndeclaredFunction', 'PhanUndeclaredVariableDim'],
+        'htdocs/ipphone/admin/setup.php' => ['PhanDeprecatedFunction'],
+        'htdocs/ipphone/core/modules/modIPPhone.class.php' => ['PhanPluginRedundantAssignment'],
+        'htdocs/ipphone/public/service.php' => ['PhanPluginDuplicateConditionalTernaryDuplication', 'PhanRedefineFunction'],
+        'htdocs/lightbox/core/modules/modLightbox.class.php' => ['PhanPluginRedundantAssignment', 'PhanTypeMismatchProperty'],
+        'htdocs/mantis/admin/mantis.php' => ['PhanDeprecatedFunction', 'PhanPluginDuplicateConditionalTernaryDuplication', 'PhanPossiblyUndeclaredGlobalVariable', 'PhanUndeclaredProperty'],
+        'htdocs/mantis/class/mantis.class.php' => ['PhanCompatiblePHP8PHP4Constructor', 'PhanTypeMismatchArgument', 'PhanTypeMismatchArgumentInternalReal', 'PhanUndeclaredVariable'],
+        'htdocs/mantis/mantis.php' => ['PhanUndeclaredGlobalVariable'],
+        'htdocs/memcached/admin/about.php' => ['PhanDeprecatedFunction'],
+        'htdocs/memcached/admin/memcached.php' => ['PhanDeprecatedFunction', 'PhanPossiblyUndeclaredGlobalVariable', 'PhanTypeMismatchArgument', 'PhanTypeMismatchArgumentNullable', 'PhanTypeMismatchArgumentNullableInternal', 'PhanUndeclaredClassMethod', 'PhanUndeclaredGlobalVariable'],
+        'htdocs/memcached/admin/memcached_stats.php' => ['PhanDeprecatedFunction', 'PhanPluginDuplicateAdjacentStatement', 'PhanPluginDuplicateExpressionAssignmentOperation', 'PhanPluginMoreSpecificActualReturnType', 'PhanPluginUnreachableCode', 'PhanTypeArraySuspicious', 'PhanTypeInvalidLeftOperandOfNumericOp', 'PhanTypeMismatchArgument', 'PhanTypeMismatchArgumentInternal', 'PhanTypeMismatchDefault', 'PhanTypeMismatchReturn', 'PhanTypeMismatchReturnProbablyReal', 'PhanTypeSuspiciousStringExpression', 'PhanTypeVoidAssignment', 'PhanUndeclaredTypeReturnType', 'PhanUnextractableAnnotationSuffix'],
+        'htdocs/memcached/core/modules/modMemcached.class.php' => ['PhanPluginRedundantAssignment'],
+        'htdocs/memcached/lib/memcached.lib.php' => ['PhanPluginMoreSpecificActualReturnType'],
+        'htdocs/monitoring/admin/about.php' => ['PhanDeprecatedFunction', 'PhanUndeclaredVariableDim'],
+        'htdocs/monitoring/admin/monitoring.php' => ['PhanDeprecatedFunction', 'PhanPluginDuplicateConditionalTernaryDuplication', 'PhanPossiblyUndeclaredGlobalVariable', 'PhanTypeMismatchArgumentInternal', 'PhanTypeMismatchArgumentNullable', 'PhanUndeclaredGlobalVariable', 'PhanUndeclaredVariableDim'],
+        'htdocs/monitoring/class/monitoring_probes.class.php' => ['PhanCompatiblePHP8PHP4Constructor', 'PhanPluginAlwaysReturnMethod', 'PhanTypeMismatchArgument', 'PhanTypeMismatchArgumentInternal', 'PhanUndeclaredProperty', 'PhanUndeclaredTypeParameter'],
+        'htdocs/monitoring/core/modules/modMonitoring.class.php' => ['PhanPluginRedundantAssignment'],
+        'htdocs/monitoring/index.php' => ['PhanDeprecatedFunction', 'PhanNoopBinaryOperator', 'PhanPluginDuplicateConditionalTernaryDuplication', 'PhanPossiblyUndeclaredGlobalVariable', 'PhanTypeInvalidLeftOperandOfNumericOp', 'PhanTypeInvalidRightOperandOfNumericOp', 'PhanTypeMismatchArgument', 'PhanTypeMismatchArgumentNullable', 'PhanTypeSuspiciousStringExpression', 'PhanUndeclaredGlobalVariable', 'PhanUndeclaredVariableDim'],
+        'htdocs/monitoring/lib/monitoring.lib.php' => ['PhanNonClassMethodCall', 'PhanPluginMoreSpecificActualReturnType', 'PhanPluginMoreSpecificActualReturnTypeContainsFQSEN', 'PhanRedefineFunctionInternal', 'PhanTypeMismatchArgumentInternal', 'PhanTypeMismatchReturnProbablyReal', 'PhanUndeclaredTypeParameter', 'PhanUndeclaredVariable'],
+        'htdocs/monitoring/probes.php' => ['PhanDeprecatedFunction', 'PhanPluginDuplicateConditionalTernaryDuplication', 'PhanPluginRedundantAssignmentInGlobalScope', 'PhanPossiblyUndeclaredGlobalVariable', 'PhanTypeMismatchArgument', 'PhanTypeMismatchArgumentNullable', 'PhanUndeclaredGlobalVariable'],
+        'htdocs/monitoring/scripts/monitor_daemon.php' => ['PhanPluginMoreSpecificActualReturnType', 'PhanPluginUnreachableCode', 'PhanPossiblyUndeclaredGlobalVariable', 'PhanRedefineFunction', 'PhanTypeArraySuspicious', 'PhanTypeArraySuspiciousNullable', 'PhanTypeInvalidUnaryOperandIncOrDec', 'PhanTypeMismatchArgument', 'PhanTypeMismatchArgumentInternalProbablyReal', 'PhanTypeMismatchArgumentNullableInternal', 'PhanTypeMismatchReturnProbablyReal', 'PhanTypeVoidAssignment', 'PhanUndeclaredConstant', 'PhanUndeclaredVariable'],
+        'htdocs/moretemplates/admin/moretemplates.php' => ['PhanDeprecatedFunction'],
+        'htdocs/moretemplates/core/modules/commande/doc/pdf_edison.modules.php' => ['PhanDeprecatedProperty', 'PhanNonClassMethodCall', 'PhanParamSignatureMismatch', 'PhanParamTooMany', 'PhanPluginMoreSpecificActualReturnType', 'PhanPossiblyUndeclaredVariable', 'PhanRedefinedClassReference', 'PhanTypeExpectedObjectPropAccess', 'PhanTypeInvalidLeftOperandOfAdd', 'PhanTypeInvalidLeftOperandOfNumericOp', 'PhanTypeInvalidRightOperandOfAdd', 'PhanTypeInvalidRightOperandOfNumericOp', 'PhanTypeMismatchArgument', 'PhanTypeMismatchArgumentNullable', 'PhanTypeMismatchArgumentProbablyReal', 'PhanTypeMismatchDefault', 'PhanTypeMismatchReturn', 'PhanUndeclaredProperty', 'PhanUndeclaredVariable'],
+        'htdocs/moretemplates/core/modules/facture/doc/pdf_oursin.modules.php' => ['PhanDeprecatedProperty', 'PhanNonClassMethodCall', 'PhanParamSignatureMismatch', 'PhanParamTooMany', 'PhanPluginAlwaysReturnMethod', 'PhanPluginMoreSpecificActualReturnType', 'PhanPluginRedundantAssignment', 'PhanPluginUnreachableCode', 'PhanPossiblyUndeclaredVariable', 'PhanRedefinedClassReference', 'PhanTypeExpectedObjectPropAccess', 'PhanTypeInvalidLeftOperandOfAdd', 'PhanTypeInvalidRightOperandOfAdd', 'PhanTypeMismatchArgument', 'PhanTypeMismatchArgumentNullable', 'PhanTypeMismatchDefault', 'PhanTypeMismatchReturn', 'PhanTypeVoidAssignment', 'PhanUndeclaredProperty', 'PhanUndeclaredVariable'],
+        'htdocs/moretemplates/core/modules/facture/doc/pdf_tourteau.modules.php' => ['PhanDeprecatedProperty', 'PhanNonClassMethodCall', 'PhanParamSignatureMismatch', 'PhanParamTooMany', 'PhanPluginAlwaysReturnMethod', 'PhanPluginDuplicateExpressionAssignmentOperation', 'PhanPluginMoreSpecificActualReturnType', 'PhanPluginRedundantAssignment', 'PhanPluginUnreachableCode', 'PhanRedefinedClassReference', 'PhanTypeExpectedObjectPropAccess', 'PhanTypeInvalidLeftOperandOfAdd', 'PhanTypeInvalidLeftOperandOfNumericOp', 'PhanTypeInvalidRightOperandOfAdd', 'PhanTypeMismatchArgument', 'PhanTypeMismatchArgumentNullable', 'PhanTypeMismatchDefault', 'PhanTypeMismatchReturn', 'PhanTypeVoidAssignment', 'PhanUndeclaredClassMethod', 'PhanUndeclaredProperty', 'PhanUndeclaredTypeParameter'],
+        'htdocs/moretemplates/core/modules/modMoreTemplates.class.php' => ['PhanPluginRedundantAssignment'],
+        'htdocs/moretemplates/scripts/import-product.php' => ['PhanDeprecatedProperty', 'PhanRedefineFunction', 'PhanTypeMismatchArgumentProbablyReal'],
+        'htdocs/moretemplates/scripts/materiel.net.php' => ['PhanPluginUnreachableCode', 'PhanRedefineFunction'],
+        'htdocs/mywidgets/admin/about.php' => ['PhanDeprecatedFunction', 'PhanUndeclaredVariableDim'],
+        'htdocs/mywidgets/admin/mywidgets.php' => ['PhanDeprecatedFunction', 'PhanUndeclaredGlobalVariable', 'PhanUndeclaredVariableDim'],
+        'htdocs/mywidgets/core/boxes/mywidgets.php' => ['PhanParamSignatureMismatch', 'PhanTypeExpectedObjectPropAccessButGotNull', 'PhanUndeclaredVariable'],
+        'htdocs/mywidgets/core/modules/modMyWidgets.class.php' => ['PhanPluginRedundantAssignment'],
+        'htdocs/netatmo/admin/about.php' => ['PhanDeprecatedFunction'],
+        'htdocs/netatmo/admin/setup.php' => ['PhanDeprecatedFunction', 'PhanPluginDuplicateAdjacentStatement', 'PhanPluginDuplicateConditionalTernaryDuplication', 'PhanUndeclaredConstant', 'PhanUndeclaredGlobalVariable'],
+        'htdocs/netatmo/core/modules/modNetatmo.class.php' => ['PhanPluginDuplicateAdjacentStatement', 'PhanPluginRedundantAssignment'],
+        'htdocs/netatmo/lib/netatmo.lib.php' => ['PhanPluginMoreSpecificActualReturnType', 'PhanUndeclaredVariable'],
+        'htdocs/netatmo/public/netatmo.php' => ['PhanUndeclaredGlobalVariable'],
+        'htdocs/netatmo/test/phpunit/NetatmoFunctionalTest.php' => ['PhanEmptyProtectedMethod', 'PhanEmptyPublicMethod', 'PhanPluginDuplicateAdjacentStatement', 'PhanPluginMoreSpecificActualReturnType', 'PhanPluginNotFullyQualifiedFunctionCall', 'PhanPluginPossiblyStaticProtectedMethod', 'PhanUndeclaredClassCatch', 'PhanUndeclaredExtendedClass', 'PhanUndeclaredMethod'],
+        'htdocs/numberingpack/core/modules/modNumberingPack.class.php' => ['PhanPluginRedundantAssignment'],
+        'htdocs/numberingpack/core/modules/societe/mod_codeclient_lion.php' => ['PhanClassContainsAbstractMethod', 'PhanPluginAlwaysReturnMethod', 'PhanPluginPossiblyStaticPrivateMethod', 'PhanPluginRedundantAssignment', 'PhanTypeMismatchReturn'],
+        'htdocs/numberingpack/core/modules/societe/mod_codeclient_zebre.php' => ['PhanClassContainsAbstractMethod', 'PhanParamSignatureMismatch', 'PhanPluginRedundantAssignment', 'PhanPossiblyUndeclaredVariable', 'PhanTypeMismatchArgumentInternalReal', 'PhanTypeMismatchDefault', 'PhanTypeMismatchReturn', 'PhanTypeSuspiciousStringExpression', 'PhanUndeclaredClassProperty', 'PhanUndeclaredTypeParameter', 'PhanUndeclaredVariable', 'PhanUnextractableAnnotationElementName'],
+        'htdocs/numberwords/admin/about.php' => ['PhanDeprecatedFunction', 'PhanUndeclaredVariableDim'],
+        'htdocs/numberwords/admin/numberwords.php' => ['PhanDeprecatedFunction', 'PhanPluginDuplicateAdjacentStatement', 'PhanPluginDuplicateConditionalTernaryDuplication', 'PhanTypeMismatchArgumentProbablyReal', 'PhanUndeclaredVariableAssignOp', 'PhanUndeclaredVariableDim'],
+        'htdocs/numberwords/core/modules/modNumberWords.class.php' => ['PhanPluginRedundantAssignment'],
+        'htdocs/numberwords/core/substitutions/functions_numberwords.lib.php' => ['PhanTypeMismatchArgument', 'PhanUndeclaredProperty'],
+        'htdocs/openstreetmap/admin/about.php' => ['PhanDeprecatedFunction'],
+        'htdocs/openstreetmap/admin/openstreetmap_maps.php' => ['PhanDeprecatedFunction', 'PhanPluginDuplicateConditionalTernaryDuplication', 'PhanPossiblyUndeclaredGlobalVariable', 'PhanTypeMismatchArgumentNullable'],
+        'htdocs/openstreetmap/core/modules/modOpenStreetMap.class.php' => ['PhanPluginRedundantAssignment'],
+        'htdocs/openstreetmap/lib/openstreetmap.lib.php' => ['PhanPluginMoreSpecificActualReturnType'],
+        'htdocs/openstreetmap/maps.php' => ['PhanDeprecatedFunction', 'PhanPluginDuplicateAdjacentStatement', 'PhanPluginDuplicateConditionalTernaryDuplication', 'PhanPossiblyUndeclaredGlobalVariable', 'PhanTypeMismatchArgument', 'PhanTypeMismatchArgumentNullable', 'PhanTypeMismatchProperty', 'PhanUndeclaredGlobalVariable'],
+        'htdocs/ovh/admin/about.php' => ['PhanDeprecatedFunction'],
+        'htdocs/ovh/admin/ovh_click2dial.php' => ['PhanDeprecatedFunction', 'PhanPluginEmptyStatementIf', 'PhanPossiblyUndeclaredGlobalVariable', 'PhanTypeMismatchArgumentProbablyReal', 'PhanUnreferencedUseNormal'],
+        'htdocs/ovh/admin/ovh_importinvoice.php' => ['PhanDeprecatedFunction', 'PhanPossiblyUndeclaredGlobalVariable', 'PhanTypeMismatchArgumentNullable', 'PhanTypeMismatchArgumentProbablyReal', 'PhanUndeclaredVariableDim', 'PhanUnreferencedUseNormal'],
+        'htdocs/ovh/admin/ovh_setup.php' => ['PhanDeprecatedFunction', 'PhanDeprecatedFunctionInternal', 'PhanPluginDuplicateExpressionBinaryOp', 'PhanPluginEmptyStatementIf', 'PhanPossiblyUndeclaredGlobalVariable', 'PhanRedefineFunction', 'PhanTypeMismatchArgumentInternal', 'PhanTypeMismatchArgumentNullable', 'PhanTypeMismatchArgumentProbablyReal', 'PhanUndeclaredGlobalVariable'],
+        'htdocs/ovh/admin/ovh_sms_setup.php' => ['PhanDeprecatedFunction', 'PhanPluginDuplicateConditionalTernaryDuplication', 'PhanPluginEmptyStatementIf', 'PhanPossiblyUndeclaredGlobalVariable', 'PhanRedefineFunction', 'PhanTypeMismatchArgument', 'PhanTypeMismatchArgumentNullable', 'PhanTypeMismatchProperty', 'PhanUnreferencedUseNormal'],
+        'htdocs/ovh/admin/ovh_smsrecap.php' => ['PhanDeprecatedFunction', 'PhanParamTooMany', 'PhanTypeArraySuspiciousNullable', 'PhanTypeConversionFromArray', 'PhanUndeclaredGlobalVariable', 'PhanUnreferencedUseNormal'],
+        'htdocs/ovh/class/actions_ovh.class.php' => ['PhanPluginMoreSpecificActualReturnType', 'PhanPluginMoreSpecificActualReturnTypeContainsFQSEN', 'PhanPluginPossiblyStaticPrivateMethod', 'PhanTypeConversionFromArray', 'PhanTypeMismatchArgument', 'PhanTypeMismatchProperty', 'PhanUndeclaredProperty'],
+        'htdocs/ovh/class/ovhserver.class.php' => ['PhanPluginAlwaysReturnMethod', 'PhanPluginDuplicateExpressionBinaryOp', 'PhanTypeMismatchArgument', 'PhanTypeMismatchArgumentProbablyReal', 'PhanTypeMismatchPropertyDefault', 'PhanUndeclaredProperty'],
+        'htdocs/ovh/class/ovhsms.class.php' => ['PhanPluginMoreSpecificActualReturnType', 'PhanPluginUnreachableCode', 'PhanTypeMagicVoidWithReturn', 'PhanTypeMismatchArgumentProbablyReal', 'PhanTypeMismatchReturnProbablyReal', 'PhanUndeclaredProperty'],
+        'htdocs/ovh/core/modules/modOvh.class.php' => ['PhanPluginRedundantAssignment'],
+        'htdocs/ovh/core/triggers/interface_99_modOvh_OvhTriggers.class.php' => ['PhanPluginAlwaysReturnMethod', 'PhanTypeMismatchPropertyProbablyReal'],
+        'htdocs/ovh/importovhinvoice.php' => ['PhanDeprecatedFunction', 'PhanDeprecatedFunctionInternal', 'PhanDeprecatedProperty', 'PhanPluginDuplicateConditionalTernaryDuplication', 'PhanPossiblyUndeclaredGlobalVariable', 'PhanTypeArraySuspiciousNullable', 'PhanTypeExpectedObjectPropAccess', 'PhanTypeExpectedObjectPropAccessButGotNull', 'PhanTypeMismatchArgument', 'PhanTypeMismatchArgumentNullable', 'PhanTypeMismatchArgumentProbablyReal', 'PhanTypeMismatchProperty'],
+        'htdocs/ovh/lib/ovh.lib.php' => ['PhanPluginMoreSpecificActualReturnType'],
+        'htdocs/ovh/ovh_listinfoserver.php' => ['PhanDeprecatedFunction', 'PhanPluginDuplicateConditionalTernaryDuplication', 'PhanPluginDuplicateExpressionBinaryOp', 'PhanPossiblyUndeclaredGlobalVariable', 'PhanTypeMismatchArgumentNullableInternal', 'PhanTypeMismatchProperty'],
+        'htdocs/ovh/scripts/importovhinvoice.php' => ['PhanDeprecatedFunctionInternal', 'PhanDeprecatedProperty', 'PhanPluginRedundantAssignmentInGlobalScope', 'PhanPossiblyUndeclaredGlobalVariable', 'PhanTypeMismatchArgument', 'PhanTypeMismatchArgumentProbablyReal', 'PhanUndeclaredGlobalVariable'],
+        'htdocs/ovh/sms_member.php' => ['PhanDeprecatedFunction', 'PhanDeprecatedProperty', 'PhanPluginDuplicateConditionalTernaryDuplication', 'PhanTypeMismatchArgument', 'PhanTypeMismatchArgumentProbablyReal', 'PhanTypeMismatchProperty', 'PhanUndeclaredProperty', 'PhanUnreferencedUseNormal'],
+        'htdocs/ovh/sms_thirdparty.php' => ['PhanPluginDuplicateConditionalTernaryDuplication', 'PhanTypeMismatchArgument', 'PhanTypeMismatchArgumentProbablyReal', 'PhanTypeMismatchProperty', 'PhanUndeclaredProperty', 'PhanUnreferencedUseNormal'],
+        'htdocs/ovh/wrapper.php' => ['PhanPluginSimplifyExpressionBool', 'PhanPossiblyUndeclaredGlobalVariable', 'PhanRedefineFunction', 'PhanTypeConversionFromArray', 'PhanTypeMismatchArgumentProbablyReal'],
+        'htdocs/phpsysinfo/admin/about.php' => ['PhanDeprecatedFunction', 'PhanUndeclaredVariableDim'],
+        'htdocs/phpsysinfo/admin/phpsysinfo.php' => ['PhanDeprecatedFunction', 'PhanUndeclaredGlobalVariable', 'PhanUndeclaredVariableDim'],
+        'htdocs/phpsysinfo/core/modules/modPHPSysInfo.class.php' => ['PhanPluginRedundantAssignment'],
+        'htdocs/phpsysinfo/frames.php' => ['PhanUndeclaredGlobalVariable'],
+        'htdocs/phpsysinfo/index.php' => ['PhanUndeclaredGlobalVariable'],
+        'htdocs/pibarcode/core/modules/barcode/pibarcode.modules.php' => ['PhanParamSignatureMismatch', 'PhanParamSignatureRealMismatchTooFewParameters', 'PhanPluginMoreSpecificActualReturnType', 'PhanRedefineClass', 'PhanUndeclaredClassMethod'],
+        'htdocs/pibarcode/core/modules/modPiBarcode.class.php' => ['PhanPluginRedundantAssignment', 'PhanRedefineClass'],
+        'htdocs/prestashopget/admin/about.php' => ['PhanDeprecatedFunction', 'PhanPluginDuplicateConditionalTernaryDuplication'],
+        'htdocs/prestashopget/admin/setup.php' => ['PhanDeprecatedFunction', 'PhanPluginDuplicateConditionalTernaryDuplication'],
+        'htdocs/prestashopget/class/actions_prestashopget.class.php' => ['PhanPluginEmptyStatementForeachLoop', 'PhanPluginEmptyStatementIf', 'PhanUndeclaredVariable'],
+        'htdocs/prestashopget/core/boxes/prestashopgetwidget1.php' => ['PhanParamSignatureMismatch', 'PhanPluginDuplicateArrayKey'],
+        'htdocs/prestashopget/index.php' => ['PhanPluginDuplicateAdjacentStatement', 'PhanPluginDuplicateConditionalTernaryDuplication', 'PhanTypeInvalidDimOffset', 'PhanTypeInvalidLeftOperandOfNumericOp', 'PhanTypeMismatchArgument'],
+        'htdocs/prestashopget/lib/prestashopget.lib.php' => ['PhanPluginMoreSpecificActualReturnType', 'PhanUndeclaredVariable'],
+        'htdocs/revertinvoice/admin/about.php' => ['PhanDeprecatedFunction', 'PhanPluginDuplicateConditionalTernaryDuplication'],
+        'htdocs/revertinvoice/admin/setup.php' => ['PhanDeprecatedFunction', 'PhanPluginDuplicateConditionalTernaryDuplication', 'PhanTypeMismatchArgument'],
+        'htdocs/revertinvoice/core/modules/modRevertInvoice.class.php' => ['PhanPluginDuplicateAdjacentStatement', 'PhanPluginRedundantAssignment'],
+        'htdocs/revertinvoice/core/triggers/interface_99_modRevertInvoice_RevertInvoiceTriggers.class.php' => ['PhanDeprecatedProperty', 'PhanTypeMismatchProperty', 'PhanUndeclaredProperty'],
+        'htdocs/revertinvoice/lib/revertinvoice.lib.php' => ['PhanPluginMoreSpecificActualReturnType'],
+        'htdocs/saftpt/admin/saftpt.php' => ['PhanDeprecatedFunction', 'PhanTypeMismatchArgument', 'PhanUndeclaredGlobalVariable', 'PhanUndeclaredVariableDim'],
+        'htdocs/saftpt/class/html.formsaftpt.class.php' => ['PhanTypeMagicVoidWithReturn', 'PhanTypeMismatchReturnProbablyReal'],
+        'htdocs/saftpt/class/saftpt.class.php' => ['PhanPluginDuplicateConditionalTernaryDuplication', 'PhanPluginPossiblyStaticPrivateMethod', 'PhanTypeInvalidUnaryOperandIncOrDec', 'PhanTypeMismatchArgument', 'PhanTypeMismatchArgumentInternal', 'PhanTypeSuspiciousStringExpression', 'PhanUndeclaredTypeParameter', 'PhanUndeclaredVariable'],
+        'htdocs/saftpt/core/modules/modSaftPt.class.php' => ['PhanPluginRedundantAssignment'],
+        'htdocs/saftpt/exportsaft.php' => ['PhanDeprecatedFunction', 'PhanPluginDuplicateConditionalTernaryDuplication', 'PhanPossiblyUndeclaredGlobalVariable', 'PhanTypeMismatchArgument', 'PhanTypeMismatchArgumentNullable', 'PhanUndeclaredGlobalVariable', 'PhanUndeclaredVariableDim'],
+        'htdocs/saftpt/index.php' => ['PhanDeprecatedFunction'],
+        'htdocs/scanner/admin/scannersetuppage.php' => ['PhanDeprecatedFunction', 'PhanPluginDuplicateConditionalTernaryDuplication', 'PhanPossiblyUndeclaredGlobalVariable', 'PhanUndeclaredGlobalVariable'],
+        'htdocs/scanner/config.php' => ['PhanPluginUnsafeShellExecDynamic', 'PhanTypeMismatchArgument'],
+        'htdocs/scanner/core/modules/modScanner.class.php' => ['PhanPluginRedundantAssignment'],
+        'htdocs/scanner/index.php' => ['PhanDeprecatedFunctionInternal', 'PhanPluginDuplicateAdjacentStatement', 'PhanPluginRedundantAssignmentInGlobalScope', 'PhanPossiblyUndeclaredGlobalVariable', 'PhanTypeArraySuspiciousNullable', 'PhanTypeMismatchArgumentNullableInternal', 'PhanUndeclaredGlobalVariable', 'PhanUndeclaredVariableDim'],
+        'htdocs/selectbank/admin/about.php' => ['PhanDeprecatedFunction', 'PhanUndeclaredVariableDim'],
+        'htdocs/selectbank/admin/selectbank.php' => ['PhanDeprecatedFunction', 'PhanUndeclaredGlobalVariable', 'PhanUndeclaredVariableDim'],
+        'htdocs/selectbank/class/actions_selectbank.class.php' => ['PhanPluginDuplicateAdjacentStatement', 'PhanTypeMismatchReturn', 'PhanUndeclaredProperty'],
+        'htdocs/selectbank/core/modules/modSelectBank.class.php' => ['PhanPluginRedundantAssignment'],
+        'htdocs/sendgrid/admin/about.php' => ['PhanDeprecatedFunction'],
+        'htdocs/sendgrid/admin/importinvoice.php' => ['PhanDeprecatedFunction', 'PhanPossiblyUndeclaredGlobalVariable', 'PhanTypeMismatchArgumentNullable', 'PhanTypeMismatchArgumentProbablyReal'],
+        'htdocs/sendgrid/admin/setup.php' => ['PhanDeprecatedFunction', 'PhanPluginEmptyStatementIf', 'PhanRedefineFunction', 'PhanTypeMismatchArgumentInternal', 'PhanTypeMismatchArgumentNullable', 'PhanUndeclaredClassMethod', 'PhanUndeclaredGlobalVariable'],
+        'htdocs/sendgrid/core/modules/modSendGrid.class.php' => ['PhanPluginRedundantAssignment'],
+        'htdocs/sendgrid/importinvoice.php' => ['PhanDeprecatedFunction', 'PhanDeprecatedProperty', 'PhanPluginDuplicateExpressionAssignment', 'PhanTypeArraySuspiciousNullable', 'PhanTypeExpectedObjectPropAccess', 'PhanTypeExpectedObjectPropAccessButGotNull', 'PhanTypeMismatchArgument', 'PhanTypeMismatchArgumentProbablyReal', 'PhanUndeclaredGlobalVariable'],
+        'htdocs/sendgrid/lib/sendgrid.lib.php' => ['PhanPluginMoreSpecificActualReturnType'],
+        'htdocs/sendgrid/scripts/importovhinvoice.php' => ['PhanDeprecatedFunctionInternal', 'PhanDeprecatedProperty', 'PhanPluginRedundantAssignmentInGlobalScope', 'PhanPossiblyUndeclaredGlobalVariable', 'PhanTypeMismatchArgument', 'PhanTypeMismatchArgumentProbablyReal', 'PhanUndeclaredGlobalVariable'],
+        'htdocs/skincoloreditor/admin/about.php' => ['PhanDeprecatedFunction', 'PhanUndeclaredVariableDim'],
+        'htdocs/skincoloreditor/admin/advancededitor.php' => ['PhanDeprecatedFunction', 'PhanPossiblyUndeclaredGlobalVariable', 'PhanTypeMismatchArgumentNullable', 'PhanUndeclaredGlobalVariable'],
+        'htdocs/skincoloreditor/admin/quickeditor.php' => ['PhanDeprecatedFunction', 'PhanDeprecatedFunctionInternal', 'PhanPossiblyUndeclaredGlobalVariable', 'PhanUndeclaredGlobalVariable'],
+        'htdocs/skincoloreditor/core/modules/modSkinColorEditor.class.php' => ['PhanPluginDuplicateAdjacentStatement', 'PhanPluginRedundantAssignment'],
+        'htdocs/skincoloreditor/usercolors.php' => ['PhanDeprecatedFunction', 'PhanPossiblyUndeclaredGlobalVariable', 'PhanTypeMismatchArgument', 'PhanTypeMismatchArgumentNullable', 'PhanUndeclaredGlobalVariable', 'PhanUndeclaredVariableDim'],
+        'htdocs/stancer/admin/about.php' => ['PhanPluginDuplicateConditionalTernaryDuplication'],
+        'htdocs/stancer/admin/setup.php' => ['PhanEmptyFQSENInClasslike', 'PhanPluginDuplicateConditionalTernaryDuplication', 'PhanTypeExpectedObjectOrClassName', 'PhanTypeMismatchArgument', 'PhanTypeMismatchArgumentNullableInternal', 'PhanUndeclaredVariableDim'],
+        'htdocs/stancer/class/actions_stancer.class.php' => ['PhanTypeMismatchArgumentInternal', 'PhanDeprecatedFunctionInternal', 'PhanPluginDuplicateConditionalTernaryDuplication', 'PhanPluginEmptyStatementForeachLoop', 'PhanPluginEmptyStatementIf', 'PhanPossiblyUndeclaredVariable', 'PhanTypeArraySuspiciousNull', 'PhanTypeMismatchArgument', 'PhanTypeSuspiciousStringExpression', 'PhanUndeclaredVariable', 'PhanUndeclaredVariableDim'],
+        'htdocs/stancer/core/modules/modStancer.class.php' => ['PhanPluginDuplicateAdjacentStatement', 'PhanPluginRedundantAssignment', 'PhanTypeMismatchArgument'],
+        'htdocs/stancer/lib/stancer.lib.php' => ['PhanPluginMoreSpecificActualReturnType', 'PhanTypeInvalidUnaryOperandIncOrDec', 'PhanTypeMismatchArgument', 'PhanTypeMismatchArgumentProbablyReal', 'PhanUndeclaredVariable', 'PhanUndeclaredVariableDim', 'PhanUnreferencedUseNormal'],
+        'htdocs/stancer/test/phpunit/functionnal/StancerFunctionalTest.php' => ['PhanEmptyProtectedMethod', 'PhanEmptyPublicMethod', 'PhanPluginDuplicateAdjacentStatement', 'PhanPluginMoreSpecificActualReturnType', 'PhanPluginNotFullyQualifiedFunctionCall', 'PhanPluginPossiblyStaticProtectedMethod', 'PhanUndeclaredClassCatch', 'PhanUndeclaredExtendedClass', 'PhanUndeclaredMethod'],
+        'htdocs/statistic/core/modules/modStat.class.php' => ['PhanPluginRedundantAssignment', 'PhanUndeclaredProperty'],
+        'htdocs/statistic/core/modules/statistic/modules_statistic.php' => ['PhanTypeExpectedObjectPropAccessButGotNull', 'PhanTypeMismatchArgument', 'PhanTypeMismatchArgumentProbablyReal', 'PhanUndeclaredClassProperty', 'PhanUndeclaredProperty', 'PhanUndeclaredThis', 'PhanUndeclaredTypeParameter', 'PhanUndeclaredVariable'],
+        'htdocs/statistic/core/modules/statistic/pdf_statistic_test.modules.php' => ['PhanAccessMethodProtected', 'PhanAccessPropertyProtected', 'PhanCompatiblePHP8PHP4Constructor', 'PhanPluginUnreachableCode', 'PhanRedefinedClassReference', 'PhanTypeArraySuspicious', 'PhanTypeArraySuspiciousNullable', 'PhanTypeInvalidLeftOperandOfNumericOp', 'PhanTypeMismatchArgument', 'PhanTypeMismatchArgumentNullable', 'PhanTypeMismatchArgumentProbablyReal', 'PhanTypeSuspiciousStringExpression', 'PhanUndeclaredClassMethod', 'PhanUndeclaredClassProperty', 'PhanUndeclaredConstant', 'PhanUndeclaredFunction', 'PhanUndeclaredProperty', 'PhanUndeclaredTypeParameter', 'PhanUndeclaredVariable', 'PhanUndeclaredVariableDim'],
+        'htdocs/statistic/index.php' => ['PhanDeprecatedFunction', 'PhanPluginEmptyStatementIf', 'PhanUndeclaredClassMethod', 'PhanUndeclaredClassProperty'],
+        'htdocs/statistic/stock.php' => ['PhanDeprecatedFunction', 'PhanPluginEmptyStatementIf', 'PhanTypeMismatchArgumentProbablyReal', 'PhanUndeclaredClassMethod', 'PhanUndeclaredClassProperty', 'PhanUndeclaredGlobalVariable'],
+        'htdocs/submiteverywhere/admin/submiteverywheresetuppage.php' => ['PhanDeprecatedFunction', 'PhanPluginDuplicateConditionalTernaryDuplication', 'PhanPossiblyUndeclaredGlobalVariable', 'PhanTypeInvalidDimOffset', 'PhanTypeMismatchArgumentNullable', 'PhanTypeMismatchArgumentProbablyReal', 'PhanUndeclaredGlobalVariable', 'PhanUndeclaredVariableDim'],
+        'htdocs/submiteverywhere/card.php' => ['PhanDeprecatedFunction', 'PhanParamTooFewInternal', 'PhanParamTooMany', 'PhanPluginDuplicateConditionalTernaryDuplication', 'PhanPossiblyUndeclaredGlobalVariable', 'PhanTypeExpectedObjectPropAccessButGotNull', 'PhanTypeMismatchArgument', 'PhanTypeMismatchArgumentProbablyReal', 'PhanTypeSuspiciousStringExpression', 'PhanUndeclaredGlobalVariable', 'PhanUndeclaredMethod', 'PhanUndeclaredProperty'],
+        'htdocs/submiteverywhere/class/SubmitewMessage.class.php' => ['PhanCompatiblePHP8PHP4Constructor', 'PhanPluginEmptyStatementIf', 'PhanTypeMismatchArgument', 'PhanUndeclaredClassMethod', 'PhanUndeclaredClassProperty', 'PhanUndeclaredProperty'],
+        'htdocs/submiteverywhere/core/lib/submiteverywhere.lib.php' => ['PhanPluginMoreSpecificActualReturnType'],
+        'htdocs/submiteverywhere/core/modules/modSubmitEveryWhere.class.php' => ['PhanPluginRedundantAssignment', 'PhanUndeclaredProperty'],
+        'htdocs/submiteverywhere/index.php' => ['PhanDeprecatedFunction', 'PhanPluginDuplicateConditionalTernaryDuplication', 'PhanPluginRedundantAssignmentInGlobalScope', 'PhanUndeclaredGlobalVariable'],
+        'htdocs/submiteverywhere/list.php' => ['PhanPluginDuplicateConditionalTernaryDuplication', 'PhanUndeclaredGlobalVariable'],
+        'htdocs/tawkto/admin/about.php' => ['PhanDeprecatedFunction', 'PhanUndeclaredVariableDim'],
+        'htdocs/tawkto/admin/setup.php' => ['PhanDeprecatedFunction', 'PhanUndeclaredGlobalVariable', 'PhanUndeclaredVariableDim'],
+        'htdocs/tawkto/class/actions_tawkto.class.php' => ['PhanPluginDuplicateConditionalTernaryDuplication', 'PhanTypeMismatchReturnProbablyReal', 'PhanUndeclaredProperty', 'PhanUndeclaredTypeReturnType'],
+        'htdocs/tawkto/core/modules/modTawkTo.class.php' => ['PhanPluginRedundantAssignment'],
+        'htdocs/themespack/core/modules/modThemesPack.class.php' => ['PhanPluginRedundantAssignment'],
+        'htdocs/themespack/theme/bluelagoon/index.php' => ['PhanEmptyFile'],
+        'htdocs/themespack/theme/bluelagoon/tpl/index.php' => ['PhanEmptyFile'],
+        'htdocs/themespack/theme/freelug/style.css.php' => ['PhanPluginDuplicateConditionalUnnecessary', 'PhanUndeclaredGlobalVariable'],
+        'htdocs/themespack/theme/yellow/style.css.php' => ['PhanPluginDuplicateConditionalUnnecessary', 'PhanUndeclaredGlobalVariable'],
+        'htdocs/tvacerfa/admin/tvacerfa.php' => ['PhanDeprecatedFunction'],
+        'htdocs/tvacerfa/core/modules/modTvaCerfa.class.php' => ['PhanPluginRedundantAssignment'],
+        'htdocs/tvacerfa/quadri_detail.php' => ['PhanDeprecatedFunction', 'PhanPluginDuplicateConditionalTernaryDuplication', 'PhanPossiblyUndeclaredGlobalVariable', 'PhanTypeComparisonFromArray', 'PhanTypeInvalidLeftOperandOfNumericOp', 'PhanTypeInvalidRightOperandOfNumericOp', 'PhanTypeInvalidUnaryOperandIncOrDec', 'PhanTypeMismatchArgument', 'PhanTypeMismatchArgumentNullable', 'PhanUndeclaredFunction', 'PhanUndeclaredGlobalVariable', 'PhanUndeclaredVariableAssignOp'],
+        'htdocs/webmailr/core/modules/modWebMailR.class.php' => ['PhanPluginRedundantAssignment', 'PhanTypeMismatchProperty'],
+        'htdocs/zipautofillfr/admin/about.php' => ['PhanDeprecatedFunction', 'PhanUndeclaredVariableDim'],
+        'htdocs/zipautofillfr/admin/zipautofillfr.php' => ['PhanDeprecatedFunction'],
+        'htdocs/zipautofillfr/tools/fixcase.php' => ['PhanTypeMismatchArgument'],
+    ],
+    // 'directory_suppressions' => ['src/directory_name' => ['PhanIssueName1', 'PhanIssueName2']] can be manually added if needed.
+    // (directory_suppressions will currently be ignored by subsequent calls to --save-baseline, but may be preserved in future Phan releases)
+];
