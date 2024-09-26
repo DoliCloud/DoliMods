@@ -111,7 +111,7 @@ GOOGLE_API_SERVICEACCOUNT_CLIENT_ID=Tjenestekonto klient-ID
 GOOGLE_API_SERVICEACCOUNT_EMAIL=Tjenestekontoens e-postadresse for å tillate (IKKE din Google-kontopålogging/e-post)
 GOOGLE_API_SERVICEACCOUNT_P12KEY=Tjenestekonto json-fil
 FillThisOnlyIfRequired=Eksempel: +2 (fyll bare ut hvis du har problemer)
-AboutInfo=Denne modulen er utviklet og distribuert av Laurent Destailleur for NLTechno, <a href="https://www.nltechno.com"> www.nltechno.com </a> (A Dolibarr Preferred Partner company).
+AboutInfo=Denne modulen er utviklet og distribuert av Laurent Destailleur for DoliCloud, <a href="https://www.dolicloud.com"> www.dolicloud.com </a> (A Dolibarr Preferred Partner company).
 MoreModules=Andre moduler av samme forfatter er tilgjengelig på den offisielle DoliStore-markedet...
 MoreModulesLink= <a target="_blank" href="https://www.dolistore.com/search.php?search_query=nltechno"> Klikk her for å se hele listen </a>
 MoreCloudHosting=For å bruke online Dolibarr, velg den sikrede hostingen DoliCloud.

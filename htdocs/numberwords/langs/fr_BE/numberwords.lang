@@ -4,7 +4,7 @@ Module101220Name=Number Words
 Module101220Desc=Add capabilities to convert amounts and numbers into value in full text (only few languages supported)
 NumberWordsSetup=Number Words module setup
 DescNumberWords=This module provide functions to convert number or amount in full characters. It will also replace the following string occurences __AMOUNT_TEXT__, __AMOUNT_CURRENCY_TEXT__, __AMOUNT_WO_TAX_TEXT__, __AMOUNT_CURRENCY_WO_TAX_TEXT__, __AMOUNT_VAT_TEXT__ or __AMOUNT_CURRENCY_VAT_TEXT__ by total net of tax, total without tax, or total of vat into all textes that use them (free text on invoices, ...)
-AboutInfo=This module is developped and distributed by Laurent Destailleur for NLTechno, <a href="https://www.nltechno.com">www.nltechno.com</a> (A Dolibarr Preferred Partner company).
+AboutInfo=This module is developped and distributed by Laurent Destailleur for DoliCloud, <a href="https://www.dolicloud.com">www.dolicloud.com</a> (A Dolibarr Preferred Partner company).
 MoreModules=Other modules of same author are available on the official DoliStore market place...
 MoreModulesLink=<a target="_blank" href="https://www.dolistore.com/search.php?search_query=nltechno">Click here to see full list</a>
 MoreCloudHosting=To use online Dolibarr, choose the secured hosting DoliCloud.

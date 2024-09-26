@@ -52,7 +52,7 @@ InvoiceFoundIntoDolibarr=Рахунок-фактура знайдено в Dolib
 InvoicePDFFoundIntoDolibarr=Рахунок-фактура+PDF знайдено в Dolibarr: %s
 ConnectionParameters=Параметри підключення
 TryToUseProxy=Використання проксі-сервера
-AboutInfo=Цей модуль розроблено та розповсюджено Laurent Destailleur для NLTechno, <a href="https://www.nltechno.com"> www.nltechno.com </a> (компанія-партнер Dolibarr).
+AboutInfo=Цей модуль розроблено та розповсюджено Laurent Destailleur для DoliCloud, <a href="https://www.dolicloud.com"> www.dolicloud.com </a> (компанія-партнер Dolibarr).
 MoreModules=Інші модулі того ж автора доступні на офіційному торговому майданчику DoliStore...
 MoreModulesLink= <a target="_blank" href="https://www.dolistore.com/search.php?search_query=nltechno"> Натисніть тут, щоб переглянути повний список </a>
 MoreCloudHosting=Щоб використовувати онлайн Dolibarr, виберіть захищений хостинг DoliCloud.

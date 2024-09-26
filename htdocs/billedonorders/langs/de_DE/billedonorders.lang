@@ -3,7 +3,7 @@ CHARSET= UTF-8
 BilledOnOrders=Auf Bestellung abgerechnet
 BilledOnOrdersSetup=Einrichtung des Moduls „Billed On Orders“.
 Module101450Desc=Modul zur Anzeige des in Rechnung gestellten und weiterhin in Rechnung gestellten Betrags gemäß verknüpfter Rechnungen in der Liste der Kunden- oder Lieferantenbestellungen
-AboutInfo=Dieses Modul wurde entwickelt und vertrieben von Laurent Destailleur für NLTechno, <a href="https://www.nltechno.com"> www.nltechno.com </a> (ein bevorzugtes Partnerunternehmen von Dolibarr).
+AboutInfo=Dieses Modul wurde entwickelt und vertrieben von Laurent Destailleur für DoliCloud, <a href="https://www.dolicloud.com"> www.dolicloud.com </a> (ein bevorzugtes Partnerunternehmen von Dolibarr).
 MoreModules=Andere Module desselben Autors sind auf dem offiziellen Marktplatz von DoliStore erhältlich...
 MoreModulesLink= <a target="_blank" href="https://www.dolistore.com/search.php?search_query=nltechno"> Klicken Sie hier, um die vollständige Liste </a> anzuzeigen
 MoreCloudHosting=Um Online-Dolibarr zu verwenden, wählen Sie das gesicherte Hosting DoliCloud.

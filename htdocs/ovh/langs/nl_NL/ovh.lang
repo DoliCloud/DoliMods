@@ -52,7 +52,7 @@ InvoiceFoundIntoDolibarr=Factuur gevonden in Dolibarr: %s
 InvoicePDFFoundIntoDolibarr=Factuur+PDF gevonden in Dolibarr: %s
 ConnectionParameters=Verbindingsparameters:
 TryToUseProxy=Proxyserver gebruiken
-AboutInfo=Deze module is ontwikkeld en gedistribueerd door Laurent Destailleur voor NLTechno, <a href="https://www.nltechno.com"> www.nltechno.com </a> (A Dolibarr Preferred Partner company).
+AboutInfo=Deze module is ontwikkeld en gedistribueerd door Laurent Destailleur voor DoliCloud, <a href="https://www.dolicloud.com"> www.dolicloud.com </a> (A Dolibarr Preferred Partner company).
 MoreModules=Andere modules van dezelfde auteur zijn beschikbaar op de officiële DoliStore-marktplaats...
 MoreModulesLink= <a target="_blank" href="https://www.dolistore.com/search.php?search_query=nltechno"> Klik hier om de volledige lijst te zien </a>
 MoreCloudHosting=Om online Dolibarr te gebruiken, kiest u de beveiligde hosting DoliCloud.

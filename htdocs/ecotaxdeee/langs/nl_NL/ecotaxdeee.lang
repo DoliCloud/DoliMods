@@ -11,7 +11,7 @@ EcoTaxDeeDocFooterExample=Producten hebben een eenheid WEEE-belasting van 0,01â‚
 ECOTAXDEEE_CATEGORY_REF=Ref van productcategorie om producten te detecteren die Eco tax WEEE nodig hebben
 Module101380Name=Eco-belasting AEEA
 Module101380Desc=Module om automatisch ecotax-regels toe te voegen
-AboutInfo=Deze module is ontwikkeld en gedistribueerd door Laurent Destailleur voor NLTechno, <a href="https://www.nltechno.com"> www.nltechno.com </a> (A Dolibarr Preferred Partner company).
+AboutInfo=Deze module is ontwikkeld en gedistribueerd door Laurent Destailleur voor DoliCloud, <a href="https://www.dolicloud.com"> www.dolicloud.com </a> (A Dolibarr Preferred Partner company).
 MoreModules=Andere modules van dezelfde auteur zijn beschikbaar op de officiÃ«le DoliStore-marktplaats...
 MoreModulesLink= <a target="_blank" href="https://www.dolistore.com/search.php?search_query=nltechno"> Klik hier om de volledige lijst te zien </a>
 MoreCloudHosting=Om online Dolibarr te gebruiken, kiest u de beveiligde hosting DoliCloud.

@@ -12,7 +12,7 @@ FilterDomain=Filtern nach Profil (Konfigurationsname)
 Module12000Name=AWStats
 Module12000Desc=Modul zur Integration von AWStats-Protokollanalyseberichten in Dolibarr
 ErrorAWStatsDataDirMustEndWithASlash=Das Verzeichnis muss mit / oder FilterDomain=Filter on configuration name enden
-AboutInfo=Dieses Modul wurde entwickelt und vertrieben von Laurent Destailleur für NLTechno, <a href="https://www.nltechno.com"> www.nltechno.com </a> (ein bevorzugtes Partnerunternehmen von Dolibarr).
+AboutInfo=Dieses Modul wurde entwickelt und vertrieben von Laurent Destailleur für DoliCloud, <a href="https://www.dolicloud.com"> www.dolicloud.com </a> (ein bevorzugtes Partnerunternehmen von Dolibarr).
 MoreModules=Weitere Module desselben Autors sind auf dem offiziellen DoliStore-Marktplatz verfügbar...
 MoreModulesLink= <a target="_blank" href="https://www.dolistore.com/search.php?search_query=nltechno"> Klicken Sie hier, um die vollständige Liste </a> anzuzeigen
 MoreCloudHosting=Um Online-Dolibarr zu verwenden, wählen Sie das gesicherte Hosting DoliCloud.

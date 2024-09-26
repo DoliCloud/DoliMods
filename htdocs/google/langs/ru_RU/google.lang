@@ -111,7 +111,7 @@ GOOGLE_API_SERVICEACCOUNT_CLIENT_ID=Идентификатор клиента с
 GOOGLE_API_SERVICEACCOUNT_EMAIL=Электронная почта сервисной учетной записи для разрешения (НЕ ваша учетная запись Google/адрес электронной почты)
 GOOGLE_API_SERVICEACCOUNT_P12KEY=JSON-файл сервисного аккаунта
 FillThisOnlyIfRequired=Пример: +2 (заполняется только в случае возникновения проблем)
-AboutInfo=Этот модуль разработан и распространяется Laurent Destailleur для NLTechno, <a href="https://www.nltechno.com"> www.nltechno.com </a> (компания, являющаяся предпочтительным партнером Dolibarr).
+AboutInfo=Этот модуль разработан и распространяется Laurent Destailleur для DoliCloud, <a href="https://www.dolicloud.com"> www.dolicloud.com </a> (компания, являющаяся предпочтительным партнером Dolibarr).
 MoreModules=Другие модули того же автора доступны на официальной торговой площадке DoliStore...
 MoreModulesLink= <a target="_blank" href="https://www.dolistore.com/search.php?search_query=nltechno"> Нажмите здесь, чтобы увидеть полный список </a>
 MoreCloudHosting=Чтобы использовать Dolibarr онлайн, выберите защищенный хостинг DoliCloud.

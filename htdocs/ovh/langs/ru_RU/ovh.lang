@@ -52,7 +52,7 @@ InvoiceFoundIntoDolibarr=Найден счет в Долибарре: %s
 InvoicePDFFoundIntoDolibarr=Счет+PDF найден в Долибарре: %s
 ConnectionParameters=Параметры подключения
 TryToUseProxy=Использование прокси-сервера
-AboutInfo=Этот модуль разработан и распространяется Laurent Destailleur для NLTechno, <a href="https://www.nltechno.com"> www.nltechno.com </a> (компания, являющаяся предпочтительным партнером Dolibarr).
+AboutInfo=Этот модуль разработан и распространяется Laurent Destailleur для DoliCloud, <a href="https://www.dolicloud.com"> www.dolicloud.com </a> (компания, являющаяся предпочтительным партнером Dolibarr).
 MoreModules=Другие модули того же автора доступны на официальной торговой площадке DoliStore...
 MoreModulesLink= <a target="_blank" href="https://www.dolistore.com/search.php?search_query=nltechno"> Нажмите здесь, чтобы увидеть полный список </a>
 MoreCloudHosting=Чтобы использовать Dolibarr онлайн, выберите защищенный хостинг DoliCloud.

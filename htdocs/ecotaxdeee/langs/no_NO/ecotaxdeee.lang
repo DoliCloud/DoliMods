@@ -11,7 +11,7 @@ EcoTaxDeeDocFooterExample=Produktene har en enhetsavgift for WEEE på 0,01€ fo
 ECOTAXDEEE_CATEGORY_REF=Ref for produktkategori for å oppdage produkter som trenger miljøavgift WEEE
 Module101380Name=Økoavgift WEEE
 Module101380Desc=Modul for å legge til økoavgiftslinjer automatisk
-AboutInfo=Denne modulen er utviklet og distribuert av Laurent Destailleur for NLTechno, <a href="https://www.nltechno.com"> www.nltechno.com </a> (A Dolibarr Preferred Partner company).
+AboutInfo=Denne modulen er utviklet og distribuert av Laurent Destailleur for DoliCloud, <a href="https://www.dolicloud.com"> www.dolicloud.com </a> (A Dolibarr Preferred Partner company).
 MoreModules=Andre moduler av samme forfatter er tilgjengelig på den offisielle DoliStore-markedet...
 MoreModulesLink= <a target="_blank" href="https://www.dolistore.com/search.php?search_query=nltechno"> Klikk her for å se hele listen </a>
 MoreCloudHosting=For å bruke online Dolibarr, velg den sikrede hostingen DoliCloud.

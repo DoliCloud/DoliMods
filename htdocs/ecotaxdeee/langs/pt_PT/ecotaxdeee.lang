@@ -11,7 +11,7 @@ EcoTaxDeeDocFooterExample=Os produtos têm uma taxa REEE unitária de 0,01€ pa
 ECOTAXDEEE_CATEGORY_REF=Ref da categoria do produto para detectar produtos que precisam de Eco tax WEEE
 Module101380Name=Eco Tax WEEE
 Module101380Desc=Módulo para adicionar linhas de ecotaxa automaticamente
-AboutInfo=Este módulo é desenvolvido e distribuído por Laurent Destailleur para NLTechno, <a href="https://www.nltechno.com"> www.nltechno.com </a> (Uma empresa Dolibarr Preferred Partner).
+AboutInfo=Este módulo é desenvolvido e distribuído por Laurent Destailleur para DoliCloud, <a href="https://www.dolicloud.com"> www.dolicloud.com </a> (Uma empresa Dolibarr Preferred Partner).
 MoreModules=Outros módulos do mesmo autor estão disponíveis no mercado oficial da DoliStore...
 MoreModulesLink= <a target="_blank" href="https://www.dolistore.com/search.php?search_query=nltechno"> Clique aqui para ver a lista completa </a>
 MoreCloudHosting=Para usar o Dolibarr online, escolha a hospedagem segura DoliCloud.

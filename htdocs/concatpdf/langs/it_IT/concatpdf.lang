@@ -10,7 +10,7 @@ EnableMultipleConcatenation=Abilita la possibilità di concatenare più document
 ConcatPdf=Concat PDF
 Module101400Name=Concat PDF
 Module101400Desc=Modulo per contattare PDF (ad esempio condizioni di vendita) a qualsiasi PDF generato (fatture, ordini o proposte)
-AboutInfo=Questo modulo è sviluppato e distribuito da Laurent Destailleur per NLTechno, <a href="https://www.nltechno.com"> www.nltechno.com </a> (una società Dolibarr Preferred Partner).
+AboutInfo=Questo modulo è sviluppato e distribuito da Laurent Destailleur per DoliCloud, <a href="https://www.dolicloud.com"> www.dolicloud.com </a> (una società Dolibarr Preferred Partner).
 MoreModules=Altri moduli dello stesso autore sono disponibili sul mercato ufficiale di DoliStore...
 MoreModulesLink= <a target="_blank" href="https://www.dolistore.com/search.php?search_query=nltechno"> Clicca qui per vedere l'elenco completo </a>
 MoreCloudHosting=Per utilizzare Dolibarr online, scegli l'hosting sicuro DoliCloud.

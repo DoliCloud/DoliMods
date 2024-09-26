@@ -1,7 +1,7 @@
 # Dolibarr language file - en_US - moretemplates
 CHARSET=UTF-8
-Module101440Name=NLTechno Templates
-Module101440Desc=More templates (by NLTechno)
+Module101440Name=DoliCloud Templates
+Module101440Desc=More templates (by DoliCloud)
 ThisModuleHasMoreTemplatesIntoSomeModule=This module adds more documents templates into other modules. Once activated, new templates are visibles into setup of other modules (invoice, ...)
 MoreTemplateSetup=Setup of module MoreTemplates
 PDFTourteauDescription=PDF Tourteau template

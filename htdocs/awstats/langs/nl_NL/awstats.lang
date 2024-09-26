@@ -12,7 +12,7 @@ FilterDomain=Filter op profiel (configuratie naam)
 Module12000Name=AWStats
 Module12000Desc=Module  om de AWStats log analyzer te integreren in Dolibarr
 ErrorAWStatsDataDirMustEndWithASlash=Map moet eindigen met een / of FilterDomain=Filter on configuration name
-AboutInfo=Deze module is ontwikkeld en wordt gedistribueerd door Laurent Destailleur voor NLTechno, <a href="https://www.nltechno.com">www.nltechno.com</a> (Een Dolibarr Preferred Partner bedrijf).
+AboutInfo=Deze module is ontwikkeld en wordt gedistribueerd door Laurent Destailleur voor DoliCloud, <a href="https://www.dolicloud.com">www.dolicloud.com</a> (Een Dolibarr Preferred Partner bedrijf).
 MoreModules=Andere modules van dezelfde auteur zijn beschikbaar in de officieele DoliStore market place...
 MoreModulesLink=<a target="_blank" href="https://www.dolistore.com/search.php?search_query=nltechno">Klik hier voor de volledige lijst</a>
 MoreCloudHosting=Om Dolibar online te gebruiken, kies de veilige DoliCloud hosting.

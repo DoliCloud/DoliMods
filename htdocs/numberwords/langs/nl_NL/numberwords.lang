@@ -4,7 +4,7 @@ Module101220Name=Cijferwoorden
 Module101220Desc=Voeg mogelijkheden toe om bedragen en getallen om te zetten in waarde in volledige tekst (slechts enkele talen ondersteund)
 NumberWordsSetup=Configuratie van de module Nummerwoorden
 DescNumberWords=Deze module biedt functies om een getal of bedrag in volledige tekens om te zetten. Het vervangt ook de volgende tekenreeksvoorvallen __AMOUNT_TEXT__, __AMOUNT_CURRENCY_TEXT__, __AMOUNT_WO_TAX_TEXT__, __AMOUNT_CURRENCY_WO_TAX_TEXT__, __AMOUNT_VAT_TEXT__ of __AMOUNT_VAT_TEXT__ of __AMOUNT_CURRENCY_VAT_s
-AboutInfo=Deze module is ontwikkeld en gedistribueerd door Laurent Destailleur voor NLTechno, <a href="https://www.nltechno.com"> www.nltechno.com </a> (A Dolibarr Preferred Partner company).
+AboutInfo=Deze module is ontwikkeld en gedistribueerd door Laurent Destailleur voor DoliCloud, <a href="https://www.dolicloud.com"> www.dolicloud.com </a> (A Dolibarr Preferred Partner company).
 MoreModules=Andere modules van dezelfde auteur zijn beschikbaar op de officiële DoliStore-marktplaats...
 MoreModulesLink= <a target="_blank" href="https://www.dolistore.com/search.php?search_query=nltechno"> Klik hier om de volledige lijst te zien </a>
 MoreCloudHosting=Om online Dolibarr te gebruiken, kiest u de beveiligde hosting DoliCloud.

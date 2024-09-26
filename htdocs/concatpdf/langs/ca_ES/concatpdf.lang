@@ -10,7 +10,7 @@ EnableMultipleConcatenation=Habiliteu la possibilitat de concatenar diversos doc
 ConcatPdf=Concat PDF
 Module101400Name=Concat PDF
 Module101400Desc=Mòdul per concatenar PDF (condicions de vendes, per exemple) tots els PDF generats (factures, comandes o pressupostos)
-AboutInfo=Aquest mòdul està desenvolupat i distribuït per Laurent Destailleur per a NLTechno, <a href="https://www.nltechno.com"> www.nltechno.com </a> (una empresa de Dolibarr Preferred Partner).
+AboutInfo=Aquest mòdul està desenvolupat i distribuït per Laurent Destailleur per a DoliCloud, <a href="https://www.dolicloud.com"> www.dolicloud.com </a> (una empresa de Dolibarr Preferred Partner).
 MoreModules=Altres mòduls del mateix autor estan disponibles al mercat oficial de DoliStore...
 MoreModulesLink= <a target="_blank" href="https://www.dolistore.com/search.php?search_query=nltechno"> Feu clic aquí per veure la llista completa </a>
 MoreCloudHosting=Per utilitzar Dolibarr en línia, trieu l'allotjament segur DoliCloud.

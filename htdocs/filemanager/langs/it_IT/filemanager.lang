@@ -31,7 +31,7 @@ AddFileName=Aggiungi il nome del file
 #####
 Module10600Name=Gestore di file
 Module10600Desc=Un file manager per scansionare e visualizzare il contenuto dei dischi del tuo server Dolibarr.
-AboutInfo=Questo modulo è sviluppato e distribuito da Laurent Destailleur per NLTechno, <a href="https://www.nltechno.com"> www.nltechno.com </a> (una società Dolibarr Preferred Partner).
+AboutInfo=Questo modulo è sviluppato e distribuito da Laurent Destailleur per DoliCloud, <a href="https://www.dolicloud.com"> www.dolicloud.com </a> (una società Dolibarr Preferred Partner).
 MoreModules=Altri moduli dello stesso autore sono disponibili sul mercato ufficiale di DoliStore...
 MoreModulesLink= <a target="_blank" href="https://www.dolistore.com/search.php?search_query=nltechno"> Clicca qui per vedere l'elenco completo </a>
 MoreCloudHosting=Per utilizzare Dolibarr online, scegli l'hosting sicuro DoliCloud.

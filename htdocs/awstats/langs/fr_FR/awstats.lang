@@ -11,8 +11,8 @@ ShowStats=Afficher détail des statistiques
 FilterDomain=Filtrage sur le nom de profil (fichier de configuration)
 Module12000Name=AWStats
 Module12000Desc=Module pour intégrer les rapports de l'analyseur de log AWStats dans Dolibarr
-ErrorAWStatsDataDirMustEndWithASlash=Le nom de répertoire doit se terminer par un / ou AboutInfo=Ce module est développé et diffusé par Laurent Destailleur pour NLTechno, <a target="_blank" href="https://www.nltechno.com">www.nltechno.com</a> (société labellisé Dolibarr Prefered Partner).
-AboutInfo=Ce module est développé et distribué par Laurent Destailleur pour NLTechno, <a href="https://www.nltechno.com"> www.nltechno.com </a> (A Dolibarr Preferred Partner company).
+ErrorAWStatsDataDirMustEndWithASlash=Le nom de répertoire doit se terminer par un / ou AboutInfo=Ce module est développé et diffusé par Laurent Destailleur pour DoliCloud, <a target="_blank" href="https://www.dolicloud.com">www.dolicloud.com</a> (société labellisé Dolibarr Prefered Partner).
+AboutInfo=Ce module est développé et distribué par Laurent Destailleur pour DoliCloud, <a href="https://www.dolicloud.com"> www.dolicloud.com </a> (A Dolibarr Preferred Partner company).
 MoreModules=D'autres modules du même auteur sont disponibles sur la place de marché officielle DoliStore...
 MoreModulesLink=<a target="_blank" href="https://www.dolistore.com/search.php?search_query=nltechno">Cliquez ici pour voir la liste</a>
 MoreCloudHosting=Pour une utilisation en ligne de Dolibarr, optez pour l'hébergement sécurisé DoliCloud.

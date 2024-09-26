@@ -11,7 +11,7 @@ EcoTaxDeeDocFooterExample=Produkte haben eine Einheits-WEEE-Steuer von 0,01 € 
 ECOTAXDEEE_CATEGORY_REF=Ref der Produktkategorie, um Produkte zu erkennen, die Ökosteuer-WEEE benötigen
 Module101380Name=Ökosteuer WEEE
 Module101380Desc=Modul zum automatischen Hinzufügen von Ökosteuerzeilen
-AboutInfo=Dieses Modul wurde entwickelt und vertrieben von Laurent Destailleur für NLTechno, <a href="https://www.nltechno.com"> www.nltechno.com </a> (ein bevorzugtes Partnerunternehmen von Dolibarr).
+AboutInfo=Dieses Modul wurde entwickelt und vertrieben von Laurent Destailleur für DoliCloud, <a href="https://www.dolicloud.com"> www.dolicloud.com </a> (ein bevorzugtes Partnerunternehmen von Dolibarr).
 MoreModules=Andere Module desselben Autors sind auf dem offiziellen Marktplatz von DoliStore erhältlich...
 MoreModulesLink= <a target="_blank" href="https://www.dolistore.com/search.php?search_query=nltechno"> Klicken Sie hier, um die vollständige Liste </a> anzuzeigen
 MoreCloudHosting=Um Online-Dolibarr zu verwenden, wählen Sie das gesicherte Hosting DoliCloud.

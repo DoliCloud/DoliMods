@@ -10,7 +10,7 @@ EnableMultipleConcatenation=Увімкніть можливість об’єд�
 ConcatPdf=Concat PDF
 Module101400Name=Concat PDF
 Module101400Desc=Модуль для зв’язку з PDF (наприклад, умови продажу) до будь-якого створеного PDF (рахунки-фактури, замовлення чи пропозиції)
-AboutInfo=Цей модуль розроблено та розповсюджено Laurent Destailleur для NLTechno, <a href="https://www.nltechno.com"> www.nltechno.com </a> (компанія-партнер Dolibarr).
+AboutInfo=Цей модуль розроблено та розповсюджено Laurent Destailleur для DoliCloud, <a href="https://www.dolicloud.com"> www.dolicloud.com </a> (компанія-партнер Dolibarr).
 MoreModules=Інші модулі того ж автора доступні на офіційному торговому майданчику DoliStore...
 MoreModulesLink= <a target="_blank" href="https://www.dolistore.com/search.php?search_query=nltechno"> Натисніть тут, щоб переглянути повний список </a>
 MoreCloudHosting=Щоб використовувати онлайн Dolibarr, виберіть захищений хостинг DoliCloud.

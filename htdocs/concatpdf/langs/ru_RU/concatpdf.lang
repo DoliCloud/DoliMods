@@ -10,7 +10,7 @@ EnableMultipleConcatenation=Включите возможность объеди
 ConcatPdf=Объединить PDF
 Module101400Name=Объединить PDF
 Module101400Desc=Модуль для связи с PDF (например, условия продажи) с любым сгенерированным PDF (счета-фактуры, заказы или предложения)
-AboutInfo=Этот модуль разработан и распространяется Laurent Destailleur для NLTechno, <a href="https://www.nltechno.com"> www.nltechno.com </a> (компания, являющаяся предпочтительным партнером Dolibarr).
+AboutInfo=Этот модуль разработан и распространяется Laurent Destailleur для DoliCloud, <a href="https://www.dolicloud.com"> www.dolicloud.com </a> (компания, являющаяся предпочтительным партнером Dolibarr).
 MoreModules=Другие модули того же автора доступны на официальной торговой площадке DoliStore...
 MoreModulesLink= <a target="_blank" href="https://www.dolistore.com/search.php?search_query=nltechno"> Нажмите здесь, чтобы увидеть полный список </a>
 MoreCloudHosting=Чтобы использовать Dolibarr онлайн, выберите защищенный хостинг DoliCloud.
