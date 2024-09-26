@@ -72,7 +72,9 @@ dol_fiche_head($head, 'tababout', '');
 
 dol_include_once('/concatpdf/core/modules/modConcatPdf.class.php');
 $tmpmodule = new modConcatPdf($db);
-if (method_exists($tmpmodule, 'getDescLong')) print $tmpmodule->getDescLong();
+if (method_exists($tmpmodule, 'getDescLong')) {
+	print $tmpmodule->getDescLong();
+}
 
 print '<br><hr><br>';
 
