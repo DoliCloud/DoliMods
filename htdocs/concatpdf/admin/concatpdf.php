@@ -281,8 +281,6 @@ $formfile->form_attach_new_file($_SERVER['PHP_SELF'], $langs->trans("AddFilesToC
 dol_fiche_end();
 
 
-print '<br>';
-
 
 foreach ($modules as $module => $moduletrans) {
 	$outputdir=$conf->concatpdf->dir_output.'/'.$module;
