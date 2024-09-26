@@ -334,7 +334,7 @@ class ActionsConcatPdf
 				}
 				//$pdf->SetCompression(false);
 
-				if($conf->global->CONCATPDF_MIXED_CONCATENATION_ENABLED) {
+				if (getDolGlobalString('CONCATPDF_MIXED_CONCATENATION_ENABLED')) {
 					$pagecount = $this->concatMixed($pdf, reset($filetoconcat1), $filetoconcat2);
 				} else {
 					$pagecount = $this->concat($pdf, $filetoconcat);
