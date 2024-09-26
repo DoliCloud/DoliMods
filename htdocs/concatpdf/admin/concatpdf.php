@@ -217,29 +217,23 @@ foreach ($modules as $module => $moduletrans) {
 print '</div>';
 print '<br>';
 
-// Show for to add a file
-$select_module = $form->selectarray('module', $modules, GETPOST('module'), 1, 0, 0, '', 1);
+print '<br>';
 
-$formfile->form_attach_new_file($_SERVER['PHP_SELF'], $langs->trans("AddFilesToConcat"), 0, 0, 1, 50, '', $select_module, false, '', 0);
+$form=new Form($db);
 
+print '<table class="noborder centpercent">';
+print '<tr class="liste_titre">';
+print '<td>'.$langs->trans("Parameters").'</td>'."\n";
+print '<td align="center" width="20">&nbsp;</td>';
+print '<td align="center" width="100"></td>'."\n";
+print '</tr>';
+
+/*
+ * Parameters form
+ */
 
 // Show option for CONCATPDF_MULTIPLE_CONCATENATION_ENABLED
-if (! empty($conf->global->MAIN_USE_JQUERY_MULTISELECT)) {
-	print '<br>';
-
-	$form=new Form($db);
-	$var=true;
-	print '<table class="noborder centpercent">';
-	print '<tr class="liste_titre">';
-	print '<td>'.$langs->trans("Parameters").'</td>'."\n";
-	print '<td align="center" width="20">&nbsp;</td>';
-	print '<td align="center" width="100">'.$langs->trans("Value").'</td>'."\n";
-	print '</tr>';
-
-	/*
-	 * Parameters form
-	 */
-
+if (getDolGlobalString('MAIN_USE_JQUERY_MULTISELECT')) {
 	// Use multiple concatenation
 	print '<tr class="oddeven">';
 	print '<td>'.$langs->trans("EnableMultipleConcatenation").'</td>';
@@ -249,40 +243,45 @@ if (! empty($conf->global->MAIN_USE_JQUERY_MULTISELECT)) {
 	if (! empty($conf->use_javascript_ajax)) {
 		print ajax_constantonoff('CONCATPDF_MULTIPLE_CONCATENATION_ENABLED', '', 0);
 	} else {
-		if (empty($conf->global->CONCATPDF_MULTIPLE_CONCATENATION_ENABLED)) {
+		if (!getDolGlobalString('CONCATPDF_MULTIPLE_CONCATENATION_ENABLED')) {
 			print '<a href="'.$_SERVER['PHP_SELF'].'?action=set_CONCATPDF_MULTIPLE_CONCATENATION_ENABLED">'.img_picto($langs->trans("Disabled"), 'off').'</a>';
 		} else {
 			print '<a href="'.$_SERVER['PHP_SELF'].'?action=del_CONCATPDF_MULTIPLE_CONCATENATION_ENABLED">'.img_picto($langs->trans("Enabled"), 'on').'</a>';
 		}
 	}
 	print '</td></tr>';
-
-	// Interleave ? or at the end ?
-	print '<tr class="oddeven">';
-	print '<td>'.$langs->trans("EnableMixedConcatenation").'</td>';
-	print '<td align="center" width="20">&nbsp;</td>';
-
-	print '<td align="center" width="100">';
-	if (! empty($conf->use_javascript_ajax)) {
-		print ajax_constantonoff('CONCATPDF_MIXED_CONCATENATION_ENABLED', '', 0);
-	} else {
-		if (empty($conf->global->CONCATPDF_MIXED_CONCATENATION_ENABLED)) {
-			print '<a href="'.$_SERVER['PHP_SELF'].'?action=set_CONCATPDF_MIXED_CONCATENATION_ENABLED">'.img_picto($langs->trans("Disabled"), 'off').'</a>';
-		} else {
-			print '<a href="'.$_SERVER['PHP_SELF'].'?action=del_CONCATPDF_MIXED_CONCATENATION_ENABLED">'.img_picto($langs->trans("Enabled"), 'on').'</a>';
-		}
-	}
-	print '</td></tr>';
-
-
-	print '</table>';
 }
+
+// Interleave ? or at the end ?
+print '<tr class="oddeven">';
+print '<td>'.$langs->trans("EnableMixedConcatenation").'</td>';
+print '<td align="center" width="20">&nbsp;</td>';
+
+print '<td align="center" width="100">';
+if (! empty($conf->use_javascript_ajax)) {
+	print ajax_constantonoff('CONCATPDF_MIXED_CONCATENATION_ENABLED', '', 0);
+} else {
+	if (empty($conf->global->CONCATPDF_MIXED_CONCATENATION_ENABLED)) {
+		print '<a href="'.$_SERVER['PHP_SELF'].'?action=set_CONCATPDF_MIXED_CONCATENATION_ENABLED">'.img_picto($langs->trans("Disabled"), 'off').'</a>';
+	} else {
+		print '<a href="'.$_SERVER['PHP_SELF'].'?action=del_CONCATPDF_MIXED_CONCATENATION_ENABLED">'.img_picto($langs->trans("Enabled"), 'on').'</a>';
+	}
+}
+print '</td></tr>';
+
+print '</table>';
+
+
+// Show for to add a file
+$select_module = $form->selectarray('module', $modules, GETPOST('module'), 1, 0, 0, '', 1);
+
+$formfile->form_attach_new_file($_SERVER['PHP_SELF'], $langs->trans("AddFilesToConcat"), 0, 0, 1, 50, '', $select_module, false, '', 0);
 
 
 dol_fiche_end();
 
 
-print '<br><br>';
+print '<br>';
 
 
 foreach ($modules as $module => $moduletrans) {
