@@ -46,6 +46,7 @@ HELLOASSO_SHOW_ONLINE_PAYMENTS=Show online payment page
 
 ExampleOfTestCreditCardHelloAsso=Example of credit card can be found at this URL:<br> %s 
 TestConnectionHelloasso=Test Connection
+SuccessfullyConnected=Connection successful
 
 # About page
 #
@@ -56,13 +57,6 @@ HelloAssoAboutPage = HelloAsso about page
 # Sample page
 #
 HelloAssoArea = Home HelloAsso
-MyPageName = My page name
-
-#
-# Sample widget
-#
-MyWidget = My widget
-MyWidgetDescription = My widget description
 
 HelloAssoDoPayment = Pay with HelloAsso
 
