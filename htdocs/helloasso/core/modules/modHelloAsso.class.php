@@ -40,7 +40,7 @@ class modHelloAsso extends DolibarrModules
 	 */
 	public function __construct($db)
 	{
-		global $langs, $conf;
+		global $conf;
 		$this->db = $db;
 
 		// Id for module (must be unique).
@@ -147,7 +147,7 @@ class modHelloAsso extends DolibarrModules
 
 		// Prerequisites
 		$this->phpmin = array(7, 0); // Minimum version of PHP required by module
-		$this->need_dolibarr_version = array(17, 0, -4); // Minimum version of Dolibarr required by module
+		$this->need_dolibarr_version = array(20, 0, -4); // Minimum version of Dolibarr required by module
 		$this->need_javascript_ajax = 0;
 
 		// Messages at activation
