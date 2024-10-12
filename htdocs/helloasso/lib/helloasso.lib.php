@@ -79,7 +79,7 @@ function helloassoAdminPrepareHead()
 
 /**
  * Refresh connection token
- * 
+ *
  * @throws Exception
  * @return TokenInterface|int	Token if OK
  */
@@ -89,7 +89,7 @@ function helloassoAdminPrepareHead()
 	dol_syslog('HelloAsso::helloassoRefreshToken clientid='.$client_id.', service='.$service);
 
 	$refreshtoken = $tokenobj->getRefreshToken();
-	$ret = getURLContent($urltocall, 'POST', 'grant_type=refresh_token&client_id='.$client_id.'&refresh_token='.$refreshtoken, 1, array('content-type: application/x-www-form-urlencoded'));
+	$ret = getURLContent($urltocall, 'POST', 'grant_type=refresh_token&client_id='.urlencode($client_id).'&refresh_token='.urlencode($refreshtoken), 1, array('content-type: application/x-www-form-urlencoded'));
 
 	if ($ret["http_code"] == 200) {
 		$jsondata = $ret["content"];
@@ -153,7 +153,9 @@ function helloassoDoConnection()
 		}
 		$result = array("token_type" => $tokenobj->getExtraParams()["token_type"], "access_token" => $tokenobj->getAccessToken());
 	} catch (Exception $e) {
-		$ret = getURLContent($url, 'POST', 'grant_type=client_credentials&client_id='.$client_id.'&client_secret='.$client_id_secret, 1, array('content-type: application/x-www-form-urlencoded'));
+		//var_dump($url.' - '.$client_id.' - '.$client_id_secret);
+		$ret = getURLContent($url, 'POST', 'grant_type=client_credentials&client_id='.urlencode($client_id).'&client_secret='.urlencode($client_id_secret), 1, array('content-type: application/x-www-form-urlencoded'));
+		//var_dump($ret);
 
 		if ($ret["http_code"] == 200) {
 			$jsondata = $ret["content"];
@@ -182,12 +184,12 @@ function helloassoDoConnection()
 
 /**
  * Get data form an object
- * 
+ *
  * @param	$source 		The type of the object
  * @param	$ref			The ref of the object
  * @param	$mode			The mode to use for the function (amount or payer)
  * @param	$payerarray		An array to fill the payer informations (Must be set with payer mode)
- * 
+ *
  * @return	int				The amount to pay if mode amount or fill $payerarray for payer mode
  */
 
@@ -213,6 +215,9 @@ function helloassoGetDataFromObjects($source, $ref, $mode = 'amount', &$payerarr
 	$contract = new Contrat($db);
 	$contractline = new ContratLigne($db);
 	$order = new Commande($db);
+
+	$error = 0;
+	$errors = array();
 
 	if ($source == "membersubscription") {
 		$source = 'member';
@@ -250,8 +255,10 @@ function helloassoGetDataFromObjects($source, $ref, $mode = 'amount', &$payerarr
 			} else {
 				if ($mode == 'amount') {
 					$member->fetch_thirdparty();
+
 					$subscription = new Subscription($db);
 					$adht->fetch($member->typeid);
+
 					$amount = $subscription->total_ttc;
 					if (GETPOST("amount", 'alpha')) {
 						$amount = GETPOST("amount", 'alpha');
@@ -267,6 +274,7 @@ function helloassoGetDataFromObjects($source, $ref, $mode = 'amount', &$payerarr
 				} else if($mode == 'payer' && !is_null($payerarray)) {
 					$payerarray['firstName'] = $member->firstname;
 					$payerarray['lastName'] = $member->lastname;
+					$payerarray['companyName'] = $member->societe;
 					$payerarray['email'] = $member->email;
 					$payerarray['dateOfBirth'] = dol_print_date($member->birth, 'dayrfc');
 				}
@@ -294,22 +302,25 @@ function helloassoGetDataFromObjects($source, $ref, $mode = 'amount', &$payerarr
 
 						$amount = $pu_ttc;
 					}
-				} else if($mode == 'payer' && !is_null($payerarray)) {
-					$invoice->fetch_thirdparty();
-					if ($invoice->thirdparty->isACompany()) {
-						$payerarray['companyName'] = $invoice->thirdparty->name;
-						$payerarray['address'] = $invoice->thirdparty->address;
-						$payerarray['zipCode'] = $invoice->thirdparty->zip;
-						$payerarray['city'] = $invoice->thirdparty->town;
-					} else {
-						$result = $member->fetch(0, '', $invoice->thirdparty->id);
-						if ($resut > 0) {
-							$payerarray['firstName'] = $member->firstname;
-							$payerarray['lastName'] = $member->lastname;
-							$payerarray['dateOfBirth'] = dol_print_date($member->birth, 'dayrfc');
-						}
+				} else if ($mode == 'payer' && !is_null($payerarray)) {
+					$contract = new Contrat($db);
+					$contract->fetch($contractline->fk_contrat);
+					$contract->fetch_thirdparty();
+
+					if ($contract->thirdparty->isACompany()) {
+						$payerarray['companyName'] = $contract->thirdparty->name;
 					}
-					$payerarray['email'] = $invoice->thirdparty->email;
+					$payerarray['address'] = $contract->thirdparty->address;
+					$payerarray['zipCode'] = $contract->thirdparty->zip;
+					$payerarray['city'] = $contract->thirdparty->town;
+
+					$result = $member->fetch(0, '', $contract->thirdparty->id);
+					if ($result > 0) {
+						$payerarray['firstName'] = $member->firstname;
+						$payerarray['lastName'] = $member->lastname;
+						$payerarray['dateOfBirth'] = dol_print_date($member->birth, 'dayrfc');
+					}
+					$payerarray['email'] = $contract->thirdparty->email;
 				}
 			}
 			break;
@@ -325,20 +336,21 @@ function helloassoGetDataFromObjects($source, $ref, $mode = 'amount', &$payerarr
 					if (GETPOST("amount", 'alpha')) {
 						$amount = GETPOST("amount", 'alpha');
 					}
-				} else if($mode == 'payer' && !is_null($payerarray)) {
+				} else if ($mode == 'payer' && !is_null($payerarray)) {
 					$invoice->fetch_thirdparty();
+
 					if ($invoice->thirdparty->isACompany()) {
 						$payerarray['companyName'] = $invoice->thirdparty->name;
-						$payerarray['address'] = $invoice->thirdparty->address;
-						$payerarray['zipCode'] = $invoice->thirdparty->zip;
-						$payerarray['city'] = $invoice->thirdparty->town;
-					} else {
-						$result = $member->fetch(0, '', $invoice->thirdparty->id);
-						if ($result > 0) {
-							$payerarray['firstName'] = $member->firstname;
-							$payerarray['lastName'] = $member->lastname;
-							$payerarray['dateOfBirth'] = dol_print_date($member->birth, 'dayrfc');
-						}
+					}
+					$payerarray['address'] = $invoice->thirdparty->address;
+					$payerarray['zipCode'] = $invoice->thirdparty->zip;
+					$payerarray['city'] = $invoice->thirdparty->town;
+
+					$result = $member->fetch(0, '', $invoice->thirdparty->id);
+					if ($result > 0) {
+						$payerarray['firstName'] = $member->firstname;
+						$payerarray['lastName'] = $member->lastname;
+						$payerarray['dateOfBirth'] = dol_print_date($member->birth, 'dayrfc');
 					}
 					$payerarray['email'] = $invoice->thirdparty->email;
 				}
@@ -356,20 +368,21 @@ function helloassoGetDataFromObjects($source, $ref, $mode = 'amount', &$payerarr
 					if (GETPOST("amount", 'alpha')) {
 						$amount = GETPOST("amount", 'alpha');
 					}
-				} else if($mode == 'payer' && !is_null($payerarray)) {
+				} else if ($mode == 'payer' && !is_null($payerarray)) {
 					$order->fetch_thirdparty();
+
 					if ($order->thirdparty->isACompany()) {
 						$payerarray['companyName'] = $order->thirdparty->name;
-						$payerarray['address'] = $order->thirdparty->address;
-						$payerarray['zipCode'] = $order->thirdparty->zip;
-						$payerarray['city'] = $order->thirdparty->town;
-					} else {
-						$result = $member->fetch(0, '', $order->thirdparty->id);
-						if ($resut > 0) {
-							$payerarray['firstName'] = $member->firstname;
-							$payerarray['lastName'] = $member->lastname;
-							$payerarray['dateOfBirth'] = dol_print_date($member->birth, 'dayrfc');
-						}
+					}
+					$payerarray['address'] = $order->thirdparty->address;
+					$payerarray['zipCode'] = $order->thirdparty->zip;
+					$payerarray['city'] = $order->thirdparty->town;
+
+					$result = $member->fetch(0, '', $order->thirdparty->id);
+					if ($result > 0) {
+						$payerarray['firstName'] = $member->firstname;
+						$payerarray['lastName'] = $member->lastname;
+						$payerarray['dateOfBirth'] = dol_print_date($member->birth, 'dayrfc');
 					}
 					$payerarray['email'] = $order->thirdparty->email;
 				}
@@ -384,21 +397,21 @@ function helloassoGetDataFromObjects($source, $ref, $mode = 'amount', &$payerarr
 			} else {
 				if ($mode == 'amount') {
 					$amount = $invoice->total_ttc;
-				} else if($mode == 'payer' && !is_null($payerarray)) {
+				} else if ($mode == 'payer' && !is_null($payerarray)) {
 					$invoice->fetch_thirdparty();
-					$invoice->fetch_thirdparty();
+
 					if ($invoice->thirdparty->isACompany()) {
 						$payerarray['companyName'] = $invoice->thirdparty->name;
-						$payerarray['address'] = $invoice->thirdparty->address;
-						$payerarray['zipCode'] = $invoice->thirdparty->zip;
-						$payerarray['city'] = $invoice->thirdparty->town;
-					} else {
-						$result = $member->fetch(0, '', $invoice->thirdparty->id);
-						if ($resut > 0) {
-							$payerarray['firstName'] = $member->firstname;
-							$payerarray['lastName'] = $member->lastname;
-							$payerarray['dateOfBirth'] = dol_print_date($member->birth, 'dayrfc');
-						}
+					}
+					$payerarray['address'] = $invoice->thirdparty->address;
+					$payerarray['zipCode'] = $invoice->thirdparty->zip;
+					$payerarray['city'] = $invoice->thirdparty->town;
+
+					$result = $member->fetch(0, '', $invoice->thirdparty->id);
+					if ($result > 0) {
+						$payerarray['firstName'] = $member->firstname;
+						$payerarray['lastName'] = $member->lastname;
+						$payerarray['dateOfBirth'] = dol_print_date($member->birth, 'dayrfc');
 					}
 					$payerarray['email'] = $invoice->thirdparty->email;
 				}
