@@ -460,7 +460,7 @@ class ActionsHelloAsso extends CommonHookActions
 	 */
 	public function doPayment($parameters, &$object, &$action, $hookmanager)
 	{
-		global $conf, $user, $langs,$db;
+		global $conf, $user, $langs, $db;
 
 		dol_include_once('helloasso/lib/helloasso.lib.php');
 
@@ -549,12 +549,14 @@ class ActionsHelloAsso extends CommonHookActions
 			if (!empty($SECUREKEY)) {
 				$urlback .= 'securekey='.urlencode($SECUREKEY).'&';
 			}
+			/*
 			if (!empty($entity)) {
 				$urlback .= 'e='.urlencode($entity).'&';
 			}
 			if (!empty($getpostlang)) {
 				$urlback .= 'lang='.urlencode($getpostlang).'&';
 			}
+			*/
 			$urlback .= 'action=returnDoPaymentHelloAsso';
 
 			$result = helloassoDoConnection();
@@ -632,7 +634,9 @@ class ActionsHelloAsso extends CommonHookActions
 							}';
 						$jsontosenddata .= '}';
 
-						$urlforcheckout = "https://".urlencode($helloassourl)."/v5/organizations/".urlencode($client_organisation)."/checkout-intents";
+						$assoslug = str_replace('_', '-', dol_string_nospecial(strtolower(dol_string_unaccent($client_organisation)), '-'));
+
+						$urlforcheckout = "https://".urlencode($helloassourl)."/v5/organizations/".urlencode($assoslug)."/checkout-intents";
 
 						dol_syslog("Send Post to url=".$urlforcheckout." with session FinalPaymentAmt = ".$FinalPaymentAmt." currencyCodeType = ".$_SESSION["currencyCodeType"], LOG_DEBUG);
 

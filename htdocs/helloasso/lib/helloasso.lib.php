@@ -79,7 +79,7 @@ function helloassoAdminPrepareHead()
 
 /**
  * Refresh connection token
- * 
+ *
  * @throws Exception
  * @return TokenInterface|int	Token if OK
  */
@@ -89,7 +89,7 @@ function helloassoAdminPrepareHead()
 	dol_syslog('HelloAsso::helloassoRefreshToken clientid='.$client_id.', service='.$service);
 
 	$refreshtoken = $tokenobj->getRefreshToken();
-	$ret = getURLContent($urltocall, 'POST', 'grant_type=refresh_token&client_id='.$client_id.'&refresh_token='.$refreshtoken, 1, array('content-type: application/x-www-form-urlencoded'));
+	$ret = getURLContent($urltocall, 'POST', 'grant_type=refresh_token&client_id='.urlencode($client_id).'&refresh_token='.urlencode($refreshtoken), 1, array('content-type: application/x-www-form-urlencoded'));
 
 	if ($ret["http_code"] == 200) {
 		$jsondata = $ret["content"];
@@ -153,7 +153,9 @@ function helloassoDoConnection()
 		}
 		$result = array("token_type" => $tokenobj->getExtraParams()["token_type"], "access_token" => $tokenobj->getAccessToken());
 	} catch (Exception $e) {
-		$ret = getURLContent($url, 'POST', 'grant_type=client_credentials&client_id='.$client_id.'&client_secret='.$client_id_secret, 1, array('content-type: application/x-www-form-urlencoded'));
+		//var_dump($url.' - '.$client_id.' - '.$client_id_secret);
+		$ret = getURLContent($url, 'POST', 'grant_type=client_credentials&client_id='.urlencode($client_id).'&client_secret='.urlencode($client_id_secret), 1, array('content-type: application/x-www-form-urlencoded'));
+		//var_dump($ret);
 
 		if ($ret["http_code"] == 200) {
 			$jsondata = $ret["content"];
@@ -182,12 +184,12 @@ function helloassoDoConnection()
 
 /**
  * Get data form an object
- * 
+ *
  * @param	$source 		The type of the object
  * @param	$ref			The ref of the object
  * @param	$mode			The mode to use for the function (amount or payer)
  * @param	$payerarray		An array to fill the payer informations (Must be set with payer mode)
- * 
+ *
  * @return	int				The amount to pay if mode amount or fill $payerarray for payer mode
  */
 
