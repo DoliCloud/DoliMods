@@ -1,5 +1,5 @@
 <?php
-/* Copyright (C) 2023 Alice Adminson <myemail@mycompany.com>
+/* Copyright (C) 2024      Lucas Marcouiller    <lmarcouiller@dolicloud.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -80,11 +80,11 @@ function stancerAdminPrepareHead()
 
 /**
  * Get data form an object
- * 
+ *
  * @param	$source 		The type of the object
  * @param	$ref			The ref of the object
  * @param	$mode			The mode to use for the function amount
- * 
+ *
  * @return	int				The amount to pay if mode amount
  */
 
