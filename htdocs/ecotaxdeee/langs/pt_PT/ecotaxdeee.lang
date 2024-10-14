@@ -11,11 +11,11 @@ EcoTaxDeeDocFooterExample=Os produtos têm uma taxa REEE unitária de 0,01€ pa
 ECOTAXDEEE_CATEGORY_REF=Ref da categoria do produto para detectar produtos que precisam de Eco tax WEEE
 Module101380Name=Eco Tax WEEE
 Module101380Desc=Módulo para adicionar linhas de ecotaxa automaticamente
-AboutInfo=Este módulo é desenvolvido e distribuído por Laurent Destailleur para DoliCloud, <a href="https://www.dolicloud.com"> www.dolicloud.com </a> (Uma empresa Dolibarr Preferred Partner).
+AboutInfo=Este módulo é desenvolvido e distribuído por Laurent Destailleur para DoliCloud, <a href="https://www.dolicloud.com?origin=dolimods"> www.dolicloud.com </a> (Uma empresa Dolibarr Preferred Partner).
 MoreModules=Outros módulos do mesmo autor estão disponíveis no mercado oficial da DoliStore...
-MoreModulesLink= <a target="_blank" href="https://www.dolistore.com/search.php?search_query=nltechno"> Clique aqui para ver a lista completa </a>
+MoreModulesLink= <a target="_blank" href="https://www.dolistore.com/search.php?search_query=dolicloud"> Clique aqui para ver a lista completa </a>
 MoreCloudHosting=Para usar o Dolibarr online, escolha a hospedagem segura DoliCloud.
-MoreCloudHostingLink= <a target="_blank" href="https://www.dolicloud.com"> Clique aqui para mais informações </a>
+MoreCloudHostingLink= <a target="_blank" href="https://www.dolicloud.com?origin=dolimods"> Clique aqui para mais informações </a>
 CompatibleWithDoliDroid=Este módulo também é compatível com DoliDroid, o aplicativo Android para Dolibarr.
 EcoTaxAddedIfDesc=Uma linha Eco tax WEEE será automaticamente calculada e adicionada quando produtos com eco tax forem adicionados aos seguintes objetos: <b> %s </b> . <br> O valor do Eco tax deve ser definido antes no cartão do produto para cada produto.
 EcoTaxAddedIfDescOld=Uma linha Eco tax WEEE será automaticamente calculada e adicionada quando produtos com eco tax forem adicionados aos seguintes objetos: <b> %s </b> . <br> O valor do Eco tax deve ser definido antes no cartão do produto para cada produto. Para isso, entre no setup do módulo "Product" e adicione um campo complementar com formato float e com o código "ecotaxdeee". Você poderá então inserir o valor do imposto Eco em cada produto.

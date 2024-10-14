@@ -23,8 +23,8 @@ CreateMessage=Créer message
 ListOfMessage=Liste des messages
 Module101260Name=Submit Every Where
 Module101260Desc=Un gestionnaire pour aider à la soumission d'article/scoop vers différentes cibles (Twitter, Facebook, Digg, EMail, sites majeurs de nouvelles...)
-AboutInfo=Ce module est développé et diffusé par Laurent Destailleur pour DoliCloud, <a target="_blank" href="https://www.dolicloud.com">www.dolicloud.com</a> (société labellisé Dolibarr Prefered Partner).
+AboutInfo=Ce module est développé et diffusé par Laurent Destailleur pour DoliCloud, <a target="_blank" href="https://www.dolicloud.com?origin=dolimods">www.dolicloud.com</a> (société labellisé Dolibarr Prefered Partner).
 MoreModules=D'autres modules du même auteur sont disponibles sur la place de marché officielle DoliStore...
-MoreModulesLink=<a target="_blank" href="https://www.dolistore.com/search.php?search_query=nltechno">Cliquez ici pour voir la liste</a>
+MoreModulesLink=<a target="_blank" href="https://www.dolistore.com/search.php?search_query=dolicloud">Cliquez ici pour voir la liste</a>
 MoreCloudHosting=Pour une utilisation en ligne de Dolibarr, optez pour l'hébergement sécurisé DoliCloud.
-MoreCloudHostingLink=<a target="_blank" href="https://www.dolicloud.com">Cliquez ici pour plus d'information</a>
+MoreCloudHostingLink=<a target="_blank" href="https://www.dolicloud.com?origin=dolimods">Cliquez ici pour plus d'information</a>

@@ -111,11 +111,11 @@ GOOGLE_API_SERVICEACCOUNT_CLIENT_ID=ID cliente de cuenta de servicio
 GOOGLE_API_SERVICEACCOUNT_EMAIL=Usuario/email de cuenta de servicio (NO es su cuenta login/email de Google)
 GOOGLE_API_SERVICEACCOUNT_P12KEY=Archivo de cuenta de servicio json
 FillThisOnlyIfRequired=Ejemplo: +2 (indicar solamente si se experimentan problemas)
-AboutInfo=Este módulo ha sido desarrollado y distribuido por Laurent Destailleur para DoliCloud,  <a target="_blank" href="https://www.dolicloud.com">www.dolicloud.com</a> (una empresa Dolibarr Preferred Partner).
+AboutInfo=Este módulo ha sido desarrollado y distribuido por Laurent Destailleur para DoliCloud,  <a target="_blank" href="https://www.dolicloud.com?origin=dolimods">www.dolicloud.com</a> (una empresa Dolibarr Preferred Partner).
 MoreModules=Más módulos del mismo autor se encuentran disponibles en la tienda oficial DoliStore...
-MoreModulesLink=<a target="_blank" href="https://www.dolistore.com/search.php?search_query=nltechno">Haga clic aquí para ver el listado</a>
+MoreModulesLink=<a target="_blank" href="https://www.dolistore.com/search.php?search_query=dolicloud">Haga clic aquí para ver el listado</a>
 MoreCloudHosting=Para un uso en línea de Dolibarr, pruebe el hosting asegurado DoliCloud.
-MoreCloudHostingLink=<a target="_blank" href="https://www.dolicloud.com">Haga clic aquí para más información</a>
+MoreCloudHostingLink=<a target="_blank" href="https://www.dolicloud.com?origin=dolimods">Haga clic aquí para más información</a>
 CompatibleWithDoliDroid=Este módulo es compatible con DoliDroid, la app Android para Dolibarr.
 LinkToThirdParty=Enlace a terceros
 LinkToContact=Enlace a contactos

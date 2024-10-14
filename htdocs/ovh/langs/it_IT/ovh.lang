@@ -52,11 +52,11 @@ InvoiceFoundIntoDolibarr=Fattura trovata in Dolibarr: %s
 InvoicePDFFoundIntoDolibarr=Fattura+PDF trovati in Dolibarr: %s
 ConnectionParameters=Parametri di connessione
 TryToUseProxy=Utilizzo del server proxy
-AboutInfo=Questo modulo è sviluppato e distribuito da Laurent Destailleur per DoliCloud, <a href="https://www.dolicloud.com"> www.dolicloud.com </a> (una società Dolibarr Preferred Partner).
+AboutInfo=Questo modulo è sviluppato e distribuito da Laurent Destailleur per DoliCloud, <a href="https://www.dolicloud.com?origin=dolimods"> www.dolicloud.com </a> (una società Dolibarr Preferred Partner).
 MoreModules=Altri moduli dello stesso autore sono disponibili sul mercato ufficiale di DoliStore...
-MoreModulesLink= <a target="_blank" href="https://www.dolistore.com/search.php?search_query=nltechno"> Clicca qui per vedere l'elenco completo </a>
+MoreModulesLink= <a target="_blank" href="https://www.dolistore.com/search.php?search_query=dolicloud"> Clicca qui per vedere l'elenco completo </a>
 MoreCloudHosting=Per utilizzare Dolibarr online, scegli l'hosting sicuro DoliCloud.
-MoreCloudHostingLink= <a target="_blank" href="https://www.dolicloud.com"> Clicca qui per maggiori informazioni </a>
+MoreCloudHostingLink= <a target="_blank" href="https://www.dolicloud.com?origin=dolimods"> Clicca qui per maggiori informazioni </a>
 CompatibleWithDoliDroid=Questo modulo è compatibile anche con DoliDroid, l'applicazione Android per Dolibarr.
 OvhApplicationName=Nome dell'applicazione
 OvhApplicationDescription=Descrizione dell'applicazione

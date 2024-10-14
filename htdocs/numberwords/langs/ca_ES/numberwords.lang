@@ -4,11 +4,11 @@ Module101220Name=Number Words
 Module101220Desc=Afegeix la possibilitat de convertir els imports o números en un valor escrit en text alfabètic (en els idiomes suportats)
 NumberWordsSetup=Configuració del mòdul NumberWords
 DescNumberWords=Aquest mòdul us ofereix convertir números o imports en qualsevol cadena. També realitza la substitució de les variables genèriques __TOTAL_TTC_WORDS__, __TOTAL_HT_WORDS__ o __TOTAL_VAT_WORDS__ pel valor d'imports totals, base o de l'IVA, en cadena dins el text al qual fan referència (text lliure de factures, ...)
-AboutInfo=Aquest mòdul està desenvolupat i distribuït per Laurent Destailleur per a DoliCloud, <a href="https://www.dolicloud.com"> www.dolicloud.com </a> (una empresa de Dolibarr Preferred Partner).
+AboutInfo=Aquest mòdul està desenvolupat i distribuït per Laurent Destailleur per a DoliCloud, <a href="https://www.dolicloud.com?origin=dolimods"> www.dolicloud.com </a> (una empresa de Dolibarr Preferred Partner).
 MoreModules=Altres mòduls del mateix autor estan disponibles al mercat oficial de DoliStore...
-MoreModulesLink= <a target="_blank" href="https://www.dolistore.com/search.php?search_query=nltechno"> Feu clic aquí per veure la llista completa </a>
+MoreModulesLink= <a target="_blank" href="https://www.dolistore.com/search.php?search_query=dolicloud"> Feu clic aquí per veure la llista completa </a>
 MoreCloudHosting=Per utilitzar Dolibarr en línia, trieu l'allotjament segur DoliCloud.
-MoreCloudHostingLink= <a target="_blank" href="https://www.dolicloud.com"> Feu clic aquí per obtenir més informació </a>
+MoreCloudHostingLink= <a target="_blank" href="https://www.dolicloud.com?origin=dolimods"> Feu clic aquí per obtenir més informació </a>
 CompatibleWithDoliDroid=Aquest mòdul també és compatible amb DoliDroid, l'aplicació d'Android per a Dolibarr.
 SetupToChange=Pàgina de configuració per modificar
 NUMBERWORDS_USE_CURRENCY_SYMBOL=Utilitzeu el símbol en lloc del text complet per a la moneda

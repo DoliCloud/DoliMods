@@ -11,11 +11,11 @@ EcoTaxDeeDocFooterExample=Produktene har en enhetsavgift for WEEE på 0,01€ fo
 ECOTAXDEEE_CATEGORY_REF=Ref for produktkategori for å oppdage produkter som trenger miljøavgift WEEE
 Module101380Name=Økoavgift WEEE
 Module101380Desc=Modul for å legge til økoavgiftslinjer automatisk
-AboutInfo=Denne modulen er utviklet og distribuert av Laurent Destailleur for DoliCloud, <a href="https://www.dolicloud.com"> www.dolicloud.com </a> (A Dolibarr Preferred Partner company).
+AboutInfo=Denne modulen er utviklet og distribuert av Laurent Destailleur for DoliCloud, <a href="https://www.dolicloud.com?origin=dolimods"> www.dolicloud.com </a> (A Dolibarr Preferred Partner company).
 MoreModules=Andre moduler av samme forfatter er tilgjengelig på den offisielle DoliStore-markedet...
-MoreModulesLink= <a target="_blank" href="https://www.dolistore.com/search.php?search_query=nltechno"> Klikk her for å se hele listen </a>
+MoreModulesLink= <a target="_blank" href="https://www.dolistore.com/search.php?search_query=dolicloud"> Klikk her for å se hele listen </a>
 MoreCloudHosting=For å bruke online Dolibarr, velg den sikrede hostingen DoliCloud.
-MoreCloudHostingLink= <a target="_blank" href="https://www.dolicloud.com"> Klikk her for mer informasjon </a>
+MoreCloudHostingLink= <a target="_blank" href="https://www.dolicloud.com?origin=dolimods"> Klikk her for mer informasjon </a>
 CompatibleWithDoliDroid=Denne modulen er også kompatibel med DoliDroid, Android-applikasjonen for Dolibarr.
 EcoTaxAddedIfDesc=En Eco-avgift WEEE-linje vil automatisk bli beregnet og lagt til når produkter med en miljøavgift legges til følgende objekter: <b> %s </b> . <br> Økoavgiftsbeløpet må være definert på forhånd i produktkortet for hvert produkt.
 EcoTaxAddedIfDescOld=En Eco-avgift WEEE-linje vil automatisk bli beregnet og lagt til når produkter med en miljøavgift legges til følgende objekter: <b> %s </b> . <br> Økoavgiftsbeløpet må være definert på forhånd i produktkortet for hvert produkt. For dette, gå inn i oppsett av modul "Produkt" og legg til et utfyllende felt med flyteformat og med kode "ecotaxdeee". Du vil da kunne legge inn økoavgiftsbeløp på hvert produkt.

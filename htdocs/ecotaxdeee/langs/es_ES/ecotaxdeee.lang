@@ -11,11 +11,11 @@ EcoTaxDeeDocFooterExample=Los productos tienen un impuesto RAEE unitario de 0,01
 ECOTAXDEEE_CATEGORY_REF=Ref de categoría de producto para detectar productos que necesitan Eco tax WEEE
 Module101380Name=Impuesto ecológico RAEE
 Module101380Desc=Módulo para agregar líneas de ecotasa automáticamente
-AboutInfo=Este módulo es desarrollado y distribuido por Laurent Destailleur para DoliCloud, <a href="https://www.dolicloud.com"> www.dolicloud.com </a> (una empresa socia preferida de Dolibarr).
+AboutInfo=Este módulo es desarrollado y distribuido por Laurent Destailleur para DoliCloud, <a href="https://www.dolicloud.com?origin=dolimods"> www.dolicloud.com </a> (una empresa socia preferida de Dolibarr).
 MoreModules=Otros módulos del mismo autor están disponibles en el mercado oficial de DoliStore...
-MoreModulesLink= <a target="_blank" href="https://www.dolistore.com/search.php?search_query=nltechno"> Haga clic aquí para ver la lista completa </a>
+MoreModulesLink= <a target="_blank" href="https://www.dolistore.com/search.php?search_query=dolicloud"> Haga clic aquí para ver la lista completa </a>
 MoreCloudHosting=Para usar Dolibarr en línea, elija el alojamiento seguro DoliCloud.
-MoreCloudHostingLink= <a target="_blank" href="https://www.dolicloud.com"> Haga clic aquí para obtener más información </a>
+MoreCloudHostingLink= <a target="_blank" href="https://www.dolicloud.com?origin=dolimods"> Haga clic aquí para obtener más información </a>
 CompatibleWithDoliDroid=Este módulo también es compatible con DoliDroid, la aplicación de Android para Dolibarr.
 EcoTaxAddedIfDesc=Una línea WEEE de impuesto ecológico se calculará y agregará automáticamente cuando los productos con un impuesto ecológico se agreguen a los siguientes objetos: <b> %s </b>. <br> El monto del impuesto ecológico debe definirse antes en la tarjeta de producto para cada producto.
 EcoTaxAddedIfDescOld=Una línea WEEE de impuesto ecológico se calculará y agregará automáticamente cuando los productos con un impuesto ecológico se agreguen a los siguientes objetos: <b> %s </b>. <br> El monto del impuesto ecológico debe definirse antes en la tarjeta de producto para cada producto. Para ello, acceda al setup del módulo "Producto" y añada un campo complementario con formato float y con el código "ecotaxdeee". Luego podrá ingresar el monto del impuesto ecológico en cada producto.

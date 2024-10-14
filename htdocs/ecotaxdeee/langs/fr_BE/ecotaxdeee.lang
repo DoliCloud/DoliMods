@@ -11,11 +11,11 @@ EcoTaxDeeDocFooterExample=Products have a unit WEEE tax of 0.01€ for category 
 ECOTAXDEEE_CATEGORY_REF=Ref of product category to detect products that need Eco tax WEEE
 Module101380Name=Eco Taxe DEEE
 Module101380Desc=Module to add ecotax lines automatically
-AboutInfo=This module is developped and distributed by Laurent Destailleur for DoliCloud, <a href="https://www.dolicloud.com">www.dolicloud.com</a> (A Dolibarr Preferred Partner company).
+AboutInfo=This module is developped and distributed by Laurent Destailleur for DoliCloud, <a href="https://www.dolicloud.com?origin=dolimods">www.dolicloud.com</a> (A Dolibarr Preferred Partner company).
 MoreModules=Other modules of same author are available on the official DoliStore market place...
-MoreModulesLink=<a target="_blank" href="https://www.dolistore.com/search.php?search_query=nltechno">Click here to see full list</a>
+MoreModulesLink=<a target="_blank" href="https://www.dolistore.com/search.php?search_query=dolicloud">Click here to see full list</a>
 MoreCloudHosting=To use online Dolibarr, choose the secured hosting DoliCloud.
-MoreCloudHostingLink=<a target="_blank" href="https://www.dolicloud.com">Click here for more information</a>
+MoreCloudHostingLink=<a target="_blank" href="https://www.dolicloud.com?origin=dolimods">Click here for more information</a>
 CompatibleWithDoliDroid=This modules is also compatible with DoliDroid, the Android application for Dolibarr.
 EcoTaxAddedIfDesc=Une ligne éco tax Recupel sera automatiquement calculée et ajoutée lorsque des produits soumis à l'éco taxe sont ajoutés dans les élémets suivants: <b>%s</b>.<br>Le montant de l'éco taxe doit être renseigné sur la fiche des produits pour chaque produit auparavant.
 EcoTaxAddedIfDescOld=Une ligne éco tax Recupel sera automatiquement calculée et ajoutée lorsque des produits soumis à l'éco taxe sont ajoutés dans les élémets suivants: <b>%s</b>.<br>Le montant de l'éco taxe doit être renseigné sur la fiche des produits pour chaque produit auparavant. Pour cela, allez dans la configuration du module "Produit" et ajoutez un champ complémentaire de type décimal et ayant pour code "ecotaxdeee". Vous pourrez alors ajouter le montant de l'éco taxe sur chaque produit concerné.

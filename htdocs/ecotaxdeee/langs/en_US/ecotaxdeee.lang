@@ -11,11 +11,11 @@ EcoTaxDeeDocFooterExample=Products have a unit WEEE tax of 0.01€ for category 
 ECOTAXDEEE_CATEGORY_REF=Ref of product category to detect products that need Eco tax WEEE
 Module101380Name=Eco Tax WEEE
 Module101380Desc=Module to add ecotax lines automatically
-AboutInfo=This module is developped and distributed by Laurent Destailleur for DoliCloud, <a href="https://www.dolicloud.com">www.dolicloud.com</a> (A Dolibarr Preferred Partner company).
+AboutInfo=This module is developped and distributed by Laurent Destailleur for DoliCloud, <a href="https://www.dolicloud.com?origin=dolimods">www.dolicloud.com</a> (A Dolibarr Preferred Partner company).
 MoreModules=Other modules of same author are available on the official DoliStore market place...
-MoreModulesLink=<a target="_blank" href="https://www.dolistore.com/search.php?search_query=nltechno">Click here to see full list</a>  
+MoreModulesLink=<a target="_blank" href="https://www.dolistore.com/search.php?search_query=dolicloud">Click here to see full list</a>  
 MoreCloudHosting=To use online Dolibarr, choose the secured hosting DoliCloud.
-MoreCloudHostingLink=<a target="_blank" href="https://www.dolicloud.com">Click here for more information</a>
+MoreCloudHostingLink=<a target="_blank" href="https://www.dolicloud.com?origin=dolimods">Click here for more information</a>
 CompatibleWithDoliDroid=This modules is also compatible with DoliDroid, the Android application for Dolibarr.    
 EcoTaxAddedIfDesc=An Eco tax WEEE line will be automaticaly calculated and added when products with an eco tax are added to following objects: <b>%s</b>.<br>Amount of Eco tax must be defined before into product card for each product.
 EcoTaxAddedIfDescOld=An Eco tax WEEE line will be automaticaly calculated and added when products with an eco tax are added to following objects: <b>%s</b>.<br>Amount of Eco tax must be defined before into product card for each product. For this, go into setup of module "Product" and add a complementary field with float format and with code "ecotaxdeee". You will then be able to enter Eco tax amount on each product.

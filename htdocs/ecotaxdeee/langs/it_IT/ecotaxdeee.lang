@@ -11,11 +11,11 @@ EcoTaxDeeDocFooterExample=I prodotti hanno una tassa RAEE unitaria di 0,01€ pe
 ECOTAXDEEE_CATEGORY_REF=Rif della categoria di prodotto per rilevare i prodotti che necessitano di Eco tax WEEE
 Module101380Name=Ecotassa RAEE
 Module101380Desc=Modulo per aggiungere automaticamente linee di ecotassa
-AboutInfo=Questo modulo è sviluppato e distribuito da Laurent Destailleur per DoliCloud, <a href="https://www.dolicloud.com"> www.dolicloud.com </a> (una società Dolibarr Preferred Partner).
+AboutInfo=Questo modulo è sviluppato e distribuito da Laurent Destailleur per DoliCloud, <a href="https://www.dolicloud.com?origin=dolimods"> www.dolicloud.com </a> (una società Dolibarr Preferred Partner).
 MoreModules=Altri moduli dello stesso autore sono disponibili sul mercato ufficiale di DoliStore...
-MoreModulesLink= <a target="_blank" href="https://www.dolistore.com/search.php?search_query=nltechno"> Clicca qui per vedere l'elenco completo </a>
+MoreModulesLink= <a target="_blank" href="https://www.dolistore.com/search.php?search_query=dolicloud"> Clicca qui per vedere l'elenco completo </a>
 MoreCloudHosting=Per utilizzare Dolibarr online, scegli l'hosting sicuro DoliCloud.
-MoreCloudHostingLink= <a target="_blank" href="https://www.dolicloud.com"> Clicca qui per maggiori informazioni </a>
+MoreCloudHostingLink= <a target="_blank" href="https://www.dolicloud.com?origin=dolimods"> Clicca qui per maggiori informazioni </a>
 CompatibleWithDoliDroid=Questo modulo è compatibile anche con DoliDroid, l'applicazione Android per Dolibarr.
 EcoTaxAddedIfDesc=Una riga RAEE dell'imposta ecologica verrà calcolata e aggiunta automaticamente quando i prodotti con un'imposta ecologica vengono aggiunti ai seguenti oggetti: <b> %s </b> . <br> L'importo della tassa Eco deve essere definito prima nella scheda prodotto per ogni prodotto.
 EcoTaxAddedIfDescOld=Una riga RAEE dell'imposta ecologica verrà calcolata e aggiunta automaticamente quando i prodotti con un'imposta ecologica vengono aggiunti ai seguenti oggetti: <b> %s </b> . <br> L'importo della tassa Eco deve essere definito prima nella scheda prodotto per ogni prodotto. Per questo, vai nel setup del modulo "Prodotto" e aggiungi un campo complementare con formato float e con codice "ecotaxdeee". Potrai quindi inserire l'importo dell'imposta ecologica su ciascun prodotto.

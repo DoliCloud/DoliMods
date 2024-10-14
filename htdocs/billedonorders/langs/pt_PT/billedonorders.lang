@@ -3,11 +3,11 @@ CHARSET= UTF-8
 BilledOnOrders=Cobrado em pedidos
 BilledOnOrdersSetup=Configuração do módulo Faturado em Pedidos
 Module101450Desc=Módulo para mostrar o valor faturado e o restante faturado de acordo com as faturas vinculadas na lista de pedidos de clientes ou fornecedores
-AboutInfo=Este módulo é desenvolvido e distribuído por Laurent Destailleur para DoliCloud, <a href="https://www.dolicloud.com"> www.dolicloud.com </a> (Uma empresa Dolibarr Preferred Partner).
+AboutInfo=Este módulo é desenvolvido e distribuído por Laurent Destailleur para DoliCloud, <a href="https://www.dolicloud.com?origin=dolimods"> www.dolicloud.com </a> (Uma empresa Dolibarr Preferred Partner).
 MoreModules=Outros módulos do mesmo autor estão disponíveis no mercado oficial da DoliStore...
-MoreModulesLink= <a target="_blank" href="https://www.dolistore.com/search.php?search_query=nltechno"> Clique aqui para ver a lista completa </a>
+MoreModulesLink= <a target="_blank" href="https://www.dolistore.com/search.php?search_query=dolicloud"> Clique aqui para ver a lista completa </a>
 MoreCloudHosting=Para usar o Dolibarr online, escolha a hospedagem segura DoliCloud.
-MoreCloudHostingLink= <a target="_blank" href="https://www.dolicloud.com"> Clique aqui para mais informações </a>
+MoreCloudHostingLink= <a target="_blank" href="https://www.dolicloud.com?origin=dolimods"> Clique aqui para mais informações </a>
 BilledOnOrdersNothingToSetup=Nada para configurar. Novos campos estão disponíveis na lista de pedidos de clientes.
 AmountBilledHT=Valor faturado (excluindo impostos)
 AmountBilledTTC=Valor faturado (incluindo impostos)

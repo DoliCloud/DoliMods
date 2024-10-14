@@ -107,11 +107,11 @@ GOOGLE_API_SERVICEACCOUNT_CLIENT_ID=Service account Client ID
 GOOGLE_API_SERVICEACCOUNT_EMAIL=Service account email to allow (NOT your Google account login/email)
 GOOGLE_API_SERVICEACCOUNT_P12KEY=Service account json file
 FillThisOnlyIfRequired=Example: +2 (fill only if problem experienced)
-AboutInfo=This module is developped and distributed by Laurent Destailleur for DoliCloud, <a href="https://www.dolicloud.com">www.dolicloud.com</a> (A Dolibarr Preferred Partner company).
+AboutInfo=This module is developped and distributed by Laurent Destailleur for DoliCloud, <a href="https://www.dolicloud.com?origin=dolimods">www.dolicloud.com</a> (A Dolibarr Preferred Partner company).
 MoreModules=Other modules of same author are available on the official DoliStore market place...
-MoreModulesLink=<a target="_blank" href="https://www.dolistore.com/search.php?search_query=nltechno">Click here to see full list</a>
+MoreModulesLink=<a target="_blank" href="https://www.dolistore.com/search.php?search_query=dolicloud">Click here to see full list</a>
 MoreCloudHosting=To use online Dolibarr, choose the secured hosting DoliCloud.
-MoreCloudHostingLink=<a target="_blank" href="https://www.dolicloud.com">Click here for more information</a>
+MoreCloudHostingLink=<a target="_blank" href="https://www.dolicloud.com?origin=dolimods">Click here for more information</a>
 CompatibleWithDoliDroid=This modules is also compatible with DoliDroid, the Android application for Dolibarr.
 LinkToThirdParty=Link to thirdparty
 LinkToContact=Link to contact

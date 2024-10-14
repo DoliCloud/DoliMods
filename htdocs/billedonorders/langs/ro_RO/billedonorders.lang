@@ -3,11 +3,11 @@ CHARSET= UTF-8
 BilledOnOrders=Facturat la comenzi
 BilledOnOrdersSetup=Configurarea modulului Facturat la comenzi
 Module101450Desc=Modul pentru a afișa suma facturată și a rămâne facturată conform facturilor asociate pe lista comenzilor clienților sau furnizorilor
-AboutInfo=Acest modul este dezvoltat și distribuit de Laurent Destailleur pentru DoliCloud, <a href="https://www.dolicloud.com"> www.dolicloud.com </a> (O companie Dolibarr Preferred Partner).
+AboutInfo=Acest modul este dezvoltat și distribuit de Laurent Destailleur pentru DoliCloud, <a href="https://www.dolicloud.com?origin=dolimods"> www.dolicloud.com </a> (O companie Dolibarr Preferred Partner).
 MoreModules=Alte module ale aceluiași autor sunt disponibile pe piața oficială DoliStore...
-MoreModulesLink= <a target="_blank" href="https://www.dolistore.com/search.php?search_query=nltechno"> Faceți clic aici pentru a vedea lista completă </a>
+MoreModulesLink= <a target="_blank" href="https://www.dolistore.com/search.php?search_query=dolicloud"> Faceți clic aici pentru a vedea lista completă </a>
 MoreCloudHosting=Pentru a utiliza Dolibarr online, alegeți găzduirea securizată DoliCloud.
-MoreCloudHostingLink= <a target="_blank" href="https://www.dolicloud.com"> Faceți clic aici pentru mai multe informații </a>
+MoreCloudHostingLink= <a target="_blank" href="https://www.dolicloud.com?origin=dolimods"> Faceți clic aici pentru mai multe informații </a>
 BilledOnOrdersNothingToSetup=Nimic de configurat. Câmpuri noi sunt disponibile în lista comenzilor clienților.
 AmountBilledHT=Suma facturată (fără taxe)
 AmountBilledTTC=Suma facturată (inclusiv taxe)

@@ -52,11 +52,11 @@ InvoiceFoundIntoDolibarr=Rechnung in Dolibarr gefunden: %s
 InvoicePDFFoundIntoDolibarr=Rechnung+PDF in Dolibarr gefunden: %s
 ConnectionParameters=Verbindungsparameter
 TryToUseProxy=Proxy-Server verwenden
-AboutInfo=Dieses Modul wurde entwickelt und vertrieben von Laurent Destailleur für DoliCloud, <a href="https://www.dolicloud.com"> www.dolicloud.com </a> (ein bevorzugtes Partnerunternehmen von Dolibarr).
+AboutInfo=Dieses Modul wurde entwickelt und vertrieben von Laurent Destailleur für DoliCloud, <a href="https://www.dolicloud.com?origin=dolimods"> www.dolicloud.com </a> (ein bevorzugtes Partnerunternehmen von Dolibarr).
 MoreModules=Weitere Module desselben Autors sind auf dem offiziellen DoliStore-Marktplatz verfügbar...
-MoreModulesLink= <a target="_blank" href="https://www.dolistore.com/search.php?search_query=nltechno"> Klicken Sie hier, um die vollständige Liste </a> anzuzeigen
+MoreModulesLink= <a target="_blank" href="https://www.dolistore.com/search.php?search_query=dolicloud"> Klicken Sie hier, um die vollständige Liste </a> anzuzeigen
 MoreCloudHosting=Um Online-Dolibarr zu verwenden, wählen Sie das gesicherte Hosting DoliCloud.
-MoreCloudHostingLink= <a target="_blank" href="https://www.dolicloud.com"> Klicken Sie hier für weitere Informationen </a>
+MoreCloudHostingLink= <a target="_blank" href="https://www.dolicloud.com?origin=dolimods"> Klicken Sie hier für weitere Informationen </a>
 CompatibleWithDoliDroid=Dieses Modul ist auch mit DoliDroid, der Android-Anwendung für Dolibarr, kompatibel.
 OvhApplicationName=Anwendungsname
 OvhApplicationDescription=Anwendungsbeschreibung

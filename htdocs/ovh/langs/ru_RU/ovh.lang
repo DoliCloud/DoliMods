@@ -52,11 +52,11 @@ InvoiceFoundIntoDolibarr=Найден счет в Долибарре: %s
 InvoicePDFFoundIntoDolibarr=Счет+PDF найден в Долибарре: %s
 ConnectionParameters=Параметры подключения
 TryToUseProxy=Использование прокси-сервера
-AboutInfo=Этот модуль разработан и распространяется Laurent Destailleur для DoliCloud, <a href="https://www.dolicloud.com"> www.dolicloud.com </a> (компания, являющаяся предпочтительным партнером Dolibarr).
+AboutInfo=Этот модуль разработан и распространяется Laurent Destailleur для DoliCloud, <a href="https://www.dolicloud.com?origin=dolimods"> www.dolicloud.com </a> (компания, являющаяся предпочтительным партнером Dolibarr).
 MoreModules=Другие модули того же автора доступны на официальной торговой площадке DoliStore...
-MoreModulesLink= <a target="_blank" href="https://www.dolistore.com/search.php?search_query=nltechno"> Нажмите здесь, чтобы увидеть полный список </a>
+MoreModulesLink= <a target="_blank" href="https://www.dolistore.com/search.php?search_query=dolicloud"> Нажмите здесь, чтобы увидеть полный список </a>
 MoreCloudHosting=Чтобы использовать Dolibarr онлайн, выберите защищенный хостинг DoliCloud.
-MoreCloudHostingLink= <a target="_blank" href="https://www.dolicloud.com"> Щелкните здесь для получения дополнительной информации </a>
+MoreCloudHostingLink= <a target="_blank" href="https://www.dolicloud.com?origin=dolimods"> Щелкните здесь для получения дополнительной информации </a>
 CompatibleWithDoliDroid=Эти модули также совместимы с DoliDroid, Android-приложением для Dolibarr.
 OvhApplicationName=Имя приложения
 OvhApplicationDescription=Описание приложения

@@ -11,11 +11,11 @@ EcoTaxDeeDocFooterExample=Els productes tenen un impost unitari de RAEE de 0,01 
 ECOTAXDEEE_CATEGORY_REF=Ref de categoria de producte per detectar productes que necessiten Eco tax RAEE
 Module101380Name=Eco Tax RAEE
 Module101380Desc=Mòdul per afegir línies ecotaxa automàticament
-AboutInfo=Aquest mòdul està desenvolupat i distribuït per Laurent Destailleur per a DoliCloud, <a href="https://www.dolicloud.com"> www.dolicloud.com </a> (una empresa de Dolibarr Preferred Partner).
+AboutInfo=Aquest mòdul està desenvolupat i distribuït per Laurent Destailleur per a DoliCloud, <a href="https://www.dolicloud.com?origin=dolimods"> www.dolicloud.com </a> (una empresa de Dolibarr Preferred Partner).
 MoreModules=Altres mòduls del mateix autor estan disponibles al mercat oficial de DoliStore...
-MoreModulesLink= <a target="_blank" href="https://www.dolistore.com/search.php?search_query=nltechno"> Feu clic aquí per veure la llista completa </a>
+MoreModulesLink= <a target="_blank" href="https://www.dolistore.com/search.php?search_query=dolicloud"> Feu clic aquí per veure la llista completa </a>
 MoreCloudHosting=Per utilitzar Dolibarr en línia, trieu l'allotjament segur DoliCloud.
-MoreCloudHostingLink= <a target="_blank" href="https://www.dolicloud.com"> Feu clic aquí per obtenir més informació </a>
+MoreCloudHostingLink= <a target="_blank" href="https://www.dolicloud.com?origin=dolimods"> Feu clic aquí per obtenir més informació </a>
 CompatibleWithDoliDroid=Aquest mòdul també és compatible amb DoliDroid, l'aplicació d'Android per a Dolibarr.
 EcoTaxAddedIfDesc=Es calcularà i s'afegirà automàticament una línia de RAEE d'impost ecològic quan s'afegeixin productes amb un impost ecològic als objectes següents: <b> %s </b> . <br> La quantitat de l'impost ecològic s'ha de definir abans a la targeta de producte per a cada producte.
 EcoTaxAddedIfDescOld=Es calcularà i s'afegirà automàticament una línia de RAEE d'impost ecològic quan s'afegeixin productes amb una taxa ecològica als objectes següents: <b> %s </b> . <br> La quantitat de l'impost ecològic s'ha de definir abans a la targeta de producte per a cada producte. Per a això, entreu a configuració del mòdul "Producte" i afegiu un camp complementari amb format flotant i amb el codi "ecotaxdeee". A continuació, podreu introduir l'import de l'impost Eco a cada producte.

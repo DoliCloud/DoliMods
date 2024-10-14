@@ -31,10 +31,10 @@ AddFileName=Adăugați numele fișierului
 #####
 Module10600Name=Manager de fișiere
 Module10600Desc=Un manager de fișiere pentru a scana și vizualiza conținutul discurilor serverului dvs. Dolibarr.
-AboutInfo=Acest modul este dezvoltat și distribuit de Laurent Destailleur pentru DoliCloud, <a href="https://www.dolicloud.com"> www.dolicloud.com </a> (O companie Dolibarr Preferred Partner).
+AboutInfo=Acest modul este dezvoltat și distribuit de Laurent Destailleur pentru DoliCloud, <a href="https://www.dolicloud.com?origin=dolimods"> www.dolicloud.com </a> (O companie Dolibarr Preferred Partner).
 MoreModules=Alte module ale aceluiași autor sunt disponibile pe piața oficială DoliStore...
-MoreModulesLink= <a target="_blank" href="https://www.dolistore.com/search.php?search_query=nltechno"> Faceți clic aici pentru a vedea lista completă </a>
+MoreModulesLink= <a target="_blank" href="https://www.dolistore.com/search.php?search_query=dolicloud"> Faceți clic aici pentru a vedea lista completă </a>
 MoreCloudHosting=Pentru a utiliza Dolibarr online, alegeți găzduirea securizată DoliCloud.
-MoreCloudHostingLink= <a target="_blank" href="https://www.dolicloud.com"> Faceți clic aici pentru mai multe informații </a>
+MoreCloudHostingLink= <a target="_blank" href="https://www.dolicloud.com?origin=dolimods"> Faceți clic aici pentru mai multe informații </a>
 CompatibleWithDoliDroid=Acest module este compatibil și cu DoliDroid, aplicația Android pentru Dolibarr.
 ErrorFileManagerWebServerUserHasNotPermission=Contul de utilizator folosit de serverul web nu are permisiunea de a scrie

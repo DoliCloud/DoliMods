@@ -5,11 +5,11 @@ Module101240Desc=Make a backup of your Dolibarr data on any Cloud hosting servic
 externalbackupSetup=Setup of module externalbackup
 externalbackupDesc=This modules allows you to make backup of your Dolibarr data on any external support (a lot of Cloud services supported)
 externalbackupNoSetup=There is no specific things to setup. This module is immediatly available at activation.
-AboutInfo=This module is developped and distributed by Laurent Destailleur for DoliCloud, <a href="https://www.dolicloud.com">www.dolicloud.com</a> (A Dolibarr Preferred Partner company).
+AboutInfo=This module is developped and distributed by Laurent Destailleur for DoliCloud, <a href="https://www.dolicloud.com?origin=dolimods">www.dolicloud.com</a> (A Dolibarr Preferred Partner company).
 MoreModules=Other modules of same author are available on the official DoliStore market place...
-MoreModulesLink=<a target="_blank" href="https://www.dolistore.com/search.php?search_query=nltechno">Click here to see full list</a>  
+MoreModulesLink=<a target="_blank" href="https://www.dolistore.com/search.php?search_query=dolicloud">Click here to see full list</a>  
 MoreCloudHosting=To use online Dolibarr, choose the secured hosting DoliCloud.
-MoreCloudHostingLink=<a target="_blank" href="https://www.dolicloud.com">Click here for more information</a>
+MoreCloudHostingLink=<a target="_blank" href="https://www.dolicloud.com?origin=dolimods">Click here for more information</a>
 CompatibleWithDoliDroid=This modules is also compatible with DoliDroid, the Android application for Dolibarr.
 EXTERNAL_BACKUP_RCLONE_PATH=Path to command rclone
 EXTERNAL_BACKUP_RCLONE_CONF_PATH=Path to config file to use for rclone

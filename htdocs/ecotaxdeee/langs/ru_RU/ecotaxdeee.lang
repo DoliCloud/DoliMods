@@ -11,11 +11,11 @@ EcoTaxDeeDocFooterExample=Товары облагаются налогом WEEE 
 ECOTAXDEEE_CATEGORY_REF=Ссылка на категорию продукта для определения продуктов, для которых требуется экологический налог WEEE.
 Module101380Name=Экологический налог WEEE
 Module101380Desc=Модуль для автоматического добавления строк эконалога
-AboutInfo=Этот модуль разработан и распространяется Laurent Destailleur для DoliCloud, <a href="https://www.dolicloud.com"> www.dolicloud.com </a> (компания, являющаяся предпочтительным партнером Dolibarr).
+AboutInfo=Этот модуль разработан и распространяется Laurent Destailleur для DoliCloud, <a href="https://www.dolicloud.com?origin=dolimods"> www.dolicloud.com </a> (компания, являющаяся предпочтительным партнером Dolibarr).
 MoreModules=Другие модули того же автора доступны на официальной торговой площадке DoliStore...
-MoreModulesLink= <a target="_blank" href="https://www.dolistore.com/search.php?search_query=nltechno"> Нажмите здесь, чтобы увидеть полный список </a>
+MoreModulesLink= <a target="_blank" href="https://www.dolistore.com/search.php?search_query=dolicloud"> Нажмите здесь, чтобы увидеть полный список </a>
 MoreCloudHosting=Чтобы использовать Dolibarr онлайн, выберите защищенный хостинг DoliCloud.
-MoreCloudHostingLink= <a target="_blank" href="https://www.dolicloud.com"> Щелкните здесь для получения дополнительной информации </a>
+MoreCloudHostingLink= <a target="_blank" href="https://www.dolicloud.com?origin=dolimods"> Щелкните здесь для получения дополнительной информации </a>
 CompatibleWithDoliDroid=Эти модули также совместимы с DoliDroid, Android-приложением для Dolibarr.
 EcoTaxAddedIfDesc=Строка экологического налога WEEE будет автоматически рассчитана и добавлена при добавлении продуктов с экологическим налогом к следующим объектам: <b> %s </b> . <br> Сумма экологического налога должна быть указана заранее в карточке товара для каждого товара.
 EcoTaxAddedIfDescOld=Строка экологического налога WEEE будет автоматически рассчитана и добавлена при добавлении продуктов с экологическим налогом к следующим объектам: <b> %s </b> . <br> Сумма экологического налога должна быть указана заранее в карточке товара для каждого товара. Для этого зайдите в настройки модуля «Товар» и добавьте дополнительное поле с форматом float и кодом «ecotaxdeee». Затем вы сможете ввести сумму экологического налога для каждого продукта.

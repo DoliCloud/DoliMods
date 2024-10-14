@@ -39,12 +39,11 @@ if (! $res) die("Include of main fails");
 require_once DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php";
 
 
-if (!$user->admin) accessforbidden();
+if (!$user->admin) {
+	accessforbidden();
+}
 
-
-$langs->load("admin");
-$langs->load("other");
-$langs->load("numberwords@numberwords");
+$langs->loadLangs(array("admin", "other", "numberwords@numberwords"));
 
 
 /**
@@ -75,27 +74,32 @@ dol_fiche_head($head, 'tababout', '');
 
 dol_include_once('/numberwords/core/modules/modNumberWords.class.php');
 $tmpmodule = new modNumberWords($db);
-if (method_exists($tmpmodule, 'getDescLong')) print $tmpmodule->getDescLong();
+if (method_exists($tmpmodule, 'getDescLong')) {
+	print $tmpmodule->getDescLong();
+}
 
 print '<br><hr><br>';
 
-print $langs->trans("AboutInfo").'<br>';
+print $langs->trans("AboutInfo").'<br><br>';
 
 print $langs->trans("MoreModules").'<br>';
-print '&nbsp; &nbsp; &nbsp; '.$langs->trans("MoreModulesLink").'<br>';
-$url='https://www.dolistore.com/search.php?search_query=nltechno';
+print $langs->trans("MoreModulesLink").'<br>';
+$url='https://www.dolistore.com/search.php?search_query=dolicloud';
+print '<br>';
 print '<a href="'.$url.'" target="_blank"><img border="0" width="180" src="'.DOL_URL_ROOT.'/theme/dolistore_logo.png"></a><br><br><br>';
 
 print '<br>';
 print $langs->trans("MoreCloudHosting").'<br>';
-print '&nbsp; &nbsp; &nbsp; '.$langs->trans("MoreCloudHostingLink").'<br>';
+print $langs->trans("MoreCloudHostingLink").'<br>';
 $url='https://www.dolicloud.com?origin=dolimods';
+print '<br>';
 print '<a href="'.$url.'" target="_blank"><img border="0" width="180" src="../img/dolicloud_logo.png"></a><br><br><br>';
 
 print '<br>';
 print $langs->trans("CompatibleWithDoliDroid").'<br>';
 $url='https://play.google.com/store/apps/details?id=com.nltechno.dolidroidpro';
-print '<a href="'.$url.'" target="_blank"><img border="0" width="180" src="../img/dolidroid_512x512_en.png"></a><br><br>';
+print '<br>';
+print '<a href="'.$url.'" target="_blank"><img border="0" width="120" src="../img/dolidroid_512x512_en.png"></a><br><br>';
 
 print '<br>';
 
