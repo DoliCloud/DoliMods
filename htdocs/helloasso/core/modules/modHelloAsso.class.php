@@ -136,7 +136,7 @@ class modHelloAsso extends DolibarrModules
 		// A condition to hide module
 		$this->hidden = false;
 		// List of module class names that must be enabled if this module is enabled. Example: array('always'=>array('modModuleToEnable1','modModuleToEnable2'), 'FR'=>array('modModuleToEnableFR')...)
-		$this->depends = array();
+		$this->depends = array('always' => 'modBanque');
 		// List of module class names to disable if this one is disabled. Example: array('modModuleToDisable1', ...)
 		$this->requiredby = array();
 		// List of module class names this module is in conflict with. Example: array('modModuleToDisable1', ...)
@@ -439,7 +439,28 @@ class modHelloAsso extends DolibarrModules
 	 */
 	public function init($options = '')
 	{
-		global $conf, $langs;
+		global $conf, $langs, $mysoc;
+
+		// Create bank account HelloAsso if not exists
+		if (!getDolGlobalInt('HELLOASSO_BANK_ACCOUNT_FOR_PAYMENTS')) {
+			require_once DOL_DOCUMENT_ROOT.'/compta/bank/class/account.class.php';
+			$cashaccount = new Account($this->db);
+			$searchaccountid = $cashaccount->fetch(0, "CASH-POS");
+			if ($searchaccountid == 0) {
+				$cashaccount->ref = "HelloAsso";
+				$cashaccount->label = 'HelloAsso';
+				$cashaccount->courant = Account::TYPE_CURRENT; // deprecated
+				$cashaccount->type = Account::TYPE_CURRENT;
+				$cashaccount->country_id = $mysoc->country_id ? $mysoc->country_id : 1;
+				$cashaccount->date_solde = dol_now();
+				$searchaccountid = $cashaccount->create($user);
+			}
+			if ($searchaccountid > 0) {
+				dolibarr_set_const($this->db, "HELLOASSO_BANK_ACCOUNT_FOR_PAYMENTS", $searchaccountid, 'chaine', 0, '', $conf->entity);
+			} else {
+				setEventMessages($cashaccount->error, $cashaccount->errors, 'errors');
+			}
+		}
 
 		//$result = $this->_load_tables('/install/mysql/', 'helloasso');
 		$result = $this->_load_tables('/helloasso/sql/');
