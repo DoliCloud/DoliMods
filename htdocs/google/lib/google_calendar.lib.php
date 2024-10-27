@@ -682,11 +682,14 @@ function google_complete_label_and_note(&$object, $langs)
 	$urlwithouturlroot=preg_replace('/'.preg_quote(DOL_URL_ROOT, '/').'$/i', '', trim($dolibarr_main_url_root));
 	$urlwithroot=$urlwithouturlroot.DOL_URL_ROOT;		// This is to use external domain name found into config file
 	//$urlwithroot=DOL_MAIN_URL_ROOT;					// This is to use same domain name than current
-	if (($object->socid > 0 || (! empty($object->thirdparty->id) && $object->thirdparty->id > 0)) && empty($conf->global->GOOGLE_DISABLE_EVENT_LABEL_INC_SOCIETE)) {
+	if (($object->socid > 0 || (! empty($object->thirdparty->id) && $object->thirdparty->id > 0)) && !getDolGlobalString('GOOGLE_DISABLE_EVENT_LABEL_INC_SOCIETE')) {
 		$thirdparty = new Societe($db);
 		$result=$thirdparty->fetch($object->socid?$object->socid:$object->thirdparty->id);
 		if ($result > 0) {
 			$eventlabel .= ' - '.$thirdparty->name;
+			if ($thirdparty->name_alias) {
+				$eventlabel .= ' ('.$thirdparty->name_alias.')';
+			}
 			$tmpadd=$thirdparty->getFullAddress(0);
 			$more='';
 			if ($tmpadd && empty($conf->global->GOOGLE_DISABLE_ADD_ADDRESS_INTO_DESC)) $more.=$thirdparty->name."\n".$thirdparty->getFullAddress(1)."\n";
@@ -712,7 +715,7 @@ function google_complete_label_and_note(&$object, $langs)
 			}
 		}
 	}
-	if (($object->contactid > 0 || $object->contact_id > 0 || (! empty($object->contact->id) && $object->contact->id > 0)) && empty($conf->global->GOOGLE_DISABLE_EVENT_LABEL_INC_CONTACT)) {
+	if (($object->contactid > 0 || $object->contact_id > 0 || (! empty($object->contact->id) && $object->contact->id > 0)) && !getDolGlobalString('GOOGLE_DISABLE_EVENT_LABEL_INC_CONTACT')) {
 		$contact = new Contact($db);
 		$result=$contact->fetch($object->contact_id ? $object->contact_id : ($object->contactid ? $object->contactid : $object->contact->id));
 		if ($result > 0) {
