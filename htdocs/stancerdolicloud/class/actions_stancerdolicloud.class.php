@@ -1,5 +1,5 @@
 <?php
-/* Copyright (C) 2024      Lucas Marcouiller    <lmarcouiller@dolicloud.com>
+/* Copyright (C) 2024 Alice Adminson <myemail@mycompany.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,8 +16,8 @@
  */
 
 /**
- * \file    stancer/class/actions_stancer.class.php
- * \ingroup stancer
+ * \file    stancerdolicloud/class/actions_stancerdolicloud.class.php
+ * \ingroup stancerdolicloud
  * \brief   Example hook overload.
  *
  * Put detailed description here.
@@ -26,9 +26,9 @@
 require_once DOL_DOCUMENT_ROOT.'/core/class/commonhookactions.class.php';
 
 /**
- * Class ActionsStancer
+ * Class ActionsStancerDolicloud
  */
-class ActionsStancer extends CommonHookActions
+class ActionsStancerDolicloud extends CommonHookActions
 {
 	/**
 	 * @var DoliDB Database handler.
@@ -71,7 +71,7 @@ class ActionsStancer extends CommonHookActions
 	{
 		global $langs;
 		$this->db = $db;
-		$langs->load("stancer@stancer");
+		$langs->load("stancerdolicloud@stancerdolicloud");
 	}
 
 
@@ -259,21 +259,21 @@ class ActionsStancer extends CommonHookActions
 	{
 		global $conf, $user, $langs;
 
-		$langs->load("stancer@stancer");
+		$langs->load("stancerdolicloud@stancerdolicloud");
 
 		$this->results = array();
 
 		$head = array();
 		$h = 0;
 
-		if ($parameters['tabfamily'] == 'stancer') {
+		if ($parameters['tabfamily'] == 'stancerdolicloud') {
 			$head[$h][0] = dol_buildpath('/module/index.php', 1);
 			$head[$h][1] = $langs->trans("Home");
 			$head[$h][2] = 'home';
 			$h++;
 
 			$this->results['title'] = $langs->trans("Stancer");
-			$this->results['picto'] = 'stancer@stancer';
+			$this->results['picto'] = 'stancerdolicloud@stancerdolicloud';
 		}
 
 		$head[$h][0] = 'customreports.php?objecttype='.$parameters['objecttype'].(empty($parameters['tabfamily']) ? '' : '&tabfamily='.$parameters['tabfamily']);
@@ -302,7 +302,7 @@ class ActionsStancer extends CommonHookActions
 		global $user;
 
 		if ($parameters['features'] == 'myobject') {
-			if ($user->hasRight('stancer', 'myobject', 'read')) {
+			if ($user->hasRight('stancerdolicloud', 'myobject', 'read')) {
 				$this->results['result'] = 1;
 				return 1;
 			} else {
@@ -336,7 +336,7 @@ class ActionsStancer extends CommonHookActions
 			// used to make some tabs removed
 			return 0;
 		} elseif ($parameters['mode'] == 'add') {
-			$langs->load('stancer@stancer');
+			$langs->load('stancerdolicloud@stancerdolicloud');
 			// used when we want to add some tabs
 			$counter = count($parameters['head']);
 			$element = $parameters['object']->element;
@@ -346,12 +346,12 @@ class ActionsStancer extends CommonHookActions
 			if (in_array($element, ['context1', 'context2'])) {
 				$datacount = 0;
 
-				$parameters['head'][$counter][0] = dol_buildpath('/stancer/stancer_tab.php', 1) . '?id=' . $id . '&amp;module='.$element;
+				$parameters['head'][$counter][0] = dol_buildpath('/stancerdolicloud/stancerdolicloud_tab.php', 1) . '?id=' . $id . '&amp;module='.$element;
 				$parameters['head'][$counter][1] = $langs->trans('StancerTab');
 				if ($datacount > 0) {
 					$parameters['head'][$counter][1] .= '<span class="badge marginleftonlyshort">' . $datacount . '</span>';
 				}
-				$parameters['head'][$counter][2] = 'stanceremails';
+				$parameters['head'][$counter][2] = 'stancerdolicloudemails';
 				$counter++;
 			}
 			if ($counter > 0 && (int) DOL_VERSION < 14) {
@@ -386,8 +386,8 @@ class ActionsStancer extends CommonHookActions
 		$resprints = "";
 		$error = "";
 
-		if (array_key_exists("paymentmethod", $parameters) && (empty($parameters["paymentmethod"]) || $parameters["paymentmethod"] == 'stancer') && isModEnabled('stancer')) {
-			$resprints .= '<div class="button buttonpayment" id="div_dopayment_stancer"><span class="fa fa-credit-card"></span> <input class="" type="submit" id="dopayment_stancer" name="dopayment_stancer" value="'.$langs->trans("StancerDoPayment").'">';
+		if (array_key_exists("paymentmethod", $parameters) && (empty($parameters["paymentmethod"]) || $parameters["paymentmethod"] == 'stancerdolicloud') && isModEnabled('stancerdolicloud')) {
+			$resprints .= '<div class="button buttonpayment" id="div_dopayment_stancer"><span class="fa fa-credit-card"></span> <input class="" type="submit" id="dopayment_stancerdolicloud" name="dopayment_stancerdolicloud" value="'.$langs->trans("StancerDoPayment").'">';
 			$resprints .= '<input type="hidden" name="noidempotency" value="'.GETPOST('noidempotency', 'int').'">';
 			$resprints .= '<input type="hidden" name="s" value="'.(GETPOST('s', 'alpha') ? GETPOST('s', 'alpha') : GETPOST('source', 'alpha')).'">';
 			$resprints .= '<input type="hidden" name="ref" value="'.GETPOST('ref').'">';
@@ -397,9 +397,9 @@ class ActionsStancer extends CommonHookActions
 			$resprints .= '<script>
 							$( document ).ready(function() {
 								$("#div_dopayment_stancer").click(function(){
-									$("#dopayment_stancer").click();
+									$("#dopayment_stancerdolicloud").click();
 								});
-								$("#dopayment_stancer").click(function(e){
+								$("#dopayment_stancerdolicloud").click(function(e){
 									$("#div_dopayment_stancer").css( \'cursor\', \'wait\' );
 									e.stopPropagation();
 									return true;
@@ -435,9 +435,9 @@ class ActionsStancer extends CommonHookActions
 		$error = 0; // Error counter
 		$error = "";
 
-		if (array_key_exists("paymentmethod", $parameters) && (empty($parameters["paymentmethod"]) || $parameters["paymentmethod"] == 'stancer') && isModEnabled('stancer')) {
-			$langs->load("stancer");
-			$validpaymentmethod['stancer'] = 'valid';
+		if (array_key_exists("paymentmethod", $parameters) && (empty($parameters["paymentmethod"]) || $parameters["paymentmethod"] == 'stancerdolicloud') && isModEnabled('stancerdolicloud')) {
+			$langs->load("stancerdolicloud");
+			$validpaymentmethod['stancerdolicloud'] = 'valid';
 		}
 
 		if (!$error) {
@@ -464,7 +464,7 @@ class ActionsStancer extends CommonHookActions
 
 		require_once DOL_DOCUMENT_ROOT."/core/lib/geturl.lib.php";
 		include_once DOL_DOCUMENT_ROOT.'/core/lib/security.lib.php';
-		dol_include_once('stancer/lib/stancer.lib.php');
+		dol_include_once('stancerdolicloud/lib/stancerdolicloud.lib.php');
 
 		$resprints = "";
 
@@ -486,10 +486,10 @@ class ActionsStancer extends CommonHookActions
 			dol_syslog("Data after redirect from stancer payment page with session FinalPaymentAmt = ".$_SESSION["FinalPaymentAmt"]." currencycodeType = ".$_SESSION["currencyCodeType"], LOG_DEBUG);
 
 			$stancerurlapi = "api.stancer.com";
-			if (getDolGlobalInt("STANCER_LIVE")) {
-				$secretapikey = getDolGlobalString("STANCER_PROD_SECRET_API_KEY");
+			if (getDolGlobalInt("STANCER_DOLICLOUD_LIVE")) {
+				$secretapikey = getDolGlobalString("STANCER_DOLICLOUD_PROD_SECRET_API_KEY");
 			} else {
-				$secretapikey = getDolGlobalString("STANCER_TEST_SECRET_API_KEY");
+				$secretapikey = getDolGlobalString("STANCER_DOLICLOUD_TEST_SECRET_API_KEY");
 			}
 			$encodedkey = dol_encode($secretapikey, 0);
 
@@ -500,7 +500,7 @@ class ActionsStancer extends CommonHookActions
 
 			$jsontosenddata = '{}';
 			// Find way verify if payment is done
-			$urlforcheckout = "https://".urlencode($stancerurlapi)."/v2/payment_intents/".$_SESSION["STANCER_PAYMENT_ID"];
+			$urlforcheckout = "https://".urlencode($stancerurlapi)."/v2/payment_intents/".$_SESSION["STANCER_DOLICLOUD_PAYMENT_ID"];
 			$ret1 = getURLContent($urlforcheckout, 'GET', $jsontosenddata, 1, $headers);
 
 			$urlredirect = $urlwithroot.'/public/payment/';
@@ -518,7 +518,7 @@ class ActionsStancer extends CommonHookActions
 		}
 
 		if (in_array($parameters['context'],array('newpayment')) && empty($parameters['paymentmethod'])) {
-			$amount = price2num(stancerGetDataFromObjects($source, $ref));
+			$amount = price2num(stancerDolicloudGetDataFromObjects($source, $ref));
 			if (!GETPOST("currency", 'alpha')) {
 				$currency = $conf->currency;
 			} else {
@@ -527,7 +527,7 @@ class ActionsStancer extends CommonHookActions
 			$_SESSION["FinalPaymentAmt"] = $amount;
 			$_SESSION["currencyCodeType"] = $currency;
 
-		} elseif (in_array($parameters['paymentmethod'], array('stancer')) && $parameters['validpaymentmethod']["stancer"] == "valid") {
+		} elseif (in_array($parameters['paymentmethod'], array('stancerdolicloud')) && $parameters['validpaymentmethod']["stancerdolicloud"] == "valid") {
 			$urlback = $urlwithroot.'/public/payment/newpayment.php?';
 
 			if (!preg_match('/^https:/i', $urlback)) {
@@ -539,10 +539,10 @@ class ActionsStancer extends CommonHookActions
 			//Verify if Stancer module is in test mode
 			$stancerurlapi = "api.stancer.com";
 			$stancerurlpayment = "payment.stancer.com";
-			if (getDolGlobalInt("STANCER_LIVE")) {
-				$secretapikey = getDolGlobalString("STANCER_PROD_SECRET_API_KEY");
+			if (getDolGlobalInt("STANCER_DOLICLOUD_LIVE")) {
+				$secretapikey = getDolGlobalString("STANCER_DOLICLOUD_PROD_SECRET_API_KEY");
 			} else {
-				$secretapikey = getDolGlobalString("STANCER_TEST_SECRET_API_KEY");
+				$secretapikey = getDolGlobalString("STANCER_DOLICLOUD_TEST_SECRET_API_KEY");
 			}
 
 			$paymentmethod = $parameters['paymentmethod'];
@@ -626,8 +626,8 @@ class ActionsStancer extends CommonHookActions
 						if ($ret1["http_code"] == 200) {
 							$result1 = $ret1["content"];
 							$json1 = json_decode($result1);
-							$_SESSION["STANCER_PAYMENT_ID"] = urlencode($json1->id);
-							$urlforredirect = "https://".urlencode($stancerurlpayment)."/".(!getDolGlobalInt("STANCER_LIVE") ? "test_" : "").$_SESSION["STANCER_PAYMENT_ID"];
+							$_SESSION["STANCER_DOLICLOUD_PAYMENT_ID"] = urlencode($json1->id);
+							$urlforredirect = "https://".urlencode($stancerurlpayment)."/".(!getDolGlobalInt("STANCER_DOLICLOUD_LIVE") ? "test_" : "").$_SESSION["STANCER_DOLICLOUD_PAYMENT_ID"];
 
 							// Gestion redirection
 							dol_syslog("Send redirect to ".$urlforredirect);
@@ -690,7 +690,7 @@ class ActionsStancer extends CommonHookActions
 		$error = 0; // Error counter
 		$ispaymentok = true;
 
-		if (in_array($parameters['paymentmethod'], array('stancer'))){
+		if (in_array($parameters['paymentmethod'], array('stancerdolicloud'))){
 			$code = GETPOST("code");
 			if ($code == "refused") {
 				$ispaymentok = false;
@@ -724,8 +724,8 @@ class ActionsStancer extends CommonHookActions
 
 		$bankaccountid = 0;
 
-		if (in_array($parameters['paymentmethod'], array('stancer'))){
-			$bankaccountid = getDolGlobalInt('STANCER_BANK_ACCOUNT_FOR_PAYMENTS');
+		if (in_array($parameters['paymentmethod'], array('stancerdolicloud'))){
+			$bankaccountid = getDolGlobalInt('STANCER_DOLICLOUD_BANK_ACCOUNT_FOR_PAYMENTS');
 			if ($bankaccountid == 0) {
 				$error++;
 			}
@@ -750,8 +750,8 @@ class ActionsStancer extends CommonHookActions
 	 * @return  int                             Return integer < 0 on error, 0 on success, 1 to replace standard code
 	 */
 	public function doShowOnlinePaymentUrl($parameters, &$object, &$action, $hookmanager){
-		if (isModEnabled('stancer')) {
-			$this->results['showonlinepaymenturl'] = isModEnabled('stancer');
+		if (isModEnabled('stancerdolicloud')) {
+			$this->results['showonlinepaymenturl'] = isModEnabled('stancerdolicloud');
 		}else {
 			return -1;
 		}

@@ -1,6 +1,6 @@
 <?php
 /* Copyright (C) 2004-2017 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2024      Lucas Marcouiller    <lmarcouiller@dolicloud.com>
+ * Copyright (C) 2023 Alice Adminson <myemail@mycompany.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,9 +17,9 @@
  */
 
 /**
- * \file    stancer/admin/about.php
- * \ingroup stancer
- * \brief   About page of module Stancer.
+ * \file    stancerdolicloud/admin/about.php
+ * \ingroup stancerdolicloud
+ * \brief   About page of module StancerDolicloud.
  */
 
 // Load Dolibarr environment
@@ -54,10 +54,10 @@ if (!$res) {
 // Libraries
 require_once DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php';
-require_once '../lib/stancer.lib.php';
+require_once '../lib/stancerdolicloud.lib.php';
 
 // Translations
-$langs->loadLangs(array("errors", "admin", "stancer@stancer"));
+$langs->loadLangs(array("errors", "admin", "stancerdolicloud@stancerdolicloud"));
 
 // Access control
 if (!$user->admin) {
@@ -83,9 +83,9 @@ $backtopage = GETPOST('backtopage', 'alpha');
 $form = new Form($db);
 
 $help_url = '';
-$page_name = "StancerSetup";
+$page_name = "StancerDolicloudSetup";
 
-llxHeader('', $langs->trans($page_name), $help_url, '', 0, 0, '', '', '', 'mod-stancer page-admin_about');
+llxHeader('', $langs->trans($page_name), $help_url, '', 0, 0, '', '', '', 'mod-stancerdolicloud page-admin_about');
 
 // Subheader
 $linkback = '<a href="'.($backtopage ? $backtopage : DOL_URL_ROOT.'/admin/modules.php?restore_lastsearch_values=1').'">'.$langs->trans("BackToModuleList").'</a>';
@@ -93,11 +93,11 @@ $linkback = '<a href="'.($backtopage ? $backtopage : DOL_URL_ROOT.'/admin/module
 print load_fiche_titre($langs->trans($page_name), $linkback, 'title_setup');
 
 // Configuration header
-$head = stancerAdminPrepareHead();
+$head = stancerDolicloudAdminPrepareHead();
 print dol_get_fiche_head($head, 'about', $langs->trans($page_name), 0, '');
 
-dol_include_once('/stancer/core/modules/modStancer.class.php');
-$tmpmodule = new modStancer($db);
+dol_include_once('/stancerdolicloud/core/modules/modStancerDolicloud.class.php');
+$tmpmodule = new modStancerDolicloud($db);
 print $tmpmodule->getDescLong();
 
 // Page end

@@ -16,9 +16,9 @@
  */
 
 /**
- * \file    stancer/admin/setup.php
- * \ingroup stancer
- * \brief   Stancer setup page.
+ * \file    stancerdolicloud/admin/setup.php
+ * \ingroup stancerdolicloud
+ * \brief   StancerDolicloud setup page.
  */
 
 // Load Dolibarr environment
@@ -55,13 +55,13 @@ global $langs, $user;
 // Libraries
 require_once DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php";
 require_once DOL_DOCUMENT_ROOT."/core/lib/geturl.lib.php";
-require_once '../lib/stancer.lib.php';
+require_once '../lib/stancerdolicloud.lib.php';
 
 // Translations
-$langs->loadLangs(array("admin", "stancer@stancer"));
+$langs->loadLangs(array("admin", "stancerdolicloud@stancerdolicloud"));
 
 // Initialize technical object to manage hooks of page. Note that conf->hooks_modules contains array of hook context
-$hookmanager->initHooks(array('stancersetup', 'globalsetup'));
+$hookmanager->initHooks(array('stancerdolicloudsetup', 'globalsetup'));
 
 // Access control
 if (!$user->admin) {
@@ -93,17 +93,17 @@ $formSetup = new FormSetup($db);
 
 // Enter here all parameters in your setup page
 
-$item = $formSetup->newItem('STANCER_LIVE')->setAsYesNo();
+$item = $formSetup->newItem('STANCER_DOLICLOUD_LIVE')->setAsYesNo();
 
-$item = $formSetup->newItem('STANCER_TEST_SECRET_API_KEY');
+$item = $formSetup->newItem('STANCER_DOLICLOUD_TEST_SECRET_API_KEY');
 $item->cssClass = 'minwidth500';
-$item->helpText = $langs->transnoentities('STANCER_TEST_SECRET_API_KEY_HELP');
-$item = $formSetup->newItem('STANCER_PROD_SECRET_API_KEY');
+$item->helpText = $langs->transnoentities('STANCER_DOLICLOUD_TEST_SECRET_API_KEY_HELP');
+$item = $formSetup->newItem('STANCER_DOLICLOUD_PROD_SECRET_API_KEY');
 $item->cssClass = 'minwidth500';
-$item->helpText = $langs->transnoentities('STANCER_PROD_SECRET_API_KEY_HELP');
+$item->helpText = $langs->transnoentities('STANCER_DOLICLOUD_PROD_SECRET_API_KEY_HELP');
 
 
-$item = $formSetup->newItem('STANCER_BANK_ACCOUNT_FOR_PAYMENTS')->setAsSelectBankAccount();
+$item = $formSetup->newItem('STANCER_DOLICLOUD_BANK_ACCOUNT_FOR_PAYMENTS')->setAsSelectBankAccount();
 
 $setupnotempty += count($formSetup->items);
 
@@ -145,7 +145,7 @@ if ($action == 'updateMask') {
 	$filefound = 0;
 	$dirmodels = array_merge(array('/'), (array) $conf->modules_parts['models']);
 	foreach ($dirmodels as $reldir) {
-		$file = dol_buildpath($reldir."core/modules/stancer/doc/pdf_".$modele."_".strtolower($tmpobjectkey).".modules.php", 0);
+		$file = dol_buildpath($reldir."core/modules/stancerdolicloud/doc/pdf_".$modele."_".strtolower($tmpobjectkey).".modules.php", 0);
 		if (file_exists($file)) {
 			$filefound = 1;
 			$classname = "pdf_".$modele."_".strtolower($tmpobjectkey);
@@ -159,7 +159,7 @@ if ($action == 'updateMask') {
 		$module = new $classname($db);
 
 		if ($module->write_file($tmpobject, $langs) > 0) {
-			header("Location: ".DOL_URL_ROOT."/document.php?modulepart=stancer-".strtolower($tmpobjectkey)."&file=SPECIMEN.pdf");
+			header("Location: ".DOL_URL_ROOT."/document.php?modulepart=stancerdolicloud-".strtolower($tmpobjectkey)."&file=SPECIMEN.pdf");
 			return;
 		} else {
 			setEventMessages($module->error, null, 'errors');
@@ -173,7 +173,7 @@ if ($action == 'updateMask') {
 	// TODO Check if numbering module chosen can be activated by calling method canBeActivated
 	$tmpobjectkey = GETPOST('object', 'aZ09');
 	if (!empty($tmpobjectkey)) {
-		$constforval = 'STANCER_'.strtoupper($tmpobjectkey)."_ADDON";
+		$constforval = 'STANCER_DOLICLOUD_'.strtoupper($tmpobjectkey)."_ADDON";
 		dolibarr_set_const($db, $constforval, $value, 'chaine', 0, '', $conf->entity);
 	}
 } elseif ($action == 'set') {
@@ -184,7 +184,7 @@ if ($action == 'updateMask') {
 	if ($ret > 0) {
 		$tmpobjectkey = GETPOST('object', 'aZ09');
 		if (!empty($tmpobjectkey)) {
-			$constforval = 'STANCER_'.strtoupper($tmpobjectkey).'_ADDON_PDF';
+			$constforval = 'STANCER_DOLICLOUD_'.strtoupper($tmpobjectkey).'_ADDON_PDF';
 			if (getDolGlobalString($constforval) == "$value") {
 				dolibarr_del_const($db, $constforval, $conf->entity);
 			}
@@ -194,7 +194,7 @@ if ($action == 'updateMask') {
 	// Set or unset default model
 	$tmpobjectkey = GETPOST('object', 'aZ09');
 	if (!empty($tmpobjectkey)) {
-		$constforval = 'STANCER_'.strtoupper($tmpobjectkey).'_ADDON_PDF';
+		$constforval = 'STANCER_DOLICLOUD_'.strtoupper($tmpobjectkey).'_ADDON_PDF';
 		if (dolibarr_set_const($db, $constforval, $value, 'chaine', 0, '', $conf->entity)) {
 			// The constant that was read before the new set
 			// We therefore requires a variable to have a coherent view
@@ -210,7 +210,7 @@ if ($action == 'updateMask') {
 } elseif ($action == 'unsetdoc') {
 	$tmpobjectkey = GETPOST('object', 'aZ09');
 	if (!empty($tmpobjectkey)) {
-		$constforval = 'STANCER_'.strtoupper($tmpobjectkey).'_ADDON_PDF';
+		$constforval = 'STANCER_DOLICLOUD_'.strtoupper($tmpobjectkey).'_ADDON_PDF';
 		dolibarr_del_const($db, $constforval, $conf->entity);
 	}
 }
@@ -225,9 +225,9 @@ $action = 'edit';
 $form = new Form($db);
 
 $help_url = '';
-$page_name = "StancerSetup";
+$page_name = "StancerDolicloudSetup";
 
-llxHeader('', $langs->trans($page_name), $help_url, '', 0, 0, '', '', '', 'mod-stancer page-admin');
+llxHeader('', $langs->trans($page_name), $help_url, '', 0, 0, '', '', '', 'mod-stancerdolicloud page-admin');
 
 // Subheader
 $linkback = '<a href="'.($backtopage ? $backtopage : DOL_URL_ROOT.'/admin/modules.php?restore_lastsearch_values=1').'">'.$langs->trans("BackToModuleList").'</a>';
@@ -235,11 +235,11 @@ $linkback = '<a href="'.($backtopage ? $backtopage : DOL_URL_ROOT.'/admin/module
 print load_fiche_titre($langs->trans($page_name), $linkback, 'title_setup');
 
 // Configuration header
-$head = stancerAdminPrepareHead();
+$head = stancerDolicloudAdminPrepareHead();
 print dol_get_fiche_head($head, 'settings', $langs->trans($page_name), -1, "");
 
 // Setup page goes here
-echo '<span class="opacitymedium">'.$langs->trans("ModuleStancerDesc").'</span><br><br>';
+echo '<span class="opacitymedium">'.$langs->trans("ModuleStancerDolicloudDesc").'</span><br><br>';
 
 
 if ($action == 'edit') {
@@ -255,7 +255,7 @@ if ($action == 'edit') {
 }
 
 
-$moduledir = 'stancer';
+$moduledir = 'stancerdolicloud';
 $myTmpObjects = array();
 // TODO Scan list of objects
 $myTmpObjects['myobject'] = array('label'=>'MyObject', 'includerefgeneration'=>0, 'includedocgeneration'=>0, 'class'=>'MyObject');
@@ -324,7 +324,7 @@ foreach ($myTmpObjects as $myTmpObjectKey => $myTmpObjectArray) {
 								print '</td>'."\n";
 
 								print '<td class="center">';
-								$constforvar = 'STANCER_'.strtoupper($myTmpObjectKey).'_ADDON';
+								$constforvar = 'STANCER_DOLICLOUD_'.strtoupper($myTmpObjectKey).'_ADDON';
 								if (getDolGlobalString($constforvar) == $file) {
 									print img_picto($langs->trans("Activated"), 'switch_on');
 								} else {
@@ -467,7 +467,7 @@ foreach ($myTmpObjects as $myTmpObjectKey => $myTmpObjectArray) {
 
 										// Default
 										print '<td class="center">';
-										$constforvar = 'STANCER_'.strtoupper($myTmpObjectKey).'_ADDON_PDF';
+										$constforvar = 'STANCER_DOLICLOUD_'.strtoupper($myTmpObjectKey).'_ADDON_PDF';
 										if (getDolGlobalString($constforvar) == $name) {
 											//print img_picto($langs->trans("Default"), 'on');
 											// Even if choice is the default value, we allow to disable it. Replace this with previous line if you need to disable unset

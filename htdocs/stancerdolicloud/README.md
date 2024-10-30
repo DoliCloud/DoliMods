@@ -5,7 +5,7 @@
 Provides a way to make an online checkout of any membership dues, donation, customer invoice or customer order with the Stancer API.
 
 <!--
-![Screenshot stancer](img/screenshot_stancer.png?raw=true "Stancer"){imgmd}
+![Screenshot stancerdolicloud](img/screenshot_stancerdolicloud.png?raw=true "Stancer"){imgmd}
 -->
 
 Other external modules are available on [Dolistore.com](https://www.dolistore.com).
@@ -66,11 +66,11 @@ Note: If this screen tell you that there is no "custom" directory, check that yo
 
 ### From a GIT repository
 
-Clone the repository in ```$dolibarr_main_document_root_alt/stancer```
+Clone the repository in ```$dolibarr_main_document_root_alt/stancerdolicloud```
 
 ```sh
 cd ....../custom
-git clone git@github.com:gitlogin/stancer.git stancer
+git clone git@github.com:gitlogin/stancerdolicloud.git stancerdolicloud
 ```
 
 -->

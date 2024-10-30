@@ -1,5 +1,5 @@
 <?php
-/* Copyright (C) 2024      Lucas Marcouiller    <lmarcouiller@dolicloud.com>
+/* Copyright (C) 2023 Alice Adminson <myemail@mycompany.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,9 +16,9 @@
  */
 
 /**
- * \file    stancer/lib/stancer.lib.php
- * \ingroup stancer
- * \brief   Library files with common functions for Stancer
+ * \file    stancerdolicloud/lib/stancerdolicloud.lib.php
+ * \ingroup stancerdolicloud
+ * \brief   Library files with common functions for StancerDolicloud
  */
 
 use OAuth\Common\Storage\DoliStorage;
@@ -28,7 +28,7 @@ use OAuth\OAuth2\Token\StdOAuth2Token;
  *
  * @return array
  */
-function stancerAdminPrepareHead()
+function stancerDolicloudAdminPrepareHead()
 {
 	global $langs, $conf;
 
@@ -36,18 +36,18 @@ function stancerAdminPrepareHead()
 	// $extrafields = new ExtraFields($db);
 	// $extrafields->fetch_name_optionals_label('myobject');
 
-	$langs->load("stancer@stancer");
+	$langs->load("stancerdolicloud@stancerdolicloud");
 
 	$h = 0;
 	$head = array();
 
-	$head[$h][0] = dol_buildpath("/stancer/admin/setup.php", 1);
+	$head[$h][0] = dol_buildpath("/stancerdolicloud/admin/setup.php", 1);
 	$head[$h][1] = $langs->trans("Settings");
 	$head[$h][2] = 'settings';
 	$h++;
 
 	/*
-	$head[$h][0] = dol_buildpath("/stancer/admin/myobject_extrafields.php", 1);
+	$head[$h][0] = dol_buildpath("/stancerdolicloud/admin/myobject_extrafields.php", 1);
 	$head[$h][1] = $langs->trans("ExtraFields");
 	$nbExtrafields = is_countable($extrafields->attributes['myobject']['label']) ? count($extrafields->attributes['myobject']['label']) : 0;
 	if ($nbExtrafields > 0) {
@@ -57,7 +57,7 @@ function stancerAdminPrepareHead()
 	$h++;
 	*/
 
-	$head[$h][0] = dol_buildpath("/stancer/admin/about.php", 1);
+	$head[$h][0] = dol_buildpath("/stancerdolicloud/admin/about.php", 1);
 	$head[$h][1] = $langs->trans("About");
 	$head[$h][2] = 'about';
 	$h++;
@@ -65,14 +65,14 @@ function stancerAdminPrepareHead()
 	// Show more tabs from modules
 	// Entries must be declared in modules descriptor with line
 	//$this->tabs = array(
-	//	'entity:+tabname:Title:@stancer:/stancer/mypage.php?id=__ID__'
+	//	'entity:+tabname:Title:@stancerdolicloud:/stancerdolicloud/mypage.php?id=__ID__'
 	//); // to add new tab
 	//$this->tabs = array(
-	//	'entity:-tabname:Title:@stancer:/stancer/mypage.php?id=__ID__'
+	//	'entity:-tabname:Title:@stancerdolicloud:/stancerdolicloud/mypage.php?id=__ID__'
 	//); // to remove a tab
-	complete_head_from_modules($conf, $langs, null, $head, $h, 'stancer@stancer');
+	complete_head_from_modules($conf, $langs, null, $head, $h, 'stancerdolicloud@stancerdolicloud');
 
-	complete_head_from_modules($conf, $langs, null, $head, $h, 'stancer@stancer', 'remove');
+	complete_head_from_modules($conf, $langs, null, $head, $h, 'stancerdolicloud@stancerdolicloud', 'remove');
 
 	return $head;
 }
@@ -80,15 +80,15 @@ function stancerAdminPrepareHead()
 
 /**
  * Get data form an object
- *
+ * 
  * @param	$source 		The type of the object
  * @param	$ref			The ref of the object
  * @param	$mode			The mode to use for the function amount
- *
+ * 
  * @return	int				The amount to pay if mode amount
  */
 
-function stancerGetDataFromObjects($source, $ref, $mode = 'amount')
+function stancerDolicloudGetDataFromObjects($source, $ref, $mode = 'amount')
 {
 	global $db;
 
@@ -101,7 +101,7 @@ function stancerGetDataFromObjects($source, $ref, $mode = 'amount')
 	require_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
 	require_once DOL_DOCUMENT_ROOT.'/commande/class/commande.class.php';
 
-	dol_syslog('Stancer::stancerGetDataFromObjects');
+	dol_syslog('StancerDolicloud::stancerDolicloudGetDataFromObjects');
 
 	$amount = price2num(GETPOST("amount", 'alpha'));
 

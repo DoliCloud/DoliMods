@@ -19,9 +19,9 @@
  */
 
 /**
- *	\file       stancer/stancerindex.php
- *	\ingroup    stancer
- *	\brief      Home page of stancer top menu
+ *	\file       stancerdolicloud/stancerdolicloudindex.php
+ *	\ingroup    stancerdolicloud
+ *	\brief      Home page of stancerdolicloud top menu
  */
 
 // Load Dolibarr environment
@@ -59,7 +59,7 @@ if (!$res) {
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.formfile.class.php';
 
 // Load translation files required by the page
-$langs->loadLangs(array("stancer@stancer"));
+$langs->loadLangs(array("stancerdolicloud@stancerdolicloud"));
 
 $action = GETPOST('action', 'aZ09');
 
@@ -77,13 +77,13 @@ if (isset($user->socid) && $user->socid > 0) {
 // Security check (enable the most restrictive one)
 //if ($user->socid > 0) accessforbidden();
 //if ($user->socid > 0) $socid = $user->socid;
-//if (!isModEnabled('stancer')) {
+//if (!isModEnabled('stancerdolicloud')) {
 //	accessforbidden('Module not enabled');
 //}
-//if (! $user->hasRight('stancer', 'myobject', 'read')) {
+//if (! $user->hasRight('stancerdolicloud', 'myobject', 'read')) {
 //	accessforbidden();
 //}
-//restrictedArea($user, 'stancer', 0, 'stancer_myobject', 'myobject', '', 'rowid');
+//restrictedArea($user, 'stancerdolicloud', 0, 'stancerdolicloud_myobject', 'myobject', '', 'rowid');
 //if (empty($user->admin)) {
 //	accessforbidden('Must be admin');
 //}
@@ -103,16 +103,16 @@ if (isset($user->socid) && $user->socid > 0) {
 $form = new Form($db);
 $formfile = new FormFile($db);
 
-llxHeader("", $langs->trans("StancerArea"), '', '', 0, 0, '', '', '', 'mod-stancer page-index');
+llxHeader("", $langs->trans("StancerArea"), '', '', 0, 0, '', '', '', 'mod-stancerdolicloud page-index');
 
-print load_fiche_titre($langs->trans("StancerArea"), '', 'stancer.png@stancer');
+print load_fiche_titre($langs->trans("StancerArea"), '', 'stancerdolicloud.png@stancerdolicloud');
 
 print '<div class="fichecenter"><div class="fichethirdleft">';
 
 
 /* BEGIN MODULEBUILDER DRAFT MYOBJECT
 // Draft MyObject
-if (isModEnabled('stancer') && $user->rights->stancer->read)
+if (isModEnabled('stancerdolicloud') && $user->rights->stancerdolicloud->read)
 {
 	$langs->load("orders");
 
@@ -190,10 +190,10 @@ print '</div><div class="fichetwothirdright">';
 
 /* BEGIN MODULEBUILDER LASTMODIFIED MYOBJECT
 // Last modified myobject
-if (isModEnabled('stancer') && $user->rights->stancer->read)
+if (isModEnabled('stancerdolicloud') && $user->rights->stancerdolicloud->read)
 {
 	$sql = "SELECT s.rowid, s.ref, s.label, s.date_creation, s.tms";
-	$sql.= " FROM ".MAIN_DB_PREFIX."stancer_myobject as s";
+	$sql.= " FROM ".MAIN_DB_PREFIX."stancerdolicloud_myobject as s";
 	//if (! $user->rights->societe->client->voir && ! $socid) $sql.= ", ".MAIN_DB_PREFIX."societe_commerciaux as sc";
 	$sql.= " WHERE s.entity IN (".getEntity($myobjectstatic->element).")";
 	//if (! $user->rights->societe->client->voir && ! $socid) $sql.= " AND s.rowid = sc.fk_soc AND sc.fk_user = ".((int) $user->id);
