@@ -112,16 +112,18 @@ class ActionsHelloAsso extends CommonHookActions
 			foreach ($parameters['toselect'] as $objectid) {
 				// Do action on each object id
 			}
+
+			if (!$error) {
+				$this->results = array('myreturn' => 999);
+				$this->resprints = 'A text to show';
+				return 0; // or return 1 to replace standard code
+			} else {
+				$this->errors[] = 'Error message';
+				return -1;
+			}
 		}
 
-		if (!$error) {
-			$this->results = array('myreturn' => 999);
-			$this->resprints = 'A text to show';
-			return 0; // or return 1 to replace standard code
-		} else {
-			$this->errors[] = 'Error message';
-			return -1;
-		}
+		return 0;
 	}
 
 
@@ -145,16 +147,18 @@ class ActionsHelloAsso extends CommonHookActions
 			foreach ($parameters['toselect'] as $objectid) {
 				// Do action on each object id
 			}
+
+			if (!$error) {
+				$this->results = array('myreturn' => 999);
+				$this->resprints = 'A text to show';
+				return 0; // or return 1 to replace standard code
+			} else {
+				$this->errors[] = 'Error message';
+				return -1;
+			}
 		}
 
-		if (!$error) {
-			$this->results = array('myreturn' => 999);
-			$this->resprints = 'A text to show';
-			return 0; // or return 1 to replace standard code
-		} else {
-			$this->errors[] = 'Error message';
-			return -1;
-		}
+		return 0;
 	}
 
 	/**

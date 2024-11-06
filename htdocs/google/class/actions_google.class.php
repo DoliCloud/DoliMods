@@ -68,7 +68,7 @@ class ActionsGoogle
 	{
 		$tmp = ($hookmanager->resPrint ? $hookmanager->resPrint : $parameters['contentsecuritypolicy']);
 
-		// Add google to policies
+		// Add google to Content-Security-Policy
 		$tmp = preg_replace('/script-src \'self\'/', 'script-src \'self\' *.googleapis.com *.google.com *.google-analytics.com', $tmp);
 		$tmp = preg_replace('/font-src \'self\'/', 'font-src \'self\' *.google.com', $tmp);
 		$tmp = preg_replace('/connect-src \'self\'/', 'connect-src \'self\' *.google.com', $tmp);

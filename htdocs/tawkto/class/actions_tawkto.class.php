@@ -11,8 +11,6 @@ class ActionsTawkto
 	 */
 	function setContentSecurityPolicy($parameters, &$object, &$action, &$hookmanager)
 	{
-		global $conf,$user,$langs;
-
 		$tmp = ($hookmanager->resPrint ? $hookmanager->resPrint : $parameters['contentsecuritypolicy']);
 
 		$tmp = preg_replace('/script-src \'self\'/', 'script-src \'self\' *.tawk.to *.jsdelivr.net', $tmp);
