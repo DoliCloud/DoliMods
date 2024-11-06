@@ -81,6 +81,20 @@ class modCaptchaGoogle extends ModeleCaptcha
 
 
 	/**
+	 * 	Return the HTML content to output on a form that need the captcha
+	 *
+	 *  @param		string	$php_self	An URL for the a href link
+	 *  @return     string				The HTML code to ouput
+	 */
+	public function getCaptchaCodeForForm($php_self = '')
+	{
+		// Show the captcha code on form
+
+		return '';
+	}
+
+
+	/**
 	 * 	Validate a captcha
 	 * 	This function is called after a log to validate a captcha, before validating a password.
 	 *
