@@ -170,4 +170,102 @@ class ActionsGoogle
 
 		return 0;
 	}
+
+
+	/**
+	 * getLoginPageExtraContent
+	 *
+	 * @param	array		$parameters		Array of parameters
+	 * @param	Object		$object			Object
+	 * @param	string		$action			Action string
+	 * @param	HookManager	$hookmanager	Object HookManager
+	 * @return	int							0=OK
+	 */
+	function getLoginPageExtraContent($parameters, &$object, &$action, $hookmanager)
+	{
+		return $this->getXXXPageExtraContent($parameters, $object, $action, $hookmanager);
+	}
+
+	/**
+	 * getPasswordForgottenPageExtraContent
+	 *
+	 * @param	array		$parameters		Array of parameters
+	 * @param	Object		$object			Object
+	 * @param	string		$action			Action string
+	 * @param	HookManager	$hookmanager	Object HookManager
+	 * @return	int							0=OK
+	 */
+	function getPasswordForgottenPageExtraContent($parameters, &$object, &$action, $hookmanager)
+	{
+		return $this->getXXXPageExtraContent($parameters, $object, $action, $hookmanager);
+	}
+
+	/**
+	 * getPasswordResetExtraContent
+	 *
+	 * @param	array		$parameters		Array of parameters
+	 * @param	Object		$object			Object
+	 * @param	string		$action			Action string
+	 * @param	HookManager	$hookmanager	Object HookManager
+	 * @return	int							0=OK
+	 */
+	function getPasswordResetExtraContent($parameters, &$object, &$action, $hookmanager)
+	{
+		return $this->getXXXPageExtraContent($parameters, $object, $action, $hookmanager);
+	}
+
+	/**
+	 * getLoginPageExtraContent
+	 *
+	 * @param	array		$parameters		Array of parameters
+	 * @param	Object		$object			Object
+	 * @param	string		$action			Action string
+	 * @param	HookManager	$hookmanager	Object HookManager
+	 * @return	int							0=OK
+	 */
+	private function getXXXPageExtraContent($parameters, &$object, &$action, $hookmanager)
+	{
+		global $conf;
+
+		$out = '';
+
+		 // Google Analytics
+		 if (isModEnabled('google') && getDolGlobalString('MAIN_GOOGLE_AN_ID')) {
+			 $tmptagarray = explode(',', getDolGlobalString('MAIN_GOOGLE_AN_ID'));
+			 foreach ($tmptagarray as $tmptag) {
+		 		$out .= "\n";
+		 		$out .= "<!-- JS CODE TO ENABLE for google analtics tag -->\n";
+		 		$out .= "<!-- Global site tag (gtag.js) - Google Analytics -->
+		 <script async src=\"https://www.googletagmanager.com/gtag/js?id=".dol_escape_htmltag(trim($tmptag))."\"></script>
+		 <script>
+		 window.dataLayer = window.dataLayer || [];
+		 function gtag(){dataLayer.push(arguments);}
+		 gtag('js', new Date());
+
+		 gtag('config', '".dol_escape_js(trim($tmptag))."');
+		 </script>";
+				$out .= "\n";
+		 	}
+		 }
+		 // Google Adsense (need Google module)
+		 if (isModEnabled('google') && getDolGlobalString('MAIN_GOOGLE_AD_CLIENT') && getDolGlobalString('MAIN_GOOGLE_AD_SLOT')) {
+		 	if (empty($conf->dol_use_jmobile)) {
+		 		$out .= "<!-- Global Adsense -->
+				 <div class=\"center\"><br>
+				 <script><!--
+				 google_ad_client = '".dol_escape_js(getDolGlobalString('MAIN_GOOGLE_AD_CLIENT'))."';
+				 google_ad_slot = '".dol_escape_js(getDolGlobalString('MAIN_GOOGLE_AD_SLOT'))."';
+				 google_ad_width = '".dol_escape_js(getDolGlobalString('MAIN_GOOGLE_AD_WIDTH'))."';
+				 google_ad_height = '".dol_escape_js(getDolGlobalString('MAIN_GOOGLE_AD_HEIGHT'))."'
+				 //-->
+				 </script>
+				 <script src=\"//pagead2.googlesyndication.com/pagead/show_ads.js\"></script>
+				 </div>";
+		 	}
+		 }
+
+		$this->resprints = $out;
+
+		return 0;
+	}
 }
