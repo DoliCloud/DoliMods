@@ -96,7 +96,7 @@ class modCaptchaGoogle extends ModeleCaptcha
 
 	/**
 	 * 	Validate a captcha
-	 * 	This function is called after a log to validate a captcha, before validating a password.
+	 * 	This function is called on loggin submission to validate a captcha, before validating a password.
 	 *
 	 *  @return     int					0 if KO, >0 if OK
 	 */
