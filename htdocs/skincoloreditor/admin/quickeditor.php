@@ -137,7 +137,7 @@ $head[$h][1] = $langs->trans("About");
 $head[$h][2] = 'tababout';
 $h++;
 
-dol_fiche_head($head, 'fasteditor');
+dol_fiche_head($head, 'fasteditor', '', -1);
 
 
 print '<br>';

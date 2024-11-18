@@ -69,7 +69,7 @@ $head[$h][1] = $langs->trans("About");
 $head[$h][2] = 'tababout';
 $h++;
 
-dol_fiche_head($head, 'tababout', '');
+dol_fiche_head($head, 'tababout', '', -1);
 
 dol_include_once('/awstats/core/modules/modAWStats.class.php');
 $tmpmodule = new modAWStats($db);

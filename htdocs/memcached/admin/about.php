@@ -61,7 +61,7 @@ print '<br>';
 
 $head=memcached_prepare_head();
 
-dol_fiche_head($head, 'tababout', '');
+dol_fiche_head($head, 'tababout', '', -1);
 
 dol_include_once('/memcached/core/modules/modMemcached.class.php');
 $tmpmodule = new modMemcached($db);

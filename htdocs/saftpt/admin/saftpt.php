@@ -44,10 +44,10 @@ if ($action == 'setvalue')
 
 	//set constant in table llx_const
 	$taxexemption = GETPOST('taxexemption_code','alpha');
-	
+
 	$res=dolibarr_set_const($db, "TAX_EXEMPTION_REASON",$taxexemption,'chaine',0,'',$conf->entity);
 	if (! $res > 0) $error++;
-	
+
     if (! $error)
     {
     	$db->commit();
@@ -66,7 +66,7 @@ if ($action == 'setvalue')
  */
 
  $formtaxexemption = new FormSaftPt($db);
- 
+
 llxHeader('',$langs->trans("SaftSetup"));
 
 $linkback='<a href="'.DOL_URL_ROOT.'/admin/modules.php">'.$langs->trans("BackToModuleList").'</a>';
@@ -80,7 +80,7 @@ $head[$h][2] = 'general';
 $hselected=$h;
 $h++;
 
-dol_fiche_head($head, $hselected, $langs->trans("ModuleSetup"));
+dol_fiche_head($head, $hselected, $langs->trans("ModuleSetup"), -1);
 
 print '<br>';
 print '<form method="post" action="'.$_SERVER["PHP_SELF"].'">';
@@ -104,7 +104,7 @@ print $formtaxexemption->select_taxexemption($conf->global->TAX_EXEMPTION_REASON
 
 if (empty($conf->global->TAX_EXEMPTION_REASON)) print ' '.img_warning($langs->trans("TaxExemptionEmpty"));
 print '</td></tr>';
-		
+
 print '</table>';
 
 print '<br>';

@@ -83,10 +83,12 @@ if ($action == 'update') {
 $form=new Form($db);
 $formfile=new FormFile($db);
 
-llxHeader('', 'billedonorders', $linktohelp);
+$linktohelp = '';
+
+llxHeader('', 'mywidgets', $linktohelp);
 
 $linkback='<a href="'.DOL_URL_ROOT.'/admin/modules.php?restore_lastsearch_values=1">'.$langs->trans("BackToModuleList").'</a>';
-print_fiche_titre($langs->trans("BilledOnOrdersSetup"), $linkback, 'setup');
+print_fiche_titre($langs->trans("Setup"), $linkback, 'setup');
 print '<br>';
 
 clearstatcache();
@@ -108,7 +110,7 @@ $h++;
 print '<form name="cabinetmed" action="'.$_SERVER["PHP_SELF"].'" method="POST">';
 print '<input type="hidden" name="action" value="update">';
 
-dol_fiche_head($head, 'tabsetup', '');
+dol_fiche_head($head, 'tabsetup', '', -1);
 
 //print $langs->trans("BilledOnOrdersNothingToSetup");
 $var=true;

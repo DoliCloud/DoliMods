@@ -57,6 +57,8 @@ llxHeader('', '', $help_url);
 $linkback='<a href="'.DOL_URL_ROOT.'/admin/modules.php?restore_lastsearch_values=1">'.$langs->trans("BackToModuleList").'</a>';
 print_fiche_titre($langs->trans("ConcatPdfSetup"), $linkback, 'setup');
 
+$head = array();
+
 $h=0;
 $head[$h][0] = 'concatpdf.php';
 $head[$h][1] = $langs->trans("Setup");
@@ -68,7 +70,7 @@ $head[$h][1] = $langs->trans("About");
 $head[$h][2] = 'tababout';
 $h++;
 
-dol_fiche_head($head, 'tababout', '');
+dol_fiche_head($head, 'tababout', '', -1);
 
 dol_include_once('/concatpdf/core/modules/modConcatPdf.class.php');
 $tmpmodule = new modConcatPdf($db);

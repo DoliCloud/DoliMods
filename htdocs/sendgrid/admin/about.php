@@ -61,7 +61,7 @@ print_fiche_titre($langs->trans("Setup"), $linkback, 'setup');
 
 $head=sendgridadmin_prepare_head();
 
-dol_fiche_head($head, 'tababout', $langs->trans("SendGrid"));
+dol_fiche_head($head, 'tababout', $langs->trans("SendGrid"), -1);
 
 dol_include_once('/sendgrid/core/modules/modSendGrid.class.php');
 $tmpmodule = new modSendGrid($db);

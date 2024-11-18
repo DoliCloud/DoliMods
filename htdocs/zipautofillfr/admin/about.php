@@ -73,7 +73,7 @@ $head[$h][1] = $langs->trans("About");
 $head[$h][2] = 'tababout';
 $h++;
 
-dol_fiche_head($head, 'tababout', '', (((float) DOL_VERSION < 7.0) ? 0 : -1));
+dol_fiche_head($head, 'tababout', '', -1);
 
 dol_include_once('/zipautofillfr/core/modules/modZipAutoFillFr.class.php');
 $tmpmodule = new modZipAutoFillFr($db);

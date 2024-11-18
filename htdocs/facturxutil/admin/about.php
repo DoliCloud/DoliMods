@@ -57,7 +57,7 @@ print_fiche_titre($langs->trans("FacturXSetup"), $linkback, 'object_facturxutil@
 
 
 $head = facturxUtilAdminPrepareHead();
-dol_fiche_head($head, 'tababout', '');
+dol_fiche_head($head, 'tababout', '', -1);
 
 dol_include_once('/facturxutil/core/modules/modFacturXUtil.class.php');
 $tmpmodule = new modFacturXUtil($db);

@@ -129,7 +129,7 @@ if (! empty($conf->global->THEME_ELDY_ENABLE_PERSONALIZED)) {
 	$head[$h][2] = 'advancededitor';
 	$h++;
 
-	dol_fiche_head($head, 'advancededitor');
+	dol_fiche_head($head, 'advancededitor', '', -1);
 
 	print $langs->trans("FeatureNotYetAvailable");
 

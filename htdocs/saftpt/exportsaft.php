@@ -115,7 +115,7 @@ if ($step == 1 || $action == 'request' ) { //option to select the period
     $head[$h][1] = $langs->trans("Step")." 1";
     $hselected=$h;
     $h++;
-	dol_fiche_head($head, $hselected, $langs->trans("MenuSaft"));
+	dol_fiche_head($head, $hselected, $langs->trans("MenuSaft"), -1);
 	// Security check
 	if(!$user->hasRight('saftpt', 'exesaftpt', 'write'))
     {
@@ -248,7 +248,7 @@ if ($step == 2 ) {
     $hselected=$h;
     $h++;
 
-	dol_fiche_head($head, $hselected, $langs->trans("MenuSaft"));
+	dol_fiche_head($head, $hselected, $langs->trans("MenuSaft"), -1);
 
 	print $langs->trans("PeriodOf").' <b>'.dol_print_date($date_ini, '%Y-%m-%d'). '</b> '. $langs->trans("PeriodTo"). ' <b>'.dol_print_date($date_fim, '%Y-%m-%d').'</b><br>';
 	print $langs->trans("TaxExemptionDef").': <b>'.$saft->taxexemption.'</b><br>';

@@ -91,6 +91,7 @@ print '<br>';
 
 clearstatcache();
 
+$head = array();
 
 $h=0;
 $head[$h][0] = $_SERVER["PHP_SELF"];
@@ -108,7 +109,7 @@ $h++;
 print '<form name="cabinetmed" action="'.$_SERVER["PHP_SELF"].'" method="POST">';
 print '<input type="hidden" name="action" value="update">';
 
-dol_fiche_head($head, 'tabsetup', '');
+dol_fiche_head($head, 'tabsetup', '', -1);
 
 //print $langs->trans("BilledOnOrdersNothingToSetup");
 $var=true;

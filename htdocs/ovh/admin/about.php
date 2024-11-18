@@ -61,7 +61,7 @@ print_fiche_titre($langs->trans("OvhSmsSetup"), $linkback, 'setup');
 
 $head=ovhadmin_prepare_head();
 
-dol_fiche_head($head, 'tababout', $langs->trans("Ovh"));
+dol_fiche_head($head, 'tababout', $langs->trans("Ovh"), -1);
 
 dol_include_once('/ovh/core/modules/modOvh.class.php');
 $tmpmodule = new modOvh($db);
