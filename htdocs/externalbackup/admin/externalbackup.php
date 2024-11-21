@@ -122,7 +122,7 @@ print '<form name="externalbackupform" action="'.$_SERVER["PHP_SELF"].'" method=
 print '<input type="hidden" name="action" value="set">';
 print '<input type="hidden" name="token" value="' . $_SESSION['newtoken'] . '">';
 
-dol_fiche_head($head, 'tabsetup');
+dol_fiche_head($head, 'tabsetup', '', -1);
 
 
 print '<br>';

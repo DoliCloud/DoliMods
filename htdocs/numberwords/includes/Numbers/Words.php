@@ -48,8 +48,11 @@ class Numbers_Words
 	 */
 	var $locale = 'en_US';
 
-	var $labelcurrencysing;
 	var $labelcurrency;
+	var $labelcurrencysing;
+
+	var $labelcents;
+	var $labelcentsing;
 
 	// }}}
 	// {{{ toWords()
@@ -180,10 +183,14 @@ class Numbers_Words
 
 		@$obj = new $classname;
 
-		// @CHANGE. Set the _currency_names that will be used by toCurrencyWords
-		global $conf;
-		$obj->_currency_names[$int_curr]=array(array($this->labelcurrencysing, $this->labelcurrency),array($this->labelcents));
-		$rounding=$conf->global->MAIN_MAX_DECIMALS_TOT;
+		// @CHANGE. Set the _currency_names that will be used by toCurrencyWords to use the one set in function_numberwords.lib.php
+		// $this->labelcurrency
+		// $this->labelcurrencysing
+		// $this->labelcents
+		// $this->labelcentsing
+		$obj->_currency_names[$int_curr] = array(array($this->labelcurrencysing, $this->labelcurrency), array($this->labelcentsing, $this->labelcents));
+		$rounding = getDolGlobalInt('MAIN_MAX_DECIMALS_TOT');
+		//var_dump($obj->_currency_names[$int_curr]);
 
 		// round if a float is passed, use Math_BigInteger otherwise
 		// @CHANGE
@@ -192,14 +199,14 @@ class Numbers_Words
 			$num = round((float) $num, $rounding);
 		//}
 
-		if (strpos($num, '.') === false) {
+		if (strpos((string) $num, '.') === false) {	// If no decimal part
 			return trim($obj->toCurrencyWords($int_curr, $num));
 		}
 
 		$currency = explode('.', $num, 2);
 
 		// @CHANGE
-		$currency[1]=substr($currency[1].'00000000', 0, $rounding);
+		$currency[1] = substr($currency[1].'00000000', 0, $rounding);
 		/*
 		$len = strlen($currency[1]);
 

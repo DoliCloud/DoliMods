@@ -153,12 +153,13 @@ class InterfaceGoogleContactSynchro extends DolibarrTriggers
 			}
 
 			// Create client/token object
-			$key_file_location = $conf->google->multidir_output[$conf->entity]."/".(!empty($conf->global->GOOGLE_API_SERVICEACCOUNT_P12KEY)?$conf->global->GOOGLE_API_SERVICEACCOUNT_P12KEY:"");
+			$key_file_location = $conf->google->multidir_output[$conf->entity]."/".getDolGlobalString('GOOGLE_API_SERVICEACCOUNT_P12KEY');
 			$force_do_not_use_session=false; // by default
 			if (preg_match('/^testall/', GETPOST('action'))) $force_do_not_use_session=true;
 			if (preg_match('/^testcreate/', GETPOST('action'))) $force_do_not_use_session=true;
 
-			$servicearray = getTokenFromServiceAccount(!empty($conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL)?$conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL:"", $key_file_location, $force_do_not_use_session, 'web');
+			// Get the array with connection/token for contact sync (we use the OAuth token generated in mode Web)
+			$servicearray = getTokenFromServiceAccount(getDolGlobalString('GOOGLE_API_SERVICEACCOUNT_EMAIL'), $key_file_location, $force_do_not_use_session, 'web');
 
 			if (! is_array($servicearray) || $servicearray == null) {
 				$this->error="Failed to login to Google with current token";

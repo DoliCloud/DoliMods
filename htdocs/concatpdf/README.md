@@ -13,4 +13,6 @@ Objects that are supported (with version 3.7.2 or more of module):
 * Supplier invoices
 * Contracts
 
+![Screenshot statistic](img/screen_shot_concatpdf.png?raw=true "ConcatPDF screenshot")
+
 More information <a href="https://wiki.dolibarr.org/index.php/Module_Concat_PDF" target="_new">this wiki page</a>.

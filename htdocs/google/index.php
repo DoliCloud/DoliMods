@@ -136,8 +136,8 @@ dol_fiche_head($head, 'gcal', $langs->trans('Agenda'), 0, 'action');
 
 $finaltext='';
 
-$found=0;
-$MAXAGENDA=empty($conf->global->GOOGLE_AGENDA_NB)?5:$conf->global->GOOGLE_AGENDA_NB;
+$found = 0;
+$MAXAGENDA = getDolGlobalInt('GOOGLE_AGENDA_NB', 5);
 
 $i=1;
 while ($i <= $MAXAGENDA) {

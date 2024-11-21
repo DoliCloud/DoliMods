@@ -68,8 +68,8 @@ class modOpenStreetMap extends DolibarrModules
 		// Dependencies
 		$this->depends = array();		// List of modules id that must be enabled if this module is enabled
 		$this->requiredby = array();	// List of modules id to disable if this one is disabled
-		$this->phpmin = array(4,1);					// Minimum version of PHP required by module
-		$this->need_dolibarr_version = array(3,1,-2);	// Minimum version of Dolibarr required by module
+		$this->phpmin = array(5,6);					// Minimum version of PHP required by module
+		$this->need_dolibarr_version = array(17, 0, -4);	// Minimum version of Dolibarr required by module
 		$this->langfiles = array("openstreetmap@openstreetmap");
 
 		// Constants

@@ -61,7 +61,7 @@ print_fiche_titre($langs->trans("Setup"), $linkback, 'setup');
 
 $head=sendgridadmin_prepare_head();
 
-dol_fiche_head($head, 'tababout', $langs->trans("SendGrid"));
+dol_fiche_head($head, 'tababout', $langs->trans("SendGrid"), -1);
 
 dol_include_once('/sendgrid/core/modules/modSendGrid.class.php');
 $tmpmodule = new modSendGrid($db);
@@ -73,7 +73,7 @@ print $langs->trans("AboutInfo").'<br>';
 
 print $langs->trans("MoreModules").'<br>';
 print '&nbsp; &nbsp; &nbsp; '.$langs->trans("MoreModulesLink").'<br>';
-$url='https://www.dolistore.com/search.php?search_query=nltechno';
+$url='https://www.dolistore.com/search.php?search_query=dolicloud';
 print '<a href="'.$url.'" target="_blank"><img border="0" width="180" src="'.DOL_URL_ROOT.'/theme/dolistore_logo.png"></a><br><br><br>';
 
 print '<br>';

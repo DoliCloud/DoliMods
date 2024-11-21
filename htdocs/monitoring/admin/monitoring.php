@@ -206,12 +206,13 @@ $head[$h][1] = $langs->trans("About");
 $head[$h][2] = 'tababout';
 $h++;
 
-dol_fiche_head($head, 'tabsetup', '');
+dol_fiche_head($head, 'tabsetup', '', -1);
 
 
 print '<form name="rrdform" action="'.$_SERVER["PHP_SELF"].'" method="post">';
-print "<table class=\"noborder\" width=\"100%\">";
-$var=true;
+print '<input type="hidden" name="token" value="'.newToken().'">';
+
+print "<table class=\"noborder centpercent\">";
 
 print "<tr class=\"liste_titre\">";
 print "<td>".$langs->trans("Parameter")."</td>";
@@ -219,8 +220,7 @@ print "<td>".$langs->trans("Value")."</td>";
 print "<td>".$langs->trans("Examples")."</td>";
 print "</tr>";
 
-$var=!$var;
-print "<tr ".$bc[$var].">";
+print "<tr>";
 print "<td>".$langs->trans("MONITORING_COMMANDLINE_TOOL")."</td>";
 print "<td><input type=\"text\" class=\"flat\" name=\"MONITORING_COMMANDLINE_TOOL\" value=\"". ($_POST["MONITORING_COMMANDLINE_TOOL"]?$_POST["MONITORING_COMMANDLINE_TOOL"]:$conf->global->MONITORING_COMMANDLINE_TOOL) . "\" size=\"50\"></td>";
 print '<td>/usr/bin/rrdtool<br>

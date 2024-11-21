@@ -78,10 +78,10 @@ $storage = new DoliStorage($db, $conf, $servicename);
 $apiService = $serviceFactory->createService('Google', $credentials, $storage, explode(',', $shortscope));
 $apiService->setAccessType('offline');
 
-/*
-* Actions
-*/
 
+/*
+ * Actions
+ */
 
 if ($action == 'delete') {
 	$langs->load("oauth");

@@ -325,4 +325,50 @@ class Numbers_Words_de extends Numbers_Words
 		return $ret;
 	}
 	// }}}
+
+
+	// @CHANGE. Add the toCurrencyWords found in lang.en_US
+	/**
+	 * Converts a currency value to its word representation
+	 * (with monetary units) in English language
+	 *
+	 * @param integer $int_curr         An international currency symbol
+	 *                                  as defined by the ISO 4217 standard (three characters)
+	 * @param integer $decimal          A money total amount without fraction part (e.g. amount of dollars)
+	 * @param integer $fraction         Fractional part of the money amount (e.g. amount of cents)
+	 *                                  Optional. Defaults to false.
+	 * @param integer $convert_fraction Convert fraction to words (left as numeric if set to false).
+	 *                                  Optional. Defaults to true.
+	 *
+	 * @return string  The corresponding word representation for the currency
+	 *
+	 * @access public
+	 * @author Piotr Klaban <makler@man.torun.pl>
+	 * @since  Numbers_Words 0.4
+	 */
+	function toCurrencyWords($int_curr, $decimal, $fraction = false, $convert_fraction = true)
+	{
+		$int_curr = strtoupper($int_curr);
+		if (!isset($this->_currency_names[$int_curr])) {
+			$int_curr = $this->def_currency;
+		}
+		$curr_names = $this->_currency_names[$int_curr];
+
+		$ret = trim($this->_toWords($decimal));
+		$ret .= $this->_sep . ' ' . $curr_names[0][0];
+
+		if ($fraction !== false) {
+			$ret .= ' und ';
+			
+			if ($convert_fraction) {
+				$ret .= $this->_sep . trim($this->_toWords($fraction));
+			} else {
+				$ret .= $this->_sep . $fraction;
+			}
+			
+			$ret .= $this->_sep . ' ' . $curr_names[1][0];
+		}
+		return $ret;
+	}
+	// }}}
 }

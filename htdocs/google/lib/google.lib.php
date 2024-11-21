@@ -93,7 +93,7 @@ function googleadmin_prepare_head()
 	$dolibarrversionok=array(3,1,-2);
 	if (versioncompare($dolibarrversionarray, $dolibarrversionok) >= 0) {
 		$head[$h][0] = dol_buildpath("/google/admin/google_an.php", 1);
-		$head[$h][1] = $langs->trans("Analitycs");
+		$head[$h][1] = $langs->trans("Analytics");
 		$head[$h][2] = 'tabanalytics';
 		$h++;
 	}

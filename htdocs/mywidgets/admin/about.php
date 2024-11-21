@@ -61,7 +61,7 @@ print_fiche_titre($langs->trans("BilledOnOrdersSetup"), $linkback, 'setup');
 print '<br>';
 
 $h=0;
-$head[$h][0] = 'billedonorders.php';
+$head[$h][0] = 'mywidgets.php';
 $head[$h][1] = $langs->trans("Setup");
 $head[$h][2] = 'tabsetup';
 $h++;
@@ -71,7 +71,7 @@ $head[$h][1] = $langs->trans("About");
 $head[$h][2] = 'tababout';
 $h++;
 
-dol_fiche_head($head, 'tababout', '');
+dol_fiche_head($head, 'tababout', '', -1);
 
 dol_include_once('/billedonorders/core/modules/modBilledOnOrders.class.php');
 $tmpmodule = new modBilledOnOrders($db);
@@ -83,7 +83,7 @@ print $langs->trans("AboutInfo").'<br>';
 
 print $langs->trans("MoreModules").'<br>';
 print '&nbsp; &nbsp; &nbsp; '.$langs->trans("MoreModulesLink").'<br>';
-$url='https://www.dolistore.com/search.php?search_query=nltechno';
+$url='https://www.dolistore.com/search.php?search_query=dolicloud';
 print '<a href="'.$url.'" target="_blank"><img border="0" width="180" src="'.DOL_URL_ROOT.'/theme/dolistore_logo.png"></a><br><br><br>';
 
 print '<br>';

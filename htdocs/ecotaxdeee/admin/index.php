@@ -109,7 +109,7 @@ print '<input type="hidden" name="action" value="save">';
 print '<input type="hidden" name="token" value="'.newToken().'">';
 
 
-dol_fiche_head($head, 'tabsetup', '', (((float) DOL_VERSION < 6) ? 0 : -1));
+dol_fiche_head($head, 'tabsetup', '', -1);
 
 $elements='';
 

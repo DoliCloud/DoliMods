@@ -61,7 +61,7 @@ print_fiche_titre($langs->trans("OvhSmsSetup"), $linkback, 'setup');
 
 $head=ovhadmin_prepare_head();
 
-dol_fiche_head($head, 'tababout', $langs->trans("Ovh"));
+dol_fiche_head($head, 'tababout', $langs->trans("Ovh"), -1);
 
 dol_include_once('/ovh/core/modules/modOvh.class.php');
 $tmpmodule = new modOvh($db);
@@ -73,7 +73,7 @@ print $langs->trans("AboutInfo").'<br>';
 
 print $langs->trans("MoreModules").'<br>';
 print '&nbsp; &nbsp; &nbsp; '.$langs->trans("MoreModulesLink").'<br>';
-$url='https://www.dolistore.com/search.php?search_query=nltechno';
+$url='https://www.dolistore.com/search.php?search_query=dolicloud';
 print '<a href="'.$url.'" target="_blank"><img border="0" width="180" src="'.DOL_URL_ROOT.'/theme/dolistore_logo.png"></a><br><br><br>';
 
 print '<br>';

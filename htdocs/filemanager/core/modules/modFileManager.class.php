@@ -81,7 +81,7 @@ class modFileManager extends DolibarrModules
 		$this->depends = array();
 		$this->requiredby = array();
 		$this->phpmin = array(4,1);                    // Minimum version of PHP required by module
-		$this->need_dolibarr_version = array(3,6,-2);  // Minimum version of Dolibarr required by module
+		$this->need_dolibarr_version = array(17, 0, -4);  // Minimum version of Dolibarr required by module
 		$this->langfiles = array("companies","filemanager@filemanager");
 
 		// Constantes

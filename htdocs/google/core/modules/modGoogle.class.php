@@ -57,7 +57,9 @@ class modGoogle extends DolibarrModules
 		// Defined if the directory /mymodule/inc/triggers/ contains triggers or not
 		$this->module_parts = array(
 			'triggers' => 1,
-			'hooks' => array('main','agenda','agendalist')
+			'hooks' => array('main','agenda','agendalist','login'),
+			// Set this to 1 if the module provides a captcha driver
+			'captcha' => 1
 		);
 
 		// Data directories to create when module is enabled
@@ -72,7 +74,7 @@ class modGoogle extends DolibarrModules
 		$this->depends = array();		// List of modules id that must be enabled if this module is enabled
 		$this->requiredby = array();	// List of modules id to disable if this one is disabled
 		$this->phpmin = array(7,2);					// Minimum version of PHP required by module
-		$this->need_dolibarr_version = array(16, 0, -4);	// Minimum version of Dolibarr required by module
+		$this->need_dolibarr_version = array(17, 0, -4);	// Minimum version of Dolibarr required by module
 		$this->langfiles = array("google@google");
 
 		// Constants

@@ -1,0 +1,68 @@
+# Copyright (C) 2023 Alice Adminson 
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see .
+
+#
+# Generic
+#
+
+# Module label 'ModuleStancerName'
+ModuleStancerName = Stancer
+# Module description 'ModuleStancerDesc'
+ModuleStancerDesc = Offer customers a Stancer online payment page (credit/debit cards). This can be used to allow your customers to make ad-hoc payments or payments related to a specific Dolibarr object (invoice, order etc...)
+
+#
+# Admin page
+#
+StancerSetup = Stancer setup
+Settings = Settings
+STANCER_LIVE = Stancer production enabled (otherwise test/sandbox mode)
+STANCER_TEST_PUBLIC_API_KEY= Stancer public test API key
+STANCER_TEST_PUBLIC_API_KEY_HELP=Stancer public test API key
+STANCER_TEST_SECRET_API_KEY= Stancer secret test API key
+STANCER_TEST_SECRET_API_KEY_HELP=Stancer secret test API key
+STANCER_PROD_PUBLIC_API_KEY= Stancer public production API key
+STANCER_PROD_PUBLIC_API_KEY_HELP=Stancer public production API key
+STANCER_PROD_SECRET_API_KEY= Stancer secret production API key
+STANCER_PROD_SECRET_API_KEY_HELP=Stancer secret production API key
+STANCER_BANK_ACCOUNT_FOR_PAYMENTS=Bank account for payments
+
+
+ExampleOfTestCreditCardStancer=Example of credit card can be found at this URL:<br> %s 
+TestConnectionStancer=Test Connection
+
+# About page
+#
+About = About
+StancerAboutPage = Stancer about page
+
+#
+# Sample page
+#
+StancerArea = Home Stancer
+MyPageName = My page name
+
+#
+# Sample widget
+#
+MyWidget = My widget
+MyWidgetDescription = My widget description
+
+StancerDoPayment = Pay with Stancer
+
+ErrorBadValueAmount=Please change your basket amount. It must be free or greater than €0.50 to authorize your payment
+ErrorValueFinalPaymentDiffers= Value of FinalPayment (%s) differs from value expected for membership (%s).
+ErrorBadClientIdOrSecret=Bad client ID or secret
+
+StancerExplanatoryText=Joining Stancer means joining a solidarity-based system, <b>funded by voluntary contributions from users</b>, to offer high-quality, free online services to all associations<br> So, by joining, you benefit from this solidarity-based model, enabling you to collect online payments free of charge.<br>It is therefore important to communicate on this model, to inform your users of the scope of their payments.<br><br><b>To accept payments with Stancer, you will need to log in to your Stancer account.</b><br><b>You don't have an account on Stancer, <a href="https://auth.stancer.com/inscription" target="_blank">create your account in a few minutes here.</a></strong><br><i>If you encounter any problems, don't hesitate to take a look at <a href="https://centredaide.stancer.com/s/" target="_blank">our help center</a> or to <a href="https://www.stancer.com/contactez-nous" target="_blank">contact us</a> directly.</i>

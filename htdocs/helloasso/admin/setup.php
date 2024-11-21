@@ -94,6 +94,7 @@ $formSetup = new FormSetup($db);
 // Enter here all parameters in your setup page
 
 $item = $formSetup->newItem('HELLOASSO_LIVE')->setAsYesNo();
+$item->fieldParams['forcereload'] = 'forcereload';
 
 $item = $formSetup->newItem('HELLOASSO_TEST_CLIENT_ORGANISATION');
 $item->helpText = $langs->transnoentities('HELLOASSO_TEST_CLIENT_ORGANISATION_HELP');
@@ -229,7 +230,7 @@ if ($action == 'updateMask') {
 		dolibarr_del_const($db, $constforval, $conf->entity);
 	}
 } elseif ($action == 'testconnect') {
-	$res = doConnectionHelloasso();
+	$res = helloassoDoConnection();
 	if ($res <= 0) {
 		setEventMessages("", $langs->trans("ErrorBadClientIdOrSecret"), 'errors');
 	} else {
@@ -262,6 +263,7 @@ print dol_get_fiche_head($head, 'settings', $langs->trans($page_name), -1, "");
 
 // Setup page goes here
 echo '<span class="opacitymedium">'.$langs->trans("ModuleHelloAssoDesc").'</span><br><br>';
+echo '<div class="info">'.$langs->trans("HelloAssoExplanatoryText").'</div><br><br>';
 
 
 if ($action == 'edit') {
@@ -539,7 +541,16 @@ foreach ($myTmpObjects as $myTmpObjectKey => $myTmpObjectArray) {
 	}
 }
 
-print dolGetButtonAction('',$langs->trans('TestConnectionHelloasso'), 'default', $_SERVER["PHP_SELF"].'?action=testconnect');
+$titlebutton = $langs->trans('TestConnectionHelloasso');
+if ((float) DOL_VERSION >= 21) {
+	if (getDolGlobalString('HELLOASSO_LIVE')) {
+		$titlebutton .= ' (Live)';
+	} else {
+		$titlebutton .= ' (Test)';
+	}
+}
+print dolGetButtonAction('', $titlebutton, 'default', $_SERVER["PHP_SELF"].'?action=testconnect', '', 1, array('attr' => array('class' => 'reposition')));
+
 
 if (empty($setupnotempty)) {
 	print '<br>'.$langs->trans("NothingToSetup");

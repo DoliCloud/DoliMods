@@ -187,7 +187,7 @@ if ($action == 'create') {
 	print '<input type="hidden" name="action" value="add">';
 	print '<input type="hidden" name="backtopage" value="'.$backtopage.'">';
 
-	dol_fiche_head(array(), '');
+	dol_fiche_head(array(), '', '', -1);
 
 	print '<table class="border centpercent">'."\n";
 
@@ -220,7 +220,7 @@ if (($id || $ref) && $action == 'edit') {
 	print '<input type="hidden" name="backtopage" value="'.$backtopage.'">';
 	print '<input type="hidden" name="id" value="'.$object->id.'">';
 
-	dol_fiche_head();
+	dol_fiche_head(array(), '', '', -1);
 
 	print '<table class="border centpercent tableforfield">'."\n";
 
@@ -463,7 +463,12 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 		print '<a name="builddoc"></a>'; // ancre
 
 		// Show links to link elements
-		//$linktoelem = $form->showLinkToObjectBlock($object, null, array('captureserver'));
+		/*$tmparray = $form->showLinkToObjectBlock($object, array(), array('captureserver'), 1);
+		$linktoelem = $tmparray['linktoelem'];
+		$htmltoenteralink = $tmparray['htmltoenteralink'];
+		print $htmltoenteralink;
+		*/
+
 		//$somethingshown = $form->showLinkedObjectBlock($object, $linktoelem);
 
 

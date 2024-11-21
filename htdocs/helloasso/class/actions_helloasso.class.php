@@ -1,5 +1,5 @@
 <?php
-/* Copyright (C) 2024 Alice Adminson <myemail@mycompany.com>
+/* Copyright (C) 2024      Lucas Marcouiller    <lmarcouiller@dolicloud.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -112,16 +112,18 @@ class ActionsHelloAsso extends CommonHookActions
 			foreach ($parameters['toselect'] as $objectid) {
 				// Do action on each object id
 			}
+
+			if (!$error) {
+				$this->results = array('myreturn' => 999);
+				$this->resprints = 'A text to show';
+				return 0; // or return 1 to replace standard code
+			} else {
+				$this->errors[] = 'Error message';
+				return -1;
+			}
 		}
 
-		if (!$error) {
-			$this->results = array('myreturn' => 999);
-			$this->resprints = 'A text to show';
-			return 0; // or return 1 to replace standard code
-		} else {
-			$this->errors[] = 'Error message';
-			return -1;
-		}
+		return 0;
 	}
 
 
@@ -145,16 +147,18 @@ class ActionsHelloAsso extends CommonHookActions
 			foreach ($parameters['toselect'] as $objectid) {
 				// Do action on each object id
 			}
+
+			if (!$error) {
+				$this->results = array('myreturn' => 999);
+				$this->resprints = 'A text to show';
+				return 0; // or return 1 to replace standard code
+			} else {
+				$this->errors[] = 'Error message';
+				return -1;
+			}
 		}
 
-		if (!$error) {
-			$this->results = array('myreturn' => 999);
-			$this->resprints = 'A text to show';
-			return 0; // or return 1 to replace standard code
-		} else {
-			$this->errors[] = 'Error message';
-			return -1;
-		}
+		return 0;
 	}
 
 	/**
@@ -168,7 +172,7 @@ class ActionsHelloAsso extends CommonHookActions
 	 */
 	public function addMoreMassActions($parameters, &$object, &$action, $hookmanager)
 	{
-		global $conf, $user, $langs;
+		global $langs;
 
 		$error = 0; // Error counter
 		$disabled = 1;
@@ -200,13 +204,7 @@ class ActionsHelloAsso extends CommonHookActions
 	 */
 	public function beforePDFCreation($parameters, &$object, &$action)
 	{
-		global $conf, $user, $langs;
-		global $hookmanager;
-
-		$outputlangs = $langs;
-
 		$ret = 0;
-		$deltemp = array();
 		dol_syslog(get_class($this).'::executeHooks action='.$action);
 
 		/* print_r($parameters); print_r($object); echo "action: " . $action; */
@@ -228,13 +226,7 @@ class ActionsHelloAsso extends CommonHookActions
 	 */
 	public function afterPDFCreation($parameters, &$pdfhandler, &$action)
 	{
-		global $conf, $user, $langs;
-		global $hookmanager;
-
-		$outputlangs = $langs;
-
 		$ret = 0;
-		$deltemp = array();
 		dol_syslog(get_class($this).'::executeHooks action='.$action);
 
 		/* print_r($parameters); print_r($object); echo "action: " . $action; */
@@ -257,7 +249,7 @@ class ActionsHelloAsso extends CommonHookActions
 	 */
 	public function loadDataForCustomReports($parameters, &$action, $hookmanager)
 	{
-		global $conf, $user, $langs;
+		global $user, $langs;
 
 		$langs->load("helloasso@helloasso");
 
@@ -327,7 +319,7 @@ class ActionsHelloAsso extends CommonHookActions
 	 */
 	public function completeTabsHead(&$parameters, &$object, &$action, $hookmanager)
 	{
-		global $langs, $conf, $user;
+		global $langs, $user;
 
 		if (!isset($parameters['object']->element)) {
 			return 0;
@@ -380,7 +372,7 @@ class ActionsHelloAsso extends CommonHookActions
 	 */
 	public function doAddButton($parameters, &$object, &$action, $hookmanager)
 	{
-		global $conf, $user, $langs;
+		global $user, $langs;
 
 		$error = 0; // Error counter
 		$resprints = "";
@@ -460,7 +452,7 @@ class ActionsHelloAsso extends CommonHookActions
 	 */
 	public function doPayment($parameters, &$object, &$action, $hookmanager)
 	{
-		global $conf, $user, $langs,$db;
+		global $conf, $user, $langs, $db;
 
 		dol_include_once('helloasso/lib/helloasso.lib.php');
 
@@ -498,7 +490,7 @@ class ActionsHelloAsso extends CommonHookActions
 		}
 
 		if (in_array($parameters['context'],array('newpayment')) && empty($parameters['paymentmethod'])) {
-			$amount = price2num(getDataFromObjects($source, $ref));
+			$amount = price2num(helloassoGetDataFromObjects($source, $ref));
 			if (!GETPOST("currency", 'alpha')) {
 				$currency = $conf->currency;
 			} else {
@@ -549,15 +541,17 @@ class ActionsHelloAsso extends CommonHookActions
 			if (!empty($SECUREKEY)) {
 				$urlback .= 'securekey='.urlencode($SECUREKEY).'&';
 			}
+			/*
 			if (!empty($entity)) {
 				$urlback .= 'e='.urlencode($entity).'&';
 			}
 			if (!empty($getpostlang)) {
 				$urlback .= 'lang='.urlencode($getpostlang).'&';
 			}
+			*/
 			$urlback .= 'action=returnDoPaymentHelloAsso';
 
-			$result = doConnectionHelloasso();
+			$result = helloassoDoConnection();
 
 			if ($result <= 0) {
 				$errors[] = $langs->trans("ErrorFailedToGetTokenFromClientIdAndSecret");
@@ -568,7 +562,8 @@ class ActionsHelloAsso extends CommonHookActions
 
 			if (!$error) {
 				$payerarray = array();
-				getDataFromObjects($source, $ref, 'payer', $payerarray);
+				helloassoGetDataFromObjects($source, $ref, 'payer', $payerarray);
+
 				$fulltag = $FULLTAG;
 				$FinalPaymentAmt = $_SESSION["FinalPaymentAmt"];
 				$amounttotest = $amount;
@@ -614,25 +609,29 @@ class ActionsHelloAsso extends CommonHookActions
 							if (!empty($payerarray)) {
 								$jsontosenddata .= '
 									"payer": {
-										'.(!empty($payerarray['firstName']) ? '"firstName": "'.$payerarray['firstName'].'",' : '' ).'
-										'.(!empty($payerarray['lastName']) ? '"lastName": "'.$payerarray['lastName'].'",' : '' ).'
-										'.(!empty($payerarray['email']) ? '"email": "'.$payerarray['email'].'",' : '' ).'
-										'.(!empty($payerarray['dateOfBirth']) ? '"dateOfBirth": "'.$payerarray['dateOfBirth'].'",' : '' ).'
-										'.(!empty($payerarray['address']) ? '"address": "'.$payerarray['address'].'",' : '' ).'
-										'.(!empty($payerarray['city']) ? '"city": "'.$payerarray['city'].'",' : '' ).'
-										'.(!empty($payerarray['zipCode']) ? '"zipCode": "'.$payerarray['zipCode'].'",' : '' ).'
-										'.(!empty($payerarray['country']) ? '"country": "'.$payerarray['country'].'",' : '' ).'
-										'.(!empty($payerarray['companyName']) ? '"companyName": "'.$payerarray['companyName'].'",' : '' ).'
+										'.(!empty($payerarray['firstName']) ? '"firstName": "'.dol_escape_js($payerarray['firstName']).'",' : '' ).'
+										'.(!empty($payerarray['lastName']) ? '"lastName": "'.dol_escape_js($payerarray['lastName']).'",' : '' ).'
+										'.(!empty($payerarray['email']) ? '"email": "'.dol_escape_js($payerarray['email']).'",' : '' ).'
+										'.(!empty($payerarray['dateOfBirth']) ? '"dateOfBirth": "'.dol_escape_js($payerarray['dateOfBirth']).'",' : '' ).'
+										'.(!empty($payerarray['address']) ? '"address": "'.dol_escape_js($payerarray['address']).'",' : '' ).'
+										'.(!empty($payerarray['city']) ? '"city": "'.dol_escape_js($payerarray['city']).'",' : '' ).'
+										'.(!empty($payerarray['zipCode']) ? '"zipCode": "'.dol_escape_js($payerarray['zipCode']).'",' : '' ).'
+										'.(!empty($payerarray['country']) ? '"country": "'.dol_escape_js($payerarray['country']).'",' : '' ).'
+										'.(!empty($payerarray['companyName']) ? '"companyName": "'.dol_escape_js($payerarray['companyName']).'",' : '' ).'
 									},';
 							}
 						$jsontosenddata .= '
 							"metadata": {
 								"source": "'.dol_escape_js($source).'",
-								"ref": "'.dol_escape_js($ref).'"
+								"ref": "'.dol_escape_js($ref).'",
+								"ip": "'.dol_escape_js(getUserRemoteIP()).'"
 							}';
 						$jsontosenddata .= '}';
+						//var_dump($jsontosenddata);exit;
 
-						$urlforcheckout = "https://".urlencode($helloassourl)."/v5/organizations/".urlencode($client_organisation)."/checkout-intents";
+						$assoslug = str_replace('_', '-', dol_string_nospecial(strtolower(dol_string_unaccent($client_organisation)), '-'));
+
+						$urlforcheckout = "https://".urlencode($helloassourl)."/v5/organizations/".urlencode($assoslug)."/checkout-intents";
 
 						dol_syslog("Send Post to url=".$urlforcheckout." with session FinalPaymentAmt = ".$FinalPaymentAmt." currencyCodeType = ".$_SESSION["currencyCodeType"], LOG_DEBUG);
 

@@ -2,6 +2,7 @@
 	"name" : "eldy/dolimods",
 	"description" : "Modules developed for Dolibarr ERP CRM",
 	"require" : {
+		"php" : ">=7.0",
 		"ovh/ovh" : "v2.1.0"
 	},
 	"config" : {
