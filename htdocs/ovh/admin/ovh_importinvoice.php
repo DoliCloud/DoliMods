@@ -155,16 +155,17 @@ if (!empty($conf->global->OVH_OLDAPI) && (empty($conf->global->OVHSMS_NICK) || e
 
 	print '<tr class="oddeven"><td class="fieldrequired">';
 	print $langs->trans("SupplierToUseForImport") . '</td><td>';
-	print $form->select_company($conf->global->OVH_THIRDPARTY_IMPORT, 'OVH_THIRDPARTY_IMPORT', 's.fournisseur = 1', 1,
+	print img_picto('', 'company', 'class="pictofixedwidth"');
+	print $form->select_company(getDolGlobalString('OVH_THIRDPARTY_IMPORT'), 'OVH_THIRDPARTY_IMPORT', '(s.fournisseur:=:1)', 1,
 		'supplier');
 	print '<td>';
 	print '</td></tr>';
 
 	if (isModEnabled("product") || isModEnabled("service")) {
 		print '<tr class="oddeven"><td>';
-		print $langs->trans("ProductGenericToUseForImport") . '</td><td>';
-		$form->select_produits($conf->global->OVH_IMPORT_SUPPLIER_INVOICE_PRODUCT_ID,
-			'OVH_IMPORT_SUPPLIER_INVOICE_PRODUCT_ID', '', 0, 0, -1);
+		print $langs->trans("ProductGenericToUseForImport") . '</td><td class="nowraponall">';
+		print img_picto('', 'product', 'class="pictofixedwidth"');
+		$form->select_produits(getDolGlobalString('OVH_IMPORT_SUPPLIER_INVOICE_PRODUCT_ID'), 'OVH_IMPORT_SUPPLIER_INVOICE_PRODUCT_ID', '', 0, 0, -1, 2, '', 0, array(), 0, '1', 0, 'minwidth200 maxwidth500 widthcentpercentminusx');
 		print '<td>';
 		print $langs->trans("KeepEmptyToSaveLinesAsFreeLines");
 		print '</td></tr>';
@@ -173,7 +174,8 @@ if (!empty($conf->global->OVH_OLDAPI) && (empty($conf->global->OVHSMS_NICK) || e
 	if (isModEnabled("banque")) {
 		print '<tr class="oddeven"><td>';
 		print $langs->trans("OvhDefaultBankAccount") . '</td><td>';
-		$form->select_comptes($conf->global->OVH_DEFAULT_BANK_ACCOUNT, 'OVH_DEFAULT_BANK_ACCOUNT', 0, '', 1);
+		print img_picto('', 'bank', 'class="pictofixedwidth"');
+		$form->select_comptes(getDolGlobalString('OVH_DEFAULT_BANK_ACCOUNT'), 'OVH_DEFAULT_BANK_ACCOUNT', 0, '', 1);
 		print '<td>';
 		//print $langs->trans("KeepEmptyToSaveLinesAsFreeLines");
 		print '</td></tr>';
@@ -188,7 +190,7 @@ if (!empty($conf->global->OVH_OLDAPI) && (empty($conf->global->OVHSMS_NICK) || e
 	global $mysoc;
 	$countryVat .= "'$mysoc->country_code'";
 	//    }
-	if ($company->fetch($conf->global->OVH_THIRDPARTY_IMPORT)) {
+	if ($company->fetch(getDolGlobalInt('OVH_THIRDPARTY_IMPORT'))) {
 		if ($countryVat) {
 			$countryVat .= ',';
 		}
@@ -198,7 +200,7 @@ if (!empty($conf->global->OVH_OLDAPI) && (empty($conf->global->OVHSMS_NICK) || e
 	foreach ($form->cache_vatrates as $rate) {
 		$vatArray[$rate['rowid']] = vatrate($rate['label']);
 	}
-	print $form->multiselectarray('OVH_VAT_VALID_LIST', $vatArray, explode(';', $conf->global->OVH_VAT_VALID_LIST), '',
+	print $form->multiselectarray('OVH_VAT_VALID_LIST', $vatArray, explode(';', getDolGlobalString('OVH_VAT_VALID_LIST')), '',
 		'', '', '', '200');
 	print '<td>';
 	print $langs->trans("OVHVatKeepEmptyToAcceptAll");
