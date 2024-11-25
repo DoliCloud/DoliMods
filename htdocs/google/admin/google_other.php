@@ -43,19 +43,6 @@ $actionsave = GETPOST("save");
  * Actions
  */
 
-if ($actionsave) {
-	$db->begin();
-
-	$res=dolibarr_set_const($db, 'GOOGLE_DEBUG', trim(GETPOST("GOOGLE_DEBUG")), 'chaine', 0, '', $conf->entity);
-
-	if (! $error) {
-		$db->commit();
-		$mesg = "<font class=\"ok\">".$langs->trans("SetupSaved")."</font>";
-	} else {
-		$db->rollback();
-		$mesg = "<font class=\"error\">".$langs->trans("Error")."</font>";
-	}
-}
 
 
 
