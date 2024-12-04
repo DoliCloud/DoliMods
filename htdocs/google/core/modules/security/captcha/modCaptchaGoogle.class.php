@@ -18,7 +18,7 @@
  */
 
 /**
- *      \file       htdocs/core/modules/security/captcha/modCaptchaStandard.class.php
+ *      \file       htdocs/core/modules/security/captcha/modCaptchaGoogle.class.php
  *      \ingroup    core
  *		\brief      File to manage captcha generation according to dolibarr native code
  */
