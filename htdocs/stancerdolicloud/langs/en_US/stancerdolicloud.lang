@@ -17,26 +17,26 @@
 # Generic
 #
 
-# Module label 'ModuleStancerName'
-ModuleStancerName = Stancer
-# Module description 'ModuleStancerDesc'
-ModuleStancerDesc = Offer customers a Stancer online payment page (credit/debit cards). This can be used to allow your customers to make ad-hoc payments or payments related to a specific Dolibarr object (invoice, order etc...)
+# Module label 'ModuleStancerDolicloudName'
+ModuleStancerName = StancerDolicloud
+# Module description 'ModuleStancerDolicloudDesc'
+ModuleStancerDolicloudDesc = Offer customers a Stancer online payment page (credit/debit cards). This can be used to allow your customers to make ad-hoc payments or payments related to a specific Dolibarr object (invoice, order etc...)
 
 #
 # Admin page
 #
 StancerSetup = Stancer setup
 Settings = Settings
-STANCER_LIVE = Stancer production enabled (otherwise test/sandbox mode)
-STANCER_TEST_PUBLIC_API_KEY= Stancer public test API key
-STANCER_TEST_PUBLIC_API_KEY_HELP=Stancer public test API key
-STANCER_TEST_SECRET_API_KEY= Stancer secret test API key
-STANCER_TEST_SECRET_API_KEY_HELP=Stancer secret test API key
-STANCER_PROD_PUBLIC_API_KEY= Stancer public production API key
-STANCER_PROD_PUBLIC_API_KEY_HELP=Stancer public production API key
-STANCER_PROD_SECRET_API_KEY= Stancer secret production API key
-STANCER_PROD_SECRET_API_KEY_HELP=Stancer secret production API key
-STANCER_BANK_ACCOUNT_FOR_PAYMENTS=Bank account for payments
+STANCER_DOLICLOUD_LIVE = Stancer production enabled (otherwise test/sandbox mode)
+STANCER_DOLICLOUD_TEST_PUBLIC_API_KEY= Stancer public test API key
+STANCER_DOLICLOUD_TEST_PUBLIC_API_KEY_HELP=Stancer public test API key
+STANCER_DOLICLOUD_TEST_SECRET_API_KEY= Stancer secret test API key
+STANCER_DOLICLOUD_TEST_SECRET_API_KEY_HELP=Stancer secret test API key
+STANCER_DOLICLOUD_PROD_PUBLIC_API_KEY= Stancer public production API key
+STANCER_DOLICLOUD_PROD_PUBLIC_API_KEY_HELP=Stancer public production API key
+STANCER_DOLICLOUD_PROD_SECRET_API_KEY= Stancer secret production API key
+STANCER_DOLICLOUD_PROD_SECRET_API_KEY_HELP=Stancer secret production API key
+STANCER_DOLICLOUD_BANK_ACCOUNT_FOR_PAYMENTS=Bank account for payments
 
 
 ExampleOfTestCreditCardStancer=Example of credit card can be found at this URL:<br> %s 

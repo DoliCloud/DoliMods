@@ -1,6 +1,6 @@
 <?php
 /* Copyright (C) 2007-2017 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2024      Lucas Marcouiller    <lmarcouiller@dolicloud.com>
+ * Copyright (C) 2023 Alice Adminson <myemail@mycompany.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,8 +17,8 @@
  */
 
 /**
- * \file    test/phpunit/StancerFunctionalTest.php
- * \ingroup stancer
+ * \file    test/phpunit/StancerDolicloudFunctionalTest.php
+ * \ingroup stancerdolicloud
  * \brief   Example Selenium test.
  *
  * Put detailed description here.
@@ -29,7 +29,7 @@ namespace Dolibarr\test\functional;
 use PHPUnit_Extensions_Selenium2TestCase_WebDriverException;
 
 /**
- * Class StancerFunctionalTest
+ * Class StancerDolicloudFunctionalTest
  *
  * Requires chromedriver for Google Chrome
  * Requires geckodriver for Mozilla Firefox
@@ -39,9 +39,9 @@ use PHPUnit_Extensions_Selenium2TestCase_WebDriverException;
  * @todo Windows support (IE, Google Chrome, Mozilla Firefox, Safari)
  * @todo OSX support (Safari, Google Chrome, Mozilla Firefox)
  *
- * @package Teststancer
+ * @package Teststancerdolicloud
  */
-class StancerFunctionalTest extends \PHPUnit_Extensions_Selenium2TestCase
+class StancerDolicloudFunctionalTest extends \PHPUnit_Extensions_Selenium2TestCase
 {
 	// TODO: move to a global configuration file?
 	/** @var string Base URL of the webserver under test */
@@ -176,12 +176,12 @@ class StancerFunctionalTest extends \PHPUnit_Extensions_Selenium2TestCase
 		$module_status_image = $this->byXPath($module_status_image_path);
 		if (strstr($module_status_image->attribute('src'), 'switch_off.png')) {
 			// Enable the module
-			$this->byHref('modStancer')->click();
+			$this->byHref('modStancerDolicloud')->click();
 		} else {
 			// Disable the module
-			$this->byHref('modStancer')->click();
+			$this->byHref('modStancerDolicloud')->click();
 			// Reenable the module
-			$this->byHref('modStancer')->click();
+			$this->byHref('modStancerDolicloud')->click();
 		}
 		// Page reloaded, we need a new Xpath
 		$module_status_image = $this->byXPath($module_status_image_path);
@@ -196,9 +196,9 @@ class StancerFunctionalTest extends \PHPUnit_Extensions_Selenium2TestCase
 	 */
 	public function testConfigurationPage()
 	{
-		$this->url('/custom/stancer/admin/setup.php');
+		$this->url('/custom/stancerdolicloud/admin/setup.php');
 		$this->authenticate();
-		return $this->assertContains('stancer/admin/setup.php', $this->url(), 'Configuration page');
+		return $this->assertContains('stancerdolicloud/admin/setup.php', $this->url(), 'Configuration page');
 	}
 
 	/**
@@ -209,9 +209,9 @@ class StancerFunctionalTest extends \PHPUnit_Extensions_Selenium2TestCase
 	 */
 	public function testAboutPage()
 	{
-		$this->url('/custom/stancer/admin/about.php');
+		$this->url('/custom/stancerdolicloud/admin/about.php');
 		$this->authenticate();
-		return $this->assertContains('stancer/admin/about.php', $this->url(), 'About page');
+		return $this->assertContains('stancerdolicloud/admin/about.php', $this->url(), 'About page');
 	}
 
 	/**
@@ -222,7 +222,7 @@ class StancerFunctionalTest extends \PHPUnit_Extensions_Selenium2TestCase
 	 */
 	public function testAboutPageRendersMarkdownReadme()
 	{
-		$this->url('/custom/stancer/admin/about.php');
+		$this->url('/custom/stancerdolicloud/admin/about.php');
 		$this->authenticate();
 		return $this->assertEquals(
 			'Dolibarr Module Template (aka My Module)',
@@ -241,7 +241,7 @@ class StancerFunctionalTest extends \PHPUnit_Extensions_Selenium2TestCase
 	{
 		$this->url('/admin/boxes.php');
 		$this->authenticate();
-		return $this->assertContains('stancerwidget1', $this->source(), "Box enabled");
+		return $this->assertContains('stancerdolicloudwidget1', $this->source(), "Box enabled");
 	}
 
 	/**
@@ -255,7 +255,7 @@ class StancerFunctionalTest extends \PHPUnit_Extensions_Selenium2TestCase
 		$this->url('/admin/triggers.php');
 		$this->authenticate();
 		return $this->assertContains(
-			'interface_99_modStancer_StancerTriggers.class.php',
+			'interface_99_modStancerDolicloud_StancerDolicloudTriggers.class.php',
 			$this->byTag('body')->text(),
 			"Trigger declared"
 		);
@@ -273,7 +273,7 @@ class StancerFunctionalTest extends \PHPUnit_Extensions_Selenium2TestCase
 		$this->authenticate();
 		return $this->assertContains(
 			'tick.png',
-			$this->byXPath('//td[text()="interface_99_modStancer_MyTrigger.class.php"]/following::img')->attribute('src'),
+			$this->byXPath('//td[text()="interface_99_modStancerDolicloud_MyTrigger.class.php"]/following::img')->attribute('src'),
 			"Trigger enabled"
 		);
 	}
