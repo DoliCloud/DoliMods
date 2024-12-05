@@ -403,7 +403,7 @@ class ActionsHelloAsso extends CommonHookActions
 
 		if (!$error) {
 			$this->resprints = $resprints;
-			return 1; // or return 1 to replace standard code
+			return 0; // or return 1 to replace standard code
 		} else {
 			$this->errors[] = $error;
 			return -1;
@@ -741,12 +741,11 @@ class ActionsHelloAsso extends CommonHookActions
 			}
 		}
 
-		if (!$error) {
+		if (!$error && $bankaccountid > 0) {
 			$this->results["bankaccountid"] = $bankaccountid;
 			return 1;
 		} else {
-			$this->errors[] = $langs->trans("BankAccountNotFound");
-			return -1;
+			return 0;
 		}
 	}
 
