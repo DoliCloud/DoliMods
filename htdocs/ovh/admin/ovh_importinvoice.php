@@ -155,10 +155,9 @@ if (!empty($conf->global->OVH_OLDAPI) && (empty($conf->global->OVHSMS_NICK) || e
 	*/
 
 	print '<tr class="oddeven"><td class="fieldrequired">';
-	print $langs->trans("SupplierToUseForImport") . '</td><td>';
+	print $langs->trans("SupplierToUseForImport") . '</td><td class="nowraponall">';
 	print img_picto('', 'company', 'class="pictofixedwidth"');
-	print $form->select_company(getDolGlobalString('OVH_THIRDPARTY_IMPORT'), 'OVH_THIRDPARTY_IMPORT', '(s.fournisseur:=:1)', 1,
-		'supplier');
+	print $form->select_company(getDolGlobalString('OVH_THIRDPARTY_IMPORT'), 'OVH_THIRDPARTY_IMPORT', '(s.fournisseur:=:1)', 1, 'supplier', 0, array(), 0, 'minwidth200 maxwidth300');
 	print '<td>';
 	print '</td></tr>';
 
@@ -168,7 +167,7 @@ if (!empty($conf->global->OVH_OLDAPI) && (empty($conf->global->OVHSMS_NICK) || e
 		print img_picto('', 'product', 'class="pictofixedwidth"');
 		$form->select_produits(getDolGlobalString('OVH_IMPORT_SUPPLIER_INVOICE_PRODUCT_ID'), 'OVH_IMPORT_SUPPLIER_INVOICE_PRODUCT_ID', '', 0, 0, -1, 2, '', 0, array(), 0, '1', 0, 'minwidth200 maxwidth500 widthcentpercentminusx');
 		print '<td>';
-		print $langs->trans("KeepEmptyToSaveLinesAsFreeLines");
+		print '<span class="opacitymedium">'.$langs->trans("KeepEmptyToSaveLinesAsFreeLines").'</span>';
 		print '</td></tr>';
 	}
 
@@ -204,7 +203,7 @@ if (!empty($conf->global->OVH_OLDAPI) && (empty($conf->global->OVHSMS_NICK) || e
 	print $form->multiselectarray('OVH_VAT_VALID_LIST', $vatArray, explode(';', getDolGlobalString('OVH_VAT_VALID_LIST')), '',
 		'', '', '', '200');
 	print '<td>';
-	print $langs->trans("OVHVatKeepEmptyToAcceptAll");
+	print '<span class="opacitymedium">'.$langs->trans("OVHVatKeepEmptyToAcceptAll").'</span>';
 	print '</td></tr>';
 
 	print '<tr class="oddeven"><td>';
