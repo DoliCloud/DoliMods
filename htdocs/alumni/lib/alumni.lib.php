@@ -28,11 +28,11 @@
  */
 function alumniAdminPrepareHead()
 {
-	global $langs, $conf;
+	global $langs, $conf, $db;
 
 	// global $db;
-	// $extrafields = new ExtraFields($db);
-	// $extrafields->fetch_name_optionals_label('myobject');
+	$extrafields = new ExtraFields($db);
+	$extrafields->fetch_name_optionals_label('alumni_survey');
 
 	$langs->load("alumni@alumni");
 
@@ -44,16 +44,14 @@ function alumniAdminPrepareHead()
 	$head[$h][2] = 'settings';
 	$h++;
 
-	/*
-	$head[$h][0] = dol_buildpath("/alumni/admin/myobject_extrafields.php", 1);
+	$head[$h][0] = dol_buildpath("/alumni/admin/survey_extrafields.php", 1);
 	$head[$h][1] = $langs->trans("ExtraFields");
-	$nbExtrafields = is_countable($extrafields->attributes['myobject']['label']) ? count($extrafields->attributes['myobject']['label']) : 0;
+	$nbExtrafields = is_countable($extrafields->attributes['alumni_survey']['label']) ? count($extrafields->attributes['alumni_survey']['label']) : 0;
 	if ($nbExtrafields > 0) {
 		$head[$h][1] .= ' <span class="badge">' . $nbExtrafields . '</span>';
 	}
-	$head[$h][2] = 'myobject_extrafields';
+	$head[$h][2] = 'survey_extrafields';
 	$h++;
-	*/
 
 	$head[$h][0] = dol_buildpath("/alumni/admin/about.php", 1);
 	$head[$h][1] = $langs->trans("About");

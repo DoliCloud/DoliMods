@@ -30,6 +30,7 @@ Settings = Settings
 AlumniSetupPage = Alumni setup page
 ALUMNI_YEAR=Year since the graduate
 ALUMNI_PROMONAME=Name or number of the promotion
+ALUMNI_ENABLE_SURVEY=Enable the survey
 
 #
 # About page
