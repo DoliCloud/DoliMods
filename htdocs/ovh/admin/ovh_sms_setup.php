@@ -71,7 +71,7 @@ $substitutionarrayfortest=array(
 
 
 // Activate error interceptions
-if (! empty($conf->global->MAIN_ENABLE_EXCEPTION)) {
+if (getDolGlobalString('MAIN_ENABLE_EXCEPTION')) {
 	/**
 	 * @param $code string code
 	 * @param $message string message
@@ -90,7 +90,7 @@ if (! empty($conf->global->MAIN_ENABLE_EXCEPTION)) {
 	set_error_handler('traitementErreur');
 }
 
-$endpoint = empty($conf->global->OVH_ENDPOINT)?'ovh-eu':$conf->global->OVH_ENDPOINT;    // Can be "soyoustart-eu" or "kimsufi-eu"
+$endpoint = getDolGlobalString('OVH_ENDPOINT', 'ovh-eu');    // Can be "soyoustart-eu" or "kimsufi-eu"
 
 
 /*
@@ -227,6 +227,7 @@ if (getDolGlobalString('OVH_OLDAPI') && (empty($conf->global->OVHSMS_NICK) || em
 		echo '<div class="warning">'.$langs->trans("OvhAuthenticationPartNotConfigured").'</div>';
 	}
 
+	print '<div class="div-table-responsive">';
 	print '<table class="noborder centpercent">';
 
 	print '<tr class="liste_titre">';
@@ -243,7 +244,8 @@ if (getDolGlobalString('OVH_OLDAPI') && (empty($conf->global->OVHSMS_NICK) || em
 	print '</td></tr>';
 
 	print '</table>';
-
+	print '</div>';
+	
 	print '<div class="center"><input type="submit" class="button" value="'.$langs->trans("Modify").'"></div>';
 
 	print dol_get_fiche_end();

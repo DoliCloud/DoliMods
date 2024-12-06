@@ -137,7 +137,8 @@ if (!empty($conf->global->OVH_OLDAPI) && (empty($conf->global->OVHSMS_NICK) || e
 		echo '<div class="warning">' . $langs->trans("OvhAuthenticationPartNotConfigured") . '</div>';
 	}
 
-	print '<table class="noborder" width="100%">';
+	print '<div class="div-table-responsive">';
+	print '<table class="noborder centpercent">';
 	print '<tr class="liste_titre">';
 	print '<td>' . $langs->trans("Parameter") . '</td>';
 	print '<td>' . $langs->trans("Value") . '</td>';
@@ -175,7 +176,7 @@ if (!empty($conf->global->OVH_OLDAPI) && (empty($conf->global->OVHSMS_NICK) || e
 		print '<tr class="oddeven"><td>';
 		print $langs->trans("OvhDefaultBankAccount") . '</td><td>';
 		print img_picto('', 'bank', 'class="pictofixedwidth"');
-		$form->select_comptes(getDolGlobalString('OVH_DEFAULT_BANK_ACCOUNT'), 'OVH_DEFAULT_BANK_ACCOUNT', 0, '', 1);
+		$form->select_comptes(getDolGlobalString('OVH_DEFAULT_BANK_ACCOUNT'), 'OVH_DEFAULT_BANK_ACCOUNT', 0, '', 1, '', 0, 'minwidth200 maxwidth300');
 		print '<td>';
 		//print $langs->trans("KeepEmptyToSaveLinesAsFreeLines");
 		print '</td></tr>';
@@ -214,7 +215,8 @@ if (!empty($conf->global->OVH_OLDAPI) && (empty($conf->global->OVHSMS_NICK) || e
 	print '</td></tr>';
 
 	print '</table>';
-
+	print '</div>';
+	
 	dol_fiche_end();
 
 	print '<div class="center"><input type="submit" class="button" value="' . $langs->trans("Modify") . '"></div>';

@@ -247,6 +247,7 @@ if (!getDolGlobalString('OVH_OLDAPI')) {
 
 
 if (getDolGlobalString('OVH_OLDAPI')) {
+	print '<div class="div-table-responsive">';
 	print '<table class="noborder centpercent">';
 
 	// Old API
@@ -275,12 +276,14 @@ if (getDolGlobalString('OVH_OLDAPI')) {
 	print '</span></td></tr>';
 
 	print '</table>';
+	print '</div>';
 } else {
 	if (getDolGlobalString('OVH_USE_2_ACCOUNTS')) {
 		print "<br>\n";
 		print $langs->trans("Account").' 1<br>';
 	}
 
+	print '<div class="div-table-responsive-no-min">';
 	print '<table class="noborder centpercent">';
 
 	// New API
@@ -304,14 +307,18 @@ if (getDolGlobalString('OVH_OLDAPI')) {
 	print '</td></tr>';
 
 	print '</table>';
-
+	print '</div>';
+	
 	print '<br>';
 
 	if (getDolGlobalString('OVHAPPNAME') && getDolGlobalString('OVHAPPKEY') && getDolGlobalString('OVHAPPSECRET')) {
-		if (!getDolGlobalString('OVHCONSUMERKEY')) print img_warning().' ';
+		if (!getDolGlobalString('OVHCONSUMERKEY')) {
+			print img_warning().' ';
+		}
 		print $langs->trans("ClickHereToLoginAndGetYourConsumerKey", $_SERVER["PHP_SELF"].'?action=requestcredential&token='.newToken());
 		print '<br><br>';
 
+		print '<div class="div-table-responsive-no-min">';
 		print '<table class="noborder centpercent">';
 
 		print '<tr  class="oddeven"><td class="fieldrequired">';
@@ -321,12 +328,14 @@ if (getDolGlobalString('OVH_OLDAPI')) {
 		print '</td></tr>';
 
 		print '</table>';
+		print '</div>';
 	}
 
 	if (getDolGlobalString('OVH_USE_2_ACCOUNTS')) {
 		print "<br><br>\n";
 		print $langs->trans("Account").' 2<br>';
 
+		print '<div class="div-table-responsive-no-min">';
 		print '<table class="noborder centpercent">';
 
 		// New API
@@ -350,7 +359,8 @@ if (getDolGlobalString('OVH_OLDAPI')) {
 		print '</td></tr>';
 
 		print '</table>';
-
+		print '</div>';
+		
 		print '<br>';
 
 		if (getDolGlobalString('OVHAPPNAME2') && getDolGlobalString('OVHAPPKEY2') && getDolGlobalString('OVHAPPSECRET2')) {
@@ -358,6 +368,7 @@ if (getDolGlobalString('OVH_OLDAPI')) {
 			print $langs->trans("ClickHereToLoginAndGetYourConsumerKey", $_SERVER["PHP_SELF"].'?action=requestcredential2&token='.newToken());
 			print '<br><br>';
 
+			print '<div class="div-table-responsive-no-min">';
 			print '<table class="noborder centpercent">';
 
 			print '<tr  class="oddeven"><td class="fieldrequired">';
@@ -367,6 +378,7 @@ if (getDolGlobalString('OVH_OLDAPI')) {
 			print '</td></tr>';
 
 			print '</table>';
+			print '</div>';
 		}
 	}
 }

@@ -132,6 +132,7 @@ print '<input type="hidden" name="action" value="setvalue_account">';
 dol_fiche_head($head, 'click2dial', $langs->trans("Ovh"), -1);
 
 
+print '<div class="div-table-responsive">';
 print '<table class="noborder centpercent">';
 
 print '<tr class="liste_titre">';
@@ -175,7 +176,7 @@ if (! empty($conf->global->OVH_OLDAPI) || ! empty($conf->global->OVH_OLDAPI_FORC
 }
 
 print '</table>';
-
+print '</div>';
 
 print '<br>';
 
@@ -183,7 +184,7 @@ print '<br>';
 $message='';
 
 $tmpurl='/ovh/wrapper.php?caller=__PHONEFROM__&called=__PHONETO__';
-if (empty($conf->global->OVH_OLDAPI)) {
+if (!getDolGlobalString('OVH_OLDAPI')) {
 	$tmpurl.='&billingaccount='.(empty($c2cAccount)?'???':$c2cAccount).'&servicename='.(empty($snAccount)?'SIPLineNumber':$snAccount);
 } else {
 	$tmpurl.='&login=__LOGIN__&password=__PASS__';
