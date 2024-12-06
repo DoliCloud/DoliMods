@@ -159,7 +159,7 @@ if ($action == 'confirm_deletefile' && $confirm == 'yes') {
 }
 
 if ($action == 'save') {
-	dolibarr_set_const($db, 'CONCATPDF_PRESELECTED_MODELS', GETPOST('CONCATPDF_PRESELECTED_MODELS'), 'chaine', 0, '', 0);
+	dolibarr_set_const($db, 'CONCATPDF_PRESELECTED_MODELS', GETPOST('CONCATPDF_PRESELECTED_MODELS'), 'chaine', 0, '', $conf->entity);
 }
 
 /*

@@ -1,0 +1,52 @@
+# Translation file
+
+#
+# Generic
+#
+
+# Module label 'ModulePayplugDolicloudName'
+ModulePayplugDolicloudName = Payplug
+# Module description 'ModulePayplugDolicloudDesc'
+ModulePayplugDolicloudDesc = Offer customers a PayPlug online payment page (credit/debit cards). This can be used to allow your customers to make ad-hoc payments or payments related to a specific Dolibarr object (invoice, order etc...)
+
+#
+# Admin page
+#
+PayplugDolicloudSetup = Payplug setup
+Settings = Settings
+PAYPLUG_DOLICLOUD_LIVE = PayPlug Live enabled (otherwise test/sandbox mode)
+PAYPLUG_DOLICLOUD_TEST_PUBLIC_API_KEY= PayPlug public test API key
+PAYPLUG_DOLICLOUD_TEST_PUBLIC_API_KEY_HELP=PayPlug public test API key
+PAYPLUG_DOLICLOUD_TEST_SECRET_API_KEY= PayPlug secret test API key
+PAYPLUG_DOLICLOUD_TEST_SECRET_API_KEY_HELP=PayPlug secret test API key
+PAYPLUG_DOLICLOUD_PROD_PUBLIC_API_KEY= PayPlug public Live API key
+PAYPLUG_DOLICLOUD_PROD_PUBLIC_API_KEY_HELP=PayPlug public Live API key
+PAYPLUG_DOLICLOUD_PROD_SECRET_API_KEY= PayPlug secret Live API key
+PAYPLUG_DOLICLOUD_PROD_SECRET_API_KEY_HELP=PayPlug secret Live API key
+PAYPLUG_DOLICLOUD_BANK_ACCOUNT_FOR_PAYMENTS=Bank account for payments
+
+ExampleOfTestCreditCardPayplug=Example of credit card can be found at this URL:<br> %s 
+#
+# About page
+#
+About = About
+PayplugDolicloudAbout = About Payplug
+PayplugDolicloudAboutPage = Payplug about page
+
+#
+# Sample page
+#
+PayplugDolicloudArea = Home Payplug Dolicloud
+MyPageName = My page name
+
+PayplugDoPayment = Pay with Payplug
+
+ErrorBadValueAmount=Please change your basket amount. It must be free or greater than €0.50 to authorize your payment
+ErrorValueFinalPaymentDiffers= Value of FinalPayment (%s) differs from value expected for membership (%s).
+ErrorBadClientIdOrSecret=Bad client ID or secret
+
+#
+# Sample widget
+#
+MyWidget = My widget
+MyWidgetDescription = My widget description

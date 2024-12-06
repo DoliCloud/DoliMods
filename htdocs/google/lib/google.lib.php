@@ -97,6 +97,10 @@ function googleadmin_prepare_head()
 		$head[$h][2] = 'tabanalytics';
 		$h++;
 	}
+	$head[$h][0] = dol_buildpath('/google/admin/google_other.php', 1) ;
+	$head[$h][1] = $langs->trans("Other");
+	$head[$h][2] = 'tabother';
+	$h++;
 
 	$head[$h][0] = 'about.php';
 	$head[$h][1] = $langs->trans("About");
