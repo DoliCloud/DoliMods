@@ -60,6 +60,11 @@ function ovhadmin_prepare_head()
 	$head[$h][2] = 'sms';
 	$h++;
 
+	$head[$h][0] = dol_buildpath("/ovh/admin/ovh_other.php", 1);
+	$head[$h][1] = $langs->trans("Other");
+	$head[$h][2] = 'other';
+	$h++;
+
 	$head[$h][0] = 'about.php';
 	$head[$h][1] = $langs->trans("About");
 	$head[$h][2] = 'tababout';
