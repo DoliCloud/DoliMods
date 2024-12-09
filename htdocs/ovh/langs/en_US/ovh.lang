@@ -87,3 +87,4 @@ InvalidMobilePhoneNumberForContact=Phone number %s is invalid : %s (must have in
 SendSMS=Send SMS
 OVH_USE_LAST_INVOCIE_VALIDATED_DATE=Suggest last supplier invoice date from supplier on import invoice tools
 ValidImportedInvoice=Valid imported invoices
+OVH_DEBUG=Enable additional logs specific to the OVH module (dolibarr_ovh.* files)
