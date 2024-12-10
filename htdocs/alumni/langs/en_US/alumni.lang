@@ -31,7 +31,7 @@ AlumniSetupPage = Alumni setup page
 ALUMNI_YEAR=Year since the graduate
 ALUMNI_PROMONAME=Name or number of the promotion
 ALUMNI_ENABLE_SURVEY=Enable the surveys provided by the website template
-ALUMNI_STEP=Step of the project (1=Communication and first survey, 2=Selection of town and exact day, 3=Organization of event)
+ALUMNI_STEP_ORGANIZATION=Step of the project (1=Communication and first survey, 2=Selection of town and exact day, 3=Organization of event)
 
 
 #
