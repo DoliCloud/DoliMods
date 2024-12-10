@@ -346,7 +346,7 @@ foreach my $PROJECT (@PROJECTLIST) {
 	
 	            print "Move $FILENAMEZIP.zip to $NEWDESTI/$FILENAMEZIP.zip\n";
 	            $ret=`mv "$BUILDROOT/$FILENAMEZIP.zip" "$NEWDESTI/$FILENAMEZIP.zip"`;
-	            $ret=`chown $OWNER.$GROUP "$NEWDESTI/$FILENAMEZIP.zip"`;
+	            $ret=`chown $OWNER:$GROUP "$NEWDESTI/$FILENAMEZIP.zip"`;
 	    		next;
 	    	}
 	    
