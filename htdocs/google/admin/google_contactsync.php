@@ -744,11 +744,14 @@ llxHeader('', $langs->trans("GoogleSetup"), $help_url, '', 0, 0, $arrayofjs, $ar
 
 $linkback='<a href="'.DOL_URL_ROOT.'/admin/modules.php?restore_lastsearch_values=1">'.$langs->trans("BackToModuleList").'</a>';
 print_fiche_titre($langs->trans("GoogleSetup"), $linkback, 'setup');
-print '<br>';
 
 
-if (! function_exists("openssl_open")) print '<div class="warning">Warning: PHP Module \'openssl\' is not installed</div><br>';
-if (! class_exists('DOMDocument')) print '<div class="warning">Warning: PHP Module \'xml\' is not installed</div><br>';
+if (! function_exists("openssl_open")) {
+	print '<br><div class="warning">Warning: PHP Module \'openssl\' is not installed</div><br>';
+}
+if (! class_exists('DOMDocument')) {
+	print '<br><div class="warning">Warning: PHP Module \'xml\' is not installed</div><br>';
+}
 
 
 print '<form name="googleconfig" action="'.$_SERVER["PHP_SELF"].'" method="post">';
@@ -828,7 +831,7 @@ print '<table class="noborder centpercent">';
 
 print '<tr class="liste_titre">';
 print '<td class="titlefieldcreate">'.$langs->trans("Parameter")."</td>";
-print "<td>".$langs->trans("Value")."</td>";
+print "<td></td>";
 print "</tr>";
 // Label to use for thirdparties
 if (isModEnabled('societe')) {
@@ -860,7 +863,7 @@ if (isModEnabled('adherent')) {
 print "</table>";
 print "</div>";
 
-print '<div class="opacitymedium">'.$langs->trans("GoogleContactSyncInfo").'</div><br>';
+print '<div class="opacitymedium small">'.$langs->trans("GoogleContactSyncInfo").'</div><br>';
 
 
 print "<br>";

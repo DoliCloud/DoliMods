@@ -383,36 +383,29 @@ print '<div class="underbanner clearboth"></div>';
 
 print '<br>';
 
-$userlogin = $conf->global->GOOGLE_LOGIN;
+$userlogin = getDolGlobalString('GOOGLE_LOGIN');
 
 if (! empty($userlogin)) {	// We use setup of user
 	print $langs->trans("GoogleSetupIsGlobal", $userlogin);
 } else {
 	print_fiche_titre($langs->trans("AgendaSync"), '', '');
 
-	$var=true;
-	print "<table class=\"noborder\" width=\"100%\">";
+	print '<table class="noborder centpercent">';
 
 	print "<tr class=\"liste_titre\">";
 	print '<td width="25%">'.$langs->trans("Parameter").'</td>';
-	print '<td colspan="2">'.$langs->trans("Value").'</td>';
+	print '<td colspan="2"></td>';
 	print "</tr>";
 
-	// Activation synchronisation
-	/*
-	print "<tr ".$bc[$var].">";
-	print "<td>".$langs->trans("GoogleEnableSyncToCalendar")."</td>";
-	print "<td>";
-	print $form->selectyesno("GOOGLE_DUPLICATE_INTO_GCAL",isset($_POST["GOOGLE_DUPLICATE_INTO_GCAL"])?$_POST["GOOGLE_DUPLICATE_INTO_GCAL"]:$object->conf->GOOGLE_DUPLICATE_INTO_GCAL,1);
-	print "</td>";
-	print "</tr>";
-	*/
 	// Google login
 	print '<tr class="oddeven">';
 	print '<td class="fieldrequired">'.$langs->trans("GoogleIDAgenda")."</td>";
 	print "<td>";
-	if (! empty($conf->global->GOOGLE_LOGIN)) print $conf->global->GOOGLE_LOGIN;
-	else print '<input class="flat" type="text" size="30" name="GOOGLE_LOGIN" value="'.$object->conf->GOOGLE_LOGIN.'">';
+	if (getDolGlobalString('GOOGLE_LOGIN')) {
+		print getDolGlobalString('GOOGLE_LOGIN');
+	} else {
+		print '<input class="flat" type="text" size="30" name="GOOGLE_LOGIN" value="'.$object->conf->GOOGLE_LOGIN.'">';
+	}
 	print "</td>";
 	print '<td>';
 	print $langs->trans("Example").": yourlogin@gmail.com, email@mydomain.com<br>";
@@ -434,7 +427,9 @@ if (! empty($userlogin)) {	// We use setup of user
 	print '<tr lass="oddeven">';
 	print '<td class="fieldrequired">'.$langs->trans("GOOGLE_API_SERVICEACCOUNT_P12KEY")."</td>";
 	print '<td>';
-	if (! empty($conf->global->GOOGLE_API_SERVICEACCOUNT_P12KEY)) print getDolGlobalString('GOOGLE_API_SERVICEACCOUNT_P12KEY') . '<br>';
+	if (getDolGlobalString('GOOGLE_API_SERVICEACCOUNT_P12KEY')) {
+		print getDolGlobalString('GOOGLE_API_SERVICEACCOUNT_P12KEY') . '<br>';
+	}
 	//print '<input type="file" name="GOOGLE_API_SERVICEACCOUNT_P12KEY_file">';
 	print '</td>';
 	print '<td>';
@@ -466,7 +461,7 @@ if (! empty($userlogin)) {	// We use setup of user
 
 	print info_admin($langs->trans("EnableAPI", "https://console.developers.google.com/apis/library/", "https://console.developers.google.com/apis/library/", "Calendar API"));
 
-	$htmltext = $langs->trans("ShareCalendarWithServiceAccount", $conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL, $langs->transnoentitiesnoconv("GoogleIDAgenda"));
+	$htmltext = $langs->trans("ShareCalendarWithServiceAccount", getDolGlobalString('GOOGLE_API_SERVICEACCOUNT_EMAIL'), $langs->transnoentitiesnoconv("GoogleIDAgenda"));
 	$htmltext .= '<br>';
 	$htmltext .= $langs->trans("ShareCalendarWithServiceAccount2");
 	print info_admin($htmltext, 0, 0, '1', 'showifidagendaset');
