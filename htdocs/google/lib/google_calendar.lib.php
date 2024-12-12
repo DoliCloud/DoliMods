@@ -220,7 +220,7 @@ function getTokenFromServiceAccount($service_account_name, $key_file_location, $
 
 		// If it is ok to use the token into session
 		if (empty($force_do_not_use_session) && isset($_SESSION['google_service_token_'.$conf->entity])) {
-			dol_syslog("Get service token from session with client->setAccessToken(".$_SESSION['google_service_token_'.$conf->entity].")", LOG_DEBUG);
+			dol_syslog("Get service token from session with client->setAccessToken(".json_encode($_SESSION['google_service_token_'.$conf->entity]).")", LOG_DEBUG);
 			$client->setAccessToken($_SESSION['google_service_token_'.$conf->entity]);
 		}
 
@@ -320,11 +320,11 @@ function getTokenFromServiceAccount($service_account_name, $key_file_location, $
 
 		$_SESSION['google_service_token_'.$conf->entity] = $tmpres;	// Overwrite session with correct token
 
-		dol_syslog("getTokenFromServiceAccount Return client name = ".$applicationname." google_service_token = ".$_SESSION['google_service_token_'.$conf->entity], LOG_INFO);
+		dol_syslog("getTokenFromServiceAccount Return client name = ".$applicationname." google_service_token = ".json_encode($_SESSION['google_service_token_'.$conf->entity]), LOG_INFO);
 		//dol_syslog("getTokenFromServiceAccount getBasePath = ".$client->getBasePath(), LOG_DEBUG);
 	}
 
-	return array('client'=>$client, 'google_service_token'=>!empty($_SESSION['google_service_token_'.$conf->entity])?$_SESSION['google_service_token_'.$conf->entity]:0, 'google_web_token'=>$_SESSION['google_web_token_'.$conf->entity]);
+	return array('client' => $client, 'google_service_token' => !empty($_SESSION['google_service_token_'.$conf->entity]) ? $_SESSION['google_service_token_'.$conf->entity] : 0, 'google_web_token' => $_SESSION['google_web_token_'.$conf->entity]);
 }
 
 
