@@ -45,15 +45,17 @@ $action = GETPOST("action", 'aZ09');
 if ($action == 'save') {
 	$db->begin();
 
-	$res=dolibarr_set_const($db, 'ECOTAXDEEE_USE_ON_PROPOSAL', trim(GETPOST("ECOTAXDEEE_USE_ON_PROPOSAL")), 'chaine', 0, '', $conf->entity);
-	$res=dolibarr_set_const($db, 'ECOTAXDEEE_USE_ON_CUSTOMER_ORDER', trim(GETPOST("ECOTAXDEEE_USE_ON_CUSTOMER_ORDER")), 'chaine', 0, '', $conf->entity);
-	$res=dolibarr_set_const($db, 'ECOTAXDEEE_USE_ON_CUSTOMER_INVOICE', trim(GETPOST("ECOTAXDEEE_USE_ON_CUSTOMER_INVOICE")), 'chaine', 0, '', $conf->entity);
-	$res=dolibarr_set_const($db, 'ECOTAXDEEE_LABEL_LINE', trim(GETPOST("ECOTAXDEEE_LABEL_LINE")), 'chaine', 0, '', $conf->entity);
-	$res=dolibarr_set_const($db, 'ECOTAXDEEE_DOC_FOOTER', trim(GETPOST("ECOTAXDEEE_DOC_FOOTER")), 'chaine', 0, '', $conf->entity);
+	$res = dolibarr_set_const($db, 'ECOTAXDEEE_USE_ON_PROPOSAL', trim(GETPOST("ECOTAXDEEE_USE_ON_PROPOSAL")), 'chaine', 0, '', $conf->entity);
+	$res = dolibarr_set_const($db, 'ECOTAXDEEE_USE_ON_CUSTOMER_ORDER', trim(GETPOST("ECOTAXDEEE_USE_ON_CUSTOMER_ORDER")), 'chaine', 0, '', $conf->entity);
+	$res = dolibarr_set_const($db, 'ECOTAXDEEE_USE_ON_CUSTOMER_INVOICE', trim(GETPOST("ECOTAXDEEE_USE_ON_CUSTOMER_INVOICE")), 'chaine', 0, '', $conf->entity);
+	$res = dolibarr_set_const($db, 'ECOTAXDEEE_LABEL_LINE', trim(GETPOST("ECOTAXDEEE_LABEL_LINE")), 'chaine', 0, '', $conf->entity);
+	$res = dolibarr_set_const($db, 'ECOTAXDEEE_DOC_FOOTER', trim(GETPOST("ECOTAXDEEE_DOC_FOOTER")), 'chaine', 0, '', $conf->entity);
 
 	$product_wee=$_POST["WEEE_PRODUCT_ID"];
-	if ($product_wee < 0) $product_wee='';
-	$res=dolibarr_set_const($db, 'WEEE_PRODUCT_ID', $product_wee, 'chaine', 0, '', $conf->entity);
+	if ($product_wee < 0) {
+		$product_wee = '';
+	}
+	$res = dolibarr_set_const($db, 'WEEE_PRODUCT_ID', $product_wee, 'chaine', 0, '', $conf->entity);
 
 	if (! $error) {
 		$db->commit();
@@ -149,6 +151,7 @@ print '<tr class="oddeven">';
 if (isModEnabled("produit") || isModEnabled("service")) {
 	print "<td>".$langs->trans("ECOTAXDEEE_PRODUCT_OR_LABEL_LINE")."</td>";
 	print "<td>";
+	print img_picto('', 'product');
 	print $form->select_produits(getDolGlobalInt('WEEE_PRODUCT_ID'), 'WEEE_PRODUCT_ID', '');
 	print ' '.$langs->trans("OrLabelOfAFreeLine").' ';
 } else {
