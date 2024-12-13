@@ -439,8 +439,33 @@ class modStancerDolicloud extends DolibarrModules
 	 */
 	public function init($options = '')
 	{
-		global $conf, $langs;
+		global $conf, $langs, $mysoc, $user;
 
+		// Create bank account Payplug if not exists
+		if (!getDolGlobalInt('STANCER_DOLICLOUD_BANK_ACCOUNT_FOR_PAYMENTS')) {
+			require_once DOL_DOCUMENT_ROOT.'/compta/bank/class/account.class.php';
+			$bankaccount = new Account($this->db);
+			$searchaccountid = $bankaccount->fetch(0, "STANCER");
+			if ($searchaccountid == 0) {
+				$bankaccount->ref = "Stancer";
+				$bankaccount->label = 'Stancer';
+				$bankaccount->type = Account::TYPE_CURRENT;
+				$bankaccount->country_id = $mysoc->country_id ? $mysoc->country_id : 1;
+				$bankaccount->date_solde = dol_now();
+				$idjournal = dol_getIdFromCode($this->db, 'BQ', 'accounting_journal', 'code', 'rowid');
+				$bankaccount->fk_accountancy_journal = (int) $idjournal;
+				
+				$searchaccountid = $bankaccount->create($user);
+			}
+			if ($searchaccountid > 0) {
+				dolibarr_set_const($this->db, "STANCER_DOLICLOUD_BANK_ACCOUNT_FOR_PAYMENTS", $searchaccountid, 'chaine', 0, '', $conf->entity);
+			} else {
+				setEventMessages($bankaccount->error, $bankaccount->errors, 'errors');
+			}
+		}		
+		
+		
+		
 		//$result = $this->_load_tables('/install/mysql/', 'stancerdolicloud');
 		$result = $this->_load_tables('/stancerdolicloud/sql/');
 		if ($result < 0) {
