@@ -465,7 +465,7 @@ class modPayplugDolicloud extends DolibarrModules
 	 */
 	public function init($options = '')
 	{
-		global $conf, $langs;
+		global $conf, $langs, $mysoc, $user;
 
 		// Create bank account Payplug if not exists
 		if (!getDolGlobalInt('PAYPLUG_DOLICLOUD_BANK_ACCOUNT_FOR_PAYMENTS')) {
