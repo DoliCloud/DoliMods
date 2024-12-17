@@ -1,6 +1,11 @@
 # ChangeLog MODULE EXOTAXDEEE FOR <a href="https://www.dolibarr.org">DOLIBARR ERP CRM</a>
 
 
+## 4.2.1
+
+- Fix compatibility when using other modules that create lines with type = 9 like subtotal
+
+
 ## 4.2
 
 - Need Dolibarr v16+.
