@@ -259,9 +259,27 @@ if (empty($reshook)) {
 	include DOL_DOCUMENT_ROOT.'/core/actions_massactions.inc.php';
 
 	// You can add more action here
-	// if ($action == 'xxx' && $permissiontoxxx) ...
+	if ($massaction == 'settopaid' && $permissiontoadd) {
+		foreach ($toselect as $toselectid) {
+			$tmpobject = new Survey($db);
+			$tmpobject->fetch($toselectid);
+			
+			$tmpobject->array_options = array('options_a_paye' => 1);
+			
+			$result = $tmpobject->updateExtraField('a_paye', null, $user);
+		}
+	}
+	if ($massaction == 'settounpaid' && $permissiontoadd) {
+		foreach ($toselect as $toselectid) {
+			$tmpobject = new Survey($db);
+			$tmpobject->fetch($toselectid);
+			
+			$tmpobject->array_options = array('options_a_paye' => 0);
+			
+			$result = $tmpobject->updateExtraField('a_paye', null, $user);
+		}
+	}
 }
-
 
 
 /*
@@ -495,6 +513,8 @@ $arrayofmassactions = array(
 );
 if (!empty($permissiontodelete)) {
 	$arrayofmassactions['predelete'] = img_picto('', 'delete', 'class="pictofixedwidth"').$langs->trans("Delete");
+	$arrayofmassactions['settopaid'] = img_picto('', 'currency', 'class="pictofixedwidth"').$langs->trans("SetToPaid");
+	$arrayofmassactions['setunpaid'] = img_picto('', 'circle', 'class="pictofixedwidth"').$langs->trans("SetToUnPaid");
 }
 if (GETPOST('nomassaction', 'int') || in_array($massaction, array('presend', 'predelete'))) {
 	$arrayofmassactions = array();
