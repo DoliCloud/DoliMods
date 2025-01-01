@@ -978,8 +978,8 @@ if (!getDolGlobalString('GOOGLE_CONTACT_LOGIN') ||  !getDolGlobalString('OAUTH_G
 		if (!empty($_SESSION['google_web_token_'.$conf->entity]['created'])) {
 			print ' since '.dol_print_date($_SESSION['google_web_token_'.$conf->entity]['created'], 'dayhour');
 		}
-		print ':<br>';
-		if (! empty($_SESSION['google_web_token_'.$conf->entity])) {
+		print ' :<br>';
+		if (!empty($_SESSION['google_web_token_'.$conf->entity])) {
 			//print '<div class="quatrevingtpercent" style="max-width: 800px; overflow: scroll; border: 1px solid #aaa;">';
 			if (is_array($_SESSION['google_web_token_'.$conf->entity]) && key_exists('access_token', $_SESSION['google_web_token_'.$conf->entity])) {
 				$valuetoshow = json_encode($_SESSION['google_web_token_'.$conf->entity]);

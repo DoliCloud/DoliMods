@@ -272,7 +272,7 @@ $form = new Form($db);
 
 $now = dol_now();
 
-$title = $langs->trans("Surveys");
+$title = $langs->trans("EventChoices");
 //$help_url = "EN:Module_Survey|FR:Module_Survey_FR|ES:Módulo_Survey";
 $help_url = '';
 $morejs = array();

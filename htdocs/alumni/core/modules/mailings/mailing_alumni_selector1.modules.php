@@ -66,7 +66,7 @@ class mailing_mailing_alumni_selector1 extends MailingTargets
 		$arrayfields = $tmp->fields['motivation']['arrayofkeyval'];
 
 		$s = '';
-		$s .= $langs->trans($tmp->fields['motivation']['label']).': ';
+		$s .= $langs->trans($tmp->fields['motivation']['label']).' ';
 		$s .= '<select name="filter_motivation" id="filter_motivation" class="flat maxwidth200">';
 		$s .= '<option value="none">&nbsp;</option>';
 		foreach ($arrayfields as $key => $val) {
@@ -76,6 +76,15 @@ class mailing_mailing_alumni_selector1 extends MailingTargets
 		$s .= ajax_combobox('filter_motivation');
 		$s .= '<br>';
 
+		$extrafields = new ExtraFields($this->db);
+		$extrafields->fetch_name_optionals_label($tmp->table_element);
+		
+		foreach($extrafields->attributes[$tmp->table_element]['label'] as $key => $label) {
+			$s .= $langs->trans($label).' ';
+			$s .= '<input type="text" value="'.GETPOST($key).'" name="'.$key.'">';
+			$s .= '<br>';
+		}
+		
 		return $s;
 	}
 
@@ -105,8 +114,12 @@ class mailing_mailing_alumni_selector1 extends MailingTargets
 		$target = array();
 		$j = 0;
 
+		dol_include_once('/alumni/class/survey.class.php');
+		$tmp = new Survey($this->db);
+		
 		$sql = "SELECT asu.rowid as id, asu.firstname, asu.lastname, asu.email";
-		$sql .= " FROM ".MAIN_DB_PREFIX."alumni_survey as asu LEFT JOIN ".MAIN_DB_PREFIX."alumni_survey_extrafields as ase ON asu.rowid = ase.fk_object";
+		$sql .= " FROM ".MAIN_DB_PREFIX."alumni_survey as asu";
+		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."alumni_survey_extrafields as ase ON asu.rowid = ase.fk_object";
 		$sql .= " WHERE asu.email IS NOT NULL AND asu.email <> ''";
 		/*if (GETPOSTISSET('filter') && GETPOST('filter', 'alphanohtml') != 'none') {
 			$sql .= " AND status = '".$this->db->escape(GETPOST('filter', 'alphanohtml'))."'";
@@ -114,6 +127,15 @@ class mailing_mailing_alumni_selector1 extends MailingTargets
 		if (GETPOSTISSET('filter_motivation') && GETPOSTINT('filter_motivation') > 0) {
 			$sql .= " AND asu.motivation = ".((int) GETPOSTINT('filter_motivation'));
 		}
+		$extrafields = new ExtraFields($this->db);
+		$extrafields->fetch_name_optionals_label($tmp->table_element);
+		
+		foreach($extrafields->attributes[$tmp->table_element]['label'] as $key => $label) {
+			if (GETPOST($key)) {
+				$sql .= " AND ase.".$this->db->sanitize($key)." LIKE '".$this->db->escape(GETPOST($key))."'";
+			}
+		}
+		
 		$sql .= " ORDER BY asu.email";
 
 		// Store recipients in target
