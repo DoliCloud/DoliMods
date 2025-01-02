@@ -279,6 +279,27 @@ if (empty($reshook)) {
 			$result = $tmpobject->updateExtraField('a_paye', null, $user);
 		}
 	}
+	
+	if ($massaction == 'settodonotreengage' && $permissiontoadd) {
+		foreach ($toselect as $toselectid) {
+			$tmpobject = new Survey($db);
+			$tmpobject->fetch($toselectid);
+			
+			$tmpobject->array_options = array('options_ne_pas_relancer' => 1);
+			
+			$result = $tmpobject->updateExtraField('ne_pas_relancer', null, $user);
+		}
+	}
+	if ($massaction == 'settoreengage' && $permissiontoadd) {
+		foreach ($toselect as $toselectid) {
+			$tmpobject = new Survey($db);
+			$tmpobject->fetch($toselectid);
+			
+			$tmpobject->array_options = array('options_ne_pas_relancer' => 0);
+			
+			$result = $tmpobject->updateExtraField('ne_pas_relancer', null, $user);
+		}
+	}
 }
 
 
@@ -515,6 +536,8 @@ if (!empty($permissiontodelete)) {
 	$arrayofmassactions['predelete'] = img_picto('', 'delete', 'class="pictofixedwidth"').$langs->trans("Delete");
 	$arrayofmassactions['settopaid'] = img_picto('', 'currency', 'class="pictofixedwidth"').$langs->trans("SetToPaid");
 	$arrayofmassactions['setunpaid'] = img_picto('', 'circle', 'class="pictofixedwidth"').$langs->trans("SetToUnPaid");
+	$arrayofmassactions['settodonotreengage'] = img_picto('', 'circle', 'class="pictofixedwidth"').$langs->trans("SetToDoNotReEngage");
+	$arrayofmassactions['settoreengage'] = img_picto('', 'circle', 'class="pictofixedwidth"').$langs->trans("SetToCanReEngage");
 }
 if (GETPOST('nomassaction', 'int') || in_array($massaction, array('presend', 'predelete'))) {
 	$arrayofmassactions = array();

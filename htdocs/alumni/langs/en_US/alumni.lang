@@ -58,3 +58,7 @@ Results=Results
 EventChoices=Event choices
 NewVoteEntry=New event choice
 NbOfVotes=Number of event choices
+SetToPaid=Set to paid
+SetToUnpaid=Set to unpaid
+SetToDoNotReEngage=Set to do not re-engage
+SetToCanReEngage=Set to can re-engage
