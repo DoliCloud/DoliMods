@@ -131,7 +131,10 @@ class mailing_mailing_alumni_selector1 extends MailingTargets
 		$extrafields->fetch_name_optionals_label($tmp->table_element);
 		
 		foreach($extrafields->attributes[$tmp->table_element]['label'] as $key => $label) {
-			if (GETPOSTISSET($key) && GETPOST($key) != '') {
+			if (GETPOSTISSET($key) && GETPOST($key) == '0') {
+				$sql .= " AND IFNULL(ase.".$this->db->sanitize($key).",0) = 0";
+			}
+			if (GETPOSTISSET($key) && GETPOST($key) == '-1' && GETPOST($key) == '1') {
 				$sql .= " AND ase.".$this->db->sanitize($key)." LIKE '".$this->db->escape(GETPOST($key))."'";
 			}
 		}
