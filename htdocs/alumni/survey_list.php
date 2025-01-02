@@ -285,9 +285,9 @@ if (empty($reshook)) {
 			$tmpobject = new Survey($db);
 			$tmpobject->fetch($toselectid);
 			
-			$tmpobject->array_options = array('options_ne_pas_relancer' => 1);
+			$tmpobject->array_options = array('options_ne_plus_relancer' => 1);
 			
-			$result = $tmpobject->updateExtraField('ne_pas_relancer', null, $user);
+			$result = $tmpobject->updateExtraField('ne_plus_relancer', null, $user);
 		}
 	}
 	if ($massaction == 'settoreengage' && $permissiontoadd) {
@@ -295,9 +295,9 @@ if (empty($reshook)) {
 			$tmpobject = new Survey($db);
 			$tmpobject->fetch($toselectid);
 			
-			$tmpobject->array_options = array('options_ne_pas_relancer' => 0);
+			$tmpobject->array_options = array('options_ne_plus_relancer' => 0);
 			
-			$result = $tmpobject->updateExtraField('ne_pas_relancer', null, $user);
+			$result = $tmpobject->updateExtraField('ne_plus_relancer', null, $user);
 		}
 	}
 }
