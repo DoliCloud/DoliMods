@@ -223,7 +223,7 @@ if (GETPOST('cleanup')) {
 	$error=0;
 	$nbdeleted=0;
 
-	$userlogin = empty($conf->global->GOOGLE_LOGIN)?'':$conf->global->GOOGLE_LOGIN;
+	$userlogin = getDolGlobalString('GOOGLE_LOGIN');
 
 	// Create client/token object
 	$key_file_location = $conf->google->multidir_output[$conf->entity]."/" . getDolGlobalString('GOOGLE_API_SERVICEACCOUNT_P12KEY');
@@ -285,7 +285,7 @@ if ($action == 'pushallevents') {
 	$error=0;
 	$nbinserted=0;
 
-	$userlogin = empty($conf->global->GOOGLE_LOGIN)?'':$conf->global->GOOGLE_LOGIN;
+	$userlogin = getDolGlobalString('GOOGLE_LOGIN');
 
 	// Create client/token object
 	$key_file_location = $conf->google->multidir_output[$conf->entity]."/" . getDolGlobalString('GOOGLE_API_SERVICEACCOUNT_P12KEY');
@@ -369,7 +369,7 @@ if ($action == 'pushallevents') {
 
 if ($action == 'syncfromgoogle') {
 	$fuser = $user;		// $fuser = user for synch
-	$userlogin = empty($conf->global->GOOGLE_LOGIN)?'':$conf->global->GOOGLE_LOGIN;
+	$userlogin = getDolGlobalString('GOOGLE_LOGIN');
 
 	if (empty($dateminsync)) {
 		setEventMessage($langs->trans("ErrorBadValueForDate"), 'errors');
@@ -668,7 +668,7 @@ if (getDolGlobalString('GOOGLE_DUPLICATE_INTO_GCAL')) {
 		print '<input type="hidden" name="action" value="syncfromgoogle">';
 		print $langs->trans("ImportEventsFromGoogle", $max, getDolGlobalString('GOOGLE_LOGIN'))." ";
 		$now = dol_now() - ($notolderforsync * 24 * 3600);
-		print $form->selectDate($dateminsync ? $dateminsync : $now, 'sync', 1, 1, 0, '', 1, 0, empty($conf->global->GOOGLE_LOGIN)?1:0);
+		print $form->selectDate($dateminsync ? $dateminsync : $now, 'sync', 1, 1, 0, '', 1, 0, getDolGlobalString('GOOGLE_LOGIN') ? 0 : 1);
 		print '<input type="submit" name="getall" class="button small" value="'.$langs->trans("Run").'"';
 		if (!getDolGlobalString('GOOGLE_LOGIN')) print ' disabled="disabled"';
 		print '>';

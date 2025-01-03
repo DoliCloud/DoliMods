@@ -404,7 +404,7 @@ function createEvent($client, $object, $login = 'primary')
 	$urlicon=$urlwithroot.'/favicon.ico';
 
 	$source=new Google_Service_Calendar_EventSource();
-	$source->setTitle($conf->global->MAIN_APPLICATION_TITLE);
+	$source->setTitle(getDolGlobalString('MAIN_APPLICATION_TITLE'));
 	$source->setUrl($urlevent);
 
 	$event->setSource($source);
