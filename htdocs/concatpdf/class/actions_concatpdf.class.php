@@ -329,7 +329,7 @@ class ActionsConcatPdf
 				}
 				$pdf->SetFont(pdf_getPDFFont($outputlangs));
 
-				if (!empty($conf->global->MAIN_DISABLE_PDF_COMPRESSION)) {
+				if (getDolGlobalString('MAIN_DISABLE_PDF_COMPRESSION')) {
 					$pdf->SetCompression(false);
 				}
 				//$pdf->SetCompression(false);

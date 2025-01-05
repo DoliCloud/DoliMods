@@ -1455,21 +1455,21 @@ function getGContactTypeGroupID($gdata, $type)
 		$tagprefix = 'GOOGLE_TAG_PREFIX';
 		$label = empty($conf->global->GOOGLE_TAG_PREFIX) ? 'Dolibarr Thirdparties': $conf->global->GOOGLE_TAG_PREFIX;
 		// See if ref_ext exists and if it is a google group
-		if (!empty($conf->global->GOOGLE_TAG_REF_EXT) && preg_match('/google:(contactGroups\/.*)/', $conf->global->GOOGLE_TAG_REF_EXT, $reg)) {
+		if (getDolGlobalString('GOOGLE_TAG_REF_EXT') && preg_match('/google:(contactGroups\/.*)/', $conf->global->GOOGLE_TAG_REF_EXT, $reg)) {
 			$groupID = $reg[1];
 		}
 	} else if ($type === 'contact') {
 		$tagprefix = 'GOOGLE_TAG_PREFIX_CONTACTS';
 		$label = empty($conf->global->GOOGLE_TAG_PREFIX_CONTACTS) ? 'Dolibarr contacts': $conf->global->GOOGLE_TAG_PREFIX_CONTACTS;
 		// See if ref_ext exists and if it is a google group
-		if (!empty($conf->global->GOOGLE_TAG_REF_EXT_CONTACTS) && preg_match('/google:(contactGroups\/.*)/', $conf->global->GOOGLE_TAG_REF_EXT_CONTACTS, $reg)) {
+		if (getDolGlobalString('GOOGLE_TAG_REF_EXT_CONTACTS') && preg_match('/google:(contactGroups\/.*)/', $conf->global->GOOGLE_TAG_REF_EXT_CONTACTS, $reg)) {
 			$groupID = $reg[1];
 		}
 	} else if ($type === 'member') {
 		$tagprefix = 'GOOGLE_TAG_PREFIX_MEMBERS';
 		$label = empty($conf->global->GOOGLE_TAG_PREFIX_MEMBERS) ? 'Dolibarr members': $conf->global->GOOGLE_TAG_PREFIX_MEMBERS;
 		// See if ref_ext exists and if it is a google group
-		if (!empty($conf->global->GOOGLE_TAG_REF_EXT_MEMBERS) && preg_match('/google:(contactGroups\/.*)/', $conf->global->GOOGLE_TAG_REF_EXT_MEMBERS, $reg)) {
+		if (getDolGlobalString('GOOGLE_TAG_REF_EXT_MEMBERS') && preg_match('/google:(contactGroups\/.*)/', $conf->global->GOOGLE_TAG_REF_EXT_MEMBERS, $reg)) {
 			$groupID = $reg[1];
 		}
 	} else {

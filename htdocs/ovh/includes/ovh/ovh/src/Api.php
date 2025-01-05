@@ -305,7 +305,7 @@ class Api
 
         // @Change DOL_LDR
         global $conf;
-        if (!empty($conf->global->OVH_DEBUG)) {
+        if (getDolGlobalString('OVH_DEBUG')) {
 	        $logfile=DOL_DATA_ROOT.'/dolibarr_ovh.log';
 	        $filefd = fopen($logfile, 'a+');
 	        if ($filefd)
@@ -313,7 +313,7 @@ class Api
 	        	fwrite($filefd, var_export($request->getRequestTarget(), true)."\n");
 	        	fwrite($filefd, var_export($request->getHeaders(), true)."\n");
 	        	fclose($filefd);
-	        	@chmod($logfile, octdec(empty($conf->global->MAIN_UMASK)?'0664':$conf->global->MAIN_UMASK));
+	        	@chmod($logfile, octdec(getDolGlobalString('MAIN_UMASK', '0664')));
 	        }
         }
 

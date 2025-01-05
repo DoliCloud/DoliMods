@@ -126,7 +126,7 @@ print '<input type="hidden" name="token" value="'.newToken().'">';
 print '<input type="hidden" name="action" value="setvalue">';
 
 
-if (!empty($conf->global->OVH_OLDAPI) && (empty($conf->global->OVHSMS_NICK) || empty($WS_DOL_URL))) {  // For old API
+if (getDolGlobalString('OVH_OLDAPI') && (empty($conf->global->OVHSMS_NICK) || empty($WS_DOL_URL))) {  // For old API
 	echo '<div class="warning">' . $langs->trans("OvhSmsNotConfigured") . '</div>';
 } else {
 	$var = true;

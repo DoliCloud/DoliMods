@@ -349,8 +349,8 @@ function createEvent($client, $object, $login = 'primary')
 	$end = new Google_Service_Calendar_EventDateTime();
 
 	$tzfix=0;
-	if (!empty($conf->global->GOOGLE_CAL_TZ_FIX)) {
-		$tzfix=$conf->global->GOOGLE_CAL_TZ_FIX;
+	if (getDolGlobalString('GOOGLE_CAL_TZ_FIX')) {
+		$tzfix = getDolGlobalString('GOOGLE_CAL_TZ_FIX');
 	}
 	if (empty($object->fulldayevent)) {
 		$reg = array();
