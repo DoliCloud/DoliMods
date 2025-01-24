@@ -1,5 +1,5 @@
 <?php
-/* Copyright (C) 2011-2013	Laurent Destailleur	<eldy@users.sourceforge.net>
+/* Copyright (C) 2011-2025	Laurent Destailleur	<eldy@users.sourceforge.net>
  * Copyright (C) 2012		Regis Houssin		<regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -62,7 +62,7 @@ class ActionsConcatPdf
 	 */
 	public function formBuilddocOptions($parameters, &$object)
 	{
-		global $langs, $user, $conf, $form;
+		global $langs, $conf, $form;
 
 		$langs->load("concatpdf@concatpdf");
 
@@ -111,7 +111,7 @@ class ActionsConcatPdf
 			// List of value key into setup -> value for modulepart
 			$altkey=array('proposal'=>'propal', 'order'=>'commande', 'invoice'=>'facture', 'supplier_order'=>'commande_fournisseur', 'invoice_order'=>'facture_fournisseur');
 
-			// $conf->global->CONCATPDF_PRESELECTED_MODELS may contains value of preselected model with format
+			// getDolGlobalString('CONCATPDF_PRESELECTED_MODELS') may contains value of preselected model with format
 			// propal:model1a,model1b;invoice:model2;...
 			$tmparray=explode(';', getDolGlobalString('CONCATPDF_PRESELECTED_MODELS'));
 			$tmparray2=array();
@@ -238,26 +238,28 @@ class ActionsConcatPdf
 
 		// Includes default models if no model selection
 		if (empty($concatpdffile) && ! $formwassubmittedwithemptyselection) {
-			//var_dump($conf->global->CONCATPDF_PRESELECTED_MODELS);
+			//var_dump(getDolGlobalString('CONCATPDF_PRESELECTED_MODELS'));
 			if ($preselected == -1 && getDolGlobalString('CONCATPDF_PRESELECTED_MODELS')) {
 
 				// List of value key into setup -> value for modulepart
 				$altkey=array('proposal'=>'propal', 'order'=>'commande', 'invoice'=>'facture', 'supplier_order'=>'order_supplier', 'supplier_invoice'=>'invoice_supplier');
 
-				// $conf->global->CONCATPDF_PRESELECTED_MODELS may contains value of preselected model with format
-				// propal:model1a,model1b;invoice:model2;...
+				// getDolGlobalString('CONCATPDF_PRESELECTED_MODELS') may contains value of preselected model with format
+				// proposal:model1a,model1b;invoice:model2;...
 				$tmparray=explode(';', getDolGlobalString('CONCATPDF_PRESELECTED_MODELS'));
 				$tmparray2=array();
 				foreach ($tmparray as $val) {
 					$tmp=explode(':', $val);
-					if (! empty($tmp[1])) $tmparray2[$tmp[0]]=$tmp[1];
+					if (! empty($tmp[1])) {
+						$tmparray2[$tmp[0]]=$tmp[1];
+					}
 				}
-				foreach ($tmparray2 as $key => $val) {
+				foreach ($tmparray2 as $key => $val) {	// for example: $key is 'proposal' and value is 'model1a,model1b'
 					//var_dump($key.' - '.$altkey[$key].' - '.$val.' - '.$parameters['object']->element);
 					if (isset($parameters['object']->element) && ($parameters['object']->element == $key || $parameters['object']->element == $altkey[$key])) {
 						$tmpval = explode(',', $val);
 						foreach($tmpval as $val2) {
-							$concatpdffile[]=$val2;
+							$concatpdffile[] = preg_replace('/\.pdf$/i', '', $val2);
 						}
 					}
 				}
@@ -281,6 +283,7 @@ class ActionsConcatPdf
 		$filetoconcat2=array();
 
 		if (! empty($concatpdffile) && $concatpdffile[0] != -1) {
+			$hidedetails = $hidedesc = $hideref = 0;
 			foreach ($concatpdffile as $concatfile) {
 				// We search which second file to add (or generate it if file to add as a name matching pdf__...modules)
 				if (preg_match('/^pdf_(.*)+\.modules/', $concatfile)) {
@@ -370,7 +373,7 @@ class ActionsConcatPdf
 		}
 
 		if (is_object($parameters['object']) && method_exists($parameters['object'], 'setExtraParameters')) {
-			$result = $parameters['object']->setExtraParameters();
+			$parameters['object']->setExtraParameters();
 		}
 
 		return $ret;
