@@ -198,7 +198,7 @@ class ActionsBilledOnOrders
 					}
 				}
 			}
-			$remaintopay = $billedttc - $payed;
+			$remaintopay = price2num($billedttc - $payed, 'MT');
 
 			if (empty($conf->global->BILLEDONORDERS_DISABLE_BILLEDWOTAX)) {
 				print '<td class="right nowraponall">'.($billedht?price($billedht):'');
