@@ -3,7 +3,8 @@
 
 ## Features
 
-Add 2 columns in the list of Orders with "Total invoiced" and "Remain to invoice".
+Add some columns in the list of Orders like: "Total invoiced" and "Remain to pay among invoiced".
+A warning is also show when the amount invoiced (all invoices linked to the order) is not equal to the amount of the order.
 
 More information <a href="https://wiki.dolibarr.org/index.php/Module_BilledOnOrders" target="_new">this wiki page</a>.
 

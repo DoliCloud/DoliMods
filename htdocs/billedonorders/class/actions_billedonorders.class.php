@@ -60,24 +60,24 @@ class ActionsBilledOnOrders
 		if ($parameters['currentcontext'] == 'orderlist') {
 			$langs->load("billedonorders@billedonorders");
 			if (!getDolGlobalString('BILLEDONORDERS_DISABLE_BILLEDWOTAX'))
-				print_liste_field_titre($langs->trans("AmountBilledHT"), $_SERVER["PHP_SELF"], '', '', $param, ' align="right"', $sortfield, $sortorder);
+				print_liste_field_titre($langs->transnoentitiesnoconv("AmountBilledHT"), $_SERVER["PHP_SELF"], '', '', $param, '', $sortfield, $sortorder, 'right ');
 			if (!getDolGlobalString('BILLEDONORDERS_DISABLE_BILLED'))
-				print_liste_field_titre($langs->trans("AmountBilledTTC"), $_SERVER["PHP_SELF"], '', '', $param, ' align="right"', $sortfield, $sortorder);
+				print_liste_field_titre($langs->transnoentitiesnoconv("AmountBilledTTC"), $_SERVER["PHP_SELF"], '', '', $param, '', $sortfield, $sortorder, 'right ');
 			if (!getDolGlobalString('BILLEDONORDERS_DISABLE_PAYED'))
-				print_liste_field_titre($langs->trans("AlreadyPaid"), $_SERVER["PHP_SELF"], '', '', $param, ' align="right"', $sortfield, $sortorder);
+				print_liste_field_titre($langs->transnoentitiesnoconv("AlreadyPaid"), $_SERVER["PHP_SELF"], '', '', $param, '', $sortfield, $sortorder, 'right ');
 			if (!getDolGlobalString('BILLEDONORDERS_DISABLE_REMAINTOPAY'))
-				print_liste_field_titre($langs->trans("RemainderToPay"), $_SERVER["PHP_SELF"], '', '', $param, ' align="right"', $sortfield, $sortorder, '', 'AmongAlreadyCreatedInvoices');
+				print_liste_field_titre($langs->transnoentitiesnoconv("RemainderToPay"), $_SERVER["PHP_SELF"], '', '', $param, '', $sortfield, $sortorder, 'right ', 'AmongAlreadyCreatedInvoices::-1');
 		}
 		if ($parameters['currentcontext'] == 'supplierorderlist') {
 			$langs->load("billedonorders@billedonorders");
 			if (!getDolGlobalString('BILLEDONORDERS_DISABLE_BILLEDWOTAX'))
-				print_liste_field_titre($langs->trans("AmountBilledHT"), $_SERVER["PHP_SELF"], '', '', $param, ' align="right"', $sortfield, $sortorder);
+				print_liste_field_titre($langs->transnoentitiesnoconv("AmountBilledHT"), $_SERVER["PHP_SELF"], '', '', $param, '', $sortfield, $sortorder, 'right ');
 			if (!getDolGlobalString('BILLEDONORDERS_DISABLE_BILLED'))
-				print_liste_field_titre($langs->trans("AmountBilledTTC"), $_SERVER["PHP_SELF"], '', '', $param, ' align="right"', $sortfield, $sortorder);
+				print_liste_field_titre($langs->transnoentitiesnoconv("AmountBilledTTC"), $_SERVER["PHP_SELF"], '', '', $param, '', $sortfield, $sortorder, 'right ');
 			if (!getDolGlobalString('BILLEDONORDERS_DISABLE_PAYED'))
-				print_liste_field_titre($langs->trans("AlreadyPaid"), $_SERVER["PHP_SELF"], '', '', $param, ' align="right"', $sortfield, $sortorder);
+				print_liste_field_titre($langs->transnoentitiesnoconv("AlreadyPaid"), $_SERVER["PHP_SELF"], '', '', $param, '', $sortfield, $sortorder, 'right ');
 			if (!getDolGlobalString('BILLEDONORDERS_DISABLE_REMAINTOPAY'))
-				print_liste_field_titre($langs->trans("RemainderToPay"), $_SERVER["PHP_SELF"], '', '', $param, ' align="right"', $sortfield, $sortorder, '', 'AmongAlreadyCreatedInvoices');
+				print_liste_field_titre($langs->transnoentitiesnoconv("RemainderToPay"), $_SERVER["PHP_SELF"], '', '', $param, '', $sortfield, $sortorder, 'right ', 'AmongAlreadyCreatedInvoices::-1');
 		}
 
 		return 0;
@@ -199,13 +199,21 @@ class ActionsBilledOnOrders
 			$remaintopay = price2num($billedttc - $payed, 'MT');
 
 			if (!getDolGlobalString('BILLEDONORDERS_DISABLE_BILLEDWOTAX')) {
-				print '<td class="right nowraponall">'.($billedht?price($billedht):'');
+				print '<td class="right nowraponall">'.($billedht ? price($billedht) : '');
 				if ($billedht && $parameters['obj']->total_ht != $billedht) {
 					print img_warning($langs->trans("AmountBilledDiffersFromAmountOnOrder"));
 				}
 				print '</td>';
 				global $totalarray;
-				if (isset($parameters['i']) && ! $parameters['i']) $totalarray['nbfield']++;
+				if (isset($parameters['i']) && ! $parameters['i']) {
+					// Warning, some module may break position of total (like multicompany)
+					$totalarray['nbfield']++;
+					if (getDolGlobalString('BILLEDONORDERS_SHOW_TOTAL')) {
+						$totalarray['pos'][$totalarray['nbfield']] = 'BILLEDONORDERS_DISABLE_BILLEDWOTAX';
+					}
+					$totalarray['val']['BILLEDONORDERS_DISABLE_BILLEDWOTAX'] = 0;
+				}
+				$totalarray['val']['BILLEDONORDERS_DISABLE_BILLEDWOTAX'] += $billedht;
 			}
 			if (!getDolGlobalString('BILLEDONORDERS_DISABLE_BILLED')) {
 				print '<td class="right nowraponall">'.($billedttc?price($billedttc):'');
@@ -214,17 +222,38 @@ class ActionsBilledOnOrders
 				}
 				print '</td>';
 				global $totalarray;
-				if (isset($parameters['i']) && ! $parameters['i']) $totalarray['nbfield']++;
+				if (isset($parameters['i']) && ! $parameters['i']) {
+					$totalarray['nbfield']++;
+					if (getDolGlobalString('BILLEDONORDERS_SHOW_TOTAL')) {
+						$totalarray['pos'][$totalarray['nbfield']] = 'BILLEDONORDERS_DISABLE_BILLED';
+					}
+					$totalarray['val']['BILLEDONORDERS_DISABLE_BILLED'] = 0;
+				}
+				$totalarray['val']['BILLEDONORDERS_DISABLE_BILLED'] += $billedttc;
 			}
 			if (!getDolGlobalString('BILLEDONORDERS_DISABLE_PAYED')) {
 				print '<td class="right nowraponall">'.($payed?price($payed):'').'</td>';
 				global $totalarray;
-				if (isset($parameters['i']) && ! $parameters['i']) $totalarray['nbfield']++;
+				if (isset($parameters['i']) && ! $parameters['i']) {
+					$totalarray['nbfield']++;
+					if (getDolGlobalString('BILLEDONORDERS_SHOW_TOTAL')) {
+						$totalarray['pos'][$totalarray['nbfield']] = 'BILLEDONORDERS_DISABLE_PAYED';
+					}
+					$totalarray['val']['BILLEDONORDERS_DISABLE_PAYED'] = 0;
+				}
+				$totalarray['val']['BILLEDONORDERS_DISABLE_PAYED'] += $payed;
 			}
 			if (!getDolGlobalString('BILLEDONORDERS_DISABLE_REMAINTOPAY')) {
 				print '<td class="right nowraponall">'.($remaintopay?price($remaintopay):'').'</td>';
 				global $totalarray;
-				if (isset($parameters['i']) && ! $parameters['i']) $totalarray['nbfield']++;
+				if (isset($parameters['i']) && ! $parameters['i']) {
+					$totalarray['nbfield']++;
+					if (getDolGlobalString('BILLEDONORDERS_SHOW_TOTAL')) {
+						$totalarray['pos'][$totalarray['nbfield']] = 'BILLEDONORDERS_DISABLE_REMAINTOPAY';
+					}
+					$totalarray['val']['BILLEDONORDERS_DISABLE_REMAINTOPAY'] = 0;
+				}
+				$totalarray['val']['BILLEDONORDERS_DISABLE_REMAINTOPAY'] += $remaintopay;
 			}
 		}
 
