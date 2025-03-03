@@ -236,12 +236,12 @@ class OvhSms extends CommonObject
 					//var_dump($resultPostJob);
 					if ($resultPostJob['totalCreditsRemoved'] > 0) {
 						$object = new stdClass();
-						$trigger_name = 'SENTBYSMS';
+						$triggersendname = 'SENTBYSMS';
 						if ($this->member_id > 0) {
-							$trigger_name = 'MEMBER_SENTBYSMS';
+							$triggersendname = 'MEMBER_SENTBYSMS';
 							//$conf->global->MAIN_AGENDA_ACTIONAUTO_MEMBER_SENTBYSMS should be set from agenda setup
 						} elseif ($this->socid > 0) {
-							$trigger_name = 'COMPANY_SENTBYSMS';
+							$triggersendname = 'COMPANY_SENTBYSMS';
 							//$conf->global->MAIN_AGENDA_ACTIONAUTO_COMPANY_SENTBYSMS should be set from agenda setup
 						}
 
@@ -271,10 +271,10 @@ class OvhSms extends CommonObject
 							//$object->attachedfiles	= null;
 
 							// Call of triggers
-							if (! empty($trigger_name)) {
+							if (! empty($triggersendname)) {
 								include_once DOL_DOCUMENT_ROOT . '/core/class/interfaces.class.php';
 								$interface=new Interfaces($db);
-								$result=$interface->run_triggers($trigger_name, $object, $user, $langs, $conf);
+								$result=$interface->run_triggers($triggersendname, $object, $user, $langs, $conf);
 								if ($result < 0) {
 									setEventMessages($interface->error, $interface->errors, 'errors');
 								}
