@@ -345,9 +345,8 @@ class ActionsConcatPdf
 
 				if ($pagecount > 0) {
 					$pdf->Output($filetoconcat1[0], 'F');
-					if (! empty($conf->global->MAIN_UMASK)) {
-						@chmod($file, octdec($conf->global->MAIN_UMASK));
-					}
+					dolChmod($file);
+
 					if (! empty($deltemp)) {
 						// Delete temp files
 						foreach ($deltemp as $dirtemp) {
@@ -391,16 +390,25 @@ class ActionsConcatPdf
 		require_once DOL_DOCUMENT_ROOT."/core/lib/files.lib.php";
 		$pagecount = 0;
 
-		foreach ($files as $file) {
-			if ($file == '/home/ldestailleur/git/dolibarr_16.0/documents/concatpdf/invoices/FA1803-0795.pdf') {
+		foreach ($files as $file) {		// Loop on each files: First is original, second is the file to concact.
+			/*if ($file == DOL_DATA_ROOT.'/concatpdf/invoices/FA1803-0795.pdf') {
 				continue;
-			}
+			}*/
 			if (dol_is_file($file)) {	// We ignore file if not found so if file has been removed we can still generate the PDF.
 				$pagecounttmp = $pdf->setSourceFile($file);
 				if ($pagecounttmp) {
 					for ($i = 1; $i <= $pagecounttmp; $i++) {
 						try {
-							$tplidx = $pdf->ImportPage($i);
+							$tplidx = $pdf->ImportPage($i, '/BleedBox');
+
+							$s = $pdf->getTemplatesize($tplidx);
+							$pdf->AddPage($s['h'] > $s['w'] ? 'P' : 'L');
+
+							if (method_exists($pdf, 'setPageFormatFromTemplatePage')) {		// For TCPDI 1.1
+								$pdf->setPageFormatFromTemplatePage(1, $s['h'] > $s['w'] ? 'P' : 'L');
+							}
+
+							$pdf->useTemplate($tplidx);
 
 							// TODO Read /Annot to get links and save same after useTemplate
 							/*
@@ -470,13 +478,6 @@ class ActionsConcatPdf
 								$tpl['links'] = $links;
 							}
 							*/
-
-							$s = $pdf->getTemplatesize($tplidx);
-							$pdf->AddPage($s['h'] > $s['w'] ? 'P' : 'L');
-							$pdf->useTemplate($tplidx);
-
-
-							// apply links from the template
 							/*
 							$tpl =& $this->tpls[$tplidx];
 							if (isset($tpl['links'])) {
@@ -491,6 +492,10 @@ class ActionsConcatPdf
 								}
 							}
 							*/
+							// Apply links from the template
+							if (method_exists($pdf, 'importAnnotations')) {		// For TCPDI 1.1
+								$pdf->importAnnotations($i);
+							}
 						} catch (Exception $e) {
 							dol_syslog("Error when manipulating some PDF by concatpdf: ".$e->getMessage(), LOG_ERR);
 							$this->error = $e->getMessage();
