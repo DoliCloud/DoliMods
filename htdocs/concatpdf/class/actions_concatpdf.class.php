@@ -102,7 +102,6 @@ class ActionsConcatPdf
 		$modulepart = $parameters['modulepart'];
 
 		// Defined $preselected value
-		//$preselected = (isset($object->extraparams['concatpdf'][0]) ? $object->extraparams['concatpdf'][0] : -1);	// string with the saved preselected string or -1
 		$arraypreselected = (isset($object->extraparams['concatpdf']) ? $object->extraparams['concatpdf'] : -1);	// array with the saved preselected string or -1
 
 		// Get $arraydefaultselection
