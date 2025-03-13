@@ -515,14 +515,16 @@ class ActionsPayplugDolicloud extends CommonHookActions
 			$urlforcheckout = "https://".urlencode($payplugrurlapi)."/v1/payments/".$_SESSION["PAYPLUG_DOLICLOUD_PAYMENT_ID"];
 			$ret1 = getURLContent($urlforcheckout, 'GET', $jsontosenddata, 1, $headers);
 
+			$result1 = $ret1["content"];
+			$json1 = json_decode($result1);
+
 			$urlredirect = $urlwithroot.'/public/payment/';
-			if ($ret1["http_code"] == 200) {
-				$result1 = $ret1["content"];
-				$json1 = json_decode($result1);
+			if ($ret1["http_code"] == 200 && empty($json->failure)) {
 				$urlredirect .= "paymentok.php?fulltag=".urlencode($FULLTAG);
 				header("Location: ".$urlredirect);
 				exit;
 			} else {
+				$_SESSION['errormessage'] = $json->failure->message;
 				$urlredirect .= "paymentko.php?fulltag=".urlencode($FULLTAG);
 				header("Location: ".$urlredirect);
 				exit;
@@ -588,6 +590,9 @@ class ActionsPayplugDolicloud extends CommonHookActions
 			$urlback .= 'action=returnDoPaymentPayplugDolicloud';
 
 			if (!$error) {
+				$payerarray = array();
+				PayplugGetDataFromObjects($source, $ref, 'payer', $payerarray);
+
 				$fulltag = $FULLTAG;
 				$FinalPaymentAmt = $_SESSION["FinalPaymentAmt"];
 				$currencyCodeType = $_SESSION["currencyCodeType"];
@@ -628,6 +633,11 @@ class ActionsPayplugDolicloud extends CommonHookActions
 							"hosted_payment": {
 								"return_url": "'.$urlback.'",
 								"cancel_url": "'.$cancel_url.'"
+							},
+							"customer": {
+								"first_name": "'.$payerarray["firstName"].'",
+								"last_name": "'.$payerarray['lastName'].'",
+								"email": "'.$payerarray['email'].'"
 							}
 						}';
 
