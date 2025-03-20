@@ -323,7 +323,7 @@ class ActionsConcatPdf
 				$format = array($formatarray['width'], $formatarray['height']);
 
 				// Create empty PDF
-				$pdf=pdf_getInstance($format);
+				$pdf = pdf_getInstance($format);
 				//$pdf->SetAutoPageBreak(1, 0);
 				if (class_exists('TCPDF')) {
 					$pdf->setPrintHeader(false);
@@ -343,6 +343,28 @@ class ActionsConcatPdf
 				}
 
 				if ($pagecount > 0) {
+					if (function_exists('pdfExtractMetadata')) {	// From Dolibarr v22
+						// Now we get the metadata keywords from the $sourcefile PDF (by parsing the binary PDF file) and use it to extract
+						// the page x in PAGESIGN=x into $propalsignonspecificpage
+						$keywords = pdfExtractMetadata($filetoconcat1[0], 'Keywords');
+						$subject = pdfExtractMetadata($filetoconcat1[0], 'Subject');
+						$author = pdfExtractMetadata($filetoconcat1[0], 'Author');
+						$creator = pdfExtractMetadata($filetoconcat1[0], 'Creator');
+
+						if (!preg_match('/^ERROR/', $keywords)) {
+							$pdf->setKeywords($keywords);
+						}
+						if (!preg_match('/^ERROR/', $subject)) {
+							$pdf->setSubject($subject);
+						}
+						if (!preg_match('/^ERROR/', $author)) {
+							$pdf->setAuthor($author);
+						}
+						if (!preg_match('/^ERROR/', $creator)) {
+							$pdf->setCreator($creator);
+						}
+					}
+
 					$pdf->Output($filetoconcat1[0], 'F');
 					dolChmod($file);
 
@@ -587,6 +609,7 @@ class ActionsConcatPdf
 	// Add methods to complete the import and useTemplate
 
 	// default maxdepth prevents an infinite recursion on malformed PDFs (not theoretical, actually found in the wild)
+	/*
 	function resolve(&$parser, $smt, $maxdepth=10) {
 		if ($maxdepth == 0)
 			return $smt;
@@ -618,7 +641,7 @@ class ActionsConcatPdf
 				return $smt;
 			}
 	}
-
+	*/
 
 	/**
 	 * Resolve an object
@@ -627,6 +650,7 @@ class ActionsConcatPdf
 	 * @param array $obj_spec The object-data
 	 * @param boolean $encapsulate Must set to true, cause the parsing and fpdi use this method only without this para
 	 */
+	/*
 	function pdf_resolve_object(&$c, $obj_spec, $encapsulate = true, $parser) {
 		// Exit if we get invalid data
 		if (!is_array($obj_spec)) {
@@ -706,6 +730,7 @@ class ActionsConcatPdf
 			return $obj_spec;
 		}
 	}
+	*/
 
    /**
     * findPageNoForRef
@@ -714,6 +739,7 @@ class ActionsConcatPdf
     * @param  string   $pageRef    Page Ref
     * @return int                  Return <0 if error
     */
+	/*
 	function findPageNoForRef(&$parser, $pageRef) {
 		$ref_obj = $pageRef[1]; $ref_gen = $pageRef[2];
 
@@ -726,5 +752,5 @@ class ActionsConcatPdf
 
 		return -1;
 	}
-
+	*/
 }
