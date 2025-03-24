@@ -324,7 +324,7 @@ function googleUpdateContact($client, $contactId, &$object, $useremail = 'defaul
 	}
 
 	// Warning, with google apps, if link start with http instead of http it will fails too, but with error 401 !
-	if ($result['curl_error_no'] == '404') {
+	if ($result['curl_error_no'] == 404) {
 		// Not found error.
 		dol_syslog('Failed to get Google record with ref='.$newcontactid.' '.$result['curl_error_msg'], LOG_WARNING);
 		$object->error = 'Failed to get Google record with ref='.$newcontactid.', contactId='.$contactId;
