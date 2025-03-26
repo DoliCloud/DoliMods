@@ -82,148 +82,233 @@ function payplugdolicloudAdminPrepareHead()
  * @param	$source 		The type of the object
  * @param	$ref			The ref of the object
  * @param	$mode			The mode to use for the function amount
- *
+ * @param	$payerarray		An array to fill the payer informations (Must be set with payer mode)
+ * 
  * @return	int				The amount to pay if mode amount
  */
 
- function payplugGetDataFromObjects($source, $ref, $mode = 'amount')
- {
-	 global $db;
- 
-	 require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
-	 require_once DOL_DOCUMENT_ROOT.'/don/class/don.class.php';
-	 require_once DOL_DOCUMENT_ROOT.'/adherents/class/adherent.class.php';
-	 require_once DOL_DOCUMENT_ROOT.'/adherents/class/adherent_type.class.php';
-	 require_once DOL_DOCUMENT_ROOT.'/adherents/class/subscription.class.php';
-	 require_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
-	 require_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
-	 require_once DOL_DOCUMENT_ROOT.'/commande/class/commande.class.php';
- 
-	 dol_syslog('Payplug::payplugGetDataFromObjects');
- 
-	 $amount = price2num(GETPOST("amount", 'alpha'));
- 
-	 $invoice = new Facture($db);
-	 $don = new Don($db);
-	 $member = new Adherent($db);
-	 $adht = new AdherentType($db);
-	 $contract = new Contrat($db);
-	 $contractline = new ContratLigne($db);
-	 $order = new Commande($db);
- 
-	 if ($source == "membersubscription") {
-		 $source = 'member';
-	 }
-	 switch ($source) {
-		 case 'donation':
-			 $result = $don->fetch($ref);
-			 if ($result <= 0) {
-				 $errors[] = $don->error;
-				 $error++;
-			 } else {
-				 if ($mode == 'amount') {
-					 if (GETPOST("amount", 'alpha')) {
-						 $amount = GETPOST("amount", 'alpha');
-					 } else {
-						 $amount = $don->getRemainToPay();
-					 }
-				 }
-			 }
-			 break;
- 
-		 case 'member':
-			 $result = $member->fetch('', $ref);
-			 if ($result <= 0) {
-				 $errors[] = $member->error;
-				 $error++;
-			 } else {
-				 if ($mode == 'amount') {
-					 $member->fetch_thirdparty();
-					 $subscription = new Subscription($db);
-					 $adht->fetch($member->typeid);
-					 $amount = $subscription->total_ttc;
-					 if (GETPOST("amount", 'alpha')) {
-						 $amount = GETPOST("amount", 'alpha');
-					 }
-					 if (empty($amount)) {
-						 $amount = $adht->amount;
-					 }
- 
-					 if (!empty($member->last_subscription_amount) && !GETPOSTISSET('newamount') && is_numeric($amount)){
-						 $amount = max($member->last_subscription_amount, $amount);
-					 }
-					 $amount = max(0, getDolGlobalString('MEMBER_MIN_AMOUNT'), $amount);
-				 }
-			 }
-			 break;
- 
-		 case 'contractline':
-			 $result = $contractline->fetch('', $ref);
-			 if ($result <= 0) {
-				 $errors[] = $contractline->error;
-				 $error++;
-			 } else {
-				 if ($mode == 'amount') {
-					 $amount = $contractline->total_ttc;
-					 if ($contractline->fk_product && getDolGlobalString('PAYMENT_USE_NEW_PRICE_FOR_CONTRACTLINES')) {
-						 $product = new Product($db);
-						 $result = $product->fetch($contractline->fk_product);
- 
-						 // We define price for product (TODO Put this in a method in product class)
-						 if (getDolGlobalString('PRODUIT_MULTIPRICES')) {
-							 $pu_ttc = $product->multiprices_ttc[$contract->thirdparty->price_level];
-						 } else {
-							 $pu_ttc = $product->price_ttc;
-						 }
- 
-						 $amount = $pu_ttc;
-					 }
-				 }
-			 }
-			 break;
- 
-		 case 'invoice':
-			 $result = $invoice->fetch('', $ref);
-			 if ($result <= 0) {
-				 $errors[] = $invoice->error;
-				 $error++;
-			 } else {
-				 if ($mode == 'amount') {
-					 $amount = price2num($invoice->total_ttc - ($invoice->getSommePaiement() + $invoice->getSumCreditNotesUsed() + $invoice->getSumDepositsUsed()));
-					 if (GETPOST("amount", 'alpha')) {
-						 $amount = GETPOST("amount", 'alpha');
-					 }
-				 }
-			 }
-			 break;
- 
-		 case 'order':
-			 $result = $order->fetch('', $ref);
-			 if ($result <= 0) {
-				 $errors[] = $order->error;
-				 $error++;
-			 } else {
-				 if ($mode == 'amount') {
-					 $amount = $order->total_ttc;
-					 if (GETPOST("amount", 'alpha')) {
-						 $amount = GETPOST("amount", 'alpha');
-					 }
-				 }
-			 }
-			 break;
- 
-		 default:
-			 $resultinvoice = $invoice->fetch($ref);
-			 if ($resultinvoice <= 0) {
-				 $errors[] = $invoice->errors;
-				 $error++;
-			 } else {
-				 if ($mode == 'amount') {
-					 $amount = $invoice->total_ttc;
-				 }
-			 }
-			 break;
- 
-	 }
-	 return $amount;
- }
+ function payplugGetDataFromObjects($source, $ref, $mode = 'amount', &$payerarray = null)
+{
+	global $db;
+
+	require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
+	require_once DOL_DOCUMENT_ROOT.'/don/class/don.class.php';
+	require_once DOL_DOCUMENT_ROOT.'/adherents/class/adherent.class.php';
+	require_once DOL_DOCUMENT_ROOT.'/adherents/class/adherent_type.class.php';
+	require_once DOL_DOCUMENT_ROOT.'/adherents/class/subscription.class.php';
+	require_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
+	require_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
+	require_once DOL_DOCUMENT_ROOT.'/commande/class/commande.class.php';
+
+	dol_syslog('Payplug::payplugGetDataFromObjects');
+
+	$amount = price2num(GETPOST("amount", 'alpha'));
+
+	$invoice = new Facture($db);
+	$don = new Don($db);
+	$member = new Adherent($db);
+	$adht = new AdherentType($db);
+	$contract = new Contrat($db);
+	$contractline = new ContratLigne($db);
+	$order = new Commande($db);
+
+	if ($source == "membersubscription") {
+		$source = 'member';
+	}
+	switch ($source) {
+		case 'donation':
+			$result = $don->fetch($ref);
+			if ($result <= 0) {
+				$errors[] = $don->error;
+				$error++;
+			} else {
+				if ($mode == 'amount') {
+					if (GETPOST("amount", 'alpha')) {
+						$amount = GETPOST("amount", 'alpha');
+					} else {
+						$amount = $don->getRemainToPay();
+					}
+				} else if($mode == 'payer' && !is_null($payerarray)) {
+					$payerarray['firstName'] = $don->firstname;
+					$payerarray['lastName'] = $don->lastname;
+					$payerarray['email'] = $don->email;
+					$payerarray['address'] = $don->address;
+					$payerarray['city'] = $don->town;
+					$payerarray['zipCode'] = $don->zip;
+					$payerarray['companyName'] = $don->societe;
+				}
+			}
+			break;
+
+		case 'member':
+			$result = $member->fetch('', $ref);
+			if ($result <= 0) {
+				$errors[] = $member->error;
+				$error++;
+			} else {
+				if ($mode == 'amount') {
+					$member->fetch_thirdparty();
+					$subscription = new Subscription($db);
+					$adht->fetch($member->typeid);
+					$amount = $subscription->total_ttc;
+					if (GETPOST("amount", 'alpha')) {
+						$amount = GETPOST("amount", 'alpha');
+					}
+					if (empty($amount)) {
+						$amount = $adht->amount;
+					}
+
+					if (!empty($member->last_subscription_amount) && !GETPOSTISSET('newamount') && is_numeric($amount)){
+						$amount = max($member->last_subscription_amount, $amount);
+					}
+					$amount = max(0, getDolGlobalString('MEMBER_MIN_AMOUNT'), $amount);
+				} else if($mode == 'payer' && !is_null($payerarray)) {
+					$payerarray['firstName'] = $member->firstname;
+					$payerarray['lastName'] = $member->lastname;
+					$payerarray['companyName'] = $member->company;
+					$payerarray['email'] = $member->email;
+					$payerarray['dateOfBirth'] = dol_print_date($member->birth, 'dayrfc');
+				}
+			}
+			break;
+
+		case 'contractline':
+			$result = $contractline->fetch('', $ref);
+			if ($result <= 0) {
+				$errors[] = $contractline->error;
+				$error++;
+			} else {
+				if ($mode == 'amount') {
+					$amount = $contractline->total_ttc;
+					if ($contractline->fk_product && getDolGlobalString('PAYMENT_USE_NEW_PRICE_FOR_CONTRACTLINES')) {
+						$product = new Product($db);
+						$result = $product->fetch($contractline->fk_product);
+
+						// We define price for product (TODO Put this in a method in product class)
+						if (getDolGlobalString('PRODUIT_MULTIPRICES')) {
+							$pu_ttc = $product->multiprices_ttc[$contract->thirdparty->price_level];
+						} else {
+							$pu_ttc = $product->price_ttc;
+						}
+
+						$amount = $pu_ttc;
+					}
+				} else if ($mode == 'payer' && !is_null($payerarray)) {
+					$contract = new Contrat($db);
+					$contract->fetch($contractline->fk_contrat);
+					$contract->fetch_thirdparty();
+
+					if ($contract->thirdparty->isACompany()) {
+						$payerarray['companyName'] = $contract->thirdparty->name;
+					}
+					$payerarray['address'] = $contract->thirdparty->address;
+					$payerarray['zipCode'] = $contract->thirdparty->zip;
+					$payerarray['city'] = $contract->thirdparty->town;
+
+					$result = $member->fetch(0, '', $contract->thirdparty->id);
+					if ($result > 0) {
+						$payerarray['firstName'] = $member->firstname;
+						$payerarray['lastName'] = $member->lastname;
+						$payerarray['dateOfBirth'] = dol_print_date($member->birth, 'dayrfc');
+					}
+					$payerarray['email'] = $contract->thirdparty->email;
+				}
+			}
+			break;
+
+		case 'invoice':
+			$result = $invoice->fetch('', $ref);
+			if ($result <= 0) {
+				$errors[] = $invoice->error;
+				$error++;
+			} else {
+				if ($mode == 'amount') {
+					$amount = price2num($invoice->total_ttc - ($invoice->getSommePaiement() + $invoice->getSumCreditNotesUsed() + $invoice->getSumDepositsUsed()));
+					if (GETPOST("amount", 'alpha')) {
+						$amount = GETPOST("amount", 'alpha');
+					}
+				} else if ($mode == 'payer' && !is_null($payerarray)) {
+					$invoice->fetch_thirdparty();
+
+					if ($invoice->thirdparty->isACompany()) {
+						$payerarray['companyName'] = $invoice->thirdparty->name;
+					}
+					$payerarray['address'] = $invoice->thirdparty->address;
+					$payerarray['zipCode'] = $invoice->thirdparty->zip;
+					$payerarray['city'] = $invoice->thirdparty->town;
+
+					$result = $member->fetch(0, '', $invoice->thirdparty->id);
+					if ($result > 0) {
+						$payerarray['firstName'] = $member->firstname;
+						$payerarray['lastName'] = $member->lastname;
+						$payerarray['dateOfBirth'] = dol_print_date($member->birth, 'dayrfc');
+					}
+					$payerarray['email'] = $invoice->thirdparty->email;
+				}
+			}
+			break;
+
+		case 'order':
+			$result = $order->fetch('', $ref);
+			if ($result <= 0) {
+				$errors[] = $order->error;
+				$error++;
+			} else {
+				if ($mode == 'amount') {
+					$amount = $order->total_ttc;
+					if (GETPOST("amount", 'alpha')) {
+						$amount = GETPOST("amount", 'alpha');
+					}
+				} else if ($mode == 'payer' && !is_null($payerarray)) {
+					$order->fetch_thirdparty();
+
+					if ($order->thirdparty->isACompany()) {
+						$payerarray['companyName'] = $order->thirdparty->name;
+					}
+					$payerarray['address'] = $order->thirdparty->address;
+					$payerarray['zipCode'] = $order->thirdparty->zip;
+					$payerarray['city'] = $order->thirdparty->town;
+
+					$result = $member->fetch(0, '', $order->thirdparty->id);
+					if ($result > 0) {
+						$payerarray['firstName'] = $member->firstname;
+						$payerarray['lastName'] = $member->lastname;
+						$payerarray['dateOfBirth'] = dol_print_date($member->birth, 'dayrfc');
+					}
+					$payerarray['email'] = $order->thirdparty->email;
+				}
+			}
+			break;
+
+		default:
+			$resultinvoice = $invoice->fetch($ref);
+			if ($resultinvoice <= 0) {
+				$errors[] = $invoice->errors;
+				$error++;
+			} else {
+				if ($mode == 'amount') {
+					$amount = $invoice->total_ttc;
+				} else if ($mode == 'payer' && !is_null($payerarray)) {
+					$invoice->fetch_thirdparty();
+
+					if ($invoice->thirdparty->isACompany()) {
+						$payerarray['companyName'] = $invoice->thirdparty->name;
+					}
+					$payerarray['address'] = $invoice->thirdparty->address;
+					$payerarray['zipCode'] = $invoice->thirdparty->zip;
+					$payerarray['city'] = $invoice->thirdparty->town;
+
+					$result = $member->fetch(0, '', $invoice->thirdparty->id);
+					if ($result > 0) {
+						$payerarray['firstName'] = $member->firstname;
+						$payerarray['lastName'] = $member->lastname;
+						$payerarray['dateOfBirth'] = dol_print_date($member->birth, 'dayrfc');
+					}
+					$payerarray['email'] = $invoice->thirdparty->email;
+				}
+			}
+			break;
+	
+	}
+	return $amount;
+}
