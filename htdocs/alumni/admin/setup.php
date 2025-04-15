@@ -105,7 +105,12 @@ $item = $formSetup->newItem('ALUMNI_PROMONAME');
 $item->defaultFieldValue = 'Promo 100';
 
 // Setup conf for a selection of a boolean
-$formSetup->newItem('ALUMNI_ENABLE_SURVEY')->setAsYesNo();
+$fieldOptions = array(0 => 'Draft', 1 => 'Open', 2 => 'Closed');
+$formSetup->newItem('ALUMNI_ENABLE_SURVEY')->setAsSelect($fieldOptions);
+
+// Setup to show the step
+$fieldOptions = array(1 => 'Step 1 - Communication and first survey', 2 => 'Step 2 - Selection of town and exact day', 3 => 'Step 3 - Organization of event');
+$formSetup->newItem('ALUMNI_STEP_ORGANIZATION')->setAsSelect($fieldOptions);
 
 
 $setupnotempty += count($formSetup->items);
@@ -507,7 +512,7 @@ foreach ($myTmpObjects as $myTmpObjectKey => $myTmpObjectArray) {
 											$newname = preg_replace('/_'.preg_quote(strtolower($myTmpObjectKey), '/').'/', '', $name);
 											print '<a href="'.$_SERVER["PHP_SELF"].'?action=specimen&module='.urlencode($newname).'&object='.urlencode($myTmpObjectKey).'">'.img_object($langs->trans("Preview"), 'pdf').'</a>';
 										} else {
-											print img_object($langs->trans("PreviewNotAvailable"), 'generic');
+											print img_object($langs->transnoentitiesnoconv("PreviewNotAvailable"), 'generic');
 										}
 										print '</td>';
 

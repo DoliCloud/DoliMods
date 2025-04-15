@@ -30,6 +30,9 @@ Settings = Settings
 AlumniSetupPage = Alumni setup page
 ALUMNI_YEAR=Year since the graduate
 ALUMNI_PROMONAME=Name or number of the promotion
+ALUMNI_ENABLE_SURVEY=Enable the surveys provided by the website template
+ALUMNI_STEP_ORGANIZATION=Step of the project (1=Communication and first survey, 2=Selection of town and exact day, 3=Organization of event)
+
 
 #
 # About page
@@ -52,5 +55,10 @@ ActiviteAssocieesNature=Nature of activities
 PreferenceJour=Favorite day
 PreferenceMois=Favorite month
 Results=Results
-NewVoteEntry=New vote
-NbOfVotes=Number of votes
+EventChoices=Event choices
+NewVoteEntry=New event choice
+NbOfVotes=Number of event choices
+SetToPaid=Set to paid
+SetToUnpaid=Set to unpaid
+SetToDoNotReEngage=Set to do not re-engage
+SetToCanReEngage=Set to can re-engage

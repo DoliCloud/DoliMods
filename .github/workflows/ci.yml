@@ -9,6 +9,7 @@ jobs:
   #  with:
   #    gh_event: ${{ github.event_name }}
   phan:
+    if: false   # disable phan, too complex to maintain stub file for the moment
     uses: ./.github/workflows/phan.yml
     secrets: inherit
     # needs: [pre-commit]

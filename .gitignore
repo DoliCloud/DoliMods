@@ -7,3 +7,4 @@ master.inc.php
 .vscode/launch.json
 /.asciidoctorconfig.adoc
 .idea
+/.settings/

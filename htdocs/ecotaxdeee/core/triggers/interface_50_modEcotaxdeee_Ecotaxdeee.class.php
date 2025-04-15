@@ -112,35 +112,62 @@ class InterfaceEcotaxdeee extends DolibarrTriggers
 
 		if (getDolGlobalString('ECOTAXDEEE_USE_ON_CUSTOMER_ORDER')) {
 			if ($action == 'LINEORDER_INSERT' || $action == 'LINEORDER_CREATE') {
+				if ($object->product_type == 9) {
+					return 0;
+				}
 				return $this->_add_replace_ecotax($action, $object, $user, $langs, $conf);
 			}
 			if ($action == 'LINEORDER_UPDATE' || $action == 'LINEORDER_MODIFY') {
-					return $this->_add_replace_ecotax($action, $object, $user, $langs, $conf);
+				if ($object->product_type == 9) {
+					return 0;
+				}
+				return $this->_add_replace_ecotax($action, $object, $user, $langs, $conf);
 			}
 			if ($action == 'LINEORDER_DELETE') {
+				if ($object->product_type == 9) {
+					return 0;
+				}
 				return $this->_add_replace_ecotax($action, $object, $user, $langs, $conf);
 			}
 		}
 		if (getDolGlobalString('ECOTAXDEEE_USE_ON_PROPOSAL')) {
 			if ($action == 'LINEPROPAL_INSERT' || $action == 'LINEPROPAL_CREATE') {
 				//var_dump($object);
+				if ($object->product_type == 9) {
+					return 0;
+				}
 				return $this->_add_replace_ecotax($action, $object, $user, $langs, $conf);
 			}
 			if ($action == 'LINEPROPAL_UPDATE' || $action == 'LINEPROPAL_MODIFY') {
+				if ($object->product_type == 9) {
+					return 0;
+				}
 				return $this->_add_replace_ecotax($action, $object, $user, $langs, $conf);
 			}
 			if ($action == 'LINEPROPAL_DELETE') {
+				if ($object->product_type == 9) {
+					return 0;
+				}
 				return $this->_add_replace_ecotax($action, $object, $user, $langs, $conf);
 			}
 		}
 		if (getDolGlobalString('ECOTAXDEEE_USE_ON_CUSTOMER_INVOICE')) {
 			if ($action == 'LINEBILL_INSERT' || $action == 'LINEBILL_CREATE') {
+				if ($object->product_type == 9) {
+					return 0;
+				}
 				return $this->_add_replace_ecotax($action, $object, $user, $langs, $conf);
 			}
 			if ($action == 'LINEBILL_UPDATE' || $action == 'LINEBILL_MODIFY') {
+				if ($object->product_type == 9) {
+					return 0;
+				}
 				return $this->_add_replace_ecotax($action, $object, $user, $langs, $conf);
 			}
 			if ($action == 'LINEBILL_DELETE') {
+				if ($object->product_type == 9) {
+					return 0;
+				}
 				return $this->_add_replace_ecotax($action, $object, $user, $langs, $conf);
 			}
 		}

@@ -91,8 +91,12 @@ $object->getrights();
 
 // Liste des zone de recherche permanentes supportees
 $searchform=array("main_searchform_societe","main_searchform_contact","main_searchform_produitservice");
-$searchformconst=array($object->conf->MAIN_SEARCHFORM_SOCIETE,$object->conf->MAIN_SEARCHFORM_CONTACT,$object->conf->MAIN_SEARCHFORM_PRODUITSERVICE);
-$searchformtitle=array($langs->trans("Companies"),$langs->trans("Contacts"),$langs->trans("ProductsAndServices"));
+$searchformconst=array(
+	empty($object->conf->MAIN_SEARCHFORM_SOCIETE) ? '' : $object->conf->MAIN_SEARCHFORM_SOCIETE, 
+	empty($object->conf->MAIN_SEARCHFORM_CONTACT) ? '' : $object->conf->MAIN_SEARCHFORM_CONTACT,
+	empty($object->conf->MAIN_SEARCHFORM_PRODUITSERVICE) ? '' : $object->conf->MAIN_SEARCHFORM_PRODUITSERVICE,
+);
+$searchformtitle=array($langs->trans("Companies"), $langs->trans("Contacts"), $langs->trans("ProductsAndServices"));
 
 $form = new Form($db);
 $formadmin=new FormAdmin($db);
@@ -184,7 +188,7 @@ if (GETPOST('cleanup')) {
 	$error=0;
 	$nbdeleted=0;
 
-	$userlogin = empty($object->conf->GOOGLE_LOGIN)?'':$object->conf->GOOGLE_LOGIN;
+	$userlogin = empty($object->conf->GOOGLE_LOGIN) ? '' : $object->conf->GOOGLE_LOGIN;
 
 	// Create client/token object
 	$key_file_location = $conf->google->multidir_output[$conf->entity]."/" . getDolGlobalString('GOOGLE_API_SERVICEACCOUNT_P12KEY');
@@ -383,36 +387,29 @@ print '<div class="underbanner clearboth"></div>';
 
 print '<br>';
 
-$userlogin = $conf->global->GOOGLE_LOGIN;
+$userlogin = getDolGlobalString('GOOGLE_LOGIN');
 
 if (! empty($userlogin)) {	// We use setup of user
 	print $langs->trans("GoogleSetupIsGlobal", $userlogin);
 } else {
 	print_fiche_titre($langs->trans("AgendaSync"), '', '');
 
-	$var=true;
-	print "<table class=\"noborder\" width=\"100%\">";
+	print '<table class="noborder centpercent">';
 
 	print "<tr class=\"liste_titre\">";
 	print '<td width="25%">'.$langs->trans("Parameter").'</td>';
-	print '<td colspan="2">'.$langs->trans("Value").'</td>';
+	print '<td colspan="2"></td>';
 	print "</tr>";
 
-	// Activation synchronisation
-	/*
-	print "<tr ".$bc[$var].">";
-	print "<td>".$langs->trans("GoogleEnableSyncToCalendar")."</td>";
-	print "<td>";
-	print $form->selectyesno("GOOGLE_DUPLICATE_INTO_GCAL",isset($_POST["GOOGLE_DUPLICATE_INTO_GCAL"])?$_POST["GOOGLE_DUPLICATE_INTO_GCAL"]:$object->conf->GOOGLE_DUPLICATE_INTO_GCAL,1);
-	print "</td>";
-	print "</tr>";
-	*/
 	// Google login
 	print '<tr class="oddeven">';
 	print '<td class="fieldrequired">'.$langs->trans("GoogleIDAgenda")."</td>";
 	print "<td>";
-	if (! empty($conf->global->GOOGLE_LOGIN)) print $conf->global->GOOGLE_LOGIN;
-	else print '<input class="flat" type="text" size="30" name="GOOGLE_LOGIN" value="'.$object->conf->GOOGLE_LOGIN.'">';
+	if (getDolGlobalString('GOOGLE_LOGIN')) {
+		print getDolGlobalString('GOOGLE_LOGIN');
+	} else {
+		print '<input class="flat" type="text" size="30" name="GOOGLE_LOGIN" value="'.$object->conf->GOOGLE_LOGIN.'">';
+	}
 	print "</td>";
 	print '<td>';
 	print $langs->trans("Example").": yourlogin@gmail.com, email@mydomain.com<br>";
@@ -434,7 +431,9 @@ if (! empty($userlogin)) {	// We use setup of user
 	print '<tr lass="oddeven">';
 	print '<td class="fieldrequired">'.$langs->trans("GOOGLE_API_SERVICEACCOUNT_P12KEY")."</td>";
 	print '<td>';
-	if (! empty($conf->global->GOOGLE_API_SERVICEACCOUNT_P12KEY)) print getDolGlobalString('GOOGLE_API_SERVICEACCOUNT_P12KEY') . '<br>';
+	if (getDolGlobalString('GOOGLE_API_SERVICEACCOUNT_P12KEY')) {
+		print getDolGlobalString('GOOGLE_API_SERVICEACCOUNT_P12KEY') . '<br>';
+	}
 	//print '<input type="file" name="GOOGLE_API_SERVICEACCOUNT_P12KEY_file">';
 	print '</td>';
 	print '<td>';
@@ -466,7 +465,7 @@ if (! empty($userlogin)) {	// We use setup of user
 
 	print info_admin($langs->trans("EnableAPI", "https://console.developers.google.com/apis/library/", "https://console.developers.google.com/apis/library/", "Calendar API"));
 
-	$htmltext = $langs->trans("ShareCalendarWithServiceAccount", $conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL, $langs->transnoentitiesnoconv("GoogleIDAgenda"));
+	$htmltext = $langs->trans("ShareCalendarWithServiceAccount", getDolGlobalString('GOOGLE_API_SERVICEACCOUNT_EMAIL'), $langs->transnoentitiesnoconv("GoogleIDAgenda"));
 	$htmltext .= '<br>';
 	$htmltext .= $langs->trans("ShareCalendarWithServiceAccount2");
 	print info_admin($htmltext, 0, 0, '1', 'showifidagendaset');
@@ -523,7 +522,7 @@ if (empty($userlogin)) {	// We use setup of user
 
 		print '<input type="hidden" name="action" value="pushallevents">';
 		print '<input type="hidden" name="id" value="'.$id.'">';
-		print $langs->trans("ExportEventsToGoogle", $max, $object->conf->GOOGLE_LOGIN)." ";
+		print $langs->trans("ExportEventsToGoogle", $max, empty($object->conf->GOOGLE_LOGIN) ? '': $object->conf->GOOGLE_LOGIN)." ";
 		print '<input type="submit" name="pushall" class="button" value="'.$langs->trans("Run").'"';
 		if (empty($object->conf->GOOGLE_LOGIN)) print ' disabled="disabled"';
 		print '>';
@@ -534,7 +533,7 @@ if (empty($userlogin)) {	// We use setup of user
 		print '<form name="googleconfig" action="'.$_SERVER["PHP_SELF"].'" method="post">';
 		print '<input type="hidden" name="action" value="deleteallevents">';
 		print '<input type="hidden" name="id" value="'.$id.'">';
-		print $langs->trans("DeleteAllGoogleEvents", $object->conf->GOOGLE_LOGIN)." ";
+		print $langs->trans("DeleteAllGoogleEvents", empty($object->conf->GOOGLE_LOGIN) ? '' : $object->conf->GOOGLE_LOGIN)." ";
 		print '('.$langs->trans("OperationMayBeLong").') ';
 		print '<input type="submit" name="cleanup" class="button" value="'.$langs->trans("Run").'"';
 		if (empty($object->conf->GOOGLE_LOGIN)) print ' disabled="disabled"';
@@ -548,9 +547,9 @@ if (empty($userlogin)) {	// We use setup of user
 			print '<input type="hidden" name="token" value="'.newToken().'">';
 			print '<input type="hidden" name="action" value="syncfromgoogle">';
 			print '<input type="hidden" name="id" value="'.$id.'">';
-			print $langs->trans("ImportEventsFromGoogle", $max, $object->conf->GOOGLE_LOGIN)." ";
+			print $langs->trans("ImportEventsFromGoogle", $max, empty($object->conf->GOOGLE_LOGIN) ? '' : $object->conf->GOOGLE_LOGIN)." ";
 			$now = dol_now() - ($notolderforsync * 24 * 3600);
-			print $form->selectDate($dateminsync ? $dateminsync : $now, 'sync', 1, 1, 0, '', 1, 0, empty($object->conf->GOOGLE_LOGIN)?1:0);
+			print $form->selectDate($dateminsync ? $dateminsync : $now, 'sync', 1, 1, 0, '', 1, 0, empty($object->conf->GOOGLE_LOGIN) ? 1 : 0);
 			print '<input type="submit" name="getall" class="button" value="'.$langs->trans("Run").'"';
 			if (empty($object->conf->GOOGLE_LOGIN)) print ' disabled="disabled"';
 			print '>';

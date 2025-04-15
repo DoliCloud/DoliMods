@@ -87,7 +87,6 @@ llxHeader('', 'billedonorders', $linktohelp);
 
 $linkback='<a href="'.DOL_URL_ROOT.'/admin/modules.php?restore_lastsearch_values=1">'.$langs->trans("BackToModuleList").'</a>';
 print_fiche_titre($langs->trans("BilledOnOrdersSetup"), $linkback, 'setup');
-print '<br>';
 
 clearstatcache();
 
@@ -112,32 +111,27 @@ print '<input type="hidden" name="action" value="update">';
 dol_fiche_head($head, 'tabsetup', '', -1);
 
 //print $langs->trans("BilledOnOrdersNothingToSetup");
-$var=true;
 
-print '<table class="noborder" width="100%">';
+print '<table class="noborder centpercent">';
 print '<tr class="liste_titre">';
 print '<td>'.$langs->trans("Parameter").'</td>';
 print '<td>'.$langs->trans("Value").'</td>';
 print "</tr>\n";
 
-$var=!$var;
-print '<tr '.$bc[$var].'><td>'.$langs->trans("BILLEDONORDERS_DISABLE_BILLEDWOTAX").'</td>';
-print '<td>'.$form->selectyesno('BILLEDONORDERS_DISABLE_BILLEDWOTAX', $conf->global->BILLEDONORDERS_DISABLE_BILLEDWOTAX, 1).'</td>';
+print '<tr class="oddeven"><td>'.$langs->trans("BILLEDONORDERS_DISABLE_BILLEDWOTAX").'</td>';
+print '<td>'.$form->selectyesno('BILLEDONORDERS_DISABLE_BILLEDWOTAX', getDolGlobalString('BILLEDONORDERS_DISABLE_BILLEDWOTAX'), 1).'</td>';
 print '</tr>';
 
-$var=!$var;
-print '<tr '.$bc[$var].'><td>'.$langs->trans("BILLEDONORDERS_DISABLE_BILLED").'</td>';
-print '<td>'.$form->selectyesno('BILLEDONORDERS_DISABLE_BILLED', $conf->global->BILLEDONORDERS_DISABLE_BILLED, 1).'</td>';
+print '<tr class="oddeven"><td>'.$langs->trans("BILLEDONORDERS_DISABLE_BILLED").'</td>';
+print '<td>'.$form->selectyesno('BILLEDONORDERS_DISABLE_BILLED', getDolGlobalString('BILLEDONORDERS_DISABLE_BILLED'), 1).'</td>';
 print '</tr>';
 
-$var=!$var;
-print '<tr '.$bc[$var].'><td>'.$langs->trans("BILLEDONORDERS_DISABLE_PAYED").'</td>';
-print '<td>'.$form->selectyesno('BILLEDONORDERS_DISABLE_PAYED', $conf->global->BILLEDONORDERS_DISABLE_PAYED, 1).'</td>';
+print '<tr class="oddeven"><td>'.$langs->trans("BILLEDONORDERS_DISABLE_PAYED").'</td>';
+print '<td>'.$form->selectyesno('BILLEDONORDERS_DISABLE_PAYED', getDolGlobalString('BILLEDONORDERS_DISABLE_PAYED'), 1).'</td>';
 print '</tr>';
 
-$var=!$var;
-print '<tr '.$bc[$var].'><td>'.$langs->trans("BILLEDONORDERS_DISABLE_REMAINTOPAY").'</td>';
-print '<td>'.$form->selectyesno('BILLEDONORDERS_DISABLE_REMAINTOPAY', $conf->global->BILLEDONORDERS_DISABLE_REMAINTOPAY, 1).'</td>';
+print '<tr class="oddeven"><td>'.$langs->trans("BILLEDONORDERS_DISABLE_REMAINTOPAY").'</td>';
+print '<td>'.$form->selectyesno('BILLEDONORDERS_DISABLE_REMAINTOPAY', getDolGlobalString('BILLEDONORDERS_DISABLE_REMAINTOPAY'), 1).'</td>';
 print '</tr>';
 
 print '</table>';

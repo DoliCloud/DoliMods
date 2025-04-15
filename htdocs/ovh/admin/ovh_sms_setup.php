@@ -71,7 +71,7 @@ $substitutionarrayfortest=array(
 
 
 // Activate error interceptions
-if (! empty($conf->global->MAIN_ENABLE_EXCEPTION)) {
+if (getDolGlobalString('MAIN_ENABLE_EXCEPTION')) {
 	/**
 	 * @param $code string code
 	 * @param $message string message
@@ -90,7 +90,7 @@ if (! empty($conf->global->MAIN_ENABLE_EXCEPTION)) {
 	set_error_handler('traitementErreur');
 }
 
-$endpoint = empty($conf->global->OVH_ENDPOINT)?'ovh-eu':$conf->global->OVH_ENDPOINT;    // Can be "soyoustart-eu" or "kimsufi-eu"
+$endpoint = getDolGlobalString('OVH_ENDPOINT', 'ovh-eu');    // Can be "soyoustart-eu" or "kimsufi-eu"
 
 
 /*
@@ -211,24 +211,23 @@ print_fiche_titre($langs->trans("OvhSmsSetup"), $linkback, 'setup');
 
 $head=ovhadmin_prepare_head();
 
-if (! empty($conf->global->OVH_OLDAPI) && (empty($conf->global->OVHSMS_NICK) || empty($WS_DOL_URL))) {
+if (getDolGlobalString('OVH_OLDAPI') && (empty($conf->global->OVHSMS_NICK) || empty($WS_DOL_URL))) {
 	echo '<div class="warning">'.$langs->trans("OvhSmsNotConfigured").'</div>';
 } else {
 	dol_htmloutput_mesg($mesg);
 
 	// Formulaire d'ajout de compte SMS qui sera valable pour tout Dolibarr
-	print '<form method="post" action="'.$_SERVER["PHP_SELF"].'">';
+	print '<form method="POST" action="'.$_SERVER["PHP_SELF"].'">';
 	print '<input type="hidden" name="token" value="'.newToken().'">';
 	print '<input type="hidden" name="action" value="setvalue_account">';
 
 	print dol_get_fiche_head($head, 'sms', $langs->trans("Ovh"), -1);
 
-	if (empty($conf->global->OVH_OLDAPI) && (empty($conf->global->OVHAPPKEY) || empty($conf->global->OVHAPPSECRET) || empty($conf->global->OVHCONSUMERKEY))) {
+	if (!getDolGlobalString('OVH_OLDAPI') && (!getDolGlobalString('OVHAPPKEY') || !getDolGlobalString('OVHAPPSECRET') || !getDolGlobalString('OVHCONSUMERKEY'))) {
 		echo '<div class="warning">'.$langs->trans("OvhAuthenticationPartNotConfigured").'</div>';
 	}
 
-	$var=true;
-
+	print '<div class="div-table-responsive">';
 	print '<table class="noborder centpercent">';
 
 	print '<tr class="liste_titre">';
@@ -245,10 +244,11 @@ if (! empty($conf->global->OVH_OLDAPI) && (empty($conf->global->OVHSMS_NICK) || 
 	print '</td></tr>';
 
 	print '</table>';
+	print '</div>';
+	
+	print '<div class="center"><input type="submit" class="button" value="'.$langs->trans("Modify").'"></div>';
 
 	print dol_get_fiche_end();
-
-	print '<div class="center"><input type="submit" class="button" value="'.$langs->trans("Modify").'"></div>';
 
 	print '</form>';
 
@@ -257,7 +257,7 @@ if (! empty($conf->global->OVH_OLDAPI) && (empty($conf->global->OVHSMS_NICK) || 
 	if ($action != 'testsms') {
 		print '<br>';
 		if (! empty($smsAccount)) {
-			print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?action=testsms">'.$langs->trans("DoTestSend").'</a>';
+			print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?action=testsms&token='.newToken().'">'.$langs->trans("DoTestSend").'</a>';
 		} else {
 			print '<a class="butActionRefused" href="#">'.$langs->trans("DoTestSend").'</a>';
 		}

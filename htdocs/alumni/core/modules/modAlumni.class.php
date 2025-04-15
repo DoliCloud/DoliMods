@@ -247,17 +247,17 @@ class modAlumni extends DolibarrModules
 		// Add here entries to declare new permissions
 		/* BEGIN MODULEBUILDER PERMISSIONS */
 		$this->rights[$r][0] = $this->numero . sprintf('%02d', (0 * 10) + 0 + 1);
-		$this->rights[$r][1] = 'Read Survey object of Alumni';
+		$this->rights[$r][1] = 'Read event choices of Alumni';
 		$this->rights[$r][4] = 'survey';
 		$this->rights[$r][5] = 'read';
 		$r++;
 		$this->rights[$r][0] = $this->numero . sprintf('%02d', (0 * 10) + 1 + 1);
-		$this->rights[$r][1] = 'Create/Update Survey object of Alumni';
+		$this->rights[$r][1] = 'Create/Update event choice of Alumni';
 		$this->rights[$r][4] = 'survey';
 		$this->rights[$r][5] = 'write';
 		$r++;
 		$this->rights[$r][0] = $this->numero . sprintf('%02d', (0 * 10) + 2 + 1);
-		$this->rights[$r][1] = 'Delete Survey object of Alumni';
+		$this->rights[$r][1] = 'Delete event choice of Alumni';
 		$this->rights[$r][4] = 'survey';
 		$this->rights[$r][5] = 'delete';
 		$r++;
@@ -289,7 +289,7 @@ class modAlumni extends DolibarrModules
 		$this->menu[$r++]=array(
 			 'fk_menu' => 'fk_mainmenu=alumni',
 			 'type' => 'left',
-			 'titre' => 'Survey',
+			 'titre' => 'EventChoices',
 			 'mainmenu' => 'alumni',
 			 'leftmenu' => 'survey',
 			 'url' => '/alumni/survey_list.php',

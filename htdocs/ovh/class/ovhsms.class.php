@@ -79,10 +79,11 @@ class OvhSms extends CommonObject
 		$this->deferred = '60';   // the time -in minute(s)- to wait before sending the message, default is 0
 		$this->priority = '3';    // the priority of the message (0 to 3), default is 3
 		// Set the WebService URL
-		dol_syslog(get_class($this)."::OvhSms URL=".getDolGlobalString('OVHSMS_SOAPURL', '(NULL)'));
 
-		if (! empty($conf->global->OVH_OLDAPI)) {
-			if (! empty($conf->global->OVHSMS_SOAPURL)) {
+		if (getDolGlobalString('OVH_OLDAPI')) {
+			dol_syslog(get_class($this)."::OvhSms OVHSMS_SOAPURL=".getDolGlobalString('OVHSMS_SOAPURL'));
+
+			if (getDolGlobalString('OVHSMS_SOAPURL')) {
 				require_once DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php';
 				$params=getSoapParams();
 				ini_set('default_socket_timeout', $params['response_timeout']);
@@ -131,7 +132,10 @@ class OvhSms extends CommonObject
 				return 1;
 			} else return 0;
 		} else {
-			$endpoint = (getDolGlobalString('OVH_ENDPOINT') ? getDolGlobalString('OVH_ENDPOINT') : 'ovh-eu');
+			$endpoint = getDolGlobalString('OVH_ENDPOINT', 'ovh-eu');
+
+			dol_syslog(get_class($this)."::OvhSms OVH_ENDPOINT=".$endpoint);
+
 			$this->endpoint = $endpoint;
 
 			require_once DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php';
@@ -139,7 +143,8 @@ class OvhSms extends CommonObject
 			ini_set('default_socket_timeout', $params['response_timeout']);
 
 			try {
-				// Get servers list
+				// Get the factory to call API.
+				// Array of endpoints is defined into ->$endpoints of Api. The $endpoint key will be used to find final URL.
 				$this->conn = new Api(getDolGlobalString('OVHAPPKEY'), getDolGlobalString('OVHAPPSECRET'), $endpoint, getDolGlobalString('OVHCONSUMERKEY'));
 
 				// We save known SMS account
@@ -214,7 +219,9 @@ class OvhSms extends CommonObject
 				//var_dump($content);exit;
 				try {
 					//var_dump($content);
-					$resultPostJob = $this->conn->post('/sms/'. $this->account . '/jobs/', $content);
+					$relurl = '/sms/'. $this->account . '/jobs/';
+
+					$resultPostJob = $this->conn->post($relurl, $content);
 					/* Example of result:
 					$resultPostJob = array(
 						[totalCreditsRemoved] => 1
@@ -229,12 +236,12 @@ class OvhSms extends CommonObject
 					//var_dump($resultPostJob);
 					if ($resultPostJob['totalCreditsRemoved'] > 0) {
 						$object = new stdClass();
-						$trigger_name = 'SENTBYSMS';
+						$triggersendname = 'SENTBYSMS';
 						if ($this->member_id > 0) {
-							$trigger_name = 'MEMBER_SENTBYSMS';
+							$triggersendname = 'MEMBER_SENTBYSMS';
 							//$conf->global->MAIN_AGENDA_ACTIONAUTO_MEMBER_SENTBYSMS should be set from agenda setup
 						} elseif ($this->socid > 0) {
-							$trigger_name = 'COMPANY_SENTBYSMS';
+							$triggersendname = 'COMPANY_SENTBYSMS';
 							//$conf->global->MAIN_AGENDA_ACTIONAUTO_COMPANY_SENTBYSMS should be set from agenda setup
 						}
 
@@ -264,10 +271,10 @@ class OvhSms extends CommonObject
 							//$object->attachedfiles	= null;
 
 							// Call of triggers
-							if (! empty($trigger_name)) {
+							if (! empty($triggersendname)) {
 								include_once DOL_DOCUMENT_ROOT . '/core/class/interfaces.class.php';
 								$interface=new Interfaces($db);
-								$result=$interface->run_triggers($trigger_name, $object, $user, $langs, $conf);
+								$result=$interface->run_triggers($triggersendname, $object, $user, $langs, $conf);
 								if ($result < 0) {
 									setEventMessages($interface->error, $interface->errors, 'errors');
 								}

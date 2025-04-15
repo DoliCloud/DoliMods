@@ -223,7 +223,7 @@ if (GETPOST('cleanup')) {
 	$error=0;
 	$nbdeleted=0;
 
-	$userlogin = empty($conf->global->GOOGLE_LOGIN)?'':$conf->global->GOOGLE_LOGIN;
+	$userlogin = getDolGlobalString('GOOGLE_LOGIN');
 
 	// Create client/token object
 	$key_file_location = $conf->google->multidir_output[$conf->entity]."/" . getDolGlobalString('GOOGLE_API_SERVICEACCOUNT_P12KEY');
@@ -285,7 +285,7 @@ if ($action == 'pushallevents') {
 	$error=0;
 	$nbinserted=0;
 
-	$userlogin = empty($conf->global->GOOGLE_LOGIN)?'':$conf->global->GOOGLE_LOGIN;
+	$userlogin = getDolGlobalString('GOOGLE_LOGIN');
 
 	// Create client/token object
 	$key_file_location = $conf->google->multidir_output[$conf->entity]."/" . getDolGlobalString('GOOGLE_API_SERVICEACCOUNT_P12KEY');
@@ -369,7 +369,7 @@ if ($action == 'pushallevents') {
 
 if ($action == 'syncfromgoogle') {
 	$fuser = $user;		// $fuser = user for synch
-	$userlogin = empty($conf->global->GOOGLE_LOGIN)?'':$conf->global->GOOGLE_LOGIN;
+	$userlogin = getDolGlobalString('GOOGLE_LOGIN');
 
 	if (empty($dateminsync)) {
 		setEventMessage($langs->trans("ErrorBadValueForDate"), 'errors');
@@ -414,11 +414,13 @@ llxHeader('', $langs->trans("GoogleSetup"), $help_url, '', 0, 0, $arrayofjs, $ar
 
 $linkback='<a href="'.DOL_URL_ROOT.'/admin/modules.php?restore_lastsearch_values=1">'.$langs->trans("BackToModuleList").'</a>';
 print_fiche_titre($langs->trans("GoogleSetup"), $linkback, 'setup');
-print '<br>';
 
-
-if (! function_exists("openssl_open")) print '<div class="warning">Warning: PHP Module \'openssl\' is not installed</div><br>';
-if (! class_exists('DOMDocument')) print '<div class="warning">Warning: PHP Module \'xml\' is not installed</div><br>';
+if (! function_exists("openssl_open")) {
+	print '<br><div class="warning">Warning: PHP Module \'openssl\' is not installed</div><br>';
+}
+if (! class_exists('DOMDocument')) {
+	print '<br><div class="warning">Warning: PHP Module \'xml\' is not installed</div><br>';
+}
 
 
 print '<form name="googleconfig" action="'.$_SERVER["PHP_SELF"].'" method="POST" autocomplete="off" enctype="multipart/form-data">';
@@ -611,7 +613,7 @@ print "</form>\n";
 
 print '<div class="tabsActions synccal">';
 
-print '<br><br><hr><br>';
+print '<br><br><hr class="showifidagendaset"><br>';
 
 print '<div class="synccal showifidagendaset">';
 if (!getDolGlobalString('GOOGLE_DUPLICATE_INTO_GCAL') || !getDolGlobalString('GOOGLE_API_SERVICEACCOUNT_EMAIL') || !getDolGlobalString('GOOGLE_LOGIN')) {
@@ -666,7 +668,7 @@ if (getDolGlobalString('GOOGLE_DUPLICATE_INTO_GCAL')) {
 		print '<input type="hidden" name="action" value="syncfromgoogle">';
 		print $langs->trans("ImportEventsFromGoogle", $max, getDolGlobalString('GOOGLE_LOGIN'))." ";
 		$now = dol_now() - ($notolderforsync * 24 * 3600);
-		print $form->selectDate($dateminsync ? $dateminsync : $now, 'sync', 1, 1, 0, '', 1, 0, empty($conf->global->GOOGLE_LOGIN)?1:0);
+		print $form->selectDate($dateminsync ? $dateminsync : $now, 'sync', 1, 1, 0, '', 1, 0, getDolGlobalString('GOOGLE_LOGIN') ? 0 : 1);
 		print '<input type="submit" name="getall" class="button small" value="'.$langs->trans("Run").'"';
 		if (!getDolGlobalString('GOOGLE_LOGIN')) print ' disabled="disabled"';
 		print '>';

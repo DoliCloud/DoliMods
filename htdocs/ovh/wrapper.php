@@ -130,7 +130,7 @@ top_httphead();
 //header('Access-Control-Allow-Methods: GET, POST');
 
 
-if (!empty($conf->global->OVH_OLDAPI)) {
+if (getDolGlobalString('OVH_OLDAPI')) {
 	if (empty($login)) {
 		llxHeader();
 		print '<div class="error">'.$langs->trans("ErrorClickToDialForUserNotDefined").'</div>';

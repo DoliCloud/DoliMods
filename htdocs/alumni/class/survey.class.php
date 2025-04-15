@@ -123,9 +123,9 @@ class Survey extends CommonObject
 		"lastname2" => array("type"=>"varchar(128)", "label"=>"Lastname2", "enabled"=>"1", 'position'=>31, 'notnull'=>0, "visible"=>"1", "searchall"=>"1", "csslist"=>"tdoverflowmax150",),
 		"email" => array("type"=>"mail", "label"=>"Email", "enabled"=>"isModEnabled('alumni')", 'position'=>33, 'notnull'=>1, "visible"=>"1", "index"=>"1", "csslist"=>"tdoverflowmax150",),
 		"phone" => array("type"=>"phone", "label"=>"Phone", "enabled"=>"isModEnabled('alumni')", 'position'=>34, 'notnull'=>0, "visible"=>"1", "csslist"=>"tdoverflowmax150",),
-		"comwhatsapp" => array("type"=>"integer", "label"=>"ComWhatsapp", "enabled"=>"isModEnabled('alumni')", 'position'=>40, 'notnull'=>0, "visible"=>"-1",),
+		//"comwhatsapp" => array("type"=>"integer", "label"=>"ComWhatsapp", "enabled"=>"isModEnabled('alumni')", 'position'=>40, 'notnull'=>0, "visible"=>"-1",),
 		//"comemail" => array("type"=>"integer", "label"=>"ComEmail", "enabled"=>"isModEnabled('alumni')", 'position'=>41, 'notnull'=>0, "visible"=>"-1",),
-		"promodesortie" => array("type"=>"integer", "label"=>"Promo de Sortie", "enabled"=>"isModEnabled('alumni')", 'position'=>45, 'notnull'=>0, "visible"=>"1",),
+		"promodesortie" => array("type"=>"integer", "label"=>"Promo de Sortie", "enabled"=>"isModEnabled('alumni')", 'position'=>45, 'notnull'=>-1, "visible"=>"1",),
 		"lienavecpromo" => array("type"=>"varchar(128)", "label"=>"Lien avec promo", "enabled"=>"isModEnabled('alumni')", 'position'=>46, 'notnull'=>0, "visible"=>"1",),
 		"preferencejour" => array("type"=>"varchar(128)", "label"=>"PreferenceJour", "enabled"=>"isModEnabled('alumni')", 'position'=>51, 'notnull'=>0, "visible"=>"-1",),
 		"preferencemois" => array("type"=>"varchar(255)", "label"=>"PreferenceMois", "enabled"=>"isModEnabled('alumni')", 'position'=>52, 'notnull'=>0, "visible"=>"-1",),
@@ -138,7 +138,7 @@ class Survey extends CommonObject
 		"choixperimetre" => array("type"=>"varchar(32)", "label"=>"ChoixPerimetre", "enabled"=>"isModEnabled('alumni')", 'position'=>80, 'notnull'=>0, "visible"=>"-1", "csslist"=>"tdoverflowmax150", "arrayofkeyval"=>array("alumniseul" => "Alumni seul", "avecconjoint" => "Avec conjoint", "peuimporte" => "Peu importe")),
 		"budgetmaxactivitepar" => array("type"=>"integer", "label"=>"BudgetMaxActiviteParPers", "enabled"=>"isModEnabled('alumni')", 'position'=>90, 'notnull'=>0, "visible"=>"-1",'isameasure'=>1),
 		"budgetmaxrepasparpers" => array("type"=>"integer", "label"=>"BudgetMaxRepasParPers", "enabled"=>"isModEnabled('alumni')", 'position'=>91, 'notnull'=>0, "visible"=>"1",'isameasure'=>1),
-		"motivation" => array("type"=>"varchar(16)", "label"=>"Motivation", "enabled"=>"isModEnabled('alumni')", 'position'=>100, 'notnull'=>0, "visible"=>"1", 'csslist'=>'tdoverflowmax150 small', "arrayofkeyval"=>array("1" => "Pas du tout, je ne souhaite pas relier des liens avec l'ISEN, je suis passé a autre chose, probabilité de venir = 0%", "5" => "Intéressé mais des contraintes (éloignements, perso) m'empêcheront surement de venir, probabilité de venir < 5%", "25" => "Ca me fait ni chaud ni froid, probabilité de venir <25%", "50" => "Je suis intéressé, probabilité de venir entre 25 et 75%", "75" => "Je suis à fond, probabilité de venir > 75%"),),
+		"motivation" => array("type"=>"varchar(16)", "label"=>"Motivation", "enabled"=>"isModEnabled('alumni')", 'position'=>100, 'notnull'=>0, "visible"=>"1", 'csslist'=>'tdoverflowmax150 small', "searchmulti" => 1, "arrayofkeyval"=>array("1" => "Pas du tout, je ne souhaite pas relier des liens avec l'ISEN, je suis passé a autre chose, probabilité de venir = 0%", "5" => "Intéressé mais des contraintes (éloignements, perso) m'empêcheront surement de venir, probabilité de venir < 5%", "25" => "Ca me fait ni chaud ni froid, probabilité de venir <25%", "50" => "Je suis intéressé, probabilité de venir entre 25 et 75%", "75" => "Je suis à fond, probabilité de venir > 75%"),),
 		"date_creation" => array("type"=>"datetime", "label"=>"DateCreation", "enabled"=>"1", 'position'=>500, 'notnull'=>1, "visible"=>"-2",),
 		"tms" => array("type"=>"timestamp", "label"=>"DateModification", "enabled"=>"1", 'position'=>501, 'notnull'=>0, "visible"=>"-2",),
 		"fk_user_creat" => array("type"=>"integer:User:user/class/user.class.php", "label"=>"UserAuthor", "picto"=>"user", "enabled"=>"1", 'position'=>510, 'notnull'=>1, "visible"=>"-2", "csslist"=>"tdoverflowmax150",),
@@ -807,9 +807,9 @@ class Survey extends CommonObject
 		if (empty($notooltip)) {
 			if (getDolGlobalInt('MAIN_OPTIMIZEFORTEXTBROWSER')) {
 				$label = $langs->trans("ShowSurvey");
-				$linkclose .= ' alt="'.dol_escape_htmltag($label, 1).'"';
+				$linkclose .= ' alt="'.dolPrintHTMLForAttribute($label).'"';
 			}
-			$linkclose .= ($label ? ' title="'.dol_escape_htmltag($label, 1).'"' :  ' title="tocomplete"');
+			$linkclose .= ($label ? ' title="'.dolPrintHTMLForAttribute($label).'"' :  ' title="tocomplete"');
 			$linkclose .= $dataparams.' class="'.$classfortooltip.($morecss ? ' '.$morecss : '').'"';
 		} else {
 			$linkclose = ($morecss ? ' class="'.$morecss.'"' : '');

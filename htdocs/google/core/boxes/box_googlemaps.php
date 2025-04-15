@@ -50,7 +50,7 @@ class box_googlemaps extends ModeleBoxes
 	 */
 	function __construct($db, $param = '')
 	{
-		global $conf, $user, $langs;
+		global $user, $langs;
 
 		$this->db = $db;
 
@@ -58,7 +58,7 @@ class box_googlemaps extends ModeleBoxes
 		$this->boxlabel=$langs->trans("ListOfMaps");
 
 		// disable module for such cases
-		$listofmodulesforexternal=explode(',', $conf->global->MAIN_MODULES_FOR_EXTERNAL);
+		$listofmodulesforexternal=explode(',', getDolGlobalString('MAIN_MODULES_FOR_EXTERNAL'));
 		if (! in_array('adherent', $listofmodulesforexternal) && ! in_array('societe', $listofmodulesforexternal) && ! empty($user->societe_id)) $this->enabled=0;	// disabled for external users
 	}
 
@@ -70,7 +70,7 @@ class box_googlemaps extends ModeleBoxes
 	 */
 	function loadBox($max = 5)
 	{
-		global $user, $langs, $db, $conf;
+		global $user, $langs;
 		$langs->load("boxes");
 		$langs->load("google@google");
 
@@ -79,7 +79,7 @@ class box_googlemaps extends ModeleBoxes
 		$this->info_box_head = array('text' => $langs->trans("BoxMaps", $max));
 
 		$i=0;
-		if (isModEnabled('societe') && $user->hasRight('societe', 'lire') && ! empty($conf->global->GOOGLE_ENABLE_GMAPS) && empty($conf->global->CABINETMED_HIDETHIRPARTIESMENU)) {
+		if (isModEnabled('societe') && $user->hasRight('societe', 'lire') && getDolGlobalString('GOOGLE_ENABLE_GMAPS') && getDolGlobalString('CABINETMED_HIDETHIRPARTIESMENU')) {
 			$something++;
 
 			$url=dol_buildpath("/google/gmaps_all.php", 1)."?mode=thirdparty";
@@ -94,7 +94,7 @@ class box_googlemaps extends ModeleBoxes
 
 			$i++;
 		}
-		if (isModEnabled('societe') && $user->hasRight('societe', 'lire') && ! empty($conf->global->GOOGLE_ENABLE_GMAPS_CONTACTS)) {
+		if (isModEnabled('societe') && $user->hasRight('societe', 'lire') && getDolGlobalString('GOOGLE_ENABLE_GMAPS_CONTACTS')) {
 			$something++;
 
 			$url=dol_buildpath("/google/gmaps_all.php", 1)."?mode=contact";
@@ -109,7 +109,7 @@ class box_googlemaps extends ModeleBoxes
 
 			$i++;
 		}
-		if (isModEnabled('adherent') && $user->hasRight('adherent', 'lire') && ! empty($conf->global->GOOGLE_ENABLE_GMAPS_MEMBERS)) {
+		if (isModEnabled('adherent') && $user->hasRight('adherent', 'lire') && getDolGlobalString('GOOGLE_ENABLE_GMAPS_MEMBERS')) {
 			$something++;
 
 			$url=dol_buildpath("/google/gmaps_all.php", 1)."?mode=member";

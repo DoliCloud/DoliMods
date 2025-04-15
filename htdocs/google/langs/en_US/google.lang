@@ -141,3 +141,4 @@ ProspectsOnly=Prospects only
 RefreshEventFromGoogle=Refresh events from Google
 Tool=Tool
 DateExpiration=Expiration date
+GOOGLE_DEBUG=Enable additional logs specific to the Google module (dolibarr_google.* files)

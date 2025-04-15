@@ -152,7 +152,7 @@ foreach ($object->fields as $key => $val) {
 }
 
 // List of fields to search into when doing a "search in all"
-// $fieldstosearchall = array();
+$fieldstosearchall = array();
 // foreach ($object->fields as $key => $val) {
 // 	if (!empty($val['searchall'])) {
 // 		$fieldstosearchall['t.'.$key] = $val['label'];
@@ -259,9 +259,48 @@ if (empty($reshook)) {
 	include DOL_DOCUMENT_ROOT.'/core/actions_massactions.inc.php';
 
 	// You can add more action here
-	// if ($action == 'xxx' && $permissiontoxxx) ...
+	if ($massaction == 'settopaid' && $permissiontoadd) {
+		foreach ($toselect as $toselectid) {
+			$tmpobject = new Survey($db);
+			$tmpobject->fetch($toselectid);
+			
+			$tmpobject->array_options = array('options_a_paye' => 1);
+			
+			$result = $tmpobject->updateExtraField('a_paye', null, $user);
+		}
+	}
+	if ($massaction == 'settounpaid' && $permissiontoadd) {
+		foreach ($toselect as $toselectid) {
+			$tmpobject = new Survey($db);
+			$tmpobject->fetch($toselectid);
+			
+			$tmpobject->array_options = array('options_a_paye' => 0);
+			
+			$result = $tmpobject->updateExtraField('a_paye', null, $user);
+		}
+	}
+	
+	if ($massaction == 'settodonotreengage' && $permissiontoadd) {
+		foreach ($toselect as $toselectid) {
+			$tmpobject = new Survey($db);
+			$tmpobject->fetch($toselectid);
+			
+			$tmpobject->array_options = array('options_ne_plus_relancer' => 1);
+			
+			$result = $tmpobject->updateExtraField('ne_plus_relancer', null, $user);
+		}
+	}
+	if ($massaction == 'settoreengage' && $permissiontoadd) {
+		foreach ($toselect as $toselectid) {
+			$tmpobject = new Survey($db);
+			$tmpobject->fetch($toselectid);
+			
+			$tmpobject->array_options = array('options_ne_plus_relancer' => 0);
+			
+			$result = $tmpobject->updateExtraField('ne_plus_relancer', null, $user);
+		}
+	}
 }
-
 
 
 /*
@@ -272,7 +311,7 @@ $form = new Form($db);
 
 $now = dol_now();
 
-$title = $langs->trans("Surveys");
+$title = $langs->trans("EventChoices");
 //$help_url = "EN:Module_Survey|FR:Module_Survey_FR|ES:Módulo_Survey";
 $help_url = '';
 $morejs = array();
@@ -324,8 +363,14 @@ foreach ($search as $key => $val) {
 			}
 			$mode_search = 2;
 		}
-		if ($search[$key] != '') {
-			$sql .= natural_search("t.".$db->escape($key), $search[$key], (($key == 'status') ? 2 : $mode_search));
+		if (empty($object->fields[$key]['searchmulti'])) {
+			if (!is_array($search[$key]) && $search[$key] != '') {
+				$sql .= natural_search("t.".$db->escape($key), $search[$key], (($key == 'status') ? 2 : $mode_search));
+			}
+		} else {
+			if (is_array($search[$key]) && !empty($search[$key])) {
+				$sql .= natural_search("t.".$db->escape($key), implode(',', $search[$key]), (($key == 'status') ? 2 : $mode_search));
+			}
 		}
 	} else {
 		if (preg_match('/(_dtstart|_dtend)$/', $key) && $search[$key] != '') {
@@ -351,6 +396,7 @@ include DOL_DOCUMENT_ROOT.'/core/tpl/extrafields_list_search_sql.tpl.php';
 $parameters = array();
 $reshook = $hookmanager->executeHooks('printFieldListWhere', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 $sql .= $hookmanager->resPrint;
+//print $sql;
 
 /* If a group by is required
 $sql .= " GROUP BY ";
@@ -488,6 +534,10 @@ $arrayofmassactions = array(
 );
 if (!empty($permissiontodelete)) {
 	$arrayofmassactions['predelete'] = img_picto('', 'delete', 'class="pictofixedwidth"').$langs->trans("Delete");
+	$arrayofmassactions['settopaid'] = img_picto('', 'currency', 'class="pictofixedwidth"').$langs->trans("SetToPaid");
+	$arrayofmassactions['setunpaid'] = img_picto('', 'circle', 'class="pictofixedwidth"').$langs->trans("SetToUnPaid");
+	$arrayofmassactions['settodonotreengage'] = img_picto('', 'circle', 'class="pictofixedwidth"').$langs->trans("SetToDoNotReEngage");
+	$arrayofmassactions['settoreengage'] = img_picto('', 'circle', 'class="pictofixedwidth"').$langs->trans("SetToCanReEngage");
 }
 if (GETPOST('nomassaction', 'int') || in_array($massaction, array('presend', 'predelete'))) {
 	$arrayofmassactions = array();
@@ -586,7 +636,11 @@ foreach ($object->fields as $key => $val) {
 	if (!empty($arrayfields['t.'.$key]['checked'])) {
 		print '<td class="liste_titre'.($cssforfield ? ' '.$cssforfield : '').($key == 'status' ? ' parentonrightofpage' : '').'">';
 		if (!empty($val['arrayofkeyval']) && is_array($val['arrayofkeyval'])) {
-			print $form->selectarray('search_'.$key, $val['arrayofkeyval'], (isset($search[$key]) ? $search[$key] : ''), 1, 0, 0, '', 1, 0, 0, '', 'maxwidth100'.($key == 'status' ? ' search_status width100 onrightofpage' : ''), 1);
+			if (empty($val['searchmulti'])) {
+				print $form->selectarray('search_'.$key, $val['arrayofkeyval'], (isset($search[$key]) ? $search[$key] : ''), 1, 0, 0, '', 1, 0, 0, '', 'maxwidth100'.($key == 'status' ? ' search_status width100 onrightofpage' : ''), 1);
+			} else {
+				print $form->multiselectarray('search_'.$key, $val['arrayofkeyval'], (isset($search[$key]) ? $search[$key] : ''), 0, 0, 'maxwidth100'.($key == 'status' ? ' search_status width100 onrightofpage' : ''), 1);
+			}
 		} elseif ((strpos($val['type'], 'integer:') === 0) || (strpos($val['type'], 'sellist:') === 0)) {
 			print $object->showInputField($val, $key, (isset($search[$key]) ? $search[$key] : ''), '', '', 'search_', $cssforfield.' maxwidth250', 1);
 		} elseif (preg_match('/^(date|timestamp|datetime)/', $val['type'])) {

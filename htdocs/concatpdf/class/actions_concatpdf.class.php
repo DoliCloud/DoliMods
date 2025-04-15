@@ -1,5 +1,5 @@
 <?php
-/* Copyright (C) 2011-2013	Laurent Destailleur	<eldy@users.sourceforge.net>
+/* Copyright (C) 2011-2025	Laurent Destailleur	<eldy@users.sourceforge.net>
  * Copyright (C) 2012		Regis Houssin		<regis.houssin@capnetworks.com>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -62,7 +62,7 @@ class ActionsConcatPdf
 	 */
 	public function formBuilddocOptions($parameters, &$object)
 	{
-		global $langs, $user, $conf, $form;
+		global $langs, $conf, $form;
 
 		$langs->load("concatpdf@concatpdf");
 
@@ -102,7 +102,6 @@ class ActionsConcatPdf
 		$modulepart = $parameters['modulepart'];
 
 		// Defined $preselected value
-		//$preselected = (isset($object->extraparams['concatpdf'][0]) ? $object->extraparams['concatpdf'][0] : -1);	// string with the saved preselected string or -1
 		$arraypreselected = (isset($object->extraparams['concatpdf']) ? $object->extraparams['concatpdf'] : -1);	// array with the saved preselected string or -1
 
 		// Get $arraydefaultselection
@@ -111,7 +110,7 @@ class ActionsConcatPdf
 			// List of value key into setup -> value for modulepart
 			$altkey=array('proposal'=>'propal', 'order'=>'commande', 'invoice'=>'facture', 'supplier_order'=>'commande_fournisseur', 'invoice_order'=>'facture_fournisseur');
 
-			// $conf->global->CONCATPDF_PRESELECTED_MODELS may contains value of preselected model with format
+			// getDolGlobalString('CONCATPDF_PRESELECTED_MODELS') may contains value of preselected model with format
 			// propal:model1a,model1b;invoice:model2;...
 			$tmparray=explode(';', getDolGlobalString('CONCATPDF_PRESELECTED_MODELS'));
 			$tmparray2=array();
@@ -238,26 +237,28 @@ class ActionsConcatPdf
 
 		// Includes default models if no model selection
 		if (empty($concatpdffile) && ! $formwassubmittedwithemptyselection) {
-			//var_dump($conf->global->CONCATPDF_PRESELECTED_MODELS);
+			//var_dump(getDolGlobalString('CONCATPDF_PRESELECTED_MODELS'));
 			if ($preselected == -1 && getDolGlobalString('CONCATPDF_PRESELECTED_MODELS')) {
 
 				// List of value key into setup -> value for modulepart
 				$altkey=array('proposal'=>'propal', 'order'=>'commande', 'invoice'=>'facture', 'supplier_order'=>'order_supplier', 'supplier_invoice'=>'invoice_supplier');
 
-				// $conf->global->CONCATPDF_PRESELECTED_MODELS may contains value of preselected model with format
-				// propal:model1a,model1b;invoice:model2;...
+				// getDolGlobalString('CONCATPDF_PRESELECTED_MODELS') may contains value of preselected model with format
+				// proposal:model1a,model1b;invoice:model2;...
 				$tmparray=explode(';', getDolGlobalString('CONCATPDF_PRESELECTED_MODELS'));
 				$tmparray2=array();
 				foreach ($tmparray as $val) {
 					$tmp=explode(':', $val);
-					if (! empty($tmp[1])) $tmparray2[$tmp[0]]=$tmp[1];
+					if (! empty($tmp[1])) {
+						$tmparray2[$tmp[0]]=$tmp[1];
+					}
 				}
-				foreach ($tmparray2 as $key => $val) {
+				foreach ($tmparray2 as $key => $val) {	// for example: $key is 'proposal' and value is 'model1a,model1b'
 					//var_dump($key.' - '.$altkey[$key].' - '.$val.' - '.$parameters['object']->element);
 					if (isset($parameters['object']->element) && ($parameters['object']->element == $key || $parameters['object']->element == $altkey[$key])) {
 						$tmpval = explode(',', $val);
 						foreach($tmpval as $val2) {
-							$concatpdffile[]=$val2;
+							$concatpdffile[] = preg_replace('/\.pdf$/i', '', $val2);
 						}
 					}
 				}
@@ -281,6 +282,7 @@ class ActionsConcatPdf
 		$filetoconcat2=array();
 
 		if (! empty($concatpdffile) && $concatpdffile[0] != -1) {
+			$hidedetails = $hidedesc = $hideref = 0;
 			foreach ($concatpdffile as $concatfile) {
 				// We search which second file to add (or generate it if file to add as a name matching pdf__...modules)
 				if (preg_match('/^pdf_(.*)+\.modules/', $concatfile)) {
@@ -321,7 +323,7 @@ class ActionsConcatPdf
 				$format = array($formatarray['width'], $formatarray['height']);
 
 				// Create empty PDF
-				$pdf=pdf_getInstance($format);
+				$pdf = pdf_getInstance($format);
 				//$pdf->SetAutoPageBreak(1, 0);
 				if (class_exists('TCPDF')) {
 					$pdf->setPrintHeader(false);
@@ -329,7 +331,7 @@ class ActionsConcatPdf
 				}
 				$pdf->SetFont(pdf_getPDFFont($outputlangs));
 
-				if (!empty($conf->global->MAIN_DISABLE_PDF_COMPRESSION)) {
+				if (getDolGlobalString('MAIN_DISABLE_PDF_COMPRESSION')) {
 					$pdf->SetCompression(false);
 				}
 				//$pdf->SetCompression(false);
@@ -341,10 +343,31 @@ class ActionsConcatPdf
 				}
 
 				if ($pagecount > 0) {
-					$pdf->Output($filetoconcat1[0], 'F');
-					if (! empty($conf->global->MAIN_UMASK)) {
-						@chmod($file, octdec($conf->global->MAIN_UMASK));
+					if (function_exists('pdfExtractMetadata')) {	// From Dolibarr v22
+						// Now we get the metadata keywords from the $sourcefile PDF (by parsing the binary PDF file) and use it to extract
+						// the page x in PAGESIGN=x into $propalsignonspecificpage
+						$keywords = pdfExtractMetadata($filetoconcat1[0], 'Keywords');
+						$subject = pdfExtractMetadata($filetoconcat1[0], 'Subject');
+						$author = pdfExtractMetadata($filetoconcat1[0], 'Author');
+						$creator = pdfExtractMetadata($filetoconcat1[0], 'Creator');
+
+						if (!preg_match('/^ERROR/', $keywords)) {
+							$pdf->setKeywords($keywords);
+						}
+						if (!preg_match('/^ERROR/', $subject)) {
+							$pdf->setSubject($subject);
+						}
+						if (!preg_match('/^ERROR/', $author)) {
+							$pdf->setAuthor($author);
+						}
+						if (!preg_match('/^ERROR/', $creator)) {
+							$pdf->setCreator($creator);
+						}
 					}
+
+					$pdf->Output($filetoconcat1[0], 'F');
+					dolChmod($file);
+
 					if (! empty($deltemp)) {
 						// Delete temp files
 						foreach ($deltemp as $dirtemp) {
@@ -370,7 +393,7 @@ class ActionsConcatPdf
 		}
 
 		if (is_object($parameters['object']) && method_exists($parameters['object'], 'setExtraParameters')) {
-			$result = $parameters['object']->setExtraParameters();
+			$parameters['object']->setExtraParameters();
 		}
 
 		return $ret;
@@ -388,16 +411,25 @@ class ActionsConcatPdf
 		require_once DOL_DOCUMENT_ROOT."/core/lib/files.lib.php";
 		$pagecount = 0;
 
-		foreach ($files as $file) {
-			if ($file == '/home/ldestailleur/git/dolibarr_16.0/documents/concatpdf/invoices/FA1803-0795.pdf') {
+		foreach ($files as $file) {		// Loop on each files: First is original, second is the file to concact.
+			/*if ($file == DOL_DATA_ROOT.'/concatpdf/invoices/FA1803-0795.pdf') {
 				continue;
-			}
+			}*/
 			if (dol_is_file($file)) {	// We ignore file if not found so if file has been removed we can still generate the PDF.
 				$pagecounttmp = $pdf->setSourceFile($file);
 				if ($pagecounttmp) {
 					for ($i = 1; $i <= $pagecounttmp; $i++) {
 						try {
-							$tplidx = $pdf->ImportPage($i);
+							$tplidx = $pdf->ImportPage($i, '/BleedBox');
+
+							$s = $pdf->getTemplatesize($tplidx);
+							$pdf->AddPage($s['h'] > $s['w'] ? 'P' : 'L');
+
+							if (method_exists($pdf, 'setPageFormatFromTemplatePage')) {		// For TCPDI 1.1
+								$pdf->setPageFormatFromTemplatePage(1, $s['h'] > $s['w'] ? 'P' : 'L');
+							}
+
+							$pdf->useTemplate($tplidx);
 
 							// TODO Read /Annot to get links and save same after useTemplate
 							/*
@@ -467,13 +499,6 @@ class ActionsConcatPdf
 								$tpl['links'] = $links;
 							}
 							*/
-
-							$s = $pdf->getTemplatesize($tplidx);
-							$pdf->AddPage($s['h'] > $s['w'] ? 'P' : 'L');
-							$pdf->useTemplate($tplidx);
-
-
-							// apply links from the template
 							/*
 							$tpl =& $this->tpls[$tplidx];
 							if (isset($tpl['links'])) {
@@ -488,6 +513,10 @@ class ActionsConcatPdf
 								}
 							}
 							*/
+							// Apply links from the template
+							if (method_exists($pdf, 'importAnnotations')) {		// For TCPDI 1.1
+								$pdf->importAnnotations($i);
+							}
 						} catch (Exception $e) {
 							dol_syslog("Error when manipulating some PDF by concatpdf: ".$e->getMessage(), LOG_ERR);
 							$this->error = $e->getMessage();
@@ -580,6 +609,7 @@ class ActionsConcatPdf
 	// Add methods to complete the import and useTemplate
 
 	// default maxdepth prevents an infinite recursion on malformed PDFs (not theoretical, actually found in the wild)
+	/*
 	function resolve(&$parser, $smt, $maxdepth=10) {
 		if ($maxdepth == 0)
 			return $smt;
@@ -611,7 +641,7 @@ class ActionsConcatPdf
 				return $smt;
 			}
 	}
-
+	*/
 
 	/**
 	 * Resolve an object
@@ -620,6 +650,7 @@ class ActionsConcatPdf
 	 * @param array $obj_spec The object-data
 	 * @param boolean $encapsulate Must set to true, cause the parsing and fpdi use this method only without this para
 	 */
+	/*
 	function pdf_resolve_object(&$c, $obj_spec, $encapsulate = true, $parser) {
 		// Exit if we get invalid data
 		if (!is_array($obj_spec)) {
@@ -699,6 +730,7 @@ class ActionsConcatPdf
 			return $obj_spec;
 		}
 	}
+	*/
 
    /**
     * findPageNoForRef
@@ -707,6 +739,7 @@ class ActionsConcatPdf
     * @param  string   $pageRef    Page Ref
     * @return int                  Return <0 if error
     */
+	/*
 	function findPageNoForRef(&$parser, $pageRef) {
 		$ref_obj = $pageRef[1]; $ref_gen = $pageRef[2];
 
@@ -719,5 +752,5 @@ class ActionsConcatPdf
 
 		return -1;
 	}
-
+	*/
 }
