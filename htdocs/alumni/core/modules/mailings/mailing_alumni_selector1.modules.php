@@ -70,7 +70,9 @@ class mailing_mailing_alumni_selector1 extends MailingTargets
 		$s .= '<select name="filter_motivation" id="filter_motivation" class="flat maxwidth200">';
 		$s .= '<option value="none">&nbsp;</option>';
 		foreach ($arrayfields as $key => $val) {
-			$s .= '<option value="'.$key.'">'.$val.'</option>';
+			$s .= '<option value="'.$key.'"';
+			$s .= (GETPOSTISSET('filter_motivation') && GETPOST('filter_motivation') == $key) ? ' selected="selected"' : '';
+			$s .= '>'.$val.'</option>';
 		}
 		$s .= '</select>';
 		$s .= ajax_combobox('filter_motivation');
@@ -78,13 +80,13 @@ class mailing_mailing_alumni_selector1 extends MailingTargets
 
 		$extrafields = new ExtraFields($this->db);
 		$extrafields->fetch_name_optionals_label($tmp->table_element);
-		
+
 		foreach($extrafields->attributes[$tmp->table_element]['label'] as $key => $label) {
 			$s .= $langs->trans($label).' ';
 			$s .= '<input type="text" value="'.GETPOST($key).'" name="'.$key.'">';
 			$s .= '<br>';
 		}
-		
+
 		return $s;
 	}
 
@@ -116,7 +118,7 @@ class mailing_mailing_alumni_selector1 extends MailingTargets
 
 		dol_include_once('/alumni/class/survey.class.php');
 		$tmp = new Survey($this->db);
-		
+
 		$sql = "SELECT asu.rowid as id, asu.firstname, asu.lastname, asu.email";
 		$sql .= " FROM ".MAIN_DB_PREFIX."alumni_survey as asu";
 		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."alumni_survey_extrafields as ase ON asu.rowid = ase.fk_object";
@@ -129,16 +131,17 @@ class mailing_mailing_alumni_selector1 extends MailingTargets
 		}
 		$extrafields = new ExtraFields($this->db);
 		$extrafields->fetch_name_optionals_label($tmp->table_element);
-		
+
 		foreach($extrafields->attributes[$tmp->table_element]['label'] as $key => $label) {
 			if (GETPOSTISSET($key) && GETPOST($key) == '0') {
-				$sql .= " AND IFNULL(ase.".$this->db->sanitize($key).",0) = 0";
-			}
-			if (GETPOSTISSET($key) && GETPOST($key) == '-1' && GETPOST($key) == '1') {
+				$sql .= " AND IFNULL(ase.".$this->db->sanitize($key).", 0) = 0";
+			} elseif (GETPOSTISSET($key) && GETPOST($key) != '' && $extrafields->attributes[$tmp->table_element]['type'][$key] == 'int') {
+				$sql .= " AND ase.".$this->db->sanitize($key)." = ".((int) GETPOST($key));
+			} elseif (GETPOSTISSET($key) && GETPOST($key) != '') {
 				$sql .= " AND ase.".$this->db->sanitize($key)." LIKE '".$this->db->escape(GETPOST($key))."'";
 			}
 		}
-		
+
 		$sql .= " ORDER BY asu.email";
 
 		// Store recipients in target
