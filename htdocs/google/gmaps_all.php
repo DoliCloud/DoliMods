@@ -652,8 +652,8 @@ function googlegetURLContent($url, $postorget = 'GET', $param = '')
 
 	$rep=array();
 	$rep['content']=$response;
-	$rep['curl_error_no']='';
-	$rep['curl_error_msg']='';
+	$rep['curl_error_no'] = 0;
+	$rep['curl_error_msg'] = '';
 
 	//dol_syslog("getURLContent response=".$response);
 

@@ -147,7 +147,7 @@ class modStancerDolicloud extends DolibarrModules
 
 		// Prerequisites
 		$this->phpmin = array(7, 0); // Minimum version of PHP required by module
-		$this->need_dolibarr_version = array(11, -3); // Minimum version of Dolibarr required by module
+		$this->need_dolibarr_version = array(21, 0, -3); // Minimum version of Dolibarr required by module
 		$this->need_javascript_ajax = 0;
 
 		// Messages at activation
@@ -454,7 +454,7 @@ class modStancerDolicloud extends DolibarrModules
 				$bankaccount->date_solde = dol_now();
 				$idjournal = dol_getIdFromCode($this->db, 'BQ', 'accounting_journal', 'code', 'rowid');
 				$bankaccount->fk_accountancy_journal = (int) $idjournal;
-				
+
 				$searchaccountid = $bankaccount->create($user);
 			}
 			if ($searchaccountid > 0) {
@@ -462,10 +462,10 @@ class modStancerDolicloud extends DolibarrModules
 			} else {
 				setEventMessages($bankaccount->error, $bankaccount->errors, 'errors');
 			}
-		}		
-		
-		
-		
+		}
+
+
+
 		//$result = $this->_load_tables('/install/mysql/', 'stancerdolicloud');
 		$result = $this->_load_tables('/stancerdolicloud/sql/');
 		if ($result < 0) {
