@@ -13,10 +13,12 @@ class ActionsTawkto
 	{
 		$tmp = ($hookmanager->resPrint ? $hookmanager->resPrint : $parameters['contentsecuritypolicy']);
 
+		$tmp = preg_replace('/script-src-elem \'self\'/', 'script-src-elem \'self\' *.tawk.to *.jsdelivr.net', $tmp);
 		$tmp = preg_replace('/script-src \'self\'/', 'script-src \'self\' *.tawk.to *.jsdelivr.net', $tmp);
 		$tmp = preg_replace('/font-src \'self\'/', 'font-src \'self\' *.tawk.to', $tmp);
 		$tmp = preg_replace('/connect-src \'self\'/', 'connect-src \'self\' *.tawk.to wss:', $tmp);
 		$tmp = preg_replace('/frame-src \'self\'/', 'frame-src \'self\' *.tawk.to', $tmp);
+		$tmp = preg_replace('/default-src \'self\'/', 'default-src \'self\' *.tawk.to', $tmp);
 
 		$hookmanager->resPrint = '';
 
@@ -29,7 +31,7 @@ class ActionsTawkto
 	 */
 	function printTopRightMenu()
 	{
-		global $conf,$user,$langs;
+		global $langs;
 
 		$langs->load("tawkto@tawkto");
 
@@ -40,10 +42,18 @@ class ActionsTawkto
 			else unset($_SESSION['tawktoonoff']);
 		}
 
-		$fontas='fa-comment-o';
+		if ((float) DOL_VERSION <= 9.0) {
+			$fontas='fa-comment-o';
+		} else {
+			$fontas='fa-comment';
+		}
 		$tooltiptext = $langs->trans("ClickToOpenChat");
 		if (! empty($_SESSION['tawktoonoff'])) {
-			$fontas='fa-commenting-o';
+			if ((float) DOL_VERSION <= 9.0) {
+				$fontas='fa-commenting';
+			} else {
+				$fontas='fa-comment-dots';
+			}
 			$tooltiptext = $langs->trans("ClickToCloseChat");
 		}
 
@@ -65,10 +75,10 @@ class ActionsTawkto
 	 */
 	function printLeftBlock()
 	{
-		global $user, $conf, $langs;
+		global $user, $langs;
 
 		// Get TawkTo ID
-		$idsitetawkto = $conf->global->TAWKTO_ID;
+		$idsitetawkto = getDolGlobalString('TAWKTO_ID');
 		if (empty($idsitetawkto)) {
 			if (! preg_match('/tawkto\/admin/', $_SERVER["PHP_SELF"])) {
 				$langs->load("tawkto@tawkto");
@@ -81,7 +91,7 @@ class ActionsTawkto
 
 
 		$userIdentity = $user->firstname.' '.$user->lastname;
-		$userEmail = empty($user->email) ? $conf->global->MAIN_INFO_SOCIETE_MAIL : $user->email;
+		$userEmail = empty($user->email) ? getDolGlobalString('MAIN_INFO_SOCIETE_MAIL') : $user->email;
 
 		$htmlChatScript = "
 			<!-- Start of Tawk.to Script -->
@@ -131,14 +141,14 @@ class ActionsTawkto
 			'{USER_OFFICE_PHONE}' => $user->office_phone,
 			'{USER_MOBILE_PHONE}' => $user->user_mobile,
 
-			'{COMPANY_NAME}' => $conf->global->MAIN_INFO_SOCIETE_NOM,
-			'{COMPANY_EMAIL}' => $conf->global->MAIN_INFO_SOCIETE_MAIL,
-			'{COMPANY_PHONE}' => $conf->global->MAIN_INFO_SOCIETE_TEL,
-			'{SIREN}' => $conf->global->MAIN_INFO_SIREN,
+			'{COMPANY_NAME}' => getDolGlobalString('MAIN_INFO_SOCIETE_NOM'),
+			'{COMPANY_EMAIL}' => getDolGlobalString('MAIN_INFO_SOCIETE_MAIL'),
+			'{COMPANY_PHONE}' => getDolGlobalString('MAIN_INFO_SOCIETE_TEL'),
+			'{SIREN}' => getDolGlobalString('MAIN_INFO_SIREN'),
 
 			'{DOLIBARR_VERSION}' => DOL_VERSION,
 			'{IDTAWKTO}' => $idsitetawkto,
-			'{IDWIDGET}' => (empty($conf->global->TAWKTO_WIDGETID) ? 'default' : $conf->global->TAWKTO_WIDGETID)
+			'{IDWIDGET}' => getDolGlobalString('TAWKTO_WIDGETID', 'default')
 		));
 
 		return 0;

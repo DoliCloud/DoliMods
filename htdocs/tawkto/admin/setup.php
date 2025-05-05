@@ -119,6 +119,8 @@ $linkback = '<a href="' . DOL_URL_ROOT . '/admin/modules.php?restore_lastsearch_
 print load_fiche_titre($langs->trans($page_name), $linkback, 'object_tawkto@tawkto');
 
 // Configuration header
+$head = array();
+
 $h=0;
 $head[$h][0] = $_SERVER["PHP_SELF"];
 $head[$h][1] = $langs->trans("Setup");
@@ -130,7 +132,7 @@ $head[$h][1] = $langs->trans("About");
 $head[$h][2] = 'tababout';
 $h++;
 
-dol_fiche_head($head, 'tabsetup', '', -1, "tawkto@tawkto");
+dol_fiche_head($head, 'tabsetup', '', -1, '');
 
 // Setup page goes here
 //echo $langs->trans("MyModuleSetupPage");
