@@ -40,8 +40,6 @@ class modSkinColorEditor extends DolibarrModules
 	 */
 	function __construct($db)
 	{
-		global $langs,$conf;
-
 		$this->db = $db;
 
 		// Id for module (must be unique).
@@ -153,7 +151,7 @@ class modSkinColorEditor extends DolibarrModules
 	 */
 	function init($options = '')
 	{
-		$result=$this->load_tables();
+		$result = $this->load_tables();
 
 		$sql = array();
 
