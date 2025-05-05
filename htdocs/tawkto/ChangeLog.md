@@ -1,8 +1,11 @@
 # ChangeLog MODULE TAWKTO FOR <a href="https://www.dolibarr.org">DOLIBARR ERP CRM</a>
 
-## unrelease
+
+
+## 1.0.1
 
 NEW Can set name of widget instead of 'default' in a constant
+FIX Font awesome picto for recent version of dolibarr
 
 ## 1.0
 
