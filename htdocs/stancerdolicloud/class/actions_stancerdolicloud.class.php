@@ -87,7 +87,6 @@ class ActionsStancerDolicloud extends CommonHookActions
 	 */
 	public function getNomUrl($parameters, &$object, &$action)
 	{
-		global $db, $langs, $conf, $user;
 		$this->resprints = '';
 		return 0;
 	}
@@ -103,8 +102,6 @@ class ActionsStancerDolicloud extends CommonHookActions
 	 */
 	public function doActions($parameters, &$object, &$action, $hookmanager)
 	{
-		global $conf, $user, $langs;
-
 		$error = 0; // Error counter
 
 		/* print_r($parameters); print_r($object); echo "action: " . $action; */
@@ -136,8 +133,6 @@ class ActionsStancerDolicloud extends CommonHookActions
 	 */
 	public function doMassActions($parameters, &$object, &$action, $hookmanager)
 	{
-		global $conf, $user, $langs;
-
 		$error = 0; // Error counter
 
 		/* print_r($parameters); print_r($object); echo "action: " . $action; */
@@ -168,7 +163,7 @@ class ActionsStancerDolicloud extends CommonHookActions
 	 */
 	public function addMoreMassActions($parameters, &$object, &$action, $hookmanager)
 	{
-		global $conf, $user, $langs;
+		global $langs;
 
 		$error = 0; // Error counter
 		$disabled = 1;
@@ -200,17 +195,12 @@ class ActionsStancerDolicloud extends CommonHookActions
 	 */
 	public function beforePDFCreation($parameters, &$object, &$action)
 	{
-		global $conf, $user, $langs;
-		global $hookmanager;
-
-		$outputlangs = $langs;
-
 		$ret = 0;
-		$deltemp = array();
 		dol_syslog(get_class($this).'::executeHooks action='.$action);
 
 		/* print_r($parameters); print_r($object); echo "action: " . $action; */
-		if (in_array($parameters['currentcontext'], array('somecontext1', 'somecontext2'))) {		// do something only for the context 'somecontext1' or 'somecontext2'
+		if (in_array($parameters['currentcontext'], array('somecontext1', 'somecontext2'))) {
+			// do something only for the context 'somecontext1' or 'somecontext2'
 		}
 
 		return $ret;
@@ -228,13 +218,7 @@ class ActionsStancerDolicloud extends CommonHookActions
 	 */
 	public function afterPDFCreation($parameters, &$pdfhandler, &$action)
 	{
-		global $conf, $user, $langs;
-		global $hookmanager;
-
-		$outputlangs = $langs;
-
 		$ret = 0;
-		$deltemp = array();
 		dol_syslog(get_class($this).'::executeHooks action='.$action);
 
 		/* print_r($parameters); print_r($object); echo "action: " . $action; */
@@ -257,7 +241,7 @@ class ActionsStancerDolicloud extends CommonHookActions
 	 */
 	public function loadDataForCustomReports($parameters, &$action, $hookmanager)
 	{
-		global $conf, $user, $langs;
+		global $langs;
 
 		$langs->load("stancerdolicloud@stancerdolicloud");
 
@@ -327,7 +311,7 @@ class ActionsStancerDolicloud extends CommonHookActions
 	 */
 	public function completeTabsHead(&$parameters, &$object, &$action, $hookmanager)
 	{
-		global $langs, $conf, $user;
+		global $langs;
 
 		if (!isset($parameters['object']->element)) {
 			return 0;
@@ -380,7 +364,7 @@ class ActionsStancerDolicloud extends CommonHookActions
 	 */
 	public function doAddButton($parameters, &$object, &$action, $hookmanager)
 	{
-		global $conf, $user, $langs;
+		global $langs;
 
 		$error = 0; // Error counter
 		$resprints = "";
@@ -437,7 +421,11 @@ class ActionsStancerDolicloud extends CommonHookActions
 
 		if (array_key_exists("paymentmethod", $parameters) && (empty($parameters["paymentmethod"]) || $parameters["paymentmethod"] == 'stancerdolicloud') && isModEnabled('stancerdolicloud')) {
 			$langs->load("stancerdolicloud");
-			$validpaymentmethod['stancerdolicloud'] = 'valid';
+			if (!empty($parameters['mode'])) {
+				$validpaymentmethod['stancerdolicloud'] = array('label' => 'Stancer', 'status' => 'valid');
+			} else {
+				$validpaymentmethod['stancerdolicloud'] = 'valid';
+			}
 		}
 
 		if (!$error) {
@@ -460,7 +448,7 @@ class ActionsStancerDolicloud extends CommonHookActions
 	 */
 	public function doPayment($parameters, &$object, &$action, $hookmanager)
 	{
-		global $conf, $user, $langs,$db;
+		global $conf, $langs;
 
 		require_once DOL_DOCUMENT_ROOT."/core/lib/geturl.lib.php";
 		include_once DOL_DOCUMENT_ROOT.'/core/lib/security.lib.php';
@@ -479,8 +467,12 @@ class ActionsStancerDolicloud extends CommonHookActions
 		$FULLTAG = GETPOST("fulltag", 'alpha'); // fulltag is tag with more informations
 		$SECUREKEY = GETPOST("securekey"); // Secure key
 		$source = GETPOST('s', 'alpha') ? GETPOST('s', 'alpha') : GETPOST('source', 'alpha');
-		$object = null;
+		$suffix = GETPOST('suffix'); 	// ???
+		$entity = GETPOST('entity');
+		$getpostlang = GETPOST('lang');
 		$amount = price2num(GETPOST("amount", 'alpha'));
+
+		$object = null;
 
 		if ($action == "returnDoPaymentStancer") {
 			dol_syslog("Data after redirect from stancer payment page with session FinalPaymentAmt = ".$_SESSION["FinalPaymentAmt"]." currencycodeType = ".$_SESSION["currencyCodeType"], LOG_DEBUG);
@@ -577,7 +569,6 @@ class ActionsStancerDolicloud extends CommonHookActions
 			$urlback .= 'action=returnDoPaymentStancer';
 
 			if (!$error) {
-				$fulltag = $FULLTAG;
 				$FinalPaymentAmt = $_SESSION["FinalPaymentAmt"];
 				$currencyCodeType = $_SESSION["currencyCodeType"];
 				$amounttotest = $amount;
@@ -647,11 +638,11 @@ class ActionsStancerDolicloud extends CommonHookActions
 										if (!empty($tmpmessage['message'])) {
 											$errors[] = $langs->trans("Error").' - '.$tmpmessage['message'];
 										} else {
-											$errors[] = $langs->trans("UnkownError").' - HTTP code = '.$ret2["http_code"];
+											$errors[] = $langs->trans("UnkownError").' - HTTP code = '.$ret1["http_code"];
 										}
 									}
 								} else {
-									$errors[] = $langs->trans("UnkownError").' - HTTP code = '.$ret2["http_code"];
+									$errors[] = $langs->trans("UnkownError").' - HTTP code = '.$ret1["http_code"];
 								}
 							}
 							$error++;
@@ -685,7 +676,7 @@ class ActionsStancerDolicloud extends CommonHookActions
 	 */
 	public function isPaymentOK($parameters, &$object, &$action, $hookmanager)
 	{
-		global $conf, $user, $langs,$db;
+		global $langs;
 
 		$error = 0; // Error counter
 		$ispaymentok = true;
@@ -718,8 +709,6 @@ class ActionsStancerDolicloud extends CommonHookActions
 	 */
 	public function getBankAccountPaymentMethod($parameters, &$object, &$action, $hookmanager)
 	{
-		global $langs;
-
 		$error = 0; // Error counter
 
 		$bankaccountid = 0;
