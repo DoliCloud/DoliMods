@@ -41,6 +41,11 @@ require_once DOL_DOCUMENT_ROOT."/core/lib/files.lib.php";
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.formadmin.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.formfile.class.php';
 
+/**
+ * @var User      $user
+ * @var Conf	  $conf
+ * @var Translate $langs
+ */
 
 if (!$user->admin) accessforbidden();
 
@@ -48,7 +53,6 @@ $langs->load("admin");
 $langs->load("other");
 $langs->load("tawkto@tawkto");
 
-$def = array();
 $action=GETPOST('action', 'alpha');
 $confirm=GETPOST('confirm', 'alpha');
 $actionsave=GETPOST('save', 'alpha');
@@ -143,16 +147,15 @@ if ($action == 'edit') {
 	print '<input type="hidden" name="token" value="'.newToken().'">';
 	print '<input type="hidden" name="action" value="update">';
 
-	print '<table class="noborder" width="100%">';
-	print '<tr class="liste_titre"><td class="titlefield">'.$langs->trans("Parameter").'</td><td>'.$langs->trans("Value").'</td><td></td></tr>';
+	print '<br>';
+
+	print '<table class="noborder centpercent">';
+	print '<tr class="liste_titre"><td class="titlefield">'.$langs->trans("Parameter").'</td><td></td></tr>';
 
 	foreach ($arrayofparameters as $key => $val) {
 		print '<tr class="oddeven"><td>';
-		print $form->textwithpicto($langs->trans($key), $langs->trans($key.'Tooltip'));
+		print $form->textwithpicto($langs->trans($key), $langs->trans($key.'Tooltip').'<br><br>'.$langs->trans("Example").': 66e2d01e4851b82f32fa55e2');
 		print '</td><td><input name="'.$key.'" class="flat '.(empty($val['css'])?'minwidth200':$val['css']).'" value="' . getDolGlobalString($key) . '"></td>';
-		print '<td>';
-		if ($key == 'TAWKTO_ID') print $langs->trans("Example").': 66e2d01e4851b82f32fa55e2';
-		print '</td>';
 		print '</tr>';
 	}
 
@@ -165,16 +168,15 @@ if ($action == 'edit') {
 	print '</form>';
 	print '<br>';
 } else {
-	print '<table class="noborder" width="100%">';
-	print '<tr class="liste_titre"><td class="titlefield">'.$langs->trans("Parameter").'</td><td>'.$langs->trans("Value").'</td><td></td></tr>';
+	print '<br>';
+
+	print '<table class="noborder centpercent">';
+	print '<tr class="liste_titre"><td class="titlefield">'.$langs->trans("Parameter").'</td><td></td></tr>';
 
 	foreach ($arrayofparameters as $key => $val) {
 		print '<tr class="oddeven"><td>';
-		print $form->textwithpicto($langs->trans($key), $langs->trans($key.'Tooltip'));
+		print $form->textwithpicto($langs->trans($key), $langs->trans($key.'Tooltip').'<br><br>'.$langs->trans("Example").': 66e2d01e4851b82f32fa55e2');
 		print '</td><td>' . getDolGlobalString($key) . '</td>';
-		print '<td>';
-		if ($key == 'TAWKTO_ID') print $langs->trans("Example").': 66e2d01e4851b82f32fa55e2';
-		print '</td>';
 		print '</tr>';
 	}
 
@@ -188,6 +190,16 @@ if ($action == 'edit') {
 
 // Page end
 dol_fiche_end();
+
+if (getDolGlobalString('TAWKTO_ID')) {
+	print '<br>';
+
+	print img_picto('', 'url', 'class="pictofixedwidth"').'<span class="opacitymedium">'.$langs->trans("TestDirectChatLink").'</span>';
+	print '<div class="urllink">';
+	print '<input type="text" class="quatrevingtpercentminusx" spellcheck="false" value="https://tawk.to/chat/'.getDolGlobalString('TAWKTO_ID').'/default">';
+	print '<a href="https://tawk.to/chat/'.getDolGlobalString('TAWKTO_ID').'/default" target="_blank">'.img_picto('', 'url').'</a>';
+	print '</div>';
+}
 
 llxFooter();
 $db->close();

@@ -14,3 +14,4 @@ ClickToCloseChat=Chat is available on bottom of page. Click to close Chat.
 TAWKTO_ID=TawkTo ID of support provider
 TAWKTO_IDTooltip=Enter here the TawkTo ID provided by the support center that offer its online support.
 TawkToModuleEnabledWithoutSetup=The module TawkTo was enabled but its setup is not complete.
+TestDirectChatLink=Test the direct chat link...
