@@ -192,8 +192,6 @@ if ($action == 'edit') {
 dol_fiche_end();
 
 if (getDolGlobalString('TAWKTO_ID')) {
-	print '<br>';
-
 	print img_picto('', 'url', 'class="pictofixedwidth"').'<span class="opacitymedium">'.$langs->trans("TestDirectChatLink").'</span>';
 	print '<div class="urllink">';
 	print '<input type="text" class="quatrevingtpercentminusx" spellcheck="false" value="https://tawk.to/chat/'.getDolGlobalString('TAWKTO_ID').'/default">';
