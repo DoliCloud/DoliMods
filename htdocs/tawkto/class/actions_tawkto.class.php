@@ -75,7 +75,7 @@ class ActionsTawkto
 	 */
 	function printLeftBlock()
 	{
-		global $user, $langs;
+		global $user, $langs, $mysoc;
 
 		// Get TawkTo ID
 		$idsitetawkto = getDolGlobalString('TAWKTO_ID');
@@ -98,26 +98,28 @@ class ActionsTawkto
 			<!-- Even if this code is available into page, the widget may be visible only if service is online, depending on widget setup -->
 			<script type='text/javascript'>
 			var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+
 			Tawk_API.onLoad = function(){
 			    Tawk_API.setAttributes({
 			        'name'  : '{USER_NAME}',
-			        'email' : '{USER_EMAIL}',
-			        'hash'  : '{HASH}',
+			        'email' : '{USER_EMAIL}',";
 
-			        'User Phone 1' : '{USER_OFFICE_PHONE}',
-			        'User Phone 2' : '{USER_MOBILE_PHONE}',
+		if (getDolGlobalString('TAWKTO_JSAPI_KEY')) {
+			$htmlChatScript .= "			'hash'  : '{HASH}',";
+		}
 
-			        'Company' : '{COMPANY_NAME}',
-			        'SIREN' : '{SIREN}',
-			        'Company Phone' : '{COMPANY_PHONE}',
-			        'Company Email' : '{COMPANY_EMAIL}',
+		$htmlChatScript .= "
+			        'primaryPhone' : '{USER_PHONE}',
 
-			        'Dolibarr Version' : '{DOLIBARR_VERSION}',
-			    }, function(error){});
-			}
+			        'Company' : '{MYCOMPANY_NAME}',
+			        'CompanyIDProf1' : '{MYCOMPANY_IDPROF1}',
+			        'CompanyPhone' : '{MYCOMPANY_PHONE}',
+			        'CompanyEmail' : '{MYCOMPANY_EMAIL}',
 
-			Tawk_API.visitor = {
+			        'DolVersion' : '{DOLIBARR_VERSION}',";
 
+		$htmlChatScript .= "
+			    }, function(error) { console.log(error); });
 			};
 
 			(function(){
@@ -136,15 +138,13 @@ class ActionsTawkto
 		$this->resprints = strtr($htmlChatScript, array(
 			'{USER_NAME}' => $userIdentity,
 			'{USER_EMAIL}' => $userEmail,
-			'{HASH}' => hash_hmac("sha256", $userEmail, "dolibarr"),
+			'{USER_PHONE}' => (string) ($user->office_phone ? $user->office_phone : $user->user_mobile),
+			'{HASH}' => hash_hmac("sha256", $userEmail, getDolGlobalString('TAWKTO_JSAPI_KEY')),
 
-			'{USER_OFFICE_PHONE}' => $user->office_phone,
-			'{USER_MOBILE_PHONE}' => $user->user_mobile,
-
-			'{COMPANY_NAME}' => getDolGlobalString('MAIN_INFO_SOCIETE_NOM'),
-			'{COMPANY_EMAIL}' => getDolGlobalString('MAIN_INFO_SOCIETE_MAIL'),
-			'{COMPANY_PHONE}' => getDolGlobalString('MAIN_INFO_SOCIETE_TEL'),
-			'{SIREN}' => getDolGlobalString('MAIN_INFO_SIREN'),
+			'{MYCOMPANY_NAME}' => getDolGlobalString('MAIN_INFO_SOCIETE_NOM'),
+			'{MYCOMPANY_EMAIL}' => getDolGlobalString('MAIN_INFO_SOCIETE_MAIL'),
+			'{MYCOMPANY_PHONE}' => getDolGlobalString('MAIN_INFO_SOCIETE_TEL'),
+			'{MYCOMPANY_IDPROF1}' => $mysoc->idprof1,
 
 			'{DOLIBARR_VERSION}' => DOL_VERSION,
 			'{IDTAWKTO}' => $idsitetawkto,
