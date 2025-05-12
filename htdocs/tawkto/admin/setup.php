@@ -60,50 +60,21 @@ $actionsave=GETPOST('save', 'alpha');
 $modules = array('proposals','orders','invoices');
 
 
-$arrayofparameters=array('TAWKTO_ID'=>array('css'=>'minwidth300'));
-// Exemple: 59e0d01e4854b82732ff55e3
+$arrayofparameters=array(
+	'TAWKTO_ID'=>array('css'=>'minwidth300', 'mandatory'=>1, 'help' => $langs->trans('TAWKTO_IDTooltip').'<br><br>'.$langs->trans("Example").': 66e2d01e4851b82f32fa55e2'),
+	'TAWKTO_WIDGET_ID'=>array('css'=>'minwidth300', 'placeholder' => 'default', 'help' => $langs->trans('TAWKTO_WIDGET_ID').'<br><br>'.$langs->trans("Example").': default')
+);
 
 
 /*
  * Actions
  */
 
-if ((float) DOL_VERSION < 7.0) {
-	if ($action == 'update' && is_array($arrayofparameters)) {
-		$db->begin();
-
-		$error=0;
-
-		foreach ($arrayofparameters as $key => $val) {
-			$value = GETPOST($key, 'alpha');
-
-			if ($key == 'TAWKTO_ID' && preg_match('/http/', $value)) {
-				setEventMessages('Value must be a valid ID Site', null, 'errors');
-				$error++;
-				break;
-			}
-
-			$result=dolibarr_set_const($db, $key, $value, 'chaine', 0, '', $conf->entity);
-			if ($result < 0) {
-				$error++;
-				break;
-			}
-		}
-
-		if (! $error) {
-			$db->commit();
-			if (empty($nomessageinupdate)) setEventMessages($langs->trans("SetupSaved"), null, 'mesgs');
-		} else {
-			$db->rollback();
-			if (empty($nomessageinupdate)) setEventMessages($langs->trans("SetupNotSaved"), null, 'errors');
-		}
-	}
-} else {
-	$idsite = GETPOST('TAWKTO_ID', 'alpha');
-	if (preg_match('/http/', $idsite)) {
-		setEventMessages('Value must be a valid ID Site', null, 'errors');
-		$error++;
-	}
+// Test value of TAWKTO_ID
+$idsite = GETPOST('TAWKTO_ID', 'alpha');
+if (preg_match('/http/', $idsite)) {
+	setEventMessages('Value must be a valid ID Site', null, 'errors');
+	$error++;
 }
 
 include DOL_DOCUMENT_ROOT.'/core/actions_setmoduleoptions.inc.php';
@@ -155,7 +126,11 @@ if ($action == 'edit') {
 	foreach ($arrayofparameters as $key => $val) {
 		print '<tr class="oddeven"><td>';
 		print $form->textwithpicto($langs->trans($key), $langs->trans($key.'Tooltip').'<br><br>'.$langs->trans("Example").': 66e2d01e4851b82f32fa55e2');
-		print '</td><td><input name="'.$key.'" class="flat '.(empty($val['css'])?'minwidth200':$val['css']).'" value="' . getDolGlobalString($key) . '"></td>';
+		print '</td><td><input name="'.$key.'" class="flat '.(empty($val['css'])?'minwidth200':$val['css']).'" value="' . getDolGlobalString($key, empty($val['default']) ? '' : $val['default']) . '"';
+		if (!empty($val['placeholder'])) {
+			print ' placeholder="'.$val['placeholder'].'"';
+		}
+		print '></td>';
 		print '</tr>';
 	}
 
@@ -171,11 +146,11 @@ if ($action == 'edit') {
 	print '<br>';
 
 	print '<table class="noborder centpercent">';
-	print '<tr class="liste_titre"><td class="titlefield">'.$langs->trans("Parameter").'</td><td></td></tr>';
+	print '<tr class="liste_titre"><td class="titlefieldcreate">'.$langs->trans("Parameter").'</td><td></td></tr>';
 
 	foreach ($arrayofparameters as $key => $val) {
-		print '<tr class="oddeven"><td>';
-		print $form->textwithpicto($langs->trans($key), $langs->trans($key.'Tooltip').'<br><br>'.$langs->trans("Example").': 66e2d01e4851b82f32fa55e2');
+		print '<tr class="oddeven"><td'.(empty($val['mandatory']) ? '' : ' class="fieldrequired"').'>';
+		print $form->textwithpicto($langs->trans($key), $val['help']);
 		print '</td><td>' . getDolGlobalString($key) . '</td>';
 		print '</tr>';
 	}
@@ -194,8 +169,8 @@ dol_fiche_end();
 if (getDolGlobalString('TAWKTO_ID')) {
 	print img_picto('', 'url', 'class="pictofixedwidth"').'<span class="opacitymedium">'.$langs->trans("TestDirectChatLink").'</span>';
 	print '<div class="urllink">';
-	print '<input type="text" class="quatrevingtpercentminusx" spellcheck="false" value="https://tawk.to/chat/'.getDolGlobalString('TAWKTO_ID').'/default">';
-	print '<a href="https://tawk.to/chat/'.getDolGlobalString('TAWKTO_ID').'/default" target="_blank">'.img_picto('', 'url').'</a>';
+	print '<input type="text" class="quatrevingtpercentminusx" spellcheck="false" value="https://tawk.to/chat/'.getDolGlobalString('TAWKTO_ID').'/'.getDolGlobalString('TAWKTO_WIDGET_ID', 'default').'">';
+	print '<a href="https://tawk.to/chat/'.getDolGlobalString('TAWKTO_ID').'/'.getDolGlobalString('TAWKTO_WIDGET_ID', 'default').'" target="_blank">'.img_picto('', 'url').'</a>';
 	print '</div>';
 }
 

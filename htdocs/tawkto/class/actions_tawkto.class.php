@@ -148,7 +148,7 @@ class ActionsTawkto
 
 			'{DOLIBARR_VERSION}' => DOL_VERSION,
 			'{IDTAWKTO}' => $idsitetawkto,
-			'{IDWIDGET}' => getDolGlobalString('TAWKTO_WIDGETID', 'default')
+			'{IDWIDGET}' => getDolGlobalString('TAWKTO_WIDGET_ID', 'default')
 		));
 
 		return 0;
