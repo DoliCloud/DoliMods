@@ -1,0 +1,58 @@
+Test AI prompt
+
+“Analyze the contents of the pdf or image and convert all readable text and numerical information into a structured JSON format. Follow these guidelines:
+
+1. **Hierarchical Structure:** Group related information into logical categories like "document_info," "entities," "items," "transactions," "details," and "summary," depending on the content.
+2. **Flexible Field Identification:** Identify and organize common fields such as:
+ - "document_number," "reference_number," "id"
+ - "date," "issue_date," "due_date," "transaction_date"
+ - "issuer," "sender," "from"
+ - "recipient," "customer," "to"
+ - "items," "products," "services," "transactions," "entries"
+ - "totals," "summary," "amounts," "balance"
+ - "contact_information," "address," "phone," "email"
+ - "notes," "comments," "messages," "terms"
+3. **Handle Tables and Lists:** If the image contains tables, represent each row as an object in a list with fields like "no," "description," "quantity," "rate," "price," "total."
+4. **Normalize Dates:** If dates are present, format them in ISO format (YYYY-MM-DD) whenever possible.
+5. **Ignore Background Noise:** Exclude background noise, decorative elements, and irrelevant symbols that do not contribute to the data content.
+6. **Preserve Context:** If the image contains sections, headings, or grouping indicators, use them to create logical hierarchies in the JSON structure.
+7. **General Usability:** Format the text to be suitable for further processing, analysis, or database import.
+
+**Example JSON Structure:**
+
+```json
+{
+ "document_info": {
+ "document_number": "<number>",
+ "date": "<date>",
+ "title": "<title>"
+ },
+ "issuer": {
+ "name": "<name>",
+ "address": "<address>",
+ "phone": "<phone number>",
+ "email": "<email>"
+ },
+ "recipient": {
+ "name": "<name>",
+ "address": "<address>",
+ "phone": "<phone number>",
+ "email": "<email>"
+ },
+ "items": [
+ {
+ "no": "<number>",
+ "description": "<description>",
+ "quantity": "<quantity>",
+ "rate": "<unit price>",
+ "total": "<total>"
+ }
+ ],
+ "summary": {
+ "subtotal": "<subtotal>",
+ "tax": "<tax>",
+ "total_due": "<total>"
+ },
+ "notes": "<optional text>"
+}
+
