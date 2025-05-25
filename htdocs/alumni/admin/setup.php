@@ -109,7 +109,12 @@ $fieldOptions = array(0 => 'Draft', 1 => 'Open', 2 => 'Closed');
 $formSetup->newItem('ALUMNI_ENABLE_SURVEY')->setAsSelect($fieldOptions);
 
 // Setup to show the step
-$fieldOptions = array(1 => 'Step 1 - Communication and first survey', 2 => 'Step 2 - Selection of town and exact day', 3 => 'Step 3 - Organization of event');
+$fieldOptions = array(
+	1 => 'Step 1 - Communication and first survey',
+	2 => 'Step 2 - Selection of town and exact day',
+	3 => 'Step 3 - Organization of event',
+	4 => 'Step 4 - Event is terminated'
+);
 $formSetup->newItem('ALUMNI_STEP_ORGANIZATION')->setAsSelect($fieldOptions);
 
 
