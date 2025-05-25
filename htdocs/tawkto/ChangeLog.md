@@ -4,7 +4,7 @@
 
 ## 1.0.1
 
-NEW Can set name of widget instead of 'default' in a constant
+NEW Can set name of widget instead of 'default'
 FIX Font awesome picto for recent version of dolibarr
 
 ## 1.0
