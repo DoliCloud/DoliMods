@@ -1,6 +1,6 @@
 <?php
-/* Copyright (C) 2004-2017 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2023 Alice Adminson <contact@doliasso.org>
+/* Copyright (C) 2004-2017 	Laurent Destailleur  <eldy@users.sourceforge.net>
+ * Copyright (C) 2023 		Alice Adminson <contact@doliasso.org>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -111,6 +111,22 @@ $formSetup->newItem('ALUMNI_ENABLE_SURVEY')->setAsSelect($fieldOptions);
 // Setup to show the step
 $fieldOptions = array(1 => 'Step 1 - Communication and first survey', 2 => 'Step 2 - Selection of town and exact day', 3 => 'Step 3 - Organization of event');
 $formSetup->newItem('ALUMNI_STEP_ORGANIZATION')->setAsSelect($fieldOptions);
+
+// Setup URL photo before
+$item = $formSetup->newItem('ALUMNI_URL_ALBUM_PHOTO_BEFORE');
+$item->fieldAttr = array('placeholder' => 'https://...');
+$item->helpText = 'URL shown into the website if used';
+
+// Setup URL photo now
+$item = $formSetup->newItem('ALUMNI_URL_ALBUM_PHOTO_NOW');
+$item->fieldAttr = array('placeholder' => 'https://...');
+$item->helpText = 'URL shown into the website if used';
+
+// Setup URL photo of event
+$item = $formSetup->newItem('ALUMNI_URL_ALBUM_PHOTO_EVENT');
+$item->fieldAttr = array('placeholder' => 'https://...');
+$item->helpText = 'URL shown into the web site if used, after step 4 (when event is terminated)';
+
 
 
 $setupnotempty += count($formSetup->items);
