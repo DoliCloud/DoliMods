@@ -1,0 +1,62 @@
+# Copyright (C) 2024		Alice Adminson				<myemail@mycompany.com>
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+#
+# Generic
+#
+
+# Module label 'ModuleDiscussionName'
+ModuleDiscussionName = Discussion
+# Module description 'ModuleDiscussionDesc'
+ModuleDiscussionDesc = Discussion description
+
+#
+# Admin page
+#
+DiscussionSetup = Discussion setup
+Settings = Settings
+DiscussionSetupPage = Discussion setup page
+NewSection=New section
+DISCUSSION_MYPARAM1 = My param 1
+DISCUSSION_MYPARAM1Tooltip = My param 1 tooltip
+DISCUSSION_MYPARAM2=My param 2
+DISCUSSION_MYPARAM2Tooltip=My param 2 tooltip
+
+
+#
+# About page
+#
+About = About
+DiscussionAbout = About Discussion
+DiscussionAboutPage = Discussion about page
+
+#
+# Sample page
+#
+ListChannel = List of channel
+NewChannel = New channel
+
+#
+# Sample widget
+#
+MyWidget = My widget
+MyWidgetDescription = My widget description
+
+
+TypeContact_channel_internal_CHANNELADMIN=Channel administrator
+TypeContact_channel_internal_CHANNELCONTRIBUTOR=Channel contributor
+StartConversation= Send a message to start the conversation
+SendMessage = Send message
+OnlyChannelContacts=Only channel's contacts
