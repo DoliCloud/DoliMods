@@ -511,6 +511,10 @@ class Channel extends CommonObject
 	public function delete(User $user, $notrigger = 0)
 	{
 		//return $this->deleteCommon($user, $notrigger);
+		if (!$this->isChannelAdmin($user->id)) {
+			$this->error = 'ErrorDeleteNotAllowed';
+			return -1;
+		}
 		return $this->deleteCommon($user, $notrigger, 1);
 	}
 
