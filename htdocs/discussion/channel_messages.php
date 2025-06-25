@@ -207,9 +207,13 @@ if ($id > 0 || !empty($ref)) {
 	foreach ($onlineusers as $key => $usr) {
 		$tooltip .= '<div id="onlineuser_'.$key.'">'.$usr->name.'</div>';
 	}
+	$param = array();
 	$param["tooltip"] = $tooltip;
+	$param["badgeParams"]["attr"] = array("id" => "channelonline_status");
 	$morehtmlref = '<span id="channelonline" class="'.($nbonlineusers > 0 ? '': 'hidden').'">'.dolGetStatus('', '', '', 'status4', 3, '', $param)."</span>";
-	$morehtmlref .= '<span id="channeloffline" class="' .($nbonlineusers == 0 ? '': 'hidden').'">'.dolGetStatus('', '', '', 'status0', 3)."</span>";
+	$param = array();
+	$param["badgeParams"]["attr"] = array("id" => "channeloffline_status");
+	$morehtmlref .= '<span id="channeloffline" class="' .($nbonlineusers == 0 ? '': 'hidden').'">'.dolGetStatus('', '', '', 'status0', 3, '', $param)."</span>";
 	dol_banner_tab($object, 'ref', $linkback, 1, 'ref', 'ref', $morehtmlref);
 
 	$arraymessage = $messagestatic->fetchAll('DESC', 'date_creation', $limit, 0, '((fk_discussion_channel:=:'.((int) $id).'))');
@@ -442,10 +446,16 @@ if ($id > 0 || !empty($ref)) {
 				userarray = data.users;
 				console.log(userarray);
 			}
-
 			if (data.nbuserconnected > 1){
 				$("#channeloffline").hide();
 				$("#channelonline").show();
+				var titleonline = "";
+				userarray.forEach(function (element){
+					if (element.id != selfuserid && element.status){
+						titleonline += (titleonline != "" ? ", " + element.name : element.name)
+					}
+				})
+				$("#channelonline_status").attr("title", titleonline);
 			} else {
 			 	$("#channeloffline").show();
 				$("#channelonline").hide();
