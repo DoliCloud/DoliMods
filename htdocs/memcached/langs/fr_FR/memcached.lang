@@ -19,7 +19,7 @@ ClientNotFound=Votre PHP doit supporter les fonctions clientes d'accès au serve
 PrefixForKeysInCache=Prefix des clés Dolibarr utilisées dans le cache serveur
 ServerSetup=Configuration serveur
 ServerStatistics=Statistiques serveur
-CacheBrowser=Navigateur cache
+CacheBrowser=Navigation dans le cache
 WarningStatsForAllServer=Attention, les statistiques du serveur memcached intègrent toutes les applications utilisant ce serveur et pas seulement Dolibarr.
 AboutInfo=Ce module est développé et diffusé par Laurent Destailleur pour DoliCloud, <a target="_blank" href="https://www.dolicloud.com?origin=dolimods">www.dolicloud.com</a> (société labellisé Dolibarr Prefered Partner).
 MoreModules=D'autres modules du même auteur sont disponibles sur la place de marché officielle DoliStore...
