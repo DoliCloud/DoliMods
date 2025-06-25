@@ -744,9 +744,9 @@ switch ($_GET['op']) {
 
 		echo <<< EOB
 		<div class="infomemcached div1"><h2>General Cache Information</h2>
-		<table cellspacing=0><tbody>
+		<table class="noborder centpercent"><tbody>
 EOB;
-		echo "<tr class=tr-0><td class=td-0 width=\"250px\">Memcached Host". ((count($MEMCACHE_SERVERS)>1) ? 's':'')."</td><td>";
+		echo '<tr class=tr-0><td class="td-0 titlefieldmiddle">Memcached Host'. ((count($MEMCACHE_SERVERS)>1) ? 's':'')."</td><td>";
 		$i=0;
 		if (!isset($_GET['singleout']) && count($MEMCACHE_SERVERS)>1) {
 			foreach ($MEMCACHE_SERVERS as $server) {
@@ -759,29 +759,31 @@ EOB;
 			  echo '<a href="'.$PHP_SELF.'">(all servers)</a><br/>';
 		}
 		echo "</td></tr>\n";
-		echo "<tr class=tr-1><td class=td-0>Total Memcache Cache</td><td>".dol_print_size($memcacheStats['limit_maxbytes'], 1)."</td></tr>\n";
+		echo '<tr class=tr-1><td class="td-0 titlefieldmiddle">Total Memcache Cache</td><td>'.dol_print_size($memcacheStats['limit_maxbytes'], 1)."</td></tr>\n";
 
 		echo <<<EOB
 		</tbody></table>
 		</div>
 
-		<div class="infomemcached div1"><h2>Memcache Server Information</h2>
+		<div class="infomemcached div1 centpercent"><h2>Memcache Server Information</h2>
 EOB;
 		foreach ($MEMCACHE_SERVERS as $server) {
-			echo '<table cellspacing=0><tbody>';
-			echo '<tr class=tr-1><td class=td-1 width="250px">'.$server.'</td><td>&nbsp;</td></tr>';
+			echo '<table class="noborder centpercent"><tbody>';
+			echo '<tr class=tr-0><td class="td-0 titlefieldmiddle">'.$langs->trans("Address").'</td><td>'.$server.'</td></tr>';
 			echo '<tr class=tr-0><td class=td-0>Start Time</td><td>',dol_print_date($memcacheStatsSingle[$server]['STAT']['time']-$memcacheStatsSingle[$server]['STAT']['uptime'], 'dayhour'),'</td></tr>';
-			echo '<tr class=tr-1><td class=td-0>Uptime</td><td>',duration($memcacheStatsSingle[$server]['STAT']['time']-$memcacheStatsSingle[$server]['STAT']['uptime']),'</td></tr>';
+			echo '<tr class=tr-0><td class=td-0>Uptime</td><td>',duration($memcacheStatsSingle[$server]['STAT']['time']-$memcacheStatsSingle[$server]['STAT']['uptime']),'</td></tr>';
 			echo '<tr class=tr-0><td class=td-0>Memcached Server Version</td><td>'.$memcacheStatsSingle[$server]['STAT']['version'].'</td></tr>';
-			echo '<tr class=tr-1><td class=td-0>Used Cache Size</td><td>',dol_print_size($memcacheStatsSingle[$server]['STAT']['bytes'], 1),'</td></tr>';
+			echo '<tr class=tr-0><td class=td-0>Used Cache Size</td><td>',dol_print_size($memcacheStatsSingle[$server]['STAT']['bytes'], 1),'</td></tr>';
 			echo '<tr class=tr-0><td class=td-0>Total Cache Size</td><td>',dol_print_size($memcacheStatsSingle[$server]['STAT']['limit_maxbytes'], 1),'</td></tr>';
 			echo '</tbody></table>';
 		}
 		echo <<<EOB
 
 		</div>
+		
+
 		<div class="graph div3"><h2>Host Status Diagrams</h2>
-		<table cellspacing=0><tbody>
+		<table class="noborder"><tbody>
 EOB;
 
 		$size='width='.(GRAPH_SIZE+50).' height='.(GRAPH_SIZE+10);
@@ -808,21 +810,26 @@ EOB;
 		echo <<< EOB
 	</tr>
 	</tbody></table>
-<br/>
+	</div>
+
+	<br>
+
+
+
 	<div class="infomemcached"><h2>Cache Information</h2>
-		<table class="border" width="100%"><tbody>
+		<table class="noborder"><tbody>
 EOB;
 
-			print '<tr class="oddeven"><td>'.$langs->trans("ItemsInCache").'</td>';
+			print '<tr class="tr-0"><td class="td-0 titlefieldmiddle">'.$langs->trans("ItemsInCache").'</td>';
 			print '<td>'.$curr_items.' ('.$total_items.')</td></tr>';
-			print '<tr class="oddeven"><td>'.$langs->trans("NumberOfCacheInsert").'</td>';
+			print '<tr><td class="td-0 titlefieldmiddle">'.$langs->trans("NumberOfCacheInsert").'</td>';
 			print '<td>'.$sets.'</td></tr>';
-			print '<tr class="oddeven"><td>'.$langs->trans("NumberOfCacheRead").'</td>';
+			print '<tr><td class="td-0 titlefieldmiddle">'.$langs->trans("NumberOfCacheRead").'</td>';
 			print '<td>'.$hits.' / '.($hits+$misses).' &nbsp; '.sprintf(" (%.1f%%)", $hits*100/($hits+$misses)).'</td></tr>';
-			print '<tr class="oddeven"><td>Request Rate (success hits + misses)</td><td>'.$req_rate.' cache requests/second</td></tr>';
-			print '<tr class="oddeven"><td>Hit Rate</td><td>'.$hit_rate.' cache requests/second</td></tr>';
-			print '<tr class="oddeven"><td>Miss Rate</td><td>'.$miss_rate.' cache requests/second</td></tr>';
-			print '<tr class="oddeven"><td>Set Rate</td><td>'.$set_rate.' cache requests/second</td></tr>';
+			print '<tr><td class="td-0 titlefieldmiddle">Request Rate (success hits + misses)</td><td>'.$req_rate.' cache requests/second</td></tr>';
+			print '<tr><td class="td-0 titlefieldmiddle">Hit Rate</td><td>'.$hit_rate.' cache requests/second</td></tr>';
+			print '<tr><td class="td-0 titlefieldmiddle">Miss Rate</td><td>'.$miss_rate.' cache requests/second</td></tr>';
+			print '<tr><td class="td-0 titlefieldmiddle">Set Rate</td><td>'.$set_rate.' cache requests/second</td></tr>';
 		print <<<EOB
 		</tbody></table>
 		</div>
@@ -843,36 +850,36 @@ EOB;
 			print '<br>';
 
 			print <<<EOB
-		<table class="noborder" width="100%"><tbody>
-			<tr class="liste_titre"><th colspan="2">$server</th></tr>
-			<tr><th>Slab Id</th><th>Info</th></tr>
+		<table class="noborder centpercent"><tbody>
+			<tr class="liste_titre"><th class="nowraponall center" style="width: 75px">Slab Id</th><th>Info</th></tr>
 EOB;
 
 			foreach ($entries as $slabId => $slab) {
 				$dumpUrl = $PHP_SELF.'&op=2&server='.(array_search($server, $MEMCACHE_SERVERS)).'&dumpslab='.$slabId;
 				echo
 					'<tr class="oddeven">',
-					"<td><center>",'<a href="',$dumpUrl,'">',$slabId,'</a>',"</center></td>",
-					"<td><b>Item count:</b> ",$slab['number'],'<br/><b>Age:</b>',duration($time-$slab['age']),'<br/> <b>Evicted:</b>',((isset($slab['evicted']) && $slab['evicted']==1)? 'Yes':'No');
+					'<td style="width: 75px"><center>','<a href="',$dumpUrl,'">',$slabId,'</a>',"</center></td>",
+					"<td><b>Item count:</b> ",$slab['number'],' - <b>Age:</b>',duration($time-$slab['age']),' - <b>Evicted:</b>',((isset($slab['evicted']) && $slab['evicted']==1)? 'Yes':'No');
 				if ((isset($_GET['dumpslab']) && $_GET['dumpslab']==$slabId) &&  (isset($_GET['server']) && $_GET['server']==array_search($server, $MEMCACHE_SERVERS))) {
-						echo "<br/><b>Items: item</b><br/>";
-						$items = dumpCacheSlab($server, $slabId, $slab['number']);
-						// maybe someone likes to do a pagination here :)
-						$i=1;
+					echo "<br><b>Items: item</b><br><small>";
+					$items = dumpCacheSlab($server, $slabId, $slab['number']);
+					// maybe someone likes to do a pagination here :)
+					$i=1;
 					foreach ($items['ITEM'] as $itemKey=>$itemInfo) {
 						$itemInfo = trim($itemInfo, '[ ]');
 
 
 						echo '<a href="',$PHP_SELF,'&op=4&server=',(array_search($server, $MEMCACHE_SERVERS)),'&key=',base64_encode($itemKey).'">',$itemKey,'</a>';
 						if ($i++ % 10 == 0) {
-							echo '<br/>';
+							echo '<br>';
 						} elseif ($i!=$slab['number']+1) {
-							echo ',';
+							echo ', ';
 						}
 					}
+					echo "</small>";
 				}
 
-					echo "</td></tr>";
+				echo "</td></tr>";
 				$m=1-$m;
 			}
 			echo <<<EOB
@@ -901,7 +908,7 @@ EOB;
 		print '<br>';
 
 		print <<<EOB
-        <table class="border" width="100%"><tbody>
+        <table class="border centpercent"><tbody>
 			<tr><th>Server<th>Key</th><th>Value</th><th>Delete</th></tr>
 EOB;
 		echo "<tr><td class=td-0>",$theserver,"</td><td class=td-0>",$theKey,
