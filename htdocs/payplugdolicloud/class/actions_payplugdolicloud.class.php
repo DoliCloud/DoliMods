@@ -88,7 +88,6 @@ class ActionsPayplugDolicloud extends CommonHookActions
 	 */
 	public function getNomUrl($parameters, &$object, &$action)
 	{
-		global $db, $langs, $conf, $user;
 		$this->resprints = '';
 		return 0;
 	}
@@ -104,8 +103,6 @@ class ActionsPayplugDolicloud extends CommonHookActions
 	 */
 	public function doActions($parameters, &$object, &$action, $hookmanager)
 	{
-		global $conf, $user, $langs;
-
 		$error = 0; // Error counter
 
 		/* print_r($parameters); print_r($object); echo "action: " . $action; */
@@ -139,8 +136,6 @@ class ActionsPayplugDolicloud extends CommonHookActions
 	 */
 	public function doMassActions($parameters, &$object, &$action, $hookmanager)
 	{
-		global $conf, $user, $langs;
-
 		$error = 0; // Error counter
 
 		/* print_r($parameters); print_r($object); echo "action: " . $action; */
@@ -175,7 +170,7 @@ class ActionsPayplugDolicloud extends CommonHookActions
 	 */
 	public function addMoreMassActions($parameters, &$object, &$action, $hookmanager)
 	{
-		global $conf, $user, $langs;
+		global $langs;
 
 		$error = 0; // Error counter
 		$disabled = 1;
@@ -341,7 +336,7 @@ class ActionsPayplugDolicloud extends CommonHookActions
 	 */
 	public function completeTabsHead(&$parameters, &$object, &$action, $hookmanager)
 	{
-		global $langs, $conf, $user;
+		global $langs;
 
 		if (!isset($parameters['object']->element)) {
 			return 0;
@@ -394,9 +389,8 @@ class ActionsPayplugDolicloud extends CommonHookActions
 	 */
 	public function doAddButton($parameters, &$object, &$action, $hookmanager)
 	{
-		global $conf, $user, $langs;
+		global $langs;
 
-		$error = 0; // Error counter
 		$resprints = "";
 		$error = "";
 
@@ -405,7 +399,7 @@ class ActionsPayplugDolicloud extends CommonHookActions
 			$resprints .= '<input type="hidden" name="noidempotency" value="'.GETPOST('noidempotency', 'int').'">';
 			$resprints .= '<input type="hidden" name="s" value="'.(GETPOST('s', 'alpha') ? GETPOST('s', 'alpha') : GETPOST('source', 'alpha')).'">';
 			$resprints .= '<input type="hidden" name="ref" value="'.GETPOST('ref').'">';
-			$resprints .= '<br>';			
+			$resprints .= '<br>';
 			$resprints .= '<span class="buttonpaymentsmall">'.$langs->trans("CreditOrDebitCard").'</span>';
 			$resprints .= '</div>';
 			$resprints .= '<script>
@@ -445,8 +439,8 @@ class ActionsPayplugDolicloud extends CommonHookActions
 	{
 		global $langs;
 
-		$error = 0; // Error counter
 		$error = "";
+		$validpaymentmethod = array();
 
 		if (array_key_exists("paymentmethod", $parameters) && (empty($parameters["paymentmethod"]) || $parameters["paymentmethod"] == 'payplug') && isModEnabled('payplugdolicloud')) {
 			$langs->load("payplugdolicloud");
