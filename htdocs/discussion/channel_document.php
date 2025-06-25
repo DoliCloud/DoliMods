@@ -131,10 +131,11 @@ if ($id > 0 || !empty($ref)) {
 // Permissions
 // (There are several ways to check permission.)
 // Set $enablepermissioncheck to 1 to enable a minimum low level of checks
-$enablepermissioncheck = 0;
+$enablepermissioncheck = 1;
+$ischanneladmin = $object->isChannelAdmin($user->id);
 if ($enablepermissioncheck) {
-	$permissiontoread = $user->hasRight('discussion', 'channel', 'read');
-	$permissiontoadd  = $user->hasRight('discussion', 'channel', 'write'); // Used by the include of actions_addupdatedelete.inc.php and actions_linkedfiles.inc.php
+	$permissiontoread = $user->hasRight('discussion', 'channel', 'read') && $ischanneladmin;
+	$permissiontoadd  = $user->hasRight('discussion', 'channel', 'write') && $ischanneladmin; // Used by the include of actions_addupdatedelete.inc.php and actions_linkedfiles.inc.php
 } else {
 	$permissiontoread = 1;
 	$permissiontoadd  = 1;
@@ -154,10 +155,6 @@ if (!$permissiontoread) {
 if (empty($object->id)) {
 	accessforbidden();
 }
-if (!$object->isChannelContact($user->id)) {
-  accessforbidden();
-}
-
 
 /*
  * Actions

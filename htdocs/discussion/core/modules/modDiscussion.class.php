@@ -521,18 +521,18 @@ class modDiscussion extends DolibarrModules
 			}
 		}
 		$rowsql = 0;
-		$resql = $this->db->query("SELECT rowid FROM " . MAIN_DB_PREFIX . "c_type_contact WHERE code = 'CHANNELADMIN' AND element = '" . strtolower($myTmpObjectKey) . "' AND source = 'internal'");
+		$resql = $this->db->query("SELECT rowid FROM " . MAIN_DB_PREFIX . "c_type_contact WHERE code = 'CHANNELCONTRIBUTOR' AND element = '" . strtolower($myTmpObjectKey) . "' AND source = 'internal'");
 		$res = $this->db->fetch_object($resql);
 		$nextid = $this->getNextId();
 		if (empty($res)) {
-			$sql = array_merge($sql, array("INSERT INTO " . MAIN_DB_PREFIX . "c_type_contact(rowid, element, source, code, libelle, active, module, position) VALUES(" . ((int) $nextid) . ", '" . strtolower($myTmpObjectKey) . "', 'internal', 'CHANNELADMIN', 'ChannelAdmin', 1, NULL, 0)"));
+			$sql = array_merge($sql, array("INSERT INTO " . MAIN_DB_PREFIX . "c_type_contact(rowid, element, source, code, libelle, active, module, position) VALUES(" . ((int) $nextid) . ", '" . strtolower($myTmpObjectKey) . "', 'internal', 'CHANNELCONTRIBUTOR', 'ChannelContributor', 1, NULL, 0)"));
 			$rowsql++;
 		}
-		$resql = $this->db->query("SELECT rowid FROM " . MAIN_DB_PREFIX . "c_type_contact WHERE code = 'CHANNELCONTRIBUTOR' AND element = '" . strtolower($myTmpObjectKey) . "' AND source = 'internal'");
+		$resql = $this->db->query("SELECT rowid FROM " . MAIN_DB_PREFIX . "c_type_contact WHERE code = 'CHANNELADMIN' AND element = '" . strtolower($myTmpObjectKey) . "' AND source = 'internal'");
 		$res = $this->db->fetch_object($resql);
 		$nextid = $this->getNextId() + $rowsql;
 		if (empty($res)) {
-			$sql = array_merge($sql, array("INSERT INTO " . MAIN_DB_PREFIX . "c_type_contact(rowid, element, source, code, libelle, active, module, position) VALUES(" . ((int) $nextid) . ", '" . strtolower($myTmpObjectKey) . "', 'internal', 'CHANNELCONTRIBUTOR', 'ChannelContributor', 1, NULL, 0)"));
+			$sql = array_merge($sql, array("INSERT INTO " . MAIN_DB_PREFIX . "c_type_contact(rowid, element, source, code, libelle, active, module, position) VALUES(" . ((int) $nextid) . ", '" . strtolower($myTmpObjectKey) . "', 'internal', 'CHANNELADMIN', 'ChannelAdmin', 1, NULL, 0)"));
 			$rowsql++;
 		}
 		return $this->_init($sql, $options);

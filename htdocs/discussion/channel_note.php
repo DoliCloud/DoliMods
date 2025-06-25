@@ -109,11 +109,12 @@ if ($id > 0 || !empty($ref)) {
 
 // There is several ways to check permission.
 // Set $enablepermissioncheck to 1 to enable a minimum low level of checks
-$enablepermissioncheck = 0;
+$enablepermissioncheck = 1;
+$ischanneladmin = $object->isChannelAdmin($user->id);
 if ($enablepermissioncheck) {
-	$permissiontoread = $user->hasRight('discussion', 'channel', 'read');
-	$permissiontoadd = $user->hasRight('discussion', 'channel', 'write');
-	$permissionnote = $user->hasRight('discussion', 'channel', 'write'); // Used by the include of actions_setnotes.inc.php
+	$permissiontoread = $user->hasRight('discussion', 'channel', 'read') && $ischanneladmin;
+	$permissiontoadd  = $user->hasRight('discussion', 'channel', 'write') && $ischanneladmin;
+	$permissionnote = $user->hasRight('discussion', 'channel', 'write') && $ischanneladmin; // Used by the include of actions_setnotes.inc.php
 } else {
 	$permissiontoread = 1;
 	$permissiontoadd = 1;
@@ -130,9 +131,6 @@ if (!isModEnabled("discussion")) {
 }
 if (!$permissiontoread) {
 	accessforbidden();
-}
-if (!$object->isChannelContact($user->id)) {
-  accessforbidden('User doesn\'t have the permission to access this channel', 403);
 }
 
 /*

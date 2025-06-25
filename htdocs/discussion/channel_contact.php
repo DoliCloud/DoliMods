@@ -84,10 +84,11 @@ include DOL_DOCUMENT_ROOT.'/core/actions_fetchobject.inc.php'; // Must be 'inclu
 
 // There is several ways to check permission.
 // Set $enablepermissioncheck to 1 to enable a minimum low level of checks
-$enablepermissioncheck = 0;
+$enablepermissioncheck = 1;
+$ischanneladmin = $object->isChannelAdmin($user->id);
 if ($enablepermissioncheck) {
-	$permissiontoread = $user->hasRight('discussion', 'channel', 'read');
-	$permissiontoadd = $user->hasRight('discussion', 'channel', 'write');
+	$permissiontoread = $user->hasRight('discussion', 'channel', 'read') && $ischanneladmin;
+	$permissiontoadd  = $user->hasRight('discussion', 'channel', 'write') && $ischanneladmin;
 } else {
 	$permissiontoread = 1;
 	$permissiontoadd = 1;
@@ -104,10 +105,6 @@ if (!isModEnabled("discussion")) {
 if (!$permissiontoread) {
 	accessforbidden();
 }
-if (!$object->isChannelContact($user->id)) {
-  accessforbidden();
-}
-
 /*
  * Add a new contact
  */

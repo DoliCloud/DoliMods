@@ -116,11 +116,12 @@ if ($res <= 0) {
 
 // There is several ways to check permission.
 // Set $enablepermissioncheck to 1 to enable a minimum low level of checks
-$enablepermissioncheck = 0;
+$enablepermissioncheck = 1;
+$ischannelcontact = $object->isChannelContact($user->id);
 if ($enablepermissioncheck) {
-	$permissiontoread = $user->hasRight('discussion', 'channel', 'read');
-	$permissiontoadd = $user->hasRight('discussion', 'channel', 'write');
-	$permissionnote = $user->hasRight('discussion', 'channel', 'write'); // Used by the include of actions_setnotes.inc.php
+	$permissiontoread = $user->hasRight('discussion', 'channel', 'read') && $ischannelcontact;
+	$permissiontoadd = $user->hasRight('discussion', 'channel', 'write') && $ischannelcontact;
+	$permissionnote = $user->hasRight('discussion', 'channel', 'write') && $ischannelcontact; // Used by the include of actions_setnotes.inc.php
 } else {
 	$permissiontoread = 1;
 	$permissiontoadd = 1;
@@ -138,10 +139,6 @@ if (!isModEnabled("discussion")) {
 if (!$permissiontoread) {
 	accessforbidden();
 }
-if (!$object->isChannelContact($user->id)) {
-  accessforbidden();
-}
-
 
 /*
  * Actions
@@ -271,7 +268,7 @@ if ($id > 0 || !empty($ref)) {
 	}
 	if (empty($arraymessage)) {
 		print '<li>';
-		print '<div class="center opacitymedium noborderbottom">';
+		print '<div id="divnodata" class="center opacitymedium noborderbottom">';
 		print $langs->trans("StartConversation");
 		print '</div>';
 		print '</li>';
@@ -464,6 +461,7 @@ if ($id > 0 || !empty($ref)) {
 			if (data.newmsg == "HEARTBEAT"){
 				console.log("SSE Still alive: "+data.newmsg);
 			} else {
+			 	$("#divnodata").hide();
 				newmsg = data.newmsg;
 				newmsg.forEach(function (element){
 					forgemessage(element, arraynewmessage, userarray);

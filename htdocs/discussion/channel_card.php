@@ -146,12 +146,14 @@ if ($enablepermissioncheck) {
 	$permissiontodelete = $user->hasRight('discussion', 'channel', 'delete') || ($permissiontoadd && isset($object->status) && $object->status == $object::STATUS_DRAFT);
 	$permissionnote = $user->hasRight('discussion', 'channel', 'write'); // Used by the include of actions_setnotes.inc.php
 	$permissiondellink = $user->hasRight('discussion', 'channel', 'write'); // Used by the include of actions_dellink.inc.php
+	$ischanneladmin = $object->isChannelAdmin($user->id);
 } else {
 	$permissiontoread = 1;
 	$permissiontoadd = 1; // Used by the include of actions_addupdatedelete.inc.php and actions_lineupdown.inc.php
 	$permissiontodelete = 1;
 	$permissionnote = 1;
 	$permissiondellink = 1;
+	$ischanneladmin = $object->isChannelAdmin($user->id);
 }
 
 $upload_dir = $conf->discussion->multidir_output[isset($object->entity) ? $object->entity : 1].'/channel';
@@ -168,7 +170,7 @@ if (!$permissiontoread) {
 	accessforbidden();
 }
 
-if (!$object->isChannelContact($user->id)) {
+if (!empty($object->id) && !$object->isChannelContact($user->id)) {
   accessforbidden();
 }
 $error = 0;
@@ -550,12 +552,12 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 			}*/
 
 			// Modify
-			print dolGetButtonAction('', $langs->trans('Modify'), 'default', $_SERVER["PHP_SELF"].'?id='.$object->id.'&action=edit&token='.newToken(), '', $permissiontoadd);
+			print dolGetButtonAction('', $langs->trans('Modify'), 'default', $_SERVER["PHP_SELF"].'?id='.$object->id.'&action=edit&token='.newToken(), '', $permissiontoadd && $ischanneladmin);
 
 			// Validate
-			if ($object->status == $object::STATUS_DRAFT) {
+			if ($object->status == $object::STATUS_DRAFT ) {
 				if (empty($object->table_element_line) || (is_array($object->lines) && count($object->lines) > 0)) {
-					print dolGetButtonAction('', $langs->trans('Validate'), 'default', $_SERVER['PHP_SELF'].'?id='.$object->id.'&action=confirm_validate&confirm=yes&token='.newToken(), '', $permissiontoadd);
+					print dolGetButtonAction('', $langs->trans('Validate'), 'default', $_SERVER['PHP_SELF'].'?id='.$object->id.'&action=confirm_validate&confirm=yes&token='.newToken(), '', $permissiontoadd && $ischanneladmin);
 				} else {
 					$langs->load("errors");
 					print dolGetButtonAction($langs->trans("ErrorAddAtLeastOneLineFirst"), $langs->trans("Validate"), 'default', '#', '', 0);
@@ -564,7 +566,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 
 			// Clone
 			if ($permissiontoadd) {
-				print dolGetButtonAction('', $langs->trans('ToClone'), 'default', $_SERVER['PHP_SELF'].'?id='.$object->id.(!empty($object->socid) ? '&socid='.$object->socid : '').'&action=clone&token='.newToken(), '', $permissiontoadd);
+				print dolGetButtonAction('', $langs->trans('ToClone'), 'default', $_SERVER['PHP_SELF'].'?id='.$object->id.(!empty($object->socid) ? '&socid='.$object->socid : '').'&action=clone&token='.newToken(), '', $permissiontoadd && $ischanneladmin);
 			}
 
 			/*
@@ -587,12 +589,12 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 
 			// Enable
 			if ($object->status == $object::STATUS_DRAFT) {
-				print dolGetButtonAction('', $langs->trans('Enable'), 'default', $_SERVER['PHP_SELF'].'?id='.$object->id.'&action=confirm_validate&confirm=yes&token='.newToken(), '', $permissiontoadd);
+				print dolGetButtonAction('', $langs->trans('Enable'), 'default', $_SERVER['PHP_SELF'].'?id='.$object->id.'&action=confirm_validate&confirm=yes&token='.newToken(), '', $permissiontoadd && $ischanneladmin);
 			}
 
 			// Disable
 			if ($object->status == $object::STATUS_VALIDATED) {
-				print dolGetButtonAction('', $langs->trans('Disable'), 'delete', $_SERVER["PHP_SELF"].'?id='.$object->id.'&action=confirm_setdraft&confirm=yes&token='.newToken(), '', $permissiontoadd);
+				print dolGetButtonAction('', $langs->trans('Disable'), 'delete', $_SERVER["PHP_SELF"].'?id='.$object->id.'&action=confirm_setdraft&confirm=yes&token='.newToken(), '', $permissiontoadd && $ischanneladmin);
 			}
 
 			// Delete (with preloaded confirm popup)
@@ -603,7 +605,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 				$buttonId = 'action-delete';
 			}
 			$params = array();
-			print dolGetButtonAction('', $langs->trans("Delete"), 'delete', $deleteUrl, $buttonId, $permissiontodelete, $params);
+			print dolGetButtonAction('', $langs->trans("Delete"), 'delete', $deleteUrl, $buttonId, $permissiontodelete && $ischanneladmin, $params);
 		}
 		print '</div>'."\n";
 	}

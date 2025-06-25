@@ -29,14 +29,14 @@
  */
 function channelPrepareHead($object)
 {
-	global $db, $langs, $conf;
+	global $db, $langs, $conf, $user;
 
 	$langs->load("discussion@discussion");
 
-	$showtabofpagecontact = 1;
-	$showtabofpagenote = 1;
-	$showtabofpagedocument = 1;
-	$showtabofpageagenda = 1;
+	$showtabofpagecontact = $object->isChannelAdmin($user->id);
+	$showtabofpagenote = $object->isChannelAdmin($user->id);
+	$showtabofpagedocument = $object->isChannelAdmin($user->id);
+	$showtabofpageagenda = $object->isChannelAdmin($user->id);
 
 	$h = 0;
 	$head = array();
