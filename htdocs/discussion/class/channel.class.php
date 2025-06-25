@@ -124,6 +124,7 @@ class Channel extends CommonObject
 		"status" => array("type" => "integer", "label" => "Status", "enabled" => "1", 'position' => 2000, 'notnull' => 1, "visible" => "4", "default" => "0", "index" => "1", "arrayofkeyval" => array("0" => "Disabled", "1" => "Enabled"), "validate" => "1",),
 		"private" => array("type" => "integer", "label" => "Visibility", "enabled" => "1", 'position' => 40, 'notnull' => 1, "visible" => "1", "default" => "0", "arrayofkeyval" => array("0" => "Everybody", "1" => "OnlyChannelContacts"),),
 		"label" => array("type" => "varchar(255)", "label" => "Label", "enabled" => "1", 'position' => 30, 'notnull' => 1, "visible" => "1",),
+		"entity" => array("type" => "integer", "label" => "Entity", "enabled" => "1", 'position' => 10, 'notnull' => 1, "visible" => "0", "default" => "1",),
 	);
 	public $rowid;
 	public $ref;
@@ -139,6 +140,7 @@ class Channel extends CommonObject
 	public $status;
 	public $private;
 	public $label;
+	public $entity;
 	// END MODULEBUILDER PROPERTIES
 
 

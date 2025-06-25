@@ -16,7 +16,7 @@
 
 -- BEGIN MODULEBUILDER INDEXES
 ALTER TABLE llx_discussion_channel ADD INDEX idx_discussion_channel_rowid (rowid);
-ALTER TABLE llx_discussion_channel ADD INDEX idx_discussion_channel_ref (ref);
+ALTER TABLE llx_discussion_channel ADD UNIQUE INDEX uk_discussion_channel_ref (ref, entity);
 ALTER TABLE llx_discussion_channel ADD INDEX idx_discussion_channel_status (status);
 -- END MODULEBUILDER INDEXES
 

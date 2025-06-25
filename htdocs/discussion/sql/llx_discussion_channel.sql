@@ -29,6 +29,7 @@ CREATE TABLE llx_discussion_channel(
 	model_pdf varchar(255), 
 	status integer NOT NULL, 
 	private integer NOT NULL, 
-	label varchar(255) NOT NULL
+	label varchar(255) NOT NULL, 
+	entity integer DEFAULT 1 NOT NULL
 	-- END MODULEBUILDER FIELDS
 ) ENGINE=innodb;
