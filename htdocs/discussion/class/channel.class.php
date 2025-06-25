@@ -1348,7 +1348,7 @@ class Channel extends CommonObject
 		return $onlineusers;
 	}
 
-	function channelConnecteduser($user, $cache = 0, $status = "connected") {
+	function channelConnectedUser($user, $cache = 0, $status = "connected") {
 		global $langs;
 
 		$channelid = $this->id;

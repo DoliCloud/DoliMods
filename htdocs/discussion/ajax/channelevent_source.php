@@ -131,7 +131,7 @@ $lastdateverification = dol_now();
 $userarray = array();
 $nbuserconnected = 0;
 session_write_close();
-$channel->channelConnecteduser($user, 1);
+$channel->channelConnectedUser($user, 1);
 while (true) {
   if (connection_aborted()) {
     break;
@@ -190,6 +190,6 @@ while (true) {
   flush();
   sleep(1);
 }
-$channel->channelConnecteduser($user, 1, "disconnected");
+$channel->channelConnectedUser($user, 1, "disconnected");
 dol_syslog("---ENDING SSE SERVER FOR ".$user->id."---");
 exit;
