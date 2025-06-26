@@ -60,3 +60,4 @@ TypeContact_channel_internal_CHANNELCONTRIBUTOR=Channel contributor
 StartConversation= Send a message to start the conversation
 SendMessage = Send message
 OnlyChannelContacts=Only channel's contacts
+ErrorDeleteNotAllowed=Delete is not allowed for your level of permission

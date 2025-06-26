@@ -129,13 +129,12 @@ ob_implicit_flush();
 $discussioncachename = getDolGlobalString("DISCUSSION_CACHE_NAME_PREFIX",'DISCUSSION_CACHE_CHANNEL')."_".((int) $channelid) ;
 $lastdateverification = dol_now();
 $userarray = array();
-$nbuserconnected = 0;
 session_write_close();
-$channel->channelConnectedUser($user, 1);
 while (true) {
   if (connection_aborted()) {
     break;
   }
+  $channel->channelConnectedUser($user, 1);
   $nbuserconnected = 0;
   $datastring = "data: ";
   $connAbortedStr = connection_aborted() ? "YES" : "NO";

@@ -1243,9 +1243,25 @@ class Channel extends CommonObject
 	public function isChannelContact($userid)
 	{
 		$result = 0;
-		$contacts = $this->liste_contact(-1, 'internal', 1);
-		if (in_array($userid, $contacts)) {
-			$result = true;
+		$channelid = $this->id;
+
+		$sql = "SELECT ec.fk_socpeople as id";
+		$sql .= " FROM ".MAIN_DB_PREFIX."c_type_contact as ctc";
+		$sql .= " JOIN ".MAIN_DB_PREFIX."element_contact as ec";
+		$sql .= " ON ec.fk_c_type_contact = ctc.rowid";
+		$sql .= " WHERE ctc.code IN ('CHANNELADMIN', 'CHANNELCONTRIBUTOR')";
+		$sql .= " AND ctc.active = 1";
+		$sql .= " AND ctc.element = 'channel'";
+		$sql .= " AND ec.fk_socpeople = ".((int) $userid);
+		$sql .= " AND ec.element_id = ".((int) $channelid);
+		$resql = $this->db->query($sql);
+		if (!$resql) {
+			dol_print_error($this->db);
+			return -1;
+		}
+		$num = $this->db->num_rows($resql);
+		if ($num > 0) {
+			$result = 1;
 		}
 		return $result;
 	}
@@ -1258,11 +1274,25 @@ class Channel extends CommonObject
 	public function isChannelAdmin($userid)
 	{
 		$result = 0;
-		$contacts = $this->liste_contact(-1, 'internal');
-		foreach ($contacts as $key => $contact) {
-			if ($contact["id"] == $userid && $contact["code"] == "CHANNELADMIN") {
-				$result = 1;
-			}
+		$channelid = $this->id;
+
+		$sql = "SELECT ec.fk_socpeople as id";
+		$sql .= " FROM ".MAIN_DB_PREFIX."c_type_contact as ctc";
+		$sql .= " JOIN ".MAIN_DB_PREFIX."element_contact as ec";
+		$sql .= " ON ec.fk_c_type_contact = ctc.rowid";
+		$sql .= " WHERE ctc.code IN ('CHANNELADMIN')";
+		$sql .= " AND ctc.active = 1";
+		$sql .= " AND ctc.element = 'channel'";
+		$sql .= " AND ec.fk_socpeople = ".((int) $userid);
+		$sql .= " AND ec.element_id = ".((int) $channelid);
+		$resql = $this->db->query($sql);
+		if (!$resql) {
+			dol_print_error($this->db);
+			return -1;
+		}
+		$num = $this->db->num_rows($resql);
+		if ($num > 0) {
+			$result = 1;
 		}
 		return $result;
 	}
