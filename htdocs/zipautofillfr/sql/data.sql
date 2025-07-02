@@ -6,7 +6,7 @@ ALTER TABLE llx_c_ziptown ADD COLUMN town_up varchar(180);
 
 
 -- France
-INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
+INSERT INTO llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
 	 ('64001',NULL,1,'64460','Aast',1,'AAST'),
 	 ('55001',NULL,1,'55130','Abainville',1,'ABAINVILLE'),
 	 ('59001',NULL,1,'59265','Abancourt',1,'ABANCOURT'),
@@ -507,7 +507,7 @@ INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,t
 	 ('87002',NULL,1,'87240','Ambazac',1,'AMBAZAC'),
 	 ('38008',NULL,1,'38970','Ambel',1,'AMBEL'),
 	 ('27009',NULL,1,'27250','Ambenay',1,'AMBENAY');
-INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
+INSERT INTO llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
 	 ('16008',NULL,1,'16140','Amberac',1,'AMBERAC'),
 	 ('01004',NULL,1,'01500','Amberieu En Bugey',1,'AMBERIEU EN BUGEY'),
 	 ('69005',NULL,1,'69480','Amberieux',1,'AMBERIEUX'),
@@ -1008,7 +1008,7 @@ INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,t
 	 ('65020',NULL,1,'65100','Arcizac Ez Angles',1,'ARCIZAC EZ ANGLES'),
 	 ('65021',NULL,1,'65400','Arcizans Avant',1,'ARCIZANS AVANT'),
 	 ('65022',NULL,1,'65400','Arcizans Dessus',1,'ARCIZANS DESSUS');
-INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
+INSERT INTO llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
 	 (NULL,NULL,1,'48200','Arcomie',1,'ARCOMIE'),
 	 ('18009',NULL,1,'18200','Arcomps',1,'ARCOMPS'),
 	 ('42008',NULL,1,'42370','Arcon',1,'ARCON'),
@@ -1509,7 +1509,7 @@ INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,t
 	 ('21033',NULL,1,'21540','Aubigny Les Sombernon',1,'AUBIGNY LES SOMBERNON'),
 	 ('18015',NULL,1,'18700','Aubigny Sur Nere',1,'AUBIGNY SUR NERE'),
 	 ('51020',NULL,1,'51170','Aubilly',1,'AUBILLY');
-INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
+INSERT INTO llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
 	 ('64073',NULL,1,'64230','Aubin',1,'AUBIN'),
 	 ('12013',NULL,1,'12110','Aubin',1,'AUBIN'),
 	 ('62046',NULL,1,'62140','Aubin Saint Vaast',1,'AUBIN SAINT VAAST'),
@@ -2010,7 +2010,7 @@ INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,t
 	 ('80049',NULL,1,'80500','Ayencourt',1,'AYENCOURT'),
 	 ('62068',NULL,1,'62116','Ayette',1,'AYETTE'),
 	 (NULL,NULL,1,'83400','Ayguade Ceinturon',1,'AYGUADE CEINTURON');
-INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
+INSERT INTO llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
 	 ('66010',NULL,1,'66360','Ayguatebia Talau',1,'AYGUATEBIA TALAU'),
 	 ('33023',NULL,1,'33640','Ayguemorte Les Graves',1,'AYGUEMORTE LES GRAVES'),
 	 ('31004',NULL,1,'31450','Ayguesvives',1,'AYGUESVIVES'),
@@ -2511,7 +2511,7 @@ INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,t
 	 ('15019',NULL,1,'15240','Bassignac',1,'BASSIGNAC'),
 	 ('19017',NULL,1,'19430','Bassignac Le Bas',1,'BASSIGNAC LE BAS'),
 	 ('19018',NULL,1,'19220','Bassignac Le Haut',1,'BASSIGNAC LE HAUT');
-INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
+INSERT INTO llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
 	 ('70052',NULL,1,'70800','Bassigney',1,'BASSIGNEY'),
 	 (NULL,NULL,1,'24330','Bassilac',1,'BASSILAC'),
 	 (NULL,NULL,1,'59111','Bassin Rond',1,'BASSIN ROND'),
@@ -3012,7 +3012,7 @@ INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,t
 	 ('70061',NULL,1,'70290','Belfahy',1,'BELFAHY'),
 	 ('25049',NULL,1,'25470','Belfays',1,'BELFAYS'),
 	 ('11030',NULL,1,'11410','Belflou',1,'BELFLOU');
-INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
+INSERT INTO llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
 	 ('61036',NULL,1,'61500','Belfonds',1,'BELFONDS'),
 	 ('90010',NULL,1,'90000','Belfort',1,'BELFORT'),
 	 ('46023',NULL,1,'46230','Belfort Du Quercy',1,'BELFORT DU QUERCY'),
@@ -3513,7 +3513,7 @@ INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,t
 	 ('80099',NULL,1,'80270','Bettencourt Riviere',1,'BETTENCOURT RIVIERE'),
 	 ('80100',NULL,1,'80610','Bettencourt Saint Ouen',1,'BETTENCOURT SAINT OUEN'),
 	 ('68033',NULL,1,'68560','Bettendorf',1,'BETTENDORF');
-INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
+INSERT INTO llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
 	 ('65091',NULL,1,'65130','Bettes',1,'BETTES'),
 	 (NULL,NULL,1,'76190','Betteville',1,'BETTEVILLE'),
 	 ('59076',NULL,1,'59600','Bettignies',1,'BETTIGNIES'),
@@ -4014,7 +4014,7 @@ INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,t
 	 ('62144',NULL,1,'62128','Boiry Becquerelle',1,'BOIRY BECQUERELLE'),
 	 ('62145',NULL,1,'62156','Boiry Notre Dame',1,'BOIRY NOTRE DAME'),
 	 ('62146',NULL,1,'62175','Boiry Saint Martin',1,'BOIRY SAINT MARTIN');
-INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
+INSERT INTO llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
 	 ('62147',NULL,1,'62175','Boiry Sainte Rictrude',1,'BOIRY SAINTE RICTRUDE'),
 	 ('17050',NULL,1,'17240','Bois',1,'BOIS'),
 	 ('27068',NULL,1,'27330','Bois Anzeray',1,'BOIS ANZERAY'),
@@ -4515,7 +4515,7 @@ INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,t
 	 ('10053',NULL,1,'10270','Bouranton',1,'BOURANTON'),
 	 ('91095',NULL,1,'91850','Bouray Sur Juine',1,'BOURAY SUR JUINE'),
 	 ('68045',NULL,1,'68290','Bourbach Le Bas',1,'BOURBACH LE BAS');
-INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
+INSERT INTO llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
 	 ('68046',NULL,1,'68290','Bourbach Le Haut',1,'BOURBACH LE HAUT'),
 	 ('21094',NULL,1,'21610','Bourberain',1,'BOURBERAIN'),
 	 ('70086',NULL,1,'70500','Bourbevelle',1,'BOURBEVELLE'),
@@ -5016,7 +5016,7 @@ INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,t
 	 ('26062',NULL,1,'26340','Brette',1,'BRETTE'),
 	 ('72047',NULL,1,'72250','Brette Les Pins',1,'BRETTE LES PINS'),
 	 ('68052',NULL,1,'68780','Bretten',1,'BRETTEN');
-INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
+INSERT INTO llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
 	 ('16059',NULL,1,'16240','Brettes',1,'BRETTES'),
 	 (NULL,NULL,1,'50110','Bretteville En Saire',1,'BRETTEVILLE EN SAIRE'),
 	 (NULL,NULL,1,'14740','Bretteville L Orgueilleus',1,'BRETTEVILLE L ORGUEILLEUS'),
@@ -5517,7 +5517,7 @@ INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,t
 	 ('89059',NULL,1,'89400','Bussy En Othe',1,'BUSSY EN OTHE'),
 	 (NULL,NULL,1,'55000','Bussy La Cote',1,'BUSSY LA COTE'),
 	 ('21121',NULL,1,'21540','Bussy La Pesle',1,'BUSSY LA PESLE');
-INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
+INSERT INTO llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
 	 ('58043',NULL,1,'58420','Bussy La Pesle',1,'BUSSY LA PESLE'),
 	 ('51097',NULL,1,'51600','Bussy Le Chateau',1,'BUSSY LE CHATEAU'),
 	 ('21122',NULL,1,'21150','Bussy Le Grand',1,'BUSSY LE GRAND'),
@@ -6018,7 +6018,7 @@ INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,t
 	 ('83034',NULL,1,'83320','Carqueiranne',1,'CARQUEIRANNE'),
 	 ('80176',NULL,1,'80700','Carrepuis',1,'CARREPUIS'),
 	 ('64167',NULL,1,'64160','Carrere',1,'CARRERE');
-INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
+INSERT INTO llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
 	 ('64168',NULL,1,'64270','Carresse Cassaber',1,'CARRESSE CASSABER'),
 	 (NULL,NULL,1,'78600','Carrieres Sous Bois',1,'CARRIERES SOUS BOIS'),
 	 ('78123',NULL,1,'78955','Carrieres Sous Poissy',1,'CARRIERES SOUS POISSY'),
@@ -6519,7 +6519,7 @@ INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,t
 	 ('21126',NULL,1,'21110','Cessey Sur Tille',1,'CESSEY SUR TILLE'),
 	 ('02153',NULL,1,'02320','Cessieres',1,'CESSIERES'),
 	 ('38064',NULL,1,'38110','Cessieu',1,'CESSIEU');
-INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
+INSERT INTO llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
 	 ('77067',NULL,1,'77240','Cesson',1,'CESSON'),
 	 ('35051',NULL,1,'35510','Cesson Sevigne',1,'CESSON SEVIGNE'),
 	 ('77068',NULL,1,'77520','Cessoy En Montois',1,'CESSOY EN MONTOIS'),
@@ -7020,7 +7020,7 @@ INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,t
 	 ('41036',NULL,1,'41600','Chaon',1,'CHAON'),
 	 ('54117',NULL,1,'54330','Chaouilley',1,'CHAOUILLEY'),
 	 ('10080',NULL,1,'10210','Chaource',1,'CHAOURCE');
-INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
+INSERT INTO llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
 	 ('02160',NULL,1,'02340','Chaourse',1,'CHAOURSE'),
 	 ('71087',NULL,1,'71460','Chapaize',1,'CHAPAIZE'),
 	 ('38075',NULL,1,'38530','Chapareillan',1,'CHAPAREILLAN'),
@@ -7521,7 +7521,7 @@ INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,t
 	 ('74065',NULL,1,'74270','Chaumont',1,'CHAUMONT'),
 	 ('18060',NULL,1,'18350','Chaumont',1,'CHAUMONT'),
 	 ('52121',NULL,1,'52000','Chaumont',1,'CHAUMONT');
-INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
+INSERT INTO llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
 	 ('61103',NULL,1,'61230','Chaumont',1,'CHAUMONT'),
 	 (NULL,NULL,1,'39200','Chaumont',1,'CHAUMONT'),
 	 ('89093',NULL,1,'89370','Chaumont',1,'CHAUMONT'),
@@ -8022,7 +8022,7 @@ INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,t
 	 ('97424',NULL,1,'97413','Cilaos',1,'CILAOS'),
 	 ('02194',NULL,1,'02250','Cilly',1,'CILLY'),
 	 ('37076',NULL,1,'37500','Cinais',1,'CINAIS');
-INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
+INSERT INTO llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
 	 ('03079',NULL,1,'03220','Cindre',1,'CINDRE'),
 	 ('37077',NULL,1,'37130','Cinq Mars La Pile',1,'CINQ MARS LA PILE'),
 	 (NULL,NULL,1,'39200','Cinquetral',1,'CINQUETRAL'),
@@ -8523,7 +8523,7 @@ INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,t
 	 (NULL,NULL,1,'24160','Condat Le Lardin',1,'CONDAT LE LARDIN'),
 	 ('63119',NULL,1,'63490','Condat Les Montboissier',1,'CONDAT LES MONTBOISSIER'),
 	 ('19060',NULL,1,'19140','Condat Sur Ganaveix',1,'CONDAT SUR GANAVEIX');
-INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
+INSERT INTO llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
 	 ('24129',NULL,1,'24530','Condat Sur Trincou',1,'CONDAT SUR TRINCOU'),
 	 ('24130',NULL,1,'24570','Condat Sur Vezere',1,'CONDAT SUR VEZERE'),
 	 ('87048',NULL,1,'87920','Condat Sur Vienne',1,'CONDAT SUR VIENNE'),
@@ -9024,7 +9024,7 @@ INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,t
 	 (NULL,NULL,1,'61340','Courcerault',1,'COURCERAULT'),
 	 ('10106',NULL,1,'10400','Courceroy',1,'COURCEROY'),
 	 (NULL,NULL,1,'21610','Courchamp',1,'COURCHAMP');
-INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
+INSERT INTO llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
 	 ('77134',NULL,1,'77560','Courchamp',1,'COURCHAMP'),
 	 ('49113',NULL,1,'49260','Courchamps',1,'COURCHAMPS'),
 	 ('02225',NULL,1,'02810','Courchamps',1,'COURCHAMPS'),
@@ -9525,7 +9525,7 @@ INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,t
 	 ('34092',NULL,1,'34310','Cruzy',1,'CRUZY'),
 	 ('89131',NULL,1,'89740','Cruzy Le Chatel',1,'CRUZY LE CHATEL'),
 	 ('89132',NULL,1,'89390','Cry',1,'CRY');
-INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
+INSERT INTO llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
 	 ('43083',NULL,1,'43170','Cubelles',1,'CUBELLES'),
 	 ('48053',NULL,1,'48190','Cubieres',1,'CUBIERES'),
 	 ('11112',NULL,1,'11190','Cubieres Sur Cinoble',1,'CUBIERES SUR CINOBLE'),
@@ -10026,7 +10026,7 @@ INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,t
 	 ('57765',NULL,1,'57890','Diesen',1,'DIESEN'),
 	 ('68072',NULL,1,'68440','Dietwiller',1,'DIETWILLER'),
 	 ('60197',NULL,1,'60530','Dieudonne',1,'DIEUDONNE');
-INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
+INSERT INTO llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
 	 ('55154',NULL,1,'55320','Dieue Sur Meuse',1,'DIEUE SUR MEUSE'),
 	 ('26114',NULL,1,'26220','Dieulefit',1,'DIEULEFIT'),
 	 ('33150',NULL,1,'33580','Dieulivol',1,'DIEULIVOL'),
@@ -10527,7 +10527,7 @@ INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,t
 	 ('21236',NULL,1,'21190','Ebaty',1,'EBATY'),
 	 ('59184',NULL,1,'59173','Ebblinghem',1,'EBBLINGHEM'),
 	 ('17144',NULL,1,'17770','Ebeon',1,'EBEON');
-INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
+INSERT INTO llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
 	 ('67113',NULL,1,'67470','Eberbach Seltz',1,'EBERBACH SELTZ'),
 	 ('67114',NULL,1,'67110','Eberbach Woerth',1,'EBERBACH WOERTH'),
 	 ('67115',NULL,1,'67600','Ebersheim',1,'EBERSHEIM'),
@@ -11028,7 +11028,7 @@ INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,t
 	 ('51234',NULL,1,'51260','Esclavolles Lurey',1,'ESCLAVOLLES LUREY'),
 	 ('88161',NULL,1,'88260','Escles',1,'ESCLES'),
 	 ('60219',NULL,1,'60220','Escles Saint Pierre',1,'ESCLES SAINT PIERRE');
-INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
+INSERT INTO llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
 	 ('47089',NULL,1,'47120','Esclottes',1,'ESCLOTTES'),
 	 ('59208',NULL,1,'59320','Escobecques',1,'ESCOBECQUES'),
 	 ('62308',NULL,1,'62850','Escoeuilles',1,'ESCOEUILLES'),
@@ -11529,7 +11529,7 @@ INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,t
 	 ('27233',NULL,1,'27210','Fatouville Grestain',1,'FATOUVILLE GRESTAIN'),
 	 (NULL,NULL,1,'98740','Fatu Hiva',1,'FATU HIVA'),
 	 ('48060',NULL,1,'48130','Fau De Peyre',1,'FAU DE PEYRE');
-INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
+INSERT INTO llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
 	 ('81088',NULL,1,'81120','Fauch',1,'FAUCH'),
 	 ('74122',NULL,1,'74130','Faucigny',1,'FAUCIGNY'),
 	 ('70227',NULL,1,'70310','Faucogney Et La Mer',1,'FAUCOGNEY ET LA MER'),
@@ -12030,7 +12030,7 @@ INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,t
 	 ('07091',NULL,1,'07200','Fons',1,'FONS'),
 	 ('46108',NULL,1,'46100','Fons',1,'FONS'),
 	 ('30112',NULL,1,'30730','Fons',1,'FONS');
-INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
+INSERT INTO llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
 	 ('30113',NULL,1,'30580','Fons Sur Lussan',1,'FONS SUR LUSSAN'),
 	 (NULL,NULL,1,'02110','Fonsommes',1,'FONSOMMES'),
 	 ('31187',NULL,1,'31470','Fonsorbes',1,'FONSORBES'),
@@ -12531,7 +12531,7 @@ INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,t
 	 ('95256',NULL,1,'95740','Frepillon',1,'FREPILLON'),
 	 ('76283',NULL,1,'76270','Fresles',1,'FRESLES'),
 	 ('10161',NULL,1,'10200','Fresnay',1,'FRESNAY');
-INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
+INSERT INTO llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
 	 ('44059',NULL,1,'44580','Fresnay En Retz',1,'FRESNAY EN RETZ'),
 	 ('28164',NULL,1,'28310','Fresnay L Eveque',1,'FRESNAY L EVEQUE'),
 	 ('28162',NULL,1,'28360','Fresnay Le Comte',1,'FRESNAY LE COMTE'),
@@ -13032,7 +13032,7 @@ INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,t
 	 ('31218',NULL,1,'31350','Gensac De Boulogne',1,'GENSAC DE BOULOGNE'),
 	 ('16150',NULL,1,'16130','Gensac La Pallue',1,'GENSAC LA PALLUE'),
 	 ('31219',NULL,1,'31310','Gensac Sur Garonne',1,'GENSAC SUR GARONNE');
-INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
+INSERT INTO llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
 	 ('16151',NULL,1,'16130','Gente',1,'GENTE'),
 	 ('80376',NULL,1,'80380','Gentelles',1,'GENTELLES'),
 	 ('94037',NULL,1,'94250','Gentilly',1,'GENTILLY'),
@@ -13533,7 +13533,7 @@ INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,t
 	 ('80382',NULL,1,'80640','Gouy L Hopital',1,'GOUY L HOPITAL'),
 	 ('60283',NULL,1,'60120','Gouy Les Groseillers',1,'GOUY LES GROSEILLERS'),
 	 ('62380',NULL,1,'62530','Gouy Servins',1,'GOUY SERVINS');
-INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
+INSERT INTO llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
 	 ('62383',NULL,1,'62112','Gouy Sous Bellonne',1,'GOUY SOUS BELLONNE'),
 	 ('62382',NULL,1,'62870','Gouy Saint Andre',1,'GOUY SAINT ANDRE'),
 	 ('95282',NULL,1,'95450','Gouzangrez',1,'GOUZANGREZ'),
@@ -14034,7 +14034,7 @@ INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,t
 	 ('27308',NULL,1,'27510','Guitry',1,'GUITRY'),
 	 ('22071',NULL,1,'22350','Guitte',1,'GUITTE'),
 	 ('02362',NULL,1,'02300','Guivry',1,'GUIVRY');
-INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
+INSERT INTO llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
 	 ('80402',NULL,1,'80290','Guizancourt',1,'GUIZANCOURT'),
 	 ('16161',NULL,1,'16480','Guizengeard',1,'GUIZENGEARD'),
 	 ('65213',NULL,1,'65230','Guizerix',1,'GUIZERIX'),
@@ -14535,7 +14535,7 @@ INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,t
 	 ('62443',NULL,1,'62530','Hersin Coupigny',1,'HERSIN COUPIGNY'),
 	 ('57320',NULL,1,'57830','Hertzing',1,'HERTZING'),
 	 ('62444',NULL,1,'62179','Hervelinghen',1,'HERVELINGHEN');
-INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
+INSERT INTO llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
 	 ('80434',NULL,1,'80240','Hervilly',1,'HERVILLY'),
 	 ('58133',NULL,1,'58800','Hery',1,'HERY'),
 	 ('89201',NULL,1,'89550','Hery',1,'HERY'),
@@ -15036,7 +15036,7 @@ INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,t
 	 ('62476',NULL,1,'62490','Izel Les Equerchin',1,'IZEL LES EQUERCHIN'),
 	 (NULL,NULL,1,'62690','Izel Les Hameaux',1,'IZEL LES HAMEAUX'),
 	 ('01191',NULL,1,'01430','Izenave',1,'IZENAVE');
-INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
+INSERT INTO llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
 	 ('01192',NULL,1,'01580','Izernore',1,'IZERNORE'),
 	 ('38195',NULL,1,'38160','Izeron',1,'IZERON'),
 	 ('64280',NULL,1,'64260','Izeste',1,'IZESTE'),
@@ -15537,7 +15537,7 @@ INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,t
 	 ('05048',NULL,1,'05700','L Epine',1,'L EPINE'),
 	 ('85083',NULL,1,'85740','L Epine',1,'L EPINE'),
 	 ('02281',NULL,1,'02540','L Epine Aux Bois',1,'L EPINE AUX BOIS');
-INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
+INSERT INTO llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
 	 ('04079',NULL,1,'04160','L Escale',1,'L ESCALE'),
 	 ('06057',NULL,1,'06440','L Escarene',1,'L ESCARENE'),
 	 (NULL,NULL,1,'13016','L Estaque',1,'L ESTAQUE'),
@@ -16038,7 +16038,7 @@ INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,t
 	 ('25152',NULL,1,'25620','La Chevillotte',1,'LA CHEVILLOTTE'),
 	 ('16098',NULL,1,'16240','La Chevrerie',1,'LA CHEVRERIE'),
 	 ('44041',NULL,1,'44118','La Chevroliere',1,'LA CHEVROLIERE');
-INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
+INSERT INTO llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
 	 ('22039',NULL,1,'22210','La Cheze',1,'LA CHEZE'),
 	 ('43072',NULL,1,'43230','La Chomette',1,'LA CHOMETTE'),
 	 ('13028',NULL,1,'13600','La Ciotat',1,'LA CIOTAT'),
@@ -16539,7 +16539,7 @@ INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,t
 	 ('06093',NULL,1,'06260','La Penne',1,'LA PENNE'),
 	 ('13070',NULL,1,'13821','La Penne Sur Huveaune',1,'LA PENNE SUR HUVEAUNE'),
 	 ('26229',NULL,1,'26170','La Penne Sur L Ouveze',1,'LA PENNE SUR L OUVEZE');
-INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
+INSERT INTO llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
 	 ('18178',NULL,1,'18200','La Perche',1,'LA PERCHE'),
 	 ('50395',NULL,1,'50630','La Pernelle',1,'LA PERNELLE'),
 	 ('36157',NULL,1,'36350','La Perouille',1,'LA PEROUILLE'),
@@ -17040,7 +17040,7 @@ INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,t
 	 ('80455',NULL,1,'80290','Lachapelle',1,'LACHAPELLE'),
 	 ('60333',NULL,1,'60650','Lachapelle Aux Pots',1,'LACHAPELLE AUX POTS'),
 	 ('46145',NULL,1,'46200','Lachapelle Auzac',1,'LACHAPELLE AUZAC');
-INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
+INSERT INTO llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
 	 ('52254',NULL,1,'52330','Lachapelle En Blaisy',1,'LACHAPELLE EN BLAISY'),
 	 ('07121',NULL,1,'07470','Lachapelle Graillouse',1,'LACHAPELLE GRAILLOUSE'),
 	 ('07122',NULL,1,'07200','Lachapelle Sous Aubenas',1,'LACHAPELLE SOUS AUBENAS'),
@@ -17541,7 +17541,7 @@ INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,t
 	 ('56103',NULL,1,'56120','Lantillac',1,'LANTILLAC'),
 	 ('21341',NULL,1,'21140','Lantilly',1,'LANTILLY'),
 	 (NULL,NULL,1,'16200','Lantin',1,'LANTIN');
-INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
+INSERT INTO llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
 	 ('33229',NULL,1,'33138','Lanton',1,'LANTON'),
 	 ('33229',NULL,1,'33148','Lanton',1,'LANTON'),
 	 ('06074',NULL,1,'06450','Lantosque',1,'LANTOSQUE'),
@@ -18042,7 +18042,7 @@ INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,t
 	 ('09081',NULL,1,'09100','Le Carlaret',1,'LE CARLARET'),
 	 ('04040',NULL,1,'04380','Le Castellard Melan',1,'LE CASTELLARD MELAN'),
 	 ('04041',NULL,1,'04700','Le Castellet',1,'LE CASTELLET');
-INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
+INSERT INTO llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
 	 ('83035',NULL,1,'83330','Le Castellet',1,'LE CASTELLET'),
 	 ('31120',NULL,1,'31530','Le Castera',1,'LE CASTERA'),
 	 ('59136',NULL,1,'59360','Le Cateau Cambresis',1,'LE CATEAU CAMBRESIS'),
@@ -18543,7 +18543,7 @@ INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,t
 	 (NULL,NULL,1,'97424','Le Plate',1,'LE PLATE'),
 	 ('02606',NULL,1,'02210','Le Plessier Huleu',1,'LE PLESSIER HULEU'),
 	 (NULL,NULL,1,'80110','Le Plessier Rozainvillier',1,'LE PLESSIER ROZAINVILLIER');
-INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
+INSERT INTO llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
 	 ('60497',NULL,1,'60130','Le Plessier Sur Bulles',1,'LE PLESSIER SUR BULLES'),
 	 ('60498',NULL,1,'60130','Le Plessier Sur Saint Just',1,'LE PLESSIER SUR SAINT JUST'),
 	 ('77364',NULL,1,'77165','Le Plessis Aux Bois',1,'LE PLESSIS AUX BOIS'),
@@ -19044,7 +19044,7 @@ INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,t
 	 ('27043',NULL,1,'27160','Les Baux De Breteuil',1,'LES BAUX DE BRETEUIL'),
 	 ('13011',NULL,1,'13520','Les Baux De Provence',1,'LES BAUX DE PROVENCE'),
 	 ('27044',NULL,1,'27180','Les Baux Sainte Croix',1,'LES BAUX SAINTE CROIX');
-INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
+INSERT INTO llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
 	 ('48025',NULL,1,'48200','Les Bessons',1,'LES BESSONS'),
 	 (NULL,NULL,1,'45290','Les Bezards',1,'LES BEZARDS'),
 	 ('50053',NULL,1,'50540','Les Biards',1,'LES BIARDS'),
@@ -19545,7 +19545,7 @@ INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,t
 	 ('57398',NULL,1,'57660','Leyviller',1,'LEYVILLER'),
 	 ('31298',NULL,1,'31440','Lez',1,'LEZ'),
 	 ('59342',NULL,1,'59740','Lez Fontaine',1,'LEZ FONTAINE');
-INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
+INSERT INTO llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
 	 ('30147',NULL,1,'30350','Lezan',1,'LEZAN'),
 	 ('22127',NULL,1,'22740','Lezardrieux',1,'LEZARDRIEUX'),
 	 ('39294',NULL,1,'39400','Lezat',1,'LEZAT'),
@@ -20046,7 +20046,7 @@ INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,t
 	 ('80490',NULL,1,'80360','Longueval',1,'LONGUEVAL'),
 	 ('02439',NULL,1,'02160','Longueval Barbonval',1,'LONGUEVAL BARBONVAL'),
 	 ('14378',NULL,1,'14230','Longueville',1,'LONGUEVILLE');
-INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
+INSERT INTO llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
 	 ('47150',NULL,1,'47200','Longueville',1,'LONGUEVILLE'),
 	 ('50277',NULL,1,'50290','Longueville',1,'LONGUEVILLE'),
 	 ('62526',NULL,1,'62142','Longueville',1,'LONGUEVILLE'),
@@ -20547,7 +20547,7 @@ INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,t
 	 ('15111',NULL,1,'15210','Madic',1,'MADIC'),
 	 ('09177',NULL,1,'09100','Madiere',1,'MADIERE'),
 	 ('33263',NULL,1,'33670','Madirac',1,'MADIRAC');
-INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
+INSERT INTO llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
 	 ('65296',NULL,1,'65700','Madiran',1,'MADIRAN'),
 	 ('88281',NULL,1,'88270','Madonne Et Lamerey',1,'MADONNE ET LAMEREY'),
 	 ('19122',NULL,1,'19470','Madranges',1,'MADRANGES'),
@@ -21048,7 +21048,7 @@ INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,t
 	 ('10223',NULL,1,'10290','Marcilly Le Hayer',1,'MARCILLY LE HAYER'),
 	 ('71277',NULL,1,'71390','Marcilly Les Buxy',1,'MARCILLY LES BUXY'),
 	 (NULL,NULL,1,'21350','Marcilly Les Vitteaux',1,'MARCILLY LES VITTEAUX');
-INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
+INSERT INTO llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
 	 ('21382',NULL,1,'21320','Marcilly Ogny',1,'MARCILLY OGNY'),
 	 ('27391',NULL,1,'27810','Marcilly Sur Eure',1,'MARCILLY SUR EURE'),
 	 ('37146',NULL,1,'37330','Marcilly Sur Maulne',1,'MARCILLY SUR MAULNE'),
@@ -21549,7 +21549,7 @@ INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,t
 	 ('32245',NULL,1,'32400','Maumusson Laguian',1,'MAUMUSSON LAGUIAN'),
 	 ('76419',NULL,1,'76530','Mauny',1,'MAUNY'),
 	 (NULL,NULL,1,'21430','Maupas',1,'MAUPAS');
-INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
+INSERT INTO llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
 	 ('32246',NULL,1,'32240','Maupas',1,'MAUPAS'),
 	 ('10229',NULL,1,'10320','Maupas',1,'MAUPAS'),
 	 ('77281',NULL,1,'77120','Mauperthuis',1,'MAUPERTHUIS'),
@@ -22050,7 +22050,7 @@ INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,t
 	 ('76432',NULL,1,'76440','Mesnil Mauger',1,'MESNIL MAUGER'),
 	 ('76433',NULL,1,'76570','Mesnil Panneville',1,'MESNIL PANNEVILLE'),
 	 ('76434',NULL,1,'76520','Mesnil Raoul',1,'MESNIL RAOUL');
-INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
+INSERT INTO llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
 	 ('27404',NULL,1,'27390','Mesnil Rousset',1,'MESNIL ROUSSET'),
 	 ('10239',NULL,1,'10220','Mesnil Sellieres',1,'MESNIL SELLIERES'),
 	 (NULL,NULL,1,'55160','Mesnil Sous Les Cotes',1,'MESNIL SOUS LES COTES'),
@@ -22551,7 +22551,7 @@ INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,t
 	 ('62580',NULL,1,'62127','Monchy Breton',1,'MONCHY BRETON'),
 	 ('62581',NULL,1,'62134','Monchy Cayeux',1,'MONCHY CAYEUX'),
 	 ('60408',NULL,1,'60113','Monchy Humieres',1,'MONCHY HUMIERES');
-INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
+INSERT INTO llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
 	 ('80555',NULL,1,'80200','Monchy Lagache',1,'MONCHY LAGACHE'),
 	 ('62582',NULL,1,'62118','Monchy Le Preux',1,'MONCHY LE PREUX'),
 	 ('60409',NULL,1,'60290','Monchy Saint Eloi',1,'MONCHY SAINT ELOI'),
@@ -23052,7 +23052,7 @@ INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,t
 	 ('78418',NULL,1,'78360','Montesson',1,'MONTESSON'),
 	 ('52329',NULL,1,'52500','Montesson',1,'MONTESSON'),
 	 ('32286',NULL,1,'32390','Montestruc Sur Gers',1,'MONTESTRUC SUR GERS');
-INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
+INSERT INTO llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
 	 ('64402',NULL,1,'64300','Montestrucq',1,'MONTESTRUCQ'),
 	 ('46203',NULL,1,'46210','Montet Et Bouxal',1,'MONTET ET BOUXAL'),
 	 ('47187',NULL,1,'47120','Monteton',1,'MONTETON'),
@@ -23553,7 +23553,7 @@ INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,t
 	 ('52341',NULL,1,'52110','Morancourt',1,'MORANCOURT'),
 	 ('37160',NULL,1,'37110','Morand',1,'MORAND'),
 	 ('91432',NULL,1,'91420','Morangis',1,'MORANGIS');
-INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
+INSERT INTO llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
 	 ('51384',NULL,1,'51200','Morangis',1,'MORANGIS'),
 	 ('60429',NULL,1,'60530','Morangles',1,'MORANGLES'),
 	 (NULL,NULL,1,'49640','Morannes',1,'MORANNES'),
@@ -24054,7 +24054,7 @@ INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,t
 	 ('73184',NULL,1,'73470','Nances',1,'NANCES'),
 	 ('16241',NULL,1,'16230','Nanclars',1,'NANCLARS'),
 	 ('55371',NULL,1,'55500','Nancois Le Grand',1,'NANCOIS LE GRAND');
-INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
+INSERT INTO llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
 	 ('55372',NULL,1,'55500','Nancois Sur Ornain',1,'NANCOIS SUR ORNAIN'),
 	 ('17255',NULL,1,'17600','Nancras',1,'NANCRAS'),
 	 ('25418',NULL,1,'25360','Nancray',1,'NANCRAY'),
@@ -24555,7 +24555,7 @@ INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,t
 	 ('18166',NULL,1,'18390','Nohant En Gout',1,'NOHANT EN GOUT'),
 	 ('18167',NULL,1,'18310','Nohant En Gracay',1,'NOHANT EN GRACAY'),
 	 ('36143',NULL,1,'36400','Nohant Vic',1,'NOHANT VIC');
-INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
+INSERT INTO llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
 	 ('66122',NULL,1,'66500','Nohedes',1,'NOHEDES'),
 	 ('82135',NULL,1,'82370','Nohic',1,'NOHIC'),
 	 ('21457',NULL,1,'21390','Noidan',1,'NOIDAN'),
@@ -25056,7 +25056,7 @@ INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,t
 	 ('62639',NULL,1,'62580','Oppy',1,'OPPY'),
 	 ('38282',NULL,1,'38460','Optevoz',1,'OPTEVOZ'),
 	 ('64423',NULL,1,'64390','Oraas',1,'ORAAS');
-INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
+INSERT INTO llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
 	 ('15145',NULL,1,'15260','Oradour',1,'ORADOUR'),
 	 ('16248',NULL,1,'16140','Oradour',1,'ORADOUR'),
 	 ('16249',NULL,1,'16500','Oradour Fanais',1,'ORADOUR FANAIS'),
@@ -25557,7 +25557,7 @@ INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,t
 	 ('39405',NULL,1,'39100','Parcey',1,'PARCEY'),
 	 ('01285',NULL,1,'01600','Parcieux',1,'PARCIEUX'),
 	 ('24316',NULL,1,'24410','Parcoul',1,'PARCOUL');
-INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
+INSERT INTO llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
 	 ('02585',NULL,1,'02210','Parcy Et Tigny',1,'PARCY ET TIGNY'),
 	 ('34193',NULL,1,'34360','Pardailhan',1,'PARDAILHAN'),
 	 ('47199',NULL,1,'47120','Pardaillan',1,'PARDAILLAN'),
@@ -26058,7 +26058,7 @@ INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,t
 	 ('67375',NULL,1,'67370','Pfulgriesheim',1,'PFULGRIESHEIM'),
 	 (NULL,NULL,1,'08800','Phade',1,'PHADE'),
 	 ('90080',NULL,1,'90150','Phaffans',1,'PHAFFANS');
-INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
+INSERT INTO llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
 	 ('59462',NULL,1,'59133','Phalempin',1,'PHALEMPIN'),
 	 ('57540',NULL,1,'57370','Phalsbourg',1,'PHALSBOURG'),
 	 ('57541',NULL,1,'57230','Philippsbourg',1,'PHILIPPSBOURG'),
@@ -26559,7 +26559,7 @@ INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,t
 	 ('52394',NULL,1,'52500','Poinson Les Fayl',1,'POINSON LES FAYL'),
 	 ('52395',NULL,1,'52160','Poinson Les Grancey',1,'POINSON LES GRANCEY'),
 	 ('52396',NULL,1,'52800','Poinson Les Nogent',1,'POINSON LES NOGENT');
-INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
+INSERT INTO llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
 	 ('97120',NULL,1,'97110','Pointe A Pitre',1,'POINTE A PITRE'),
 	 ('97121',NULL,1,'97116','Pointe Noire',1,'POINTE NOIRE'),
 	 ('61332',NULL,1,'61220','Pointel',1,'POINTEL'),
@@ -27060,7 +27060,7 @@ INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,t
 	 ('52402',NULL,1,'52190','Prangey',1,'PRANGEY'),
 	 ('07184',NULL,1,'07000','Pranles',1,'PRANLES'),
 	 ('16269',NULL,1,'16110','Pranzac',1,'PRANZAC');
-INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
+INSERT INTO llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
 	 (NULL,NULL,1,'38190','Prapoutel',1,'PRAPOUTEL'),
 	 ('52403',NULL,1,'52160','Praslay',1,'PRASLAY'),
 	 ('10302',NULL,1,'10210','Praslin',1,'PRASLIN'),
@@ -27561,7 +27561,7 @@ INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,t
 	 ('86204',NULL,1,'86190','Quincay',1,'QUINCAY'),
 	 ('21516',NULL,1,'21500','Quincerot',1,'QUINCEROT'),
 	 ('89320',NULL,1,'89740','Quincerot',1,'QUINCEROT');
-INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
+INSERT INTO llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
 	 ('70433',NULL,1,'70000','Quincey',1,'QUINCEY'),
 	 ('10311',NULL,1,'10400','Quincey',1,'QUINCEY'),
 	 ('21517',NULL,1,'21700','Quincey',1,'QUINCEY'),
@@ -28062,7 +28062,7 @@ INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,t
 	 ('55428',NULL,1,'55150','Reville Aux Bois',1,'REVILLE AUX BOIS'),
 	 ('02646',NULL,1,'02160','Revillon',1,'REVILLON'),
 	 ('08363',NULL,1,'08500','Revin',1,'REVIN');
-INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
+INSERT INTO llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
 	 ('01321',NULL,1,'01250','Revonnas',1,'REVONNAS'),
 	 ('67396',NULL,1,'67320','Rexingen',1,'REXINGEN'),
 	 ('59499',NULL,1,'59122','Rexpoede',1,'REXPOEDE'),
@@ -28563,7 +28563,7 @@ INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,t
 	 ('06106',NULL,1,'06910','Roquesteron',1,'ROQUESTERON'),
 	 (NULL,NULL,1,'06910','Roquesteron Grasse',1,'ROQUESTERON GRASSE'),
 	 ('11323',NULL,1,'11300','Roquetaillade',1,'ROQUETAILLADE');
-INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
+INSERT INTO llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
 	 ('62721',NULL,1,'62120','Roquetoire',1,'ROQUETOIRE'),
 	 ('31460',NULL,1,'31120','Roquettes',1,'ROQUETTES'),
 	 ('13086',NULL,1,'13360','Roquevaire',1,'ROQUEVAIRE'),
@@ -29064,7 +29064,7 @@ INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,t
 	 ('31520',NULL,1,'31370','Sajas',1,'SAJAS'),
 	 ('24515',NULL,1,'24160','Salagnac',1,'SALAGNAC'),
 	 ('38467',NULL,1,'38890','Salagnon',1,'SALAGNON');
-INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
+INSERT INTO llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
 	 (NULL,NULL,1,'06910','Salagriffon',1,'SALAGRIFFON'),
 	 ('38468',NULL,1,'38150','Salaise Sur Sanne',1,'SALAISE SUR SANNE'),
 	 ('39498',NULL,1,'39700','Salans',1,'SALANS'),
@@ -29565,7 +29565,7 @@ INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,t
 	 ('88448',NULL,1,'88140','Sauville',1,'SAUVILLE'),
 	 ('80729',NULL,1,'80110','Sauvillers Mongival',1,'SAUVILLERS MONGIVAL'),
 	 ('32420',NULL,1,'32220','Sauvimont',1,'SAUVIMONT');
-INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
+INSERT INTO llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
 	 ('55475',NULL,1,'55190','Sauvoy',1,'SAUVOY'),
 	 ('46300',NULL,1,'46800','Saux',1,'SAUX'),
 	 ('31536',NULL,1,'31800','Saux Et Pomarede',1,'SAUX ET POMAREDE'),
@@ -30066,7 +30066,7 @@ INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,t
 	 ('09293',NULL,1,'09000','Serres Sur Arget',1,'SERRES SUR ARGET'),
 	 ('40299',NULL,1,'40700','Serreslous Et Arribans',1,'SERRESLOUS ET ARRIBANS'),
 	 ('2A279',NULL,1,'20147','Serriera',1,'SERRIERA');
-INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
+INSERT INTO llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
 	 ('07313',NULL,1,'07340','Serrieres',1,'SERRIERES'),
 	 (NULL,NULL,1,'54610','Serrieres',1,'SERRIERES'),
 	 ('71518',NULL,1,'71960','Serrieres',1,'SERRIERES'),
@@ -30567,7 +30567,7 @@ INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,t
 	 ('46310',NULL,1,'46240','Soulomes',1,'SOULOMES'),
 	 ('88460',NULL,1,'88630','Soulosse Sous Saint Elophe',1,'SOULOSSE SOUS SAINT ELOPHE'),
 	 ('68315',NULL,1,'68360','Soultz Haut Rhin',1,'SOULTZ HAUT RHIN');
-INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
+INSERT INTO llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
 	 ('67473',NULL,1,'67120','Soultz Les Bains',1,'SOULTZ LES BAINS'),
 	 ('67474',NULL,1,'67250','Soultz Sous Forets',1,'SOULTZ SOUS FORETS'),
 	 ('68316',NULL,1,'68230','Soultzbach Les Bains',1,'SOULTZBACH LES BAINS'),
@@ -31068,7 +31068,7 @@ INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,t
 	 ('82157',NULL,1,'82150','Saint Beauzeil',1,'SAINT BEAUZEIL'),
 	 ('12213',NULL,1,'12620','Saint Beauzely',1,'SAINT BEAUZELY'),
 	 ('81243',NULL,1,'81140','Saint Beauzile',1,'SAINT BEAUZILE');
-INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
+INSERT INTO llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
 	 ('43170',NULL,1,'43100','Saint Beauzire',1,'SAINT BEAUZIRE'),
 	 ('63322',NULL,1,'63360','Saint Beauzire',1,'SAINT BEAUZIRE'),
 	 ('30234',NULL,1,'30350','Saint Benezet',1,'SAINT BENEZET'),
@@ -31569,7 +31569,7 @@ INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,t
 	 ('07229',NULL,1,'07200','Saint Didier Sous Aubenas',1,'SAINT DIDIER SOUS AUBENAS'),
 	 ('61383',NULL,1,'61320','Saint Didier Sous Ecouves',1,'SAINT DIDIER SOUS ECOUVES'),
 	 ('69195',NULL,1,'69440','Saint Didier Sous Riverie',1,'SAINT DIDIER SOUS RIVERIE');
-INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
+INSERT INTO llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
 	 ('71407',NULL,1,'71190','Saint Didier Sur Arroux',1,'SAINT DIDIER SUR ARROUX'),
 	 ('69196',NULL,1,'69430','Saint Didier Sur Beaujeu',1,'SAINT DIDIER SUR BEAUJEU'),
 	 ('01348',NULL,1,'01140','Saint Didier Sur Chalaronne',1,'SAINT DIDIER SUR CHALARONNE'),
@@ -32070,7 +32070,7 @@ INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,t
 	 ('63353',NULL,1,'63630','Saint Germain L Herm',1,'SAINT GERMAIN L HERM'),
 	 (NULL,NULL,1,'14280','Saint Germain La Blanche Her',1,'SAINT GERMAIN LA BLANCHE HER'),
 	 ('27547',NULL,1,'27230','Saint Germain La Campagne',1,'SAINT GERMAIN LA CAMPAGNE');
-INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
+INSERT INTO llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
 	 ('73238',NULL,1,'73410','Saint Germain La Chambotte',1,'SAINT GERMAIN LA CHAMBOTTE'),
 	 ('28338',NULL,1,'28300','Saint Germain La Gatine',1,'SAINT GERMAIN LA GATINE'),
 	 ('42229',NULL,1,'42670','Saint Germain La Montagne',1,'SAINT GERMAIN LA MONTAGNE'),
@@ -32571,7 +32571,7 @@ INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,t
 	 ('50498',NULL,1,'50700','Saint Joseph',1,'SAINT JOSEPH'),
 	 ('97224',NULL,1,'97480','Saint Joseph',1,'SAINT JOSEPH'),
 	 ('97224',NULL,1,'97212','Saint Joseph',1,'SAINT JOSEPH');
-INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
+INSERT INTO llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
 	 ('38405',NULL,1,'38134','Saint Joseph De Riviere',1,'SAINT JOSEPH DE RIVIERE'),
 	 ('07251',NULL,1,'07530','Saint Joseph Des Bancs',1,'SAINT JOSEPH DES BANCS'),
 	 ('62752',NULL,1,'62170','Saint Josse',1,'SAINT JOSSE'),
@@ -33072,7 +33072,7 @@ INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,t
 	 ('24445',NULL,1,'24510','Saint Marcel Du Perigord',1,'SAINT MARCEL DU PERIGORD'),
 	 ('03244',NULL,1,'03420','Saint Marcel En Marcillat',1,'SAINT MARCEL EN MARCILLAT'),
 	 ('03243',NULL,1,'03390','Saint Marcel En Murat',1,'SAINT MARCEL EN MURAT');
-INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
+INSERT INTO llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
 	 ('69225',NULL,1,'69170','Saint Marcel L Eclaire',1,'SAINT MARCEL L ECLAIRE'),
 	 ('07265',NULL,1,'07100','Saint Marcel Les Annonay',1,'SAINT MARCEL LES ANNONAY'),
 	 ('26312',NULL,1,'26740','Saint Marcel Les Sauzet',1,'SAINT MARCEL LES SAUZET'),
@@ -33573,7 +33573,7 @@ INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,t
 	 ('04192',NULL,1,'04870','Saint Michel L Observatoire',1,'SAINT MICHEL L OBSERVATOIRE'),
 	 ('81264',NULL,1,'81340','Saint Michel Labadie',1,'SAINT MICHEL LABADIE'),
 	 ('85256',NULL,1,'85200','Saint Michel Le Cloucq',1,'SAINT MICHEL LE CLOUCQ');
-INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
+INSERT INTO llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
 	 ('38429',NULL,1,'38650','Saint Michel Les Portes',1,'SAINT MICHEL LES PORTES'),
 	 ('46284',NULL,1,'46130','Saint Michel Loubejou',1,'SAINT MICHEL LOUBEJOU'),
 	 ('85257',NULL,1,'85700','Saint Michel Mont Mercure',1,'SAINT MICHEL MONT MERCURE'),
@@ -34074,7 +34074,7 @@ INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,t
 	 ('15207',NULL,1,'15500','Saint Poncy',1,'SAINT PONCY'),
 	 ('07287',NULL,1,'07580','Saint Pons',1,'SAINT PONS'),
 	 ('04195',NULL,1,'04400','Saint Pons',1,'SAINT PONS');
-INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
+INSERT INTO llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
 	 ('34285',NULL,1,'34230','Saint Pons De Mauchiens',1,'SAINT PONS DE MAUCHIENS'),
 	 ('34284',NULL,1,'34220','Saint Pons De Thomieres',1,'SAINT PONS DE THOMIERES'),
 	 ('30292',NULL,1,'30330','Saint Pons La Calm',1,'SAINT PONS LA CALM'),
@@ -34575,7 +34575,7 @@ INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,t
 	 ('02696',NULL,1,'02820','Saint Thomas',1,'SAINT THOMAS'),
 	 ('31518',NULL,1,'31470','Saint Thomas',1,'SAINT THOMAS'),
 	 ('17410',NULL,1,'17150','Saint Thomas De Conac',1,'SAINT THOMAS DE CONAC');
-INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
+INSERT INTO llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
 	 ('53256',NULL,1,'53160','Saint Thomas De Courceriers',1,'SAINT THOMAS DE COURCERIERS'),
 	 ('51519',NULL,1,'51800','Saint Thomas En Argonne',1,'SAINT THOMAS EN ARGONNE'),
 	 ('26331',NULL,1,'26190','Saint Thomas En Royans',1,'SAINT THOMAS EN ROYANS'),
@@ -35076,7 +35076,7 @@ INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,t
 	 ('02690',NULL,1,'02350','Sainte Preuve',1,'SAINTE PREUVE'),
 	 ('33468',NULL,1,'33350','Sainte Radegonde',1,'SAINTE RADEGONDE'),
 	 ('32405',NULL,1,'32500','Sainte Radegonde',1,'SAINTE RADEGONDE');
-INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
+INSERT INTO llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
 	 ('12241',NULL,1,'12850','Sainte Radegonde',1,'SAINTE RADEGONDE'),
 	 ('24492',NULL,1,'24560','Sainte Radegonde',1,'SAINTE RADEGONDE'),
 	 ('17389',NULL,1,'17250','Sainte Radegonde',1,'SAINTE RADEGONDE'),
@@ -35577,7 +35577,7 @@ INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,t
 	 ('89409',NULL,1,'89450','Tharoiseau',1,'THAROISEAU'),
 	 (NULL,NULL,1,'44730','Tharon Plage',1,'THARON PLAGE'),
 	 ('89410',NULL,1,'89200','Tharot',1,'THAROT');
-INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
+INSERT INTO llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
 	 ('18261',NULL,1,'18210','Thaumiers',1,'THAUMIERS'),
 	 ('23253',NULL,1,'23250','Thauron',1,'THAURON'),
 	 ('18262',NULL,1,'18300','Thauvenay',1,'THAUVENAY'),
@@ -36078,7 +36078,7 @@ INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,t
 	 ('11393',NULL,1,'11200','Tourouzelle',1,'TOUROUZELLE'),
 	 ('11394',NULL,1,'11300','Tourreilles',1,'TOURREILLES'),
 	 ('32453',NULL,1,'32390','Tourrenquets',1,'TOURRENQUETS');
-INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
+INSERT INTO llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
 	 ('06147',NULL,1,'06690','Tourrette Levens',1,'TOURRETTE LEVENS'),
 	 ('83138',NULL,1,'83440','Tourrettes',1,'TOURRETTES'),
 	 ('16383',NULL,1,'16560','Tourriers',1,'TOURRIERS'),
@@ -36579,7 +36579,7 @@ INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,t
 	 ('19274',NULL,1,'19270','Ussac',1,'USSAC'),
 	 ('09321',NULL,1,'09400','Ussat',1,'USSAT'),
 	 ('79334',NULL,1,'79210','Usseau',1,'USSEAU');
-INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
+INSERT INTO llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
 	 ('86275',NULL,1,'86230','Usseau',1,'USSEAU'),
 	 ('15244',NULL,1,'15300','Ussel',1,'USSEL'),
 	 ('19275',NULL,1,'19200','Ussel',1,'USSEL'),
@@ -37080,7 +37080,7 @@ INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,t
 	 ('38530',NULL,1,'38090','Vaulx Milieu',1,'VAULX MILIEU'),
 	 ('62839',NULL,1,'62159','Vaulx Vraucourt',1,'VAULX VRAUCOURT'),
 	 ('03300',NULL,1,'03220','Vaumas',1,'VAUMAS');
-INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
+INSERT INTO llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
 	 ('04233',NULL,1,'04200','Vaumeilh',1,'VAUMEILH'),
 	 ('60661',NULL,1,'60117','Vaumoise',1,'VAUMOISE'),
 	 ('89434',NULL,1,'89320','Vaumort',1,'VAUMORT'),
@@ -37581,7 +37581,7 @@ INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,t
 	 ('51614',NULL,1,'51380','Verzy',1,'VERZY'),
 	 ('52517',NULL,1,'52700','Vesaignes Sous Lafauche',1,'VESAIGNES SOUS LAFAUCHE'),
 	 ('52518',NULL,1,'52800','Vesaignes Sur Marne',1,'VESAIGNES SUR MARNE');
-INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
+INSERT INTO llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
 	 ('01436',NULL,1,'01170','Vesancy',1,'VESANCY'),
 	 ('26373',NULL,1,'26220','Vesc',1,'VESC'),
 	 ('90102',NULL,1,'90200','Vescemont',1,'VESCEMONT'),
@@ -38082,7 +38082,7 @@ INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,t
 	 ('16410',NULL,1,'16700','Villegats',1,'VILLEGATS'),
 	 ('71577',NULL,1,'71620','Villegaudin',1,'VILLEGAUDIN'),
 	 ('18284',NULL,1,'18260','Villegenon',1,'VILLEGENON');
-INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
+INSERT INTO llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
 	 ('11426',NULL,1,'11600','Villegly',1,'VILLEGLY'),
 	 ('36242',NULL,1,'36110','Villegongis',1,'VILLEGONGIS'),
 	 ('33548',NULL,1,'33141','Villegouge',1,'VILLEGOUGE'),
@@ -38583,7 +38583,7 @@ INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,t
 	 ('09340',NULL,1,'09120','Vira',1,'VIRA'),
 	 ('81322',NULL,1,'81640','Virac',1,'VIRAC'),
 	 ('50643',NULL,1,'50690','Virandeville',1,'VIRANDEVILLE');
-INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
+INSERT INTO llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
 	 ('15263',NULL,1,'15300','Virargues',1,'VIRARGUES'),
 	 ('47326',NULL,1,'47200','Virazeil',1,'VIRAZEIL'),
 	 ('71584',NULL,1,'71260','Vire',1,'VIRE'),
@@ -39084,7 +39084,7 @@ INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,t
 	 ('67549',NULL,1,'67370','Woellenheim',1,'WOELLENHEIM'),
 	 ('67550',NULL,1,'67360','Woerth',1,'WOERTH'),
 	 ('80826',NULL,1,'80460','Woignarue',1,'WOIGNARUE');
-INSERT INTO dolibarr_dev.llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
+INSERT INTO llx_c_ziptown (code,fk_county,fk_pays,zip,town,active,town_up) VALUES
 	 ('55584',NULL,1,'55300','Woimbey',1,'WOIMBEY'),
 	 ('80827',NULL,1,'80520','Woincourt',1,'WOINCOURT'),
 	 ('55585',NULL,1,'55300','Woinville',1,'WOINVILLE'),
