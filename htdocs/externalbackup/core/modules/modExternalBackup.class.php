@@ -37,7 +37,6 @@ include_once DOL_DOCUMENT_ROOT ."/core/modules/DolibarrModules.class.php";
 
 class modExternalBackup extends DolibarrModules
 {
-
 	/**
 	 *   Constructor. Define names, constants, directories, boxes, permissions
 	 *
@@ -45,8 +44,6 @@ class modExternalBackup extends DolibarrModules
 	 */
 	function __construct($db)
 	{
-		global $langs,$conf;
-
 		$this->db = $db;
 		$this->numero = 101240;
 
@@ -102,13 +99,12 @@ class modExternalBackup extends DolibarrModules
 	 */
 	function init($options = '')
 	{
-		global $conf;
 		// Permissions et valeurs par defaut
 		$this->remove($options);
 
 		$sql = array();
 
-		$result=$this->load_tables();
+		$this->load_tables();
 
 		return $this->_init($sql, $options);
 	}

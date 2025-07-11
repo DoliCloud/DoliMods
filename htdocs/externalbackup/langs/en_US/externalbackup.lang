@@ -15,3 +15,4 @@ EXTERNAL_BACKUP_RCLONE_PATH=Path to command rclone
 EXTERNAL_BACKUP_RCLONE_CONF_PATH=Path to config file to use for rclone
 EXTERNAL_BACKUP_RCLONE_TARGET=Target to use for backup
 EXTERNAL_BACKUP_RCLONE_TARGETDesc=Run <strong>rclone config</strong> from command line to create, setup and authorize a <strong>target</strong> destination for your backup. Enter here name of the target you created.
+ExternalBackupExplanation=Once setup is complete, the scheduled job can be run automatically (see setup of module '%s') to make your backup at the pace defined into the autoscheduled job...
