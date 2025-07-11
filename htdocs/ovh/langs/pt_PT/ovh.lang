@@ -38,6 +38,7 @@ OvhInvoiceImportShort=Importação de faturas OVH
 OvhInvoiceImportDesc=Esta página lista todas as faturas da OVH e sugere uma forma de as importar. Clique primeiro no botão "Obter lista de faturas". Em seguida, para cada fatura ainda não presente, marque a caixa e clique no botão "Importar".
 SupplierToUseForImport=Fornecedor para criar faturas importadas em
 ProductGenericToUseForImport=Produto/Serviço a ser usado para linhas de faturas importadas
+OrSelectAnotherOne=Ou selecione outro
 ProjectForImport=Anexar faturas importadas ao projeto
 KeepEmptyToSaveLinesAsFreeLines=Mantenha este campo vazio se não quiser ver linhas importadas usando um produto/serviço genérico predefinido
 ScanOvhInvoices=Obter lista de faturas
@@ -52,11 +53,11 @@ InvoiceFoundIntoDolibarr=Fatura encontrada em Dolibarr: %s
 InvoicePDFFoundIntoDolibarr=Fatura+PDF encontrada em Dolibarr: %s
 ConnectionParameters=Parâmetros de conexão
 TryToUseProxy=Usando servidor proxy
-AboutInfo=Este módulo é desenvolvido e distribuído por Laurent Destailleur para DoliCloud, <a href="https://www.dolicloud.com?origin=dolimods"> www.dolicloud.com </a> (Uma empresa Dolibarr Preferred Partner).
+AboutInfo=This module is developped and distributed by Laurent Destailleur for DoliCloud, <a href="https://www.dolicloud.com?origin=dolimods">www.dolicloud.com</a> (A Dolibarr Preferred Partner company).
 MoreModules=Outros módulos do mesmo autor estão disponíveis no mercado oficial da DoliStore...
-MoreModulesLink= <a target="_blank" href="https://www.dolistore.com/search.php?search_query=dolicloud"> Clique aqui para ver a lista completa </a>
+MoreModulesLink=<a target="_blank" href="https://www.dolistore.com/search.php?search_query=dolicloud">Click here to see full list</a>
 MoreCloudHosting=Para usar o Dolibarr online, escolha a hospedagem segura DoliCloud.
-MoreCloudHostingLink= <a target="_blank" href="https://www.dolicloud.com?origin=dolimods"> Clique aqui para mais informações </a>
+MoreCloudHostingLink=<a target="_blank" href="https://www.dolicloud.com?origin=dolimods">Click here for more information</a>
 CompatibleWithDoliDroid=Este módulo também é compatível com DoliDroid, o aplicativo Android para Dolibarr.
 OvhApplicationName=Nome da Aplicação
 OvhApplicationDescription=Descrição do aplicativo
@@ -68,6 +69,7 @@ ListOfExistingAPIApp=Nota: Você pode encontrar a lista de aplicativos já criad
 ClickHereToLoginAndGetYourConsumerKey=Clique <a href="%s"> aqui para fazer login e obter uma nova chave de consumidor </a> (Você deve escolher <strong> UNLIMITED </strong> validade)
 Authentication=Autenticação
 FromThe=De
+ToThe=para o
 PleaseFillOtherFieldFirst=Por favor, preencha os outros campos primeiro...
 IfYouChangeHereChangeAlsoClickToDial=Se você alterar os dados aqui, não se esqueça de atualizar também o link no módulo ClickToDial
 ToGoOnClickToDialSetup=Para ir na configuração do módulo ClickToDial
@@ -81,3 +83,8 @@ OVHAccount=Conta OVH
 OvhDefaultBankAccount=Conta bancária padrão nas faturas
 OvhValidVatList=Lista de valores de IVA válidos
 OVHVatKeepEmptyToAcceptAll=Mantenha este campo vazio se quiser aceitar todos os valores de IVA (automático). Atenção: a OVH devolve por vezes taxas de IVA mal arredondadas, pelo que a definição das taxas de IVA aqui obriga a aplicação a utilizar o valor válido mais próximo em vez do valor da OVH.
+InvalidMobilePhoneNumberForContact=O número de telefone %s é inválido: %s (deve ter formato internacional +33123456789)
+SendSMS=Enviar SMS
+OVH_USE_LAST_INVOCIE_VALIDATED_DATE=Sugerir a data da última fatura do fornecedor nas ferramentas de fatura de importação
+ValidImportedInvoice=Faturas importadas válidas
+OVH_DEBUG=Enable additional logs specific to the OVH module (dolibarr_ovh.* files)

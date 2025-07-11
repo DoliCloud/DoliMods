@@ -7,14 +7,16 @@ ConcatPDfPutFileManually=PDF-bestanden kunnen hier worden opgeslagen met behulp 
 NoPDFFileFound=Momenteel geen PDF-bestanden gevonden in de map
 ConcatFile=Concat PDF-bestand
 EnableMultipleConcatenation=Schakel de mogelijkheid in om meerdere documenten samen te voegen.
+EnableMixedConcatenation=Concat the document (must be 1 page only) only on back pages.
 ConcatPdf=Concat PDF
 Module101400Name=Concat PDF
 Module101400Desc=Module om PDF te contacteren (verkoopvoorwaarden bijvoorbeeld) naar elke gegenereerde PDF (facturen, bestellingen of voorstellen)
-AboutInfo=Deze module is ontwikkeld en gedistribueerd door Laurent Destailleur voor DoliCloud, <a href="https://www.dolicloud.com?origin=dolimods"> www.dolicloud.com </a> (A Dolibarr Preferred Partner company).
+AboutInfo=This module is developped and distributed by Laurent Destailleur for DoliCloud, <a href="https://www.dolicloud.com?origin=dolimods">www.dolicloud.com</a> (A Dolibarr Preferred Partner company).
 MoreModules=Andere modules van dezelfde auteur zijn beschikbaar op de officiële DoliStore-marktplaats...
-MoreModulesLink= <a target="_blank" href="https://www.dolistore.com/search.php?search_query=dolicloud"> Klik hier om de volledige lijst te zien </a>
+MoreModulesLink=<a target="_blank" href="https://www.dolistore.com/search.php?search_query=dolicloud">Click here to see full list</a>
 MoreCloudHosting=Om online Dolibarr te gebruiken, kiest u de beveiligde hosting DoliCloud.
-MoreCloudHostingLink= <a target="_blank" href="https://www.dolicloud.com?origin=dolimods"> Klik hier voor meer informatie </a>
+MoreCloudHostingLink=<a target="_blank" href="https://www.dolicloud.com?origin=dolimods">Click here for more information</a>
 CompatibleWithDoliDroid=Deze module is ook compatibel met DoliDroid, de Android-applicatie voor Dolibarr.
 ErrorFileMustBeAPdf=Fout, bestand moet een PDF-bestand zijn
 WarningConcatPDFIsNotCompatibleWithOptionReadOnlyPDF=Concat PDF is niet compatibel met de PDF-optie: %s
+AddFilesToConcat=Bestand(en) uploaden naar concat

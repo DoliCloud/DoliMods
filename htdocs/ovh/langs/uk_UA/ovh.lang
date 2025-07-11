@@ -38,6 +38,7 @@ OvhInvoiceImportShort=Імпорт рахунків-фактур OVH
 OvhInvoiceImportDesc=На цій сторінці перелічено всі рахунки-фактури OVH і запропоновано спосіб їх імпорту. Натисніть спочатку кнопку «Отримати список рахунків». Потім для кожного рахунку-фактури, якого ще немає, поставте прапорець і натисніть кнопку «Імпортувати».
 SupplierToUseForImport=Постачальник для створення імпортованих рахунків-фактур
 ProductGenericToUseForImport=Продукт/послуга для імпортованих рядків рахунків-фактур
+OrSelectAnotherOne=Або виберіть інший
 ProjectForImport=Додайте імпортовані рахунки-фактури до проекту
 KeepEmptyToSaveLinesAsFreeLines=Залиште це поле порожнім, якщо ви не хочете бачити імпортовані рядки з використанням загального попередньо визначеного продукту/послуги
 ScanOvhInvoices=Отримати список рахунків-фактур
@@ -52,11 +53,11 @@ InvoiceFoundIntoDolibarr=Рахунок-фактура знайдено в Dolib
 InvoicePDFFoundIntoDolibarr=Рахунок-фактура+PDF знайдено в Dolibarr: %s
 ConnectionParameters=Параметри підключення
 TryToUseProxy=Використання проксі-сервера
-AboutInfo=Цей модуль розроблено та розповсюджено Laurent Destailleur для DoliCloud, <a href="https://www.dolicloud.com?origin=dolimods"> www.dolicloud.com </a> (компанія-партнер Dolibarr).
+AboutInfo=This module is developped and distributed by Laurent Destailleur for DoliCloud, <a href="https://www.dolicloud.com?origin=dolimods">www.dolicloud.com</a> (A Dolibarr Preferred Partner company).
 MoreModules=Інші модулі того ж автора доступні на офіційному торговому майданчику DoliStore...
-MoreModulesLink= <a target="_blank" href="https://www.dolistore.com/search.php?search_query=dolicloud"> Натисніть тут, щоб переглянути повний список </a>
+MoreModulesLink=<a target="_blank" href="https://www.dolistore.com/search.php?search_query=dolicloud">Click here to see full list</a>
 MoreCloudHosting=Щоб використовувати онлайн Dolibarr, виберіть захищений хостинг DoliCloud.
-MoreCloudHostingLink= <a target="_blank" href="https://www.dolicloud.com?origin=dolimods"> Натисніть тут для отримання додаткової інформації </a>
+MoreCloudHostingLink=<a target="_blank" href="https://www.dolicloud.com?origin=dolimods">Click here for more information</a>
 CompatibleWithDoliDroid=Ці модулі також сумісні з DoliDroid, програмою Android для Dolibarr.
 OvhApplicationName=Назва програми
 OvhApplicationDescription=Опис програми
@@ -68,6 +69,7 @@ ListOfExistingAPIApp=Примітка. Ви можете знайти списо
 ClickHereToLoginAndGetYourConsumerKey=Клацніть <a href="%s"> тут, щоб увійти та отримати новий споживчий ключ </a> (Ви повинні вибрати <strong> НЕОБМЕЖЕНИЙ термін дії </strong>)
 Authentication=Аутентифікація
 FromThe=Від
+ToThe=до
 PleaseFillOtherFieldFirst=Спочатку заповніть інші поля...
 IfYouChangeHereChangeAlsoClickToDial=Якщо ви змінюєте дані тут, не забудьте також оновити посилання в модулі ClickToDial
 ToGoOnClickToDialSetup=Щоб перейти до налаштування модуля ClickToDial
@@ -81,3 +83,8 @@ OVHAccount=Обліковий запис OVH
 OvhDefaultBankAccount=Банківський рахунок за замовчуванням у рахунках-фактурах
 OvhValidVatList=Перелік дійсних значень ПДВ
 OVHVatKeepEmptyToAcceptAll=Залиште це поле порожнім, якщо ви хочете прийняти всі значення ПДВ (авто). Попередження: OVH іноді повертає неправильно округлені ставки ПДВ, тому встановлення тут ставок ПДВ змушує програму використовувати найближче дійсне значення замість значення OVH.
+InvalidMobilePhoneNumberForContact=Номер телефону %s недійсний: %s (повинен мати міжнародний формат +33123456789)
+SendSMS=Надіслати SMS
+OVH_USE_LAST_INVOCIE_VALIDATED_DATE=Запропонуйте дату останнього рахунка-фактури постачальника від постачальника в інструментах для рахунків-фактур імпорту
+ValidImportedInvoice=Дійсні імпортовані рахунки-фактури
+OVH_DEBUG=Enable additional logs specific to the OVH module (dolibarr_ovh.* files)

@@ -7,15 +7,16 @@ ConcatPDfPutFileManually=PDF Dokumente können hier mit dem Dateimangerer gespei
 NoPDFFileFound=Zurzeit keine PDF Dokumente in diesem Verzeichnis
 ConcatFile=PDF Datei verbinden
 EnableMultipleConcatenation=Verbinden von mehreren PDF Dateien aktivieren.
+EnableMixedConcatenation=Concat the document (must be 1 page only) only on back pages.
 ConcatPdf=Concat PDF
 Module101400Name=Concat PDF
 Module101400Desc=Modul zum Verbinden von PDFs (AGBs zum Beispiel) mit jedem generierten PDF (Rechnung, Bestellung, Auftragsbestätigung)
-AboutInfo=Dieses Modul wird entwickelt und vertrieben durch Laurent Destailleur für DoliCloud, <a href="https://www.dolicloud.com?origin=dolimods">www.dolicloud.com</a> (A Dolibarr Preferred Partner company).
+AboutInfo=This module is developped and distributed by Laurent Destailleur for DoliCloud, <a href="https://www.dolicloud.com?origin=dolimods">www.dolicloud.com</a> (A Dolibarr Preferred Partner company).
 MoreModules=Vom gleichen Author sind weitere Module im offiziellen DoliStore Onlineshop...
-MoreModulesLink=<a target="_blank" href="https://www.dolistore.com/search.php?search_query=dolicloud">Klicken Sie hier für eine komplette Liste</a>
+MoreModulesLink=<a target="_blank" href="https://www.dolistore.com/search.php?search_query=dolicloud">Click here to see full list</a>
 MoreCloudHosting=Um Dolibarr online zu nutzen, wählen Sie das sichere DoliCloud Hosting.
-MoreCloudHostingLink=<a target="_blank" href="https://www.dolicloud.com?origin=dolimods">Klicken Sie hier für weitere Informationen</a>
+MoreCloudHostingLink=<a target="_blank" href="https://www.dolicloud.com?origin=dolimods">Click here for more information</a>
 CompatibleWithDoliDroid=Dieses Modul ist auch mit DoliDroid kompatibel, der Android App für Dolibarr.
 ErrorFileMustBeAPdf=Fehler, die Datei muss ein PDF sein
 WarningConcatPDFIsNotCompatibleWithOptionReadOnlyPDF=Concat PDF ist nicht kompatibel mit der PDF-Option: %s
-AddFilesToConcat=Upload file(s) to concat
+AddFilesToConcat=Datei(en) izum Verbinden hochladen

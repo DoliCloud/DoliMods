@@ -11,11 +11,11 @@ EcoTaxDeeDocFooterExample=Produkte haben eine Einheits-WEEE-Steuer von 0,01 € 
 ECOTAXDEEE_CATEGORY_REF=Ref der Produktkategorie, um Produkte zu erkennen, die Ökosteuer-WEEE benötigen
 Module101380Name=Ökosteuer WEEE
 Module101380Desc=Modul zum automatischen Hinzufügen von Ökosteuerzeilen
-AboutInfo=Dieses Modul wurde entwickelt und vertrieben von Laurent Destailleur für DoliCloud, <a href="https://www.dolicloud.com?origin=dolimods"> www.dolicloud.com </a> (ein bevorzugtes Partnerunternehmen von Dolibarr).
+AboutInfo=This module is developped and distributed by Laurent Destailleur for DoliCloud, <a href="https://www.dolicloud.com?origin=dolimods">www.dolicloud.com</a> (A Dolibarr Preferred Partner company).
 MoreModules=Andere Module desselben Autors sind auf dem offiziellen Marktplatz von DoliStore erhältlich...
-MoreModulesLink= <a target="_blank" href="https://www.dolistore.com/search.php?search_query=dolicloud"> Klicken Sie hier, um die vollständige Liste </a> anzuzeigen
+MoreModulesLink=<a target="_blank" href="https://www.dolistore.com/search.php?search_query=dolicloud">Click here to see full list</a>
 MoreCloudHosting=Um Online-Dolibarr zu verwenden, wählen Sie das gesicherte Hosting DoliCloud.
-MoreCloudHostingLink= <a target="_blank" href="https://www.dolicloud.com?origin=dolimods"> Klicken Sie hier für weitere Informationen </a>
+MoreCloudHostingLink=<a target="_blank" href="https://www.dolicloud.com?origin=dolimods">Click here for more information</a>
 CompatibleWithDoliDroid=Dieses Modul ist auch mit DoliDroid, der Android-Anwendung für Dolibarr, kompatibel.
 EcoTaxAddedIfDesc=Eine Ökosteuer-WEEE-Zeile wird automatisch berechnet und hinzugefügt, wenn Produkte mit einer Ökosteuer zu folgenden Objekten hinzugefügt werden: <b> %s </b> . <br> Die Höhe der Ökosteuer muss zuvor in der Produktkarte für jedes Produkt definiert werden.
 EcoTaxAddedIfDescOld=Eine Ökosteuer-WEEE-Zeile wird automatisch berechnet und hinzugefügt, wenn Produkte mit einer Ökosteuer zu folgenden Objekten hinzugefügt werden: <b> %s </b> . <br> Die Höhe der Ökosteuer muss zuvor in der Produktkarte für jedes Produkt definiert werden. Gehen Sie dazu in das Setup des Moduls "Produkt" und fügen Sie ein ergänzendes Feld im Float-Format und mit dem Code "ecotaxdeee" hinzu. Sie können dann den Ökosteuerbetrag für jedes Produkt eingeben.
@@ -23,3 +23,18 @@ AddPageWithWEEEUnitPrices=Das Modul kann auch automatisch eine Seite zum generie
 ECOTAXDEEE_PRODUCT_OR_LABEL_LINE=Produkt/Dienstleistung zur Verwendung als Ökosteuer-WEEE-Linie
 OrLabelOfAFreeLine=oder nur ein zu verwendendes Etikett
 WEEE_DISABLE_VAT_ON_ECOTAX=Deaktivieren Sie die Mehrwertsteuer in der Ökosteuerzeile (In den meisten Fällen benötigt die Ökosteuer eine Mehrwertsteuer wie jede andere Dienstleistung)
+MoreSetup=Weitere Einstellungen
+CodeEcotax=Ökosteuerkodex
+EcotaxAmount=Betrag der Ökosteuer
+NewEcotax=Neue Ökosteuer
+Norecords= Keine Aufzeichnungen
+ErrorInputsRequired= Erforderliche Eingaben
+RecordAlreadyExists=Datensatz ist bereits vorhanden
+recordUpdated=Datensatz erfolgreich aktualisiert
+recordDeleted=Datensatz erfolgreich gelöscht
+recordAdded=Datensatz erfolgreich hinzugefügt
+InsertCodeForEcoTax=Geben Sie die Ökosteuer von Produkten ein, indem Sie einen Code aus einer Code-Betrag-Tabelle eingeben
+SetCodeForEcotaxEnabled=Registerkarte zum Konfigurieren von <b>Code aktivieren</b>
+SetCodeForEcotaxDisabled=Deaktivierte Registerkarte zum Konfigurieren von <b>Code</b>
+CodeAndAmountTable=Tabelle Ökosteuercode-Betrag
+AreYouSureYouWantToDelete=Möchten Sie die Zeile wirklich löschen?

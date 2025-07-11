@@ -5,7 +5,7 @@ OvhSmsRecap=Contul principal rezumat
 OvhSmsNick=Nick Handle pentru contul principal
 OvhBillingAccount=Nick handle pentru contul principal
 OvhServiceName=Cont de service OVH
-OvhSmsPass=Parola
+OvhSmsPass=Parolă
 OvhSmsLabelAccount=Cont SMS de utilizat
 OvhSmsLoginSuccessFull=Conexiune reușită!
 OvhSmsNotConfigured=Modulul nu este configurat
@@ -16,11 +16,11 @@ OvhSmsSend=Trimite SMS
 OvhSmsAccountInfos=Informații despre contul SMS
 OvhSmsDestinataire=Ţintă
 OvhSmsLabelTexteMessage=Textul mesajului
-tabOvhSms=mesaj
+tabOvhSms=sms
 OvhSmsStatutSent=Mesaj primit
 OvhSmsStatutSubmitted=Trimis
-OvhSmsStatutWaiting=Aşteptare
-OvhSmsStatutFailed=A eșuat
+OvhSmsStatutWaiting=În aşteptare
+OvhSmsStatutFailed=Eșuat
 OvhSmsBackToAdmin=Înapoi la modulul de administrare
 OvhSmsHistory=Jurnalul ultimelor trimiteri %s
 ListOfSmsAccountsForNH=Lista de conturi SMS pentru contul definit în fila „Autentificare”.
@@ -38,6 +38,7 @@ OvhInvoiceImportShort=Import facturi OVH
 OvhInvoiceImportDesc=Această pagină listează toate facturile OVH și sugerează o modalitate de a le importa. Faceți mai întâi clic pe butonul „Obțineți lista de facturi”. Apoi, pentru fiecare factură care nu este deja prezentă, bifați caseta și faceți clic pe „Butonul Import”.
 SupplierToUseForImport=Furnizorul pentru a crea facturi importate
 ProductGenericToUseForImport=Produs/Servicii de utilizat pentru liniile de facturi importate
+OrSelectAnotherOne=Sau selectează alta
 ProjectForImport=Atașați facturile importate la proiect
 KeepEmptyToSaveLinesAsFreeLines=Păstrați acest câmp gol dacă nu doriți să vedeți linii importate folosind un produs/serviciu predefinit generic
 ScanOvhInvoices=Obțineți lista de facturi
@@ -50,17 +51,17 @@ NoInvoicesSelected=Nu au fost selectate facturi
 FileDownloadedAndAttached=Fișierul <strong> %s </strong> descărcat și atașat facturii
 InvoiceFoundIntoDolibarr=Factură găsită în Dolibarr: %s
 InvoicePDFFoundIntoDolibarr=Factură+PDF găsită în Dolibarr: %s
-ConnectionParameters=Parametrii de conectare
-TryToUseProxy=Utilizarea serverului proxy
-AboutInfo=Acest modul este dezvoltat și distribuit de Laurent Destailleur pentru DoliCloud, <a href="https://www.dolicloud.com?origin=dolimods"> www.dolicloud.com </a> (O companie Dolibarr Preferred Partner).
+ConnectionParameters=Parametri de conectare
+TryToUseProxy=Utilizare server proxy
+AboutInfo=This module is developped and distributed by Laurent Destailleur for DoliCloud, <a href="https://www.dolicloud.com?origin=dolimods">www.dolicloud.com</a> (A Dolibarr Preferred Partner company).
 MoreModules=Alte module ale aceluiași autor sunt disponibile pe piața oficială DoliStore...
-MoreModulesLink= <a target="_blank" href="https://www.dolistore.com/search.php?search_query=dolicloud"> Faceți clic aici pentru a vedea lista completă </a>
+MoreModulesLink=<a target="_blank" href="https://www.dolistore.com/search.php?search_query=dolicloud">Click here to see full list</a>
 MoreCloudHosting=Pentru a utiliza Dolibarr online, alegeți găzduirea securizată DoliCloud.
-MoreCloudHostingLink= <a target="_blank" href="https://www.dolicloud.com?origin=dolimods"> Faceți clic aici pentru mai multe informații </a>
+MoreCloudHostingLink=<a target="_blank" href="https://www.dolicloud.com?origin=dolimods">Click here for more information</a>
 CompatibleWithDoliDroid=Acest module este compatibil și cu DoliDroid, aplicația Android pentru Dolibarr.
-OvhApplicationName=Numele aplicatiei
+OvhApplicationName=Nume aplicație
 OvhApplicationDescription=Descrierea aplicației
-OvhApplicationKey=Cheia aplicației
+OvhApplicationKey=Cheie aplicație
 OvhApplicationSecret=Secretul aplicației
 OvhConsumerkey=Cheia consumatorului
 GoOnPageToCreateYourAPIKey=Mai întâi accesați pagina <a href="%s" target="_blank"> %s </a> pentru a vă crea intrarea în aplicația OVH și pentru a obține cheia API și secretul acesteia, sau creați unul nou dacă preferați sau dacă ați pierdut cheia/secretul API, apoi completați această pagină cu aceste informații.
@@ -68,6 +69,7 @@ ListOfExistingAPIApp=Notă: Puteți găsi lista aplicațiilor deja create pe pag
 ClickHereToLoginAndGetYourConsumerKey=Faceți clic pe <a href="%s"> aici pentru a vă autentifica și a obține o nouă cheie de consum </a> (Trebuie să alegeți <strong> NELIMITAT </strong> valabilitate)
 Authentication=Autentificare
 FromThe=De la
+ToThe=la
 PleaseFillOtherFieldFirst=Vă rugăm să completați mai întâi celelalte câmpuri...
 IfYouChangeHereChangeAlsoClickToDial=Dacă modificați datele aici, nu uitați să actualizați și linkul în modulul ClickToDial
 ToGoOnClickToDialSetup=Pentru a merge la configurarea modulului ClickToDial
@@ -77,7 +79,12 @@ OVHURLMustNotBeLocal=Atenție, adresa URL pe care o utilizați pentru aplicație
 CreateSnapshot=Creați un instantaneu
 SnapshotRequestSent=Solicitarea instantanee sub numele „%s” a fost trimisă cu succes.
 NoneLabelOnOvhLineWillBeUsed=Niciuna (se va folosi eticheta liniei din factura OVH)
-OVHAccount=Contul OVH
+OVHAccount=Cont OVH
 OvhDefaultBankAccount=Cont bancar implicit pe facturi
 OvhValidVatList=Lista valorilor valide de TVA
 OVHVatKeepEmptyToAcceptAll=Păstrați acest câmp gol dacă doriți să acceptați toate valorile TVA (auto). Atenție: OVH returnează uneori cote de TVA rotunjite prost, așa că setarea cotelor de TVA aici obligă aplicația să folosească cea mai apropiată valoare valabilă în loc de valoarea OVH.
+InvalidMobilePhoneNumberForContact=Nr. de telefon %s este invalid : %s (trebuie sa aibă formatul international +33123456789)
+SendSMS=Trimite SMS
+OVH_USE_LAST_INVOCIE_VALIDATED_DATE=Sugerați ultima dată a facturii furnizorului de la furnizor pe instrumentele de factură de import
+ValidImportedInvoice=Facturi importate valide
+OVH_DEBUG=Enable additional logs specific to the OVH module (dolibarr_ovh.* files)

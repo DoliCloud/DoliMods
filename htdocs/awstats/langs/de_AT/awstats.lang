@@ -1,20 +1,20 @@
 # Dolibarr language file - en_EN - awstats
 CHARSET= UTF-8
-AWStatsSetup=AWStats module setup
-AWStatsSummary=AWStats summary
-AWStatsSetupNotComplete=AWStats setup is not complete
-AWSTATS_DATA_DIR=AWStats data files directory (path on disk)
-AWSTATS_CGI_PATH=AWStats URL (CGI)
-AWSTATS_PROG_PATH=Localisation of AWStats program (path on disk)
-AWSTATS_LIMIT_CONF=Limit config shown to this list (empty for no filter or use "," as separator)
-ShowStats=Show detailed statistics
-FilterDomain=Filter on profile (configuration name)
+AWStatsSetup=Einrichtung des AWStats-Moduls
+AWStatsSummary=AWStats-Zusammenfassung
+AWStatsSetupNotComplete=Die Einrichtung von AWStats ist nicht abgeschlossen
+AWSTATS_DATA_DIR=AWStats-Datendateiverzeichnis (Pfad auf der Festplatte)
+AWSTATS_CGI_PATH=AWStats-URL (CGI)
+AWSTATS_PROG_PATH=Lokalisierung des AWStats-Programms (Pfad auf der Festplatte)
+AWSTATS_LIMIT_CONF=Beschränken Sie die angezeigte Konfiguration auf diese Liste (leer für keinen Filter oder verwenden Sie „,“ als Trennzeichen).
+ShowStats=Detaillierte Statistiken anzeigen
+FilterDomain=Nach Profil filtern (Konfigurationsname)
 Module12000Name=AWStats
-Module12000Desc=Module to integrate AWStats log analyzer reports in Dolibarr
-ErrorAWStatsDataDirMustEndWithASlash=Directory must end with / or FilterDomain=Filter on configuration name
+Module12000Desc=Modul zur Integration von AWStats-Protokollanalyseberichten in Dolibarr
+ErrorAWStatsDataDirMustEndWithASlash=Das Verzeichnis muss mit / oder FilterDomain=Filter nach Konfigurationsname enden
 AboutInfo=This module is developped and distributed by Laurent Destailleur for DoliCloud, <a href="https://www.dolicloud.com?origin=dolimods">www.dolicloud.com</a> (A Dolibarr Preferred Partner company).
-MoreModules=Other modules of same author are available on the official DoliStore market place...
+MoreModules=Weitere Module desselben Autors sind auf dem offiziellen DoliStore-Marktplatz erhältlich ...
 MoreModulesLink=<a target="_blank" href="https://www.dolistore.com/search.php?search_query=dolicloud">Click here to see full list</a>
-MoreCloudHosting=To use online Dolibarr, choose the secured hosting DoliCloud.
+MoreCloudHosting=Um Dolibarr online zu nutzen, wählen Sie das gesicherte Hosting DoliCloud.
 MoreCloudHostingLink=<a target="_blank" href="https://www.dolicloud.com?origin=dolimods">Click here for more information</a>
-CompatibleWithDoliDroid=This modules is also compatible with DoliDroid, the Android application for Dolibarr.
+CompatibleWithDoliDroid=Dieses Modul ist auch mit DoliDroid, der Android-Anwendung für Dolibarr, kompatibel.

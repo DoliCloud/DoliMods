@@ -1,8 +1,8 @@
 # Dolibarr language file - en_US - google
 CHARSET=UTF-8
-GoogleSetup=Instellingen voor integratie van Google-tools
-GoogleSetupHelp=ID van de agenda is te vinden op de Google-parameterpagina voor de agenda (ga naar uw Google-agenda, dan "Parameters" in de wielen, dan tabblad "Agenda", of probeer deze link <a href="https://www.google.com/calendar/render#i"> https://www.google.com /calendar/render#i </a> en klik vervolgens op naam of uw Agenda). Je Agenda-ID is een ID die eruitziet als een e-mail.
-GoogleAgendaNb=Agenda nb %s
+GoogleSetup=Integratie-instellingen voor Google-tools
+GoogleSetupHelp=De ID van de Agenda kun je vinden op de Google-parameterpagina voor de agenda (ga naar je Google Agenda, vervolgens naar 'Parameters' in de wielen en vervolgens naar het tabblad 'Agenda', of probeer deze link <a href="https://www.google.com/calendar/render#i">https://www.google.com/calendar/render#i</a> en klik vervolgens op naam of uw Agenda). Uw Agenda-ID is een ID die op een e-mail lijkt.
+GoogleAgendaNb=Agendanummer %s
 GoogleIDAgenda=ID-agenda
 GoogleNbOfAgenda=Aantal agenda's
 GoogleTools=Google-tools
@@ -29,7 +29,8 @@ GOOGLE_EVENT_LABEL_INC_SOCIETE=Naam van derden toevoegen aan evenementlabel voor
 GOOGLE_EVENT_LABEL_INC_CONTACT=Voeg contactnaam toe aan gebeurtenislabel voor contactgebeurtenissen
 GOOGLE_CONTACT_LABEL=Label om contacten te taggen
 GOOGLE_INCLUDE_AUTO_EVENT=Synchroniseer ook voor evenementen die automatisch door Dolibarr worden aangemaakt (zie setup van module Agenda voor lijst met automatische evenementen). <br> Zo nee, dan worden alleen gebeurtenissen die handmatig in de agenda zijn ingevoerd, gesynchroniseerd.
-GOOGLE_INCLUDE_ATTENDEES=Voeg ook een lijst met deelnemers toe aan het evenement. Google kan ze e-mails sturen wanneer je een evenement met deelnemers maakt. Soms staat Google het gebruik van de API's ook niet toe wanneer er aanwezigen zijn.
+GOOGLE_INCLUDE_ATTENDEES=Add also list of attendees into event. Google may send emails to them when you create an event with attendees. Note: with some Google plan or setup, Google does not allow use of the APIs when there is attendees.
+GOOGLE_INCLUDE_ATTENDEESWarning=You may experience permissions error during connection to API when this options is ON. Enable this only once a test has been ran successfuly.
 MAIN_GOOGLE_AN_ID=Google Analytics-ID
 GoogleIDContact=Google account
 GoogleNoTokenYet=Je hebt nog geen token. Om er een te maken, authenticeert u zich bij Google met de volgende link:
@@ -48,9 +49,9 @@ AllowGoogleToLoginWithKey=U moet een Google-account hebben en uw eigen sleutel m
 AllowGoogleToLoginWithClientID=U kunt uw <strong> Google-client-ID en geheim </strong> maken vanaf pagina <a href="%s" target="_blank"> %s </a> , een project selecteren of er een maken en vervolgens menu "API & Services" -> "Inloggegevens". Klik op "Create/Add a client ID OAuth 2.0" en kies "Web Application", stel "Allowed Javascript origin" in op leeg en stel "Redirect URI" in op <br> <strong> %s a0a65d071f6fcccz0 a0342f0". U krijgt een <strong> nieuwe client-ID </strong> en een <strong> geheime code </strong> . U moet hier de <strong> Client ID </strong> hier invoeren en <strong> Client Secret </strong> op de volgende regel.
 AllowGoogleToLoginWithClientSecret=Zie de opmerking op de vorige regel om te weten hoe u uw Google Client Secret kunt verkrijgen.
 AllowGoogleToLoginWithServiceAccount=U kunt uw <strong>-serviceaccount gebruiker/e-mail </strong> maken vanaf pagina <a href="%s" target="_blank"> %s </a> , een project selecteren of er een maken en vervolgens menu "API & Services" -> "Inloggegevens". Klik op "Create/Add a client ID" en kies "Service Account" en vervolgens "Create". U krijgt een nieuw serviceaccount met een <strong> Serviceaccount-client-ID </strong> en een <strong> Serviceaccount EMail </strong> . U moet hier het <strong> Service-account EMail </strong> invoeren.
-EnableAPI=U moet ook de API voor uw Google-account inschakelen. Ga hiervoor naar pagina <a href="%s" target="_blank"> %s </a> , menu "API & Services" -> "API". Klik om API voor "%s" in te schakelen.
-ShareCalendarWithServiceAccount=You must also share the agenda (all permissions) with the service account user/email <strong>%s</strong>: For this, go into the Google calendar. It must be same Agenda than the one choosed on parameter "%s". Choose "Parameters" then click on your Agenda name to show the link "Share parameters with...". Click on it and add the service account user as a contact to share your agenda with. Choose permission "Edit events" and validate by clicking "Add user".
-ShareCalendarWithServiceAccount2=With <strong>Google Suite</strong> (not required for standard gmail account), permissions may be forced to "Ready only" instead of "Edit". If you can't choose "Edit" permission, go onto <a href="https://admin.google.com/AdminHome?pli=1&fral=1#AppDetails:service=Calendar&flyout=sharing" target="_blank">https://admin.google.com/AdminHome?pli=1&fral=1#AppDetails:service=Calendar&flyout=sharing</a> and check that sharing option of Agenda application allows sharing with external service account.
+EnableAPI=You must enable the API for your Google account. For this go on page <a href="%s" target="_blank">%s</a>, menu "API & Services" -> "API". Click to enable API for "%s".
+ShareCalendarWithServiceAccount=U moet de agenda (alle rechten) ook delen met de serviceaccountgebruiker/e-mail <strong>%s</strong>: Ga hiervoor naar de Google-agenda. Het moet dezelfde Agenda zijn als degene die is gekozen bij parameter "%s". Kies 'Parameters' en klik vervolgens op de naam van uw Agenda om de link 'Parameters delen met...' weer te geven. Klik erop en voeg de serviceaccountgebruiker toe als contactpersoon waarmee u uw agenda kunt delen. Kies de toestemming "Gebeurtenissen bewerken" en bevestig door op "Gebruiker toevoegen" te klikken.
+ShareCalendarWithServiceAccount2=Met <strong>Google Suite</strong> (niet vereist voor een standaard Gmail-account) kunnen de machtigingen worden geforceerd naar 'Alleen gereed' in plaats van ' Bewerking". Als u de toestemming 'Bewerken' niet kunt kiezen, gaat u naar <a href="https://admin.google.com/AdminHome?pli=1&fral=1#AppDetails:service=Calendar&flyout=sharing" target="_blank">https://admin.google.com/AdminHome?pli=1&fral=1#AppDetails:service=Calendar&flyout= sharing</a> en controleer of de deeloptie van de Agenda-applicatie delen met een extern serviceaccount toestaat.
 GOOGLE_API_SERVERKEY=API-sleutel (type "Serversleutel")
 GoogleUserConf=Google-configuratie
 GoogleSetupIsGlobal=De synchronisatie wordt globaal gedaan voor alle gebruikers met agenda-ID <strong> %s </strong> .
@@ -70,9 +71,9 @@ ExportEventsToGoogle=Exporteer laatste <strong> %s </strong> Dolibarr-evenemente
 DeleteAllGoogleThirdparties=Verwijder alle derde partijen die afkomstig zijn van Dolibarr op Gmail.
 DeleteAllGoogleContacts=Verwijder alle contacten/adressen die afkomstig zijn van Dolibarr op Gmail.
 DeleteAllGoogleMembers=Verwijder alle leden die afkomstig zijn van Dolibarr op Gmail.
-FromId=From ID:
-ToId=to ID:
-IdSelectOptional=ID Range selection is optional
+FromId=Van identiteitsbewijs:
+ToId=naar ID:
+IdSelectOptional=Selectie van ID-bereik is optioneel
 DeleteAllGoogleEvents=Verwijder alle evenementen van Google-agenda <strong> %s </strong> gekoppeld aan een Dolibarr
 PushToGoogleSucess=Synchronisatie met Google-contact voltooid voor %s record(s).
 TagsCreatedSuccess=Synchroniseren van groepen met Google-contact voltooid
@@ -111,15 +112,15 @@ GOOGLE_API_SERVICEACCOUNT_CLIENT_ID=Klant-ID serviceaccount
 GOOGLE_API_SERVICEACCOUNT_EMAIL=E-mailadres van serviceaccount om toe te staan (NIET uw Google-account login/e-mail)
 GOOGLE_API_SERVICEACCOUNT_P12KEY=Json-bestand van serviceaccount
 FillThisOnlyIfRequired=Voorbeeld: +2 (alleen invullen als er een probleem is opgetreden)
-AboutInfo=Deze module is ontwikkeld en gedistribueerd door Laurent Destailleur voor DoliCloud, <a href="https://www.dolicloud.com?origin=dolimods"> www.dolicloud.com </a> (A Dolibarr Preferred Partner company).
+AboutInfo=This module is developped and distributed by Laurent Destailleur for DoliCloud, <a href="https://www.dolicloud.com?origin=dolimods">www.dolicloud.com</a> (A Dolibarr Preferred Partner company).
 MoreModules=Andere modules van dezelfde auteur zijn beschikbaar op de officiële DoliStore-marktplaats...
-MoreModulesLink= <a target="_blank" href="https://www.dolistore.com/search.php?search_query=dolicloud"> Klik hier om de volledige lijst te zien </a>
+MoreModulesLink=<a target="_blank" href="https://www.dolistore.com/search.php?search_query=dolicloud">Click here to see full list</a>
 MoreCloudHosting=Om online Dolibarr te gebruiken, kiest u de beveiligde hosting DoliCloud.
-MoreCloudHostingLink= <a target="_blank" href="https://www.dolicloud.com?origin=dolimods"> Klik hier voor meer informatie </a>
+MoreCloudHostingLink=<a target="_blank" href="https://www.dolicloud.com?origin=dolimods">Click here for more information</a>
 CompatibleWithDoliDroid=Deze module is ook compatibel met DoliDroid, de Android-applicatie voor Dolibarr.
 LinkToThirdParty=Link naar derde partij
 LinkToContact=Link naar contact
-GoogleContactSyncInfo=Use here any label of your choice. Group will be created into Google Contact if it does not exist. You can also use a label of one of any predefined Google system group like:<br>"contactGroups/myContacts", "contactGroups/coworkers", "contactGroups/family", "contactGroups/friends"<br>Note also that only the predefined system group "contactGroups/myContacts" is shared by the "Delegate contacts" feature available in Google contact of Google suite.
+GoogleContactSyncInfo=Gebruik hier een label naar keuze. De groep wordt gemaakt in Google Contact als deze niet bestaat. U kunt ook een label gebruiken van een van de vooraf gedefinieerde Google-systeemgroepen, zoals:<br>"contactGroups/myContacts", "contactGroups/coworkers", "contactGroups/family", "contactGroups/ Friends"<br>Houd er ook rekening mee dat alleen de vooraf gedefinieerde systeemgroep "contactGroups/myContacts" wordt gedeeld door de functie "Contacten delegeren" die beschikbaar is in Google Contact of Google Suite.
 XRecordDeleted= <strong> %s </strong> records verwijderd
 ThisFieldIsAGlobalSetup=Dit veld wordt gedefinieerd in de algemene instellingen van de module
 FillAndSaveGoogleAccount=Vul eerst uw Google-account en Google Client-ID in en sla deze op
@@ -138,4 +139,6 @@ IconTiers=Gebruik een ander picto voor prospect, klant en leverancier
 CustomersOnly=Alleen klanten
 ProspectsOnly=Alleen vooruitzichten
 RefreshEventFromGoogle=Evenementen vernieuwen van Google
-Tool=Outil
+Tool=Hulpmiddel
+DateExpiration=Expiration date
+GOOGLE_DEBUG=Enable additional logs specific to the Google module (dolibarr_google.* files)

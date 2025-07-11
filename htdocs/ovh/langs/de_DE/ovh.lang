@@ -38,6 +38,7 @@ OvhInvoiceImportShort=OVH Rechnungen importieren
 OvhInvoiceImportDesc=Diese Seite listet alle OVH Rechnungen auf und schlägt eine Möglichkeit vor, sie zu importieren. Klicken Sie zunächst auf den Button „Rechnungsliste abrufen“. Aktivieren Sie dann für jede Rechnung, die noch nicht vorhanden ist, das Kontrollkästchen und klicken Sie auf die Schaltfläche „Importieren“.
 SupplierToUseForImport=Lieferant zum Erstellen importierter Rechnungen
 ProductGenericToUseForImport=Produkt/Dienstleistung für importierte Rechnungszeilen
+OrSelectAnotherOne=Oder wählen Sie ein anderes aus
 ProjectForImport=Hängen Sie importierte Rechnungen an das Projekt an
 KeepEmptyToSaveLinesAsFreeLines=Lassen Sie dieses Feld leer, wenn Sie keine importierten Positionen mit einem generischen vordefinierten Produkt/Service sehen möchten
 ScanOvhInvoices=Rechnungsliste abrufen
@@ -52,11 +53,11 @@ InvoiceFoundIntoDolibarr=Rechnung in Dolibarr gefunden: %s
 InvoicePDFFoundIntoDolibarr=Rechnung+PDF in Dolibarr gefunden: %s
 ConnectionParameters=Verbindungsparameter
 TryToUseProxy=Proxy-Server verwenden
-AboutInfo=Dieses Modul wurde entwickelt und vertrieben von Laurent Destailleur für DoliCloud, <a href="https://www.dolicloud.com?origin=dolimods"> www.dolicloud.com </a> (ein bevorzugtes Partnerunternehmen von Dolibarr).
+AboutInfo=This module is developped and distributed by Laurent Destailleur for DoliCloud, <a href="https://www.dolicloud.com?origin=dolimods">www.dolicloud.com</a> (A Dolibarr Preferred Partner company).
 MoreModules=Weitere Module desselben Autors sind auf dem offiziellen DoliStore-Marktplatz verfügbar...
-MoreModulesLink= <a target="_blank" href="https://www.dolistore.com/search.php?search_query=dolicloud"> Klicken Sie hier, um die vollständige Liste </a> anzuzeigen
+MoreModulesLink=<a target="_blank" href="https://www.dolistore.com/search.php?search_query=dolicloud">Click here to see full list</a>
 MoreCloudHosting=Um Online-Dolibarr zu verwenden, wählen Sie das gesicherte Hosting DoliCloud.
-MoreCloudHostingLink= <a target="_blank" href="https://www.dolicloud.com?origin=dolimods"> Klicken Sie hier für weitere Informationen </a>
+MoreCloudHostingLink=<a target="_blank" href="https://www.dolicloud.com?origin=dolimods">Click here for more information</a>
 CompatibleWithDoliDroid=Dieses Modul ist auch mit DoliDroid, der Android-Anwendung für Dolibarr, kompatibel.
 OvhApplicationName=Anwendungsname
 OvhApplicationDescription=Anwendungsbeschreibung
@@ -68,6 +69,7 @@ ListOfExistingAPIApp=Hinweis: Eine Liste der bereits erstellten Anwendungen find
 ClickHereToLoginAndGetYourConsumerKey=Klicken Sie hier auf <a href="%s">, um sich anzumelden und einen neuen Verbraucherschlüssel </a> zu erhalten (Sie müssen <strong> UNBEGRENZTE </strong>-Gültigkeit wählen)
 Authentication=Authentifizierung
 FromThe=Von dem
+ToThe=zum
 PleaseFillOtherFieldFirst=Bitte füllen Sie zuerst die anderen Felder aus...
 IfYouChangeHereChangeAlsoClickToDial=Wenn Sie hier Daten ändern, vergessen Sie nicht, auch den Link zum Modul ClickToDial zu aktualisieren
 ToGoOnClickToDialSetup=Um mit der Einrichtung des ClickToDial-Moduls fortzufahren
@@ -81,3 +83,8 @@ OVHAccount=OVH-Konto
 OvhDefaultBankAccount=Standardbankkonto auf Rechnungen
 OvhValidVatList=Liste der gültigen Mehrwertsteuerwerte
 OVHVatKeepEmptyToAcceptAll=Lassen Sie dieses Feld leer, wenn Sie alle Mehrwertsteuerwerte akzeptieren möchten (automatisch). Warnung: OVH gibt manchmal schlecht gerundete Mehrwertsteuersätze zurück. Wenn Sie also hier Mehrwertsteuersätze festlegen, wird die Anwendung gezwungen, den nächsten gültigen Wert anstelle des OVH-Werts zu verwenden.
+InvalidMobilePhoneNumberForContact=Die Telefonnummer %s ist ungültig: %s (muss das internationale Format +33123456789 haben)
+SendSMS=SMS senden
+OVH_USE_LAST_INVOCIE_VALIDATED_DATE=Schlagen Sie das Datum der letzten Lieferantenrechnung vom Lieferanten in den Tools zum Importieren von Rechnungen vor
+ValidImportedInvoice=Gültige importierte Rechnungen
+OVH_DEBUG=Enable additional logs specific to the OVH module (dolibarr_ovh.* files)

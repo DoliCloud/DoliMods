@@ -11,11 +11,11 @@ EcoTaxDeeDocFooterExample=Producten hebben een eenheid WEEE-belasting van 0,01â‚
 ECOTAXDEEE_CATEGORY_REF=Ref van productcategorie om producten te detecteren die Eco tax WEEE nodig hebben
 Module101380Name=Eco-belasting AEEA
 Module101380Desc=Module om automatisch ecotax-regels toe te voegen
-AboutInfo=Deze module is ontwikkeld en gedistribueerd door Laurent Destailleur voor DoliCloud, <a href="https://www.dolicloud.com?origin=dolimods"> www.dolicloud.com </a> (A Dolibarr Preferred Partner company).
+AboutInfo=This module is developped and distributed by Laurent Destailleur for DoliCloud, <a href="https://www.dolicloud.com?origin=dolimods">www.dolicloud.com</a> (A Dolibarr Preferred Partner company).
 MoreModules=Andere modules van dezelfde auteur zijn beschikbaar op de officiÃ«le DoliStore-marktplaats...
-MoreModulesLink= <a target="_blank" href="https://www.dolistore.com/search.php?search_query=dolicloud"> Klik hier om de volledige lijst te zien </a>
+MoreModulesLink=<a target="_blank" href="https://www.dolistore.com/search.php?search_query=dolicloud">Click here to see full list</a>
 MoreCloudHosting=Om online Dolibarr te gebruiken, kiest u de beveiligde hosting DoliCloud.
-MoreCloudHostingLink= <a target="_blank" href="https://www.dolicloud.com?origin=dolimods"> Klik hier voor meer informatie </a>
+MoreCloudHostingLink=<a target="_blank" href="https://www.dolicloud.com?origin=dolimods">Click here for more information</a>
 CompatibleWithDoliDroid=Deze module is ook compatibel met DoliDroid, de Android-applicatie voor Dolibarr.
 EcoTaxAddedIfDesc=Een Ecotax WEEE-regel wordt automatisch berekend en toegevoegd wanneer producten met een ecotax worden toegevoegd aan de volgende objecten: <b> %s </b> . <br> Het bedrag van de Eco-belasting moet vooraf worden gedefinieerd op de productkaart voor elk product.
 EcoTaxAddedIfDescOld=Een Ecotax WEEE-regel wordt automatisch berekend en toegevoegd wanneer producten met een ecotax worden toegevoegd aan de volgende objecten: <b> %s </b> . <br> Het bedrag van de Eco-belasting moet vooraf worden gedefinieerd op de productkaart voor elk product. Ga hiervoor naar setup van module "Product" en voeg een aanvullend veld toe met float-formaat en met code "ecotaxdeee". U kunt dan het Eco-belastingbedrag op elk product invoeren.
@@ -23,3 +23,18 @@ AddPageWithWEEEUnitPrices=De module kan ook automatisch een pagina toevoegen aan
 ECOTAXDEEE_PRODUCT_OR_LABEL_LINE=Product/dienst te gebruiken als Eco Tax WEEE-lijn
 OrLabelOfAFreeLine=of gewoon een label om te gebruiken
 WEEE_DISABLE_VAT_ON_ECOTAX=Schakel btw uit op de Eco Tax-regel (in de meeste gevallen heeft de Eco Tax btw nodig zoals elke andere service)
+MoreSetup=Meer instellingen
+CodeEcotax=Ecotax-code
+EcotaxAmount=Ecobelasting bedrag
+NewEcotax=Nieuwe ecobelasting
+Norecords= Geen records
+ErrorInputsRequired= Invoer vereist
+RecordAlreadyExists=Opname bestaat al
+recordUpdated=Record is succesvol bijgewerkt
+recordDeleted=Opname succesvol verwijderd
+recordAdded=Record succesvol toegevoegd
+InsertCodeForEcoTax=Voer de ecobelasting van producten in door een Code in te voeren uit een Code-Bedrag-tabel
+SetCodeForEcotaxEnabled=Schakel het tabblad in voor het configureren van <b>Code</b>
+SetCodeForEcotaxDisabled=Uitgeschakeld tabblad voor configuratie <b>Code</b>
+CodeAndAmountTable=Tabel met ecotax-codebedragen
+AreYouSureYouWantToDelete=Weet u zeker dat u de regel wilt verwijderen?

@@ -3,11 +3,11 @@ CHARSET= UTF-8
 BilledOnOrders=Fatturato sugli ordini
 BilledOnOrdersSetup=Configurazione del modulo Billed On Orders
 Module101450Desc=Modulo per mostrare l'importo fatturato e rimanere fatturato in base alle fatture collegate nell'elenco degli ordini cliente o fornitore
-AboutInfo=Questo modulo è sviluppato e distribuito da Laurent Destailleur per DoliCloud, <a href="https://www.dolicloud.com?origin=dolimods"> www.dolicloud.com </a> (una società Dolibarr Preferred Partner).
+AboutInfo=This module is developped and distributed by Laurent Destailleur for DoliCloud, <a href="https://www.dolicloud.com?origin=dolimods">www.dolicloud.com</a> (A Dolibarr Preferred Partner company).
 MoreModules=Altri moduli dello stesso autore sono disponibili sul mercato ufficiale di DoliStore...
-MoreModulesLink= <a target="_blank" href="https://www.dolistore.com/search.php?search_query=dolicloud"> Clicca qui per vedere l'elenco completo </a>
+MoreModulesLink=<a target="_blank" href="https://www.dolistore.com/search.php?search_query=dolicloud">Click here to see full list</a>
 MoreCloudHosting=Per utilizzare Dolibarr online, scegli l'hosting sicuro DoliCloud.
-MoreCloudHostingLink= <a target="_blank" href="https://www.dolicloud.com?origin=dolimods"> Clicca qui per maggiori informazioni </a>
+MoreCloudHostingLink=<a target="_blank" href="https://www.dolicloud.com?origin=dolimods">Click here for more information</a>
 BilledOnOrdersNothingToSetup=Niente da configurare. Nuovi campi sono disponibili nell'elenco degli ordini dei clienti.
 AmountBilledHT=Importo fatturato (IVA esclusa)
 AmountBilledTTC=Importo fatturato (IVA inclusa)

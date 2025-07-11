@@ -1,0 +1,64 @@
+# Copyright (C) 2023 Alice Adminson
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see .
+
+#
+# Generic
+#
+
+# Module label 'ModuleAlumniName'
+ModuleAlumniName = Antiguos alumnos
+# Module description 'ModuleAlumniDesc'
+ModuleAlumniDesc = Módulo para organizar un evento de reunión de antiguos alumnos
+
+#
+# Admin page
+#
+AlumniSetup = Configuración de exalumnos
+Settings = Ajustes
+AlumniSetupPage = Página de configuración de antiguos alumnos
+ALUMNI_YEAR=Año desde el graduado
+ALUMNI_PROMONAME=Nombre o número de la promoción
+ALUMNI_ENABLE_SURVEY=Enable the surveys provided by the website template
+ALUMNI_STEP_ORGANIZATION=Step of the project (1=Communication and first survey, 2=Selection of town and exact day, 3=Organization of event)
+
+
+#
+# About page
+#
+About = Acerca de
+AlumniAbout = Acerca de los antiguos alumnos
+AlumniAboutPage = Alumnos sobre la página
+
+AlumniArea = Inicio Antiguos Alumnos
+
+
+Lastname2=Nombre de soltera
+BudgetMaxActiviteParPers=Presupuesto máximo por usuario para actividades
+BudgetMaxRepasParPers=Presupuesto máximo por usuario para comidas
+ComWhatsapp=¿Qué es la aplicación?
+ChoixPerimetre=Elección del alcance
+ActiviteAssociees=Actividades vinculadas
+ActiviteAssocieesNature=Naturaleza de las actividades
+
+PreferenceJour=Día favorito
+PreferenceMois=Mes favorito
+Results=Resultados
+EventChoices=Event choices
+NewVoteEntry=New event choice
+NbOfVotes=Number of event choices
+SetToPaid=Set to paid
+SetToUnpaid=Set to unpaid
+SetToDoNotReEngage=Set to do not re-engage
+SetToCanReEngage=Set to can re-engage
