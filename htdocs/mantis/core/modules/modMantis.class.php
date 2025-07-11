@@ -57,7 +57,7 @@ class modMantis extends DolibarrModules
 		$this->editor_name = 'DoliCloud';
 		$this->editor_url = 'https://www.dolicloud.com?origin=dolimods';
 		// Possible values for version are: 'experimental' or 'dolibarr' or version
-		$this->version = '3.4';
+		$this->version = 'experimental';
 		// Id used in llx_const table to manage module status (enabled/disabled)
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
 		// Name of png file (without png) used for this module

@@ -1,4 +1,4 @@
-# PAYPLUGDOLICLOUD FOR [DOLIBARR ERP & CRM](https://www.dolibarr.org)
+# PAYPLUG FOR [DOLIBARR ERP & CRM](https://www.dolibarr.org)
 
 ## Features
 

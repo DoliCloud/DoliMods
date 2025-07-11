@@ -138,13 +138,13 @@ print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
 print "<table class=\"noborder\" width=\"100%\">";
 
 print "<tr class=\"liste_titre\">";
-print "<td width=\"30%\">".$langs->trans("Parameter")."</td>";
+print "<td>".$langs->trans("Parameter")."</td>";
 print "<td>".$langs->trans("Value")."</td>";
 print "<td>".$langs->trans("Examples")."</td>";
 print "</tr>";
 
 print '<tr class="oddeven">';
-print "<td>".$langs->trans("MantisURL")."</td>";
+print '<td class="fieldrequired">'.$langs->trans("MantisURL")."</td>";
 print "<td><input type=\"text\" class=\"flat\" name=\"phpmantis_url\" value=\"". ($_POST["phpmantis_url"]?$_POST["phpmantis_url"]:$conf->global->PHPMANTIS_URL) . "\" size=\"40\"></td>";
 print "<td>http://localhost/mantis/";
 print "<br>https://mantisserver/";

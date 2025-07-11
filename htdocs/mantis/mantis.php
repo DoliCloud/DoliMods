@@ -38,7 +38,7 @@ if (! $res && file_exists("../../main.inc.php")) $res=@include "../../main.inc.p
 if (! $res && file_exists("../../../main.inc.php")) $res=@include "../../../main.inc.php";
 if (! $res) die("Include of main fails");
 
-if (empty($conf->global->PHPMANTIS_URL)) {
+if (!getDolGlobalString('PHPMANTIS_URL')) {
 	llxHeader();
 	print '<div class="error">Module Mantis was not configured properly.</div>';
 	llxFooter();
