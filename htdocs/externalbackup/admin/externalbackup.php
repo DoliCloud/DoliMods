@@ -49,9 +49,8 @@ $langs->load("other");
 $langs->load("errors");
 $langs->load("externalbackup@externalbackup");
 
-$def = array();
-$action=GETPOST("action");
-$actionsave=GETPOST("save");
+$action = GETPOST("action");
+$actionsave = GETPOST("save");
 
 
 
