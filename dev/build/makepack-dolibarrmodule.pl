@@ -136,14 +136,14 @@ foreach my $PROJECT (@PROJECTLIST) {
 	
 	# Get version $MAJOR, $MINOR and $BUILD
 	print "Version detected for module ".$PROJECT." in file ".$SOURCE."/htdocs/".$PROJECTLC."/core/modules/mod".ucfirst($PROJECT).".class.php";
-	$result=open(IN,"<".$SOURCE."/htdocs/".$PROJECTLC."/core/modules/mod".ucfirst($PROJECT).".class.php");
+	$result=open(IN, "<", $SOURCE."/htdocs/".$PROJECTLC."/core/modules/mod".ucfirst($PROJECT).".class.php") or die "Failed to open : $!";
 	$custom=false;
 	if (! $result) {
-                $result=open(IN,"<".$SOURCE."/htdocs/custom/".$PROJECTLC."/core/modules/mod".ucfirst($PROJECT).".class.php");
+                $result=open(IN, "<", $SOURCE."/htdocs/custom/".$PROJECTLC."/core/modules/mod".ucfirst($PROJECT).".class.php");
                 if (! $result) {
                     die "Error: Can't open descriptor file ".$SOURCE."/htdocs/(or /htdocs/custom/)".$PROJECTLC."/core/modules/mod".ucfirst($PROJECT).".class.php for reading.\n";
                 }else{
-                    $custom = true;
+                    $custom=true;
                 }
         }
     while(<IN>)
@@ -307,9 +307,6 @@ foreach my $PROJECT (@PROJECTLIST) {
 		    $ret=`rm -fr $BUILDROOT/$PROJECTLC/htdocs/conf/conf.php.old`;
 		    $ret=`rm -fr $BUILDROOT/$PROJECTLC/htdocs/conf/conf.php.postgres`;
 		    $ret=`rm -fr $BUILDROOT/$PROJECTLC/htdocs/conf/conf*sav*`;
-		    if ($custom) {
-				$ret=`cp -r $BUILDROOT/$PROJECTLC/htdocs/custom/* $BUILDROOT/$PROJECTLC/htdocs/.`;
-		    }
 		    $ret=`rm -fr $BUILDROOT/$PROJECTLC/htdocs/custom`;
 	        $ret=`rm -fr $BUILDROOT/$PROJECTLC/htdocs/custom2`;
 		    $ret=`rm -fr $BUILDROOT/$PROJECTLC/test`;
