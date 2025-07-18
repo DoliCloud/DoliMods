@@ -55,17 +55,19 @@ class ActionsEcotaxdeee
 	 */
 	function afterPDFCreation($parameters, &$pdfhandler, &$action)
 	{
-		global $langs,$conf,$user;
-		global $hookmanager;
+		global $conf, $user;
 
 		// If not text to add, we leave
-		if (empty($conf->global->ECOTAXDEEE_DOC_FOOTER)) return 0;
+		if (!getDolGlobalString('ECOTAXDEEE_DOC_FOOTER')) {
+			return 0;
+		}
 
 		// If his is not a document we need ecotax
-		if (! in_array($parameters['object']->element, array('propal','order','invoice','propale','commande','facture'))) return 0;
+		if (! in_array($parameters['object']->element, array('propal', 'order', 'invoice', 'propale', 'commande', 'facture'))) {
+			return 0;
+		}
 
 		// If we build a document we don't want ecotax on, we leave
-		$element='';
 		if (($parameters['object']->element == 'propal' || $parameters['object']->element == 'propale') && empty($conf->global->ECOTAXDEEE_USE_ON_PROPOSAL)) return 0;
 		elseif (($parameters['object']->element == 'invoice' || $parameters['object']->element == 'facture') && empty($conf->global->ECOTAXDEEE_USE_ON_CUSTOMER_INVOICE)) return 0;
 		elseif (($parameters['object']->element == 'order' || $parameters['object']->element == 'order') && empty($conf->global->ECOTAXDEEE_USE_ON_CUSTOMER_ORDER)) return 0;
@@ -95,10 +97,10 @@ class ActionsEcotaxdeee
 		$page_largeur = $formatarray['width'];
 		$page_hauteur = $formatarray['height'];
 		$format = array($page_largeur,$page_hauteur);
-		$marge_gauche=isset($conf->global->MAIN_PDF_MARGIN_LEFT)?$conf->global->MAIN_PDF_MARGIN_LEFT:10;
-		$marge_droite=isset($conf->global->MAIN_PDF_MARGIN_RIGHT)?$conf->global->MAIN_PDF_MARGIN_RIGHT:10;
-		$marge_haute =isset($conf->global->MAIN_PDF_MARGIN_TOP)?$conf->global->MAIN_PDF_MARGIN_TOP:10;
-		$marge_basse =isset($conf->global->MAIN_PDF_MARGIN_BOTTOM)?$conf->global->MAIN_PDF_MARGIN_BOTTOM:10;
+		$marge_gauche = isset($conf->global->MAIN_PDF_MARGIN_LEFT) ? $conf->global->MAIN_PDF_MARGIN_LEFT:10;
+		$marge_droite = isset($conf->global->MAIN_PDF_MARGIN_RIGHT) ? $conf->global->MAIN_PDF_MARGIN_RIGHT:10;
+		$marge_haute  = isset($conf->global->MAIN_PDF_MARGIN_TOP) ? $conf->global->MAIN_PDF_MARGIN_TOP:10;
+		$marge_basse  = isset($conf->global->MAIN_PDF_MARGIN_BOTTOM) ? $conf->global->MAIN_PDF_MARGIN_BOTTOM:10;
 
 		// Generate new file and save it name into concatpdffile
 		// into dir $conf->ecotaxdeee->dir_temp.'/'.$concatpdffile.'.pdf'
@@ -107,7 +109,7 @@ class ActionsEcotaxdeee
 		$pdf=pdf_getInstance($format);
 		$default_font_size = pdf_getPDFFontSize($outputlangs);	// Must be after pdf_getInstance
 		$heightforinfotot = 50;	// Height reserved to output the info and total part
-		$heightforfreetext= (isset($conf->global->MAIN_PDF_FREETEXT_HEIGHT)?$conf->global->MAIN_PDF_FREETEXT_HEIGHT:5);	// Height reserved to output the free text on last page
+		$heightforfreetext= (isset($conf->global->MAIN_PDF_FREETEXT_HEIGHT) ? $conf->global->MAIN_PDF_FREETEXT_HEIGHT : 5);	// Height reserved to output the free text on last page
 		$heightforfooter = $marge_basse + 8;	// Height reserved to output the footer (value include bottom margin)
 		$pdf->SetAutoPageBreak(1, 0);
 
@@ -117,18 +119,22 @@ class ActionsEcotaxdeee
 		}
 		$pdf->SetFont(pdf_getPDFFont($outputlangs));
 		// Set path to the background PDF File
-		if (empty($conf->global->MAIN_DISABLE_FPDI) && ! empty($conf->global->MAIN_ADD_PDF_BACKGROUND)) {
+		if (!getDolGlobalString('MAIN_DISABLE_FPDI') && getDolGlobalString('MAIN_ADD_PDF_BACKGROUND')) {
 			$pagecount = $pdf->setSourceFile($conf->mycompany->dir_output.'/' . getDolGlobalString('MAIN_ADD_PDF_BACKGROUND'));
 			$tplidx = $pdf->importPage(1);
 		}
 
 		$pdf->Open();
-		if (! empty($conf->global->MAIN_DISABLE_PDF_COMPRESSION)) $pdf->SetCompression(false);
+		if (getDolGlobalString('MAIN_DISABLE_PDF_COMPRESSION')) {
+			$pdf->SetCompression(false);
+		}
 		$pdf->SetMargins($marge_gauche, $marge_haute, $marge_droite);   // Left, Top, Right
 
 		// New page
 		$pdf->AddPage();
-		if (! empty($tplidx)) $pdf->useTemplate($tplidx);
+		if (!empty($tplidx)) {
+			$pdf->useTemplate($tplidx);
+		}
 
 		$pdf->writeHTMLCell($page_largeur - $marge_gauche - $marge_droite, $page_hauteur - $marge_haute - $marge_basse, $marge_gauche, $marge_haute, $conf->global->ECOTAXDEEE_DOC_FOOTER);
 
@@ -155,16 +161,17 @@ class ActionsEcotaxdeee
 		}
 		$pdf->SetFont(pdf_getPDFFont($outputlangs));
 
-		if ($conf->global->MAIN_DISABLE_PDF_COMPRESSION) $pdf->SetCompression(false);
+		if (getDolGlobalString('MAIN_DISABLE_PDF_COMPRESSION')) {
+			$pdf->SetCompression(false);
+		}
 		//$pdf->SetCompression(false);
 
 		$pagecount = $this->concat($pdf, $filetoconcat);
 
 		if ($pagecount) {
 			$pdf->Output($filetoconcat1[0], 'F');
-			if (! empty($conf->global->MAIN_UMASK)) {
-				@chmod($file, octdec($conf->global->MAIN_UMASK));
-			}
+			dolChmod($file);
+
 			if (! empty($deltemp)) {
 				// Delete temp files
 				foreach ($deltemp as $dirtemp) {
@@ -178,8 +185,9 @@ class ActionsEcotaxdeee
 
 	/**
 	 * concat
-	 * @param unknown_type $pdf    Pdf
-	 * @param unknown_type $files  files
+	 *
+	 * @param TCPDF		$pdf    	Pdf
+	 * @param array		$files  	Files
 	 */
 	function concat(&$pdf, $files)
 	{
