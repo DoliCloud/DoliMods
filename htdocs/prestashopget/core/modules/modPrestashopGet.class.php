@@ -39,7 +39,7 @@ class modPrestashopGet extends DolibarrModules
 	 */
 	public function __construct($db)
 	{
-		global $langs,$conf;
+		global $conf;
 
 		$this->db = $db;
 
