@@ -38,9 +38,9 @@ $DIR||='.'; $DIR =~ s/([^\/\\])[\\\/]+$/$1/;
 # --------------
 if ("$^O" =~ /linux/i || (-d "/etc" && -d "/var" && "$^O" !~ /cygwin/i)) { $OS='linux'; $CR=''; }
 elsif (-d "/etc" && -d "/Users") { $OS='macosx'; $CR=''; }
-elsif ("$^O" =~ /cygwin/i || "$^O" =~ /win32/i) { $OS='windows'; $CR="\r"; }
+elsif ("$^O" =~ /cygwin/i || "$^O" =~ /win32/i || "$^O" =~ /msys/i) { $OS='windows'; $CR="\r"; }
 if (! $OS) {
-    print "$PROG.$Extension was not able to detect your OS.\n";
+	print "Error: Can't detect your OS.\n";
 	print "Can't continue.\n";
 	print "$PROG.$Extension aborted.\n";
     sleep 2;
@@ -82,7 +82,9 @@ for (0..@ARGV-1) {
 }
 $SOURCE="$DIR/../..";
 $DESTI="$SOURCE/dev/build";
-if ($ENV{"DESTIMODULES"}) { $DESTI = $ENV{"DESTIMODULES"}; }		# Force output dir if env DESTIMODULES is defined
+if ($ENV{"DESTIMODULES"}) { 
+	$DESTI = $ENV{"DESTIMODULES"}; 
+}		# Force output dir if env DESTIMODULES is defined
 $NEWDESTI=$DESTI;
 
 
@@ -145,7 +147,7 @@ foreach my $PROJECT (@PROJECTLIST) {
                 }else{
                     $custom=true;
                 }
-        }
+    }
     while(<IN>)
     {
     	if ($_ =~ /this->version\s*=\s*'([\d\.]+)'/) { $PROJVERSION=$1; break; }
