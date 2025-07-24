@@ -28,14 +28,14 @@ require_once DOL_DOCUMENT_ROOT.'/core/class/html.formadmin.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.formother.class.php';
 dol_include_once("/google/lib/google.lib.php");
 
-if (!$user->admin)
+if (!$user->admin) {
 	accessforbidden();
+}
 
 $langs->load("google@google");
 $langs->load("admin");
 $langs->load("other");
 
-$def = array();
 $actiontest = GETPOST("test");
 $actionsave = GETPOST("save");
 $action = GETPOST('action');
@@ -47,7 +47,7 @@ $action = GETPOST('action');
 
 if ($action == 'gmap_deleteerrors') {
 	$sql="DELETE FROM ".MAIN_DB_PREFIX."google_maps WHERE result_code <> 'OK'";
-	$result=$db->query($sql);
+	$result = $db->query($sql);
 
 	if ($result) {
 		setEventMessages($langs->trans("RecordInGeoEncodingErrorDeleted"), null);
@@ -60,12 +60,12 @@ if ($actionsave) {
 	$db->begin();
 
 	$res=0;
-	$res+=dolibarr_set_const($db, 'GOOGLE_ENABLE_GMAPS', trim($_POST["GOOGLE_ENABLE_GMAPS"]), 'chaine', 0, '', $conf->entity);
-	$res+=dolibarr_set_const($db, 'GOOGLE_ENABLE_GMAPS_CONTACTS', trim($_POST["GOOGLE_ENABLE_GMAPS_CONTACTS"]), 'chaine', 0, '', $conf->entity);
-	$res+=dolibarr_set_const($db, 'GOOGLE_ENABLE_GMAPS_MEMBERS', trim($_POST["GOOGLE_ENABLE_GMAPS_MEMBERS"]), 'chaine', 0, '', $conf->entity);
-	$res+=dolibarr_set_const($db, 'GOOGLE_ENABLE_GMAPS_TICON', trim($_POST["GOOGLE_ENABLE_GMAPS_TICON"]), 'chaine', 0, '', $conf->entity);
-	$res+=dolibarr_set_const($db, 'GOOGLE_GMAPS_ZOOM_LEVEL', trim($_POST["GOOGLE_GMAPS_ZOOM_LEVEL"]), 'chaine', 0, '', $conf->entity);
-	$res+=dolibarr_set_const($db, 'GOOGLE_API_SERVERKEY', trim($_POST["GOOGLE_API_SERVERKEY"]), 'chaine', 0, '', $conf->entity);
+	$res+=dolibarr_set_const($db, 'GOOGLE_ENABLE_GMAPS', trim(GETPOST("GOOGLE_ENABLE_GMAPS")), 'chaine', 0, '', $conf->entity);
+	$res+=dolibarr_set_const($db, 'GOOGLE_ENABLE_GMAPS_CONTACTS', trim(GETPOST("GOOGLE_ENABLE_GMAPS_CONTACTS")), 'chaine', 0, '', $conf->entity);
+	$res+=dolibarr_set_const($db, 'GOOGLE_ENABLE_GMAPS_MEMBERS', trim(GETPOST("GOOGLE_ENABLE_GMAPS_MEMBERS")), 'chaine', 0, '', $conf->entity);
+	$res+=dolibarr_set_const($db, 'GOOGLE_ENABLE_GMAPS_TICON', trim(GETPOST("GOOGLE_ENABLE_GMAPS_TICON")), 'chaine', 0, '', $conf->entity);
+	$res+=dolibarr_set_const($db, 'GOOGLE_GMAPS_ZOOM_LEVEL', trim(GETPOSTINT("GOOGLE_GMAPS_ZOOM_LEVEL")), 'chaine', 0, '', $conf->entity);
+	$res+=dolibarr_set_const($db, 'GOOGLE_API_SERVERKEY', trim(GETPOST("GOOGLE_API_SERVERKEY")), 'chaine', 0, '', $conf->entity);
 
 	if ($res == 6) {
 		$db->commit();
@@ -172,11 +172,11 @@ print "</tr>";
 
 //print '<br>';
 print '<tr class="oddeven"><td>'.$langs->trans("GoogleZoomLevel").'</td><td>';
-print '<input class="flat" name="GOOGLE_GMAPS_ZOOM_LEVEL" id="GOOGLE_GMAPS_ZOOM_LEVEL" value="'.(GETPOSTISSET("GOOGLE_GMAPS_ZOOM_LEVEL") ? GETPOST("GOOGLE_GMAPS_ZOOM_LEVEL") : getDolGlobalString('GOOGLE_GMAPS_ZOOM_LEVEL')).'" size="2">';
+print '<input class="width50 right" type="number" name="GOOGLE_GMAPS_ZOOM_LEVEL" id="GOOGLE_GMAPS_ZOOM_LEVEL" value="'.(GETPOSTISSET("GOOGLE_GMAPS_ZOOM_LEVEL") ? GETPOST("GOOGLE_GMAPS_ZOOM_LEVEL") : getDolGlobalString('GOOGLE_GMAPS_ZOOM_LEVEL', '8')).'">';
 print '</td></tr>';
 
 //ajout de la gestion des icones de status des Tiers : prospects/clients
-if (! empty($conf->global->GOOGLE_CAN_USE_PROSPECT_ICONS) && ! empty($conf->societe->enabled)) {
+if (getDolGlobalString('GOOGLE_CAN_USE_PROSPECT_ICONS') && isModEnabled('societe')) {
 	print '<tr class="oddeven"><td>'.$langs->trans("IconTiers").'</td><td>';
 	print $form->selectyesno("GOOGLE_ENABLE_GMAPS_TICON", GETPOSTISSET("GOOGLE_ENABLE_GMAPS_TICON") ? GETPOST("GOOGLE_ENABLE_GMAPS_TICON") : getDolGlobalString('GOOGLE_ENABLE_GMAPS_TICON'), 1);
 	print '</td></tr>';
@@ -189,7 +189,7 @@ print '<br>';
 print '<div class="div-table-responsive-no-min">';
 print '<table class="noborder centpercent">';
 
-print "<tr class=\"liste_titre\">";
+print '<tr class="liste_titre">';
 print '<td class="titlefield">'.$langs->trans("Parameter").' ('.$langs->trans("ParametersForGoogleAPIv3Usage", "Geocoding").')'."</td>";
 print "<td>".$langs->trans("Value")."</td>";
 print "<td>".$langs->trans("Note")."</td>";
@@ -231,7 +231,7 @@ print'</div>';
 dol_htmloutput_mesg($mesg);
 
 // Show message
-$message='';
+//$message='';
 //$urlgooglehelp='<a href="https://www.google.com/calendar/embed/EmbedHelper_en.html" target="_blank">http://www.google.com/calendar/embed/EmbedHelper_en.html</a>';
 //$message.=$langs->trans("GoogleSetupHelp",$urlgooglehelp);
 //print info_admin($message);
