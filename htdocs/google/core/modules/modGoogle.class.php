@@ -78,7 +78,7 @@ class modGoogle extends DolibarrModules
 		$this->langfiles = array("google@google");
 
 		// Constants
-		$this->const = array(0=>array('GOOGLE_DEBUG', 'chaine', '0', 'This is to enable Google debug', 1, 'allentities', 1));
+		$this->const = array(0 => array('GOOGLE_DEBUG', 'chaine', '0', 'This is to enable Google debug', 1, 'allentities', 1));
 
 
 
@@ -166,7 +166,7 @@ class modGoogle extends DolibarrModules
 		$this->boxes[0]['file'] = "box_googlemaps@google";
 		$this->boxes[0]['enabledbydefaulton'] = 1;
 
-		$result=$this->load_tables();
+		$result = $this->load_tables();
 
 		return $this->_init($sql, $options);
 	}

@@ -157,13 +157,17 @@ if ($address && $address != $object->country) {		// $address != $object->country
 
 	// URL to include javascript map
 	$urlforjsmap='https://maps.googleapis.com/maps/api/js';
-	if (empty($conf->global->GOOGLE_API_SERVERKEY)) $urlforjsmap.="?sensor=true";
-	else $urlforjsmap.="?key=" . getDolGlobalString('GOOGLE_API_SERVERKEY');
+	if (!getDolGlobalString('GOOGLE_API_SERVERKEY')) {
+		$urlforjsmap.="?sensor=true";
+	} else {
+		$urlforjsmap.="?key=".getDolGlobalString('GOOGLE_API_SERVERKEY');
+	}
 
+	$urlforjsmap .= '&loading=async&callback=initMap';
 	?>
 
 <!--gmaps.php: Include Google javascript map -->
-<script type="text/javascript" src="<?php echo $urlforjsmap; ?>"></script>
+<script type="text/javascript" src="<?php echo $urlforjsmap; ?>" async defer></script>
 
 <script type="text/javascript">
   var geocoder;
@@ -174,7 +178,7 @@ if ($address && $address != $object->country) {		// $address != $object->country
   function initialize() {
 	var latlng = new google.maps.LatLng(0, 0);
 	var myOptions = {
-	  zoom: <?php echo ($conf->global->GOOGLE_GMAPS_ZOOM_LEVEL >= 1 && $conf->global->GOOGLE_GMAPS_ZOOM_LEVEL <= 10)?$conf->global->GOOGLE_GMAPS_ZOOM_LEVEL:8; ?>,
+	  zoom: <?php echo (getDolGlobalInt('GOOGLE_GMAPS_ZOOM_LEVEL') >= 1 && getDolGlobalInt('GOOGLE_GMAPS_ZOOM_LEVEL') <= 10) ? getDolGlobalInt('GOOGLE_GMAPS_ZOOM_LEVEL') : 8; ?>,
 	  center: latlng,
 	  mapTypeId: google.maps.MapTypeId.ROADMAP,  // ROADMAP, SATELLITE, HYBRID, TERRAIN
 	  fullscreenControl: true
@@ -212,11 +216,12 @@ if ($address && $address != $object->country) {		// $address != $object->country
 	});
   }
 
-  $(document).ready(function(){
+	/* function called when the js file for google maps api has been loaded */
+  	function initMap() {
 		initialize();
 		codeAddress();
 	}
-  );
+
 </script>
 
 <br>
