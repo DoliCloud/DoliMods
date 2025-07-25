@@ -83,7 +83,7 @@ function payplugdolicloudAdminPrepareHead()
  * @param	$ref			The ref of the object
  * @param	$mode			The mode to use for the function amount
  * @param	$payerarray		An array to fill the payer informations (Must be set with payer mode)
- * 
+ *
  * @return	int				The amount to pay if mode amount
  */
 
@@ -128,7 +128,7 @@ function payplugdolicloudAdminPrepareHead()
 					} else {
 						$amount = $don->getRemainToPay();
 					}
-				} else if($mode == 'payer' && !is_null($payerarray)) {
+				} elseif($mode == 'payer' && !is_null($payerarray)) {
 					$payerarray['firstName'] = $don->firstname;
 					$payerarray['lastName'] = $don->lastname;
 					$payerarray['email'] = $don->email;
@@ -308,7 +308,7 @@ function payplugdolicloudAdminPrepareHead()
 				}
 			}
 			break;
-	
+
 	}
 	return $amount;
 }

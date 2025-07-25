@@ -310,7 +310,9 @@ class ActionsPayplugDolicloud extends CommonHookActions
 		}
 
 		if (!$error) {
-			$this->results["validpaymentmethod"] = $validpaymentmethod;
+			if (!empty($validpaymentmethod)) {
+				$this->results["validpaymentmethod"] = $validpaymentmethod;
+			}
 			return 0;
 		} else {
 			$this->errors[] = $error;
@@ -340,7 +342,7 @@ class ActionsPayplugDolicloud extends CommonHookActions
 		$error = 0; // Error counter
 		$errors = array();
 
-		$urlwithroot = DOL_MAIN_URL_ROOT; // This is to use same domain name than current. For Paypal payment, we can use internal URL like localhost.
+		$urlwithroot = DOL_MAIN_URL_ROOT; // This is to use same domain name than current. For such need, we can use internal URL like localhost.
 
 		// Complete urls for post treatment
 		$ref = $REF = GETPOST('ref', 'alpha');
@@ -488,13 +490,28 @@ class ActionsPayplugDolicloud extends CommonHookActions
 							"hosted_payment": {
 								"return_url": "'.$urlback.'",
 								"cancel_url": "'.$cancel_url.'"
-							},
-							"customer": {
-								"first_name": "'.$payerarray["firstName"].'",
-								"last_name": "'.$payerarray['lastName'].'",
-								"email": "'.$payerarray['email'].'"
+							}';
+
+						if (!empty($payerarray["lastName"]) || !empty($payerarray["firstName"]) || !empty($payerarray["email"])) {
+							$jsontosenddata .= ', { "billing": {';
+							if (!empty($payerarray["lastName"])) {
+								$jsontosenddata .= ' "last_name": "'.$payerarray["lastName"].'"';
 							}
-						}';
+							if (!empty($payerarray["firstName"])) {
+								$jsontosenddata .= ' "first_name": "'.$payerarray["firstName"].'"';
+							}
+							if (!empty($payerarray["email"])) {
+								$jsontosenddata .= ' "email": "'.$payerarray["email"].'"';
+							}
+							$jsontosenddata .= '} }';
+						}
+
+						// Add a metadata field
+						$jsontosenddata .= ', "metadata": {
+							    "ip": "'.getUserRemoteIP().'"
+							  }';
+
+						$jsontosenddata .= '}';
 
 						$urlforcheckout = "https://".urlencode($payplugrurlapi)."/v1/payments";
 
@@ -518,13 +535,15 @@ class ActionsPayplugDolicloud extends CommonHookActions
 							if (!empty($ret2['content'])) {
 								$arrayofmessage = json_decode($ret2['content'], true);
 							}
+
 							if (!empty($arrayofmessage['message'])) {
 								$errors[] = $arrayofmessage['message'];
 
 								if (!empty($arrayofmessage['details']) && is_array($arrayofmessage['details'])) {
 									foreach($arrayofmessage['details'] as $tmpkey => $tmpmessage) {
 										if (!empty($tmpmessage)) {
-											$errors[] = $langs->trans("Error"). ' : ' .$tmpmessage;
+											// $tmpmessage can be a string or an array or array of array, so we use a json output
+											$errors[] = $langs->trans("Error"). ' ('.$tmpkey.') : ' .json_encode($tmpmessage);
 										} else {
 											$errors[] = $langs->trans("UnkownError").' - HTTP code = '.$ret2["http_code"];
 										}
