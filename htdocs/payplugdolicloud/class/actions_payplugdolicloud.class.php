@@ -395,6 +395,9 @@ class ActionsPayplugDolicloud extends CommonHookActions
 		$error = "";
 
 		if (array_key_exists("paymentmethod", $parameters) && (empty($parameters["paymentmethod"]) || $parameters["paymentmethod"] == 'payplug') && isModEnabled('payplugdolicloud')) {
+			if (!getDolGlobalString('PAYPLUG_DOLICLOUD_LIVE')) {
+				dol_htmloutput_mesg($langs->trans('YouAreCurrentlyInSandboxMode', 'PayPlug'), [], 'warning');
+			}
 			$resprints .= '<div class="button buttonpayment" id="div_dopayment_payplug"><span class="fa fa-credit-card"></span> <input class="" type="submit" id="dopayment_payplug" name="dopayment_payplug" value="'.$langs->trans("PayplugDoPayment").'">';
 			$resprints .= '<input type="hidden" name="noidempotency" value="'.GETPOST('noidempotency', 'int').'">';
 			$resprints .= '<input type="hidden" name="s" value="'.(GETPOST('s', 'alpha') ? GETPOST('s', 'alpha') : GETPOST('source', 'alpha')).'">';

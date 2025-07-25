@@ -371,6 +371,10 @@ class ActionsStancerDolicloud extends CommonHookActions
 		$error = "";
 
 		if (array_key_exists("paymentmethod", $parameters) && (empty($parameters["paymentmethod"]) || $parameters["paymentmethod"] == 'stancerdolicloud') && isModEnabled('stancerdolicloud')) {
+			if (!getDolGlobalString('STANCER_DOLICLOUD_LIVE')) {
+				dol_htmloutput_mesg($langs->trans('YouAreCurrentlyInSandboxMode', 'Stancer'), [], 'warning');
+			}
+
 			$resprints .= '<div class="button buttonpayment" id="div_dopayment_stancer"><span class="fa fa-credit-card"></span> <input class="" type="submit" id="dopayment_stancerdolicloud" name="dopayment_stancerdolicloud" value="'.$langs->trans("StancerDoPayment").'">';
 			$resprints .= '<input type="hidden" name="noidempotency" value="'.GETPOST('noidempotency', 'int').'">';
 			$resprints .= '<input type="hidden" name="s" value="'.(GETPOST('s', 'alpha') ? GETPOST('s', 'alpha') : GETPOST('source', 'alpha')).'">';
