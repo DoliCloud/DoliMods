@@ -19,9 +19,7 @@
 /**
  * \file    payplugdolicloud/class/actions_payplugdolicloud.class.php
  * \ingroup payplugdolicloud
- * \brief   Example hook overload.
- *
- * TODO: Write detailed description here.
+ * \brief   File for PayPlug hooks
  */
 
 require_once DOL_DOCUMENT_ROOT.'/core/class/commonhookactions.class.php';
@@ -126,40 +124,6 @@ class ActionsPayplugDolicloud extends CommonHookActions
 
 
 	/**
-	 * Overload the doMassActions function : replacing the parent's function with the one below
-	 *
-	 * @param	array<string,mixed>	$parameters		Hook metadata (context, etc...)
-	 * @param	CommonObject		$object			The object to process (an invoice if you are in invoice module, a propale in propale's module, etc...)
-	 * @param	?string				$action			Current action (if set). Generally create or edit or null
-	 * @param	HookManager			$hookmanager	Hook manager propagated to allow calling another hook
-	 * @return	int									Return integer < 0 on error, 0 on success, 1 to replace standard code
-	 */
-	public function doMassActions($parameters, &$object, &$action, $hookmanager)
-	{
-		$error = 0; // Error counter
-
-		/* print_r($parameters); print_r($object); echo "action: " . $action; */
-		if (in_array($parameters['currentcontext'], array('somecontext1', 'somecontext2'))) {		// do something only for the context 'somecontext1' or 'somecontext2'
-			// @phan-suppress-next-line PhanPluginEmptyStatementForeachLoop
-			foreach ($parameters['toselect'] as $objectid) {
-				// Do action on each object id
-			}
-
-			if (!$error) {
-				$this->results = array('myreturn' => 999);
-				$this->resprints = 'A text to show';
-				return 0; // or return 1 to replace standard code
-			} else {
-				$this->errors[] = 'Error message';
-				return -1;
-			}
-		}
-
-		return 0;
-	}
-
-
-	/**
 	 * Overload the addMoreMassActions function : replacing the parent's function with the one below
 	 *
 	 * @param	array<string,mixed>	$parameters     Hook metadata (context, etc...)
@@ -186,37 +150,6 @@ class ActionsPayplugDolicloud extends CommonHookActions
 			$this->errors[] = 'Error message';
 			return -1;
 		}
-	}
-
-
-
-	/**
-	 * Execute action before PDF (document) creation
-	 *
-	 * @param	array<string,mixed>	$parameters	Array of parameters
-	 * @param	CommonObject		$object		Object output on PDF
-	 * @param	string				$action		'add', 'update', 'view'
-	 * @return	int								Return integer <0 if KO,
-	 *											=0 if OK but we want to process standard actions too,
-	 *											>0 if OK and we want to replace standard actions.
-	 */
-	public function beforePDFCreation($parameters, &$object, &$action)
-	{
-		global $conf, $user, $langs;
-		global $hookmanager;
-
-		$outputlangs = $langs;
-
-		$ret = 0;
-		$deltemp = array();
-		dol_syslog(get_class($this).'::executeHooks action='.$action);
-
-		/* print_r($parameters); print_r($object); echo "action: " . $action; */
-		// @phan-suppress-next-line PhanPluginEmptyStatementIf
-		if (in_array($parameters['currentcontext'], array('somecontext1', 'somecontext2'))) {		// do something only for the context 'somecontext1' or 'somecontext2'
-		}
-
-		return $ret;
 	}
 
 
@@ -442,19 +375,19 @@ class ActionsPayplugDolicloud extends CommonHookActions
 			$json1 = json_decode($result1);
 
 			$urlredirect = $urlwithroot.'/public/payment/';
-			if ($ret1["http_code"] == 200 && empty($json->failure)) {
+			if ($ret1["http_code"] == 200 && empty($json1->failure)) {
 				$urlredirect .= "paymentok.php?fulltag=".urlencode($FULLTAG);
 				header("Location: ".$urlredirect);
 				exit;
 			} else {
-				$_SESSION['errormessage'] = $json->failure->message;
+				$_SESSION['errormessage'] = $json1->failure->message;
 				$urlredirect .= "paymentko.php?fulltag=".urlencode($FULLTAG);
 				header("Location: ".$urlredirect);
 				exit;
 			}
 		}
 
-		if (in_array($parameters['context'],array('newpayment')) && empty($parameters['paymentmethod'])) {
+		if (in_array($parameters['context'], array('newpayment')) && empty($parameters['paymentmethod'])) {
 			$amount = price2num(payplugGetDataFromObjects($source, $ref));
 			if (!GETPOST("currency", 'alpha')) {
 				$currency = $conf->currency;
@@ -463,7 +396,6 @@ class ActionsPayplugDolicloud extends CommonHookActions
 			}
 			$_SESSION["FinalPaymentAmt"] = $amount;
 			$_SESSION["currencyCodeType"] = $currency;
-
 		} elseif (in_array($parameters['paymentmethod'], array('payplug')) && $parameters['validpaymentmethod']["payplug"] == "valid") {
 			$urlback = $urlwithroot.'/public/payment/newpayment.php?';
 
@@ -568,12 +500,13 @@ class ActionsPayplugDolicloud extends CommonHookActions
 
 						dol_syslog("Send Post to url=".$urlforcheckout." with session FinalPaymentAmt = ".$FinalPaymentAmt." currencyCodeType = ".$currencyCodeType, LOG_DEBUG);
 
-						$ret1 = getURLContent($urlforcheckout, 'POSTALREADYFORMATED', $jsontosenddata, 1, $headers);
-						if ($ret1["http_code"] == 201) {
-							$result1 = $ret1["content"];
-							$json1 = json_decode($result1);
-							$_SESSION["PAYPLUG_DOLICLOUD_PAYMENT_ID"] = urlencode($json1->id);
-							$urlforredirect = $json1->hosted_payment->payment_url;
+						$ret2 = getURLContent($urlforcheckout, 'POSTALREADYFORMATED', $jsontosenddata, 1, $headers);
+
+						if ($ret2["http_code"] == 201) {
+							$result2 = $ret2["content"];
+							$json2 = json_decode($result2);
+							$_SESSION["PAYPLUG_DOLICLOUD_PAYMENT_ID"] = urlencode($json2->id);
+							$urlforredirect = $json2->hosted_payment->payment_url;
 
 							// Gestion redirection
 							dol_syslog("Send redirect to ".$urlforredirect);
@@ -582,8 +515,8 @@ class ActionsPayplugDolicloud extends CommonHookActions
 							exit;
 						} else {
 							$arrayofmessage = array();
-							if (!empty($ret1['content'])) {
-								$arrayofmessage = json_decode($ret1['content'], true);
+							if (!empty($ret2['content'])) {
+								$arrayofmessage = json_decode($ret2['content'], true);
 							}
 							if (!empty($arrayofmessage['message'])) {
 								$errors[] = $arrayofmessage['message'];
