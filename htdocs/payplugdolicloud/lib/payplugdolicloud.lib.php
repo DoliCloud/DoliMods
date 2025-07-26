@@ -79,12 +79,11 @@ function payplugdolicloudAdminPrepareHead()
 /**
  * Get data form an object
  *
- * @param	$source 		The type of the object
- * @param	$ref			The ref of the object
- * @param	$mode			The mode to use for the function amount
- * @param	$payerarray		An array to fill the payer informations (Must be set with payer mode)
- *
- * @return	int				The amount to pay if mode amount
+ * @param	string	$source 		The type of the object
+ * @param	string	$ref			The ref of the object
+ * @param	string	$mode			The mode to use for the function amount
+ * @param	array	$payerarray		An array to fill the payer informations (Must be set with payer mode)
+ * @return	int						The amount to pay if mode amount
  */
 
  function payplugGetDataFromObjects($source, $ref, $mode = 'amount', &$payerarray = null)
@@ -99,6 +98,9 @@ function payplugdolicloudAdminPrepareHead()
 	require_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
 	require_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
 	require_once DOL_DOCUMENT_ROOT.'/commande/class/commande.class.php';
+
+	$errors = array();
+	$error = 0;
 
 	dol_syslog('Payplug::payplugGetDataFromObjects');
 
@@ -135,6 +137,7 @@ function payplugdolicloudAdminPrepareHead()
 					$payerarray['address'] = $don->address;
 					$payerarray['city'] = $don->town;
 					$payerarray['zipCode'] = $don->zip;
+					$payerarray['countryCode'] = $don->country_code;
 					$payerarray['companyName'] = $don->societe;
 				}
 			}
@@ -166,7 +169,10 @@ function payplugdolicloudAdminPrepareHead()
 					$payerarray['firstName'] = $member->firstname;
 					$payerarray['lastName'] = $member->lastname;
 					$payerarray['companyName'] = $member->company;
+					$payerarray['zipCode'] = $member->zip;
+					$payerarray['address'] = $member->address;
 					$payerarray['email'] = $member->email;
+					$payerarray['countryCode'] = $member->country_code;
 					$payerarray['dateOfBirth'] = dol_print_date($member->birth, 'dayrfc');
 				}
 			}
@@ -204,6 +210,8 @@ function payplugdolicloudAdminPrepareHead()
 					$payerarray['address'] = $contract->thirdparty->address;
 					$payerarray['zipCode'] = $contract->thirdparty->zip;
 					$payerarray['city'] = $contract->thirdparty->town;
+					$payerarray['country'] = $contract->thirdparty->country_code;
+					$payerarray['email'] = $contract->thirdparty->email;
 
 					$result = $member->fetch(0, '', $contract->thirdparty->id);
 					if ($result > 0) {
@@ -211,7 +219,6 @@ function payplugdolicloudAdminPrepareHead()
 						$payerarray['lastName'] = $member->lastname;
 						$payerarray['dateOfBirth'] = dol_print_date($member->birth, 'dayrfc');
 					}
-					$payerarray['email'] = $contract->thirdparty->email;
 				}
 			}
 			break;
@@ -236,6 +243,8 @@ function payplugdolicloudAdminPrepareHead()
 					$payerarray['address'] = $invoice->thirdparty->address;
 					$payerarray['zipCode'] = $invoice->thirdparty->zip;
 					$payerarray['city'] = $invoice->thirdparty->town;
+					$payerarray['country'] = $invoice->thirdparty->country_code;
+					$payerarray['email'] = $invoice->thirdparty->email;
 
 					$result = $member->fetch(0, '', $invoice->thirdparty->id);
 					if ($result > 0) {
@@ -243,7 +252,6 @@ function payplugdolicloudAdminPrepareHead()
 						$payerarray['lastName'] = $member->lastname;
 						$payerarray['dateOfBirth'] = dol_print_date($member->birth, 'dayrfc');
 					}
-					$payerarray['email'] = $invoice->thirdparty->email;
 				}
 			}
 			break;
@@ -268,6 +276,7 @@ function payplugdolicloudAdminPrepareHead()
 					$payerarray['address'] = $order->thirdparty->address;
 					$payerarray['zipCode'] = $order->thirdparty->zip;
 					$payerarray['city'] = $order->thirdparty->town;
+					$payerarray['email'] = $order->thirdparty->email;
 
 					$result = $member->fetch(0, '', $order->thirdparty->id);
 					if ($result > 0) {
@@ -275,7 +284,6 @@ function payplugdolicloudAdminPrepareHead()
 						$payerarray['lastName'] = $member->lastname;
 						$payerarray['dateOfBirth'] = dol_print_date($member->birth, 'dayrfc');
 					}
-					$payerarray['email'] = $order->thirdparty->email;
 				}
 			}
 			break;
@@ -297,6 +305,7 @@ function payplugdolicloudAdminPrepareHead()
 					$payerarray['address'] = $invoice->thirdparty->address;
 					$payerarray['zipCode'] = $invoice->thirdparty->zip;
 					$payerarray['city'] = $invoice->thirdparty->town;
+					$payerarray['email'] = $invoice->thirdparty->email;
 
 					$result = $member->fetch(0, '', $invoice->thirdparty->id);
 					if ($result > 0) {
@@ -304,7 +313,6 @@ function payplugdolicloudAdminPrepareHead()
 						$payerarray['lastName'] = $member->lastname;
 						$payerarray['dateOfBirth'] = dol_print_date($member->birth, 'dayrfc');
 					}
-					$payerarray['email'] = $invoice->thirdparty->email;
 				}
 			}
 			break;

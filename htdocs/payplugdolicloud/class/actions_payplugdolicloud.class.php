@@ -492,18 +492,33 @@ class ActionsPayplugDolicloud extends CommonHookActions
 								"cancel_url": "'.$cancel_url.'"
 							}';
 
-						if (!empty($payerarray["lastName"]) || !empty($payerarray["firstName"]) || !empty($payerarray["email"])) {
-							$jsontosenddata .= ', { "billing": {';
+						if (!empty($payerarray["lastName"]) || !empty($payerarray["firstName"]) || !empty($payerarray["email"])
+							|| !empty($payerarray["address"]) || !empty($payerarray["postcode"]) || !empty($payerarray["city"])
+							|| !empty($payerarray["country"]) ) {
+
+							$jsontosenddatabilling = '';
 							if (!empty($payerarray["lastName"])) {
-								$jsontosenddata .= ' "last_name": "'.$payerarray["lastName"].'"';
+								$jsontosenddatabilling .= ($jsontosenddatabilling ? ', ' : '').'"last_name": "'.$payerarray["lastName"].'"';
 							}
 							if (!empty($payerarray["firstName"])) {
-								$jsontosenddata .= ' "first_name": "'.$payerarray["firstName"].'"';
+								$jsontosenddatabilling .= ($jsontosenddatabilling ? ', ' : '').'"first_name": "'.$payerarray["firstName"].'"';
+							}
+							if (!empty($payerarray["address"])) {
+								$jsontosenddatabilling .= ($jsontosenddatabilling ? ', ' : '').'"address1": "'.$payerarray["address"].'"';
+							}
+							if (!empty($payerarray["postcode"])) {
+								$jsontosenddatabilling .= ($jsontosenddatabilling ? ', ' : '').'"postcode": "'.$payerarray["zipCode"].'"';
+							}
+							if (!empty($payerarray["city"])) {
+								$jsontosenddatabilling .= ($jsontosenddatabilling ? ', ' : '').'"city": "'.$payerarray["city"].'"';
+							}
+							if (!empty($payerarray["countryCode"])) {
+								$jsontosenddatabilling .= ($jsontosenddatabilling ? ', ' : '').'"country": "'.$payerarray["countryCode"].'"';
 							}
 							if (!empty($payerarray["email"])) {
-								$jsontosenddata .= ' "email": "'.$payerarray["email"].'"';
+								$jsontosenddatabilling .= ($jsontosenddatabilling ? ', ' : '').'"email": "'.$payerarray["email"].'"';
 							}
-							$jsontosenddata .= '} }';
+							$jsontosenddata .= ', "customer": { '.$jsontosenddatabilling.' }';
 						}
 
 						// Add a metadata field
@@ -513,7 +528,7 @@ class ActionsPayplugDolicloud extends CommonHookActions
 							    "ipaddress": "'.getUserRemoteIP().'"
 							  }';
 
-						$jsontosenddata .= '}';
+						$jsontosenddata .= ' }';
 
 						$urlforcheckout = "https://".urlencode($payplugrurlapi)."/v1/payments";
 
@@ -535,6 +550,8 @@ class ActionsPayplugDolicloud extends CommonHookActions
 						} else {
 							$arrayofmessage = array();
 							if (!empty($ret2['content'])) {
+								dol_syslog("Result content = ".$ret2['content']);
+
 								$arrayofmessage = json_decode($ret2['content'], true);
 							}
 
