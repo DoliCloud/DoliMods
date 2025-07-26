@@ -506,7 +506,7 @@ class ActionsPayplugDolicloud extends CommonHookActions
 							if (!empty($payerarray["address"])) {
 								$jsontosenddatabilling .= ($jsontosenddatabilling ? ', ' : '').'"address1": "'.$payerarray["address"].'"';
 							}
-							if (!empty($payerarray["postcode"])) {
+							if (!empty($payerarray["zipCode"])) {
 								$jsontosenddatabilling .= ($jsontosenddatabilling ? ', ' : '').'"postcode": "'.$payerarray["zipCode"].'"';
 							}
 							if (!empty($payerarray["city"])) {
