@@ -455,9 +455,9 @@ class ActionsPayplugDolicloud extends CommonHookActions
 				$currencyCodeType = $_SESSION["currencyCodeType"];
 				$amounttotest = $amount;
 				if (!$error) {
-					//Permit to format the amount string to call Payplug API
-					$posdot = strpos($amount, '.');
-					if ( $posdot === false) {
+					// Permit to format the amount string to call Payplug API
+					$posdot = strpos((string) $amount, '.');
+					if ($posdot === false) {
 						$amount .= '00';
 					} else {
 						$amounttab = explode('.', $amount);
@@ -508,7 +508,9 @@ class ActionsPayplugDolicloud extends CommonHookActions
 
 						// Add a metadata field
 						$jsontosenddata .= ', "metadata": {
-							    "ip": "'.getUserRemoteIP().'"
+								"dol_entity": "'.$conf->entity.'",
+							    "dol_version": "'.DOL_VERSION.'",
+							    "ipaddress": "'.getUserRemoteIP().'"
 							  }';
 
 						$jsontosenddata .= '}';
