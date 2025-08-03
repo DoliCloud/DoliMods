@@ -2,9 +2,13 @@
 
 This file contains some policies about the security reports on Dolibarr ERP CRM project, one of the most popular Open Source ERP and CRM in the world.
 
+
 ## Supported Versions for security reports
 
-Security report are valid only on current stable version (see https://dolibarr.org web site to get current stable version) or on development version (branch "develop" on https://github.com/Dolibarr/dolibarr).
+Security report are valid only modules with the status Stable.
+A module is stable when its version is a number x.y instead of the key 'experimental' or 'development'
+See the file htdocs/modulename/core/modules/modModuleName.class.php, line $this->version = '...';
+
 
 ## Reporting a Vulnerability
 
@@ -12,6 +16,7 @@ To report a vulnerability, for a private report, you can:
 
 - Or if you have permissions, use GitHub security advisory at [https://github.com/DoliCloud/DoliMod/security/advisories/new](https://github.com/DoliCloud/DoliMod/security/advisories/new)
 - Or send by email to security@dolicloud.com a clear textual description of the report along with steps to reproduce the issue, include attachments such as screenshots or proof of concept code as necessary
+
 
 ## Hunting vulnerabilities on those Dolibarr modules
 
@@ -21,15 +26,18 @@ If you believe you've found a security bug in our service, we are happy to work 
 
 Any type of denial-of-service attack is strictly forbidden, as well as any interference with network equipment and Dolibarr infrastructure.
 
-We recommend to install Dolibarr ERP CRM and DoliMed on your own server (as most Open Source software, download and use is free: [https://www.dolibarr.org/download](https://www.dolibarr.org/download)) to get access on every side of application.
+We recommend to install Dolibarr ERP CRM on your own server (as most Open Source software, download and use is free: [https://www.dolibarr.org/download](https://www.dolibarr.org/download)) to get access on every side of application.
+
 
 ### User Agent
 
-If you try to find bug on Dolibarr, we recommend to append to your user-agent header the following value: '-securitytest-for-dolimed'.
+If you try to find bug on a hosted instance of Dolibarr, we recommend to append to your user-agent header the following value: '-securitytest-for-dolimod'.
+
 
 ### Account access
 
 You can install the web application yourself on your own platform/server so you get full access to application and sources. Download the zip of the files to put in your own web server virtual host from [https://www.dolibarr.org/download](https://www.dolibarr.org/download)
+
 
 ## Eligibility and Responsible Disclosure
 
@@ -42,6 +50,7 @@ You must avoid tests that could cause degradation or interruption of our service
 You must not leak, manipulate, or destroy any user data of third parties to find your vulnerability.
 
 Reports are processed around once a month.
+
 
 ## Scope for qualified vulnerabilities
 
@@ -62,6 +71,7 @@ ONLY vulnerabilities discovered, when the following setup on test platform is us
 
 Scope is the web application (backoffice) and the APIs.
 
+
 ## Examples of vulnerabilities that are Qualified for reporting.
 
 * Remote code execution (RCE)
@@ -77,6 +87,7 @@ Scope is the web application (backoffice) and the APIs.
 * "HTTP Host Header" XSS
 * Software version disclosure (for non-admin users only)
 * Stack traces or path disclosure (for non-admin users only)
+
 
 ## Examples of vulnerabilities that are Non-qualified for reporting.
 
