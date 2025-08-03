@@ -5,7 +5,7 @@ This file contains some policies about the security reports on DoliCloud modules
 
 ## Supported Versions for security reports
 
-Security report are valid only modules with the status Stable.
+Security report are valid only for modules with the status 'Stable'.
 A module is stable when its version is a number x.y instead of the key 'experimental' or 'development'
 See the file htdocs/modulename/core/modules/modModuleName.class.php, line $this->version = '...';
 
