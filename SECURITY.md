@@ -14,7 +14,7 @@ See the file htdocs/modulename/core/modules/modModuleName.class.php, line $this-
 
 To report a vulnerability, for a private report, you can:
 
-- Or if you have permissions, use GitHub security advisory at [https://github.com/DoliCloud/DoliMod/security/advisories/new](https://github.com/DoliCloud/DoliMod/security/advisories/new)
+- Or if you have permissions, use GitHub security advisory at [https://github.com/DoliCloud/DoliMods/security/advisories/](https://github.com/DoliCloud/DoliMods/security/advisories/new)
 - Or send by email to security@dolicloud.com a clear textual description of the report along with steps to reproduce the issue, include attachments such as screenshots or proof of concept code as necessary
 
 
@@ -31,7 +31,7 @@ We recommend to install Dolibarr ERP CRM on your own server (as most Open Source
 
 ### User Agent
 
-If you try to find bug on a hosted instance of Dolibarr, we recommend to append to your user-agent header the following value: '-securitytest-for-dolimod'.
+If you try to find bug on a hosted instance of Dolibarr, we recommend to append to your user-agent header the following value: '-securitytest-for-dolimods'.
 
 
 ### Account access
