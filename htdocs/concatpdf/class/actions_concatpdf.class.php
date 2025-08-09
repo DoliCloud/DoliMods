@@ -33,7 +33,7 @@ class ActionsConcatPdf
 	public $error;
 	public $errors=array();
 
-	// For Hookmanager return
+	// For HookManager return
 	public $resprints;
 	public $results = array();
 
