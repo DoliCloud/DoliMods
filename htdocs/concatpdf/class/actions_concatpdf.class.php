@@ -646,9 +646,9 @@ class ActionsConcatPdf
 	/**
 	 * Resolve an object
 	 *
-	 * @param object $c pdf_context
-	 * @param array $obj_spec The object-data
-	 * @param boolean $encapsulate Must set to true, cause the parsing and fpdi use this method only without this para
+	 * @param object 	$c 				pdf_context
+	 * @param array 	$obj_spec 		The object-data
+	 * @param bool		$encapsulate 	Must set to true, cause the parsing and fpdi use this method only without this para
 	 */
 	/*
 	function pdf_resolve_object(&$c, $obj_spec, $encapsulate = true, $parser) {
