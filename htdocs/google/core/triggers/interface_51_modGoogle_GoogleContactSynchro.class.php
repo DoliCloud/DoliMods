@@ -129,7 +129,7 @@ class InterfaceGoogleContactSynchro extends DolibarrTriggers
 		if ($action == 'COMPANY_CREATE' || $action == 'COMPANY_MODIFY' || $action == 'COMPANY_DELETE'
 			|| $action == 'CONTACT_CREATE' || $action == 'CONTACT_MODIFY' || $action == 'CONTACT_DELETE'
 			|| $action == 'MEMBER_CREATE' || $action == 'MEMBER_MODIFY' || $action == 'MEMBER_DELETE'
-			|| $action == 'CATEGORY_LINK' || $action == 'CATEGORY_UNLINK' || $action == 'CATEGORY_DELETE' || $action == 'CATEGORY_MODIFY') {
+			|| $action == 'CATEGORY_DELETE' || $action == 'CATEGORY_MODIFY') {
 			// We check if we must proceed the trigger code
 			if (preg_match('/^COMPANY_/', $action) && empty($conf->global->GOOGLE_DUPLICATE_INTO_THIRDPARTIES)) return 0;
 			if (preg_match('/^CONTACT_/', $action) && empty($conf->global->GOOGLE_DUPLICATE_INTO_CONTACTS)) return 0;
