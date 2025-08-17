@@ -272,7 +272,8 @@ class InterfaceGoogleContactSynchro extends DolibarrTriggers
 					}
 					return 1;
 				}
-				if ($action == 'CATEGORY_LINK') {
+
+				if ($action == 'CATEGORY_MODIFY' && isset($object->context['linkto'])) {
 					$type = $object->context['linkto']->element ? $object->context['linkto']->element : 'unknown';
 					$tag = array('id' => $object->id, 'label' => $object->label, 'type' => $type);
 					$groupID = getGContactGroupID($servicearray, $tag);
@@ -297,7 +298,7 @@ class InterfaceGoogleContactSynchro extends DolibarrTriggers
 					return -1;
 				}
 
-				if ($action == 'CATEGORY_UNLINK') {
+				if ($action == 'CATEGORY_MODIFY' && isset($object->context['unlinkoff'])) {
 					$type = $object->context['unlinkoff']->element ? $object->context['unlinkoff']->element : 'unknown';
 					$tag = array('id' => $object->id, 'label' => $object->label, 'type' => $type);
 					$groupID = getGContactGroupID($servicearray, $tag);
@@ -310,21 +311,6 @@ class InterfaceGoogleContactSynchro extends DolibarrTriggers
 							if ($ret > 0) {
 								return 1;
 							}
-						}
-					}
-					$this->error=$object->error;
-					$this->errors[]=$this->error;
-					return -1;
-				}
-
-				if ($action == 'CATEGORY_DELETE') {
-					$tag = array('id' => $object->id, 'label' => $object->label);
-					$groupID = getGContactGroupID($servicearray, $tag);
-					if ($groupID && preg_match('/contactGroups\/.*/', $groupID)) { // This record is linked with Google Contact
-						$ret = googleDeleteGroup($servicearray, $groupID);
-						if ($ret > 0) {
-							return 1;
-
 						}
 					}
 					$this->error=$object->error;
@@ -346,6 +332,21 @@ class InterfaceGoogleContactSynchro extends DolibarrTriggers
 					}
 					$this->error=$object->error;
 					$this->errors[]=$ret;
+					return -1;
+				}
+
+				if ($action == 'CATEGORY_DELETE') {
+					$tag = array('id' => $object->id, 'label' => $object->label);
+					$groupID = getGContactGroupID($servicearray, $tag);
+					if ($groupID && preg_match('/contactGroups\/.*/', $groupID)) { // This record is linked with Google Contact
+						$ret = googleDeleteGroup($servicearray, $groupID);
+						if ($ret > 0) {
+							return 1;
+
+						}
+					}
+					$this->error=$object->error;
+					$this->errors[]=$this->error;
 					return -1;
 				}
 			}
