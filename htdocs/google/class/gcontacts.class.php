@@ -1214,14 +1214,10 @@ class GCaddr
 		global $db,$langs;
 		$langs->load("dict");
 
-		$countrytable="c_pays";
 		include_once DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php';
-		if (versioncompare(versiondolibarrarray(), array(3,7,-3)) >= 0) {
-			$countrytable="c_country";
-		}
 
 		$sql = "SELECT rowid, code as code_iso, label";
-		$sql.= " FROM ".MAIN_DB_PREFIX.$countrytable;
+		$sql.= " FROM ".MAIN_DB_PREFIX."c_country";
 		$sql.= " WHERE active = 1";
 		$resql=$db->query($sql);
 		if (!$resql) throw new Exception($db->lasterror());

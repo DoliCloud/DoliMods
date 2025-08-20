@@ -507,23 +507,14 @@ class GoogleMapAPI
 			$lienGmaps = ' <a href="https://maps.google.com/maps?q='.urlencode($this->withoutSpecialChars($address)).'">Google Maps</a>';
 
 			$html='';
-			if (versioncompare(versiondolibarrarray(), array(3,7,-3)) >= 0) {	// >= 0 if we are 3.6.0 alpha or +
-				$pagename=(((float) DOL_VERSION >= 6.0)?'/societe/card.php':'/societe/soc.php');
+			$pagename=(((float) DOL_VERSION >= 6.0)?'/societe/card.php':'/societe/soc.php');
 
-				if ($mode == 'company' || $mode == 'thirdparty') $html.= '<a href="'.DOL_URL_ROOT.$pagename.'?socid='.$elem->id.'">';
-				elseif ($mode == 'contact') $html.= '<a href="'.DOL_URL_ROOT.'/contact/card.php?id='.$elem->id.'">';
-				elseif ($mode == 'member') $html.= '<a href="'.DOL_URL_ROOT.'/adherents/card.php?rowid='.$elem->id.'">';
-				elseif ($mode == 'patient') $html.= '<a href="'.DOL_URL_ROOT.$pagename.'?socid='.$elem->id.'">';
-				else $html.='<a>';
-			} else {
-				$pagename=(((float) DOL_VERSION >= 6.0)?'/societe/card.php':'/societe/soc.php');
+			if ($mode == 'company' || $mode == 'thirdparty') $html.= '<a href="'.DOL_URL_ROOT.$pagename.'?socid='.$elem->id.'">';
+			elseif ($mode == 'contact') $html.= '<a href="'.DOL_URL_ROOT.'/contact/card.php?id='.$elem->id.'">';
+			elseif ($mode == 'member') $html.= '<a href="'.DOL_URL_ROOT.'/adherents/card.php?rowid='.$elem->id.'">';
+			elseif ($mode == 'patient') $html.= '<a href="'.DOL_URL_ROOT.$pagename.'?socid='.$elem->id.'">';
+			else $html.='<a>';
 
-				if ($mode == 'company' || $mode == 'thirdparty') $html.= '<a href="'.DOL_URL_ROOT.$pagename.'?socid='.$elem->id.'">';
-				elseif ($mode == 'contact') $html.= '<a href="'.DOL_URL_ROOT.'/contact/fiche.php?id='.$elem->id.'">';
-				elseif ($mode == 'member') $html.= '<a href="'.DOL_URL_ROOT.'/adherents/fiche.php?rowid='.$elem->id.'">';
-				elseif ($mode == 'patient') $html.= '<a href="'.DOL_URL_ROOT.$pagename.'?socid='.$elem->id.'">';
-				else $html.='<a>';
-			}
 			$html.= '<b>'.$elem->name.'</b>';
 			$html.= '</a>';
 			$html.= '<br/>'.$addresscleaned.'<br/>';

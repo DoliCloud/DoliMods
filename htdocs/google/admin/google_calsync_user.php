@@ -92,7 +92,7 @@ $object->getrights();
 // Liste des zone de recherche permanentes supportees
 $searchform=array("main_searchform_societe","main_searchform_contact","main_searchform_produitservice");
 $searchformconst=array(
-	empty($object->conf->MAIN_SEARCHFORM_SOCIETE) ? '' : $object->conf->MAIN_SEARCHFORM_SOCIETE, 
+	empty($object->conf->MAIN_SEARCHFORM_SOCIETE) ? '' : $object->conf->MAIN_SEARCHFORM_SOCIETE,
 	empty($object->conf->MAIN_SEARCHFORM_CONTACT) ? '' : $object->conf->MAIN_SEARCHFORM_CONTACT,
 	empty($object->conf->MAIN_SEARCHFORM_PRODUITSERVICE) ? '' : $object->conf->MAIN_SEARCHFORM_PRODUITSERVICE,
 );
@@ -541,20 +541,18 @@ if (empty($userlogin)) {	// We use setup of user
 		print "</form>\n";
 	}
 
-	if (! empty($conf->global->GOOGLE_DUPLICATE_INTO_GCAL)) {
-		if (versioncompare(versiondolibarrarray(), array(3,7,2)) >= 0) {
-			print '<form name="googleconfig" action="'.$_SERVER["PHP_SELF"].'" method="post">';
-			print '<input type="hidden" name="token" value="'.newToken().'">';
-			print '<input type="hidden" name="action" value="syncfromgoogle">';
-			print '<input type="hidden" name="id" value="'.$id.'">';
-			print $langs->trans("ImportEventsFromGoogle", $max, empty($object->conf->GOOGLE_LOGIN) ? '' : $object->conf->GOOGLE_LOGIN)." ";
-			$now = dol_now() - ($notolderforsync * 24 * 3600);
-			print $form->selectDate($dateminsync ? $dateminsync : $now, 'sync', 1, 1, 0, '', 1, 0, empty($object->conf->GOOGLE_LOGIN) ? 1 : 0);
-			print '<input type="submit" name="getall" class="button" value="'.$langs->trans("Run").'"';
-			if (empty($object->conf->GOOGLE_LOGIN)) print ' disabled="disabled"';
-			print '>';
-			print "</form>\n";
-		}
+	if (getDolGlobalString('GOOGLE_DUPLICATE_INTO_GCAL')) {
+		print '<form name="googleconfig" action="'.$_SERVER["PHP_SELF"].'" method="post">';
+		print '<input type="hidden" name="token" value="'.newToken().'">';
+		print '<input type="hidden" name="action" value="syncfromgoogle">';
+		print '<input type="hidden" name="id" value="'.$id.'">';
+		print $langs->trans("ImportEventsFromGoogle", $max, empty($object->conf->GOOGLE_LOGIN) ? '' : $object->conf->GOOGLE_LOGIN)." ";
+		$now = dol_now() - ($notolderforsync * 24 * 3600);
+		print $form->selectDate($dateminsync ? $dateminsync : $now, 'sync', 1, 1, 0, '', 1, 0, empty($object->conf->GOOGLE_LOGIN) ? 1 : 0);
+		print '<input type="submit" name="getall" class="button" value="'.$langs->trans("Run").'"';
+		if (empty($object->conf->GOOGLE_LOGIN)) print ' disabled="disabled"';
+		print '>';
+		print "</form>\n";
 	}
 
 	print '</div>';

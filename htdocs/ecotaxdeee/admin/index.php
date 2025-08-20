@@ -245,18 +245,11 @@ if (! empty($conf->global->ECOTAXDEEE_USE_ON_CUSTOMER_ORDER) && $conf->global->E
 if (! empty($conf->global->ECOTAXDEEE_USE_ON_PROPOSAL) && $conf->global->ECOTAXDEEE_USE_ON_PROPOSAL != 'no') {
 	$elements[]=$langs->transnoentitiesnoconv("Proposals");
 }
-if (! empty($conf->global->ECOTAXDEEE_USE_ON_CUSTOMER_INVOICE) && $conf->global->ECOTAXDEEE_USE_ON_CUSTOMER_INVOICE != 'no') {
+if (getDolGlobalString('ECOTAXDEEE_USE_ON_CUSTOMER_INVOICE') && getDolGlobalString('ECOTAXDEEE_USE_ON_CUSTOMER_INVOICE') != 'no') {
 	$elements[]=$langs->transnoentitiesnoconv("BillsCustomers");
 }
 if (count($elements)) {
-	/*if (versioncompare(versiondolibarrarray(),array(3,6,-3)) >= 999)	// >= 0 if we are 3.6.0 alpha or +
-	{*/
-		$text=$langs->trans("EcoTaxAddedIfDesc", join(', ', $elements));
-	/*}
-	else
-	{
-		$text=$langs->trans("EcoTaxAddedIfDescOld",join(',',$elements));
-	}*/
+	$text = $langs->trans("EcoTaxAddedIfDesc", join(', ', $elements));
 	print info_admin($text);
 }
 
