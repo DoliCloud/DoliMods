@@ -5,7 +5,13 @@
 
 version: 2
 updates:
-  - package-ecosystem: "" # See documentation for possible values
-    directory: "/" # Location of package manifests
+  - package-ecosystem: "github-actions"
+    directory: "/"
     schedule:
       interval: "weekly"
+    allow:
+      # Allow production updates only (can do a AND, several entries are doing a OR)
+      - dependency-type: "production"
+      #- dependency-type: "direct"
+    exclude-paths:
+      - 'dev'
