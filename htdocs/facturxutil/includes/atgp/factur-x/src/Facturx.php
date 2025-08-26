@@ -18,26 +18,36 @@ class Facturx
     const VERSION = '1.0';
     const FACTURX_ENCODING = 'UTF-8';
     const FACTURX_FILENAME = 'factur-x.xml';
-    const FACTURX_PROFIL_TO_XSD = array(
-        'minimum' => 'FACTUR-X_BASIC-WL.xsd',
-        'basicwl' => 'FACTUR-X_BASIC-WL.xsd',
-        'basic' => 'FACTUR-X_EN16931.xsd',
-        'en16931' => 'FACTUR-X_EN16931.xsd',
-        'zugferd' => 'ZUGFeRD1p0.xsd',
-    );
-    const FACTURX_LOGO = array(
-        'minimum' => 'Factur-x_minimum.jpg',
-        'basicwl' => 'Factur-x_basic_wl.jpg',
-        'basic' => 'Factur-x_basic.jpg',
-        'en16931' => 'Factur-x_en16931.jpg',
-        'extended' => 'Factur-x_extended.jpg',
-    );
-    const FACTURX_PROFIL_TO_XMP = array(
-        'minimum' => 'MINIMUM',
-        'basicwl' => 'BASIC WL',
-        'basic' => 'BASIC',
-        'en16931' => 'EN 16931',
-    );
+
+    const PROFIL_FACTURX_MINIMUM = 'minimum';
+    const PROFIL_FACTURX_BASICWL = 'basicwl';
+    const PROFIL_FACTURX_BASIC = 'basic';
+    const PROFIL_FACTURX_EN16931 = 'en16931';
+    const PROFIL_FACTURX_EXTENDED = 'extended';
+    const PROFIL_ZUGFERD = 'zugferd';
+
+    const FACTURX_PROFIL_TO_XSD = [
+        self::PROFIL_FACTURX_MINIMUM => 'factur-x/minimum/FACTUR-X_MINIMUM.xsd',
+        self::PROFIL_FACTURX_BASICWL => 'factur-x/basic-wl/FACTUR-X_BASIC-WL.xsd',
+        self::PROFIL_FACTURX_BASIC => 'factur-x/basic/FACTUR-X_BASIC.xsd',
+        self::PROFIL_FACTURX_EN16931 => 'factur-x/en16931/FACTUR-X_EN16931.xsd',
+        self::PROFIL_FACTURX_EXTENDED => 'factur-x/extended/FACTUR-X_EXTENDED.xsd',
+        self::PROFIL_ZUGFERD => 'zugferd/ZUGFeRD1p0.xsd',
+    ];
+    const FACTURX_LOGO = [
+        self::PROFIL_FACTURX_MINIMUM => 'Factur-x_minimum.jpg',
+        self::PROFIL_FACTURX_BASICWL => 'Factur-x_basic_wl.jpg',
+        self::PROFIL_FACTURX_BASIC => 'Factur-x_basic.jpg',
+        self::PROFIL_FACTURX_EN16931 => 'Factur-x_en16931.jpg',
+        self::PROFIL_FACTURX_EXTENDED => 'Factur-x_extended.jpg',
+    ];
+    const FACTURX_PROFIL_TO_XMP = [
+        self::PROFIL_FACTURX_MINIMUM => 'MINIMUM',
+        self::PROFIL_FACTURX_BASICWL => 'BASIC WL',
+        self::PROFIL_FACTURX_BASIC => 'BASIC',
+        self::PROFIL_FACTURX_EN16931 => 'EN 16931',
+        self::PROFIL_FACTURX_EXTENDED => 'EXTENDED',
+    ];
     const FACTURX_XMP = 'Factur-X_extension_schema.xmp';
 
     private $profil = null;
@@ -116,13 +126,13 @@ class Facturx
      * Check Factur-X XML against XSD.
      *
      * @param string $facturxXml    File name or content of the XML invoice
-     * @param string $facturxProfil possible values : autodetect, minimum, basicwl, basic, en16931
+     * @param string $facturxProfil One of \Atgp\FacturX\Facturx::PROFIL_* (null for auto-detection)
      *
      * @throws \Exception
      *
      * @return bool
      */
-    public function checkFacturxXsd($facturxXml, $facturxProfil = 'autodetect')
+    public function checkFacturxXsd($facturxXml, $facturxProfil = null)
     {
         if (@is_file($facturxXml)) {
             $xmlString = file_get_contents($facturxXml);
@@ -135,16 +145,17 @@ class Facturx
             throw new \Exception('$facturxXml argument must be a file or a string');
         }
 
-        if (!array_key_exists($facturxProfil, static::FACTURX_PROFIL_TO_XSD)) {
-            $this->profil = $this->getFacturxProfil($doc);
-        } else {
+        if (!$this->profil) {
+            if (null === $facturxProfil) {
+                $facturxProfil = $this->getFacturxProfil($doc);
+            }
+            if (!array_key_exists($facturxProfil, static::FACTURX_PROFIL_TO_XSD)) {
+                throw new \Exception("Wrong profil '$facturxProfil' for Factur-X invoice.");
+            }
             $this->profil = $facturxProfil;
         }
-        if (!array_key_exists($this->profil, static::FACTURX_PROFIL_TO_XSD)) {
-            throw new \Exception("Wrong profil '$this->profil' for Factur-X invoice.");
-        }
         $xsdFilename = static::FACTURX_PROFIL_TO_XSD[$this->profil];
-        $xsdFile = __DIR__.'/../xsd/factur-x/'.$xsdFilename;
+        $xsdFile = __DIR__.'/../xsd/'.$xsdFilename;
         try {
             libxml_use_internal_errors(true);
             $schemaValidated = $doc->schemaValidate($xsdFile);
@@ -169,21 +180,29 @@ class Facturx
     /**
      * Generate Factur-X PDF from PDF invoice and Factur-X XML.
      *
-     * @param string $pdfInvoice            File name or content of the PDF invoice
-     * @param string $facturxXml            File name or content of the XML invoice
-     * @param string $facturxProfil         possible values : autodetect, minimum, basicwl, basic, en16931
-     * @param bool   $checkXsd              check Factur-X XML against official XSD
-     * @param string $outputFilePath        Output file path for PDF Factur-X, if empty, file string will be returned
-     * @param bool   $addFacturxLogo        Add Factur-X logo on PDF first page according to Factur-X profil
-     * @param mixed  $additionalAttachments
+     * @param string      $pdfInvoice            File name or content of the PDF invoice
+     * @param string      $facturxXml            File name or content of the XML invoice
+     * @param string|null $facturxProfil         One of \Atgp\FacturX\Facturx::PROFIL_* (null for auto-detection)
+     * @param bool        $checkXsd              check Factur-X XML against official XSD
+     * @param string      $outputFilePath        Output file path for PDF Factur-X, if empty, file string will be returned
+     * @param bool        $addFacturxLogo        Add Factur-X logo on PDF first page according to Factur-X profil
+     * @param mixed       $additionalAttachments
+     * @param string      $relationship          the embarkation relationship, must be Data|Source|Alternative
      *
      * @throws \Exception
      *
      * @return string
      */
-    public function generateFacturxFromFiles($pdfInvoice, $facturxXml, $facturxProfil = 'autodetect', $checkXsd = true,
-                                             $outputFilePath = '', $additionalAttachments = array(), $addFacturxLogo = false)
-    {
+    public function generateFacturxFromFiles(
+        $pdfInvoice,
+        $facturxXml,
+        $facturxProfil = null,
+        $checkXsd = true,
+        $outputFilePath = '',
+        $additionalAttachments = [],
+        $addFacturxLogo = false,
+        $relationship = 'Data'
+    ) {
         $pdfInvoiceRef = null;
         if (@is_file($pdfInvoice)) {
             $pdfInvoiceRef = $pdfInvoice;
@@ -204,11 +223,18 @@ class Facturx
         }
         $docFacturx = new \DOMDocument();
         $docFacturx->loadXML($xmlString);
-        if (!array_key_exists(strtolower($facturxProfil), static::FACTURX_PROFIL_TO_XSD)) {
+
+        if (null === $facturxProfil) {
             $facturxProfil = $this->getFacturxProfil($docFacturx);
         }
+
+        if (!array_key_exists($facturxProfil, static::FACTURX_PROFIL_TO_XSD)) {
+            throw new \Exception("Wrong profil '$facturxProfil' for Factur-X invoice.");
+        }
         $this->profil = $facturxProfil;
+
         if (true == $checkXsd) {
+            // The profil is validated inside checkFacturxXsd
             $this->checkFacturxXsd($facturxXml, $facturxProfil);
         }
 
@@ -217,12 +243,15 @@ class Facturx
         for ($i = 1; $i <= $pageCount; ++$i) {
             $tplIdx = $pdfWriter->importPage($i, '/MediaBox');
             $pdfWriter->AddPage();
-            $pdfWriter->useTemplate($tplIdx);
+            $pdfWriter->useTemplate($tplIdx, 0, 0, null, null, true);
             if (true == $addFacturxLogo && 1 == $i) { // add Factur-X logo on first page only
                 $pdfWriter->Image(__DIR__.'/../img/'.static::FACTURX_LOGO[$this->profil], 197, 2.5, 7);
             }
         }
-        $pdfWriter->Attach($facturxXmlRef, static::FACTURX_FILENAME, 'Factur-X Invoice', 'Data', 'text#2Fxml');
+        if (!in_array($relationship, ['Data', 'Source', 'Alternative'])) {
+            throw new \Exception('$relationship argument must be one of the values "Data", "Source", "Alternative".');
+        }
+        $pdfWriter->Attach($facturxXmlRef, static::FACTURX_FILENAME, 'Factur-X Invoice', $relationship, 'text#2Fxml');
         foreach ($additionalAttachments as $attachment) {
             if (@is_file($attachment['path'])) {
                 $attachment_file_ref = $attachment['path'];
@@ -257,13 +286,13 @@ class Facturx
     public function getFacturxProfil(\DOMDocument $facturxXml)
     {
         if (!$facturxXml instanceof \DOMDocument) {
-            throw new \Exception('$facturxXml must be a SimpleXMLElement object');
+            throw new \Exception('$facturxXml must be a DOMDocument object');
         }
         $xpath = new \DOMXpath($facturxXml);
         $elements = $xpath->query('//rsm:ExchangedDocumentContext/ram:GuidelineSpecifiedDocumentContextParameter/ram:ID');
         if (0 == $elements->length) {
             throw new \Exception('This XML is not a Factur-X XML because it misses the XML
-                tag ExchangedDocumentContext/GuidelineSpecifiedDocumentContextParameter/ID.');
+                tag ExchangedDocumentContext/GuidelineSpecifiedDocumentContextParameter/ram:ID.');
         }
         $doc_id = $elements->item(0)->nodeValue;
         $doc_id_exploded = explode(':', $doc_id);
@@ -368,14 +397,14 @@ class Facturx
         $dateString = date('Y-m-d', strtotime($invoiceInformations['date']));
         $title = sprintf('%s : %s %s', $invoiceInformations['seller'], $invoiceInformations['docTypeName'], $invoiceInformations['invoiceId']);
         $subject = sprintf('Factur-X %s %s dated %s issued by %s', $invoiceInformations['docTypeName'], $invoiceInformations['invoiceId'], $dateString, $invoiceInformations['seller']);
-        $pdf_metadata = array(
+        $pdf_metadata = [
             'author' => $invoiceInformations['seller'],
             'keywords' => sprintf('%s, Factur-X', $invoiceInformations['docTypeName']),
             'title' => $title,
             'subject' => $subject,
             'createdDate' => $invoiceInformations['date'],
             'modifiedDate' => date('Y-m-d\TH:i:s').'+00:00',
-        );
+        ];
 
         return $pdf_metadata;
     }
@@ -407,12 +436,12 @@ class Facturx
                 $docTypeName = 'Invoice';
                 break;
         }
-        $base_info = array(
+        $base_info = [
             'invoiceId' => $invoiceId,
             'docTypeName' => $docTypeName,
             'seller' => $seller,
             'date' => $dateReformatted,
-        );
+        ];
 
         return $base_info;
     }

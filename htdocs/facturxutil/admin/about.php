@@ -53,7 +53,7 @@ $help_url='';
 llxHeader('', '', $help_url);
 
 $linkback='<a href="'.DOL_URL_ROOT.'/admin/modules.php?restore_lastsearch_values=1">'.$langs->trans("BackToModuleList").'</a>';
-print_fiche_titre($langs->trans("FacturXSetup"), $linkback, 'object_facturxutil@facturxutil');
+print_fiche_titre($langs->trans("FacturXSetup"), $linkback, 'bill');
 
 
 $head = facturxUtilAdminPrepareHead();

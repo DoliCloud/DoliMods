@@ -27,7 +27,7 @@ ModuleFacturXDesc = A module to generate invoices FacturX/ZUGFeRD 2.0.
 #
 FacturXSetup = FacturX setup
 Settings = Settings
-FacturXSetupPage = FacturX setup page
+FacturXSetupPage = FacturX setup page. This module add an entry into menu Invoice to manage some FacturX files.
 FACTURX_MYPARAM1 = My param 1
 FACTURX_MYPARAM1Tooltip = My param 1 tooltip
 FACTURX_MYPARAM2=My param 2

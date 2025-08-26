@@ -11,18 +11,22 @@
 
 namespace Atgp\FacturX\Fpdi;
 
+use setasign\Fpdi\PdfParser\Type\PdfIndirectObject;
+use setasign\Fpdi\PdfParser\Type\PdfType;
+use UConverter;
+
 class FdpiFacturx extends \setasign\Fpdi\Fpdi
 {
-    const ICC_PROFILE_PATH = __DIR__.'/icc/sRGB_v4_ICC_preference_displayclass.icc';
+    const ICC_PROFILE_PATH = __DIR__.'/icc/sRGB2014.icc';
 
-    protected $files = array();
-    protected $metadata_descriptions = array();
+    protected $files = [];
+    protected $metadata_descriptions = [];
     protected $file_spe_dictionnary_index = 0;
     protected $description_index = 0;
     protected $output_intent_index = 0;
     protected $n_files;
     protected $open_attachment_pane = false;
-    protected $pdf_metadata_infos = array();
+    protected $pdf_metadata_infos = [];
 
     /**
      * Set the PDF version.
@@ -62,7 +66,7 @@ class FdpiFacturx extends \setasign\Fpdi\Fpdi
             }
         }
         if (!$isUTF8) {
-            $desc = utf8_encode($desc);
+            $desc = self::utf8_encode($desc);
         }
         if ('' == $mimetype) {
             $mimetype = mime_content_type($file);
@@ -71,7 +75,7 @@ class FdpiFacturx extends \setasign\Fpdi\Fpdi
             }
         }
         $mimetype = str_replace('/', '#2F', $mimetype);
-        $this->files[] = array('file' => $file, 'name' => $name, 'desc' => $desc, 'relationship' => $relationship, 'subtype' => $mimetype);
+        $this->files[] = ['file' => $file, 'name' => $name, 'desc' => $desc, 'relationship' => $relationship, 'subtype' => $mimetype];
     }
 
     /**
@@ -130,7 +134,7 @@ class FdpiFacturx extends \setasign\Fpdi\Fpdi
         $this->_put('<<');
         $this->_put('/F ('.$this->_escape($file_info['name']).')');
         $this->_put('/Type /Filespec');
-        $this->_put('/UF '.$this->_textstring(utf8_encode($file_info['name'])));
+        $this->_put('/UF '.$this->_textstring(self::utf8_encode($file_info['name'])));
         if ($file_info['relationship']) {
             $this->_put('/AFRelationship /'.$file_info['relationship']);
         }
@@ -161,17 +165,19 @@ class FdpiFacturx extends \setasign\Fpdi\Fpdi
             $this->_put('/Subtype /'.$file_info['subtype']);
         }
         $this->_put('/Type /EmbeddedFile');
-        if (@is_file($file_info['file'])) {
+        if (is_string($file_info['file']) && @is_file($file_info['file'])) {
             $fc = file_get_contents($file_info['file']);
+            $md = @date('YmdHis', filemtime($file_info['file']));
         } else {
             $stream = $file_info['file']->getStream();
             \fseek($stream, 0);
             $fc = stream_get_contents($stream);
+            $md = @date('YmdHis');
         }
         if (false === $fc) {
             $this->Error('Cannot open file: '.$file_info['file']);
         }
-        $md = @date('YmdHis', filemtime($file_info['file']));
+
         $fc = gzcompress($fc);
         $this->_put('/Length '.strlen($fc));
         $this->_put("/Params <</ModDate (D:$md)>>");
@@ -349,5 +355,61 @@ class FdpiFacturx extends \setasign\Fpdi\Fpdi
         }
 
         return $metadata_string;
+    }
+
+    /**
+     * Replacement for utf8_encode which is deprecated since PHP 8.2.
+     *
+     * @param string $s
+     *
+     * @return string
+     */
+    protected static function utf8_encode($s)
+    {
+        if (\PHP_VERSION_ID < 80200) {
+            return utf8_encode($s);
+        }
+
+        if (function_exists('mb_convert_encoding')) {
+            return mb_convert_encoding($s, 'UTF-8', 'ISO-8859-1');
+        }
+
+        if (class_exists('UConverter')) {
+            return UConverter::transcode($s, 'UTF8', 'ISO-8859-1');
+        }
+
+        if (function_exists('iconv')) {
+            return iconv('ISO-8859-1', 'UTF-8', $s);
+        }
+
+        /*
+         * Fallback to the pure PHP implementation from Symfony Polyfill for PHP 7.2
+         *
+         * @see https://github.com/symfony/polyfill-php72/blob/v1.26.0/Php72.php
+         */
+        $s .= $s;
+        $len = \strlen($s);
+
+        for ($i = $len >> 1, $j = 0; $i < $len; ++$i, ++$j) {
+            switch (true) {
+                case $s[$i] < "\x80": $s[$j] = $s[$i]; break;
+                case $s[$i] < "\xC0": $s[$j] = "\xC2"; $s[++$j] = $s[$i]; break;
+                default: $s[$j] = "\xC3"; $s[++$j] = \chr(\ord($s[$i]) - 64); break;
+            }
+        }
+
+        return substr($s, 0, $j);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    protected function writePdfType(PdfType $value)
+    {
+        parent::writePdfType($value);
+
+        if ($value instanceof PdfIndirectObject && \PHP_EOL !== substr($this->buffer, -1)) {
+            $this->_put('');
+        }
     }
 }
