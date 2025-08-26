@@ -110,31 +110,31 @@
         },
         {
             "name": "setasign/fpdi",
-            "version": "v2.3.6",
+            "version": "v2.6.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Setasign/FPDI.git",
-                "reference": "6231e315f73e4f62d72b73f3d6d78ff0eed93c31"
+                "reference": "4b53852fde2734ec6a07e458a085db627c60eada"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Setasign/FPDI/zipball/6231e315f73e4f62d72b73f3d6d78ff0eed93c31",
-                "reference": "6231e315f73e4f62d72b73f3d6d78ff0eed93c31",
+                "url": "https://api.github.com/repos/Setasign/FPDI/zipball/4b53852fde2734ec6a07e458a085db627c60eada",
+                "reference": "4b53852fde2734ec6a07e458a085db627c60eada",
                 "shasum": ""
             },
             "require": {
                 "ext-zlib": "*",
-                "php": "^5.6 || ^7.0 || ^8.0"
+                "php": "^7.1 || ^8.0"
             },
             "conflict": {
                 "setasign/tfpdf": "<1.31"
             },
             "require-dev": {
-                "phpunit/phpunit": "~5.7",
-                "setasign/fpdf": "~1.8",
-                "setasign/tfpdf": "1.31",
+                "phpunit/phpunit": "^7",
+                "setasign/fpdf": "~1.8.6",
+                "setasign/tfpdf": "~1.33",
                 "squizlabs/php_codesniffer": "^3.5",
-                "tecnickcom/tcpdf": "~6.2"
+                "tecnickcom/tcpdf": "^6.8"
             },
             "suggest": {
                 "setasign/fpdf": "FPDI will extend this class but as it is also possible to use TCPDF or tFPDF as an alternative. There's no fixed dependency configured."
@@ -170,7 +170,7 @@
             ],
             "support": {
                 "issues": "https://github.com/Setasign/FPDI/issues",
-                "source": "https://github.com/Setasign/FPDI/tree/v2.3.6"
+                "source": "https://github.com/Setasign/FPDI/tree/v2.6.4"
             },
             "funding": [
                 {
@@ -178,7 +178,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-02-11T11:37:01+00:00"
+            "time": "2025-08-05T09:57:14+00:00"
         },
         {
             "name": "smalot/pdfparser",
@@ -321,10 +321,10 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {},
     "prefer-stable": false,
     "prefer-lowest": false,
-    "platform": [],
-    "platform-dev": [],
-    "plugin-api-version": "2.0.0"
+    "platform": {},
+    "platform-dev": {},
+    "plugin-api-version": "2.6.0"
 }
