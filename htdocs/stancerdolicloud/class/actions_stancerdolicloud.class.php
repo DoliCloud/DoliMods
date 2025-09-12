@@ -562,7 +562,7 @@ class ActionsStancerDolicloud extends CommonHookActions
 		include_once DOL_DOCUMENT_ROOT.'/core/lib/security.lib.php';
 
 		$error = 0; // Error counter
-		$ispaymentok = false;
+		$ispaymentok = true;
 
 		if (in_array($parameters['paymentmethod'], array('stancerdolicloud'))){
 			$code = GETPOST("code");
@@ -591,8 +591,8 @@ class ActionsStancerDolicloud extends CommonHookActions
 				if ($ret1["http_code"] == 200) {
 					$result1 = $ret1["content"];
 					$json = json_decode($result1);
-					if (in_array($json->status, array("captured", "authorized", "capture_sent", "to_capture"))) {
-						$ispaymentok = true;
+					if (!in_array($json->status, array("captured", "authorized", "capture_sent", "to_capture"))) {
+						$ispaymentok = false;
 					}
 				} else {
 					$arrayofmessage = array();
