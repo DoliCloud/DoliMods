@@ -54,6 +54,8 @@ Reports are processed around once a month.
 
 ## Scope for qualified vulnerabilities
 
+Security report are valid only for modules with the status 'Stable'. A module is stable when its version is a number x.y instead of the key 'experimental' or 'development' See the file htdocs/modulename/core/modules/modModuleName.class.php, line $this->version = '...';
+
 ONLY vulnerabilities discovered, when the following setup on test platform is used, are "valid":
 
 * The version to analyze must be the last version available in the "develop" branch or in the last stable "vX.Y" released version. Reports on vulnerabilities already fixed (so already reported) in the develop branch will not be validated.   
