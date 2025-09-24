@@ -4,7 +4,9 @@
 ## 4.3
 
 - Fix bad support of credit notes and multicurrency
+- FIX Update of ecotaxdee when we remove a line
 - Need Dolibarr v18+.
+
 
 ## 4.2.1
 

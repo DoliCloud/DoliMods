@@ -231,18 +231,18 @@ print '<br>';
 dol_fiche_end();
 
 print '<center>';
-//print "<input type=\"submit\" name=\"test\" class=\"button\" value=\"".$langs->trans("TestConnection")."\">";
-//print "&nbsp; &nbsp;";
-print "<input type=\"submit\" name=\"save\" class=\"button\" value=\"".$langs->trans("Save")."\">";
+print '<input type="submit" name="save" class="button" value="'.$langs->trans("Save").'">';
 print "</center>";
 
 print "</form>\n";
 
+print '<br>';
+
 $elements=array();
-if (! empty($conf->global->ECOTAXDEEE_USE_ON_CUSTOMER_ORDER) && $conf->global->ECOTAXDEEE_USE_ON_CUSTOMER_ORDER != 'no') {
+if (getDolGlobalString('ECOTAXDEEE_USE_ON_CUSTOMER_ORDER') && getDolGlobalString('ECOTAXDEEE_USE_ON_CUSTOMER_ORDER') != 'no') {
 	$elements[]=$langs->transnoentitiesnoconv("CustomersOrders");
 }
-if (! empty($conf->global->ECOTAXDEEE_USE_ON_PROPOSAL) && $conf->global->ECOTAXDEEE_USE_ON_PROPOSAL != 'no') {
+if (getDolGlobalString('ECOTAXDEEE_USE_ON_PROPOSAL') && getDolGlobalString('ECOTAXDEEE_USE_ON_PROPOSAL') != 'no') {
 	$elements[]=$langs->transnoentitiesnoconv("Proposals");
 }
 if (getDolGlobalString('ECOTAXDEEE_USE_ON_CUSTOMER_INVOICE') && getDolGlobalString('ECOTAXDEEE_USE_ON_CUSTOMER_INVOICE') != 'no') {

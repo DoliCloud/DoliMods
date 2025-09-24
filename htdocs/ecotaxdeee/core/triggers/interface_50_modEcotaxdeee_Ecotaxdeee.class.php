@@ -110,26 +110,6 @@ class InterfaceEcotaxdeee extends DolibarrTriggers
 			return 0;           // To avoid to add ecotax line during cloning
 		}
 
-		if (getDolGlobalString('ECOTAXDEEE_USE_ON_CUSTOMER_ORDER')) {
-			if ($action == 'LINEORDER_INSERT' || $action == 'LINEORDER_CREATE') {
-				if ($object->product_type == 9) {
-					return 0;
-				}
-				return $this->_add_replace_ecotax($action, $object, $user, $langs, $conf);
-			}
-			if ($action == 'LINEORDER_UPDATE' || $action == 'LINEORDER_MODIFY') {
-				if ($object->product_type == 9) {
-					return 0;
-				}
-				return $this->_add_replace_ecotax($action, $object, $user, $langs, $conf);
-			}
-			if ($action == 'LINEORDER_DELETE') {
-				if ($object->product_type == 9) {
-					return 0;
-				}
-				return $this->_add_replace_ecotax($action, $object, $user, $langs, $conf);
-			}
-		}
 		if (getDolGlobalString('ECOTAXDEEE_USE_ON_PROPOSAL')) {
 			if ($action == 'LINEPROPAL_INSERT' || $action == 'LINEPROPAL_CREATE') {
 				//var_dump($object);
@@ -145,6 +125,26 @@ class InterfaceEcotaxdeee extends DolibarrTriggers
 				return $this->_add_replace_ecotax($action, $object, $user, $langs, $conf);
 			}
 			if ($action == 'LINEPROPAL_DELETE') {
+				if ($object->product_type == 9) {
+					return 0;
+				}
+				return $this->_add_replace_ecotax($action, $object, $user, $langs, $conf);
+			}
+		}
+		if (getDolGlobalString('ECOTAXDEEE_USE_ON_CUSTOMER_ORDER')) {
+			if ($action == 'LINEORDER_INSERT' || $action == 'LINEORDER_CREATE') {
+				if ($object->product_type == 9) {
+					return 0;
+				}
+				return $this->_add_replace_ecotax($action, $object, $user, $langs, $conf);
+			}
+			if ($action == 'LINEORDER_UPDATE' || $action == 'LINEORDER_MODIFY') {
+				if ($object->product_type == 9) {
+					return 0;
+				}
+				return $this->_add_replace_ecotax($action, $object, $user, $langs, $conf);
+			}
+			if ($action == 'LINEORDER_DELETE') {
 				if ($object->product_type == 9) {
 					return 0;
 				}
@@ -292,7 +292,7 @@ class InterfaceEcotaxdeee extends DolibarrTriggers
 		foreach ($lines as $key => $line) {
 			$ecocateg='NOCATEG';	// TODO For a future feature
 
-			if ($line->special_code == 2) {				// This line is an already existing service line ecotax
+			if ($line->special_code == 2) {				// This line is an already existing ecotax service line
 				$idlineecotax[$ecocateg] = ($line->id ? $line->id : $line->rowid);
 				$amountlineecotax_ht[$ecocateg] = $line->total_ht;
 				$amountlineecotax_ttc[$ecocateg] = $line->total_ttc;
@@ -310,6 +310,10 @@ class InterfaceEcotaxdeee extends DolibarrTriggers
 			$ecotaxCalculationMode = getDolGlobalInt('ECOTAX_CALCULATION_MODE');	// By default, mode 0 = using the price on product.
 
 			if ($line->special_code != 1 && $line->special_code != 2) {				// Discard shipping lines and ecotax lines
+				if (preg_match('/_DELETE$/', $action) && $line->id == $object->id) {
+                    continue;	// We discard the line that we delete
+                }
+
 				// If line is a common line, we add it to the $ecoamount array.
 				$nboflineswithpossibleecotax++;
 
