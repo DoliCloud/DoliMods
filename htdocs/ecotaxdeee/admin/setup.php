@@ -35,7 +35,12 @@ if (! $res && $i > 0 && file_exists(dirname(substr($tmp, 0, ($i+1)))."/main.inc.
 if (! $res && file_exists("../../main.inc.php")) $res=@include "../../main.inc.php";
 if (! $res && file_exists("../../../main.inc.php")) $res=@include "../../../main.inc.php";
 if (! $res) die("Include of main fails");
-
+/**
+ * @var Conf $conf
+ * @var DoliDB $db
+ * @var Translate $langs
+ * @var User $user
+ */
 require_once DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php";
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.formadmin.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.formother.class.php';
@@ -55,8 +60,7 @@ $langs->loadLangs(array("admin", "other", "ecotaxdeee@ecotaxdeee"));
 
 $action = GETPOST('action', 'alpha');
 $code = GETPOST('codeecotax');
-$amount = GETPOST('amount');
-
+$amount = (float) price2num(GETPOST('amount'), '', 2);
 
 
 if ($action == 'save') {
@@ -90,7 +94,7 @@ if ($action == 'update' && !GETPOST('cancel')) {
     $object = $ecotax->fetch($key);
 
     $code_update = (empty(GETPOST('codeecotax')) ? $object->code : GETPOST('codeecotax'));
-    $amount_update = (empty(GETPOST('amount')) ? $object->amount : GETPOST('amount'));
+    $amount_update = (empty(GETPOST('amount')) ? $object->amount : $amount);
     $ecotax->code = $code_update;
     $ecotax->amount = $amount_update;
     $result = $ecotax->update($key);

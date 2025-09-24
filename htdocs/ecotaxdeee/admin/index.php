@@ -21,7 +21,12 @@ if (! $res && $i > 0 && file_exists(dirname(substr($tmp, 0, ($i+1)))."/main.inc.
 if (! $res && file_exists("../../main.inc.php")) $res=@include "../../main.inc.php";
 if (! $res && file_exists("../../../main.inc.php")) $res=@include "../../../main.inc.php";
 if (! $res) die("Include of main fails");
-
+/**
+ * @var Conf $conf
+ * @var DoliDB $db
+ * @var Translate $langs
+ * @var User $user
+ */
 require_once DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php";
 require_once DOL_DOCUMENT_ROOT."/core/lib/date.lib.php";
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.formadmin.class.php';
@@ -37,6 +42,8 @@ $langs->loadLangs(array("admin", "other", "ecotaxdeee@ecotaxdeee", "orders", "bi
 
 $action = GETPOST("action", 'aZ09');
 
+$error = 0;
+
 
 /*
  * Actions
@@ -49,7 +56,7 @@ if ($action == 'save') {
 	$res = dolibarr_set_const($db, 'ECOTAXDEEE_USE_ON_CUSTOMER_ORDER', trim(GETPOST("ECOTAXDEEE_USE_ON_CUSTOMER_ORDER")), 'chaine', 0, '', $conf->entity);
 	$res = dolibarr_set_const($db, 'ECOTAXDEEE_USE_ON_CUSTOMER_INVOICE', trim(GETPOST("ECOTAXDEEE_USE_ON_CUSTOMER_INVOICE")), 'chaine', 0, '', $conf->entity);
 	$res = dolibarr_set_const($db, 'ECOTAXDEEE_LABEL_LINE', trim(GETPOST("ECOTAXDEEE_LABEL_LINE")), 'chaine', 0, '', $conf->entity);
-	$res = dolibarr_set_const($db, 'ECOTAXDEEE_DOC_FOOTER', trim(GETPOST("ECOTAXDEEE_DOC_FOOTER")), 'chaine', 0, '', $conf->entity);
+	$res = dolibarr_set_const($db, 'ECOTAXDEEE_DOC_FOOTER', trim(dol_string_nohtmltag(GETPOST("ECOTAXDEEE_DOC_FOOTER", 'restricthtml'), 2, 'UTF-8', 0, 0)), 'chaine', 0, '', $conf->entity);
 
 	$product_wee=$_POST["WEEE_PRODUCT_ID"];
 	if ($product_wee < 0) {
@@ -194,7 +201,7 @@ print "</tr>";
 print '<tr class="oddeven">';
 print "<td>".$langs->trans("ECOTAXDEEE_DOC_FOOTER")." (Dolibarr 3.6+)</td>";
 print "<td>";
-$selectedvalue=getDolGlobalString('ECOTAXDEEE_DOC_FOOTER');
+$selectedvalue = getDolGlobalString('ECOTAXDEEE_DOC_FOOTER');
 $doleditor=new DolEditor("ECOTAXDEEE_DOC_FOOTER", $selectedvalue, '', '250', 'dolibarr_details', 'In', 1, 1, 1, ROWS_8, '90%');
 $doleditor->Create(0, '');
 print '<br>';
