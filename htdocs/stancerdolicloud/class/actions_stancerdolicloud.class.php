@@ -558,6 +558,9 @@ class ActionsStancerDolicloud extends CommonHookActions
 	{
 		global $langs;
 
+		require_once DOL_DOCUMENT_ROOT."/core/lib/geturl.lib.php";
+		include_once DOL_DOCUMENT_ROOT.'/core/lib/security.lib.php';
+
 		$error = 0; // Error counter
 		$ispaymentok = false;
 
@@ -568,21 +571,62 @@ class ActionsStancerDolicloud extends CommonHookActions
 				$ispaymentok = false;
 				$error ++;
 			} else {
-				// TODO Do a check with payplug api call
+				$stancerurlapi = "api.stancer.com";
+				$stancerurlpayment = "payment.stancer.com";
+				if (getDolGlobalInt("STANCER_DOLICLOUD_LIVE")) {
+					$secretapikey = getDolGlobalString("STANCER_DOLICLOUD_PROD_SECRET_API_KEY");
+				} else {
+					$secretapikey = getDolGlobalString("STANCER_DOLICLOUD_TEST_SECRET_API_KEY");
+				}
+				$encodedkey = dol_encode($secretapikey, 0);
+				$headers = array();
+				$headers[] = "accept: application/json";
+				$headers[] = "Authorization: Basic ".$encodedkey;
+				$headers[] = "Content-Type: application/json";
 
-
-
-				$ispaymentok = true;
+				$FinalPaymentID = $_SESSION["STANCER_DOLICLOUD_PAYMENT_ID"];
+				$urlforcheckout = "https://".urlencode($stancerurlapi)."/v2/payment_intents/".$FinalPaymentID;
+				dol_syslog("Send Get to url=".$urlforcheckout." with session STANCER_DOLICLOUD_PAYMENT_ID = ".$FinalPaymentID, LOG_DEBUG);
+				$ret1 = getURLContent($urlforcheckout, 'GET', "", 1, $headers);
+				if ($ret1["http_code"] == 200) {
+					$result1 = $ret1["content"];
+					$json = json_decode($result1);
+					if (in_array($json->status, array("captured", "authorized", "capture_sent", "to_capture"))) {
+						$ispaymentok = true;
+					}
+				} else {
+					$arrayofmessage = array();
+					if (!empty($ret1['content'])) {
+						$arrayofmessage = json_decode($ret1['content'], true);
+					}
+					if (!empty($arrayofmessage['message'])) {
+						$this->errors[] = $arrayofmessage['message'];
+					} else {
+						if (!empty($arrayofmessage['errors']) && is_array($arrayofmessage['errors'])) {
+							foreach($arrayofmessage['errors'] as $tmpkey => $tmpmessage) {
+								if (!empty($tmpmessage['message'])) {
+									$this->errors[] = $langs->trans("Error").' - '.$tmpmessage['message'];
+								} else {
+									$this->errors[] = $langs->trans("UnkownError").' - HTTP code = '.$ret1["http_code"];
+								}
+							}
+						} else {
+							$this->errors[] = $langs->trans("UnkownError").' - HTTP code = '.$ret1["http_code"];
+						}
+					}
+					$error++;
+					$ispaymentok = false;
+				}
+			}
+			if (!$error) {
+				$this->results["ispaymentok"] = $ispaymentok;
+				return 1;
+			} else {
+				$this->errors[] = $langs->trans("PaymentRefused");
+				return -1;
 			}
 		}
-
-		if (!$error) {
-			$this->results["ispaymentok"] = $ispaymentok;
-			return 1;
-		} else {
-			$this->errors[] = $langs->trans("PaymentRefused");
-			return -1;
-		}
+		return 0;
 	}
 
 	/**
