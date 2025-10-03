@@ -66,6 +66,10 @@ $sref=isset($_GET["sref"])?$_GET["sref"]:$_POST["sref"];
 
 $filteremail=$_REQUEST["filteremail"]?$_REQUEST["filteremail"]:'';
 
+$permissiontoread = $user->hasRight('submiteverywhere', 'read');
+if (!$permissiontoread) {
+	accessforbidden();
+}
 
 
 /*
