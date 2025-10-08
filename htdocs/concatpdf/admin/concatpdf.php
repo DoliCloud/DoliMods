@@ -35,7 +35,9 @@ if (! $res && $i > 0 && file_exists(dirname(substr($tmp, 0, ($i+1)))."/main.inc.
 if (! $res && file_exists("../../main.inc.php")) $res=@include "../../main.inc.php";
 if (! $res && file_exists("../../../main.inc.php")) $res=@include "../../../main.inc.php";
 if (! $res) die("Include of main fails");
-
+/**
+ * @var DoliDB $db
+ */
 require_once DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php";
 require_once DOL_DOCUMENT_ROOT."/core/lib/files.lib.php";
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.formadmin.class.php';
@@ -283,12 +285,12 @@ dol_fiche_end();
 
 
 foreach ($modules as $module => $moduletrans) {
-	$outputdir=$conf->concatpdf->dir_output.'/'.$module;
-	$listoffiles=dol_dir_list($outputdir, 'files', 0, '', array('^SPECIMEN\.pdf$'));
+	$outputdir = $conf->concatpdf->dir_output.'/'.$module;
+	$listoffiles = dol_dir_list($outputdir, 'files', 0, '', array('^SPECIMEN\.pdf$'));
 	if (count($listoffiles)) {
 		print $formfile->showdocuments('concatpdf', $module, $outputdir, $_SERVER["PHP_SELF"].'?module='.$module, 0, $user->admin, '', 0, 0, 0, 0, 0, '', $moduletrans['picto'].$langs->trans("PathDirectory").' '.$outputdir);
 	} else {
-		print '<div class="titre">'.$moduletrans['picto'].$langs->trans("PathDirectory").' '.$outputdir.' :</div>';
+		print '<div class="titre paddingbottom">'.$moduletrans['picto'].$langs->trans("PathDirectory").' '.$outputdir.' :</div>';
 		print '<span class="opacitymedium">'.$langs->trans("NoPDFFileFound").'</span><br>';
 	}
 
