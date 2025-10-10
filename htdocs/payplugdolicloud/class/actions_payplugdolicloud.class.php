@@ -604,29 +604,82 @@ class ActionsPayplugDolicloud extends CommonHookActions
 	{
 		global $langs;
 
-		$error = 0; // Error counter
-		$ispaymentok = false;
+		require_once DOL_DOCUMENT_ROOT."/core/lib/geturl.lib.php";
+		include_once DOL_DOCUMENT_ROOT.'/core/lib/security.lib.php';
+		dol_include_once('payplugdolicloud/lib/payplugdolicloud.lib.php');
+		$langs->load("payplugdolicloud@payplugdolicloud");
 
+		$error = 0;
 		if (in_array($parameters['paymentmethod'], array('payplug'))){
 			$code = GETPOST("code");
 
 			if ($code == "refused") {
-				$ispaymentok = false;
 				$error++;
+				$this->errors[] = $langs->trans("ErrorPaymentRefused");
 			} else {
-				// TODO Do a check with payplug api call
+				// Ensure the amount matches the requested value
+				// Compare session amount from doPayment with PayPlug API response
+				$paymentId = isset($_SESSION["PAYPLUG_DOLICLOUD_PAYMENT_ID"]) ? $_SESSION["PAYPLUG_DOLICLOUD_PAYMENT_ID"] : '';
+				$amounttotest = isset($_SESSION["FinalPaymentAmt"]) ? $_SESSION["FinalPaymentAmt"] : 0;
+				$currencyCodeTypetotest = isset($_SESSION["currencyCodeType"]) ? $_SESSION["currencyCodeType"] : '';
+
+				if (empty($paymentId) || empty($amounttotest) || empty($currencyCodeTypetotest)) {
+					$error++;
+					$this->errors[] = $langs->trans("ErrorSessionNotFound");
+				}
+
+				if (!$error) {
+					$payplugrurlapi = "api.payplug.com";
+					if (getDolGlobalInt("PAYPLUG_DOLICLOUD_LIVE")) {
+						$secretapikey = getDolGlobalString("PAYPLUG_DOLICLOUD_PROD_SECRET_API_KEY");
+					} else {
+						$secretapikey = getDolGlobalString("PAYPLUG_DOLICLOUD_TEST_SECRET_API_KEY");
+					}
+
+					// Verify if payment is done
+					$headers = array();
+					$headers[] = "accept: application/json";
+					$headers[] = "Authorization: Bearer ".$secretapikey;
+					$headers[] = "Content-Type: application/json";
+					$urlforcheckout = "https://".urlencode($payplugrurlapi)."/v1/payments/".$paymentId;
+					$ret1 = getURLContent($urlforcheckout, 'GET', '', 1, $headers);
+					if (empty($ret1) || !is_array($ret1) || empty($ret1['content'])) {
+						$error++;
+						$this->errors[] = $langs->trans("ErrorConnectionToPayplugFailed");
+						$json1 = null;
+					} else {
+						$json1 = json_decode($ret1['content']);
+					}
 
 
+					if ($ret1["http_code"] == 200 && empty($json1->failure) && !$error) {
+						if (empty($json1->id) || $json1->id != $_SESSION["PAYPLUG_DOLICLOUD_PAYMENT_ID"]) {
+							$error++;
+							$this->errors[] = $langs->trans("ErrorPaymentNotFound");
+						}
+						$amountfrompayplug = !empty($json1->amount) ? $json1->amount / 100 : 0; // Payplug amount is in cents
+						$currencyfrompayplug = !empty($json1->currency) ? $json1->currency : '';
 
-				$ispaymentok = true;
+						if ($amounttotest != $amountfrompayplug) {
+							$error++;
+							$this->errors[] = $langs->trans("ErrorValueFinalPaymentDiffers");
+						}
+						if ($currencyCodeTypetotest != $currencyfrompayplug) {
+							$error++;
+							$this->errors[] = $langs->trans("ErrorValueFinalPaymentDiffersCurrency");
+						}
+					} else {
+						$error++;
+						$this->errors[] = $langs->trans("ErrorPaymentNotFound");
+					}
+				}
 			}
 		}
 
 		if (!$error) {
-			$this->results["ispaymentok"] = $ispaymentok;
+			$this->results["ispaymentok"] = true;
 			return 1;
 		} else {
-			$this->errors[] = $langs->trans("PaymentRefused");
 			return -1;
 		}
 	}
