@@ -18,9 +18,9 @@
 #
 
 # Module label 'ModuleStancerDolicloudName'
-ModuleStancerName = StancerDolicloud
+ModuleStancerDolicloudName = Stancer
 # Module description 'ModuleStancerDolicloudDesc'
-ModuleStancerDolicloudDesc = Offer customers a Stancer online payment page (credit/debit cards). This can be used to allow your customers to make ad-hoc payments or payments related to a specific Dolibarr object (invoice, order etc...)
+ModuleStancerDolicloudDesc = Offer customers a Stancer online payment page (credit/debit cards). Module provided by Dolicloud. This can be used to allow your customers to make ad-hoc payments or payments related to a specific Dolibarr object (invoice, order etc...)
 
 #
 # Admin page

@@ -7,7 +7,7 @@
 # Module label 'ModulePayplugDolicloudName'
 ModulePayplugDolicloudName = Payplug
 # Module description 'ModulePayplugDolicloudDesc'
-ModulePayplugDolicloudDesc = Offer customers a PayPlug online payment page (credit/debit cards). This can be used to allow your customers to make ad-hoc payments or payments related to a specific Dolibarr object (invoice, order etc...)
+ModulePayplugDolicloudDesc = Offer customers a PayPlug online payment page (credit/debit cards). Module provided by Dolicloud. This can be used to allow your customers to make ad-hoc payments or payments related to a specific Dolibarr object (invoice, order etc...)
 
 #
 # Admin page

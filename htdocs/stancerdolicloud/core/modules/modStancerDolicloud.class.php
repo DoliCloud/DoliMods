@@ -70,7 +70,8 @@ class modStancerDolicloud extends DolibarrModules
 
 		// Author
 		$this->editor_name = 'DoliCloud';
-		$this->editor_url = 'https://www.dolibarr.org';
+		$this->editor_url = 'https://www.dolicloud.com';
+		$this->editor_squarred_logo = '';					// Must be image filename into the module/img directory followed with @modulename. Example: 'myimage.png@payplugdolicloud'
 
 		// Possible values for version are: 'development', 'experimental', 'dolibarr', 'dolibarr_deprecated', 'experimental_deprecated' or a version string like 'x.y.z'
 		$this->version = '1.0';
