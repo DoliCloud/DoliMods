@@ -68,7 +68,7 @@ $head[$h][1] = $langs->trans("Setup");
 $head[$h][2] = 'tabsetup';
 $h++;
 
-$head[$h][0] = $_SERVER["PHP_SELF"];
+$head[$h][0] = dol_escape_htmltag($_SERVER["PHP_SELF"]);
 $head[$h][1] = $langs->trans("About");
 $head[$h][2] = 'tababout';
 $h++;
