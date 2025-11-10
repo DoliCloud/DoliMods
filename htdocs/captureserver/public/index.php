@@ -76,7 +76,7 @@ if (! $action) {
 
 
 // Complete urls for post treatment
-$SECUREKEY=GETPOST("securekey", 'alpha');	        // Secure key
+//$SECUREKEY = GETPOST("securekey", 'alpha');	        // Secure key
 
 
 /*
@@ -101,7 +101,7 @@ if ($action == 'dolibarrping') {
 	if (empty($hash_algo) || empty($hash_unique_id)) {
 		print "\n".'<br>Bad value for parameter hash_algo or hash_unique_id';
 	} else {
-		$maxsize = (empty($conf->global->CAPTURE_SERVER_MAX_SIZE_OF_CAPTURED_CONTENT) ? 1024 : $conf->global->CAPTURE_SERVER_MAX_SIZE_OF_CAPTURED_CONTENT);
+		$maxsize = getDolGlobalInt('CAPTURE_SERVER_MAX_SIZE_OF_CAPTURED_CONTENT', 1024);
 		if (is_array($_POST) && strlen(join('', $_POST)) > $maxsize) {
 			$contenttoinsert = 'Content larger than limit of '.$maxsize;
 		} else {
@@ -119,13 +119,13 @@ if ($action == 'dolibarrping') {
 			$captureserver->update($user);
 
 			// Send to DataDog (metric + event)
-			if (! empty($conf->global->CAPTURESERVER_DATADOG_ENABLED)) {
+			if (getDolGlobalString('CAPTURESERVER_DATADOG_ENABLED')) {
 				try {
 					dol_include_once('/captureserver/core/includes/php-datadogstatsd/src/DogStatsd.php');
 
 					$arrayconfig=array();
-					if (! empty($conf->global->CAPTURESERVER_DATADOG_APIKEY)) {
-						$arrayconfig=array('apiKey'=>$conf->global->CAPTURESERVER_DATADOG_APIKEY, 'app_key' => $conf->global->CAPTURESERVER_DATADOG_APPKEY);
+					if (getDolGlobalString('CAPTURESERVER_DATADOG_APIKEY')) {
+						$arrayconfig=array('apiKey'=>getDolGlobalString('CAPTURESERVER_DATADOG_APIKEY'), 'app_key' => getDolGlobalString('CAPTURESERVER_DATADOG_APPKEY'));
 					}
 
 					$statsd = new DataDog\DogStatsd($arrayconfig);
@@ -155,13 +155,13 @@ if ($action == 'dolibarrping') {
 			$result = $captureserver->create($user);
 
 			// Send to DataDog (metric + event)
-			if (! empty($conf->global->CAPTURESERVER_DATADOG_ENABLED)) {
+			if (getDolGlobalString('CAPTURESERVER_DATADOG_ENABLED')) {
 				try {
 					dol_include_once('/captureserver/core/includes/php-datadogstatsd/src/DogStatsd.php');
 
 					$arrayconfig=array();
-					if (! empty($conf->global->CAPTURESERVER_DATADOG_APIKEY)) {
-						$arrayconfig=array('apiKey'=>$conf->global->CAPTURESERVER_DATADOG_APIKEY, 'app_key' => $conf->global->CAPTURESERVER_DATADOG_APPKEY);
+					if (getDolGlobalString('CAPTURESERVER_DATADOG_APIKEY')) {
+						$arrayconfig=array('apiKey'=>getDolGlobalString('CAPTURESERVER_DATADOG_APIKEY'), 'app_key' => getDolGlobalString('CAPTURESERVER_DATADOG_APPKEY'));
 					}
 
 					$statsd = new DataDog\DogStatsd($arrayconfig);

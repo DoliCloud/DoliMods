@@ -7,7 +7,7 @@
 # Module label 'ModulePayplugDolicloudName'
 ModulePayplugDolicloudName = Payplug
 # Module description 'ModulePayplugDolicloudDesc'
-ModulePayplugDolicloudDesc = Offer customers a PayPlug online payment page (credit/debit cards). This can be used to allow your customers to make ad-hoc payments or payments related to a specific Dolibarr object (invoice, order etc...)
+ModulePayplugDolicloudDesc = Offer customers a PayPlug online payment page (credit/debit cards). Module provided by Dolicloud. This can be used to allow your customers to make ad-hoc payments or payments related to a specific Dolibarr object (invoice, order etc...)
 
 #
 # Admin page
@@ -44,6 +44,12 @@ PayplugDoPayment = Pay with Payplug
 ErrorBadValueAmount=Please change your basket amount. It must be free or greater than €0.50 to authorize your payment
 ErrorValueFinalPaymentDiffers= Value of FinalPayment (%s) differs from value expected for membership (%s).
 ErrorBadClientIdOrSecret=Bad client ID or secret
+ErrorPaymentRefused=Payment was refused. Please try again later.
+ErrorSessionNotFound=Payment session not found or expired. Please restart the payment process.
+ErrorConnectionToPayplugFailed=Unable to connect to PayPlug.
+ErrorPaymentNotFound=Payment not found.
+ErrorValueFinalPaymentDiffers=The final payment amount differs from the expected value.
+ErrorValueFinalPaymentDiffersCurrency=The payment currency differs from the expected one.
 
 #
 # Sample widget

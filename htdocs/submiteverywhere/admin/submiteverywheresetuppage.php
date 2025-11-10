@@ -64,8 +64,8 @@ $listoftargets=array(
 //'sms'=>array('label'=>$langs->trans("Email"),'titlelength'=>10,'descshortlength'=>140,'desclonglength'=>-1),
 );
 
-$action=GETPOST('action', 'aZ09');
-$id=GETPOST('id', 'int');
+$action = GETPOST('action', 'aZ09');
+$id = GETPOSTINT('id');
 
 $sortfield = GETPOST("sortfield", 'alpha');
 $sortorder = GETPOST("sortorder", 'alpha');
@@ -77,7 +77,7 @@ $pagenext = $page + 1;
 if (! $sortfield) $sortfield="label";
 if (! $sortorder) $sortorder="ASC";
 
-$limit = GETPOST('limit')?GETPOST('limit', 'int'):$conf->liste_limit;
+$limit = GETPOST('limit') ? GETPOST('limit', 'int') : $conf->liste_limit;
 
 
 
