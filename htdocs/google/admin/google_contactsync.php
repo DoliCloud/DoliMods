@@ -742,9 +742,9 @@ $arrayofjs=array();
 $arrayofcss=array();
 llxHeader('', $langs->trans("GoogleSetup"), $help_url, '', 0, 0, $arrayofjs, $arrayofcss);
 
-$linkback='<a href="'.DOL_URL_ROOT.'/admin/modules.php?restore_lastsearch_values=1">'.$langs->trans("BackToModuleList").'</a>';
-print_fiche_titre($langs->trans("GoogleSetup"), $linkback, 'setup');
+$linkback = '<a href="'.DOL_URL_ROOT.'/admin/modules.php?restore_lastsearch_values=1">'.img_picto($langs->trans("BackToModuleList"), 'back', 'class="pictofixedwidth"').'<span class="hideonsmartphone">'.$langs->trans("BackToModuleList").'</span></a>';
 
+print_fiche_titre($langs->trans("GoogleSetup"), $linkback, 'setup');
 
 if (! function_exists("openssl_open")) {
 	print '<br><div class="warning">Warning: PHP Module \'openssl\' is not installed</div><br>';
@@ -804,16 +804,18 @@ if (isModEnabled('societe')) {
 		//'prospectsonly'=>$langs->trans("ProspectsOnly"),
 		'0'=>$langs->trans("No")
 	);
-	print $form->selectarray('GOOGLE_DUPLICATE_INTO_THIRDPARTIES', $arraytmp, getDolGlobalString('GOOGLE_DUPLICATE_INTO_THIRDPARTIES'));
-	print '<br>';
+	print $form->selectarray('GOOGLE_DUPLICATE_INTO_THIRDPARTIES', $arraytmp, getDolGlobalString('GOOGLE_DUPLICATE_INTO_THIRDPARTIES'), 0, 0, 0, '', 0, 0, 0, '', 'maxwidth150');
+	print '<br><br>';
 }
 if (isModEnabled('societe')) {
 	print img_picto('', 'contact', 'class="pictofixedwidth"').$langs->trans("GoogleEnableSyncToContacts").' ';
-	print $form->selectyesno("GOOGLE_DUPLICATE_INTO_CONTACTS", GETPOSTISSET("GOOGLE_DUPLICATE_INTO_CONTACTS") ? GETPOST('GOOGLE_DUPLICATE_INTO_CONTACTS') : getDolGlobalString('GOOGLE_DUPLICATE_INTO_CONTACTS'), 1, false, 0, 1).'<br>';
+	print $form->selectyesno("GOOGLE_DUPLICATE_INTO_CONTACTS", GETPOSTISSET("GOOGLE_DUPLICATE_INTO_CONTACTS") ? GETPOST('GOOGLE_DUPLICATE_INTO_CONTACTS') : getDolGlobalString('GOOGLE_DUPLICATE_INTO_CONTACTS'), 1, false, 0, 1);
+	print '<br><br>';
 }
 if (isModEnabled('adherent')) {
 	print img_picto('', 'member', 'class="pictofixedwidth"').$langs->trans("GoogleEnableSyncToMembers").' ';
-	print $form->selectyesno("GOOGLE_DUPLICATE_INTO_MEMBERS", GETPOSTISSET("GOOGLE_DUPLICATE_INTO_MEMBERS") ? GETPOST("GOOGLE_DUPLICATE_INTO_MEMBERS") : getDolGlobalString('GOOGLE_DUPLICATE_INTO_MEMBERS'), 1, false, 0, 1).'<br>';
+	print $form->selectyesno("GOOGLE_DUPLICATE_INTO_MEMBERS", GETPOSTISSET("GOOGLE_DUPLICATE_INTO_MEMBERS") ? GETPOST("GOOGLE_DUPLICATE_INTO_MEMBERS") : getDolGlobalString('GOOGLE_DUPLICATE_INTO_MEMBERS'), 1, false, 0, 1);
+	print '<br><br>';
 }
 
 
@@ -875,8 +877,8 @@ print '<div class="div-table-responsive-no-min">';
 print '<table class="noborder centpercent">';
 
 print '<tr class="liste_titre">';
-print '<td class="titlefieldcreate">'.$langs->trans("Parameter").' ('.$langs->trans("ParametersForGoogleAPIv3Usage", "Contact").')'."</td>";
-print "<td>".$langs->trans("Value")."</td>";
+print '<td class="titlefieldcreate" colspan="2">'.$langs->trans("Parameter").' ('.$langs->trans("ParametersForGoogleAPIv3Usage", "Contact").')'."</td>";
+//print "<td></td>";
 print "<td>".$langs->trans("Note")."</td>";
 print "</tr>";
 
@@ -935,7 +937,7 @@ print '<td colspan="2">';
 // Login is in GOOGLE_CONTACT_LOGIN (only in module Google)
 // ID and SECRET are OAUTH_GOOGLE-CONTACT_ID and OAUTH_GOOGLE-CONTACT_SECRET so shared with OAuth module.
 if (!getDolGlobalString('GOOGLE_CONTACT_LOGIN') ||  !getDolGlobalString('OAUTH_GOOGLE-CONTACT_ID') || !getDolGlobalString('OAUTH_GOOGLE-CONTACT_SECRET')) {
-	print $langs->trans("FillAndSaveGoogleAccount");
+	print '<span class="opacitymedium">'.$langs->trans("FillAndSaveGoogleAccount").'</span>';
 } else {
 	// https://developers.google.com/identity/protocols/OAuth2UserAgent
 	// $completeoauthurl=$oauthurl;

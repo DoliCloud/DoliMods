@@ -174,11 +174,14 @@ $formfile=new FormFile($db);
 $help_url='EN:Module_Concat_PDF;FR:Module_Concat_PDF_FR;ES:Módulo_Concat_PDF';
 llxHeader('', 'ConcatPdf', $help_url);
 
-$linkback='<a href="'.DOL_URL_ROOT.'/admin/modules.php?restore_lastsearch_values=1">'.$langs->trans("BackToModuleList").'</a>';
+$linkback = '<a href="'.DOL_URL_ROOT.'/admin/modules.php?restore_lastsearch_values=1">'.img_picto($langs->trans("BackToModuleList"), 'back', 'class="pictofixedwidth"').'<span class="hideonsmartphone">'.$langs->trans("BackToModuleList").'</span></a>';
+
 print_fiche_titre($langs->trans("ConcatPdfSetup"), $linkback, 'setup');
 
 clearstatcache();
 
+
+$head = array();
 
 $h=0;
 $head[$h][0] = $_SERVER["PHP_SELF"];
@@ -191,13 +194,9 @@ $head[$h][1] = $langs->trans("About");
 $head[$h][2] = 'tababout';
 $h++;
 
-if ((float) DOL_VERSION < 8.0) {
-	dol_fiche_head($head, 'tabsetup', '');
-} else {
-	dol_fiche_head($head, 'tabsetup', '', -1);
-}
+dol_fiche_head($head, 'tabsetup', '', -1);
 
-if (! empty($conf->global->PDF_SECURITY_ENCRYPTION)) {
+if (getDolGlobalString('PDF_SECURITY_ENCRYPTION')) {
 	print info_admin($langs->trans("WarningConcatPDFIsNotCompatibleWithOptionReadOnlyPDF", $langs->transnoentities("ProtectAndEncryptPdfFiles")), 0, 0, '1', 'error');
 }
 
@@ -209,15 +208,15 @@ if ($action == 'remove_file') {
 }
 
 // Show dir for each module
-print '<div class="opacitymedium">';
+print '<div class="opacitymedium hideonsmartphone">';
 print $langs->trans("ConcatPDfTakeFileFrom").'<br><br>';
 foreach ($modules as $module => $moduletrans) {
 	$outputdir=$conf->concatpdf->dir_output.'/'.$module;
 	print '* '.str_replace('{s1}', $moduletrans['picto'], $langs->trans("ConcatPDfTakeFileFrom2", '{s1}'.$langs->transnoentitiesnoconv($moduletrans['label']), $outputdir));
 	print '<br>';
 }
-print '</div>';
 print '<br>';
+print '</div>';
 
 print '<br>';
 
@@ -240,7 +239,6 @@ if (getDolGlobalString('MAIN_USE_JQUERY_MULTISELECT')) {
 	print '<tr class="oddeven">';
 	print '<td>'.$langs->trans("EnableMultipleConcatenation").'</td>';
 	print '<td align="center" width="20">&nbsp;</td>';
-
 	print '<td align="center" width="100">';
 	if (! empty($conf->use_javascript_ajax)) {
 		print ajax_constantonoff('CONCATPDF_MULTIPLE_CONCATENATION_ENABLED', '', 0);
@@ -290,7 +288,7 @@ foreach ($modules as $module => $moduletrans) {
 	if (count($listoffiles)) {
 		print $formfile->showdocuments('concatpdf', $module, $outputdir, $_SERVER["PHP_SELF"].'?module='.$module, 0, $user->admin, '', 0, 0, 0, 0, 0, '', $moduletrans['picto'].$langs->trans("PathDirectory").' '.$outputdir);
 	} else {
-		print '<div class="titre paddingbottom">'.$moduletrans['picto'].$langs->trans("PathDirectory").' '.$outputdir.' :</div>';
+		print '<div class="titre paddingbottom wordwrap">'.$moduletrans['picto'].$langs->trans("PathDirectory").' '.$outputdir.'</div>';
 		print '<span class="opacitymedium">'.$langs->trans("NoPDFFileFound").'</span><br>';
 	}
 
