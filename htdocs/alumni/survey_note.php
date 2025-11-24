@@ -85,7 +85,7 @@ $langs->loadLangs(array("alumni@alumni", "companies"));
 $id = GETPOST('id', 'int');
 $ref        = GETPOST('ref', 'alpha');
 $action = GETPOST('action', 'aZ09');
-$cancel     = GETPOST('cancel', 'aZ09');
+$cancel     = GETPOST('cancel', 'alpha');
 $backtopage = GETPOST('backtopage', 'alpha');
 
 // Initialize technical objects

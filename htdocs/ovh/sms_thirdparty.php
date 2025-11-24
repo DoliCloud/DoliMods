@@ -54,7 +54,7 @@ $langs->load("ovh@ovh");
 // Get parameters
 $socid = GETPOST('socid', 'int')?GETPOST('socid', 'int'):GETPOST('id', 'int');
 $action = GETPOST('action', 'aZ09');
-$cancel = GETPOST('cancel', 'aZ09');
+$cancel = GETPOST('cancel', 'alpha');
 $mesg='';
 
 // Protection if external user
