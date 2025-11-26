@@ -306,7 +306,11 @@ class ActionsPayplugDolicloud extends CommonHookActions
 
 		if (array_key_exists("paymentmethod", $parameters) && (empty($parameters["paymentmethod"]) || $parameters["paymentmethod"] == 'payplug') && isModEnabled('payplugdolicloud')) {
 			$langs->load("payplugdolicloud");
-			$validpaymentmethod['payplug'] = 'valid';
+			if (!empty($parameters['mode'])) {
+				$validpaymentmethod['payplug'] = array('label' => 'PayPlug', 'status' => 'valid');
+			} else {
+				$validpaymentmethod['payplug'] = 'valid';
+			}
 		}
 
 		if (!$error) {
@@ -419,9 +423,6 @@ class ActionsPayplugDolicloud extends CommonHookActions
 			if ($paymentmethod && !preg_match('/'.preg_quote('PM='.$paymentmethod, '/').'/', $FULLTAG)) {
 				$FULLTAG .= ($FULLTAG ? '.' : '').'PM='.$paymentmethod;
 			}
-			if (!empty($suffix)) {
-				$urlback .= 'suffix='.urlencode($suffix).'&';
-			}
 			if ($source) {
 				$urlback .= 's='.urlencode($source).'&';
 			}
@@ -437,9 +438,11 @@ class ActionsPayplugDolicloud extends CommonHookActions
 			if (!empty($SECUREKEY)) {
 				$urlback .= 'securekey='.urlencode($SECUREKEY).'&';
 			}
+			$entity = $parameters['entity'] ?? $conf->entity;
 			if (!empty($entity)) {
 				$urlback .= 'e='.urlencode($entity).'&';
 			}
+			$getpostlang = GETPOST('lang');
 			if (!empty($getpostlang)) {
 				$urlback .= 'lang='.urlencode($getpostlang).'&';
 			}
