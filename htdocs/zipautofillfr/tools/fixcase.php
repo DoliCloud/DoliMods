@@ -49,7 +49,7 @@ $path = __DIR__.'/';
 
 // Test if batch mode
 if (substr($sapi_type, 0, 3) == 'cgi') {
-	echo "Error: You are using PHP for CGI. To execute ".$script_file." from command line, you must use PHP for CLI mode.\n";
+	echo "Error: Wrong php mode.\n";
 	exit(-1);
 }
 
@@ -86,7 +86,7 @@ if (!$res && file_exists("../../../master.inc.php")) {
 	$res = @include "../../../master.inc.php";
 }
 if (!$res) {
-	print "Include of master fails";
+	print "Error: Include of master fails\n";
 	exit(-1);
 }
 // After this $db, $mysoc, $langs, $conf and $hookmanager are defined (Opened $db handler to database will be closed at end of file).
@@ -98,7 +98,11 @@ $langs->load("main"); // To load language file for default language
 // Load user and its permissions
 $result = $user->fetch('', 'admin'); // Load user for login 'admin'. Comment line to run as anonymous user.
 if (!($result > 0)) {
-	dol_print_error('', $user->error); exit;
+	if ($dolibarr_main_prod) {
+		print "Error: Something went wrong\n";
+	} else {
+		dol_print_error('', $user->error); exit;
+	}
 }
 $user->getrights();
 
