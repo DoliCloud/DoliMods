@@ -1,5 +1,3 @@
-# Copyright (C) 2018 Alice Adminson <testldr9@dolicloud.com>
-#
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
@@ -16,8 +14,8 @@
 #
 # Generic
 #
-ModuleCaptureServerName = CaptureServer
-ModuleCaptureServerDesc = CaptureServer description
+ModuleCaptureServerName=Capture Server
+ModuleCaptureServerDesc=Server to suggest and enpoint that will caputre any message sent to it, storing message received into a JSON data in database.
 
 #
 # Admin page
@@ -25,10 +23,9 @@ ModuleCaptureServerDesc = CaptureServer description
 CaptureServerSetup = CaptureServer setup
 Settings = Settings
 CaptureServerSetupPage = CaptureServer setup page
-CAPTURESERVER_MYPARAM1 = My param 1
-CAPTURESERVER_MYPARAM1Tooltip = My param 1 tooltip
-CAPTURESERVER_MYPARAM2=My param 2
-CAPTURESERVER_MYPARAM2Tooltip=My param 2 tooltip
+
+CAPTURESERVER_SECURITY_KEY=Secure key for URL
+CAPTURESERVER_SECURITY_KEYTooltip=Enter here a value if you want to have URL reachable only if a securekey parameter is provided into URL. Keep empty if URL can be public without specific secureky parameter (in such a case, it is recommended to add an anti-DOS rule on the URL).  
 
 #
 # About page
@@ -41,3 +38,5 @@ CaptureServerAboutPage = CaptureServer about page
 ListOfCapturedEvents=List of captured events
 EndPointOfCaptureServer=Endpoint provided by CaptureServer module:<br>%s
 ContentOfMessageReceived=Content of message received
+
+UseAVirtualHostOn=Add a virtual host with your own domain name, pointing to the directory: <b>%s</b>

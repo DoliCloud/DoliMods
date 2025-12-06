@@ -35,7 +35,9 @@ if (! $res && $i > 0 && file_exists(dirname(substr($tmp, 0, ($i+1)))."/main.inc.
 if (! $res && file_exists("../../main.inc.php")) $res=@include "../../main.inc.php";
 if (! $res && file_exists("../../../main.inc.php")) $res=@include "../../../main.inc.php";
 if (! $res) die("Include of main fails");
-
+/**
+ * @var string $dolibarr_main_url_root
+ */
 global $langs, $user;
 
 // Libraries
@@ -75,7 +77,7 @@ $page_name = "CaptureServerSetup";
 llxHeader('', $langs->trans($page_name));
 
 // Subheader
-$linkback = '<a href="'.($backtopage?$backtopage:DOL_URL_ROOT.'/admin/modules.php?restore_lastsearch_values=1').'">'.$langs->trans("BackToModuleList").'</a>';
+$linkback = '<a href="'.($backtopage ? $backtopage : DOL_URL_ROOT.'/admin/modules.php?restore_lastsearch_values=1').'">'.$langs->trans("BackToModuleList").'</a>';
 
 print load_fiche_titre($langs->trans($page_name), $linkback, 'object_captureserver@captureserver');
 
@@ -136,9 +138,23 @@ $urlwithroot=$urlwithouturlroot.DOL_URL_ROOT;		// This is to use external domain
 //$urlwithroot=DOL_MAIN_URL_ROOT;						// This is to use same domain name than current. For Paypal payment, we can use internal URL like localhost.
 
 
-$message='';
-$url='<a href="'.dol_buildpath('/captureserver/public/index.php', 3).'?key='.($conf->global->CAPTURESERVER_SECURITY_KEY?urlencode($conf->global->CAPTURESERVER_SECURITY_KEY):'...').'" target="_blank">'.dol_buildpath('/captureserver/public/index.php', 3).'?key='.($conf->global->CAPTURESERVER_SECURITY_KEY?urlencode($conf->global->CAPTURESERVER_SECURITY_KEY):'KEYNOTDEFINED').'</a>';
-$message.=img_picto('', 'object_globe.png').' '.$langs->trans("EndPointOfCaptureServer", $url);
+$url = dol_buildpath('/captureserver/public/index.php', 3).(getDolGlobalString("CAPTURESERVER_SECURITY_KEY") ? '?securekey='.urlencode(getDolGlobalString("CAPTURESERVER_SECURITY_KEY")) : '');
+
+//.'" target="_blank">'.dol_buildpath('/captureserver/public/index.php', 3).'?key='.(getDolGlobalString("CAPTURESERVER_SECURITY_KEY") ? urlencode(getDolGlobalString("CAPTURESERVER_SECURITY_KEY")) : 'KEYNOTDEFINED').'</a>';
+
+$message = '';
+$message .= img_picto('', 'object_globe.png').' '.$langs->trans("EndPointOfCaptureServer", '');
+$message .= '<div class="urllink"><input type="text" id="publicurlmember" class="quatrevingtpercentminusx" value="';
+$message .= $url;
+$message .= '"><a target="_blank" rel="noopener noreferrer" href="';
+$message .= $url;
+$message .= '"><span class="fas fa-external-link-alt paddingleft" style=""></span></a></div>';
+$message .= ajax_autoselect("publicurlmember");
+$message .= '<br>'."\n";
+$message .= $langs->trans("or");
+$message .= "<br>\n";
+$message .= '<br>'."\n";
+$message .= $langs->transnoentitiesnoconv("UseAVirtualHostOn", dol_buildpath('/captureserver/public/', 0));
 
 print $message;
 

@@ -53,14 +53,19 @@ if (! $res && $i > 0 && file_exists(dirname(substr($tmp, 0, ($i+1)))."/main.inc.
 if (! $res && file_exists("../../main.inc.php")) $res=@include "../../main.inc.php";
 if (! $res && file_exists("../../../main.inc.php")) $res=@include "../../../main.inc.php";
 if (! $res) die("Include of main fails");
-
+/**
+ * @var DoliDB	$db
+ * @var User	$user
+ */
 require_once DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php';
 require_once '../class/captureserver.class.php';
 
-// Security check
-// No check on module enabled. Done later according to $validpaymentmethod
+$action = GETPOST('action', 'aZ09');
 
-$action=GETPOST('action', 'aZ09');
+// Security check
+if (!isModEnabled("captureserver")) {
+	accessforbidden("Module not enabled");
+}
 
 // Input are:
 // type ('invoice','order','contractline'),
@@ -76,13 +81,17 @@ if (! $action) {
 
 
 // Complete urls for post treatment
-//$SECUREKEY = GETPOST("securekey", 'alpha');	        // Secure key
+$SECUREKEY = GETPOST("securekey", 'alpha');	        // Secure key
+if ($SECUREKEY && $SECUREKEY != getDolGlobalString("CAPTURESERVER_SECURITY_KEY")) {
+	accessforbidden("Acces not alloaed. Bad value of securekey parameter");
+}
 
 
 /*
  * Actions
  */
 
+// None
 
 
 /*
