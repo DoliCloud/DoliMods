@@ -102,7 +102,7 @@ header("Access-Control-Allow-Origin: *");
 
 print 'Capture server was called with action='.$action;
 
-if ($action == 'dolibarrping') {
+if ($action == 'dolibarrping' || $action == 'dolibarrregistration') {
 	$hash_algo = GETPOST('hash_algo', 'aZ09');
 	$hash_unique_id = GETPOST('hash_unique_id', 'aZ09');
 	$version = GETPOST('version', 'aZ09');
@@ -110,7 +110,7 @@ if ($action == 'dolibarrping') {
 	if (empty($hash_algo) || empty($hash_unique_id)) {
 		print "\n".'<br>Bad value for parameter hash_algo or hash_unique_id';
 	} else {
-		$maxsize = getDolGlobalInt('CAPTURE_SERVER_MAX_SIZE_OF_CAPTURED_CONTENT', 1024);
+		$maxsize = getDolGlobalInt('CAPTURE_SERVER_MAX_SIZE_OF_CAPTURED_CONTENT', 4096);
 		if (is_array($_POST) && strlen(join('', $_POST)) > $maxsize) {
 			$contenttoinsert = 'Content larger than limit of '.$maxsize;
 		} else {
@@ -125,6 +125,7 @@ if ($action == 'dolibarrping') {
 			$captureserver->comment = 'Ping received for update at '.dol_print_date(dol_now(), 'dayhourlog').' - from hash '.$hash_unique_id.' - version '.$version;
 			$captureserver->content = $contenttoinsert;
 			$captureserver->label = $action.' '.$hash_unique_id.' '.$version;
+
 			$captureserver->update($user);
 
 			// Send to DataDog (metric + event)
