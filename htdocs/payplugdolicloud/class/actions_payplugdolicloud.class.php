@@ -19,9 +19,7 @@
 /**
  * \file    payplugdolicloud/class/actions_payplugdolicloud.class.php
  * \ingroup payplugdolicloud
- * \brief   Example hook overload.
- *
- * TODO: Write detailed description here.
+ * \brief   File for PayPlug hooks
  */
 
 require_once DOL_DOCUMENT_ROOT.'/core/class/commonhookactions.class.php';
@@ -88,7 +86,6 @@ class ActionsPayplugDolicloud extends CommonHookActions
 	 */
 	public function getNomUrl($parameters, &$object, &$action)
 	{
-		global $db, $langs, $conf, $user;
 		$this->resprints = '';
 		return 0;
 	}
@@ -104,8 +101,6 @@ class ActionsPayplugDolicloud extends CommonHookActions
 	 */
 	public function doActions($parameters, &$object, &$action, $hookmanager)
 	{
-		global $conf, $user, $langs;
-
 		$error = 0; // Error counter
 
 		/* print_r($parameters); print_r($object); echo "action: " . $action; */
@@ -113,42 +108,6 @@ class ActionsPayplugDolicloud extends CommonHookActions
 		if (in_array($parameters['currentcontext'], array('somecontext1', 'somecontext2'))) {	    // do something only for the context 'somecontext1' or 'somecontext2'
 			// Do what you want here...
 			// You can for example load and use call global vars like $fieldstosearchall to overwrite them, or update the database depending on $action and GETPOST values.
-
-			if (!$error) {
-				$this->results = array('myreturn' => 999);
-				$this->resprints = 'A text to show';
-				return 0; // or return 1 to replace standard code
-			} else {
-				$this->errors[] = 'Error message';
-				return -1;
-			}
-		}
-
-		return 0;
-	}
-
-
-	/**
-	 * Overload the doMassActions function : replacing the parent's function with the one below
-	 *
-	 * @param	array<string,mixed>	$parameters		Hook metadata (context, etc...)
-	 * @param	CommonObject		$object			The object to process (an invoice if you are in invoice module, a propale in propale's module, etc...)
-	 * @param	?string				$action			Current action (if set). Generally create or edit or null
-	 * @param	HookManager			$hookmanager	Hook manager propagated to allow calling another hook
-	 * @return	int									Return integer < 0 on error, 0 on success, 1 to replace standard code
-	 */
-	public function doMassActions($parameters, &$object, &$action, $hookmanager)
-	{
-		global $conf, $user, $langs;
-
-		$error = 0; // Error counter
-
-		/* print_r($parameters); print_r($object); echo "action: " . $action; */
-		if (in_array($parameters['currentcontext'], array('somecontext1', 'somecontext2'))) {		// do something only for the context 'somecontext1' or 'somecontext2'
-			// @phan-suppress-next-line PhanPluginEmptyStatementForeachLoop
-			foreach ($parameters['toselect'] as $objectid) {
-				// Do action on each object id
-			}
 
 			if (!$error) {
 				$this->results = array('myreturn' => 999);
@@ -175,7 +134,7 @@ class ActionsPayplugDolicloud extends CommonHookActions
 	 */
 	public function addMoreMassActions($parameters, &$object, &$action, $hookmanager)
 	{
-		global $conf, $user, $langs;
+		global $langs;
 
 		$error = 0; // Error counter
 		$disabled = 1;
@@ -192,113 +151,6 @@ class ActionsPayplugDolicloud extends CommonHookActions
 			return -1;
 		}
 	}
-
-
-
-	/**
-	 * Execute action before PDF (document) creation
-	 *
-	 * @param	array<string,mixed>	$parameters	Array of parameters
-	 * @param	CommonObject		$object		Object output on PDF
-	 * @param	string				$action		'add', 'update', 'view'
-	 * @return	int								Return integer <0 if KO,
-	 *											=0 if OK but we want to process standard actions too,
-	 *											>0 if OK and we want to replace standard actions.
-	 */
-	public function beforePDFCreation($parameters, &$object, &$action)
-	{
-		global $conf, $user, $langs;
-		global $hookmanager;
-
-		$outputlangs = $langs;
-
-		$ret = 0;
-		$deltemp = array();
-		dol_syslog(get_class($this).'::executeHooks action='.$action);
-
-		/* print_r($parameters); print_r($object); echo "action: " . $action; */
-		// @phan-suppress-next-line PhanPluginEmptyStatementIf
-		if (in_array($parameters['currentcontext'], array('somecontext1', 'somecontext2'))) {		// do something only for the context 'somecontext1' or 'somecontext2'
-		}
-
-		return $ret;
-	}
-
-	/**
-	 * Execute action after PDF (document) creation
-	 *
-	 * @param	array<string,mixed>	$parameters	Array of parameters
-	 * @param	CommonDocGenerator	$pdfhandler	PDF builder handler
-	 * @param	string				$action		'add', 'update', 'view'
-	 * @return	int								Return integer <0 if KO,
-	 * 											=0 if OK but we want to process standard actions too,
-	 *											>0 if OK and we want to replace standard actions.
-	 */
-	public function afterPDFCreation($parameters, &$pdfhandler, &$action)
-	{
-		global $conf, $user, $langs;
-		global $hookmanager;
-
-		$outputlangs = $langs;
-
-		$ret = 0;
-		$deltemp = array();
-		dol_syslog(get_class($this).'::executeHooks action='.$action);
-
-		/* print_r($parameters); print_r($object); echo "action: " . $action; */
-		// @phan-suppress-next-line PhanPluginEmptyStatementIf
-		if (in_array($parameters['currentcontext'], array('somecontext1', 'somecontext2'))) {
-			// do something only for the context 'somecontext1' or 'somecontext2'
-		}
-
-		return $ret;
-	}
-
-
-
-	/**
-	 * Overload the loadDataForCustomReports function : returns data to complete the customreport tool
-	 *
-	 * @param	array<string,mixed>	$parameters		Hook metadata (context, etc...)
-	 * @param	?string				$action 		Current action (if set). Generally create or edit or null
-	 * @param	HookManager			$hookmanager    Hook manager propagated to allow calling another hook
-	 * @return	int									Return integer < 0 on error, 0 on success, 1 to replace standard code
-	 */
-	public function loadDataForCustomReports($parameters, &$action, $hookmanager)
-	{
-		global $langs;
-
-		$langs->load("payplugdolicloud@payplugdolicloud");
-
-		$this->results = array();
-
-		$head = array();
-		$h = 0;
-
-		if ($parameters['tabfamily'] == 'payplugdolicloud') {
-			$head[$h][0] = dol_buildpath('/module/index.php', 1);
-			$head[$h][1] = $langs->trans("Home");
-			$head[$h][2] = 'home';
-			$h++;
-
-			$this->results['title'] = $langs->trans("PayplugDolicloud");
-			$this->results['picto'] = 'payplugdolicloud@payplugdolicloud';
-		}
-
-		$head[$h][0] = 'customreports.php?objecttype='.$parameters['objecttype'].(empty($parameters['tabfamily']) ? '' : '&tabfamily='.$parameters['tabfamily']);
-		$head[$h][1] = $langs->trans("CustomReports");
-		$head[$h][2] = 'customreports';
-
-		$this->results['head'] = $head;
-
-		$arrayoftypes = array();
-		//$arrayoftypes['payplugdolicloud_myobject'] = array('label' => 'MyObject', 'picto'=>'myobject@payplugdolicloud', 'ObjectClassName' => 'MyObject', 'enabled' => isModEnabled('payplugdolicloud'), 'ClassPath' => "/payplugdolicloud/class/myobject.class.php", 'langs'=>'payplugdolicloud@payplugdolicloud')
-
-		$this->results['arrayoftype'] = $arrayoftypes;
-
-		return 0;
-	}
-
 
 
 	/**
@@ -334,14 +186,14 @@ class ActionsPayplugDolicloud extends CommonHookActions
 	 * @param	array<string,mixed>	$parameters		Array of parameters
 	 * @param	CommonObject		$object			The object to process (an invoice if you are in invoice module, a propale in propale's module, etc...)
 	 * @param	string				$action			'add', 'update', 'view'
-	 * @param	Hookmanager			$hookmanager	Hookmanager
+	 * @param	HookManager			$hookmanager	Hookmanager
 	 * @return	int									Return integer <0 if KO,
 	 *												=0 if OK but we want to process standard actions too,
 	 *												>0 if OK and we want to replace standard actions.
 	 */
 	public function completeTabsHead(&$parameters, &$object, &$action, $hookmanager)
 	{
-		global $langs, $conf, $user;
+		global $langs;
 
 		if (!isset($parameters['object']->element)) {
 			return 0;
@@ -394,18 +246,20 @@ class ActionsPayplugDolicloud extends CommonHookActions
 	 */
 	public function doAddButton($parameters, &$object, &$action, $hookmanager)
 	{
-		global $conf, $user, $langs;
+		global $langs;
 
-		$error = 0; // Error counter
 		$resprints = "";
 		$error = "";
 
 		if (array_key_exists("paymentmethod", $parameters) && (empty($parameters["paymentmethod"]) || $parameters["paymentmethod"] == 'payplug') && isModEnabled('payplugdolicloud')) {
+			if (!getDolGlobalString('PAYPLUG_DOLICLOUD_LIVE')) {
+				dol_htmloutput_mesg($langs->trans('YouAreCurrentlyInSandboxMode', 'PayPlug'), [], 'warning');
+			}
 			$resprints .= '<div class="button buttonpayment" id="div_dopayment_payplug"><span class="fa fa-credit-card"></span> <input class="" type="submit" id="dopayment_payplug" name="dopayment_payplug" value="'.$langs->trans("PayplugDoPayment").'">';
 			$resprints .= '<input type="hidden" name="noidempotency" value="'.GETPOST('noidempotency', 'int').'">';
 			$resprints .= '<input type="hidden" name="s" value="'.(GETPOST('s', 'alpha') ? GETPOST('s', 'alpha') : GETPOST('source', 'alpha')).'">';
 			$resprints .= '<input type="hidden" name="ref" value="'.GETPOST('ref').'">';
-			$resprints .= '<br>';			
+			$resprints .= '<br>';
 			$resprints .= '<span class="buttonpaymentsmall">'.$langs->trans("CreditOrDebitCard").'</span>';
 			$resprints .= '</div>';
 			$resprints .= '<script>
@@ -445,16 +299,24 @@ class ActionsPayplugDolicloud extends CommonHookActions
 	{
 		global $langs;
 
-		$error = 0; // Error counter
 		$error = "";
+		$validpaymentmethod = array();
+
+		// TODO Replace key 'payplug' with 'payplugdolicloud' everywhere
 
 		if (array_key_exists("paymentmethod", $parameters) && (empty($parameters["paymentmethod"]) || $parameters["paymentmethod"] == 'payplug') && isModEnabled('payplugdolicloud')) {
 			$langs->load("payplugdolicloud");
-			$validpaymentmethod['payplug'] = 'valid';
+			if (!empty($parameters['mode'])) {
+				$validpaymentmethod['payplug'] = array('label' => 'PayPlug', 'status' => 'valid');
+			} else {
+				$validpaymentmethod['payplug'] = 'valid';
+			}
 		}
 
 		if (!$error) {
-			$this->results["validpaymentmethod"] = $validpaymentmethod;
+			if (!empty($validpaymentmethod)) {
+				$this->results["validpaymentmethod"] = $validpaymentmethod;
+			}
 			return 0;
 		} else {
 			$this->errors[] = $error;
@@ -473,7 +335,7 @@ class ActionsPayplugDolicloud extends CommonHookActions
 	 */
 	public function doPayment($parameters, &$object, &$action, $hookmanager)
 	{
-		global $conf, $user, $langs,$db;
+		global $conf, $langs;
 
 		require_once DOL_DOCUMENT_ROOT."/core/lib/geturl.lib.php";
 		include_once DOL_DOCUMENT_ROOT.'/core/lib/security.lib.php';
@@ -484,7 +346,7 @@ class ActionsPayplugDolicloud extends CommonHookActions
 		$error = 0; // Error counter
 		$errors = array();
 
-		$urlwithroot = DOL_MAIN_URL_ROOT; // This is to use same domain name than current. For Paypal payment, we can use internal URL like localhost.
+		$urlwithroot = DOL_MAIN_URL_ROOT; // This is to use same domain name than current. For such need, we can use internal URL like localhost.
 
 		// Complete urls for post treatment
 		$ref = $REF = GETPOST('ref', 'alpha');
@@ -519,19 +381,19 @@ class ActionsPayplugDolicloud extends CommonHookActions
 			$json1 = json_decode($result1);
 
 			$urlredirect = $urlwithroot.'/public/payment/';
-			if ($ret1["http_code"] == 200 && empty($json->failure)) {
+			if ($ret1["http_code"] == 200 && empty($json1->failure)) {
 				$urlredirect .= "paymentok.php?fulltag=".urlencode($FULLTAG);
 				header("Location: ".$urlredirect);
 				exit;
 			} else {
-				$_SESSION['errormessage'] = $json->failure->message;
+				$_SESSION['errormessage'] = $json1->failure->message;
 				$urlredirect .= "paymentko.php?fulltag=".urlencode($FULLTAG);
 				header("Location: ".$urlredirect);
 				exit;
 			}
 		}
 
-		if (in_array($parameters['context'],array('newpayment')) && empty($parameters['paymentmethod'])) {
+		if (in_array($parameters['context'], array('newpayment')) && empty($parameters['paymentmethod'])) {
 			$amount = price2num(payplugGetDataFromObjects($source, $ref));
 			if (!GETPOST("currency", 'alpha')) {
 				$currency = $conf->currency;
@@ -540,7 +402,6 @@ class ActionsPayplugDolicloud extends CommonHookActions
 			}
 			$_SESSION["FinalPaymentAmt"] = $amount;
 			$_SESSION["currencyCodeType"] = $currency;
-
 		} elseif (in_array($parameters['paymentmethod'], array('payplug')) && $parameters['validpaymentmethod']["payplug"] == "valid") {
 			$urlback = $urlwithroot.'/public/payment/newpayment.php?';
 
@@ -562,9 +423,6 @@ class ActionsPayplugDolicloud extends CommonHookActions
 			if ($paymentmethod && !preg_match('/'.preg_quote('PM='.$paymentmethod, '/').'/', $FULLTAG)) {
 				$FULLTAG .= ($FULLTAG ? '.' : '').'PM='.$paymentmethod;
 			}
-			if (!empty($suffix)) {
-				$urlback .= 'suffix='.urlencode($suffix).'&';
-			}
 			if ($source) {
 				$urlback .= 's='.urlencode($source).'&';
 			}
@@ -580,9 +438,11 @@ class ActionsPayplugDolicloud extends CommonHookActions
 			if (!empty($SECUREKEY)) {
 				$urlback .= 'securekey='.urlencode($SECUREKEY).'&';
 			}
+			$entity = $parameters['entity'] ?? $conf->entity;
 			if (!empty($entity)) {
 				$urlback .= 'e='.urlencode($entity).'&';
 			}
+			$getpostlang = GETPOST('lang');
 			if (!empty($getpostlang)) {
 				$urlback .= 'lang='.urlencode($getpostlang).'&';
 			}
@@ -598,9 +458,9 @@ class ActionsPayplugDolicloud extends CommonHookActions
 				$currencyCodeType = $_SESSION["currencyCodeType"];
 				$amounttotest = $amount;
 				if (!$error) {
-					//Permit to format the amount string to call Payplug API
-					$posdot = strpos($amount, '.');
-					if ( $posdot === false) {
+					// Permit to format the amount string to call Payplug API
+					$posdot = strpos((string) $amount, '.');
+					if ($posdot === false) {
 						$amount .= '00';
 					} else {
 						$amounttab = explode('.', $amount);
@@ -633,24 +493,57 @@ class ActionsPayplugDolicloud extends CommonHookActions
 							"hosted_payment": {
 								"return_url": "'.$urlback.'",
 								"cancel_url": "'.$cancel_url.'"
-							},
-							"customer": {
-								"first_name": "'.$payerarray["firstName"].'",
-								"last_name": "'.$payerarray['lastName'].'",
-								"email": "'.$payerarray['email'].'"
+							}';
+
+						if (!empty($payerarray["lastName"]) || !empty($payerarray["firstName"]) || !empty($payerarray["email"])
+							|| !empty($payerarray["address"]) || !empty($payerarray["postcode"]) || !empty($payerarray["city"])
+							|| !empty($payerarray["country"]) ) {
+
+							$jsontosenddatabilling = '';
+							if (!empty($payerarray["lastName"])) {
+								$jsontosenddatabilling .= ($jsontosenddatabilling ? ', ' : '').'"last_name": "'.$payerarray["lastName"].'"';
 							}
-						}';
+							if (!empty($payerarray["firstName"])) {
+								$jsontosenddatabilling .= ($jsontosenddatabilling ? ', ' : '').'"first_name": "'.$payerarray["firstName"].'"';
+							}
+							if (!empty($payerarray["address"])) {
+								$jsontosenddatabilling .= ($jsontosenddatabilling ? ', ' : '').'"address1": "'.$payerarray["address"].'"';
+							}
+							if (!empty($payerarray["zipCode"])) {
+								$jsontosenddatabilling .= ($jsontosenddatabilling ? ', ' : '').'"postcode": "'.$payerarray["zipCode"].'"';
+							}
+							if (!empty($payerarray["city"])) {
+								$jsontosenddatabilling .= ($jsontosenddatabilling ? ', ' : '').'"city": "'.$payerarray["city"].'"';
+							}
+							if (!empty($payerarray["countryCode"])) {
+								$jsontosenddatabilling .= ($jsontosenddatabilling ? ', ' : '').'"country": "'.$payerarray["countryCode"].'"';
+							}
+							if (!empty($payerarray["email"])) {
+								$jsontosenddatabilling .= ($jsontosenddatabilling ? ', ' : '').'"email": "'.$payerarray["email"].'"';
+							}
+							$jsontosenddata .= ', "customer": { '.$jsontosenddatabilling.' }';
+						}
+
+						// Add a metadata field
+						$jsontosenddata .= ', "metadata": {
+								"dol_entity": "'.$conf->entity.'",
+							    "dol_version": "'.DOL_VERSION.'",
+							    "ipaddress": "'.getUserRemoteIP().'"
+							  }';
+
+						$jsontosenddata .= ' }';
 
 						$urlforcheckout = "https://".urlencode($payplugrurlapi)."/v1/payments";
 
 						dol_syslog("Send Post to url=".$urlforcheckout." with session FinalPaymentAmt = ".$FinalPaymentAmt." currencyCodeType = ".$currencyCodeType, LOG_DEBUG);
 
-						$ret1 = getURLContent($urlforcheckout, 'POSTALREADYFORMATED', $jsontosenddata, 1, $headers);
-						if ($ret1["http_code"] == 201) {
-							$result1 = $ret1["content"];
-							$json1 = json_decode($result1);
-							$_SESSION["PAYPLUG_DOLICLOUD_PAYMENT_ID"] = urlencode($json1->id);
-							$urlforredirect = $json1->hosted_payment->payment_url;
+						$ret2 = getURLContent($urlforcheckout, 'POSTALREADYFORMATED', $jsontosenddata, 1, $headers);
+
+						if ($ret2["http_code"] == 201) {
+							$result2 = $ret2["content"];
+							$json2 = json_decode($result2);
+							$_SESSION["PAYPLUG_DOLICLOUD_PAYMENT_ID"] = urlencode($json2->id);
+							$urlforredirect = $json2->hosted_payment->payment_url;
 
 							// Gestion redirection
 							dol_syslog("Send redirect to ".$urlforredirect);
@@ -659,16 +552,20 @@ class ActionsPayplugDolicloud extends CommonHookActions
 							exit;
 						} else {
 							$arrayofmessage = array();
-							if (!empty($ret1['content'])) {
-								$arrayofmessage = json_decode($ret1['content'], true);
+							if (!empty($ret2['content'])) {
+								dol_syslog("Result content = ".$ret2['content']);
+
+								$arrayofmessage = json_decode($ret2['content'], true);
 							}
+
 							if (!empty($arrayofmessage['message'])) {
 								$errors[] = $arrayofmessage['message'];
 
 								if (!empty($arrayofmessage['details']) && is_array($arrayofmessage['details'])) {
 									foreach($arrayofmessage['details'] as $tmpkey => $tmpmessage) {
 										if (!empty($tmpmessage)) {
-											$errors[] = $langs->trans("Error"). ' : ' .$tmpmessage;
+											// $tmpmessage can be a string or an array or array of array, so we use a json output
+											$errors[] = $langs->trans("Error"). ' ('.$tmpkey.') : ' .json_encode($tmpmessage);
 										} else {
 											$errors[] = $langs->trans("UnkownError").' - HTTP code = '.$ret2["http_code"];
 										}
@@ -708,24 +605,84 @@ class ActionsPayplugDolicloud extends CommonHookActions
 	 */
 	public function isPaymentOK($parameters, &$object, &$action, $hookmanager)
 	{
-		global $conf, $user, $langs,$db;
+		global $langs;
 
-		$error = 0; // Error counter
-		$ispaymentok = true;
+		require_once DOL_DOCUMENT_ROOT."/core/lib/geturl.lib.php";
+		include_once DOL_DOCUMENT_ROOT.'/core/lib/security.lib.php';
+		dol_include_once('payplugdolicloud/lib/payplugdolicloud.lib.php');
+		$langs->load("payplugdolicloud@payplugdolicloud");
 
+		$error = 0;
 		if (in_array($parameters['paymentmethod'], array('payplug'))){
 			$code = GETPOST("code");
+
 			if ($code == "refused") {
-				$ispaymentok = false;
-				$error ++;
+				$error++;
+				$this->errors[] = $langs->trans("ErrorPaymentRefused");
+			} else {
+				// Ensure the amount matches the requested value
+				// Compare session amount from doPayment with PayPlug API response
+				$paymentId = isset($_SESSION["PAYPLUG_DOLICLOUD_PAYMENT_ID"]) ? $_SESSION["PAYPLUG_DOLICLOUD_PAYMENT_ID"] : '';
+				$amounttotest = isset($_SESSION["FinalPaymentAmt"]) ? $_SESSION["FinalPaymentAmt"] : 0;
+				$currencyCodeTypetotest = isset($_SESSION["currencyCodeType"]) ? $_SESSION["currencyCodeType"] : '';
+
+				if (empty($paymentId) || empty($amounttotest) || empty($currencyCodeTypetotest)) {
+					$error++;
+					$this->errors[] = $langs->trans("ErrorSessionNotFound");
+				}
+
+				if (!$error) {
+					$payplugrurlapi = "api.payplug.com";
+					if (getDolGlobalInt("PAYPLUG_DOLICLOUD_LIVE")) {
+						$secretapikey = getDolGlobalString("PAYPLUG_DOLICLOUD_PROD_SECRET_API_KEY");
+					} else {
+						$secretapikey = getDolGlobalString("PAYPLUG_DOLICLOUD_TEST_SECRET_API_KEY");
+					}
+
+					// Verify if payment is done
+					$headers = array();
+					$headers[] = "accept: application/json";
+					$headers[] = "Authorization: Bearer ".$secretapikey;
+					$headers[] = "Content-Type: application/json";
+					$urlforcheckout = "https://".urlencode($payplugrurlapi)."/v1/payments/".$paymentId;
+					$ret1 = getURLContent($urlforcheckout, 'GET', '', 1, $headers);
+					if (empty($ret1) || !is_array($ret1) || empty($ret1['content'])) {
+						$error++;
+						$this->errors[] = $langs->trans("ErrorConnectionToPayplugFailed");
+						$json1 = null;
+					} else {
+						$json1 = json_decode($ret1['content']);
+					}
+
+
+					if ($ret1["http_code"] == 200 && empty($json1->failure) && !$error) {
+						if (empty($json1->id) || $json1->id != $_SESSION["PAYPLUG_DOLICLOUD_PAYMENT_ID"]) {
+							$error++;
+							$this->errors[] = $langs->trans("ErrorPaymentNotFound");
+						}
+						$amountfrompayplug = !empty($json1->amount) ? $json1->amount / 100 : 0; // Payplug amount is in cents
+						$currencyfrompayplug = !empty($json1->currency) ? $json1->currency : '';
+
+						if ($amounttotest != $amountfrompayplug) {
+							$error++;
+							$this->errors[] = $langs->trans("ErrorValueFinalPaymentDiffers");
+						}
+						if ($currencyCodeTypetotest != $currencyfrompayplug) {
+							$error++;
+							$this->errors[] = $langs->trans("ErrorValueFinalPaymentDiffersCurrency");
+						}
+					} else {
+						$error++;
+						$this->errors[] = $langs->trans("ErrorPaymentNotFound");
+					}
+				}
 			}
 		}
 
 		if (!$error) {
-			$this->results["ispaymentok"] = $ispaymentok;
+			$this->results["ispaymentok"] = true;
 			return 1;
 		} else {
-			$this->errors[] = $langs->trans("PaymentRefused");
 			return -1;
 		}
 	}
@@ -741,8 +698,6 @@ class ActionsPayplugDolicloud extends CommonHookActions
 	 */
 	public function getBankAccountPaymentMethod($parameters, &$object, &$action, $hookmanager)
 	{
-		global $langs;
-
 		$error = 0; // Error counter
 
 		$bankaccountid = 0;
@@ -774,7 +729,7 @@ class ActionsPayplugDolicloud extends CommonHookActions
 	public function doShowOnlinePaymentUrl($parameters, &$object, &$action, $hookmanager){
 		if (isModEnabled('payplugdolicloud')) {
 			$this->results['showonlinepaymenturl'] = isModEnabled('payplugdolicloud');
-		}else {
+		} else {
 			return -1;
 		}
 		return 1;

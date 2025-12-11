@@ -29,7 +29,7 @@
 // Load Dolibarr environment
 $res=0;
 // Try main.inc.php into web root known defined into CONTEXT_DOCUMENT_ROOT (not always defined)
-if (! $res && ! empty($_SERVER["CONTEXT_DOCUMENT_ROOT"])) $res=@include $_SERVER["CONTEXT_DOCUMENT_ROOT"]."/main.inc.php";
+if (! $res && ! empty($_SERVER["CONTEXT_DOCUMENT_ROOT"])) $res=@include str_replace("..", "", $_SERVER["CONTEXT_DOCUMENT_ROOT"])."/main.inc.php";
 // Try main.inc.php into web root detected using web root caluclated from SCRIPT_FILENAME
 $tmp=empty($_SERVER['SCRIPT_FILENAME'])?'':$_SERVER['SCRIPT_FILENAME'];$tmp2=realpath(__FILE__); $i=strlen($tmp)-1; $j=strlen($tmp2)-1;
 while ($i > 0 && $j > 0 && isset($tmp[$i]) && isset($tmp2[$j]) && $tmp[$i]==$tmp2[$j]) { $i--; $j--; }
@@ -138,13 +138,13 @@ print '<input type="hidden" name="token" value="'.$_SESSION['newtoken'].'">';
 print "<table class=\"noborder\" width=\"100%\">";
 
 print "<tr class=\"liste_titre\">";
-print "<td width=\"30%\">".$langs->trans("Parameter")."</td>";
+print "<td>".$langs->trans("Parameter")."</td>";
 print "<td>".$langs->trans("Value")."</td>";
 print "<td>".$langs->trans("Examples")."</td>";
 print "</tr>";
 
 print '<tr class="oddeven">';
-print "<td>".$langs->trans("MantisURL")."</td>";
+print '<td class="fieldrequired">'.$langs->trans("MantisURL")."</td>";
 print "<td><input type=\"text\" class=\"flat\" name=\"phpmantis_url\" value=\"". ($_POST["phpmantis_url"]?$_POST["phpmantis_url"]:$conf->global->PHPMANTIS_URL) . "\" size=\"40\"></td>";
 print "<td>http://localhost/mantis/";
 print "<br>https://mantisserver/";

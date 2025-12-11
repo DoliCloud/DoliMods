@@ -11,11 +11,11 @@ EcoTaxDeeDocFooterExample=Produktene har en enhetsavgift for WEEE på 0,01€ fo
 ECOTAXDEEE_CATEGORY_REF=Ref for produktkategori for å oppdage produkter som trenger miljøavgift WEEE
 Module101380Name=Økoavgift WEEE
 Module101380Desc=Modul for å legge til økoavgiftslinjer automatisk
-AboutInfo=Denne modulen er utviklet og distribuert av Laurent Destailleur for DoliCloud, <a href="https://www.dolicloud.com?origin=dolimods"> www.dolicloud.com </a> (A Dolibarr Preferred Partner company).
+AboutInfo=This module is developped and distributed by Laurent Destailleur for DoliCloud, <a href="https://www.dolicloud.com?origin=dolimods">www.dolicloud.com</a> (A Dolibarr Preferred Partner company).
 MoreModules=Andre moduler av samme forfatter er tilgjengelig på den offisielle DoliStore-markedet...
-MoreModulesLink= <a target="_blank" href="https://www.dolistore.com/search.php?search_query=dolicloud"> Klikk her for å se hele listen </a>
+MoreModulesLink=<a target="_blank" href="https://www.dolistore.com/search.php?search_query=dolicloud">Click here to see full list</a>
 MoreCloudHosting=For å bruke online Dolibarr, velg den sikrede hostingen DoliCloud.
-MoreCloudHostingLink= <a target="_blank" href="https://www.dolicloud.com?origin=dolimods"> Klikk her for mer informasjon </a>
+MoreCloudHostingLink=<a target="_blank" href="https://www.dolicloud.com?origin=dolimods">Click here for more information</a>
 CompatibleWithDoliDroid=Denne modulen er også kompatibel med DoliDroid, Android-applikasjonen for Dolibarr.
 EcoTaxAddedIfDesc=En Eco-avgift WEEE-linje vil automatisk bli beregnet og lagt til når produkter med en miljøavgift legges til følgende objekter: <b> %s </b> . <br> Økoavgiftsbeløpet må være definert på forhånd i produktkortet for hvert produkt.
 EcoTaxAddedIfDescOld=En Eco-avgift WEEE-linje vil automatisk bli beregnet og lagt til når produkter med en miljøavgift legges til følgende objekter: <b> %s </b> . <br> Økoavgiftsbeløpet må være definert på forhånd i produktkortet for hvert produkt. For dette, gå inn i oppsett av modul "Produkt" og legg til et utfyllende felt med flyteformat og med kode "ecotaxdeee". Du vil da kunne legge inn økoavgiftsbeløp på hvert produkt.
@@ -23,3 +23,18 @@ AddPageWithWEEEUnitPrices=Modulen kan også automatisk legge til en side i gener
 ECOTAXDEEE_PRODUCT_OR_LABEL_LINE=Produkt/tjeneste som skal brukes som Eco Tax WEEE-linje
 OrLabelOfAFreeLine=eller bare en etikett å bruke
 WEEE_DISABLE_VAT_ON_ECOTAX=Deaktiver MVA på Eco Tax-linjen (I de fleste tilfeller trenger Eco Tax en moms som alle andre tjenester)
+MoreSetup=Mer oppsett
+CodeEcotax=Økoskattekode
+EcotaxAmount=Økoavgiftsbeløp
+NewEcotax=Ny økoavgift
+Norecords= Ingen poster
+ErrorInputsRequired= Inndata kreves
+RecordAlreadyExists=Record eksisterer allerede
+recordUpdated=Posten ble oppdatert
+recordDeleted=Oppføringen ble slettet
+recordAdded=Posten ble lagt til
+InsertCodeForEcoTax=Skriv inn økoavgiften for produkter ved å skrive inn en kode fra en kode-beløp-tabell
+SetCodeForEcotaxEnabled=Aktiver Tab for å konfigurere <b>Kode</b>
+SetCodeForEcotaxDisabled=Deaktivert fane for å konfigurere <b>Kode</b>
+CodeAndAmountTable=Tabell over økoavgiftskodebeløp
+AreYouSureYouWantToDelete=Er du sikker på at du vil slette linjen

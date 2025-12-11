@@ -38,6 +38,7 @@ OvhInvoiceImportShort=OVH faktura import
 OvhInvoiceImportDesc=Denne siden viser alle OVH-fakturaer og foreslår en måte å importere dem på. Klikk først på knappen "Få fakturaliste". For hver faktura som ikke allerede er til stede, merk av i boksen og klikk på "Importer-knappen".
 SupplierToUseForImport=Leverandør å opprette importerte fakturaer på
 ProductGenericToUseForImport=Produkt/tjeneste som skal brukes for importerte fakturalinjer
+OrSelectAnotherOne=Eller velg en annen
 ProjectForImport=Legg ved importerte fakturaer til prosjektet
 KeepEmptyToSaveLinesAsFreeLines=Hold dette feltet tomt hvis du ikke vil se importerte linjer som bruker et generisk forhåndsdefinert produkt/tjeneste
 ScanOvhInvoices=Få fakturaliste
@@ -52,11 +53,11 @@ InvoiceFoundIntoDolibarr=Faktura funnet i Dolibarr: %s
 InvoicePDFFoundIntoDolibarr=Faktura+PDF funnet i Dolibarr: %s
 ConnectionParameters=Tilkoblingsparametere
 TryToUseProxy=Bruker proxy-server
-AboutInfo=Denne modulen er utviklet og distribuert av Laurent Destailleur for DoliCloud, <a href="https://www.dolicloud.com?origin=dolimods"> www.dolicloud.com </a> (A Dolibarr Preferred Partner company).
+AboutInfo=This module is developped and distributed by Laurent Destailleur for DoliCloud, <a href="https://www.dolicloud.com?origin=dolimods">www.dolicloud.com</a> (A Dolibarr Preferred Partner company).
 MoreModules=Andre moduler av samme forfatter er tilgjengelig på den offisielle DoliStore-markedet...
-MoreModulesLink= <a target="_blank" href="https://www.dolistore.com/search.php?search_query=dolicloud"> Klikk her for å se hele listen </a>
+MoreModulesLink=<a target="_blank" href="https://www.dolistore.com/search.php?search_query=dolicloud">Click here to see full list</a>
 MoreCloudHosting=For å bruke online Dolibarr, velg den sikrede hostingen DoliCloud.
-MoreCloudHostingLink= <a target="_blank" href="https://www.dolicloud.com?origin=dolimods"> Klikk her for mer informasjon </a>
+MoreCloudHostingLink=<a target="_blank" href="https://www.dolicloud.com?origin=dolimods">Click here for more information</a>
 CompatibleWithDoliDroid=Denne modulen er også kompatibel med DoliDroid, Android-applikasjonen for Dolibarr.
 OvhApplicationName=Programnavn
 OvhApplicationDescription=Søknadsbeskrivelse
@@ -68,6 +69,7 @@ ListOfExistingAPIApp=Merk: Du kan finne listen over allerede opprettede applikas
 ClickHereToLoginAndGetYourConsumerKey=Klikk <a href="%s"> her for å logge på og få en ny forbrukernøkkel </a> (Du må velge <strong> UBEGRENSET </strong> gyldighet)
 Authentication=Godkjenning
 FromThe=Fra
+ToThe=til
 PleaseFillOtherFieldFirst=Fyll ut de andre feltene først...
 IfYouChangeHereChangeAlsoClickToDial=Hvis du endrer data her, ikke glem å oppdatere også lenken til modulen ClickToDial
 ToGoOnClickToDialSetup=For å gå på ClickToDial-moduloppsett
@@ -81,3 +83,8 @@ OVHAccount=OVH-konto
 OvhDefaultBankAccount=Standard bankkonto på fakturaer
 OvhValidVatList=Liste over gyldige MVA-verdier
 OVHVatKeepEmptyToAcceptAll=Hold dette feltet tomt hvis du vil godta alle MVA-verdier (auto). Advarsel: OVH returnerer noen ganger dårlige avrundede MVA-satser, så å sette MVA-satser her tvinger søknaden til å bruke nærmeste gyldige verdi i stedet for OVH-verdi.
+InvalidMobilePhoneNumberForContact=Telefonnummeret %s er ugyldig: %s (må ha internasjonalt format +33123456789)
+SendSMS=Send tekstmelding
+OVH_USE_LAST_INVOCIE_VALIDATED_DATE=Foreslå siste leverandørfaktura fra leverandør på importfakturaverktøy
+ValidImportedInvoice=Gyldige importerte fakturaer
+OVH_DEBUG=Enable additional logs specific to the OVH module (dolibarr_ovh.* files)

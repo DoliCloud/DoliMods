@@ -25,7 +25,7 @@
 // Load Dolibarr environment
 $res=0;
 // Try main.inc.php into web root known defined into CONTEXT_DOCUMENT_ROOT (not always defined)
-if (! $res && ! empty($_SERVER["CONTEXT_DOCUMENT_ROOT"])) $res=@include $_SERVER["CONTEXT_DOCUMENT_ROOT"]."/main.inc.php";
+if (! $res && ! empty($_SERVER["CONTEXT_DOCUMENT_ROOT"])) $res=@include str_replace("..", "", $_SERVER["CONTEXT_DOCUMENT_ROOT"])."/main.inc.php";
 // Try main.inc.php into web root detected using web root caluclated from SCRIPT_FILENAME
 $tmp=empty($_SERVER['SCRIPT_FILENAME'])?'':$_SERVER['SCRIPT_FILENAME'];$tmp2=realpath(__FILE__); $i=strlen($tmp)-1; $j=strlen($tmp2)-1;
 while ($i > 0 && $j > 0 && isset($tmp[$i]) && isset($tmp2[$j]) && $tmp[$i]==$tmp2[$j]) { $i--; $j--; }
@@ -41,6 +41,11 @@ require_once DOL_DOCUMENT_ROOT."/core/lib/files.lib.php";
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.formadmin.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.formfile.class.php';
 
+/**
+ * @var User      $user
+ * @var Conf	  $conf
+ * @var Translate $langs
+ */
 
 if (!$user->admin) accessforbidden();
 
@@ -48,7 +53,6 @@ $langs->load("admin");
 $langs->load("other");
 $langs->load("tawkto@tawkto");
 
-$def = array();
 $action=GETPOST('action', 'alpha');
 $confirm=GETPOST('confirm', 'alpha');
 $actionsave=GETPOST('save', 'alpha');
@@ -56,50 +60,21 @@ $actionsave=GETPOST('save', 'alpha');
 $modules = array('proposals','orders','invoices');
 
 
-$arrayofparameters=array('TAWKTO_ID'=>array('css'=>'minwidth300'));
-// Exemple: 59e0d01e4854b82732ff55e3
+$arrayofparameters=array(
+	'TAWKTO_ID'=>array('css'=>'minwidth300', 'mandatory'=>1, 'help' => $langs->trans('TAWKTO_IDTooltip').'<br><br>'.$langs->trans("Example").': 66e2d01e4851b82f32fa55e2'),
+	'TAWKTO_WIDGET_ID'=>array('css'=>'minwidth300', 'placeholder' => 'default', 'help' => $langs->trans('TAWKTO_WIDGET_ID').'<br><br>'.$langs->trans("Example").': default')
+);
 
 
 /*
  * Actions
  */
 
-if ((float) DOL_VERSION < 7.0) {
-	if ($action == 'update' && is_array($arrayofparameters)) {
-		$db->begin();
-
-		$error=0;
-
-		foreach ($arrayofparameters as $key => $val) {
-			$value = GETPOST($key, 'alpha');
-
-			if ($key == 'TAWKTO_ID' && preg_match('/http/', $value)) {
-				setEventMessages('Value must be a valid ID Site', null, 'errors');
-				$error++;
-				break;
-			}
-
-			$result=dolibarr_set_const($db, $key, $value, 'chaine', 0, '', $conf->entity);
-			if ($result < 0) {
-				$error++;
-				break;
-			}
-		}
-
-		if (! $error) {
-			$db->commit();
-			if (empty($nomessageinupdate)) setEventMessages($langs->trans("SetupSaved"), null, 'mesgs');
-		} else {
-			$db->rollback();
-			if (empty($nomessageinupdate)) setEventMessages($langs->trans("SetupNotSaved"), null, 'errors');
-		}
-	}
-} else {
-	$idsite = GETPOST('TAWKTO_ID', 'alpha');
-	if (preg_match('/http/', $idsite)) {
-		setEventMessages('Value must be a valid ID Site', null, 'errors');
-		$error++;
-	}
+// Test value of TAWKTO_ID
+$idsite = GETPOST('TAWKTO_ID', 'alpha');
+if (preg_match('/http/', $idsite)) {
+	setEventMessages('Value must be a valid ID Site', null, 'errors');
+	$error++;
 }
 
 include DOL_DOCUMENT_ROOT.'/core/actions_setmoduleoptions.inc.php';
@@ -119,6 +94,8 @@ $linkback = '<a href="' . DOL_URL_ROOT . '/admin/modules.php?restore_lastsearch_
 print load_fiche_titre($langs->trans($page_name), $linkback, 'object_tawkto@tawkto');
 
 // Configuration header
+$head = array();
+
 $h=0;
 $head[$h][0] = $_SERVER["PHP_SELF"];
 $head[$h][1] = $langs->trans("Setup");
@@ -130,7 +107,7 @@ $head[$h][1] = $langs->trans("About");
 $head[$h][2] = 'tababout';
 $h++;
 
-dol_fiche_head($head, 'tabsetup', '', -1, "tawkto@tawkto");
+dol_fiche_head($head, 'tabsetup', '', -1, '');
 
 // Setup page goes here
 //echo $langs->trans("MyModuleSetupPage");
@@ -141,16 +118,19 @@ if ($action == 'edit') {
 	print '<input type="hidden" name="token" value="'.newToken().'">';
 	print '<input type="hidden" name="action" value="update">';
 
-	print '<table class="noborder" width="100%">';
-	print '<tr class="liste_titre"><td class="titlefield">'.$langs->trans("Parameter").'</td><td>'.$langs->trans("Value").'</td><td></td></tr>';
+	print '<br>';
+
+	print '<table class="noborder centpercent">';
+	print '<tr class="liste_titre"><td class="titlefield">'.$langs->trans("Parameter").'</td><td></td></tr>';
 
 	foreach ($arrayofparameters as $key => $val) {
 		print '<tr class="oddeven"><td>';
-		print $form->textwithpicto($langs->trans($key), $langs->trans($key.'Tooltip'));
-		print '</td><td><input name="'.$key.'" class="flat '.(empty($val['css'])?'minwidth200':$val['css']).'" value="' . getDolGlobalString($key) . '"></td>';
-		print '<td>';
-		if ($key == 'TAWKTO_ID') print $langs->trans("Example").': 66e2d01e4851b82f32fa55e2';
-		print '</td>';
+		print $form->textwithpicto($langs->trans($key), $langs->trans($key.'Tooltip').'<br><br>'.$langs->trans("Example").': 66e2d01e4851b82f32fa55e2');
+		print '</td><td><input name="'.$key.'" class="flat '.(empty($val['css'])?'minwidth200':$val['css']).'" value="' . getDolGlobalString($key, empty($val['default']) ? '' : $val['default']) . '"';
+		if (!empty($val['placeholder'])) {
+			print ' placeholder="'.$val['placeholder'].'"';
+		}
+		print '></td>';
 		print '</tr>';
 	}
 
@@ -163,16 +143,15 @@ if ($action == 'edit') {
 	print '</form>';
 	print '<br>';
 } else {
-	print '<table class="noborder" width="100%">';
-	print '<tr class="liste_titre"><td class="titlefield">'.$langs->trans("Parameter").'</td><td>'.$langs->trans("Value").'</td><td></td></tr>';
+	print '<br>';
+
+	print '<table class="noborder centpercent">';
+	print '<tr class="liste_titre"><td class="titlefieldcreate">'.$langs->trans("Parameter").'</td><td></td></tr>';
 
 	foreach ($arrayofparameters as $key => $val) {
-		print '<tr class="oddeven"><td>';
-		print $form->textwithpicto($langs->trans($key), $langs->trans($key.'Tooltip'));
+		print '<tr class="oddeven"><td'.(empty($val['mandatory']) ? '' : ' class="fieldrequired"').'>';
+		print $form->textwithpicto($langs->trans($key), $val['help']);
 		print '</td><td>' . getDolGlobalString($key) . '</td>';
-		print '<td>';
-		if ($key == 'TAWKTO_ID') print $langs->trans("Example").': 66e2d01e4851b82f32fa55e2';
-		print '</td>';
 		print '</tr>';
 	}
 
@@ -186,6 +165,14 @@ if ($action == 'edit') {
 
 // Page end
 dol_fiche_end();
+
+if (getDolGlobalString('TAWKTO_ID')) {
+	print img_picto('', 'url', 'class="pictofixedwidth"').'<span class="opacitymedium">'.$langs->trans("TestDirectChatLink").'</span>';
+	print '<div class="urllink">';
+	print '<input type="text" class="quatrevingtpercentminusx" spellcheck="false" value="https://tawk.to/chat/'.getDolGlobalString('TAWKTO_ID').'/'.getDolGlobalString('TAWKTO_WIDGET_ID', 'default').'">';
+	print '<a href="https://tawk.to/chat/'.getDolGlobalString('TAWKTO_ID').'/'.getDolGlobalString('TAWKTO_WIDGET_ID', 'default').'" target="_blank">'.img_picto('', 'url').'</a>';
+	print '</div>';
+}
 
 llxFooter();
 $db->close();

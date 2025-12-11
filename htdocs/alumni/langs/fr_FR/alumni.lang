@@ -1,4 +1,4 @@
-# Copyright (C) 2023 Alice Adminson 
+# Copyright (C) 2023 Alice Adminson
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -18,39 +18,47 @@
 #
 
 # Module label 'ModuleAlumniName'
-ModuleAlumniName = Alumni
+ModuleAlumniName = Anciens élèves
 # Module description 'ModuleAlumniDesc'
-ModuleAlumniDesc = Module pour l'organisation d'une rencontre entre Alumni
+ModuleAlumniDesc = Module d'organisation d'un événement de réunion d'anciens élèves
 
 #
 # Admin page
 #
-AlumniSetup = Configuration du module Alumni
-Settings = Configuration
-AlumniSetupPage = Page de configuration du module Alumni
-ALUMNI_YEAR=Année depuis le diplôme
+AlumniSetup = Configuration des anciens élèves
+Settings = Paramètres
+AlumniSetupPage = Page de configuration des anciens élèves
+ALUMNI_YEAR=Année depuis l'obtention du diplôme
 ALUMNI_PROMONAME=Nom ou numéro de la promotion
+ALUMNI_ENABLE_SURVEY=Enable the surveys provided by the website template
+ALUMNI_STEP_ORGANIZATION=Step of the project (1=Communication and first survey, 2=Selection of town and exact day, 3=Organization of event)
+
 
 #
 # About page
 #
-About = A propos
-AlumniAbout = A propos d'Alumni
-AlumniAboutPage = Page à propos d'Alumni
+About = À propos
+AlumniAbout = À propos des anciens élèves
+AlumniAboutPage = Page des anciens élèves
 
-AlumniArea = Accueil Module Alumni
+AlumniArea = Accueil Anciens
 
 
 Lastname2=Nom de jeune fille
-BudgetMaxActiviteParPers=Budget max par personne pour les activités
-BudgetMaxRepasParPers=Budget max par personne pour les repas
-ComWhatsapp=What's app
-ChoixPerimetre=Périmètre
+BudgetMaxActiviteParPers=Budget maximum par utilisateur pour les activités
+BudgetMaxRepasParPers=Budget maximum par utilisateur pour les repas
+ComWhatsapp=Quelle est l'application
+ChoixPerimetre=Choix de la portée
 ActiviteAssociees=Activités liées
 ActiviteAssocieesNature=Nature des activités
 
-PreferenceJour=Jour de préférence
-PreferenceMois=Mois de préférence
+PreferenceJour=Jour préféré
+PreferenceMois=Mois préféré
 Results=Résultats
-NewVoteEntry=Nouveau vote
-NbOfVotes=Nombre de votes
+EventChoices=Event choices
+NewVoteEntry=New event choice
+NbOfVotes=Number of event choices
+SetToPaid=Set to paid
+SetToUnpaid=Set to unpaid
+SetToDoNotReEngage=Set to do not re-engage
+SetToCanReEngage=Set to can re-engage

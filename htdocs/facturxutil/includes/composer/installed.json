@@ -2,17 +2,17 @@
     "packages": [
         {
             "name": "atgp/factur-x",
-            "version": "v1.0.2",
-            "version_normalized": "1.0.2.0",
+            "version": "v1.1.0",
+            "version_normalized": "1.1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/atgp/factur-x.git",
-                "reference": "aeebae34167831b936100a2285d22dec1c62aa2a"
+                "reference": "c3eb356e901246f36a0507705786929037b23c65"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/atgp/factur-x/zipball/aeebae34167831b936100a2285d22dec1c62aa2a",
-                "reference": "aeebae34167831b936100a2285d22dec1c62aa2a",
+                "url": "https://api.github.com/repos/atgp/factur-x/zipball/c3eb356e901246f36a0507705786929037b23c65",
+                "reference": "c3eb356e901246f36a0507705786929037b23c65",
                 "shasum": ""
             },
             "require": {
@@ -26,7 +26,7 @@
                 "setasign/fpdi": "^2.0",
                 "smalot/pdfparser": "^0.19.0"
             },
-            "time": "2021-06-01T08:43:52+00:00",
+            "time": "2023-11-06T07:53:30+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -55,30 +55,30 @@
             ],
             "support": {
                 "issues": "https://github.com/atgp/factur-x/issues",
-                "source": "https://github.com/atgp/factur-x/tree/v1.0.2"
+                "source": "https://github.com/atgp/factur-x/tree/v1.1.0"
             },
             "install-path": "../atgp/factur-x"
         },
         {
             "name": "setasign/fpdf",
-            "version": "1.8.4",
-            "version_normalized": "1.8.4.0",
+            "version": "1.8.6",
+            "version_normalized": "1.8.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Setasign/FPDF.git",
-                "reference": "b0ddd9c5b98ced8230ef38534f6f3c17308a7974"
+                "reference": "0838e0ee4925716fcbbc50ad9e1799b5edfae0a0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Setasign/FPDF/zipball/b0ddd9c5b98ced8230ef38534f6f3c17308a7974",
-                "reference": "b0ddd9c5b98ced8230ef38534f6f3c17308a7974",
+                "url": "https://api.github.com/repos/Setasign/FPDF/zipball/0838e0ee4925716fcbbc50ad9e1799b5edfae0a0",
+                "reference": "0838e0ee4925716fcbbc50ad9e1799b5edfae0a0",
                 "shasum": ""
             },
             "require": {
                 "ext-gd": "*",
                 "ext-zlib": "*"
             },
-            "time": "2021-08-30T07:50:06+00:00",
+            "time": "2023-06-26T14:44:25+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -104,43 +104,43 @@
                 "pdf"
             ],
             "support": {
-                "source": "https://github.com/Setasign/FPDF/tree/1.8.4"
+                "source": "https://github.com/Setasign/FPDF/tree/1.8.6"
             },
             "install-path": "../setasign/fpdf"
         },
         {
             "name": "setasign/fpdi",
-            "version": "v2.3.6",
-            "version_normalized": "2.3.6.0",
+            "version": "v2.6.4",
+            "version_normalized": "2.6.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Setasign/FPDI.git",
-                "reference": "6231e315f73e4f62d72b73f3d6d78ff0eed93c31"
+                "reference": "4b53852fde2734ec6a07e458a085db627c60eada"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Setasign/FPDI/zipball/6231e315f73e4f62d72b73f3d6d78ff0eed93c31",
-                "reference": "6231e315f73e4f62d72b73f3d6d78ff0eed93c31",
+                "url": "https://api.github.com/repos/Setasign/FPDI/zipball/4b53852fde2734ec6a07e458a085db627c60eada",
+                "reference": "4b53852fde2734ec6a07e458a085db627c60eada",
                 "shasum": ""
             },
             "require": {
                 "ext-zlib": "*",
-                "php": "^5.6 || ^7.0 || ^8.0"
+                "php": "^7.1 || ^8.0"
             },
             "conflict": {
                 "setasign/tfpdf": "<1.31"
             },
             "require-dev": {
-                "phpunit/phpunit": "~5.7",
-                "setasign/fpdf": "~1.8",
-                "setasign/tfpdf": "1.31",
+                "phpunit/phpunit": "^7",
+                "setasign/fpdf": "~1.8.6",
+                "setasign/tfpdf": "~1.33",
                 "squizlabs/php_codesniffer": "^3.5",
-                "tecnickcom/tcpdf": "~6.2"
+                "tecnickcom/tcpdf": "^6.8"
             },
             "suggest": {
                 "setasign/fpdf": "FPDI will extend this class but as it is also possible to use TCPDF or tFPDF as an alternative. There's no fixed dependency configured."
             },
-            "time": "2021-02-11T11:37:01+00:00",
+            "time": "2025-08-05T09:57:14+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -173,7 +173,7 @@
             ],
             "support": {
                 "issues": "https://github.com/Setasign/FPDI/issues",
-                "source": "https://github.com/Setasign/FPDI/tree/v2.3.6"
+                "source": "https://github.com/Setasign/FPDI/tree/v2.6.4"
             },
             "funding": [
                 {
@@ -242,21 +242,22 @@
         },
         {
             "name": "symfony/polyfill-mbstring",
-            "version": "v1.25.0",
-            "version_normalized": "1.25.0.0",
+            "version": "v1.33.0",
+            "version_normalized": "1.33.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-mbstring.git",
-                "reference": "0abb51d2f102e00a4eefcf46ba7fec406d245825"
+                "reference": "6d857f4d76bd4b343eac26d6b539585d2bc56493"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/0abb51d2f102e00a4eefcf46ba7fec406d245825",
-                "reference": "0abb51d2f102e00a4eefcf46ba7fec406d245825",
+                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/6d857f4d76bd4b343eac26d6b539585d2bc56493",
+                "reference": "6d857f4d76bd4b343eac26d6b539585d2bc56493",
                 "shasum": ""
             },
             "require": {
-                "php": ">=7.1"
+                "ext-iconv": "*",
+                "php": ">=7.2"
             },
             "provide": {
                 "ext-mbstring": "*"
@@ -264,15 +265,12 @@
             "suggest": {
                 "ext-mbstring": "For best performance"
             },
-            "time": "2021-11-30T18:21:41+00:00",
+            "time": "2024-12-23T08:48:59+00:00",
             "type": "library",
             "extra": {
-                "branch-alias": {
-                    "dev-main": "1.23-dev"
-                },
                 "thanks": {
-                    "name": "symfony/polyfill",
-                    "url": "https://github.com/symfony/polyfill"
+                    "url": "https://github.com/symfony/polyfill",
+                    "name": "symfony/polyfill"
                 }
             },
             "installation-source": "dist",
@@ -308,7 +306,7 @@
                 "shim"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-mbstring/tree/v1.25.0"
+                "source": "https://github.com/symfony/polyfill-mbstring/tree/v1.33.0"
             },
             "funding": [
                 {
@@ -320,6 +318,10 @@
                     "type": "github"
                 },
                 {
+                    "url": "https://github.com/nicolas-grekas",
+                    "type": "github"
+                },
+                {
                     "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
                     "type": "tidelift"
                 }
@@ -327,6 +329,6 @@
             "install-path": "../symfony/polyfill-mbstring"
         }
     ],
-    "dev": true,
+    "dev": false,
     "dev-package-names": []
 }

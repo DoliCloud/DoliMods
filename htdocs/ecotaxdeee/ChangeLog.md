@@ -1,6 +1,13 @@
 # ChangeLog MODULE EXOTAXDEEE FOR <a href="https://www.dolibarr.org">DOLIBARR ERP CRM</a>
 
 
+## 4.3
+
+- Fix bad support of credit notes and multicurrency
+- FIX Update of ecotaxdee when we remove a line
+- Need Dolibarr v18+.
+
+
 ## 4.2.1
 
 - Fix compatibility when using other modules that create lines with type = 9 like subtotal

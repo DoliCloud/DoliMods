@@ -3,13 +3,14 @@ CHARSET=UTF-8
 Module101220Name=Cijferwoorden
 Module101220Desc=Voeg mogelijkheden toe om bedragen en getallen om te zetten in waarde in volledige tekst (slechts enkele talen ondersteund)
 NumberWordsSetup=Configuratie van de module Nummerwoorden
-DescNumberWords=Deze module biedt functies om een getal of bedrag in volledige tekens om te zetten. Het vervangt ook de volgende tekenreeksvoorvallen __AMOUNT_TEXT__, __AMOUNT_CURRENCY_TEXT__, __AMOUNT_WO_TAX_TEXT__, __AMOUNT_CURRENCY_WO_TAX_TEXT__, __AMOUNT_VAT_TEXT__ of __AMOUNT_VAT_TEXT__ of __AMOUNT_CURRENCY_VAT_s
-AboutInfo=Deze module is ontwikkeld en gedistribueerd door Laurent Destailleur voor DoliCloud, <a href="https://www.dolicloud.com?origin=dolimods"> www.dolicloud.com </a> (A Dolibarr Preferred Partner company).
+DescNumberWords=Deze module biedt functies om getallen of bedragen in volledige tekens om te zetten. Het zal ook de volgende tekenreeksen __AMOUNT_TEXT__, __AMOUNT_TEXTCURRENCY__, __AMOUNT_EXCL_TAX__, __AMOUNT_EXCL_TAXCURRENCY__, __AMOUNT_VAT_TEXT__ of __AMOUNT_VAT_TEXTCURRENCY__ vervangen door totaal netto van belasting, totaal zonder belasting of totaal van btw in alle teksten die deze gebruiken (vrije tekst op facturen, ... )
+AboutInfo=This module is developped and distributed by Laurent Destailleur for DoliCloud, <a href="https://www.dolicloud.com?origin=dolimods">www.dolicloud.com</a> (A Dolibarr Preferred Partner company).
 MoreModules=Andere modules van dezelfde auteur zijn beschikbaar op de officiële DoliStore-marktplaats...
-MoreModulesLink= <a target="_blank" href="https://www.dolistore.com/search.php?search_query=dolicloud"> Klik hier om de volledige lijst te zien </a>
+MoreModulesLink=<a target="_blank" href="https://www.dolistore.com/search.php?search_query=dolicloud">Click here to see full list</a>
 MoreCloudHosting=Om online Dolibarr te gebruiken, kiest u de beveiligde hosting DoliCloud.
-MoreCloudHostingLink= <a target="_blank" href="https://www.dolicloud.com?origin=dolimods"> Klik hier voor meer informatie </a>
+MoreCloudHostingLink=<a target="_blank" href="https://www.dolicloud.com?origin=dolimods">Click here for more information</a>
 CompatibleWithDoliDroid=Deze module is ook compatibel met DoliDroid, de Android-applicatie voor Dolibarr.
 SetupToChange=Instellingenpagina wijzigen
 NUMBERWORDS_USE_CURRENCY_SYMBOL=Gebruik het symbool in plaats van de volledige tekst voor de valuta
 NUMBERWORDS_USE_ADD_SHORTCODE_WITH_SYMBOL=Voeg de korte valutacode toe vóór het symbool
+NUMBERWORDS_FORCE_UPPERCASE=Force the text in uppercase

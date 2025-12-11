@@ -24,7 +24,7 @@
 // Load Dolibarr environment
 $res=0;
 // Try main.inc.php into web root known defined into CONTEXT_DOCUMENT_ROOT (not always defined)
-if (! $res && ! empty($_SERVER["CONTEXT_DOCUMENT_ROOT"])) $res=@include $_SERVER["CONTEXT_DOCUMENT_ROOT"]."/main.inc.php";
+if (! $res && ! empty($_SERVER["CONTEXT_DOCUMENT_ROOT"])) $res=@include str_replace("..", "", $_SERVER["CONTEXT_DOCUMENT_ROOT"])."/main.inc.php";
 // Try main.inc.php into web root detected using web root caluclated from SCRIPT_FILENAME
 $tmp=empty($_SERVER['SCRIPT_FILENAME'])?'':$_SERVER['SCRIPT_FILENAME'];$tmp2=realpath(__FILE__); $i=strlen($tmp)-1; $j=strlen($tmp2)-1;
 while ($i > 0 && $j > 0 && isset($tmp[$i]) && isset($tmp2[$j]) && $tmp[$i]==$tmp2[$j]) { $i--; $j--; }
@@ -49,9 +49,8 @@ $langs->load("other");
 $langs->load("errors");
 $langs->load("externalbackup@externalbackup");
 
-$def = array();
-$action=GETPOST("action");
-$actionsave=GETPOST("save");
+$action = GETPOST("action");
+$actionsave = GETPOST("save");
 
 
 
@@ -129,35 +128,34 @@ print '<br>';
 
 print '<table class="noborder">';
 
-$var = true;
-
-$var = ! $var;
-print '<tr '.$bc[$var].'><td>';
-print $langs->trans("EXTERNAL_BACKUP_RCLONE_PATH").': <input type="text" size="60" name="EXTERNAL_BACKUP_RCLONE_PATH" value="' . getDolGlobalString('EXTERNAL_BACKUP_RCLONE_PATH').'">';
-if (! dol_is_file($conf->global->EXTERNAL_BACKUP_RCLONE_PATH)) print ' '.img_warning("ErrorFileNotFound");
+print '<tr><td>';
+print $langs->trans("EXTERNAL_BACKUP_RCLONE_PATH").'</td><td class="nowraponall"><input type="text" size="60" spellcheck="false" name="EXTERNAL_BACKUP_RCLONE_PATH" value="' . getDolGlobalString('EXTERNAL_BACKUP_RCLONE_PATH').'">';
+if (! dol_is_file(getDolGlobalString('EXTERNAL_BACKUP_RCLONE_PATH'))) print ' '.img_warning("ErrorFileNotFound");
 print '</td><td>';
+print '<span class="opacitymedium">';
 print $langs->trans("Example").': /usr/sbin/rclone';
+print '</span>';
 print '</td></tr>';
 
-$var = ! $var;
-print '<tr '.$bc[$var].'><td>';
-print $langs->trans("EXTERNAL_BACKUP_RCLONE_CONF_PATH").': <input type="text" size="60" name="EXTERNAL_BACKUP_RCLONE_CONF_PATH" value="' . getDolGlobalString('EXTERNAL_BACKUP_RCLONE_CONF_PATH').'">';
-if (! dol_is_file($conf->global->EXTERNAL_BACKUP_RCLONE_CONF_PATH)) print ' '.img_warning($langs->trans("ErrorFileNotFound", $conf->global->EXTERNAL_BACKUP_RCLONE_CONF_PATH));
+print '<tr><td>';
+print $langs->trans("EXTERNAL_BACKUP_RCLONE_CONF_PATH").'</td><td class="nowraponall"><input type="text" size="60" spellcheck="false" name="EXTERNAL_BACKUP_RCLONE_CONF_PATH" value="' . getDolGlobalString('EXTERNAL_BACKUP_RCLONE_CONF_PATH').'">';
+if (! dol_is_file(getDolGlobalString('EXTERNAL_BACKUP_RCLONE_CONF_PATH'))) print ' '.img_warning($langs->trans("ErrorFileNotFound", getDolGlobalString('EXTERNAL_BACKUP_RCLONE_CONF_PATH')));
 print '</td><td>';
+print '<span class="opacitymedium">';
 print $langs->trans("Example").': /home/backupuser/.rclone.conf';
+print '</span>';
 print '</td></tr>';
 
-$var = ! $var;
-print '<tr '.$bc[$var].'><td>';
-print $langs->trans("EXTERNAL_BACKUP_RCLONE_TARGET").': <input type="text" size="20" name="EXTERNAL_BACKUP_RCLONE_TARGET" value="' . getDolGlobalString('EXTERNAL_BACKUP_RCLONE_TARGET').'">';
+print '<tr><td>';
+print $langs->trans("EXTERNAL_BACKUP_RCLONE_TARGET").'</td><td><input type="text" size="20" name="EXTERNAL_BACKUP_RCLONE_TARGET" value="' . getDolGlobalString('EXTERNAL_BACKUP_RCLONE_TARGET').'">';
 print '</td><td>';
+print '<span class="opacitymedium">';
 print $langs->trans("EXTERNAL_BACKUP_RCLONE_TARGETDesc").'<br>';
 print $langs->trans("Example").': hubic, googledrive, ...';
+print '</span>';
 print '</td></tr>';
 
 print '</table>';
-
-print '<br>';
 
 dol_fiche_end();
 
@@ -165,6 +163,13 @@ print '<div class="center"><input type="submit" class="button" name="save" value
 
 print '</form>';
 
+print '<br>';
+print '<br>';
+print '<br>';
+
+print $langs->trans("ExternalBackupExplanation", $langs->transnoentitiesnoconv("Module2300Name"));
+
+print '<br>TODO';
 
 llxFooter();
 

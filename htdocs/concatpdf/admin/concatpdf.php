@@ -25,7 +25,7 @@
 // Load Dolibarr environment
 $res=0;
 // Try main.inc.php into web root known defined into CONTEXT_DOCUMENT_ROOT (not always defined)
-if (! $res && ! empty($_SERVER["CONTEXT_DOCUMENT_ROOT"])) $res=@include $_SERVER["CONTEXT_DOCUMENT_ROOT"]."/main.inc.php";
+if (! $res && ! empty($_SERVER["CONTEXT_DOCUMENT_ROOT"])) $res=@include str_replace("..", "", $_SERVER["CONTEXT_DOCUMENT_ROOT"])."/main.inc.php";
 // Try main.inc.php into web root detected using web root caluclated from SCRIPT_FILENAME
 $tmp=empty($_SERVER['SCRIPT_FILENAME'])?'':$_SERVER['SCRIPT_FILENAME'];$tmp2=realpath(__FILE__); $i=strlen($tmp)-1; $j=strlen($tmp2)-1;
 while ($i > 0 && $j > 0 && isset($tmp[$i]) && isset($tmp2[$j]) && $tmp[$i]==$tmp2[$j]) { $i--; $j--; }
@@ -35,7 +35,9 @@ if (! $res && $i > 0 && file_exists(dirname(substr($tmp, 0, ($i+1)))."/main.inc.
 if (! $res && file_exists("../../main.inc.php")) $res=@include "../../main.inc.php";
 if (! $res && file_exists("../../../main.inc.php")) $res=@include "../../../main.inc.php";
 if (! $res) die("Include of main fails");
-
+/**
+ * @var DoliDB $db
+ */
 require_once DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php";
 require_once DOL_DOCUMENT_ROOT."/core/lib/files.lib.php";
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.formadmin.class.php';
@@ -172,11 +174,14 @@ $formfile=new FormFile($db);
 $help_url='EN:Module_Concat_PDF;FR:Module_Concat_PDF_FR;ES:Módulo_Concat_PDF';
 llxHeader('', 'ConcatPdf', $help_url);
 
-$linkback='<a href="'.DOL_URL_ROOT.'/admin/modules.php?restore_lastsearch_values=1">'.$langs->trans("BackToModuleList").'</a>';
+$linkback = '<a href="'.DOL_URL_ROOT.'/admin/modules.php?restore_lastsearch_values=1">'.img_picto($langs->trans("BackToModuleList"), 'back', 'class="pictofixedwidth"').'<span class="hideonsmartphone">'.$langs->trans("BackToModuleList").'</span></a>';
+
 print_fiche_titre($langs->trans("ConcatPdfSetup"), $linkback, 'setup');
 
 clearstatcache();
 
+
+$head = array();
 
 $h=0;
 $head[$h][0] = $_SERVER["PHP_SELF"];
@@ -189,13 +194,9 @@ $head[$h][1] = $langs->trans("About");
 $head[$h][2] = 'tababout';
 $h++;
 
-if ((float) DOL_VERSION < 8.0) {
-	dol_fiche_head($head, 'tabsetup', '');
-} else {
-	dol_fiche_head($head, 'tabsetup', '', -1);
-}
+dol_fiche_head($head, 'tabsetup', '', -1);
 
-if (! empty($conf->global->PDF_SECURITY_ENCRYPTION)) {
+if (getDolGlobalString('PDF_SECURITY_ENCRYPTION')) {
 	print info_admin($langs->trans("WarningConcatPDFIsNotCompatibleWithOptionReadOnlyPDF", $langs->transnoentities("ProtectAndEncryptPdfFiles")), 0, 0, '1', 'error');
 }
 
@@ -207,15 +208,15 @@ if ($action == 'remove_file') {
 }
 
 // Show dir for each module
-print '<div class="opacitymedium">';
+print '<div class="opacitymedium hideonsmartphone">';
 print $langs->trans("ConcatPDfTakeFileFrom").'<br><br>';
 foreach ($modules as $module => $moduletrans) {
 	$outputdir=$conf->concatpdf->dir_output.'/'.$module;
 	print '* '.str_replace('{s1}', $moduletrans['picto'], $langs->trans("ConcatPDfTakeFileFrom2", '{s1}'.$langs->transnoentitiesnoconv($moduletrans['label']), $outputdir));
 	print '<br>';
 }
-print '</div>';
 print '<br>';
+print '</div>';
 
 print '<br>';
 
@@ -238,7 +239,6 @@ if (getDolGlobalString('MAIN_USE_JQUERY_MULTISELECT')) {
 	print '<tr class="oddeven">';
 	print '<td>'.$langs->trans("EnableMultipleConcatenation").'</td>';
 	print '<td align="center" width="20">&nbsp;</td>';
-
 	print '<td align="center" width="100">';
 	if (! empty($conf->use_javascript_ajax)) {
 		print ajax_constantonoff('CONCATPDF_MULTIPLE_CONCATENATION_ENABLED', '', 0);
@@ -283,12 +283,12 @@ dol_fiche_end();
 
 
 foreach ($modules as $module => $moduletrans) {
-	$outputdir=$conf->concatpdf->dir_output.'/'.$module;
-	$listoffiles=dol_dir_list($outputdir, 'files', 0, '', array('^SPECIMEN\.pdf$'));
+	$outputdir = $conf->concatpdf->dir_output.'/'.$module;
+	$listoffiles = dol_dir_list($outputdir, 'files', 0, '', array('^SPECIMEN\.pdf$'));
 	if (count($listoffiles)) {
 		print $formfile->showdocuments('concatpdf', $module, $outputdir, $_SERVER["PHP_SELF"].'?module='.$module, 0, $user->admin, '', 0, 0, 0, 0, 0, '', $moduletrans['picto'].$langs->trans("PathDirectory").' '.$outputdir);
 	} else {
-		print '<div class="titre">'.$moduletrans['picto'].$langs->trans("PathDirectory").' '.$outputdir.' :</div>';
+		print '<div class="titre paddingbottom wordwrap">'.$moduletrans['picto'].$langs->trans("PathDirectory").' '.$outputdir.'</div>';
 		print '<span class="opacitymedium">'.$langs->trans("NoPDFFileFound").'</span><br>';
 	}
 

@@ -1,0 +1,64 @@
+# Copyright (C) 2023 Alice Adminson
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see .
+
+#
+# Generic
+#
+
+# Module label 'ModuleAlumniName'
+ModuleAlumniName = Alumni
+# Module description 'ModuleAlumniDesc'
+ModuleAlumniDesc = Module voor het organiseren van een alumnibijeenkomst
+
+#
+# Admin page
+#
+AlumniSetup = Opstelling alumni
+Settings = Instellingen
+AlumniSetupPage = Opstellingspagina voor alumni
+ALUMNI_YEAR=Jaar sinds het afstuderen
+ALUMNI_PROMONAME=Naam of nummer van de actie
+ALUMNI_ENABLE_SURVEY=Enable the surveys provided by the website template
+ALUMNI_STEP_ORGANIZATION=Step of the project (1=Communication and first survey, 2=Selection of town and exact day, 3=Organization of event)
+
+
+#
+# About page
+#
+About = Over
+AlumniAbout = Over alumni
+AlumniAboutPage = Alumni over pagina
+
+AlumniArea = Home Alumni
+
+
+Lastname2=Meisjesnaam
+BudgetMaxActiviteParPers=Maximaal budget per gebruiker voor activiteiten
+BudgetMaxRepasParPers=Maximaal budget per gebruiker voor maaltijden
+ComWhatsapp=Wat is app
+ChoixPerimetre=Keuze van het bereik
+ActiviteAssociees=Gekoppelde activiteiten
+ActiviteAssocieesNature=Aard van de activiteiten
+
+PreferenceJour=Favoriete dag
+PreferenceMois=Favoriete maand
+Results=Resultaten
+EventChoices=Event choices
+NewVoteEntry=New event choice
+NbOfVotes=Number of event choices
+SetToPaid=Set to paid
+SetToUnpaid=Set to unpaid
+SetToDoNotReEngage=Set to do not re-engage
+SetToCanReEngage=Set to can re-engage

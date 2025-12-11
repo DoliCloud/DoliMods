@@ -97,8 +97,8 @@ class ActionsGoogle
 
 		$error = 0;
 
-		if ($conf->google->enabled) {
-			if (! empty($conf->global->GOOGLE_DUPLICATE_INTO_GCAL)) {
+		if (isModEnabled('google')) {
+			if (getDolGlobalString('GOOGLE_DUPLICATE_INTO_GCAL')) {
 				// Define $max, $maxgoogle and $notolderforsync
 				$max = getDolGlobalInt('GOOGLE_MAX_FOR_MASS_AGENDA_SYNC', 50);
 				$maxgoogle=2500;
@@ -108,8 +108,10 @@ class ActionsGoogle
 				$fuser = $user;
 				$now = dol_now();
 
-				$userlogin = empty($conf->global->GOOGLE_LOGIN)?'':$conf->global->GOOGLE_LOGIN;
-				if (empty($userlogin)) $userlogin = empty($fuser->conf->GOOGLE_LOGIN)?'':$fuser->conf->GOOGLE_LOGIN;
+				$userlogin = getDolGlobalString('GOOGLE_LOGIN');
+				if (empty($userlogin)) {
+					$userlogin = empty($fuser->conf->GOOGLE_LOGIN)?'':$fuser->conf->GOOGLE_LOGIN;
+				}
 
 				$keyparam = 'GOOGLE_AGENDA_LASTSYNC_'.$userlogin;
 				$valparam = getDolGlobalString($keyparam);
@@ -154,11 +156,8 @@ class ActionsGoogle
 
 				// HTML output to show into agenda views
 				$langs->load("google@google");
-				if ((float) DOL_VERSION >= 12) {
-					$this->resprints = ' &nbsp; <div class="googlerefreshcal inline-block">';
-				} else {
-					$this->resprints = '<div class="clearboth"></div><div class="googlerefreshcal">';
-				}
+
+				$this->resprints = ' &nbsp; <div class="googlerefreshcal inline-block">';
 				$this->resprints.= '<a href="'.$_SERVER["PHP_SELF"].'?'.$_SERVER['QUERY_STRING'].'&actiongoogle=refresh">';
 				$tooltip = $langs->trans("ClickToUpdateWithLastGoogleChanges", $userlogin);
 				$tooltip .= ' '.dol_print_date($dateminsync, 'dayhour', 'tzserver', $langs);

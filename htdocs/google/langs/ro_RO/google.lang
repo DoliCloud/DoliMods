@@ -1,35 +1,36 @@
 # Dolibarr language file - en_US - google
 CHARSET=UTF-8
-GoogleSetup=Configurarea integrării instrumentelor Google
+GoogleSetup=Configurare integrare instrumente Google
 GoogleSetupHelp=ID-ul agendei poate fi găsit pe pagina de parametri Google pentru agendă (Intrați în Google Calendar, apoi „Parametri” în roți, apoi fila „Agendă”, sau încercați acest link <a href="https://www.google.com/calendar/render#i"> https://www.google.com /calendar/render#i </a> și apoi faceți clic pe nume sau pe agenda dvs.). You Agenda ID este un ID care arată ca un e-mail.
-GoogleAgendaNb=Agenda nb %s
-GoogleIDAgenda=Agenda ID
-GoogleNbOfAgenda=Numărul de agende
+GoogleAgendaNb=Agenda nr %s
+GoogleIDAgenda=ID agendă
+GoogleNbOfAgenda=Număr de agende
 GoogleTools=instrumente Google
-GoogleEnableThisTool=Adăugați fila agendă Google în vizualizarea agendei
-GoogleEnableThisToolThirdParties=Activați aceste instrumente pe cardurile terților
-GoogleEnableThisToolContacts=Activați aceste instrumente pe cardurile Contacte
-GoogleEnableThisToolMembers=Activați aceste instrumente pe cardurile de membru
-GoogleAddPubOnLogonPage=Adăugați informații AdSense pentru a adăuga propriul anunț pe pagina de conectare (în caz contrar, păstrați necompletat)
+GoogleEnableThisTool=Adăugare filă agendă Google în vizualizarea agendei
+GoogleEnableThisToolThirdParties=Activare aceste instrumente pe filele terților
+GoogleEnableThisToolContacts=Activare aceste instrumente pe filele Contacte
+GoogleEnableThisToolMembers=Activare aceste instrumente pe filele de Membri
+GoogleAddPubOnLogonPage=Adăugare informații AdSense pentru propriul anunț pe pagina de conectare (în caz contrar, lasă necompletat)
 GoogleAddAnalyticsOnLogonPage=Adăugați ID Analytics pentru a adăuga etichetele Google Analytics pe fiecare pagină (în caz contrar, păstrați necompletat)
-GoogleZoomLevel=Nivel de zoom implicit (1 la 10)
-GoogleAddressNotDefined=Adresa nu este suficient de definită pentru a fi geolocalizată
+GoogleZoomLevel=Nivel de zoom implicit (de la 1 la 10)
+GoogleAddressNotDefined=Adresa nu este definită suficient pentru a fi geolocalizată
 GoogleMapsAddressNotFound=Adresa nu a fost găsită.
-GoogleAgendaToShow=Agenda de afișat
+GoogleAgendaToShow=Agendă de afișat
 GoogleEnableSyncToCalendar=Creați un eveniment Google în Google Calendar când creați un eveniment Dolibarr
 GoogleEnableSyncToThirdparties=Activați sincronizarea terților cu contactele Google GMail
 GoogleEnableSyncToContacts=Activați sincronizarea contactelor/adreselor cu contactele Google GMail
 GoogleEnableSyncToMembers=Activați sincronizarea membrilor cu contactele Google GMail
 AgendaView=Vizualizați agenda Google
 AgendaSync=Sincronizare cu agenda Google
-ContactSync=Sincronizați cu contactul Google
-GOOGLE_LOGIN=Conectați-vă la Google
-GOOGLE_PASSWORD=Mot de passe
+ContactSync=Sincronizare cu contactul Google
+GOOGLE_LOGIN=Conectare la Google
+GOOGLE_PASSWORD=Parolă
 GOOGLE_EVENT_LABEL_INC_SOCIETE=Adăugați numele unei terțe părți în eticheta evenimentului pentru evenimentele terță parte
 GOOGLE_EVENT_LABEL_INC_CONTACT=Adăugați numele contactului în eticheta evenimentului pentru evenimentele de contact
 GOOGLE_CONTACT_LABEL=Etichetați pentru a eticheta persoanele de contact
 GOOGLE_INCLUDE_AUTO_EVENT=Sincronizare și pentru evenimentele create automat de Dolibarr (vezi configurarea modulului Agenda pentru lista evenimentelor automate). <br> Dacă nu, numai evenimentele introduse manual în agendă sunt sincronizate.
-GOOGLE_INCLUDE_ATTENDEES=Adăugați și lista de participanți la eveniment. Google le poate trimite e-mailuri atunci când creați un eveniment cu participanți. De asemenea, uneori, Google nu permite utilizarea API-urilor atunci când există participanți.
+GOOGLE_INCLUDE_ATTENDEES=Add also list of attendees into event. Google may send emails to them when you create an event with attendees. Note: with some Google plan or setup, Google does not allow use of the APIs when there is attendees.
+GOOGLE_INCLUDE_ATTENDEESWarning=You may experience permissions error during connection to API when this options is ON. Enable this only once a test has been ran successfuly.
 MAIN_GOOGLE_AN_ID=ID Google Analytics
 GoogleIDContact=Cont Google
 GoogleNoTokenYet=Încă nu ai niciun simbol. Pentru a crea unul, trebuie doar să vă autentificați la Google cu următorul link:
@@ -39,25 +40,25 @@ GoogleDeleteAuthorization=Pentru a citi/șterge autorizația salvată de Google:
 Module101110Name=Google
 Module101110Desc=Modul pentru integrarea instrumentelor Google cu Dolibarr
 GoogleCalendarSyncConf=GoogleCalendarSyncConf
-TargetUser=Utilizatorul țintă
+TargetUser=Utilizator țintă
 KeepEmptyYoUseLoginPassOfEventUser=Păstrați gol dacă doriți o sincronizare per utilizator. Într-un astfel de caz, introduceți ID-ul agendei la fiecare nivel de utilizator. Definiți o valoare dacă doriți ca toate evenimentele să fie sincronizate în aceeași agendă Google.
 KeepEmptyYoUseLoginPassOfEventUserAssigned=În prezent, această configurație este goală. Înseamnă că agenda vizată va fi agenda utilizatorului care este proprietarul evenimentului (ID-ul agendei va fi definit pentru fiecare utilizator). Nu se realizează nicio sincronizare dacă nu este finalizată configurarea ID-ului agendei pentru acest utilizator.
 KeepEmptyYoUseLoginPassOfEventUserSaleRep=Agenda vizată este agenda primului reprezentant de vânzare al terților la care este legat evenimentul. Dacă nu există o terță parte pentru eveniment, nici un reprezentant de vânzare pentru o terță parte, nu se face nicio sincronizare.
-KeepEmptyYoUsePublicQuotaOfAPI=Păstrați gol pentru a utiliza cota publică de API.
+KeepEmptyYoUsePublicQuotaOfAPI=Lasă necompletat pentru a utiliza cota publică de API.
 AllowGoogleToLoginWithKey=Trebuie să aveți un cont Google și să vă creați propria cheie din pagina <a href="%s" target="_blank"> %s </a> , meniul „API & Servicii” -> „Acreditări”. Faceți clic pe „Creați o cheie” și alegeți „Cheie server”, apoi „Creare”. Veți primi cheia de server.
 AllowGoogleToLoginWithClientID=Puteți să vă creați <strong> Google Client ID și Secret </strong> de pe pagina <a href="%s" target="_blank"> %s </a> , selectați un proiect sau creați unul, apoi meniul „C&APIredentials” -> „Cărți și servicii”. Faceți clic pe „Creați/Adăugați un ID de client OAuth 2.0” și alegeți „Aplicație web”, setați „Originea Javascript permisă” să se golească și setați „URI de redirecționare” la <br> <strong> %s a0a0f6fz0 a0a0f6fz0f0f0f0fz0fz0fz0. Veți primi un nou ID de client <strong> </strong> și un cod secret <strong> </strong> . Trebuie să introduceți aici codul client <strong> </strong> și <strong> Client Secret </strong> pe rândul următor.
 AllowGoogleToLoginWithClientSecret=Consultați nota de pe linia anterioară pentru a afla cum să obțineți secretul dvs. de client Google.
 AllowGoogleToLoginWithServiceAccount=Puteți să vă creați contul de serviciu <strong> utilizator/e-mail </strong> de pe pagina <a href="%s" target="_blank"> %s </a>, selectați un proiect sau creați unul, apoi meniul „C&APIredentials” -> „Căruiește și API”. Faceți clic pe „Creați/Adăugați un ID de client” și alegeți „Cont de serviciu”, apoi „Creați”. Veți obține un nou cont de serviciu cu un ID de client <strong> </strong> și un cont de serviciu <strong> E-mail </strong>. Aici trebuie să introduceți contul de serviciu <strong> E-mail </strong> .
-EnableAPI=De asemenea, trebuie să activați API-ul pentru contul dvs. Google. Pentru aceasta accesați pagina <a href="%s" target="_blank"> %s </a> , meniul „API & Servicii” -> „API”. Faceți clic pentru a activa API-ul pentru „%s”.
+EnableAPI=You must enable the API for your Google account. For this go on page <a href="%s" target="_blank">%s</a>, menu "API & Services" -> "API". Click to enable API for "%s".
 ShareCalendarWithServiceAccount=De asemenea, trebuie să partajezi agenda (cu toate permisiunile) cu utilizatorul/contul de email de serviciu <strong>%s</strong>: Pentru aceasta, accesează calendarul Google. Trebuie să fie aceeași Agendă ca cea aleasă la parametrul "%s". Alege "Parametri", apoi fă clic pe numele agendei pentru a afișa link-ul "Partajare parametri cu...". Fă clic pe el și adaugă utilizatorul contului de serviciu ca și contact cu care să partajați agenda. Alege permisiunea „Editare evenimente” și validează făcând clic pe "Adăugare utilizator".
 ShareCalendarWithServiceAccount2=Cu <strong>Google Suite</strong> (nu este necesar pentru contul Gmail standard), permisiunile pot fi forțate la "Doar citire" în loc de "Editare". Dacă nu poți alege permisiunea „Editare”, accesează <a href="https://admin.google.com/AdminHome?pli=1&fral=1#AppDetails:service=Calendar&flyout=sharing" target="_blank">https://admin.google.com/AdminHome?pli=1&fral=1#AppDetails:service=Calendar&flyout=sharing</a> și verifică dacă opțiunea de partajare a aplicației Agendă permite partajarea cu extern cont de serviciu.
-GOOGLE_API_SERVERKEY=Cheia API (tastați „Cheia serverului”)
+GOOGLE_API_SERVERKEY=Cheie API (tastează "Cheie server")
 GoogleUserConf=Configurare Google
 GoogleSetupIsGlobal=Configurarea sincronizării se face la nivel global pentru toți utilizatorii la ID-ul agendei <strong> %s </strong>.
-TestCreateUpdateDelete=Testați create-update-delete
+TestCreateUpdateDelete=Testare creare-actualizare-ștergere
 TestCreateUpdate=Testați crearea-actualizare (pentru a elimina manual)
-TestCreate=Testați crearea (pentru a elimina manual)
-TestSuccessfull=Testul reușit
+TestCreate=Testare creare (pentru eliminare manuală)
+TestSuccessfull=Test reușit
 DueToGoogleLimitYouNeedToLogin=Din motive de securitate impuse de Google, vizualizarea calendarului Google se va afișa corect numai dacă sunteți conectat la Google (acest lucru va funcționa însă pentru un singur ID de agendă).
 AllowGoogleToLoginSetupKey=Pentru a integra acest proces de conectare Google în software-ul dvs. (nu este necesar), este posibil să configurați o cheie pentru a permite aplicației să ofere Logon Google dacă nu sunteți conectat.
 AllowGoogleToLoginProp=Puteți obține informații pentru această pagină de configurare creând o cheie utilizând acest link <a href="%s" target="_blank"> %s </a> : Selectați „API și servicii” -> „Acreditări”. Apoi faceți clic pe „Creați un ID” și alegeți tipul „Aplicație web”, introduceți ca „Adresă URL de redirecționare permisă”, următoarea adresă URL <strong> %s </strong> . Bifați pentru a nu introduce „Email client” ci „ID client” în primul câmp.
@@ -82,10 +83,10 @@ GOOGLE_TAG_PREFIX_CONTACTS=Eticheta grupului pentru a eticheta contactele/adrese
 GOOGLE_TAG_PREFIX_MEMBERS=Eticheta grupului pentru a eticheta membrii Dolibarr în contactul Google
 ErrorLabelsMustDiffers=Eroare, valoarea pentru etichete trebuie să fie unică
 BoxMaps=Lista hărților disponibile
-MapOfThirdparties=Harta terților
-MapOfContactsAddresses=Harta contactelor/adreselor
-MapOfMembers=Harta membrilor
-MapOfPatients=Harta pacientilor
+MapOfThirdparties=Hartă terți
+MapOfContactsAddresses=Hartă contacte/adrese
+MapOfMembers=Hartă membri
+MapOfPatients=Hartă pacienți
 NoAddressDefined=Nu au fost definite adrese
 FollowingAddressCantBeLocalized=Următoarele adrese nu au putut fi localizate pe hartă
 OnlyXAddressesAmongYWereGeoencoded=Din cauza cotelor Google (localizarea adreselor se face prin dimensiunea pachetului de %s), unele adrese nu sunt reprezentate deoarece nu sunt inca geocodate.
@@ -94,10 +95,10 @@ ClickHereToIncludeXMore=Faceți clic aici pentru a geocoda mai multe adrese
 ListOfMaps=Lista hărților disponibile
 By1=Până la 1
 By25=Până la 25
-By50=Byr 50
+By50=Până la 50
 By100=Până la 100
 By250=Până la 250
-ParametersForGoogleOAuth=Turnați Google API OAuth 2.0
+ParametersForGoogleOAuth=Pentru Google API OAuth 2.0
 ParametersForGoogleAPIv2Usage=Pentru Google API %s V2
 ParametersForGoogleAPIv3Usage=Pentru Google API %s V3
 GoogleClientId=ID client
@@ -111,13 +112,13 @@ GOOGLE_API_SERVICEACCOUNT_CLIENT_ID=ID client cont de serviciu
 GOOGLE_API_SERVICEACCOUNT_EMAIL=E-mailul contului de serviciu pentru a permite (NU autentificarea/e-mailul la contul dvs. Google)
 GOOGLE_API_SERVICEACCOUNT_P12KEY=Fișierul json al contului de serviciu
 FillThisOnlyIfRequired=Exemplu: +2 (se completează numai dacă a apărut o problemă)
-AboutInfo=Acest modul este dezvoltat și distribuit de Laurent Destailleur pentru DoliCloud, <a href="https://www.dolicloud.com?origin=dolimods"> www.dolicloud.com </a> (O companie Dolibarr Preferred Partner).
+AboutInfo=This module is developped and distributed by Laurent Destailleur for DoliCloud, <a href="https://www.dolicloud.com?origin=dolimods">www.dolicloud.com</a> (A Dolibarr Preferred Partner company).
 MoreModules=Alte module ale aceluiași autor sunt disponibile pe piața oficială DoliStore...
-MoreModulesLink= <a target="_blank" href="https://www.dolistore.com/search.php?search_query=dolicloud"> Faceți clic aici pentru a vedea lista completă </a>
+MoreModulesLink=<a target="_blank" href="https://www.dolistore.com/search.php?search_query=dolicloud">Click here to see full list</a>
 MoreCloudHosting=Pentru a utiliza Dolibarr online, alegeți găzduirea securizată DoliCloud.
-MoreCloudHostingLink= <a target="_blank" href="https://www.dolicloud.com?origin=dolimods"> Faceți clic aici pentru mai multe informații </a>
+MoreCloudHostingLink=<a target="_blank" href="https://www.dolicloud.com?origin=dolimods">Click here for more information</a>
 CompatibleWithDoliDroid=Acest module este compatibil și cu DoliDroid, aplicația Android pentru Dolibarr.
-LinkToThirdParty=Link către o terță parte
+LinkToThirdParty=Link către o terț
 LinkToContact=Link către contact
 GoogleContactSyncInfo=Folosește aici orice etichetă la alegere. Grupul va fi creat în Google Contact dacă nu există. De asemenea, poți utiliza o etichetă a unuia dintre orice grup de sistem Google predefinit, cum ar fi: <br>"contactGroups/myContacts", "contactGroups/coworkers", "contactGroups/family", "contactGroups/friends" <br>Reține, de asemenea, că numai grupul de sistem predefinit "contactGroups/ myContacts" este partajat de funcția „Delegare contacte” disponibilă în Google Contact din Google Suite.
 XRecordDeleted= <strong> %s </strong> înregistrările au fost șterse
@@ -135,7 +136,9 @@ GoogleLimitBackTime=Din cauza unei limite Google, solicitările sunt limitate la
 ResetGeoEncodingErrors=Resetați tabelul cu erori de codificare geografică
 RecordInGeoEncodingErrorDeleted=Toate înregistrările cu erori de codificare geografică au fost resetate pentru o altă încercare de codificare geografică.
 IconTiers=Utilizați o picto diferită pentru prospect, client și furnizor
-CustomersOnly=Numai clienții
-ProspectsOnly=Numai perspective
-RefreshEventFromGoogle=Actualizează evenimentele de la Google
+CustomersOnly=Numai clienți
+ProspectsOnly=Numai prospecți
+RefreshEventFromGoogle=Actualizează evenimentele din Google
 Tool=Instrument
+DateExpiration=Expiration date
+GOOGLE_DEBUG=Enable additional logs specific to the Google module (dolibarr_google.* files)

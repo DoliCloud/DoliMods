@@ -24,7 +24,7 @@
 // Load Dolibarr environment
 $res=0;
 // Try main.inc.php into web root known defined into CONTEXT_DOCUMENT_ROOT (not always defined)
-if (! $res && ! empty($_SERVER["CONTEXT_DOCUMENT_ROOT"])) $res=@include $_SERVER["CONTEXT_DOCUMENT_ROOT"]."/main.inc.php";
+if (! $res && ! empty($_SERVER["CONTEXT_DOCUMENT_ROOT"])) $res=@include str_replace("..", "", $_SERVER["CONTEXT_DOCUMENT_ROOT"])."/main.inc.php";
 // Try main.inc.php into web root detected using web root caluclated from SCRIPT_FILENAME
 $tmp=empty($_SERVER['SCRIPT_FILENAME'])?'':$_SERVER['SCRIPT_FILENAME'];$tmp2=realpath(__FILE__); $i=strlen($tmp)-1; $j=strlen($tmp2)-1;
 while ($i > 0 && $j > 0 && isset($tmp[$i]) && isset($tmp2[$j]) && $tmp[$i]==$tmp2[$j]) { $i--; $j--; }
@@ -39,10 +39,12 @@ $res=dol_include_once("/memcached/lib/memcached.lib.php");
 require_once DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php";
 
 // Security check
-if (!$user->admin)
-accessforbidden();
-if (! empty($dolibarr_memcached_setup_disable))	// Hidden variable to add to conf file to disable setup
-accessforbidden();
+if (!$user->admin) {
+	accessforbidden();
+}
+if (! empty($dolibarr_memcached_setup_disable)) {	// Hidden variable to add to conf file to disable setup
+	accessforbidden();
+}
 
 $langs->load("admin");
 $langs->load("errors");
@@ -52,6 +54,7 @@ $langs->load("memcached@memcached");
 $action=GETPOST('action');
 
 //exit;
+
 
 /*
  * Actions
@@ -155,9 +158,17 @@ print "</form>\n";
 dol_fiche_end();
 
 if (! $error) {
-	if (class_exists("Memcached")) $m=new Memcached();
-	elseif (class_exists("Memcache")) $m=new Memcache();
-	else dol_print_error('', 'Should not happen');
+	if (class_exists("Memcached")) {
+		$m=new Memcached();
+	} elseif (class_exists("Memcache")) {
+		$m=new Memcache();
+	} else {
+		dol_print_error('', 'Should not happen');
+
+		llxfooter();
+		$db->close();
+		exit;
+	}
 
 	if (getDolGlobalString('MEMCACHED_SERVER')) {
 		$tmparray=explode(':', getDolGlobalString('MEMCACHED_SERVER'));
@@ -165,7 +176,7 @@ if (! $error) {
 		$port = (empty($tmparray[1]) ? 0 : $tmparray[1]);
 
 		dol_syslog("Try to connect to server ".$server." port ".$port." with class ".get_class($m));
-		$result=$m->addServer($server, ($port || strpos($tmparray[0], '/') !== false) ? $port : 11211);
+		$result = $m->addServer($server, ($port || strpos($tmparray[0], '/') !== false) ? $port : 11211);
 		//$m->setOption(Memcached::OPT_COMPRESSION, false);
 		//print "xxx".$result;
 
@@ -198,8 +209,8 @@ if (! $error) {
 	print '<br>';
 
 
-	// Statistics of cache server
-	print '<table class="noborder" width="60%">';
+	// Status of the memcached server
+	print '<table class="noborder centpercent">';
 	print '<tr class="liste_titre"><td colspan="2">'.$langs->trans("Status").'</td></tr>';
 
 	if (!getDolGlobalString('MEMCACHED_SERVER')) {
@@ -212,7 +223,12 @@ if (! $error) {
 
 		foreach ($newarraycache as $key => $val) {
 			print '<tr class="oddeven"><td>'.$langs->trans("MemcachedServer").'</td>';
-			print '<td>'.$key.'</td></tr>';
+			print '<td>';
+			$addresstoshow = $key;
+			// If we use the socket connection, the address is '/path/to/file.sock:11211' instead of '/path/to/file.sock'
+			$addresstoshow = preg_replace('/\.sock:11211$/', '.sock', $addresstoshow);
+			print $addresstoshow;
+			print '</td></tr>';
 
 			print '<tr class="oddeven"><td>'.$langs->trans("Version").'</td>';
 			print '<td>'.$val['version'].'</td></tr>';
@@ -221,7 +237,11 @@ if (! $error) {
 			print '<td>'.$langs->trans("On").'</td></tr>';
 		}
 	} else {
-		print '<tr><td colspan="2">'.$langs->trans("FailedToReadServer").' - Result code = '.$resultcode.'</td></tr>';
+		$resultmsg = 'Unknown error';
+		if (method_exists($m, 'getLastErrorMessage')) {
+			$resultmsg = $m->getLastErrorMessage();
+		}
+		print '<tr><td colspan="2">'.$langs->trans("FailedToReadServer").' - Result code = '.$resultmsg.'</td></tr>';
 	}
 
 	print '</table>';

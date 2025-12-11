@@ -25,7 +25,7 @@
 // Load Dolibarr environment
 $res=0;
 // Try main.inc.php into web root known defined into CONTEXT_DOCUMENT_ROOT (not always defined)
-if (! $res && ! empty($_SERVER["CONTEXT_DOCUMENT_ROOT"])) $res=@include $_SERVER["CONTEXT_DOCUMENT_ROOT"]."/main.inc.php";
+if (! $res && ! empty($_SERVER["CONTEXT_DOCUMENT_ROOT"])) $res=@include str_replace("..", "", $_SERVER["CONTEXT_DOCUMENT_ROOT"])."/main.inc.php";
 // Try main.inc.php into web root detected using web root caluclated from SCRIPT_FILENAME
 $tmp=empty($_SERVER['SCRIPT_FILENAME'])?'':$_SERVER['SCRIPT_FILENAME'];$tmp2=realpath(__FILE__); $i=strlen($tmp)-1; $j=strlen($tmp2)-1;
 while ($i > 0 && $j > 0 && isset($tmp[$i]) && isset($tmp2[$j]) && $tmp[$i]==$tmp2[$j]) { $i--; $j--; }
@@ -57,6 +57,8 @@ llxHeader('', '', $help_url);
 $linkback='<a href="'.DOL_URL_ROOT.'/admin/modules.php?restore_lastsearch_values=1">'.$langs->trans("BackToModuleList").'</a>';
 print_fiche_titre($langs->trans("TawkToSetup"), $linkback, 'object_tawkto@tawkto');
 
+$head = array();
+
 $h=0;
 $head[$h][0] = 'setup.php';
 $head[$h][1] = $langs->trans("Setup");
@@ -68,7 +70,7 @@ $head[$h][1] = $langs->trans("About");
 $head[$h][2] = 'tababout';
 $h++;
 
-dol_fiche_head($head, 'tababout', '', -1);
+dol_fiche_head($head, 'tababout', '', -1, '');
 
 dol_include_once('/tawkto/core/modules/modTawkTo.class.php');
 $tmpmodule = new modTawkTo($db);

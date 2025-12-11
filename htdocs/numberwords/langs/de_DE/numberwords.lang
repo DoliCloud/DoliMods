@@ -3,13 +3,14 @@ CHARSET=UTF-8
 Module101220Name=Zahlenwörter
 Module101220Desc=Fügen Sie Funktionen hinzu, um Beträge und Zahlen im Volltext in Werte umzuwandeln (nur wenige Sprachen werden unterstützt)
 NumberWordsSetup=Einrichtung des Number Words-Moduls
-DescNumberWords=Dieses Modul bietet Funktionen zum Umwandeln von Zahlen oder Beträgen in ganze Zeichen. Es ersetzt auch die folgenden Zeichenfolgenvorkommen __AMOUNT_TEXT__, __AMOUNT_CURRENCY_TEXT__, __AMOUNT_WO_TAX_TEXT__, __AMOUNT_CURRENCY_WO_TAX_TEXT__, __AMOUNT_VAT_TEXT__ oder __AMOUNT_CURRENCY_VAT_TEXT__ in allen Texten, in denen sie verwendet werden, durch den Gesamtbetrag ohne Steuern, den Gesamtbetrag ohne Steuern oder den Gesamtbetrag der Mehrwertsteuer, ...
-AboutInfo=Dieses Modul wurde entwickelt und vertrieben von Laurent Destailleur für DoliCloud, <a href="https://www.dolicloud.com?origin=dolimods"> www.dolicloud.com </a> (ein bevorzugtes Partnerunternehmen von Dolibarr).
+DescNumberWords=Dieses Modul bietet Funktionen zum Umwandeln von Zahlen oder Beträgen in vollständige Zeichen. Es ersetzt außerdem die folgenden Zeichenfolgenvorkommen __AMOUNT_TEXT__, __AMOUNT_TEXTCURRENCY__, __AMOUNT_EXCL_TAX__, __AMOUNT_EXCL_TAXCURRENCY__, __AMOUNT_VAT_TEXT__ oder __AMOUNT_VAT_TEXTCURRENCY__ durch den Gesamtbetrag abzüglich Steuern, den Gesamtbetrag ohne Steuern oder den Gesamtbetrag der Mehrwertsteuer in allen Texten, die diese verwenden (Freitext auf Rechnungen, ...).
+AboutInfo=This module is developped and distributed by Laurent Destailleur for DoliCloud, <a href="https://www.dolicloud.com?origin=dolimods">www.dolicloud.com</a> (A Dolibarr Preferred Partner company).
 MoreModules=Andere Module desselben Autors sind auf dem offiziellen Marktplatz von DoliStore erhältlich...
-MoreModulesLink= <a target="_blank" href="https://www.dolistore.com/search.php?search_query=dolicloud"> Klicken Sie hier, um die vollständige Liste </a> anzuzeigen
+MoreModulesLink=<a target="_blank" href="https://www.dolistore.com/search.php?search_query=dolicloud">Click here to see full list</a>
 MoreCloudHosting=Um Online-Dolibarr zu verwenden, wählen Sie das gesicherte Hosting DoliCloud.
-MoreCloudHostingLink= <a target="_blank" href="https://www.dolicloud.com?origin=dolimods"> Klicken Sie hier für weitere Informationen </a>
+MoreCloudHostingLink=<a target="_blank" href="https://www.dolicloud.com?origin=dolimods">Click here for more information</a>
 CompatibleWithDoliDroid=Dieses Modul ist auch mit DoliDroid, der Android-Anwendung für Dolibarr, kompatibel.
 SetupToChange=Setup-Seite de ändern
 NUMBERWORDS_USE_CURRENCY_SYMBOL=Verwenden Sie das Symbol anstelle des Volltexts für die Währung
 NUMBERWORDS_USE_ADD_SHORTCODE_WITH_SYMBOL=Fügen Sie den Kurzcode der Währung vor dem Symbol hinzu
+NUMBERWORDS_FORCE_UPPERCASE=Force the text in uppercase

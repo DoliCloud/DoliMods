@@ -1,0 +1,64 @@
+# Copyright (C) 2023 Alice Adminson
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see .
+
+#
+# Generic
+#
+
+# Module label 'ModuleAlumniName'
+ModuleAlumniName = Ex-alunni
+# Module description 'ModuleAlumniDesc'
+ModuleAlumniDesc = Modulo per l'organizzazione di un evento di incontro degli ex studenti
+
+#
+# Admin page
+#
+AlumniSetup = Configurazione degli ex studenti
+Settings = Impostazioni
+AlumniSetupPage = Pagina di configurazione degli ex studenti
+ALUMNI_YEAR=Anno dalla laurea
+ALUMNI_PROMONAME=Nome o numero della promozione
+ALUMNI_ENABLE_SURVEY=Enable the surveys provided by the website template
+ALUMNI_STEP_ORGANIZATION=Step of the project (1=Communication and first survey, 2=Selection of town and exact day, 3=Organization of event)
+
+
+#
+# About page
+#
+About = Di
+AlumniAbout = A proposito degli ex studenti
+AlumniAboutPage = Alumni sulla pagina
+
+AlumniArea = Ex-alunni di casa
+
+
+Lastname2=Nome da nubile
+BudgetMaxActiviteParPers=Budget massimo per utente per le attività
+BudgetMaxRepasParPers=Budget massimo per utente per i pasti
+ComWhatsapp=WhatsApp
+ChoixPerimetre=Scelta dell'ambito
+ActiviteAssociees=Attività collegate
+ActiviteAssocieesNature=Natura delle attività
+
+PreferenceJour=Giorno preferito
+PreferenceMois=Mese preferito
+Results=Risultati
+EventChoices=Event choices
+NewVoteEntry=New event choice
+NbOfVotes=Number of event choices
+SetToPaid=Set to paid
+SetToUnpaid=Set to unpaid
+SetToDoNotReEngage=Set to do not re-engage
+SetToCanReEngage=Set to can re-engage

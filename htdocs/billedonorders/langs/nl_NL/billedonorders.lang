@@ -3,11 +3,11 @@ CHARSET= UTF-8
 BilledOnOrders=Gefactureerd op bestellingen
 BilledOnOrdersSetup=Configuratie van de module Gefactureerd op bestellingen
 Module101450Desc=Module om het gefactureerde bedrag te tonen en te factureren volgens gekoppelde facturen op de lijst met klant- of leveranciersorders
-AboutInfo=Deze module is ontwikkeld en gedistribueerd door Laurent Destailleur voor DoliCloud, <a href="https://www.dolicloud.com?origin=dolimods"> www.dolicloud.com </a> (A Dolibarr Preferred Partner company).
+AboutInfo=This module is developped and distributed by Laurent Destailleur for DoliCloud, <a href="https://www.dolicloud.com?origin=dolimods">www.dolicloud.com</a> (A Dolibarr Preferred Partner company).
 MoreModules=Andere modules van dezelfde auteur zijn beschikbaar op de officiële DoliStore-marktplaats...
-MoreModulesLink= <a target="_blank" href="https://www.dolistore.com/search.php?search_query=dolicloud"> Klik hier om de volledige lijst te zien </a>
+MoreModulesLink=<a target="_blank" href="https://www.dolistore.com/search.php?search_query=dolicloud">Click here to see full list</a>
 MoreCloudHosting=Om online Dolibarr te gebruiken, kiest u de beveiligde hosting DoliCloud.
-MoreCloudHostingLink= <a target="_blank" href="https://www.dolicloud.com?origin=dolimods"> Klik hier voor meer informatie </a>
+MoreCloudHostingLink=<a target="_blank" href="https://www.dolicloud.com?origin=dolimods">Click here for more information</a>
 BilledOnOrdersNothingToSetup=Niets in te stellen. Nieuwe velden zijn beschikbaar in de lijst met klantorders.
 AmountBilledHT=Gefactureerd bedrag (excl. btw)
 AmountBilledTTC=Gefactureerd bedrag (incl. btw)

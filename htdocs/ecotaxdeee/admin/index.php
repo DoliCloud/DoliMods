@@ -11,7 +11,7 @@
 // Load Dolibarr environment
 $res=0;
 // Try main.inc.php into web root known defined into CONTEXT_DOCUMENT_ROOT (not always defined)
-if (! $res && ! empty($_SERVER["CONTEXT_DOCUMENT_ROOT"])) $res=@include $_SERVER["CONTEXT_DOCUMENT_ROOT"]."/main.inc.php";
+if (! $res && ! empty($_SERVER["CONTEXT_DOCUMENT_ROOT"])) $res=@include str_replace("..", "", $_SERVER["CONTEXT_DOCUMENT_ROOT"])."/main.inc.php";
 // Try main.inc.php into web root detected using web root caluclated from SCRIPT_FILENAME
 $tmp=empty($_SERVER['SCRIPT_FILENAME'])?'':$_SERVER['SCRIPT_FILENAME'];$tmp2=realpath(__FILE__); $i=strlen($tmp)-1; $j=strlen($tmp2)-1;
 while ($i > 0 && $j > 0 && isset($tmp[$i]) && isset($tmp2[$j]) && $tmp[$i]==$tmp2[$j]) { $i--; $j--; }
@@ -21,7 +21,12 @@ if (! $res && $i > 0 && file_exists(dirname(substr($tmp, 0, ($i+1)))."/main.inc.
 if (! $res && file_exists("../../main.inc.php")) $res=@include "../../main.inc.php";
 if (! $res && file_exists("../../../main.inc.php")) $res=@include "../../../main.inc.php";
 if (! $res) die("Include of main fails");
-
+/**
+ * @var Conf $conf
+ * @var DoliDB $db
+ * @var Translate $langs
+ * @var User $user
+ */
 require_once DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php";
 require_once DOL_DOCUMENT_ROOT."/core/lib/date.lib.php";
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.formadmin.class.php';
@@ -37,6 +42,8 @@ $langs->loadLangs(array("admin", "other", "ecotaxdeee@ecotaxdeee", "orders", "bi
 
 $action = GETPOST("action", 'aZ09');
 
+$error = 0;
+
 
 /*
  * Actions
@@ -49,7 +56,7 @@ if ($action == 'save') {
 	$res = dolibarr_set_const($db, 'ECOTAXDEEE_USE_ON_CUSTOMER_ORDER', trim(GETPOST("ECOTAXDEEE_USE_ON_CUSTOMER_ORDER")), 'chaine', 0, '', $conf->entity);
 	$res = dolibarr_set_const($db, 'ECOTAXDEEE_USE_ON_CUSTOMER_INVOICE', trim(GETPOST("ECOTAXDEEE_USE_ON_CUSTOMER_INVOICE")), 'chaine', 0, '', $conf->entity);
 	$res = dolibarr_set_const($db, 'ECOTAXDEEE_LABEL_LINE', trim(GETPOST("ECOTAXDEEE_LABEL_LINE")), 'chaine', 0, '', $conf->entity);
-	$res = dolibarr_set_const($db, 'ECOTAXDEEE_DOC_FOOTER', trim(GETPOST("ECOTAXDEEE_DOC_FOOTER")), 'chaine', 0, '', $conf->entity);
+	$res = dolibarr_set_const($db, 'ECOTAXDEEE_DOC_FOOTER', trim(dol_string_nohtmltag(GETPOST("ECOTAXDEEE_DOC_FOOTER", 'restricthtml'), 2, 'UTF-8', 0, 0)), 'chaine', 0, '', $conf->entity);
 
 	$product_wee=$_POST["WEEE_PRODUCT_ID"];
 	if ($product_wee < 0) {
@@ -194,7 +201,7 @@ print "</tr>";
 print '<tr class="oddeven">';
 print "<td>".$langs->trans("ECOTAXDEEE_DOC_FOOTER")." (Dolibarr 3.6+)</td>";
 print "<td>";
-$selectedvalue=getDolGlobalString('ECOTAXDEEE_DOC_FOOTER');
+$selectedvalue = getDolGlobalString('ECOTAXDEEE_DOC_FOOTER');
 $doleditor=new DolEditor("ECOTAXDEEE_DOC_FOOTER", $selectedvalue, '', '250', 'dolibarr_details', 'In', 1, 1, 1, ROWS_8, '90%');
 $doleditor->Create(0, '');
 print '<br>';
@@ -231,32 +238,25 @@ print '<br>';
 dol_fiche_end();
 
 print '<center>';
-//print "<input type=\"submit\" name=\"test\" class=\"button\" value=\"".$langs->trans("TestConnection")."\">";
-//print "&nbsp; &nbsp;";
-print "<input type=\"submit\" name=\"save\" class=\"button\" value=\"".$langs->trans("Save")."\">";
+print '<input type="submit" name="save" class="button" value="'.$langs->trans("Save").'">';
 print "</center>";
 
 print "</form>\n";
 
+print '<br>';
+
 $elements=array();
-if (! empty($conf->global->ECOTAXDEEE_USE_ON_CUSTOMER_ORDER) && $conf->global->ECOTAXDEEE_USE_ON_CUSTOMER_ORDER != 'no') {
+if (getDolGlobalString('ECOTAXDEEE_USE_ON_CUSTOMER_ORDER') && getDolGlobalString('ECOTAXDEEE_USE_ON_CUSTOMER_ORDER') != 'no') {
 	$elements[]=$langs->transnoentitiesnoconv("CustomersOrders");
 }
-if (! empty($conf->global->ECOTAXDEEE_USE_ON_PROPOSAL) && $conf->global->ECOTAXDEEE_USE_ON_PROPOSAL != 'no') {
+if (getDolGlobalString('ECOTAXDEEE_USE_ON_PROPOSAL') && getDolGlobalString('ECOTAXDEEE_USE_ON_PROPOSAL') != 'no') {
 	$elements[]=$langs->transnoentitiesnoconv("Proposals");
 }
-if (! empty($conf->global->ECOTAXDEEE_USE_ON_CUSTOMER_INVOICE) && $conf->global->ECOTAXDEEE_USE_ON_CUSTOMER_INVOICE != 'no') {
+if (getDolGlobalString('ECOTAXDEEE_USE_ON_CUSTOMER_INVOICE') && getDolGlobalString('ECOTAXDEEE_USE_ON_CUSTOMER_INVOICE') != 'no') {
 	$elements[]=$langs->transnoentitiesnoconv("BillsCustomers");
 }
 if (count($elements)) {
-	/*if (versioncompare(versiondolibarrarray(),array(3,6,-3)) >= 999)	// >= 0 if we are 3.6.0 alpha or +
-	{*/
-		$text=$langs->trans("EcoTaxAddedIfDesc", join(', ', $elements));
-	/*}
-	else
-	{
-		$text=$langs->trans("EcoTaxAddedIfDescOld",join(',',$elements));
-	}*/
+	$text = $langs->trans("EcoTaxAddedIfDesc", join(', ', $elements));
 	print info_admin($text);
 }
 

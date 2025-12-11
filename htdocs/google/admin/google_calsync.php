@@ -28,7 +28,7 @@
 // Load Dolibarr environment
 $res=0;
 // Try main.inc.php into web root known defined into CONTEXT_DOCUMENT_ROOT (not always defined)
-if (! $res && ! empty($_SERVER["CONTEXT_DOCUMENT_ROOT"])) $res=@include $_SERVER["CONTEXT_DOCUMENT_ROOT"]."/main.inc.php";
+if (! $res && ! empty($_SERVER["CONTEXT_DOCUMENT_ROOT"])) $res=@include str_replace("..", "", $_SERVER["CONTEXT_DOCUMENT_ROOT"])."/main.inc.php";
 // Try main.inc.php into web root detected using web root caluclated from SCRIPT_FILENAME
 $tmp=empty($_SERVER['SCRIPT_FILENAME'])?'':$_SERVER['SCRIPT_FILENAME'];$tmp2=realpath(__FILE__); $i=strlen($tmp)-1; $j=strlen($tmp2)-1;
 while ($i > 0 && $j > 0 && isset($tmp[$i]) && isset($tmp2[$j]) && $tmp[$i]==$tmp2[$j]) { $i--; $j--; }
@@ -412,7 +412,8 @@ $arrayofjs=array();
 $arrayofcss=array();
 llxHeader('', $langs->trans("GoogleSetup"), $help_url, '', 0, 0, $arrayofjs, $arrayofcss);
 
-$linkback='<a href="'.DOL_URL_ROOT.'/admin/modules.php?restore_lastsearch_values=1">'.$langs->trans("BackToModuleList").'</a>';
+$linkback = '<a href="'.DOL_URL_ROOT.'/admin/modules.php?restore_lastsearch_values=1">'.img_picto($langs->trans("BackToModuleList"), 'back', 'class="pictofixedwidth"').'<span class="hideonsmartphone">'.$langs->trans("BackToModuleList").'</span></a>';
+
 print_fiche_titre($langs->trans("GoogleSetup"), $linkback, 'setup');
 
 if (! function_exists("openssl_open")) {
@@ -662,18 +663,16 @@ if (getDolGlobalString('GOOGLE_DUPLICATE_INTO_GCAL')) {
 }
 
 if (getDolGlobalString('GOOGLE_DUPLICATE_INTO_GCAL')) {
-	if (versioncompare(versiondolibarrarray(), array(3,7,2)) >= 0) {
-		print '<form name="googleconfig" action="'.$_SERVER["PHP_SELF"].'" method="post">';
-		print '<input type="hidden" name="token" value="'.newToken().'">';
-		print '<input type="hidden" name="action" value="syncfromgoogle">';
-		print $langs->trans("ImportEventsFromGoogle", $max, getDolGlobalString('GOOGLE_LOGIN'))." ";
-		$now = dol_now() - ($notolderforsync * 24 * 3600);
-		print $form->selectDate($dateminsync ? $dateminsync : $now, 'sync', 1, 1, 0, '', 1, 0, getDolGlobalString('GOOGLE_LOGIN') ? 0 : 1);
-		print '<input type="submit" name="getall" class="button small" value="'.$langs->trans("Run").'"';
-		if (!getDolGlobalString('GOOGLE_LOGIN')) print ' disabled="disabled"';
-		print '>';
-		print "</form>\n";
-	}
+	print '<form name="googleconfig" action="'.$_SERVER["PHP_SELF"].'" method="post">';
+	print '<input type="hidden" name="token" value="'.newToken().'">';
+	print '<input type="hidden" name="action" value="syncfromgoogle">';
+	print $langs->trans("ImportEventsFromGoogle", $max, getDolGlobalString('GOOGLE_LOGIN'))." ";
+	$now = dol_now() - ($notolderforsync * 24 * 3600);
+	print $form->selectDate($dateminsync ? $dateminsync : $now, 'sync', 1, 1, 0, '', 1, 0, getDolGlobalString('GOOGLE_LOGIN') ? 0 : 1);
+	print '<input type="submit" name="getall" class="button small" value="'.$langs->trans("Run").'"';
+	if (!getDolGlobalString('GOOGLE_LOGIN')) print ' disabled="disabled"';
+	print '>';
+	print "</form>\n";
 }
 
 print '</div>';

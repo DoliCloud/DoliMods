@@ -59,7 +59,7 @@ class modSubmitEveryWhere extends DolibarrModules
 		$this->editor_name = 'DoliCloud';
 		$this->editor_url = 'https://www.dolicloud.com?origin=dolimods';
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
-		$this->version = '3.4';
+		$this->version = 'development';
 		// Key used in llx_const table to save module status enabled/disabled (where NewsSubmitter is value of property name of module in uppercase)
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
 		// Name of image file used for this module.

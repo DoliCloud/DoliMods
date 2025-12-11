@@ -32,7 +32,9 @@ ALUMNI_YEAR=Year since the graduate
 ALUMNI_PROMONAME=Name or number of the promotion
 ALUMNI_ENABLE_SURVEY=Enable the surveys provided by the website template
 ALUMNI_STEP_ORGANIZATION=Step of the project (1=Communication and first survey, 2=Selection of town and exact day, 3=Organization of event)
-
+ALUMNI_URL_ALBUM_PHOTO_BEFORE=URL album of old photo 
+ALUMNI_URL_ALBUM_PHOTO_NOW=URL album of current photo 
+ALUMNI_URL_ALBUM_PHOTO_EVENT=URL album of event 
 
 #
 # About page

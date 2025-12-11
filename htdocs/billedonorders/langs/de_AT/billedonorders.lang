@@ -1,19 +1,19 @@
 # Dolibarr language file - en_US - billedonorders
 CHARSET= UTF-8
-BilledOnOrders=Billed on orders
-BilledOnOrdersSetup=Billed On Orders module setup
-Module101450Desc=Module to show the amount billed and remain to billed according to linked invoices on the list of customer or supplier orders
+BilledOnOrders=Wird bei Bestellungen in Rechnung gestellt
+BilledOnOrdersSetup=Einrichtung des Moduls „Abgerechnet bei Bestellungen“.
+Module101450Desc=Modul zur Anzeige des in Rechnung gestellten Betrags und zur weiteren Abrechnung gemäß verknüpfter Rechnungen in der Liste der Kunden- oder Lieferantenbestellungen
 AboutInfo=This module is developped and distributed by Laurent Destailleur for DoliCloud, <a href="https://www.dolicloud.com?origin=dolimods">www.dolicloud.com</a> (A Dolibarr Preferred Partner company).
-MoreModules=Other modules of same author are available on the official DoliStore market place...
+MoreModules=Weitere Module desselben Autors sind auf dem offiziellen DoliStore-Marktplatz erhältlich...
 MoreModulesLink=<a target="_blank" href="https://www.dolistore.com/search.php?search_query=dolicloud">Click here to see full list</a>
-MoreCloudHosting=To use online Dolibarr, choose the secured hosting DoliCloud.
+MoreCloudHosting=Um Dolibarr online zu nutzen, wählen Sie das gesicherte Hosting DoliCloud.
 MoreCloudHostingLink=<a target="_blank" href="https://www.dolicloud.com?origin=dolimods">Click here for more information</a>
-BilledOnOrdersNothingToSetup=Nothing to setup. New fields are available into list of customer orders.
-AmountBilledHT=Amount billed (excl. tax)
-AmountBilledTTC=Amount billed (inc. tax)
-BILLEDONORDERS_DISABLE_BILLEDWOTAX=Disable column "Amount billed without tax"
-BILLEDONORDERS_DISABLE_BILLED=Disable column "Amount billed with tax"
-BILLEDONORDERS_DISABLE_PAYED=Disable column "Amount payed"
-BILLEDONORDERS_DISABLE_REMAINTOPAY=Disable column "Remain to pay"
-AmountBilledDiffersFromAmountOnOrder=Amount of invoices linked to order differs from amount of order
-AmongAlreadyCreatedInvoices=Among the already created invoices
+BilledOnOrdersNothingToSetup=Nichts einzurichten. In der Liste der Kundenaufträge sind neue Felder verfügbar.
+AmountBilledHT=Rechnungsbetrag (ohne Steuern)
+AmountBilledTTC=Rechnungsbetrag (inkl. Steuern)
+BILLEDONORDERS_DISABLE_BILLEDWOTAX=Spalte „Rechnungsbetrag ohne Steuer“ deaktivieren
+BILLEDONORDERS_DISABLE_BILLED=Spalte „In Rechnung gestellter Betrag mit Steuer“ deaktivieren
+BILLEDONORDERS_DISABLE_PAYED=Spalte „Bezahlter Betrag“ deaktivieren
+BILLEDONORDERS_DISABLE_REMAINTOPAY=Spalte „Zu zahlende Restzahlung“ deaktivieren
+AmountBilledDiffersFromAmountOnOrder=Die Anzahl der mit der Bestellung verknüpften Rechnungen weicht von der Menge der Bestellung ab
+AmongAlreadyCreatedInvoices=Unter den bereits erstellten Rechnungen

@@ -14,7 +14,7 @@
 // Load Dolibarr environment
 $res=0;
 // Try main.inc.php into web root known defined into CONTEXT_DOCUMENT_ROOT (not always defined)
-if (! $res && ! empty($_SERVER["CONTEXT_DOCUMENT_ROOT"])) $res=@include $_SERVER["CONTEXT_DOCUMENT_ROOT"]."/main.inc.php";
+if (! $res && ! empty($_SERVER["CONTEXT_DOCUMENT_ROOT"])) $res=@include str_replace("..", "", $_SERVER["CONTEXT_DOCUMENT_ROOT"])."/main.inc.php";
 // Try main.inc.php into web root detected using web root caluclated from SCRIPT_FILENAME
 $tmp=empty($_SERVER['SCRIPT_FILENAME'])?'':$_SERVER['SCRIPT_FILENAME'];$tmp2=realpath(__FILE__); $i=strlen($tmp)-1; $j=strlen($tmp2)-1;
 while ($i > 0 && $j > 0 && isset($tmp[$i]) && isset($tmp2[$j]) && $tmp[$i]==$tmp2[$j]) { $i--; $j--; }
@@ -119,13 +119,7 @@ if (!empty($MemoryLimit)) {
 	@ini_set('memory_limit', $MemoryLimit);
 }
 
-$countrytable="c_pays";
-$countrylabelfield='libelle';
 include_once DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php';
-if (versioncompare(versiondolibarrarray(), array(3,7,-3)) >= 0) {
-	$countrytable="c_country";
-	$countrylabelfield='label';
-}
 
 llxHeader();
 
@@ -145,10 +139,10 @@ if (empty($mode) || $mode=='thirdparty') {
 	$picto='company';
 	$type='company';
 	$sql="SELECT s.rowid as id, s.nom as name, s.address, s.zip, s.town, s.url, s.email, s.phone, s.client as client, s.fk_stcomm as statusprospet,";
-	$sql.= " c.rowid as country_id, c.code as country_code, c.".$countrylabelfield." as country,";
+	$sql.= " c.rowid as country_id, c.code as country_code, c.label as country,";
 	$sql.= " g.rowid as gid, g.fk_object, g.latitude, g.longitude, g.address as gaddress, g.result_code, g.result_label, g.tms";
 	$sql.= " FROM ".MAIN_DB_PREFIX."societe as s";
-	$sql.= " LEFT JOIN ".MAIN_DB_PREFIX.$countrytable." as c ON s.fk_pays = c.rowid";
+	$sql.= " LEFT JOIN ".MAIN_DB_PREFIX."c_country as c ON s.fk_pays = c.rowid";
 	$sql.= " LEFT JOIN ".MAIN_DB_PREFIX."google_maps as g ON s.rowid = g.fk_object and g.type_object = '".$db->escape($type)."'";
 	if ($search_sale > 0 || (!$user->hasRight('societe', 'client', 'voir') && ! $socid)) $sql.= ", ".MAIN_DB_PREFIX."societe_commerciaux as sc";
 	if ($search_departement != '' && $search_departement > 0) $sql.= ", ".MAIN_DB_PREFIX."c_departements as dp";
@@ -179,10 +173,10 @@ if (empty($mode) || $mode=='thirdparty') {
 	$picto='contact';
 	$type='contact';
 	$sql="SELECT s.rowid as id, s.lastname, s.firstname, s.address, s.zip, s.town, '' as url, s.email, s.phone,";
-	$sql.= " c.rowid as country_id, c.code as country_code, c.".$countrylabelfield." as country,";
+	$sql.= " c.rowid as country_id, c.code as country_code, c.label as country,";
 	$sql.= " g.rowid as gid, g.fk_object, g.latitude, g.longitude, g.address as gaddress, g.result_code, g.result_label, g.tms";
 	$sql.= " FROM ".MAIN_DB_PREFIX."socpeople as s";
-	$sql.= " LEFT JOIN ".MAIN_DB_PREFIX.$countrytable." as c ON s.fk_pays = c.rowid";
+	$sql.= " LEFT JOIN ".MAIN_DB_PREFIX."c_country as c ON s.fk_pays = c.rowid";
 	$sql.= " LEFT JOIN ".MAIN_DB_PREFIX."google_maps as g ON s.rowid = g.fk_object and g.type_object='".$type."'";
 	$sql.= " WHERE s.entity IN (".getEntity('societe', 1).")";
 	$sql.= " ORDER BY g.tms ASC, s.rowid ASC";
@@ -193,10 +187,10 @@ if (empty($mode) || $mode=='thirdparty') {
 	$picto='user';
 	$type='member';
 	$sql="SELECT s.rowid as id, s.lastname, s.firstname, s.address, s.zip, s.town, '' as url, s.email, s.phone, s.phone_perso, s.phone_mobile, s.societe,";
-	$sql.= " c.rowid as country_id, c.code as country_code, c.".$countrylabelfield." as country,";
+	$sql.= " c.rowid as country_id, c.code as country_code, c.label as country,";
 	$sql.= " g.rowid as gid, g.fk_object, g.latitude, g.longitude, g.address as gaddress, g.result_code, g.result_label, g.tms";
 	$sql.= " FROM ".MAIN_DB_PREFIX."adherent as s";
-	$sql.= " LEFT JOIN ".MAIN_DB_PREFIX.$countrytable." as c ON s.country = c.rowid";
+	$sql.= " LEFT JOIN ".MAIN_DB_PREFIX."c_country as c ON s.country = c.rowid";
 	$sql.= " LEFT JOIN ".MAIN_DB_PREFIX."google_maps as g ON s.rowid = g.fk_object and g.type_object='".$type."'";
 	$sql.= " WHERE s.statut = 1";
 	$sql.= " AND s.entity IN (".getEntity('adherent', 1).")";
@@ -212,10 +206,10 @@ if (empty($mode) || $mode=='thirdparty') {
 	$picto='user';
 	$type='patient';
 	$sql="SELECT s.rowid as id, s.nom as name, s.address, s.zip, s.town,";
-	$sql.= " c.rowid as country_id, c.code as country_code, c.".$countrylabelfield." as country, s.url, s.phone, s.email,";
+	$sql.= " c.rowid as country_id, c.code as country_code, c.label as country, s.url, s.phone, s.email,";
 	$sql.= " g.rowid as gid, g.fk_object, g.latitude, g.longitude, g.address as gaddress, g.result_code, g.result_label, g.tms";
 	$sql.= " FROM ".MAIN_DB_PREFIX."societe as s";
-	$sql.= " LEFT JOIN ".MAIN_DB_PREFIX.$countrytable." as c ON s.fk_pays = c.rowid";
+	$sql.= " LEFT JOIN ".MAIN_DB_PREFIX."c_country as c ON s.fk_pays = c.rowid";
 	$sql.= " LEFT JOIN ".MAIN_DB_PREFIX."google_maps as g ON s.rowid = g.fk_object and g.type_object='".$type."'";
 	if ($search_sale || (!$user->hasRight('societe', 'client', 'voir') && ! $socid)) $sql.= ", ".MAIN_DB_PREFIX."societe_commerciaux as sc";
 	if ($search_departement != '' && $search_departement > 0) $sql.= ", ".MAIN_DB_PREFIX."c_departements as dp";

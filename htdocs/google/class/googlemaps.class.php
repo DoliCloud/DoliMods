@@ -72,8 +72,6 @@ class Googlemaps // extends CommonObject
 	 */
 	function create($user, $notrigger = 0)
 	{
-		global $conf, $langs;
-
 		$error=0;
 
 		// Clean parameters
@@ -156,7 +154,6 @@ class Googlemaps // extends CommonObject
 	 */
 	function fetch($id, $element_id = 0, $element_type = '')
 	{
-		global $langs;
 		$sql = "SELECT";
 		$sql.= " t.rowid,";
 		$sql.= " t.fk_object,";
@@ -209,8 +206,6 @@ class Googlemaps // extends CommonObject
 	 */
 	function update($user = null, $notrigger = 0)
 	{
-		global $conf, $langs;
-
 		$error=0;
 
 		// Clean parameters
@@ -280,7 +275,6 @@ class Googlemaps // extends CommonObject
 	 */
 	function delete($user, $notrigger = 0)
 	{
-		global $conf, $langs;
 		$error=0;
 
 		$sql = "DELETE FROM ".MAIN_DB_PREFIX."google_maps";
@@ -330,7 +324,7 @@ class Googlemaps // extends CommonObject
 	 */
 	function createFromClone($fromid)
 	{
-		global $user,$langs;
+		global $user;
 
 		$error=0;
 

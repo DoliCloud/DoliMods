@@ -33,7 +33,7 @@ class ActionsConcatPdf
 	public $error;
 	public $errors=array();
 
-	// For Hookmanager return
+	// For HookManager return
 	public $resprints;
 	public $results = array();
 
@@ -255,7 +255,7 @@ class ActionsConcatPdf
 				}
 				foreach ($tmparray2 as $key => $val) {	// for example: $key is 'proposal' and value is 'model1a,model1b'
 					//var_dump($key.' - '.$altkey[$key].' - '.$val.' - '.$parameters['object']->element);
-					if (isset($parameters['object']->element) && ($parameters['object']->element == $key || $parameters['object']->element == $altkey[$key])) {
+					if (isset($parameters['object']->element) && ($parameters['object']->element == $key || (isset($altkey[$key]) && $parameters['object']->element == $altkey[$key]))) {
 						$tmpval = explode(',', $val);
 						foreach($tmpval as $val2) {
 							$concatpdffile[] = preg_replace('/\.pdf$/i', '', $val2);
@@ -366,7 +366,7 @@ class ActionsConcatPdf
 					}
 
 					$pdf->Output($filetoconcat1[0], 'F');
-					dolChmod($file);
+					dolChmod($filetoconcat1[0]);
 
 					if (! empty($deltemp)) {
 						// Delete temp files
@@ -646,9 +646,9 @@ class ActionsConcatPdf
 	/**
 	 * Resolve an object
 	 *
-	 * @param object $c pdf_context
-	 * @param array $obj_spec The object-data
-	 * @param boolean $encapsulate Must set to true, cause the parsing and fpdi use this method only without this para
+	 * @param object 	$c 				pdf_context
+	 * @param array 	$obj_spec 		The object-data
+	 * @param bool		$encapsulate 	Must set to true, cause the parsing and fpdi use this method only without this para
 	 */
 	/*
 	function pdf_resolve_object(&$c, $obj_spec, $encapsulate = true, $parser) {

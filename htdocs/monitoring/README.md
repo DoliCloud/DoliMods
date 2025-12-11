@@ -2,4 +2,7 @@
 
 ## Features
 
-This module provides some monitoring features.
+This module provides some monitoring features:
+
+- A daemon to make some scans
+- An interface to analyze results of scans

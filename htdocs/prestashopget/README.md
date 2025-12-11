@@ -1,7 +1,7 @@
 # PRESTASHOPGET FOR <a href="https://www.dolibarr.org">DOLIBARR ERP CRM</a>
 
 ## Features
-Add features to get summarized information on sales on a Prestashop eCommerce.
+Add features to get summarized information about sales on a Prestashop eCommerce.
 
 <!--
 ![Screenshot prestashopget](img/screenshot_prestashopget.png?raw=true "PrestashopGet"){imgmd}

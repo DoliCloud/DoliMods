@@ -41,7 +41,7 @@ class modPayplugDolicloud extends DolibarrModules
 	 */
 	public function __construct($db)
 	{
-		global $conf, $langs;
+		global $conf;
 
 		$this->db = $db;
 
@@ -54,7 +54,7 @@ class modPayplugDolicloud extends DolibarrModules
 
 		// Family can be 'base' (core modules),'crm','financial','hr','projects','products','ecm','technic' (transverse modules),'interface' (link with external tools),'other','...'
 		// It is used to group modules by family in module setup page
-		$this->family = "other";
+		$this->family = "interface";
 
 		// Module position in the family on 2 digits ('01', '10', '20', ...)
 		$this->module_position = '90';
@@ -72,7 +72,7 @@ class modPayplugDolicloud extends DolibarrModules
 
 		// Author
 		$this->editor_name = 'DoliCloud';
-		$this->editor_url = 'https://www.dolicloud.com/';		// Must be an external online web site
+		$this->editor_url = 'https://www.dolicloud.com?origin=dolimods';	// Must be an external online web site
 		$this->editor_squarred_logo = '';					// Must be image filename into the module/img directory followed with @modulename. Example: 'myimage.png@payplugdolicloud'
 
 		// Possible values for version are: 'development', 'experimental', 'dolibarr', 'dolibarr_deprecated', 'experimental_deprecated' or a version string like 'x.y.z'
@@ -87,7 +87,7 @@ class modPayplugDolicloud extends DolibarrModules
 		// If file is in theme/yourtheme/img directory under name object_pictovalue.png, use this->picto='pictovalue'
 		// If file is in module/img directory under name object_pictovalue.png, use this->picto='pictovalue@module'
 		// To use a supported fa-xxx css style of font awesome, use this->picto='xxx'
-		$this->picto = 'PayplugDolicloud.png@payplugdolicloud';
+		$this->picto = 'payplugdolicloud.png@payplugdolicloud';
 
 		// Define some features supported by module (triggers, login, substitutions, menus, css, etc...)
 		$this->module_parts = array(
@@ -157,7 +157,7 @@ class modPayplugDolicloud extends DolibarrModules
 
 		// Prerequisites
 		$this->phpmin = array(7, 1); // Minimum version of PHP required by module
-		$this->need_dolibarr_version = array(19, -3); // Minimum version of Dolibarr required by module
+		$this->need_dolibarr_version = array(21, 0, -3); // Minimum version of Dolibarr required by module
 		$this->need_javascript_ajax = 0;
 
 		// Messages at activation
@@ -480,7 +480,7 @@ class modPayplugDolicloud extends DolibarrModules
 				$bankaccount->date_solde = dol_now();
 				$idjournal = dol_getIdFromCode($this->db, 'BQ', 'accounting_journal', 'code', 'rowid');
 				$bankaccount->fk_accountancy_journal = (int) $idjournal;
-				
+
 				$searchaccountid = $bankaccount->create($user);
 			}
 			if ($searchaccountid > 0) {

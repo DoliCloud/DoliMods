@@ -31,10 +31,10 @@ AddFileName=Aggiungi il nome del file
 #####
 Module10600Name=Gestore di file
 Module10600Desc=Un file manager per scansionare e visualizzare il contenuto dei dischi del tuo server Dolibarr.
-AboutInfo=Questo modulo è sviluppato e distribuito da Laurent Destailleur per DoliCloud, <a href="https://www.dolicloud.com?origin=dolimods"> www.dolicloud.com </a> (una società Dolibarr Preferred Partner).
+AboutInfo=This module is developped and distributed by Laurent Destailleur for DoliCloud, <a href="https://www.dolicloud.com?origin=dolimods">www.dolicloud.com</a> (A Dolibarr Preferred Partner company).
 MoreModules=Altri moduli dello stesso autore sono disponibili sul mercato ufficiale di DoliStore...
-MoreModulesLink= <a target="_blank" href="https://www.dolistore.com/search.php?search_query=dolicloud"> Clicca qui per vedere l'elenco completo </a>
+MoreModulesLink=<a target="_blank" href="https://www.dolistore.com/search.php?search_query=dolicloud">Click here to see full list</a>
 MoreCloudHosting=Per utilizzare Dolibarr online, scegli l'hosting sicuro DoliCloud.
-MoreCloudHostingLink= <a target="_blank" href="https://www.dolicloud.com?origin=dolimods"> Clicca qui per maggiori informazioni </a>
+MoreCloudHostingLink=<a target="_blank" href="https://www.dolicloud.com?origin=dolimods">Click here for more information</a>
 CompatibleWithDoliDroid=Questo modulo è compatibile anche con DoliDroid, l'applicazione Android per Dolibarr.
 ErrorFileManagerWebServerUserHasNotPermission=L'account utente utilizzato dal server web non ha il permesso di scrivere

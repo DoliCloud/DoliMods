@@ -88,10 +88,10 @@ class GoogleMapAPI
 	/**
 	 * Set the useClusterer parameter (optimization to display a lot of marker)
 	 *
-	 * @param boolean $useClusterer use cluster or not
-	 * @param int $gridSize grid size (The grid size of a cluster in pixel. Each cluster will be a square. If you want the algorithm to run faster, you can set this value larger. The default value is 100.)
-	 * @param int $maxZoom maxZoom (The max zoom level monitored by a marker cluster. If not given, the marker cluster assumes the maximum map zoom level. When maxZoom is reached or exceeded all markers will be shown without cluster.)
-	 * @param int $clustererLibraryPath clustererLibraryPath
+	 * @param bool	$useClusterer use cluster or not
+	 * @param int 	$gridSize grid size (The grid size of a cluster in pixel. Each cluster will be a square. If you want the algorithm to run faster, you can set this value larger. The default value is 100.)
+	 * @param int 	$maxZoom maxZoom (The max zoom level monitored by a marker cluster. If not given, the marker cluster assumes the maximum map zoom level. When maxZoom is reached or exceeded all markers will be shown without cluster.)
+	 * @param int 	$clustererLibraryPath clustererLibraryPath
 	 * @return void
 	 */
 	public function setClusterer($useClusterer, $gridSize = 100, $maxZoom = 9, $clustererLibraryPath = '')
@@ -249,7 +249,7 @@ class GoogleMapAPI
 	/**
 	 * Set the center of the gmap
 	 *
-	 * @param boolean $displayDirectionFields display directions or not in the info window
+	 * @param bool	$displayDirectionFields 	Display directions or not in the info window
 	 * @return void
 	 */
 	public function setDisplayDirectionFields($displayDirectionFields)
@@ -260,7 +260,7 @@ class GoogleMapAPI
 	/**
 	 * Set the defaultHideMarker
 	 *
-	 * @param boolean $defaultHideMarker hide all the markers on the map by default
+	 * @param bool	$defaultHideMarker 			Hide all the markers on the map by default
 	 * @return void
 	 */
 	public function setDefaultHideMarker($defaultHideMarker)
@@ -507,23 +507,14 @@ class GoogleMapAPI
 			$lienGmaps = ' <a href="https://maps.google.com/maps?q='.urlencode($this->withoutSpecialChars($address)).'">Google Maps</a>';
 
 			$html='';
-			if (versioncompare(versiondolibarrarray(), array(3,7,-3)) >= 0) {	// >= 0 if we are 3.6.0 alpha or +
-				$pagename=(((float) DOL_VERSION >= 6.0)?'/societe/card.php':'/societe/soc.php');
+			$pagename=(((float) DOL_VERSION >= 6.0)?'/societe/card.php':'/societe/soc.php');
 
-				if ($mode == 'company' || $mode == 'thirdparty') $html.= '<a href="'.DOL_URL_ROOT.$pagename.'?socid='.$elem->id.'">';
-				elseif ($mode == 'contact') $html.= '<a href="'.DOL_URL_ROOT.'/contact/card.php?id='.$elem->id.'">';
-				elseif ($mode == 'member') $html.= '<a href="'.DOL_URL_ROOT.'/adherents/card.php?rowid='.$elem->id.'">';
-				elseif ($mode == 'patient') $html.= '<a href="'.DOL_URL_ROOT.$pagename.'?socid='.$elem->id.'">';
-				else $html.='<a>';
-			} else {
-				$pagename=(((float) DOL_VERSION >= 6.0)?'/societe/card.php':'/societe/soc.php');
+			if ($mode == 'company' || $mode == 'thirdparty') $html.= '<a href="'.DOL_URL_ROOT.$pagename.'?socid='.$elem->id.'">';
+			elseif ($mode == 'contact') $html.= '<a href="'.DOL_URL_ROOT.'/contact/card.php?id='.$elem->id.'">';
+			elseif ($mode == 'member') $html.= '<a href="'.DOL_URL_ROOT.'/adherents/card.php?rowid='.$elem->id.'">';
+			elseif ($mode == 'patient') $html.= '<a href="'.DOL_URL_ROOT.$pagename.'?socid='.$elem->id.'">';
+			else $html.='<a>';
 
-				if ($mode == 'company' || $mode == 'thirdparty') $html.= '<a href="'.DOL_URL_ROOT.$pagename.'?socid='.$elem->id.'">';
-				elseif ($mode == 'contact') $html.= '<a href="'.DOL_URL_ROOT.'/contact/fiche.php?id='.$elem->id.'">';
-				elseif ($mode == 'member') $html.= '<a href="'.DOL_URL_ROOT.'/adherents/fiche.php?rowid='.$elem->id.'">';
-				elseif ($mode == 'patient') $html.= '<a href="'.DOL_URL_ROOT.$pagename.'?socid='.$elem->id.'">';
-				else $html.='<a>';
-			}
 			$html.= '<b>'.$elem->name.'</b>';
 			$html.= '</a>';
 			$html.= '<br/>'.$addresscleaned.'<br/>';

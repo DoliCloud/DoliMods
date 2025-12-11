@@ -3,13 +3,14 @@ CHARSET=UTF-8
 Module101220Name=Number Words
 Module101220Desc=Ajoute la possibilité de convertir des montants ou nombres en une valeur écrite en texte alphabétique (seuls quelques languages sont supportés)
 NumberWordsSetup=Configuration du module Number Words
-DescNumberWords=Ce module amène des fonctions de conversion de nombre ou montant en toute chaine. Il effectue aussi des remplacements de variables génériques __AMOUNT_TEXT__, __AMOUNT_CURRENCY_TEXT__, __AMOUNT_WO_TAX_TEXT__, __AMOUNT_CURRENCY_WO_TAX_TEXT__, __AMOUNT_VAT_TEXT__ ou __AMOUNT_CURRENCY_VAT_TEXT__ par leur valeur du montant ttc, ht ou de la tva, en chaine dans les textes qui y font référence (texte libre des factures, ...)
-AboutInfo=Ce module est développé et diffusé par Laurent Destailleur pour DoliCloud, <a target="_blank" href="https://www.dolicloud.com?origin=dolimods">www.dolicloud.com</a> (société labellisé Dolibarr Prefered Partner).
+DescNumberWords=Ce module fournit des fonctions pour convertir un nombre ou un montant en caractères complets. Il remplacera également les occurrences de chaînes suivantes __AMOUNT_TEXT__, __AMOUNT_TEXTCURRENCY__, __AMOUNT_EXCL_TAX__, __AMOUNT_EXCL_TAXCURRENCY__, __AMOUNT_VAT_TEXT__ ou __AMOUNT_VAT_TEXTCURRENCY__ par total net de taxe, total hors taxe, ou total de tva dans tous les textes qui les utilisent (texte libre sur les factures, ...)
+AboutInfo=This module is developped and distributed by Laurent Destailleur for DoliCloud, <a href="https://www.dolicloud.com?origin=dolimods">www.dolicloud.com</a> (A Dolibarr Preferred Partner company).
 MoreModules=D'autres modules du même auteur sont disponibles sur la place de marché officielle DoliStore...
-MoreModulesLink=<a target="_blank" href="https://www.dolistore.com/search.php?search_query=dolicloud">Cliquez ici pour voir la liste</a>
+MoreModulesLink=<a target="_blank" href="https://www.dolistore.com/search.php?search_query=dolicloud">Click here to see full list</a>
 MoreCloudHosting=Pour une utilisation en ligne de Dolibarr, optez pour l'hébergement sécurisé DoliCloud.
-MoreCloudHostingLink=<a target="_blank" href="https://www.dolicloud.com?origin=dolimods">Cliquez ici pour plus d'informationxxx</a>
+MoreCloudHostingLink=<a target="_blank" href="https://www.dolicloud.com?origin=dolimods">Click here for more information</a>
 CompatibleWithDoliDroid=Ce module est aussi compatible avec DoliDroid, l'application Android pour Dolibarr.
 SetupToChange=Page de configuration pour modifier
 NUMBERWORDS_USE_CURRENCY_SYMBOL=Utilisez le symbole au lieu du texte intégral pour la devise
 NUMBERWORDS_USE_ADD_SHORTCODE_WITH_SYMBOL=Ajoutez le code abrégé de la devise avant le symbole
+NUMBERWORDS_FORCE_UPPERCASE=Force the text in uppercase

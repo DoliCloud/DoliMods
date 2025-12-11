@@ -11,11 +11,11 @@ EcoTaxDeeDocFooterExample=I prodotti hanno una tassa RAEE unitaria di 0,01€ pe
 ECOTAXDEEE_CATEGORY_REF=Rif della categoria di prodotto per rilevare i prodotti che necessitano di Eco tax WEEE
 Module101380Name=Ecotassa RAEE
 Module101380Desc=Modulo per aggiungere automaticamente linee di ecotassa
-AboutInfo=Questo modulo è sviluppato e distribuito da Laurent Destailleur per DoliCloud, <a href="https://www.dolicloud.com?origin=dolimods"> www.dolicloud.com </a> (una società Dolibarr Preferred Partner).
+AboutInfo=This module is developped and distributed by Laurent Destailleur for DoliCloud, <a href="https://www.dolicloud.com?origin=dolimods">www.dolicloud.com</a> (A Dolibarr Preferred Partner company).
 MoreModules=Altri moduli dello stesso autore sono disponibili sul mercato ufficiale di DoliStore...
-MoreModulesLink= <a target="_blank" href="https://www.dolistore.com/search.php?search_query=dolicloud"> Clicca qui per vedere l'elenco completo </a>
+MoreModulesLink=<a target="_blank" href="https://www.dolistore.com/search.php?search_query=dolicloud">Click here to see full list</a>
 MoreCloudHosting=Per utilizzare Dolibarr online, scegli l'hosting sicuro DoliCloud.
-MoreCloudHostingLink= <a target="_blank" href="https://www.dolicloud.com?origin=dolimods"> Clicca qui per maggiori informazioni </a>
+MoreCloudHostingLink=<a target="_blank" href="https://www.dolicloud.com?origin=dolimods">Click here for more information</a>
 CompatibleWithDoliDroid=Questo modulo è compatibile anche con DoliDroid, l'applicazione Android per Dolibarr.
 EcoTaxAddedIfDesc=Una riga RAEE dell'imposta ecologica verrà calcolata e aggiunta automaticamente quando i prodotti con un'imposta ecologica vengono aggiunti ai seguenti oggetti: <b> %s </b> . <br> L'importo della tassa Eco deve essere definito prima nella scheda prodotto per ogni prodotto.
 EcoTaxAddedIfDescOld=Una riga RAEE dell'imposta ecologica verrà calcolata e aggiunta automaticamente quando i prodotti con un'imposta ecologica vengono aggiunti ai seguenti oggetti: <b> %s </b> . <br> L'importo della tassa Eco deve essere definito prima nella scheda prodotto per ogni prodotto. Per questo, vai nel setup del modulo "Prodotto" e aggiungi un campo complementare con formato float e con codice "ecotaxdeee". Potrai quindi inserire l'importo dell'imposta ecologica su ciascun prodotto.
@@ -23,3 +23,18 @@ AddPageWithWEEEUnitPrices=Il modulo può anche aggiungere automaticamente una pa
 ECOTAXDEEE_PRODUCT_OR_LABEL_LINE=Prodotto/Servizio da utilizzare come linea RAEE Eco Tax
 OrLabelOfAFreeLine=o solo un'etichetta da usare
 WEEE_DISABLE_VAT_ON_ECOTAX=Disabilita l'IVA sulla riga Eco Tax (Nella maggior parte dei casi, l'Eco Tax necessita di un'IVA come qualsiasi altro servizio)
+MoreSetup=Più configurazione
+CodeEcotax=Codice Ecotassa
+EcotaxAmount=Importo dell'ecotassa
+NewEcotax=Nuova ecotassa
+Norecords= Nessuna registrazione
+ErrorInputsRequired= Ingressi richiesti
+RecordAlreadyExists=Il record esiste già
+recordUpdated=Record aggiornato con successo
+recordDeleted=Record eliminato con successo
+recordAdded=Record aggiunto con successo
+InsertCodeForEcoTax=Inserisci l'ecotassa dei prodotti inserendo un Codice da una tabella Codice-Importo
+SetCodeForEcotaxEnabled=Abilita scheda per configurare <b>Codice</b>
+SetCodeForEcotaxDisabled=Scheda disabilitata per configurare <b>Codice</b>
+CodeAndAmountTable=Tabella codici-importo dell'ecotassa
+AreYouSureYouWantToDelete=Sei sicuro di voler eliminare la riga?

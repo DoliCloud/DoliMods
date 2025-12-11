@@ -3,11 +3,11 @@ CHARSET= UTF-8
 BilledOnOrders=Оплата за замовленнями
 BilledOnOrdersSetup=Налаштування модуля Billed On Orders
 Module101450Desc=Модуль для відображення виставленої суми та суми, що залишилася до виставлення рахунків відповідно до пов’язаних рахунків-фактур у списку замовлень клієнтів або постачальників
-AboutInfo=Цей модуль розроблено та розповсюджено Laurent Destailleur для DoliCloud, <a href="https://www.dolicloud.com?origin=dolimods"> www.dolicloud.com </a> (компанія-партнер Dolibarr).
+AboutInfo=This module is developped and distributed by Laurent Destailleur for DoliCloud, <a href="https://www.dolicloud.com?origin=dolimods">www.dolicloud.com</a> (A Dolibarr Preferred Partner company).
 MoreModules=Інші модулі того ж автора доступні на офіційному торговому майданчику DoliStore...
-MoreModulesLink= <a target="_blank" href="https://www.dolistore.com/search.php?search_query=dolicloud"> Натисніть тут, щоб переглянути повний список </a>
+MoreModulesLink=<a target="_blank" href="https://www.dolistore.com/search.php?search_query=dolicloud">Click here to see full list</a>
 MoreCloudHosting=Щоб використовувати онлайн Dolibarr, виберіть захищений хостинг DoliCloud.
-MoreCloudHostingLink= <a target="_blank" href="https://www.dolicloud.com?origin=dolimods"> Натисніть тут для отримання додаткової інформації </a>
+MoreCloudHostingLink=<a target="_blank" href="https://www.dolicloud.com?origin=dolimods">Click here for more information</a>
 BilledOnOrdersNothingToSetup=Немає нічого для налаштування. У списку замовлень клієнтів з'явилися нові поля.
 AmountBilledHT=Виставлена сума (без податку)
 AmountBilledTTC=Виставлена сума (включаючи податок)

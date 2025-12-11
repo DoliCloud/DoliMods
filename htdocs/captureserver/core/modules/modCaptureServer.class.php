@@ -40,7 +40,7 @@ class modCaptureServer extends DolibarrModules
 	 */
 	public function __construct($db)
 	{
-		global $langs,$conf;
+		global $conf;
 
 		$this->db = $db;
 
@@ -197,7 +197,7 @@ class modCaptureServer extends DolibarrModules
 		// Cronjobs (List of cron jobs entries to add when module is enabled)
 		// unit_frequency must be 60 for minute, 3600 for hour, 86400 for day, 604800 for week
 		$this->cronjobs = array(
-			0=>array('label'=>'MyJob label', 'jobtype'=>'method', 'class'=>'/captureserver/class/myobject.class.php', 'objectname'=>'MyObject', 'method'=>'doScheduledJob', 'parameters'=>'', 'comment'=>'Comment', 'frequency'=>2, 'unitfrequency'=>3600, 'status'=>0, 'test'=>'$conf->captureserver->enabled')
+			//0=>array('label'=>'MyJob label', 'jobtype'=>'method', 'class'=>'/captureserver/class/myobject.class.php', 'objectname'=>'MyObject', 'method'=>'doScheduledJob', 'parameters'=>'', 'comment'=>'Comment', 'frequency'=>2, 'unitfrequency'=>3600, 'status'=>0, 'test'=>'$conf->captureserver->enabled')
 		);
 		// Example: $this->cronjobs=array(0=>array('label'=>'My label', 'jobtype'=>'method', 'class'=>'/dir/class/file.class.php', 'objectname'=>'MyClass', 'method'=>'myMethod', 'parameters'=>'param1, param2', 'comment'=>'Comment', 'frequency'=>2, 'unitfrequency'=>3600, 'status'=>0, 'test'=>'$conf->captureserver->enabled'),
 		//                                1=>array('label'=>'My label', 'jobtype'=>'command', 'command'=>'', 'parameters'=>'param1, param2', 'comment'=>'Comment', 'frequency'=>1, 'unitfrequency'=>3600*24, 'status'=>0, 'test'=>'$conf->captureserver->enabled')
@@ -209,19 +209,19 @@ class modCaptureServer extends DolibarrModules
 
 		$r=0;
 		$this->rights[$r][0] = $this->numero + $r;	// Permission id (must not be already used)
-		$this->rights[$r][1] = 'Read myobject of CaptureServer';	// Permission label
+		$this->rights[$r][1] = 'Read tracked event of CaptureServer';	// Permission label
 		$this->rights[$r][4] = 'read';				// In php code, permission will be checked by test if ($user->rights->captureserver->level1->level2)
 		$this->rights[$r][5] = '';				    // In php code, permission will be checked by test if ($user->rights->captureserver->level1->level2)
 
 		$r++;
 		$this->rights[$r][0] = $this->numero + $r;	// Permission id (must not be already used)
-		$this->rights[$r][1] = 'Create/Update myobject of CaptureServer';	// Permission label
+		$this->rights[$r][1] = 'Create/Update tracked event of CaptureServer';	// Permission label
 		$this->rights[$r][4] = 'write';				// In php code, permission will be checked by test if ($user->rights->captureserver->level1->level2)
 		$this->rights[$r][5] = '';				    // In php code, permission will be checked by test if ($user->rights->captureserver->level1->level2)
 
 		$r++;
 		$this->rights[$r][0] = $this->numero + $r;	// Permission id (must not be already used)
-		$this->rights[$r][1] = 'Delete myobject of CaptureServer';	// Permission label
+		$this->rights[$r][1] = 'Delete tracked event of CaptureServer';	// Permission label
 		$this->rights[$r][4] = 'delete';				// In php code, permission will be checked by test if ($user->rights->captureserver->level1->level2)
 		$this->rights[$r][5] = '';				    // In php code, permission will be checked by test if ($user->rights->captureserver->level1->level2)
 
@@ -314,8 +314,8 @@ class modCaptureServer extends DolibarrModules
 		if ($result < 0) return -1; // Do not activate module if not allowed errors found on module SQL queries (the _load_table run sql with run_sql with error allowed parameter to 'default')
 
 		// Create extrafields
-		include_once DOL_DOCUMENT_ROOT.'/core/class/extrafields.class.php';
-		$extrafields = new ExtraFields($this->db);
+		//include_once DOL_DOCUMENT_ROOT.'/core/class/extrafields.class.php';
+		//$extrafields = new ExtraFields($this->db);
 
 		//$result1=$extrafields->addExtraField('myattr1', "New Attr 1 label", 'boolean', 1,  3, 'thirdparty',   0, 0, '', '', 1, '', 0, 0, '', '', 'captureserver@captureserver', '$conf->captureserver->enabled');
 		//$result2=$extrafields->addExtraField('myattr2', "New Attr 2 label", 'varchar', 1, 10, 'project',      0, 0, '', '', 1, '', 0, 0, '', '', 'captureserver@captureserver', '$conf->captureserver->enabled');

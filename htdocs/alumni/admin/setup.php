@@ -1,6 +1,6 @@
 <?php
-/* Copyright (C) 2004-2017 Laurent Destailleur  <eldy@users.sourceforge.net>
- * Copyright (C) 2023 Alice Adminson <contact@doliasso.org>
+/* Copyright (C) 2004-2017 	Laurent Destailleur  <eldy@users.sourceforge.net>
+ * Copyright (C) 2023 		Alice Adminson <contact@doliasso.org>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,7 +26,7 @@
 $res = 0;
 // Try main.inc.php into web root known defined into CONTEXT_DOCUMENT_ROOT (not always defined)
 if (!$res && !empty($_SERVER["CONTEXT_DOCUMENT_ROOT"])) {
-	$res = @include $_SERVER["CONTEXT_DOCUMENT_ROOT"]."/main.inc.php";
+	$res = @include str_replace("..", "", $_SERVER["CONTEXT_DOCUMENT_ROOT"])."/main.inc.php";
 }
 // Try main.inc.php into web root detected using web root calculated from SCRIPT_FILENAME
 $tmp = empty($_SERVER['SCRIPT_FILENAME']) ? '' : $_SERVER['SCRIPT_FILENAME']; $tmp2 = realpath(__FILE__); $i = strlen($tmp) - 1; $j = strlen($tmp2) - 1;
@@ -109,8 +109,29 @@ $fieldOptions = array(0 => 'Draft', 1 => 'Open', 2 => 'Closed');
 $formSetup->newItem('ALUMNI_ENABLE_SURVEY')->setAsSelect($fieldOptions);
 
 // Setup to show the step
-$fieldOptions = array(1 => 'Step 1 - Communication and first survey', 2 => 'Step 2 - Selection of town and exact day', 3 => 'Step 3 - Organization of event');
+$fieldOptions = array(
+	1 => 'Step 1 - Communication and first survey',
+	2 => 'Step 2 - Selection of town and exact day',
+	3 => 'Step 3 - Organization of event',
+	4 => 'Step 4 - Event is terminated'
+);
 $formSetup->newItem('ALUMNI_STEP_ORGANIZATION')->setAsSelect($fieldOptions);
+
+// Setup URL photo before
+$item = $formSetup->newItem('ALUMNI_URL_ALBUM_PHOTO_BEFORE');
+$item->fieldAttr = array('placeholder' => 'https://...');
+$item->helpText = 'URL shown into the website if used';
+
+// Setup URL photo now
+$item = $formSetup->newItem('ALUMNI_URL_ALBUM_PHOTO_NOW');
+$item->fieldAttr = array('placeholder' => 'https://...');
+$item->helpText = 'URL shown into the website if used';
+
+// Setup URL photo of event
+$item = $formSetup->newItem('ALUMNI_URL_ALBUM_PHOTO_EVENT');
+$item->fieldAttr = array('placeholder' => 'https://...');
+$item->helpText = 'URL shown into the web site if used, after step 4 (when event is terminated)';
+
 
 
 $setupnotempty += count($formSetup->items);
@@ -250,7 +271,7 @@ $page_name = "AlumniSetup";
 llxHeader('', $langs->trans($page_name), $help_url);
 
 // Subheader
-$linkback = '<a href="'.($backtopage ? $backtopage : DOL_URL_ROOT.'/admin/modules.php?restore_lastsearch_values=1').'">'.$langs->trans("BackToModuleList").'</a>';
+$linkback = '<a href="'.($backtopage ? $backtopage : DOL_URL_ROOT.'/admin/modules.php?restore_lastsearch_values=1').'">'.img_picto($langs->trans("BackToModuleList"), 'back', 'class="pictofixedwidth"').'<span class="hideonsmartphone">'.$langs->trans("BackToModuleList").'</span></a>';
 
 print load_fiche_titre($langs->trans($page_name), $linkback, 'title_setup');
 

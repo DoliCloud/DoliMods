@@ -19,7 +19,7 @@ ClientNotFound=Your PHP must support Memcached client features (Nor the Memcache
 PrefixForKeysInCache=Prefix of Dolibarr keys in server cache
 ServerSetup=Server setup
 ServerStatistics=Server Statistics
-CacheBrowser=Cache browser
+CacheBrowser=Cache browsing
 WarningStatsForAllServer=Warning, memcahed server statistics include all applications using this server, not only Dolibarr.
 AboutInfo=This module is developped and distributed by Laurent Destailleur for DoliCloud, <a href="https://www.dolicloud.com?origin=dolimods">www.dolicloud.com</a> (A Dolibarr Preferred Partner company).
 MoreModules=Other modules of same author are available on the official DoliStore market place...

@@ -43,7 +43,7 @@ if (is_numeric($entity)) define("DOLENTITY", $entity);
 // Load Dolibarr environment
 $res=0;
 // Try main.inc.php into web root known defined into CONTEXT_DOCUMENT_ROOT (not always defined)
-if (! $res && ! empty($_SERVER["CONTEXT_DOCUMENT_ROOT"])) $res=@include $_SERVER["CONTEXT_DOCUMENT_ROOT"]."/main.inc.php";
+if (! $res && ! empty($_SERVER["CONTEXT_DOCUMENT_ROOT"])) $res=@include str_replace("..", "", $_SERVER["CONTEXT_DOCUMENT_ROOT"])."/main.inc.php";
 // Try main.inc.php into web root detected using web root calculated from SCRIPT_FILENAME
 $tmp=empty($_SERVER['SCRIPT_FILENAME'])?'':$_SERVER['SCRIPT_FILENAME'];$tmp2=realpath(__FILE__); $i=strlen($tmp)-1; $j=strlen($tmp2)-1;
 while ($i > 0 && $j > 0 && isset($tmp[$i]) && isset($tmp2[$j]) && $tmp[$i]==$tmp2[$j]) { $i--; $j--; }
@@ -53,14 +53,19 @@ if (! $res && $i > 0 && file_exists(dirname(substr($tmp, 0, ($i+1)))."/main.inc.
 if (! $res && file_exists("../../main.inc.php")) $res=@include "../../main.inc.php";
 if (! $res && file_exists("../../../main.inc.php")) $res=@include "../../../main.inc.php";
 if (! $res) die("Include of main fails");
-
+/**
+ * @var DoliDB	$db
+ * @var User	$user
+ */
 require_once DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php';
 require_once '../class/captureserver.class.php';
 
-// Security check
-// No check on module enabled. Done later according to $validpaymentmethod
+$action = GETPOST('action', 'aZ09');
 
-$action=GETPOST('action', 'aZ09');
+// Security check
+if (!isModEnabled("captureserver")) {
+	accessforbidden("Module not enabled");
+}
 
 // Input are:
 // type ('invoice','order','contractline'),
@@ -76,13 +81,17 @@ if (! $action) {
 
 
 // Complete urls for post treatment
-$SECUREKEY=GETPOST("securekey", 'alpha');	        // Secure key
+$SECUREKEY = GETPOST("securekey", 'alpha');	        // Secure key
+if ($SECUREKEY && $SECUREKEY != getDolGlobalString("CAPTURESERVER_SECURITY_KEY")) {
+	accessforbidden("Acces not alloaed. Bad value of securekey parameter");
+}
 
 
 /*
  * Actions
  */
 
+// None
 
 
 /*
@@ -93,7 +102,7 @@ header("Access-Control-Allow-Origin: *");
 
 print 'Capture server was called with action='.$action;
 
-if ($action == 'dolibarrping') {
+if ($action == 'dolibarrping' || $action == 'dolibarrregistration') {
 	$hash_algo = GETPOST('hash_algo', 'aZ09');
 	$hash_unique_id = GETPOST('hash_unique_id', 'aZ09');
 	$version = GETPOST('version', 'aZ09');
@@ -101,7 +110,7 @@ if ($action == 'dolibarrping') {
 	if (empty($hash_algo) || empty($hash_unique_id)) {
 		print "\n".'<br>Bad value for parameter hash_algo or hash_unique_id';
 	} else {
-		$maxsize = (empty($conf->global->CAPTURE_SERVER_MAX_SIZE_OF_CAPTURED_CONTENT) ? 1024 : $conf->global->CAPTURE_SERVER_MAX_SIZE_OF_CAPTURED_CONTENT);
+		$maxsize = getDolGlobalInt('CAPTURE_SERVER_MAX_SIZE_OF_CAPTURED_CONTENT', 4096);
 		if (is_array($_POST) && strlen(join('', $_POST)) > $maxsize) {
 			$contenttoinsert = 'Content larger than limit of '.$maxsize;
 		} else {
@@ -116,16 +125,17 @@ if ($action == 'dolibarrping') {
 			$captureserver->comment = 'Ping received for update at '.dol_print_date(dol_now(), 'dayhourlog').' - from hash '.$hash_unique_id.' - version '.$version;
 			$captureserver->content = $contenttoinsert;
 			$captureserver->label = $action.' '.$hash_unique_id.' '.$version;
+
 			$captureserver->update($user);
 
 			// Send to DataDog (metric + event)
-			if (! empty($conf->global->CAPTURESERVER_DATADOG_ENABLED)) {
+			if (getDolGlobalString('CAPTURESERVER_DATADOG_ENABLED')) {
 				try {
 					dol_include_once('/captureserver/core/includes/php-datadogstatsd/src/DogStatsd.php');
 
 					$arrayconfig=array();
-					if (! empty($conf->global->CAPTURESERVER_DATADOG_APIKEY)) {
-						$arrayconfig=array('apiKey'=>$conf->global->CAPTURESERVER_DATADOG_APIKEY, 'app_key' => $conf->global->CAPTURESERVER_DATADOG_APPKEY);
+					if (getDolGlobalString('CAPTURESERVER_DATADOG_APIKEY')) {
+						$arrayconfig=array('apiKey'=>getDolGlobalString('CAPTURESERVER_DATADOG_APIKEY'), 'app_key' => getDolGlobalString('CAPTURESERVER_DATADOG_APPKEY'));
 					}
 
 					$statsd = new DataDog\DogStatsd($arrayconfig);
@@ -155,13 +165,13 @@ if ($action == 'dolibarrping') {
 			$result = $captureserver->create($user);
 
 			// Send to DataDog (metric + event)
-			if (! empty($conf->global->CAPTURESERVER_DATADOG_ENABLED)) {
+			if (getDolGlobalString('CAPTURESERVER_DATADOG_ENABLED')) {
 				try {
 					dol_include_once('/captureserver/core/includes/php-datadogstatsd/src/DogStatsd.php');
 
 					$arrayconfig=array();
-					if (! empty($conf->global->CAPTURESERVER_DATADOG_APIKEY)) {
-						$arrayconfig=array('apiKey'=>$conf->global->CAPTURESERVER_DATADOG_APIKEY, 'app_key' => $conf->global->CAPTURESERVER_DATADOG_APPKEY);
+					if (getDolGlobalString('CAPTURESERVER_DATADOG_APIKEY')) {
+						$arrayconfig=array('apiKey'=>getDolGlobalString('CAPTURESERVER_DATADOG_APIKEY'), 'app_key' => getDolGlobalString('CAPTURESERVER_DATADOG_APPKEY'));
 					}
 
 					$statsd = new DataDog\DogStatsd($arrayconfig);

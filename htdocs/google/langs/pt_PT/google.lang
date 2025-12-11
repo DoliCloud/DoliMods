@@ -29,7 +29,8 @@ GOOGLE_EVENT_LABEL_INC_SOCIETE=Adicione o nome de terceiros ao rótulo do evento
 GOOGLE_EVENT_LABEL_INC_CONTACT=Adicione o nome do contato no rótulo do evento para eventos de contato
 GOOGLE_CONTACT_LABEL=Rótulo para marcar contatos
 GOOGLE_INCLUDE_AUTO_EVENT=Sincronize também para eventos criados automaticamente pelo Dolibarr (veja configuração do módulo Agenda para lista de eventos automáticos). <br> Se não, apenas os eventos inseridos manualmente na agenda são sincronizados.
-GOOGLE_INCLUDE_ATTENDEES=Adicione também a lista de participantes no evento. O Google pode enviar e-mails para eles quando você cria um evento com participantes. Além disso, às vezes o Google não permite o uso das APIs quando há participantes.
+GOOGLE_INCLUDE_ATTENDEES=Add also list of attendees into event. Google may send emails to them when you create an event with attendees. Note: with some Google plan or setup, Google does not allow use of the APIs when there is attendees.
+GOOGLE_INCLUDE_ATTENDEESWarning=You may experience permissions error during connection to API when this options is ON. Enable this only once a test has been ran successfuly.
 MAIN_GOOGLE_AN_ID=Código do Google Analytics
 GoogleIDContact=Conta do Google
 GoogleNoTokenYet=Você ainda não tem nenhum token. Para criar um, basta autenticar-se no Google com o seguinte link:
@@ -48,9 +49,9 @@ AllowGoogleToLoginWithKey=Você deve ter uma conta do Google e criar sua própri
 AllowGoogleToLoginWithClientID=Você pode criar seu ID de cliente do Google <strong> e Segredo </strong> na página <a href="%s" target="_blank"> %s </a> , selecione um projeto ou crie um e, em seguida, menu "API e serviços" -> "Credenciais". Clique em "Criar/Adicionar um ID de cliente OAuth 2.0" e escolha "Aplicativo da Web", defina "Origem Javascript permitida" para esvaziar e defina "Redirect URI" para <br> <strong> %s </strong> <br> e clique no botão "Criar". Você receberá um novo ID de cliente <strong> </strong> e um código secreto <strong> </strong> . Você precisa inserir aqui <strong> Client ID </strong> e <strong> Client Secret </strong> na próxima linha.
 AllowGoogleToLoginWithClientSecret=Veja a observação na linha anterior para saber como obter seu segredo do cliente do Google.
 AllowGoogleToLoginWithServiceAccount=Você pode criar sua conta de serviço <strong> usuário/e-mail </strong> na página <a href="%s" target="_blank"> %s </a> , selecione um projeto ou crie um e, em seguida, menu "API & Services" -> "Credenciais". Clique em "Criar/Adicionar um ID de cliente" e escolha "Conta de serviço" e depois "Criar". Você obterá uma nova conta de serviço com um ID de cliente de conta de serviço <strong> </strong> e um e-mail de conta de serviço <strong> </strong> . Você precisa inserir aqui <strong> Conta de serviço EMail </strong> .
-EnableAPI=Você também deve ativar a API para sua conta do Google. Para isso vá na página <a href="%s" target="_blank"> %s </a> , menu "API & Services" -> "API". Clique para habilitar a API para "%s".
-ShareCalendarWithServiceAccount=You must also share the agenda (all permissions) with the service account user/email <strong>%s</strong>: For this, go into the Google calendar. It must be same Agenda than the one choosed on parameter "%s". Choose "Parameters" then click on your Agenda name to show the link "Share parameters with...". Click on it and add the service account user as a contact to share your agenda with. Choose permission "Edit events" and validate by clicking "Add user".
-ShareCalendarWithServiceAccount2=With <strong>Google Suite</strong> (not required for standard gmail account), permissions may be forced to "Ready only" instead of "Edit". If you can't choose "Edit" permission, go onto <a href="https://admin.google.com/AdminHome?pli=1&fral=1#AppDetails:service=Calendar&flyout=sharing" target="_blank">https://admin.google.com/AdminHome?pli=1&fral=1#AppDetails:service=Calendar&flyout=sharing</a> and check that sharing option of Agenda application allows sharing with external service account.
+EnableAPI=You must enable the API for your Google account. For this go on page <a href="%s" target="_blank">%s</a>, menu "API & Services" -> "API". Click to enable API for "%s".
+ShareCalendarWithServiceAccount=Você também deve compartilhar a agenda (todas as permissões) com o usuário/e-mail da conta de serviço <strong>%s</strong>: Para isso, acesse o calendário do Google. Deve ser a mesma Agenda escolhida no parâmetro "%s". Escolha "Parâmetros" e clique no nome da sua agenda para mostrar o link "Compartilhar parâmetros com...". Clique nele e adicione o usuário da conta de serviço como contato para compartilhar sua agenda. Escolha a permissão “Editar eventos” e valide clicando em “Adicionar usuário”.
+ShareCalendarWithServiceAccount2=Com o <strong>Google Suite</strong> (não obrigatório para contas padrão do Gmail), as permissões podem ser forçadas para "Somente pronto" em vez de " Editar". Se você não puder escolher a permissão "Editar", acesse <a href="https://admin.google.com/AdminHome?pli=1&fral=1#AppDetails:service=Calendar&flyout=sharing" target="_blank">https://admin.google.com/AdminHome?pli=1&fral=1#AppDetails:service=Calendar&flyout= compartilhamento</a> e verifique se a opção de compartilhamento do aplicativo Agenda permite o compartilhamento com conta de serviço externo.
 GOOGLE_API_SERVERKEY=Chave de API (tipo "chave do servidor")
 GoogleUserConf=Configuração do Google
 GoogleSetupIsGlobal=A configuração da sincronização é feita globalmente para todos os usuários agendarem o ID <strong> %s </strong> .
@@ -70,9 +71,9 @@ ExportEventsToGoogle=Exporte os últimos eventos <strong> %s </strong> Dolibarr 
 DeleteAllGoogleThirdparties=Exclua todos os terceiros provenientes de Dolibarr no Gmail.
 DeleteAllGoogleContacts=Exclua todos os contatos/endereços provenientes de Dolibarr no Gmail.
 DeleteAllGoogleMembers=Exclua todos os membros provenientes de Dolibarr no Gmail.
-FromId=From ID:
-ToId=to ID:
-IdSelectOptional=ID Range selection is optional
+FromId=Do ID:
+ToId=para ID:
+IdSelectOptional=A seleção do intervalo de ID é opcional
 DeleteAllGoogleEvents=Excluir todos os eventos do calendário do Google <strong> %s </strong> vinculados a um Dolibarr
 PushToGoogleSucess=A sincronização com o contato do Google foi concluída para registro(s) %s.
 TagsCreatedSuccess=A sincronização de grupos com o contato do Google foi concluída
@@ -111,15 +112,15 @@ GOOGLE_API_SERVICEACCOUNT_CLIENT_ID=ID do cliente da conta de serviço
 GOOGLE_API_SERVICEACCOUNT_EMAIL=E-mail da conta de serviço a ser permitido (NÃO o login/e-mail da sua conta do Google)
 GOOGLE_API_SERVICEACCOUNT_P12KEY=Arquivo json da conta de serviço
 FillThisOnlyIfRequired=Exemplo: +2 (preencher apenas se houver problemas)
-AboutInfo=Este módulo é desenvolvido e distribuído por Laurent Destailleur para DoliCloud, <a href="https://www.dolicloud.com?origin=dolimods"> www.dolicloud.com </a> (Uma empresa Dolibarr Preferred Partner).
+AboutInfo=This module is developped and distributed by Laurent Destailleur for DoliCloud, <a href="https://www.dolicloud.com?origin=dolimods">www.dolicloud.com</a> (A Dolibarr Preferred Partner company).
 MoreModules=Outros módulos do mesmo autor estão disponíveis no mercado oficial da DoliStore...
-MoreModulesLink= <a target="_blank" href="https://www.dolistore.com/search.php?search_query=dolicloud"> Clique aqui para ver a lista completa </a>
+MoreModulesLink=<a target="_blank" href="https://www.dolistore.com/search.php?search_query=dolicloud">Click here to see full list</a>
 MoreCloudHosting=Para usar o Dolibarr online, escolha a hospedagem segura DoliCloud.
-MoreCloudHostingLink= <a target="_blank" href="https://www.dolicloud.com?origin=dolimods"> Clique aqui para mais informações </a>
+MoreCloudHostingLink=<a target="_blank" href="https://www.dolicloud.com?origin=dolimods">Click here for more information</a>
 CompatibleWithDoliDroid=Este módulo também é compatível com DoliDroid, o aplicativo Android para Dolibarr.
 LinkToThirdParty=Link para terceiros
 LinkToContact=Link para contato
-GoogleContactSyncInfo=Use here any label of your choice. Group will be created into Google Contact if it does not exist. You can also use a label of one of any predefined Google system group like:<br>"contactGroups/myContacts", "contactGroups/coworkers", "contactGroups/family", "contactGroups/friends"<br>Note also that only the predefined system group "contactGroups/myContacts" is shared by the "Delegate contacts" feature available in Google contact of Google suite.
+GoogleContactSyncInfo=Use aqui qualquer rótulo de sua escolha. O grupo será criado no Contato do Google se não existir. Você também pode usar um rótulo de qualquer grupo predefinido do sistema do Google, como:<br>"contactGroups/myContacts", "contactGroups/coworkers", "contactGroups/family", "contactGroups/ friends"<br>Observe também que apenas o grupo de sistema predefinido "contactGroups/myContacts" é compartilhado pelo recurso "Delegar contatos" disponível no contato do Google do pacote Google.
 XRecordDeleted= <strong> %s </strong> registros excluídos
 ThisFieldIsAGlobalSetup=Este campo é definido na configuração global do módulo
 FillAndSaveGoogleAccount=Preencha e salve sua conta do Google e o ID do cliente do Google primeiro
@@ -138,4 +139,6 @@ IconTiers=Use um picto diferente para prospect, cliente e fornecedor
 CustomersOnly=Apenas clientes
 ProspectsOnly=Apenas perspectivas
 RefreshEventFromGoogle=Atualizar eventos do Google
-Tool=Outil
+Tool=Ferramenta
+DateExpiration=Expiration date
+GOOGLE_DEBUG=Enable additional logs specific to the Google module (dolibarr_google.* files)

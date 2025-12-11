@@ -7,14 +7,16 @@ ConcatPDfPutFileManually=Los archivos PDF se pueden colocar manualmente con el a
 NoPDFFileFound=Actualmente no existe ningún archivo PDF.
 ConcatFile=Concatenar el archivo PDF
 EnableMultipleConcatenation=Habilite la capacidad de concatenar varios documentos.
+EnableMixedConcatenation=Concat the document (must be 1 page only) only on back pages.
 ConcatPdf=Concatenar PDF
 Module101400Name=Concat PDF
 Module101400Desc=Módulo para concatenar PDF (condiciones de ventas, por ejemplo) todos los PDF generados (facturas, pedidos o presupuestos)
-AboutInfo=Este módulo es desarrollado y distribuido por Laurent Destailleur para DoliCloud, <a href="https://www.dolicloud.com?origin=dolimods"> www.dolicloud.com </a> (una empresa socia preferida de Dolibarr).
+AboutInfo=This module is developped and distributed by Laurent Destailleur for DoliCloud, <a href="https://www.dolicloud.com?origin=dolimods">www.dolicloud.com</a> (A Dolibarr Preferred Partner company).
 MoreModules=Otros módulos del mismo autor están disponibles en el mercado oficial de DoliStore...
-MoreModulesLink= <a target="_blank" href="https://www.dolistore.com/search.php?search_query=dolicloud"> Haga clic aquí para ver la lista completa </a>
+MoreModulesLink=<a target="_blank" href="https://www.dolistore.com/search.php?search_query=dolicloud">Click here to see full list</a>
 MoreCloudHosting=Para usar Dolibarr en línea, elija el alojamiento seguro DoliCloud.
-MoreCloudHostingLink= <a target="_blank" href="https://www.dolicloud.com?origin=dolimods"> Haga clic aquí para obtener más información </a>
+MoreCloudHostingLink=<a target="_blank" href="https://www.dolicloud.com?origin=dolimods">Click here for more information</a>
 CompatibleWithDoliDroid=Este módulo también es compatible con DoliDroid, la aplicación de Android para Dolibarr.
 ErrorFileMustBeAPdf=Error, el archivo debe ser un archivo PDF
 WarningConcatPDFIsNotCompatibleWithOptionReadOnlyPDF=Concat PDF no es compatible con la opción PDF: %s
+AddFilesToConcat=Subir archivo(s) a concat

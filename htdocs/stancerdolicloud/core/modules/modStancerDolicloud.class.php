@@ -40,7 +40,8 @@ class modStancerDolicloud extends DolibarrModules
 	 */
 	public function __construct($db)
 	{
-		global $langs, $conf;
+		global $conf;
+
 		$this->db = $db;
 
 		// Id for module (must be unique).
@@ -52,7 +53,7 @@ class modStancerDolicloud extends DolibarrModules
 
 		// Family can be 'base' (core modules),'crm','financial','hr','projects','products','ecm','technic' (transverse modules),'interface' (link with external tools),'other','...'
 		// It is used to group modules by family in module setup page
-		$this->family = "other";
+		$this->family = "interface";
 
 		// Module position in the family on 2 digits ('01', '10', '20', ...)
 		$this->module_position = '90';
@@ -69,7 +70,8 @@ class modStancerDolicloud extends DolibarrModules
 
 		// Author
 		$this->editor_name = 'DoliCloud';
-		$this->editor_url = 'https://www.dolibarr.org';
+		$this->editor_url = 'https://www.dolicloud.com?origin=dolimods';
+		$this->editor_squarred_logo = '';					// Must be image filename into the module/img directory followed with @modulename. Example: 'myimage.png@payplugdolicloud'
 
 		// Possible values for version are: 'development', 'experimental', 'dolibarr', 'dolibarr_deprecated', 'experimental_deprecated' or a version string like 'x.y.z'
 		$this->version = '1.0';
@@ -147,7 +149,7 @@ class modStancerDolicloud extends DolibarrModules
 
 		// Prerequisites
 		$this->phpmin = array(7, 0); // Minimum version of PHP required by module
-		$this->need_dolibarr_version = array(11, -3); // Minimum version of Dolibarr required by module
+		$this->need_dolibarr_version = array(21, 0, -3); // Minimum version of Dolibarr required by module
 		$this->need_javascript_ajax = 0;
 
 		// Messages at activation
@@ -454,7 +456,7 @@ class modStancerDolicloud extends DolibarrModules
 				$bankaccount->date_solde = dol_now();
 				$idjournal = dol_getIdFromCode($this->db, 'BQ', 'accounting_journal', 'code', 'rowid');
 				$bankaccount->fk_accountancy_journal = (int) $idjournal;
-				
+
 				$searchaccountid = $bankaccount->create($user);
 			}
 			if ($searchaccountid > 0) {
@@ -462,10 +464,10 @@ class modStancerDolicloud extends DolibarrModules
 			} else {
 				setEventMessages($bankaccount->error, $bankaccount->errors, 'errors');
 			}
-		}		
-		
-		
-		
+		}
+
+
+
 		//$result = $this->_load_tables('/install/mysql/', 'stancerdolicloud');
 		$result = $this->_load_tables('/stancerdolicloud/sql/');
 		if ($result < 0) {

@@ -129,7 +129,7 @@ class InterfaceGoogleContactSynchro extends DolibarrTriggers
 		if ($action == 'COMPANY_CREATE' || $action == 'COMPANY_MODIFY' || $action == 'COMPANY_DELETE'
 			|| $action == 'CONTACT_CREATE' || $action == 'CONTACT_MODIFY' || $action == 'CONTACT_DELETE'
 			|| $action == 'MEMBER_CREATE' || $action == 'MEMBER_MODIFY' || $action == 'MEMBER_DELETE'
-			|| $action == 'CATEGORY_LINK' || $action == 'CATEGORY_UNLINK' || $action == 'CATEGORY_DELETE' || $action == 'CATEGORY_MODIFY') {
+			|| $action == 'CATEGORY_DELETE' || $action == 'CATEGORY_MODIFY') {
 			// We check if we must proceed the trigger code
 			if (preg_match('/^COMPANY_/', $action) && empty($conf->global->GOOGLE_DUPLICATE_INTO_THIRDPARTIES)) return 0;
 			if (preg_match('/^CONTACT_/', $action) && empty($conf->global->GOOGLE_DUPLICATE_INTO_CONTACTS)) return 0;
@@ -272,7 +272,8 @@ class InterfaceGoogleContactSynchro extends DolibarrTriggers
 					}
 					return 1;
 				}
-				if ($action == 'CATEGORY_LINK') {
+
+				if ($action == 'CATEGORY_MODIFY' && isset($object->context['linkto'])) {
 					$type = $object->context['linkto']->element ? $object->context['linkto']->element : 'unknown';
 					$tag = array('id' => $object->id, 'label' => $object->label, 'type' => $type);
 					$groupID = getGContactGroupID($servicearray, $tag);
@@ -297,7 +298,7 @@ class InterfaceGoogleContactSynchro extends DolibarrTriggers
 					return -1;
 				}
 
-				if ($action == 'CATEGORY_UNLINK') {
+				if ($action == 'CATEGORY_MODIFY' && isset($object->context['unlinkoff'])) {
 					$type = $object->context['unlinkoff']->element ? $object->context['unlinkoff']->element : 'unknown';
 					$tag = array('id' => $object->id, 'label' => $object->label, 'type' => $type);
 					$groupID = getGContactGroupID($servicearray, $tag);
@@ -310,21 +311,6 @@ class InterfaceGoogleContactSynchro extends DolibarrTriggers
 							if ($ret > 0) {
 								return 1;
 							}
-						}
-					}
-					$this->error=$object->error;
-					$this->errors[]=$this->error;
-					return -1;
-				}
-
-				if ($action == 'CATEGORY_DELETE') {
-					$tag = array('id' => $object->id, 'label' => $object->label);
-					$groupID = getGContactGroupID($servicearray, $tag);
-					if ($groupID && preg_match('/contactGroups\/.*/', $groupID)) { // This record is linked with Google Contact
-						$ret = googleDeleteGroup($servicearray, $groupID);
-						if ($ret > 0) {
-							return 1;
-
 						}
 					}
 					$this->error=$object->error;
@@ -346,6 +332,21 @@ class InterfaceGoogleContactSynchro extends DolibarrTriggers
 					}
 					$this->error=$object->error;
 					$this->errors[]=$ret;
+					return -1;
+				}
+
+				if ($action == 'CATEGORY_DELETE') {
+					$tag = array('id' => $object->id, 'label' => $object->label);
+					$groupID = getGContactGroupID($servicearray, $tag);
+					if ($groupID && preg_match('/contactGroups\/.*/', $groupID)) { // This record is linked with Google Contact
+						$ret = googleDeleteGroup($servicearray, $groupID);
+						if ($ret > 0) {
+							return 1;
+
+						}
+					}
+					$this->error=$object->error;
+					$this->errors[]=$this->error;
 					return -1;
 				}
 			}

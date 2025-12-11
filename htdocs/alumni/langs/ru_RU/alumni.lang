@@ -1,0 +1,64 @@
+# Copyright (C) 2023 Alice Adminson
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see .
+
+#
+# Generic
+#
+
+# Module label 'ModuleAlumniName'
+ModuleAlumniName = Выпускники
+# Module description 'ModuleAlumniDesc'
+ModuleAlumniDesc = Модуль для организации встречи выпускников
+
+#
+# Admin page
+#
+AlumniSetup = Настройка выпускников
+Settings = Настройки
+AlumniSetupPage = Страница настройки выпускников
+ALUMNI_YEAR=Год со дня окончания
+ALUMNI_PROMONAME=Название или номер акции
+ALUMNI_ENABLE_SURVEY=Enable the surveys provided by the website template
+ALUMNI_STEP_ORGANIZATION=Step of the project (1=Communication and first survey, 2=Selection of town and exact day, 3=Organization of event)
+
+
+#
+# About page
+#
+About = О
+AlumniAbout = О выпускниках
+AlumniAboutPage = Выпускники о странице
+
+AlumniArea = Главная Выпускники
+
+
+Lastname2=Девичья фамилия
+BudgetMaxActiviteParPers=Максимальный бюджет на пользователя для действий
+BudgetMaxRepasParPers=Максимальный бюджет на питание на пользователя
+ComWhatsapp=Что такое приложение
+ChoixPerimetre=Выбор области применения
+ActiviteAssociees=Связанные действия
+ActiviteAssocieesNature=Характер деятельности
+
+PreferenceJour=Любимый день
+PreferenceMois=Любимый месяц
+Results=Полученные результаты
+EventChoices=Event choices
+NewVoteEntry=New event choice
+NbOfVotes=Number of event choices
+SetToPaid=Set to paid
+SetToUnpaid=Set to unpaid
+SetToDoNotReEngage=Set to do not re-engage
+SetToCanReEngage=Set to can re-engage
