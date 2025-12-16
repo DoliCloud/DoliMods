@@ -155,7 +155,7 @@ print "</tr>";
 
 // GETPOST("ECOTAXDEEE_LABEL_LINE")
 print '<tr class="oddeven">';
-if (isModEnabled("produit") || isModEnabled("service")) {
+if (isModEnabled("product") || isModEnabled("service")) {
 	print "<td>".$langs->trans("ECOTAXDEEE_PRODUCT_OR_LABEL_LINE")."</td>";
 	print "<td>";
 	print img_picto('', 'product');
