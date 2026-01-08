@@ -207,11 +207,16 @@ if ($action == 'dolibarrping' || $action == 'dolibarrregistration' || $action ==
 			}
 
 			print "<br>\n".'Event added';
+
+			// Should return http 200 by default.
 		} else {
+			print "<br>\n".'Error during try to fetch record';
+			http_response_code(500);
 		}
 	}
 } else {
 	print "<br>\n".'Action not supported';
+	http_response_code(400);
 }
 
 $db->close();
