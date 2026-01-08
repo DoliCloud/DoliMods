@@ -102,7 +102,7 @@ header("Access-Control-Allow-Origin: *");
 
 print 'Capture server was called with action='.$action;
 
-if ($action == 'dolibarrping' || $action == 'dolibarrregistration') {
+if ($action == 'dolibarrping' || $action == 'dolibarrregistration' || $action == 'dolibarrtrack') {
 	$hash_algo = GETPOST('hash_algo', 'aZ09');
 	$hash_unique_id = GETPOST('hash_unique_id', 'aZ09');
 	$version = GETPOST('version', 'aZ09');
@@ -119,7 +119,7 @@ if ($action == 'dolibarrping' || $action == 'dolibarrregistration') {
 
 		// Insert into database using implicit Transactions
 		$captureserver = new CaptureServer($db);
-		$result = $captureserver->fetch(0, $action.'_'.$hash_unique_id);
+		$result = $captureserver->fetch(0, $action.'_'.$hash_unique_id);	// Unique key is on $action.'_'.$hash_unique_id
 
 		if ($result > 0) {
 			$captureserver->comment = 'Ping received for update at '.dol_print_date(dol_now(), 'dayhourlog').' - from hash '.$hash_unique_id.' - version '.$version;
