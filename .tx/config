@@ -43,6 +43,18 @@ source_file = htdocs/google/langs/en_US/google.lang
 source_lang = en_US
 type        = MOZILLAPROPERTIES
 
+[o:dolicloud:p:dolimods:r:memcached]
+file_filter = htdocs/memcached/langs/<lang>/memcached.lang
+source_file = htdocs/memcached/langs/en_US/memcached.lang
+source_lang = en_US
+type        = MOZILLAPROPERTIES
+
+[o:dolicloud:p:dolimods:r:monitoring]
+file_filter = htdocs/monitoring/langs/<lang>/monitoring.lang
+source_file = htdocs/monitoring/langs/en_US/monitoring.lang
+source_lang = en_US
+type        = MOZILLAPROPERTIES
+
 [o:dolicloud:p:dolimods:r:numberwords]
 file_filter = htdocs/numberwords/langs/<lang>/numberwords.lang
 source_file = htdocs/numberwords/langs/en_US/numberwords.lang
@@ -52,6 +64,36 @@ type        = MOZILLAPROPERTIES
 [o:dolicloud:p:dolimods:r:ovh]
 file_filter = htdocs/ovh/langs/<lang>/ovh.lang
 source_file = htdocs/ovh/langs/en_US/ovh.lang
+source_lang = en_US
+type        = MOZILLAPROPERTIES
+
+[o:dolicloud:p:dolimods:r:payplugdolicloud]
+file_filter = htdocs/payplugdolicloud/langs/<lang>/payplugdolicloud.lang
+source_file = htdocs/payplugdolicloud/langs/en_US/payplugdolicloud.lang
+source_lang = en_US
+type        = MOZILLAPROPERTIES
+
+[o:dolicloud:p:dolimods:r:stancerdolicloud]
+file_filter = htdocs/stancerdolicloud/langs/<lang>/stancerdolicloud.lang
+source_file = htdocs/stancerdolicloud/langs/en_US/stancerdolicloud.lang
+source_lang = en_US
+type        = MOZILLAPROPERTIES
+
+[o:dolicloud:p:dolimods:r:selectbank]
+file_filter = htdocs/selectbank/langs/<lang>/selectbank.lang
+source_file = htdocs/selectbank/langs/en_US/selectbank.lang
+source_lang = en_US
+type        = MOZILLAPROPERTIES
+
+[o:dolicloud:p:dolimods:r:tawkto]
+file_filter = htdocs/tawkto/langs/<lang>/tawkto.lang
+source_file = htdocs/tawkto/langs/en_US/tawkto.lang
+source_lang = en_US
+type        = MOZILLAPROPERTIES
+
+[o:dolicloud:p:dolimods:r:zipautofillfr]
+file_filter = htdocs/zipautofillfr/langs/<lang>/zipautofillfr.lang
+source_file = htdocs/zipautofillfr/langs/en_US/zipautofillfr.lang
 source_lang = en_US
 type        = MOZILLAPROPERTIES
 
