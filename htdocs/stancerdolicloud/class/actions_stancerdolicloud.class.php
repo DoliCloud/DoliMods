@@ -366,7 +366,7 @@ class ActionsStancerDolicloud extends CommonHookActions
 				$lastproxy = end($tmphosts);
 
 				include_once DOL_DOCUMENT_ROOT.'/website/class/website.class.php';
-				$tmpwebsite = new Website($db);
+				$tmpwebsite = new Website($this->db);
 				$tmpwebsite->fetch(0, $ws);
 
 				if (preg_replace('/https?:\/\//i', '', $tmpwebsite->virtualhost) == $lastproxy) {
@@ -522,9 +522,14 @@ class ActionsStancerDolicloud extends CommonHookActions
 						$headers[] = "Authorization: Basic ".$encodedkey;
 						$headers[] = "Content-Type: application/json";
 
+						$methods_allowed = ["card", "sepa"];
+						if (!empty($ws)) { // If website is specified, we only propose card payment method
+							$methods_allowed = ["card"];
+						}
 						$jsontosenddata = '{
 							"amount": '.$amount.',
 							"currency": "'.strtolower($currencyCodeType).'",
+							"methods_allowed": '.json_encode($methods_allowed).',
 							"return_url": "'.$urlback.'"';
 						$jsontosenddata .= '}';
 
