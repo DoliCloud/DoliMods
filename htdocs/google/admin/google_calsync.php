@@ -51,10 +51,10 @@ dol_include_once('/google/lib/google_calendar.lib.php');
 
 
 // Define $max, $maxgoogle and $notolderforsync
-$max=(empty($conf->global->GOOGLE_MAX_FOR_MASS_AGENDA_SYNC)?50:$conf->global->GOOGLE_MAX_FOR_MASS_AGENDA_SYNC);
-$maxgoogle=2500;
-$notolderforsync=(empty($conf->global->GOOGLE_MAXOLDDAYS_FOR_MASS_AGENDA_SYNC)?10:$conf->global->GOOGLE_MAXOLDDAYS_FOR_MASS_AGENDA_SYNC);
-$testoffset=3600;
+$max = getDolGlobalInt("GOOGLE_MAX_FOR_MASS_AGENDA_SYNC", 50);
+$maxgoogle = 2500;
+$notolderforsync = getDolGlobalInt("GOOGLE_MAXOLDDAYS_FOR_MASS_AGENDA_SYNC", 10);
+$testoffset = 3600;
 
 $dateminsync=dol_mktime(GETPOST('synchour'), GETPOST('syncmin'), 0, GETPOST('syncmonth'), GETPOST('syncday'), GETPOST('syncyear'));
 //print dol_print_date($dateminsync, 'dayhour');
@@ -228,7 +228,7 @@ if (GETPOST('cleanup')) {
 	// Create client/token object
 	$key_file_location = $conf->google->multidir_output[$conf->entity]."/" . getDolGlobalString('GOOGLE_API_SERVICEACCOUNT_P12KEY');
 	$force_do_not_use_session=(in_array(GETPOST('action'), array('testall','testcreate'))?true:false);	// false by default
-	$servicearray=getTokenFromServiceAccount($conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL, $key_file_location, $force_do_not_use_session, 'service');
+	$servicearray=getTokenFromServiceAccount(getDolGlobalString('GOOGLE_API_SERVICEACCOUNT_EMAIL'), $key_file_location, $force_do_not_use_session, 'service');
 
 	if (! is_array($servicearray)) {
 		$errors[]=$servicearray;
@@ -290,7 +290,7 @@ if ($action == 'pushallevents') {
 	// Create client/token object
 	$key_file_location = $conf->google->multidir_output[$conf->entity]."/" . getDolGlobalString('GOOGLE_API_SERVICEACCOUNT_P12KEY');
 	$force_do_not_use_session=(in_array(GETPOST('action'), array('testall','testcreate'))?true:false);	// false by default
-	$servicearray=getTokenFromServiceAccount($conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL, $key_file_location, $force_do_not_use_session, 'service');
+	$servicearray=getTokenFromServiceAccount(getDolGlobalSting('GOOGLE_API_SERVICEACCOUNT_EMAIL'), $key_file_location, $force_do_not_use_session, 'service');
 
 	if (! is_array($servicearray)) {
 		$errors[]=$servicearray;
@@ -600,6 +600,8 @@ print info_admin($htmltext, 0, 0, 'warning', 'showifidagendaset');
 print '</div>';
 
 print '</div>';
+
+print '<br>';
 
 print '<div align="center">';
 print '<input type="submit" name="save" class="button" value="'.$langs->trans("Save").'">';

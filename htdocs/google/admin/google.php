@@ -35,10 +35,12 @@ $langs->load("admin");
 $langs->load("other");
 
 $def = array();
-$action=GETPOST("action");
+$action = GETPOST("action");
 
-if (empty($conf->global->GOOGLE_AGENDA_NB)) $conf->global->GOOGLE_AGENDA_NB=5;
-$MAXAGENDA=empty($conf->global->GOOGLE_AGENDA_NB)?5:$conf->global->GOOGLE_AGENDA_NB;
+if (!getDolGlobalString('GOOGLE_AGENDA_NB')) {
+	$conf->global->GOOGLE_AGENDA_NB=5;
+}
+$MAXAGENDA = getDolGlobalInt('GOOGLE_AGENDA_NB', 5);
 
 // List of Google colors (A lot of colors are ignored by Google)
 $colorlist=array('7A367A','B1365F','5229A3','7A367A','29527A','2952A3','1B887A','28754E','0D7813','528800','88880E','AB8B00',
@@ -82,8 +84,11 @@ if ($action == 'save') {
 	// Save nb of agenda
 	$res=dolibarr_set_const($db, 'GOOGLE_AGENDA_NB', trim($_POST["GOOGLE_AGENDA_NB"]), 'chaine', 0, '', $conf->entity);
 	if (! $res > 0) $error++;
-	if (empty($conf->global->GOOGLE_AGENDA_NB)) $conf->global->GOOGLE_AGENDA_NB=5;
-	$MAXAGENDA=empty($conf->global->GOOGLE_AGENDA_NB)?5:$conf->global->GOOGLE_AGENDA_NB;
+
+	if (!getDolGlobalString('GOOGLE_AGENDA_NB')) {
+		$conf->global->GOOGLE_AGENDA_NB=5;
+	}
+	$MAXAGENDA = getDolGlobalInt('GOOGLE_AGENDA_NB', 5);
 
 	if (! $error) {
 		$db->commit();
@@ -145,7 +150,7 @@ if ($conf->use_javascript_ajax) {
 	print '</script>'."\n";
 }
 
-print $langs->trans("GoogleEnableThisTool").' '.$form->selectyesno("GOOGLE_ENABLE_AGENDA", isset($_POST["GOOGLE_ENABLE_AGENDA"])?$_POST["GOOGLE_ENABLE_AGENDA"]:$conf->global->GOOGLE_ENABLE_AGENDA, 1).'<br>';
+print $langs->trans("GoogleEnableThisTool").' '.$form->selectyesno("GOOGLE_ENABLE_AGENDA", isset($_POST["GOOGLE_ENABLE_AGENDA"])?$_POST["GOOGLE_ENABLE_AGENDA"]:getDolGlobalString('GOOGLE_ENABLE_AGENDA'), 1).'<br>';
 
 
 print '<div class="viewagenda">';
@@ -162,8 +167,8 @@ print "</tr>";
 print '<tr class="oddeven">';
 print "<td>".$langs->trans("ClientTZ")."</td>";
 print "<td>";
-$tzarray=get_tz_array();
-$selectedtz=(isset($conf->global->GOOGLE_AGENDA_TIMEZONE)?$conf->global->GOOGLE_AGENDA_TIMEZONE:$tzarray[$_SESSION['dol_tz']]);
+$tzarray = get_tz_array();
+$selectedtz = getDolGlobalString("GOOGLE_AGENDA_TIMEZONE", $tzarray[$_SESSION['dol_tz']]);
 print $formadmin->select_timezone($selectedtz, 'google_agenda_timezone');
 print "</td>";
 print "</tr>";
@@ -205,8 +210,7 @@ while ($i <= $MAXAGENDA) {
 	print "<td><input type=\"text\" class=\"flat\" name=\"google_agenda_src".$key."\" value=\"" . getDolGlobalString($src) . "\" size=\"60\"></td>";
 	print '<td class="nowrap" align="center">';
 	// Possible colors are limited by Google
-	//print $formadmin->selectColor($conf->global->$color, "google_agenda_color".$key, $colorlist);
-	print $formother->selectColor($conf->global->$color, "google_agenda_color".$key, 'googleconfig', 1, $colorlist);
+	print $formother->selectColor(getDolGlobalString($color), "google_agenda_color".$key, 'googleconfig', 1, $colorlist);
 	print '</td>';
 	print "</tr>";
 	$i++;

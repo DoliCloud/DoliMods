@@ -147,8 +147,8 @@ class ActionsGoogle
 
 							include_once DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php';
 							dolibarr_set_const($this->db, $keyparam, dol_print_date(dol_now('gmt'), 'dayhourrfc', 'gmt'), 'chaine', 1, '', $conf->entity);
-							$valparam=$conf->global->$keyparam;
-							$dateminsync=dol_stringtotime($valparam, 1);
+							$valparam = getDolGlobalString($keyparam);
+							$dateminsync = dol_stringtotime($valparam, 1);
 							//var_dump($keyparam);exit;
 						}
 					}
