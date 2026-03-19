@@ -1,6 +1,12 @@
 # ChangeLog GOOGLE MODULE FOR <a href="https://www.dolibarr.org">DOLIBARR ERP CRM</a> 
 
 
+
+## 6.8.2
+
+- Clean code. Better compatibility v23.
+
+
 ## 6.8.1
 
 - Fix sync of job position and company in sync of contact
