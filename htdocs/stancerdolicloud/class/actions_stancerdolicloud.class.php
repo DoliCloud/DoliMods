@@ -350,9 +350,66 @@ class ActionsStancerDolicloud extends CommonHookActions
 		$suffix = GETPOST('suffix'); 	// ???
 		$entity = GETPOST('entity');
 		$getpostlang = GETPOST('lang');
+		$ws = GETPOST("ws", "aZ09"); // Website reference where the newpayment page is embedded or from where the newpayment page is called
 		$amount = price2num(GETPOST("amount", 'alpha'));
 
 		$object = null;
+
+		$urlback = $urlwithroot.'/public/payment/newpayment.php?';
+
+		// May be not required
+		if ($ws && !defined('USEDOLIBARRSERVER') && !defined('USEDOLIBARREDITOR')) {	// So defined('USEEXTERNALSERVER') should be set but is not always
+			if (!empty($_SERVER["HTTP_X_FORWARDED_HOST"])) {
+				// Page is called after a proxy
+				$tmphosts = explode(',', $_SERVER["HTTP_X_FORWARDED_HOST"]);
+				$tmphosts = array_map('trim', $tmphosts);
+				$lastproxy = end($tmphosts);
+
+				include_once DOL_DOCUMENT_ROOT.'/website/class/website.class.php';
+				$tmpwebsite = new Website($db);
+				$tmpwebsite->fetch(0, $ws);
+
+				if (preg_replace('/https?:\/\//i', '', $tmpwebsite->virtualhost) == $lastproxy) {
+					// If the newpayment.php page was called from a proxy with same domain than the website virtual host, we must use this one as the redirect domain url.
+					$urlback = $tmpwebsite->virtualhost.'/public/payment/newpayment.php?';
+				}
+			}
+		}
+		if ($parameters['paymentmethod'] && !preg_match('/'.preg_quote('PM='.$parameters['paymentmethod'], '/').'/', $FULLTAG)) {
+			$FULLTAG .= ($FULLTAG ? '.' : '').'PM='.$parameters['paymentmethod'];
+		}
+		if ($ws && !preg_match('/'.preg_quote('WS='.$ws, '/').'/', $FULLTAG)) {
+			$FULLTAG .= ($FULLTAG ? '.' : '').'WS='.$ws;
+		}
+		if (!empty($suffix)) {
+			$urlback .= 'suffix='.urlencode($suffix).'&';
+		}
+		if ($source) {
+			$urlback .= 's='.urlencode($source).'&';
+			$FULLTAG = stancerDolicloudCompleteFullTag($FULLTAG, $source, $ref);
+		}
+		if (!empty($REF)) {
+			$urlback .= 'ref='.urlencode($REF).'&';
+		}
+		if (!empty($TAG)) {
+			$urlback .= 'tag='.urlencode($TAG).'&';
+		}
+		if (!empty($FULLTAG)) {
+			$urlback .= 'fulltag='.urlencode($FULLTAG).'&';
+		}
+		if (!empty($SECUREKEY)) {
+			$urlback .= 'securekey='.urlencode($SECUREKEY).'&';
+		}
+		if (!empty($entity)) {
+			$urlback .= 'e='.urlencode($entity).'&';
+		}
+		if (!empty($getpostlang)) {
+			$urlback .= 'lang='.urlencode($getpostlang).'&';
+		}
+		if (!empty($ws)) {
+			$urlback .= 'WS='.urlencode($ws).'&';
+		}
+		$urlback .= 'action=returnDoPaymentStancer';
 
 		if ($action == "returnDoPaymentStancer") {
 			dol_syslog("Data after redirect from stancer payment page with session FinalPaymentAmt = ".$_SESSION["FinalPaymentAmt"]." currencycodeType = ".$_SESSION["currencyCodeType"], LOG_DEBUG);
@@ -400,7 +457,20 @@ class ActionsStancerDolicloud extends CommonHookActions
 			$_SESSION["currencyCodeType"] = $currency;
 
 		} elseif (in_array($parameters['paymentmethod'], array('stancerdolicloud')) && $parameters['validpaymentmethod']["stancerdolicloud"] == "valid") {
-			$urlback = $urlwithroot.'/public/payment/newpayment.php?';
+
+			if (empty($amount)) {
+				$amount = price2num(stancerDolicloudGetDataFromObjects($source, $ref));
+			}
+			if (empty($currency)) {
+				if (!GETPOST("currency", 'alpha')) {
+					$currency = $conf->currency;
+				} else {
+					$currency = GETPOST("currency", 'aZ09');
+				}
+			}
+			$FULLTAG = stancerDolicloudCompleteFullTag($FULLTAG, $source, $ref);
+			$_SESSION["FinalPaymentAmt"] = $amount;
+			$_SESSION["currencyCodeType"] = $currency;
 
 			if (!preg_match('/^https:/i', $urlback)) {
 				$langs->load("errors");
@@ -416,37 +486,6 @@ class ActionsStancerDolicloud extends CommonHookActions
 			} else {
 				$secretapikey = getDolGlobalString("STANCER_DOLICLOUD_TEST_SECRET_API_KEY");
 			}
-
-			$paymentmethod = $parameters['paymentmethod'];
-
-			if ($paymentmethod && !preg_match('/'.preg_quote('PM='.$paymentmethod, '/').'/', $FULLTAG)) {
-				$FULLTAG .= ($FULLTAG ? '.' : '').'PM='.$paymentmethod;
-			}
-			if (!empty($suffix)) {
-				$urlback .= 'suffix='.urlencode($suffix).'&';
-			}
-			if ($source) {
-				$urlback .= 's='.urlencode($source).'&';
-			}
-			if (!empty($REF)) {
-				$urlback .= 'ref='.urlencode($REF).'&';
-			}
-			if (!empty($TAG)) {
-				$urlback .= 'tag='.urlencode($TAG).'&';
-			}
-			if (!empty($FULLTAG)) {
-				$urlback .= 'fulltag='.urlencode($FULLTAG).'&';
-			}
-			if (!empty($SECUREKEY)) {
-				$urlback .= 'securekey='.urlencode($SECUREKEY).'&';
-			}
-			if (!empty($entity)) {
-				$urlback .= 'e='.urlencode($entity).'&';
-			}
-			if (!empty($getpostlang)) {
-				$urlback .= 'lang='.urlencode($getpostlang).'&';
-			}
-			$urlback .= 'action=returnDoPaymentStancer';
 
 			if (!$error) {
 				$FinalPaymentAmt = $_SESSION["FinalPaymentAmt"];
