@@ -157,12 +157,12 @@ class ActionsGoogle
 				// HTML output to show into agenda views
 				$langs->load("google@google");
 
-				$this->resprints = ' &nbsp; <div class="googlerefreshcal inline-block">';
+				$this->resprints = ' &nbsp; <div class="nowrap inline-block minheight30">';
 				$this->resprints.= '<a href="'.$_SERVER["PHP_SELF"].'?'.$_SERVER['QUERY_STRING'].'&actiongoogle=refresh">';
 				$tooltip = $langs->trans("ClickToUpdateWithLastGoogleChanges", $userlogin);
 				$tooltip .= ' '.dol_print_date($dateminsync, 'dayhour', 'tzserver', $langs);
 				$tooltip .= '<br>'.$langs->trans("GoogleLimitBackTime", $notolderforsync);
-				$this->resprints.= $form->textwithpicto($langs->trans("RefreshEventFromGoogle"), $tooltip);
+				$this->resprints.= $form->textwithpicto($langs->trans("RefreshEventFromGoogle"), $tooltip, 1, 'help', '');
 				$this->resprints.= '</a></div>';
 			}
 		}
