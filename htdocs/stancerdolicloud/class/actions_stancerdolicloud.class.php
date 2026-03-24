@@ -412,7 +412,9 @@ class ActionsStancerDolicloud extends CommonHookActions
 		$urlback .= 'action=returnDoPaymentStancer';
 
 		if ($action == "returnDoPaymentStancer") {
-			dol_syslog("Data after redirect from stancer payment page with session FinalPaymentAmt = ".$_SESSION["FinalPaymentAmt"]." currencycodeType = ".$_SESSION["currencyCodeType"], LOG_DEBUG);
+			dol_syslog("Data after redirect from stancer payment page with session FinalPaymentAmt = ".$_SESSION["FinalPaymentAmt"]." currencycodeType = ".$_SESSION["currencyCodeType"], LOG_DEBUG, 0, '_payment');
+
+			$_SESSION['paymentoksessioncode'] = getRandomPassword(true, null, 20);		// key between newpayment.php to paymentok.php to avoid direct access to paymentok.php without going through newpayment.php
 
 			$stancerurlapi = "api.stancer.com";
 			if (getDolGlobalInt("STANCER_DOLICLOUD_LIVE")) {
@@ -436,7 +438,7 @@ class ActionsStancerDolicloud extends CommonHookActions
 			if ($ret1["http_code"] == 200) {
 				$result1 = $ret1["content"];
 				$json1 = json_decode($result1);
-				$urlredirect .= "paymentok.php?fulltag=".urlencode($FULLTAG);
+				$urlredirect .= "paymentok.php?fulltag=".urlencode($FULLTAG)."&paymentoksessioncode=".urlencode($_SESSION['paymentoksessioncode']);
 				header("Location: ".$urlredirect);
 				exit;
 			} else {
@@ -522,9 +524,9 @@ class ActionsStancerDolicloud extends CommonHookActions
 						$headers[] = "Authorization: Basic ".$encodedkey;
 						$headers[] = "Content-Type: application/json";
 
-						$methods_allowed = ["card", "sepa"];
-						if (!empty($ws)) { // If website is specified, we only propose card payment method
-							$methods_allowed = ["card"];
+						$methods_allowed = ["card"];
+						if (getDolGlobalInt("STANCER_DOLICLOUD_ALLOW_SEPA")) { // If SEPA is allowed in configuration, we add it.
+							$methods_allowed[] = "sepa";
 						}
 						$jsontosenddata = '{
 							"amount": '.$amount.',
@@ -535,7 +537,7 @@ class ActionsStancerDolicloud extends CommonHookActions
 
 						$urlforcheckout = "https://".urlencode($stancerurlapi)."/v2/payment_intents/";
 
-						dol_syslog("Send Post to url=".$urlforcheckout." with session FinalPaymentAmt = ".$FinalPaymentAmt." currencyCodeType = ".$currencyCodeType, LOG_DEBUG);
+						dol_syslog("Send Post to url=".$urlforcheckout." with session FinalPaymentAmt = ".$FinalPaymentAmt." currencyCodeType = ".$currencyCodeType, LOG_DEBUG, 0, '_payment');
 
 						$ret1 = getURLContent($urlforcheckout, 'POSTALREADYFORMATED', $jsontosenddata, 1, $headers);
 						if ($ret1["http_code"] == 200) {
@@ -545,7 +547,7 @@ class ActionsStancerDolicloud extends CommonHookActions
 							$urlforredirect = "https://".urlencode($stancerurlpayment)."/".(!getDolGlobalInt("STANCER_DOLICLOUD_LIVE") ? "test_" : "").$_SESSION["STANCER_DOLICLOUD_PAYMENT_ID"];
 
 							// Gestion redirection
-							dol_syslog("Send redirect to ".$urlforredirect);
+							dol_syslog("Send redirect to ".$urlforredirect, LOG_DEBUG, 0, '_payment');
 
 							header("Location: ".$urlforredirect);
 							exit;
@@ -609,6 +611,24 @@ class ActionsStancerDolicloud extends CommonHookActions
 		$ispaymentok = false;
 
 		if (in_array($parameters['paymentmethod'], array('stancerdolicloud'))){
+
+			// Prevents direct access to the paymentok page without a valid session flow.
+			if (GETPOST('paymentoksessioncode') !== $_SESSION['paymentoksessioncode']) {
+				$error++;
+				$errmsg = 'Attempted direct access to the paymentok page without a valid session.';
+				dol_syslog($errmsg, LOG_ERR, 0, '_payment');
+				$this->errors[] = $errmsg;
+			}
+
+			// Ensures the session holds a valid Stancer payment ID before any API call is attempted.
+			$FinalPaymentID = empty($_SESSION["STANCER_DOLICLOUD_PAYMENT_ID"]) ? '' : $_SESSION["STANCER_DOLICLOUD_PAYMENT_ID"];
+			if (!$error && empty($FinalPaymentID)) {
+				$error++;
+				$errmsg = 'Stancer payment verification failed: STANCER_DOLICLOUD_PAYMENT_ID is not set in session.';
+				dol_syslog($errmsg, LOG_ERR, 0, '_payment');
+				$this->errors[] = $errmsg;
+			}
+
 			$code = GETPOST("code");
 
 			if ($code == "refused") {
@@ -630,13 +650,45 @@ class ActionsStancerDolicloud extends CommonHookActions
 
 				$FinalPaymentID = $_SESSION["STANCER_DOLICLOUD_PAYMENT_ID"];
 				$urlforcheckout = "https://".urlencode($stancerurlapi)."/v2/payment_intents/".$FinalPaymentID;
-				dol_syslog("Send Get to url=".$urlforcheckout." with session STANCER_DOLICLOUD_PAYMENT_ID = ".$FinalPaymentID, LOG_DEBUG);
+				dol_syslog("Send Get to url=".$urlforcheckout." with session STANCER_DOLICLOUD_PAYMENT_ID = ".$FinalPaymentID, LOG_DEBUG, 0, '_payment');
 				$ret1 = getURLContent($urlforcheckout, 'GET', "", 1, $headers);
 				if ($ret1["http_code"] == 200) {
 					$result1 = $ret1["content"];
 					$json = json_decode($result1);
-					if (in_array($json->status, array("captured", "authorized", "capture_sent", "to_capture"))) {
-						$ispaymentok = true;
+
+					// Ensures the payment confirmed by Stancer matches exactly what was presented to the user
+					$FinalPaymentAmt = empty($_SESSION["FinalPaymentAmt"]) ? '' : $_SESSION["FinalPaymentAmt"];
+					$currencyCodeType = empty($_SESSION['currencyCodeType']) ? '' : $_SESSION['currencyCodeType'];
+
+					if (!empty($FinalPaymentAmt) && !empty($currencyCodeType)) {
+						$expectedAmount   = (int) round($FinalPaymentAmt * 100);
+						$expectedCurrency = strtolower($currencyCodeType);
+						$returnedAmount   = isset($json->amount)   ? (int) $json->amount : null;
+						$returnedCurrency = isset($json->currency) ? strtolower($json->currency) : null;
+
+						if ($returnedAmount !== $expectedAmount || $returnedCurrency !== $expectedCurrency) {
+							$error++;
+							$errmsg = 'Stancer payment information mismatch: expected amount '
+								.$expectedAmount
+								.' and currency '.$expectedCurrency
+								.', got amount '.$returnedAmount
+								.' and currency '.$returnedCurrency;
+							dol_syslog($errmsg, LOG_ERR, 0, '_payment');
+							$this->errors[] = $errmsg;
+						}
+					}
+
+					if (!$error) {
+						if (in_array($json->status, array("captured", "authorized", "capture_sent", "to_capture"))) {
+							dol_syslog("Stancer payment status OK: ".$json->status, LOG_DEBUG, 0, '_payment');
+							$ispaymentok = true;
+						} else {
+							$error++;
+							$errmsg = 'Stancer payment not in an accepted status. Status: '.$json->status;
+							dol_syslog($errmsg, LOG_ERR, 0, '_payment');
+							$this->errors[] = $errmsg;
+							$ispaymentok = false;
+						}
 					}
 				} else {
 					$arrayofmessage = array();
@@ -658,6 +710,10 @@ class ActionsStancerDolicloud extends CommonHookActions
 							$this->errors[] = $langs->trans("UnkownError").' - HTTP code = '.$ret1["http_code"];
 						}
 					}
+
+					$errmsg = 'Stancer API HTTP error: code='.$ret1["http_code"].' for payment ID '.$FinalPaymentID;
+					dol_syslog($errmsg, LOG_ERR, 0, '_payment');
+
 					$error++;
 					$ispaymentok = false;
 				}
