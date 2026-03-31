@@ -78,7 +78,7 @@ class GContact
 			$this->from='dolibarr';
 			$this->dolID = $dolID;
 
-			$useremail = empty($conf->global->GOOGLE_CONTACT_LOGIN)?'':$conf->global->GOOGLE_CONTACT_LOGIN;
+			$useremail = getDolGlobalSting("GOOGLE_CONTACT_LOGIN", '');
 
 			if ($type == 'thirdparty') {
 				$this->fetchThirdpartyFromDolibarr($gdata, $useremail);
@@ -1086,7 +1086,7 @@ class GContact
 
 					if (getDolGlobalInt('GOOGLE_DEBUG')) {
 						file_put_contents(DOL_DATA_ROOT . "/dolibarr_google_massdelete.json", $jsonData);
-						@chmod(DOL_DATA_ROOT . "/dolibarr_google_massdelete.json", octdec(empty($conf->global->MAIN_UMASK)?'0664':$conf->global->MAIN_UMASK));
+						dolChmod(DOL_DATA_ROOT . "/dolibarr_google_massdelete.json");
 					}
 
 					if (is_array($gdata['google_web_token']) && key_exists('access_token', $gdata['google_web_token'])) {
@@ -1122,7 +1122,7 @@ class GContact
 
 					if (getDolGlobalInt('GOOGLE_DEBUG')) {
 						file_put_contents(DOL_DATA_ROOT . "/dolibarr_google_massdelete.response.json", $jsonStr);
-						@chmod(DOL_DATA_ROOT . "/dolibarr_google_massdelete.response.json", octdec(empty($conf->global->MAIN_UMASK)?'0664':$conf->global->MAIN_UMASK));
+						dolChmod(DOL_DATA_ROOT . "/dolibarr_google_massdelete.response.json");
 					}
 				} catch (Exception $e) {
 					dol_syslog("Problem while deleting contacts", LOG_ERR);

@@ -80,11 +80,11 @@ function stancerDolicloudAdminPrepareHead()
 
 /**
  * Get data form an object
- * 
+ *
  * @param	$source 		The type of the object
  * @param	$ref			The ref of the object
  * @param	$mode			The mode to use for the function amount
- * 
+ *
  * @return	int				The amount to pay if mode amount
  */
 
@@ -228,4 +228,42 @@ function stancerDolicloudGetDataFromObjects($source, $ref, $mode = 'amount')
 
 	}
 	return $amount;
+}
+
+/**
+ * Complete the FULLTAG with data from object.
+ *
+ * @param 	string 		$FULLTAG The FULLTAG to complete.
+ * @param 	string 		$source The source type.
+ * @param 	mixed 		$ref The reference ID of the source object.
+ *
+ * @return 	string 		The completed FULLTAG with appended object data.
+ */
+function stancerDolicloudCompleteFullTag($FULLTAG, $source = '', $ref = '') {
+	global $db;
+
+	require_once DOL_DOCUMENT_ROOT.'/commande/class/commande.class.php';
+	$order = new Commande($db);
+
+	if ($source && $ref) {
+		switch ($source) {
+			case 'order':
+			$result = $order->fetch('', $ref);
+			if ($result <= 0) {
+				return $FULLTAG;
+			} else {
+				$result = $order->fetch_thirdparty($order->socid);
+				$FULLTAG = $FULLTAG .'.ORD='.$order->id.'.CUS='.$order->thirdparty->id;
+				$FULLTAG = dol_string_unaccent($FULLTAG);
+			}
+			return $FULLTAG;
+			break;
+		default:
+			return $FULLTAG;
+			break;
+		}
+
+	} else {
+		return $FULLTAG;
+	}
 }

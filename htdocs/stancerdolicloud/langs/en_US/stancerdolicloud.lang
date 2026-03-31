@@ -62,7 +62,7 @@ MyWidgetDescription = My widget description
 StancerDoPayment = Pay with Stancer
 
 ErrorBadValueAmount=Please change your basket amount. It must be free or greater than €0.50 to authorize your payment
-ErrorValueFinalPaymentDiffers= Value of FinalPayment (%s) differs from value expected for membership (%s).
+ErrorValueFinalPaymentDiffers= Value of FinalPayment (%s) differs from expected value (%s).
 ErrorBadClientIdOrSecret=Bad client ID or secret
 
 StancerExplanatoryText=Joining Stancer means joining a solidarity-based system, <b>funded by voluntary contributions from users</b>, to offer high-quality, free online services to all associations<br> So, by joining, you benefit from this solidarity-based model, enabling you to collect online payments free of charge.<br>It is therefore important to communicate on this model, to inform your users of the scope of their payments.<br><br><b>To accept payments with Stancer, you will need to log in to your Stancer account.</b><br><b>You don't have an account on Stancer, <a href="https://auth.stancer.com/inscription" target="_blank">create your account in a few minutes here.</a></strong><br><i>If you encounter any problems, don't hesitate to take a look at <a href="https://centredaide.stancer.com/s/" target="_blank">our help center</a> or to <a href="https://www.stancer.com/contactez-nous" target="_blank">contact us</a> directly.</i>

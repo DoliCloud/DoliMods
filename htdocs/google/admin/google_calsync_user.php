@@ -34,7 +34,10 @@ if (! $res && $i > 0 && file_exists(dirname(substr($tmp, 0, ($i+1)))."/main.inc.
 if (! $res && file_exists("../../main.inc.php")) $res=@include "../../main.inc.php";
 if (! $res && file_exists("../../../main.inc.php")) $res=@include "../../../main.inc.php";
 if (! $res) die("Include of main fails");
-
+/**
+ * @var Translate $langs
+ * @var User $user
+ */
 require_once DOL_DOCUMENT_ROOT."/core/lib/functions2.lib.php";
 require_once DOL_DOCUMENT_ROOT."/core/lib/usergroups.lib.php";
 require_once DOL_DOCUMENT_ROOT."/core/class/html.formadmin.class.php";
@@ -45,10 +48,10 @@ dol_include_once('/google/lib/google_calendar.lib.php');
 
 
 // Define $max, $maxgoogle and $notolderforsync
-$max=(empty($conf->global->GOOGLE_MAX_FOR_MASS_AGENDA_SYNC)?50:$conf->global->GOOGLE_MAX_FOR_MASS_AGENDA_SYNC);
-$maxgoogle=2500;
-$notolderforsync=(empty($conf->global->GOOGLE_MAXOLDDAYS_FOR_MASS_AGENDA_SYNC)?10:$conf->global->GOOGLE_MAXOLDDAYS_FOR_MASS_AGENDA_SYNC);
-$testoffset=3600;
+$max = getDolGlobalInt("GOOGLE_MAX_FOR_MASS_AGENDA_SYNC", 50);
+$maxgoogle = 2500;
+$notolderforsync = getDolGlobalInt("GOOGLE_MAXOLDDAYS_FOR_MASS_AGENDA_SYNC", 10);
+$testoffset = 3600;
 
 $dateminsync=dol_mktime(GETPOST('synchour'), GETPOST('syncmin'), 0, GETPOST('syncmonth'), GETPOST('syncday'), GETPOST('syncyear'), 0);
 //print dol_print_date($dateminsync, 'dayhour');
@@ -192,8 +195,8 @@ if (GETPOST('cleanup')) {
 
 	// Create client/token object
 	$key_file_location = $conf->google->multidir_output[$conf->entity]."/" . getDolGlobalString('GOOGLE_API_SERVICEACCOUNT_P12KEY');
-	$force_do_not_use_session=(in_array(GETPOST('action'), array('testall','testcreate'))?true:false);	// false by default
-	$servicearray=getTokenFromServiceAccount($conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL, $key_file_location, $force_do_not_use_session, 'service');
+	$force_do_not_use_session=(in_array(GETPOST('action'), array('testall','testcreate')) ? true : false);	// false by default
+	$servicearray=getTokenFromServiceAccount(getDolGlobalString("GOOGLE_API_SERVICEACCOUNT_EMAIL"), $key_file_location, $force_do_not_use_session, 'service');
 
 	if (! is_array($servicearray)) {
 		$errors[]=$servicearray;
@@ -254,8 +257,8 @@ if ($action == 'pushallevents') {
 
 	// Create client/token object
 	$key_file_location = $conf->google->multidir_output[$conf->entity]."/" . getDolGlobalString('GOOGLE_API_SERVICEACCOUNT_P12KEY');
-	$force_do_not_use_session=(in_array(GETPOST('action'), array('testall','testcreate'))?true:false);	// false by default
-	$servicearray=getTokenFromServiceAccount($conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL, $key_file_location, $force_do_not_use_session, 'service');
+	$force_do_not_use_session = (in_array(GETPOST('action'), array('testall','testcreate'))?true:false);	// false by default
+	$servicearray = getTokenFromServiceAccount(getDolGlobalString("GOOGLE_API_SERVICEACCOUNT_EMAIL"), $key_file_location, $force_do_not_use_session, 'service');
 
 	if (! is_array($servicearray)) {
 		$errors[]=$servicearray;
@@ -460,7 +463,20 @@ if (! empty($userlogin)) {	// We use setup of user
 	*/
 
 	print "</table>";
+}
 
+dol_fiche_end();
+
+if (empty($userlogin)) {	// We use setup of user
+	print '<div class="center">';
+	print '<input type="submit" name="save" class="button" value="'.$langs->trans("Save").'">';
+	print "</div>";
+}
+
+print "</form>\n";
+
+
+if (empty($userlogin)) {	// We use setup of user
 	print '<br>';
 
 	print info_admin($langs->trans("EnableAPI", "https://console.developers.google.com/apis/library/", "https://console.developers.google.com/apis/library/", "Calendar API"));
@@ -471,21 +487,8 @@ if (! empty($userlogin)) {	// We use setup of user
 	print info_admin($htmltext, 0, 0, '1', 'showifidagendaset');
 }
 
-dol_fiche_end();
 
-
-if (empty($userlogin)) {	// We use setup of user
-	print '<div class="center">';
-	//print "<input type=\"submit\" name=\"test\" class=\"button\" value=\"".$langs->trans("TestConnection")."\">";
-	//print "&nbsp; &nbsp;";
-	print "<input type=\"submit\" name=\"save\" class=\"button\" value=\"".$langs->trans("Save")."\">";
-	print "</div>";
-}
-
-
-print "</form>\n";
-
-print '<br><br>';
+print '<br><br><br>';
 
 
 // Test area
@@ -494,7 +497,7 @@ if (empty($userlogin)) {	// We use setup of user
 	print '<div class="tabsActions">';
 
 	print '<div class="synccal">';
-	if (empty($conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL) || empty($conf->global->GOOGLE_DUPLICATE_INTO_GCAL) || empty($object->conf->GOOGLE_LOGIN)) {
+	if (!getDolGlobalString("GOOGLE_API_SERVICEACCOUNT_EMAIL") || !getDolGlobalString("GOOGLE_DUPLICATE_INTO_GCAL") || !getDolGlobalSting("GOOGLE_LOGIN")) {
 		print '<a class="butActionRefused" href="#">'.$langs->trans("TestCreateUpdateDelete")."</a>";
 
 		print '<a class="butActionRefused" href="#">'.$langs->trans("TestCreate")."</a>";
@@ -513,7 +516,7 @@ if (empty($userlogin)) {	// We use setup of user
 
 	print '<div class="synccal">';
 
-	if (! empty($conf->global->GOOGLE_DUPLICATE_INTO_GCAL)) {
+	if (getDolGlobalString('GOOGLE_DUPLICATE_INTO_GCAL')) {
 		print '<br>';
 		print '<br>';
 
@@ -529,7 +532,7 @@ if (empty($userlogin)) {	// We use setup of user
 		print "</form>\n";
 	}
 
-	if (! empty($conf->global->GOOGLE_DUPLICATE_INTO_GCAL)) {
+	if (getDolGlobalString('GOOGLE_DUPLICATE_INTO_GCAL')) {
 		print '<form name="googleconfig" action="'.$_SERVER["PHP_SELF"].'" method="post">';
 		print '<input type="hidden" name="action" value="deleteallevents">';
 		print '<input type="hidden" name="id" value="'.$id.'">';

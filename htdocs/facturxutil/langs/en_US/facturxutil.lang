@@ -41,7 +41,4 @@ About = About
 FacturXAbout = About FacturX
 FacturXAboutPage = FacturX about page
 
-#
-# Sample page
-#
-MyPageName = My page name
+ThisModuleIsStillNotReliable=This module is not yet reliable. Enable it only if you are aware it provides protoyping features.
