@@ -162,8 +162,7 @@ else print "Object with id ".$myobject->id." deleted\n";
 if ((float) DOL_VERSION >= 18.0) {
 	$sql = "UPDATE ".MAIN_DB_PREFIX."c_ziptown SET town_up = town WHERE town_up IS NULL";
 	$resql = $db->query($sql);
-	if (!$resql)
-	{
+	if (!$resql) {
 		dol_print_error($db);
 		exit;
 	}
@@ -176,17 +175,13 @@ $sql.= " ORDER BY rowid ASC";
 
 dol_syslog($script_file, LOG_DEBUG);
 $resql=$db->query($sql);
-if ($resql)
-{
+if ($resql) {
 	$num = $db->num_rows($resql);
 	$i = 0;
-	if ($num)
-	{
-		while ($i < $num)
-		{
+	if ($num) {
+		while ($i < $num) {
 			$obj = $db->fetch_object($resql);
-			if ($obj)
-			{
+			if ($obj) {
 				// You can use here results
 				$newtown = dol_ucwords($obj->town);
 
@@ -198,9 +193,7 @@ if ($resql)
 			$i++;
 		}
 	}
-}
-else
-{
+} else {
 	$error++;
 	dol_print_error($db);
 }

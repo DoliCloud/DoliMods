@@ -16,7 +16,7 @@
 $res=0;
 // Try main.inc.php into web root known defined into CONTEXT_DOCUMENT_ROOT (not always defined)
 if (! $res && ! empty($_SERVER["CONTEXT_DOCUMENT_ROOT"])) $res=@include str_replace("..", "", $_SERVER["CONTEXT_DOCUMENT_ROOT"])."/main.inc.php";
-// Try main.inc.php into web root detected using web root caluclated from SCRIPT_FILENAME
+// Try main.inc.php into web root detected using web root calculated from SCRIPT_FILENAME
 $tmp=empty($_SERVER['SCRIPT_FILENAME'])?'':$_SERVER['SCRIPT_FILENAME'];$tmp2=realpath(__FILE__); $i=strlen($tmp)-1; $j=strlen($tmp2)-1;
 while ($i > 0 && $j > 0 && isset($tmp[$i]) && isset($tmp2[$j]) && $tmp[$i]==$tmp2[$j]) { $i--; $j--; }
 if (! $res && $i > 0 && file_exists(substr($tmp, 0, ($i+1))."/main.inc.php")) $res=@include substr($tmp, 0, ($i+1))."/main.inc.php";
@@ -39,13 +39,12 @@ $langs->load("openstreetmap@openstreetmap");
 // url is:  gmaps.php?mode=thirdparty|contact|member&id=id
 //avoid mixing protocol on modern browsers
 if (isset($_SERVER['HTTPS']) &&
-    ($_SERVER['HTTPS'] == 'on' || $_SERVER['HTTPS'] == 1) ||
-    isset($_SERVER['HTTP_X_FORWARDED_PROTO']) &&
-    $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https') {
-  $protocol = 'https://';
-}
-else {
-  $protocol = 'http://';
+	($_SERVER['HTTPS'] == 'on' || $_SERVER['HTTPS'] == 1) ||
+	isset($_SERVER['HTTP_X_FORWARDED_PROTO']) &&
+	$_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https') {
+	$protocol = 'https://';
+} else {
+	$protocol = 'http://';
 }
 
 $mode=GETPOST('mode');
@@ -77,14 +76,14 @@ if ($mode=='member') {
 	$address = $object->getFullAddress(1, ', ');
 }
 
-if (isset($object->logo) && !is_null($object->logo)){
+if (isset($object->logo) && !is_null($object->logo)) {
 	$showlogo = true;
-}else{
+} else {
 	$showlogo = false;
 }
-if (isset($object->barcode_type) && !is_null($object->barcode_type)){
+if (isset($object->barcode_type) && !is_null($object->barcode_type)) {
 	$showbarcode = true;
-}else{
+} else {
 	$showbarcode = false;
 }
 
@@ -200,7 +199,7 @@ if ($address && $address != $object->country) {
 			//var_dump($result['content']);
 			$array = json_decode($result['content'], true);
 			$lat=isset($array[0]['lat']) ? $array[0]['lat'] : false;
-            $lon=isset($array[0]['lon']) ? $array[0]['lon'] : false;
+			$lon=isset($array[0]['lon']) ? $array[0]['lon'] : false;
 			if ($lat && $lon) {
 				// See example on page http://wiki.openstreetmap.org/wiki/OpenLayers_Marker
 				print '<script src="'.$protocol.'openlayers.org/api/OpenLayers.js"></script>

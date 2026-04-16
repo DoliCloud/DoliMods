@@ -28,7 +28,7 @@
 $res=0;
 // Try main.inc.php into web root known defined into CONTEXT_DOCUMENT_ROOT (not always defined)
 if (! $res && ! empty($_SERVER["CONTEXT_DOCUMENT_ROOT"])) $res=@include str_replace("..", "", $_SERVER["CONTEXT_DOCUMENT_ROOT"])."/main.inc.php";
-// Try main.inc.php into web root detected using web root caluclated from SCRIPT_FILENAME
+// Try main.inc.php into web root detected using web root calculated from SCRIPT_FILENAME
 $tmp=empty($_SERVER['SCRIPT_FILENAME'])?'':$_SERVER['SCRIPT_FILENAME'];$tmp2=realpath(__FILE__); $i=strlen($tmp)-1; $j=strlen($tmp2)-1;
 while ($i > 0 && $j > 0 && isset($tmp[$i]) && isset($tmp2[$j]) && $tmp[$i]==$tmp2[$j]) { $i--; $j--; }
 if (! $res && $i > 0 && file_exists(substr($tmp, 0, ($i+1))."/main.inc.php")) $res=@include substr($tmp, 0, ($i+1))."/main.inc.php";
@@ -308,7 +308,7 @@ if (getDolGlobalString('OVH_OLDAPI')) {
 
 	print '</table>';
 	print '</div>';
-	
+
 	print '<br>';
 
 	if (getDolGlobalString('OVHAPPNAME') && getDolGlobalString('OVHAPPKEY') && getDolGlobalString('OVHAPPSECRET')) {
@@ -360,7 +360,7 @@ if (getDolGlobalString('OVH_OLDAPI')) {
 
 		print '</table>';
 		print '</div>';
-		
+
 		print '<br>';
 
 		if (getDolGlobalString('OVHAPPNAME2') && getDolGlobalString('OVHAPPKEY2') && getDolGlobalString('OVHAPPSECRET2')) {
@@ -439,8 +439,10 @@ if (! empty($conf->global->OVH_OLDAPI)) {
 				else print '<div class="error">Error login did not return a session id</div><br>';
 
 				//logout
-				if (! empty($conf->global->OVH_OLDAPI)) $soap->logout($session);
-				//  echo "logout successfull\n";
+				if (getDolGlobalString('OVH_OLDAPI')) {
+					$soap->logout($session);
+				}
+				//  echo "logout successful\n";
 			} catch (Exception $e) {
 				print '<div class="error">';
 				print 'Error '.$e->getMessage().'<br>';
@@ -449,7 +451,7 @@ if (! empty($conf->global->OVH_OLDAPI)) {
 
 				// Write dump
 				if (@is_writeable($dolibarr_main_data_root)) {	// Avoid fatal error on fopen with open_basedir
-					if (! empty($conf->global->MAIN_SOAP_DEBUG)) {
+					if (getDolGlobalString('MAIN_SOAP_DEBUG')) {
 						print "\n";
 						var_dump($e);	// This provide more info than __get functions
 						$outputfile=$dolibarr_main_data_root."/dolibarr_soap.log";

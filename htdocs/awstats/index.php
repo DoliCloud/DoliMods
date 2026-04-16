@@ -22,7 +22,7 @@
 $res=0;
 // Try main.inc.php into web root known defined into CONTEXT_DOCUMENT_ROOT (not always defined)
 if (! $res && ! empty($_SERVER["CONTEXT_DOCUMENT_ROOT"])) $res=@include str_replace("..", "", $_SERVER["CONTEXT_DOCUMENT_ROOT"])."/main.inc.php";
-// Try main.inc.php into web root detected using web root caluclated from SCRIPT_FILENAME
+// Try main.inc.php into web root detected using web root calculated from SCRIPT_FILENAME
 $tmp=empty($_SERVER['SCRIPT_FILENAME'])?'':$_SERVER['SCRIPT_FILENAME'];$tmp2=realpath(__FILE__); $i=strlen($tmp)-1; $j=strlen($tmp2)-1;
 while ($i > 0 && $j > 0 && isset($tmp[$i]) && isset($tmp2[$j]) && $tmp[$i]==$tmp2[$j]) { $i--; $j--; }
 if (! $res && $i > 0 && file_exists(substr($tmp, 0, ($i+1))."/main.inc.php")) $res=@include substr($tmp, 0, ($i+1))."/main.inc.php";
@@ -171,7 +171,7 @@ function read_file($file, $domain)
 			// Record number of hits
 			$domaininfo[$domain][$yyyy][$mm]['hits'] += $dom_info[2];
 			$total[$domain]['hits'] += $dom_info[2];
-			// Record ammount of traffic
+			// Record amount of traffic
 			$domaininfo[$domain][$yyyy][$mm]['traffic'] += $dom_info[3];
 			$total[$domain]['traffic'] += $dom_info[3];
 		}
@@ -239,7 +239,7 @@ if (!$dir) {
 	echo '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<title>Error Occured</title>
+<title>Error Occurred</title>
 </head>
 <body>
 <h1>Error</h1><br>
@@ -521,7 +521,7 @@ print '<table class="border" width="100%"><tr><td>'.$langs->trans("Year").':</td
 $yearsarray=array('all'=>$langs->trans("All"));
 $currentyear = date('Y');
 $i = 2000;
-while($i <= $currentyear) {
+while ($i <= $currentyear) {
 	$currentyear[$i] = $i;
 	$i++;
 }

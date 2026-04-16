@@ -40,15 +40,15 @@ class Mantis
 
 
 	/**
-	 *	Constructeur de la classe d'interface a mantis
+	 *	Constructor
 	 */
-	function Mantis()
+	function __construct()
 	{
 		global $conf;
 		global $dolibarr_main_db_type,$dolibarr_main_db_host,$dolibarr_main_db_user;
 		global $dolibarr_main_db_pass,$dolibarr_main_db_name;
 
-		// Defini parametres mantis (avec substitution eventuelle)
+		// Define parameters Mantis
 		$mantistype=preg_replace('/__dolibarr_main_db_type__/i', $dolibarr_main_db_type, $conf->mantis->db->type);
 		$mantishost=preg_replace('/__dolibarr_main_db_host__/i', $dolibarr_main_db_host, $conf->mantis->db->host);
 		$mantisport=preg_replace('/__dolibarr_main_db_port__/i', $dolibarr_main_db_port, $conf->mantis->db->port);

@@ -327,7 +327,6 @@ class InterfaceGoogleContactSynchro extends DolibarrTriggers
 						$ret = googleUpdateGroup($servicearray, $groupID, $newlabel);
 						if (is_numeric($ret) && $ret > 0) {
 							return 1;
-
 						}
 					}
 					$this->error=$object->error;
@@ -342,7 +341,6 @@ class InterfaceGoogleContactSynchro extends DolibarrTriggers
 						$ret = googleDeleteGroup($servicearray, $groupID);
 						if ($ret > 0) {
 							return 1;
-
 						}
 					}
 					$this->error=$object->error;

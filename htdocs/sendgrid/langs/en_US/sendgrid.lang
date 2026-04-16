@@ -7,17 +7,17 @@ SendgridBillingAccount=Nick handle for main account
 SendgridServiceName=SendGrid service account
 SendgridSmsPass=Password
 SendgridSmsLabelAccount=SMS account to use
-SendgridSmsLoginSuccessFull=Connection successfull!
+SendgridSmsLoginSuccessFull=Connection successful!
 SendgridSmsNotConfigured=Module not configured
-SendgridAuthenticationPartNotConfigured=Authentication data not configured. Go onto setup of module SendGrid, tab "Authentication" first. 
+SendgridAuthenticationPartNotConfigured=Authentication data not configured. Go onto setup of module SendGrid, tab "Authentication" first.
 NbSmsLeft=Number of remaining SMS
 SendgridSmsSend=Send SMS
 SendgridSmsAccountInfos=Information on SMS account
 SendgridSmsDestinataire=Target
-SendgridSmsLabelTexteMessage=Text of message 
+SendgridSmsLabelTexteMessage=Text of message
 tabSendgridSms=sms
 SendgridSmsStatutSent=Received message
-SendgridSmsStatutSubmitted=Submited
+SendgridSmsStatutSubmitted=Submitted
 SendgridSmsStatutWaiting=Waiting
 SendgridSmsStatutFailed=Failed
 SendgridSmsBackToAdmin=Back to module admin
@@ -34,7 +34,7 @@ SendgridInvoiceImportShort=SendGrid invoices import
 SendgridInvoiceImportDesc=This page list all SendGrid invoices and suggest a way to import them. Click first onto button "Get invoice list". Then for each invoice not already present, check box and click onto "Import button".
 SupplierToUseForImport=Supplier to create imported invoices on
 ProductGenericToUseForImport=Product/Service to use for imported lines of invoices
-KeepEmptyToSaveLinesAsFreeLines=Keep this field empty if you don't want to see imported lines using a generic predefined product/service 
+KeepEmptyToSaveLinesAsFreeLines=Keep this field empty if you don't want to see imported lines using a generic predefined product/service
 ScanSendgridInvoices=Get invoices list
 ExcludeNullInvoices=Exclude invoice with null amount
 NotFound=Not found
@@ -46,9 +46,9 @@ InvoiceFoundIntoDolibarr=Invoice found into Dolibarr: %s
 InvoicePDFFoundIntoDolibarr=Invoice+PDF found into Dolibarr: %s
 ConnectionParameters=Connection parameters
 TryToUseProxy=Using proxy server
-AboutInfo=This module is developped and distributed by Laurent Destailleur for DoliCloud, <a href="https://www.dolicloud.com?origin=dolimods">www.dolicloud.com</a> (A Dolibarr Preferred Partner company).
+AboutInfo=This module is developed and distributed by Laurent Destailleur for DoliCloud, <a href="https://www.dolicloud.com?origin=dolimods">www.dolicloud.com</a> (A Dolibarr Preferred Partner company).
 MoreModules=Other modules of same author are available on the official DoliStore market place...
-MoreModulesLink=<a target="_blank" href="https://www.dolistore.com/search.php?search_query=dolicloud">Click here to see full list</a>  
+MoreModulesLink=<a target="_blank" href="https://www.dolistore.com/search.php?search_query=dolicloud">Click here to see full list</a>
 MoreCloudHosting=To use online Dolibarr, choose the secured hosting DoliCloud.
 MoreCloudHostingLink=<a target="_blank" href="https://www.dolicloud.com?origin=dolimods">Click here for more information</a>
 CompatibleWithDoliDroid=This modules is also compatible with DoliDroid, the Android application for Dolibarr.

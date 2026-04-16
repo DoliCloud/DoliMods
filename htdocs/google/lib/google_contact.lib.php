@@ -89,7 +89,7 @@ function googleCreateContact($client, $object, $useremail = 'default')
 
 		//<atom:content>
 		$tmpnote=$object->note_public;
-		if (strpos($tmpnote, $google_nltechno_tag) === false){
+		if (strpos($tmpnote, $google_nltechno_tag) === false) {
 			$tmpnote.="\n\n".$google_nltechno_tag.$object->id.'/'.($object->element=='societe'?'thirdparty':$object->element);
 		}
 		$person_array["biographies"][] = [
@@ -98,7 +98,7 @@ function googleCreateContact($client, $object, $useremail = 'default')
 
 		//<gdata:phoneNumber>
 		$newphone = (empty($object->phone) ? (empty($object->phone_pro) ? '' : $object->phone_pro) : $object->phone);
-		if (!empty($newphone)){
+		if (!empty($newphone)) {
 			$person_array["phoneNumbers"][] = [
 				"value" => $newphone,
 				"type" => "work",
@@ -195,7 +195,7 @@ function googleCreateContact($client, $object, $useremail = 'default')
 		$person_array["userDefined"][0]["value"] = $object->id.'/'.$element;
 
 		//<gcontact:birthday>
-		if (!empty($object->birthday)){
+		if (!empty($object->birthday)) {
 			$person_array["birthdays"][] = [
 				"text" => dol_print_date($object->birthday, 'dayrfc'),
 			];
@@ -215,7 +215,6 @@ function googleCreateContact($client, $object, $useremail = 'default')
 		$response = $google->people->createContact($person);
 		if (!empty($response)) {
 			try {
-
 				$id = $response->getResourceName();
 			} catch (Exception $e) {
 				die('ERROR:' . $e->getMessage());
@@ -395,33 +394,33 @@ function googleUpdateContact($client, $contactId, &$object, $useremail = 'defaul
 
 		// Phone
 		$newphone = (empty($object->phone) ? (empty($object->phone_pro) ? '' : $object->phone_pro) : $object->phone);
-		if (!empty($newphone)){
+		if (!empty($newphone)) {
 			$person_array["phoneNumbers"][] = [
 				"value" => $newphone,
 				"type" => "work",
 			];
 			$updatePersonFields .= ",phoneNumbers";
 		}
-		if (!empty($object->phone_perso)){
+		if (!empty($object->phone_perso)) {
 			$person_array["phoneNumbers"][] = [
 				"value" => $object->phone_perso,
 				"type" => "home",
 			];
-			if(strpos($updatePersonFields,"phoneNumbers") === false) $updatePersonFields .= ",phoneNumbers";
+			if (strpos($updatePersonFields, "phoneNumbers") === false) $updatePersonFields .= ",phoneNumbers";
 		}
-		if (!empty($object->phone_mobile)){
+		if (!empty($object->phone_mobile)) {
 			$person_array["phoneNumbers"][] = [
 				"value" => $object->phone_mobile,
 				"type" => "mobile",
 			];
-			if(strpos($updatePersonFields,"phoneNumbers") === false) $updatePersonFields .= ",phoneNumbers";
+			if (strpos($updatePersonFields, "phoneNumbers") === false) $updatePersonFields .= ",phoneNumbers";
 		}
-		if (!empty($object->fax)){
+		if (!empty($object->fax)) {
 			$person_array["phoneNumbers"][] = [
 				"value" => $object->fax,
 				"type" => "workFax",
 			];
-			if(strpos($updatePersonFields,"phoneNumbers") === false) $updatePersonFields .= ",phoneNumbers";
+			if (strpos($updatePersonFields, "phoneNumbers") === false) $updatePersonFields .= ",phoneNumbers";
 		}
 
 		// userDefinedField
@@ -436,7 +435,7 @@ function googleUpdateContact($client, $contactId, &$object, $useremail = 'defaul
 
 		// Comment
 		$tmpnote=$object->note_public;
-		if (strpos($tmpnote, $google_nltechno_tag) === false){
+		if (strpos($tmpnote, $google_nltechno_tag) === false) {
 			$tmpnote.="\n\n".$google_nltechno_tag.$object->id.'/'.($object->element=='societe'?'thirdparty':$object->element);
 		}
 		$person_array["biographies"][] = [
@@ -591,11 +590,11 @@ function googleUpdateContact($client, $contactId, &$object, $useremail = 'defaul
 		$google = new Google_Service_PeopleService($gdata["client"]);
 		$person = new Google_Service_PeopleService_Person($person_array);
 		$personParam['updatePersonFields'] = $updatePersonFields;
-		$response = $google->people->updateContact($newcontactid,$person,$personParam);
+		$response = $google->people->updateContact($newcontactid, $person, $personParam);
 		try {
 			//$url ='https://people.googleapis.com/v1/'.$newcontactid.':updateContact';
 			//$response = getURLContent($url, 'POSTALREADYFORMATED', $jsonData, 1, $addheaderscurl);
-			if(empty($response)) throw new Exception("Error on google record update", 1);
+			if (empty($response)) throw new Exception("Error on google record update", 1);
 			$id = $response->getResourceName();
 		} catch (Exception $e) {
 			die('ERROR:' . $e->getMessage());
@@ -621,7 +620,8 @@ function googleUpdateContact($client, $contactId, &$object, $useremail = 'defaul
  * @param string	$contactID 	ID of contact to update
  * @return int					<0 if KO, >0 if OK
  */
-function googleLinkGroup($client, $groupID, $contactID) {
+function googleLinkGroup($client, $groupID, $contactID)
+{
 	// prepare json data
 	$jsonData = '{';
 	$jsonData .= '"resourceNamesToAdd":'. json_encode(array($contactID));
@@ -671,7 +671,8 @@ function googleLinkGroup($client, $groupID, $contactID) {
  * @param string	$contactID 	ID of contact to update
  * @return int					<0 if KO, >0 if OK
  */
-function googleUnlinkGroup($client, $groupID, $contactID) {
+function googleUnlinkGroup($client, $groupID, $contactID)
+{
 
 	// prepare json data
 	$jsonData = '{';
@@ -707,7 +708,8 @@ function googleUnlinkGroup($client, $groupID, $contactID) {
  *
  * @return int					<0 if KO, >0 if OK
  */
-function googleDeleteGroup($client, $groupID) {
+function googleDeleteGroup($client, $groupID)
+{
 
 	// prepare request
 	$gdata = $client;
@@ -737,7 +739,8 @@ function googleDeleteGroup($client, $groupID) {
  * @param string 	$name	 	New name of group
  * @return int					<0 if KO, >0 if OK
  */
-function googleUpdateGroup($client, $groupID, $name) {
+function googleUpdateGroup($client, $groupID, $name)
+{
 	//TODO
 	// global $conf;
 	// $gdata = $client;
@@ -768,7 +771,6 @@ function googleUpdateGroup($client, $groupID, $name) {
 	// 	return "ERROR:".$json->error->message;
 	// }
 	return 1;
-
 }
 
 /**
@@ -877,7 +879,7 @@ function insertGContactsEntries($gdata, $gContacts, $objectstatic, $useremail = 
 			file_put_contents(DOL_DATA_ROOT . "/dolibarr_google_massinsert.xml", $xmlStr);
 			@chmod(DOL_DATA_ROOT . "/dolibarr_google_massinsert.xml", octdec(empty($conf->global->MAIN_UMASK)?'0664':$conf->global->MAIN_UMASK));
 		}
-*/
+		*/
 		// People call
 		$jsonData = '{"contacts": [';
 		$nbcontacts = 1;
@@ -1072,11 +1074,10 @@ function insertGContactsEntries($gdata, $gContacts, $objectstatic, $useremail = 
 			$jsonStr=$result['content'];
 			try {
 				$json = json_decode($jsonStr);
-				if(!empty($json->error)){
+				if (!empty($json->error)) {
 					dol_syslog('ERROR:'.$result['content'], LOG_ERR);
 					return -1;
 				}
-
 			} catch (Exception $e) {
 				dol_syslog('ERROR:'.$e->getMessage(), LOG_ERR);
 				return -1;
@@ -1138,8 +1139,7 @@ function parseResponse($jsonStr)
 		$res->count = count($json->contactErrors);
 		$res->nbOfErrors = count($json->contactErrors);
 		$res->lastError = $json->contactErrors[$res->nbOfErrors-1];
-
-	}else{
+	} else {
 		$res->count = count($json->createdPeople);
 		$res->nbOfErrors=0;
 	}
@@ -1177,7 +1177,8 @@ function getTagLabel($s)
  * @param 	string	$type	Type of entity (thirdparty, contact or member)
  * @return	array			Array of tags
  */
-function getTags($id, $type) {
+function getTags($id, $type)
+{
 
 	global $db;
 	if ($type == 'thirdparty') {
@@ -1349,13 +1350,13 @@ function getTags($id, $type) {
  *
  * @return	int						>0 if OK, <0 if KO
  */
-function updateGContactGroups($gdata, $gContacts, $type, $useremail = 'default') {
+function updateGContactGroups($gdata, $gContacts, $type, $useremail = 'default')
+{
 
 	global $db, $conf;
 
 	// For each contact :
 	foreach ($gContacts as $gContact) {
-
 		// Retreive google id from gContact
 		$dolID = $gContact->dolID;
 
@@ -1376,8 +1377,7 @@ function updateGContactGroups($gdata, $gContacts, $type, $useremail = 'default')
 			$reg = array();
 			if (!empty($googleID) && preg_match('/google:(people\/.*)/', $googleID, $reg)) {
 				$googleID = $reg[1];
-			}
-			else {
+			} else {
 				dol_syslog('updateGContactGroups Error: invalid googleID for dolID='.$dolID, LOG_ERR);
 			}
 		} else {
@@ -1458,14 +1458,14 @@ function getGContactTypeGroupID($gdata, $type)
 		if (getDolGlobalString('GOOGLE_TAG_REF_EXT') && preg_match('/google:(contactGroups\/.*)/', $conf->global->GOOGLE_TAG_REF_EXT, $reg)) {
 			$groupID = $reg[1];
 		}
-	} else if ($type === 'contact') {
+	} elseif ($type === 'contact') {
 		$tagprefix = 'GOOGLE_TAG_PREFIX_CONTACTS';
 		$label = empty($conf->global->GOOGLE_TAG_PREFIX_CONTACTS) ? 'Dolibarr contacts': $conf->global->GOOGLE_TAG_PREFIX_CONTACTS;
 		// See if ref_ext exists and if it is a google group
 		if (getDolGlobalString('GOOGLE_TAG_REF_EXT_CONTACTS') && preg_match('/google:(contactGroups\/.*)/', $conf->global->GOOGLE_TAG_REF_EXT_CONTACTS, $reg)) {
 			$groupID = $reg[1];
 		}
-	} else if ($type === 'member') {
+	} elseif ($type === 'member') {
 		$tagprefix = 'GOOGLE_TAG_PREFIX_MEMBERS';
 		$label = empty($conf->global->GOOGLE_TAG_PREFIX_MEMBERS) ? 'Dolibarr members': $conf->global->GOOGLE_TAG_PREFIX_MEMBERS;
 		// See if ref_ext exists and if it is a google group
@@ -1503,7 +1503,6 @@ function getGContactTypeGroupID($gdata, $type)
 	// Group not found, we create it
 	// We create it
 	if (! in_array($label, array('contactGroups/all', 'contactGroups/blocked', 'contactGroups/chatBuddies', 'contactGroups/coworkers', 'contactGroups/family', 'contactGroups/friends', 'contactGroups/myContacts', 'contactGroups/starred'))) {
-
 		$jsonData = '{';
 		$jsonData .= '"contactGroup":{';
 		$jsonData .= '"name": "'.$label.'"';
@@ -1533,7 +1532,7 @@ function getGContactTypeGroupID($gdata, $type)
 					$jsonStrListOfGrp = $result['content'];
 					$jsonListOfGrp = json_decode($jsonStrListOfGrp, true);
 					if (!empty($jsonListOfGrp['contactGroups'])) {
-						foreach($jsonListOfGrp['contactGroups'] as $key => $val) {
+						foreach ($jsonListOfGrp['contactGroups'] as $key => $val) {
 							if ($val['name'] == $label) {
 								$groupID = $val['resourceName'];
 								break;
@@ -1580,9 +1579,9 @@ function getGContactTypeGroupID($gdata, $type)
 	$res = 0;
 	if ($type === 'thirdparty') {
 		$res = dolibarr_set_const($db, 'GOOGLE_TAG_REF_EXT', "google:".$groupID, 'chaine', 0, '', $conf->entity);
-	} else if ($type === 'contact') {
+	} elseif ($type === 'contact') {
 		$res = dolibarr_set_const($db, 'GOOGLE_TAG_REF_EXT_CONTACTS', "google:".$groupID, 'chaine', 0, '', $conf->entity);
-	} else if ($type === 'member') {
+	} elseif ($type === 'member') {
 		$res = dolibarr_set_const($db, 'GOOGLE_TAG_REF_EXT_MEMBERS', "google:".$groupID, 'chaine', 0, '', $conf->entity);
 	}
 
@@ -1603,7 +1602,8 @@ function getGContactTypeGroupID($gdata, $type)
  * @param	string		$useremail		User email
  * @return 	string|int					Google Group ID string or < 0 if KO
  */
-function getGContactGroupID($gdata, $tag, $useremail = 'default') {
+function getGContactGroupID($gdata, $tag, $useremail = 'default')
+{
 
 	global $db;
 

@@ -229,12 +229,12 @@ class ActionsGoogle
 		$out = '';
 
 		 // Google Analytics
-		 if (isModEnabled('google') && getDolGlobalString('MAIN_GOOGLE_AN_ID')) {
-			 $tmptagarray = explode(',', getDolGlobalString('MAIN_GOOGLE_AN_ID'));
-			 foreach ($tmptagarray as $tmptag) {
-		 		$out .= "\n";
-		 		$out .= "<!-- JS CODE TO ENABLE for google analtics tag -->\n";
-		 		$out .= "<!-- Global site tag (gtag.js) - Google Analytics -->
+		if (isModEnabled('google') && getDolGlobalString('MAIN_GOOGLE_AN_ID')) {
+			$tmptagarray = explode(',', getDolGlobalString('MAIN_GOOGLE_AN_ID'));
+			foreach ($tmptagarray as $tmptag) {
+				$out .= "\n";
+				$out .= "<!-- JS CODE TO ENABLE for google analtics tag -->\n";
+				$out .= "<!-- Global site tag (gtag.js) - Google Analytics -->
 		 <script async src=\"https://www.googletagmanager.com/gtag/js?id=".dol_escape_htmltag(trim($tmptag))."\"></script>
 		 <script>
 		 window.dataLayer = window.dataLayer || [];
@@ -244,12 +244,12 @@ class ActionsGoogle
 		 gtag('config', '".dol_escape_js(trim($tmptag))."');
 		 </script>";
 				$out .= "\n";
-		 	}
-		 }
+			}
+		}
 		 // Google Adsense (need Google module)
-		 if (isModEnabled('google') && getDolGlobalString('MAIN_GOOGLE_AD_CLIENT') && getDolGlobalString('MAIN_GOOGLE_AD_SLOT')) {
-		 	if (empty($conf->dol_use_jmobile)) {
-		 		$out .= "<!-- Global Adsense -->
+		if (isModEnabled('google') && getDolGlobalString('MAIN_GOOGLE_AD_CLIENT') && getDolGlobalString('MAIN_GOOGLE_AD_SLOT')) {
+			if (empty($conf->dol_use_jmobile)) {
+				$out .= "<!-- Global Adsense -->
 				 <div class=\"center\"><br>
 				 <script><!--
 				 google_ad_client = '".dol_escape_js(getDolGlobalString('MAIN_GOOGLE_AD_CLIENT'))."';
@@ -260,8 +260,8 @@ class ActionsGoogle
 				 </script>
 				 <script src=\"//pagead2.googlesyndication.com/pagead/show_ads.js\"></script>
 				 </div>";
-		 	}
-		 }
+			}
+		}
 
 		$this->resprints = $out;
 
