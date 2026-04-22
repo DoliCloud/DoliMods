@@ -20,13 +20,13 @@ use setasign\Fpdi\FpdiTrait;
  */
 class Fpdi extends FpdfTpl
 {
-    use FpdiTrait;
-    use FpdfTrait;
+	use FpdiTrait;
+	use FpdfTrait;
 
-    /**
-     * FPDI version
-     *
-     * @string
-     */
-    const VERSION = '2.6.6';
+	/**
+	 * FPDI version
+	 *
+	 * @string
+	 */
+	const VERSION = '2.6.6';
 }

@@ -15,52 +15,52 @@ namespace setasign\Fpdi\Math;
  */
 class Vector
 {
-    /**
-     * @var float
-     */
-    protected $x;
+	/**
+	 * @var float
+	 */
+	protected $x;
 
-    /**
-     * @var float
-     */
-    protected $y;
+	/**
+	 * @var float
+	 */
+	protected $y;
 
-    /**
-     * @param int|float $x
-     * @param int|float $y
-     */
-    public function __construct($x = .0, $y = .0)
-    {
-        $this->x = (float)$x;
-        $this->y = (float)$y;
-    }
+	/**
+	 * @param int|float $x
+	 * @param int|float $y
+	 */
+	public function __construct($x = .0, $y = .0)
+	{
+		$this->x = (float) $x;
+		$this->y = (float) $y;
+	}
 
-    /**
-     * @return float
-     */
-    public function getX()
-    {
-        return $this->x;
-    }
+	/**
+	 * @return float
+	 */
+	public function getX()
+	{
+		return $this->x;
+	}
 
-    /**
-     * @return float
-     */
-    public function getY()
-    {
-        return $this->y;
-    }
+	/**
+	 * @return float
+	 */
+	public function getY()
+	{
+		return $this->y;
+	}
 
-    /**
-     * @param Matrix $matrix
-     * @return Vector
-     */
-    public function multiplyWithMatrix(Matrix $matrix)
-    {
-        [$a, $b, $c, $d, $e, $f] = $matrix->getValues();
-        $x = $a * $this->x + $c * $this->y + $e;
-        $y = $b * $this->x + $d * $this->y + $f;
+	/**
+	 * @param Matrix $matrix
+	 * @return Vector
+	 */
+	public function multiplyWithMatrix(Matrix $matrix)
+	{
+		[$a, $b, $c, $d, $e, $f] = $matrix->getValues();
+		$x = $a * $this->x + $c * $this->y + $e;
+		$y = $b * $this->x + $d * $this->y + $f;
 
-        return new self($x, $y);
-    }
+		return new self($x, $y);
+	}
 }

@@ -19,5 +19,5 @@ use setasign\Fpdi\FpdfTplTrait;
  */
 class FpdfTpl extends \tFPDF
 {
-    use FpdfTplTrait;
+	use FpdfTplTrait;
 }

@@ -15,5 +15,5 @@ namespace setasign\Fpdi\PdfParser\Type;
  */
 class PdfNull extends PdfType
 {
-    // empty body
+	// empty body
 }
