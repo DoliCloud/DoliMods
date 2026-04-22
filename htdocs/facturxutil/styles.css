@@ -27,8 +27,12 @@
     flex: 1 1 auto;
 }
 .card {
-	padding: 10px;
+	margin: 10px;
 }
+.card .card-body {
+	padding: 20px;
+}
+
 .row {
     display: -ms-flexbox;
     display: flex;
@@ -45,14 +49,11 @@
 .col-md-4 {
     -ms-flex: 0 0 33.333333%;
     flex: 0 0 33.333333%;
-    max-width: 350px;
-	padding: 10px;
-
+    width: auto;
 }
 
 .col-md-12 {
     -ms-flex: 0 0 98%;
     flex: 0 0 98%;
     max-width: 98%;
-	padding: 10px;
 }
