@@ -1,4 +1,4 @@
-# Dolibarr language file - fr_FR - billedonorders 
+# Dolibarr language file - fr_FR - billedonorders
 CHARSET= UTF-8
 BilledOnOrders=Facturé sur les commandes
 BilledOnOrdersSetup=Configuration du module "Facturé sur les commandes"

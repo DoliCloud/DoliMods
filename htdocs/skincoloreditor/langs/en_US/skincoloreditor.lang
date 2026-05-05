@@ -1,4 +1,4 @@
-# Dolibarr language file - en_US - skincoloreditor 
+# Dolibarr language file - en_US - skincoloreditor
 CHARSET= UTF-8
 SkinColorEditorSetup=Skin editor module setup
 SkinColorEditorDesc=This module allows you to change colors of the skin Eldy with colors of your choice. Colors can be set globally here. To change colors for a particular user only, use the tab "Color editor" on the user card.
@@ -17,7 +17,7 @@ FontSize=Font size
 UseHoverOnLists=Highlight table lines on mouse over
 AboutInfo=This module is developped and distributed by Laurent Destailleur for DoliCloud, <a href="https://www.dolicloud.com?origin=dolimods">www.dolicloud.com</a> (A Dolibarr Preferred Partner company).
 MoreModules=Other modules of same author are available on the official DoliStore market place...
-MoreModulesLink=<a target="_blank" href="https://www.dolistore.com/search.php?search_query=dolicloud">Click here to see full list</a>  
+MoreModulesLink=<a target="_blank" href="https://www.dolistore.com/search.php?search_query=dolicloud">Click here to see full list</a>
 MoreCloudHosting=To use online Dolibarr, choose the secured hosting DoliCloud.
 MoreCloudHostingLink=<a target="_blank" href="https://www.dolicloud.com?origin=dolimods">Click here for more information</a>
 CompatibleWithDoliDroid=This modules is also compatible with DoliDroid, the Android application for Dolibarr.
@@ -31,4 +31,3 @@ LeftMenuBackgroundColor=Background color for Left menu
 BackgroundTableTitleColor=Background color for table title line
 BackgroundTableLineOddColor=Background color for odd table lines
 BackgroundTableLineEvenColor=Background color for even table lines
-
