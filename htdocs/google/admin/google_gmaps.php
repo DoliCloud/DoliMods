@@ -199,7 +199,7 @@ print "</tr>";
 print '<tr class="oddeven">';
 print '<td class="fieldrequired">'.$langs->trans("GOOGLE_API_SERVERKEY")."</td>";
 print "<td>";
-print '<input class="flat minwidth400" type="text" name="GOOGLE_API_SERVERKEY" value="'.getDolGlobalString('GOOGLE_API_SERVERKEY').'">';
+print '<input class="flat minwidth400" type="text" name="GOOGLE_API_SERVERKEY" value="'.getDolGlobalString('GOOGLE_API_SERVERKEY').'" spellcheck="false">';
 print '</td>';
 print '<td>';
 //print $langs->trans("KeepEmptyYoUsePublicQuotaOfAPI","Geocoding API").'<br>';
