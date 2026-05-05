@@ -21,7 +21,12 @@ if (! $res && $i > 0 && file_exists(dirname(substr($tmp, 0, ($i+1)))."/main.inc.
 if (! $res && file_exists("../../main.inc.php")) $res=@include "../../main.inc.php";
 if (! $res && file_exists("../../../main.inc.php")) $res=@include "../../../main.inc.php";
 if (! $res) die("Include of main fails");
-
+/**
+ * @var Conf $conf
+ * @var DoliDB $db
+ * @var User $user
+ * @var Translate $langs
+ */
 require_once DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php";
 require_once DOL_DOCUMENT_ROOT."/core/lib/date.lib.php";
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.formadmin.class.php';
@@ -130,31 +135,32 @@ if ($conf->use_javascript_ajax) {
 	print '</script>'."\n";
 }
 
-if (isModEnabled('societe')) {
-	print img_picto('', 'company', 'class="pictofixedwidth"').$langs->trans("GoogleEnableThisToolThirdParties").': ';
-	if ($conf->societe->enabled) {
-		print $form->selectyesno("GOOGLE_ENABLE_GMAPS", GETPOSTISSET("GOOGLE_ENABLE_GMAPS") ? GETPOST("GOOGLE_ENABLE_GMAPS") : getDolGlobalString('GOOGLE_ENABLE_GMAPS'), 1);
-	} else print $langs->trans("ModuleMustBeEnabledFirst", $langs->transnoentitiesnoconv("Module1Name"));
-	print '<br>';
-}
+print '<div class="neutral">';
 
 if (isModEnabled('societe')) {
+	print img_picto('', 'company', 'class="pictofixedwidth"').$langs->trans("GoogleEnableThisToolThirdParties").': ';
+	if (isModEnabled('societe')) {
+		print $form->selectyesno("GOOGLE_ENABLE_GMAPS", GETPOSTISSET("GOOGLE_ENABLE_GMAPS") ? GETPOST("GOOGLE_ENABLE_GMAPS") : getDolGlobalString('GOOGLE_ENABLE_GMAPS'), 1);
+	} else print $langs->trans("ModuleMustBeEnabledFirst", $langs->transnoentitiesnoconv("Module1Name"));
+	print '<br><br>';
+
 	print img_picto('', 'contact', 'class="pictofixedwidth"').$langs->trans("GoogleEnableThisToolContacts").': ';
-	if ($conf->societe->enabled) {
+	if (isModEnabled('societe')) {
 		print $form->selectyesno("GOOGLE_ENABLE_GMAPS_CONTACTS", GETPOSTISSET("GOOGLE_ENABLE_GMAPS_CONTACTS") ? GETPOST("GOOGLE_ENABLE_GMAPS_CONTACTS") : getDolGlobalString('GOOGLE_ENABLE_GMAPS_CONTACTS'), 1);
 	} else print $langs->trans("ModuleMustBeEnabledFirst", $langs->transnoentitiesnoconv("Module1Name"));
 	print '<br>';
 }
 
 if (isModEnabled('member')) {
+	if (isModEnabled('societe')) { print '<br>'; }
 	print img_picto('', 'member', 'class="pictofixedwidth"').$langs->trans("GoogleEnableThisToolMembers").': ';
-	if ($conf->adherent->enabled) {
+	if (isModEnabled('member')) {
 		print $form->selectyesno("GOOGLE_ENABLE_GMAPS_MEMBERS", GETPOSTISSET("GOOGLE_ENABLE_GMAPS_MEMBERS") ? GETPOST("GOOGLE_ENABLE_GMAPS_MEMBERS") : getDolGlobalString('GOOGLE_ENABLE_GMAPS_MEMBERS'), 1);
 	} else print $langs->trans("ModuleMustBeEnabledFirst", $langs->transnoentitiesnoconv("Module310Name"));
 	print '<br>';
 }
 
-print '<br>';
+print '</div>';
 
 
 print '<div class="syncx">';

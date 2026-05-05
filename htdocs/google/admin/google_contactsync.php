@@ -38,7 +38,12 @@ if (! $res && $i > 0 && file_exists(dirname(substr($tmp, 0, ($i+1)))."/main.inc.
 if (! $res && file_exists("../../main.inc.php")) $res=@include "../../main.inc.php";
 if (! $res && file_exists("../../../main.inc.php")) $res=@include "../../../main.inc.php";
 if (! $res) die("Include of main fails");
-
+/**
+ * @var Conf $conf
+ * @var DoliDB $db
+ * @var User $user
+ * @var Translate $langs
+ */
 require_once DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php";
 require_once DOL_DOCUMENT_ROOT."/core/lib/date.lib.php";
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.formadmin.class.php';
@@ -562,7 +567,7 @@ if ($action == 'pushallmembers') {
 			$sql.= ' ORDER BY rowid';
 
 			$resql = $db->query($sql);
-			if (! $resql) {		// Retreive groups from gContact
+			if (! $resql) {		// Retrieve groups from gContact
 				$tags = $gContact->tags;
 				dol_print_error($db);
 				exit;
@@ -796,6 +801,8 @@ if ($conf->use_javascript_ajax) {
 	print '</script>'."\n";
 }
 
+print '<div class="neutral">';
+
 if (isModEnabled('societe')) {
 	print img_picto('', 'company', 'class="pictofixedwidth"').$langs->trans("GoogleEnableSyncToThirdparties").' ';
 	$arraytmp=array(
@@ -806,22 +813,22 @@ if (isModEnabled('societe')) {
 	);
 	print $form->selectarray('GOOGLE_DUPLICATE_INTO_THIRDPARTIES', $arraytmp, getDolGlobalString('GOOGLE_DUPLICATE_INTO_THIRDPARTIES'), 0, 0, 0, '', 0, 0, 0, '', 'maxwidth150');
 	print '<br><br>';
-}
-if (isModEnabled('societe')) {
+
 	print img_picto('', 'contact', 'class="pictofixedwidth"').$langs->trans("GoogleEnableSyncToContacts").' ';
 	print $form->selectyesno("GOOGLE_DUPLICATE_INTO_CONTACTS", GETPOSTISSET("GOOGLE_DUPLICATE_INTO_CONTACTS") ? GETPOST('GOOGLE_DUPLICATE_INTO_CONTACTS') : getDolGlobalString('GOOGLE_DUPLICATE_INTO_CONTACTS'), 1, false, 0, 1);
-	print '<br><br>';
+	print '<br>';
 }
-if (isModEnabled('adherent')) {
+if (isModEnabled('member')) {
+	if (isModEnabled('societe')) { print '<br>'; }
 	print img_picto('', 'member', 'class="pictofixedwidth"').$langs->trans("GoogleEnableSyncToMembers").' ';
 	print $form->selectyesno("GOOGLE_DUPLICATE_INTO_MEMBERS", GETPOSTISSET("GOOGLE_DUPLICATE_INTO_MEMBERS") ? GETPOST("GOOGLE_DUPLICATE_INTO_MEMBERS") : getDolGlobalString('GOOGLE_DUPLICATE_INTO_MEMBERS'), 1, false, 0, 1);
-	print '<br><br>';
+	print '<br>';
 }
+
+print '</div>';
 
 
 print '<div class="syncx">';
-
-print '<br>';
 
 print info_admin($langs->trans("EnableAPI", "https://console.developers.google.com/apis/library/", "https://console.developers.google.com/apis/library/", "People API + Contacts API"));
 
@@ -854,7 +861,7 @@ if (isModEnabled('societe')) {
 	print "</tr>";
 }
 // Label to use for members
-if (isModEnabled('adherent')) {
+if (isModEnabled('member')) {
 	print '<tr class="oddeven" id="trsyncmembers">';
 	print '<td class="fieldrequired">'.$langs->trans("GOOGLE_TAG_PREFIX_MEMBERS")."</td>";
 	print "<td>";
@@ -1135,7 +1142,7 @@ if (isModEnabled('societe')) {
 }
 
 // Members
-if (isModEnabled('adherent')) {
+if (isModEnabled('member')) {
 	if (getDolGlobalString('GOOGLE_DUPLICATE_INTO_MEMBERS') && is_object($tokenobj)) {
 		print '<div class="syncmembers">';
 		print '<hr><br>';

@@ -38,7 +38,12 @@ if (! $res && $i > 0 && file_exists(dirname(substr($tmp, 0, ($i+1)))."/main.inc.
 if (! $res && file_exists("../../main.inc.php")) $res=@include "../../main.inc.php";
 if (! $res && file_exists("../../../main.inc.php")) $res=@include "../../../main.inc.php";
 if (! $res) die("Include of main fails");
-
+/**
+ * @var Conf $conf
+ * @var DoliDB $db
+ * @var User $user
+ * @var Translate $langs
+ */
 require_once DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php";
 require_once DOL_DOCUMENT_ROOT."/core/lib/date.lib.php";
 require_once DOL_DOCUMENT_ROOT."/core/lib/files.lib.php";
@@ -467,16 +472,19 @@ if ($conf->use_javascript_ajax) {
 }
 
 
+print '<div class="neutral">';
+
 print img_picto('', 'action', 'class="pictofixedwidth"').$langs->trans("GoogleEnableSyncToCalendar").' '.$form->selectyesno("GOOGLE_DUPLICATE_INTO_GCAL", GETPOSTISSET("GOOGLE_DUPLICATE_INTO_GCAL") ? GETPOST("GOOGLE_DUPLICATE_INTO_GCAL") : getDolGlobalString('GOOGLE_DUPLICATE_INTO_GCAL'), 1).'<br>';
+
+print '</div>';
+
 
 
 print '<div class="synccal">';
 
-print '<br>';
-
 print info_admin($langs->trans("EnableAPI", "https://console.developers.google.com/apis/library/", "https://console.developers.google.com/apis/library/", "Calendar API"), 0, 0, '1', 'showifidagendaset');
 
-print '<br><br>';
+print '<br>';
 
 print '<table class="noborder centpercent">';
 
