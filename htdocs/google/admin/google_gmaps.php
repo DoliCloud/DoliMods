@@ -218,7 +218,7 @@ print '</div>';
 
 print '</div>';
 
-print '<div align="center">';
+print '<div class="center">';
 print '<input type="submit" name="save" class="button" value="'.$langs->trans("Save").'">';
 print "</div>";
 
