@@ -29,17 +29,17 @@ include_once DOL_DOCUMENT_ROOT.'/core/boxes/modules_boxes.php';
  */
 class box_googlemaps extends ModeleBoxes
 {
-	var $boxcode="googlemaps";
-	var $boximg="google@google";
-	var $boxlabel="List of maps";
-	var $depends = array("google@google");
+	public $boxcode="googlemaps";
+	public $boximg="google@google";
+	public $boxlabel="List of maps";
+	public $depends = array("google@google");
 
-	var $db;
-	var $param;
-	var $enabled = 1;
+	public $db;
+	public $param;
+	public $enabled = 1;
 
-	var $info_box_head = array();
-	var $info_box_contents = array();
+	public $info_box_head = array();
+	public $info_box_contents = array();
 
 
 	/**
@@ -48,7 +48,7 @@ class box_googlemaps extends ModeleBoxes
 	 *  @param  DoliDB	$db      	Database handler
 	 *  @param	string	$param		More parameters
 	 */
-	function __construct($db, $param = '')
+	public function __construct($db, $param = '')
 	{
 		global $user, $langs;
 
@@ -68,7 +68,7 @@ class box_googlemaps extends ModeleBoxes
 	 *  @param	int		$max        Maximum number of records to load
 	 *  @return	void
 	 */
-	function loadBox($max = 5)
+	public function loadBox($max = 5)
 	{
 		global $user, $langs;
 		$langs->load("boxes");
@@ -79,7 +79,7 @@ class box_googlemaps extends ModeleBoxes
 		$this->info_box_head = array('text' => $langs->trans("BoxMaps", $max));
 
 		$i=0;
-		if (isModEnabled('societe') && $user->hasRight('societe', 'lire') && getDolGlobalString('GOOGLE_ENABLE_GMAPS') && getDolGlobalString('CABINETMED_HIDETHIRPARTIESMENU')) {
+		if (isModEnabled('societe') && $user->hasRight('societe', 'lire') && getDolGlobalString('GOOGLE_ENABLE_GMAPS')) {
 			$something++;
 
 			$url=dol_buildpath("/google/gmaps_all.php", 1)."?mode=thirdparty";
@@ -109,7 +109,7 @@ class box_googlemaps extends ModeleBoxes
 
 			$i++;
 		}
-		if (isModEnabled('adherent') && $user->hasRight('adherent', 'lire') && getDolGlobalString('GOOGLE_ENABLE_GMAPS_MEMBERS')) {
+		if (isModEnabled('member') && $user->hasRight('member', 'read') && getDolGlobalString('GOOGLE_ENABLE_GMAPS_MEMBERS')) {
 			$something++;
 
 			$url=dol_buildpath("/google/gmaps_all.php", 1)."?mode=member";
@@ -154,7 +154,7 @@ class box_googlemaps extends ModeleBoxes
 	 *  @param	int		$nooutput	No print, only return string
 	 *	@return	void
 	 */
-	function showBox($head = null, $contents = null, $nooutput = 0)
+	public function showBox($head = null, $contents = null, $nooutput = 0)
 	{
 		return parent::showBox($this->info_box_head, $this->info_box_contents, $nooutput);
 	}

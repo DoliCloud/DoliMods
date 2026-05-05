@@ -25,7 +25,12 @@ if (! $res && file_exists("../main.inc.php")) $res=@include "../main.inc.php";
 if (! $res && file_exists("../../main.inc.php")) $res=@include "../../main.inc.php";
 if (! $res && file_exists("../../../main.inc.php")) $res=@include "../../../main.inc.php";
 if (! $res) die("Include of main fails");
-
+/**
+ * @var Conf $conf
+ * @var DoliDB $db
+ * @var User $user
+ * @var Translate $langs
+ */
 require_once DOL_DOCUMENT_ROOT."/core/lib/company.lib.php";
 require_once DOL_DOCUMENT_ROOT."/core/lib/contact.lib.php";
 require_once DOL_DOCUMENT_ROOT."/core/lib/member.lib.php";
@@ -227,7 +232,7 @@ if (empty($mode) || $mode=='thirdparty') {
 
 print_fiche_titre($title, '', '');
 
-dol_fiche_head(array(), 'gmaps', '', 0);
+dol_fiche_head(array(), 'gmaps', '', -1);
 
 
 // If the user can view prospects other than his'
@@ -239,14 +244,18 @@ if ($user->hasRight('societe', 'client', 'voir') && empty($socid)) {
 		print '<input type="hidden" name="token" value="'.newToken().'">';
 		print '<input type="hidden" name="mode" value="'.$mode.'">';
 
-		if ($mode != 'member' && (empty($conf->global->SOCIETE_DISABLE_CUSTOMERS) || empty($conf->global->SOCIETE_DISABLE_PROSPECTS))) {
+		if ($mode != 'member' && (!getDolGlobalString('SOCIETE_DISABLE_CUSTOMERS') || !getDolGlobalString('SOCIETE_DISABLE_PROSPECTS'))) {
 			$selected=$search_customer;
 			print '<div class="divsearchfield">';
 			print $langs->trans('ProspectCustomer'). ' : ';
 			print '<select class="flat" name="search_customer" id="customerprospect">';
 			print '<option value="-1">&nbsp;</option>';
-			if (empty($conf->global->SOCIETE_DISABLE_PROSPECTS)) print '<option value="2"'.($selected==2?' selected':'').'>'.$langs->trans('Prospect').'</option>';
-			if (empty($conf->global->SOCIETE_DISABLE_CUSTOMERS)) print '<option value="1"'.($selected==1?' selected':'').'>'.$langs->trans('Customer').'</option>';
+			if (!getDolGlobalString('SOCIETE_DISABLE_PROSPECTS')) {
+				print '<option value="2"'.($selected==2?' selected':'').'>'.$langs->trans('Prospect').'</option>';
+			}
+			if (!getDolGlobalString('SOCIETE_DISABLE_CUSTOMERS')) {
+				print '<option value="1"'.($selected==1?' selected':'').'>'.$langs->trans('Customer').'</option>';
+			}
 			print '</select>';
 			print '</div>';
 
@@ -268,7 +277,7 @@ if ($user->hasRight('societe', 'client', 'voir') && empty($socid)) {
 			print $formother->select_salesrepresentatives($search_sale, 'search_sale', $user, 0, $langs->trans('ThirdPartiesOfSaleRepresentative'), 'maxwidth250');
 			print '</div>';
 
-			if (! empty($conf->global->GOOGLE_MAPS_SEARCH_ON_STATE)) {
+			if (getDolGlobalString('GOOGLE_MAPS_SEARCH_ON_STATE')) {
 				print '<div class="divsearchfield">';
 				print $langs->trans("State").': ';
 				print $formcompany->select_state($search_departement, 0, 'state_id');
@@ -293,7 +302,7 @@ if ($user->hasRight('societe', 'client', 'voir') && empty($socid)) {
 			print '</div>';
 		}
 
-		print '<input type="submit" name="submit_search_sale" value="'.$langs->trans("Search").'" class="button"> &nbsp; &nbsp; &nbsp; ';
+		print '<input type="submit" name="submit_search_sale" value="'.$langs->trans("Search").'" class="button smallpaddingimp"> &nbsp; &nbsp; &nbsp; ';
 		print '</form>';
 	}
 }
@@ -315,7 +324,9 @@ if ($resql) {
 	$i=0;
 	while ($i < $num) {
 		$obj=$db->fetch_object($resql);
-		if (empty($obj->country_code)) $obj->country_code=$mysoc->country_code;
+		if (empty($obj->country_code)) {
+			$obj->country_code = $mysoc->country_code;
+		}
 
 		$error='';
 
@@ -435,7 +446,7 @@ if ($resql) {
 	}
 
 	// Summary of data represented
-	print '<div class="resultgeoencoding" style="padding-top: 8px;">';
+	print '<div class="resultgeoencoding info" style="padding-top: 8px;">';
 	if ($num > $countgeoencodedall) print '<span class="opacitymedium hideonsmartphone">'.$langs->trans("OnlyXAddressesAmongYWereGeoencoded", $MAXADDRESS, $countgeoencodedok).'</span><br>'."\n";
 	print $langs->trans("CountGeoTotal", $num, ($num-$countgeoencodedall), ($countgeoencodedall-$countgeoencodedok), $countgeoencodedok).'<br>'."\n";
 	print '</div>';
@@ -468,7 +479,7 @@ $gmap->setDirectionDivId('route');
 $gmap->setEnableWindowZoom(true);
 $gmap->setEnableAutomaticCenterZoom(true);
 $gmap->setDisplayDirectionFields(false);
-$gmap->setClusterer(empty($conf->global->GOOGLE_NOCLUSTERER));                  // For high number or record, we should use clusterer
+$gmap->setClusterer(getDolGlobalString('GOOGLE_NOCLUSTERER') ? false : true);                  // For high number or record, we should use clusterer
 $gmap->setSize('100%', '500px');
 $gmap->setZoom(11);
 $gmap->setLang($user->lang);
@@ -524,7 +535,7 @@ $db->close();
  * @param 	string 	$address 	An address
  * @return 	mixed				Array(lat, lng) if OK, error message string if KO
  */
-function geocoding($address)
+public function geocoding($address)
 {
 	global $conf;
 
@@ -569,7 +580,7 @@ function geocoding($address)
  * @param string $replaceBy	The replacement character
  * @return string
  */
-function withoutSpecialChars($str, $replaceBy = '_')
+public function withoutSpecialChars($str, $replaceBy = '_')
 {
 	$str = htmlentities($str, ENT_NOQUOTES, 'utf-8');
 	$str = preg_replace('#&([A-za-z])(?:acute|cedil|circ|grave|orn|ring|slash|th|tilde|uml);#', '\1', $str);
@@ -591,9 +602,9 @@ function withoutSpecialChars($str, $replaceBy = '_')
  * @param	string	$url 			URL to call.
  * @param	string	$postorget		'post' = POST, 'get='GET'
  * @param   string  $param          Params
- * @return	array					returns an associtive array containing the response from the server.
+ * @return	array					returns an associative array containing the response from the server.
  */
-function googlegetURLContent($url, $postorget = 'GET', $param = '')
+public function googlegetURLContent($url, $postorget = 'GET', $param = '')
 {
 	//declaring of global variables
 	global $conf, $langs;
