@@ -87,6 +87,7 @@ $head=openstreetmapadmin_prepare_head();
 
 
 print '<form name="openstreetmapconfig" action="'.$_SERVER["PHP_SELF"].'" method="post">';
+print '<input type="hidden" name="token" value="'.newToken().'">';
 
 dol_fiche_head($head, 'maps', $langs->trans("OpenStreetMapTools"));
 
