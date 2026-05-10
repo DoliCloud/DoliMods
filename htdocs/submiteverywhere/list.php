@@ -45,14 +45,14 @@ $langs->load("submiteverywhere@submiteverywhere");
 
 //if (!$user->rights->mailing->lire) accessforbidden();
 
-// Securite acces client
+// Security check
 if ($user->societe_id > 0) {
 	$action = '';
 	$socid = $user->societe_id;
 }
 
-$sortfield = GETPOST("sortfield", 'alpha');
-$sortorder = GETPOST("sortorder", 'alpha');
+$sortfield = GETPOST("sortfield", 'aZ09comma');
+$sortorder = GETPOST("sortorder", 'aZ09comma');
 $page = GETPOST("page", 'int');
 if ($page == -1) { $page = 0; }
 $offset = $conf->liste_limit * $page;
@@ -61,10 +61,10 @@ $pagenext = $page + 1;
 if (! $sortorder) $sortorder="DESC";
 if (! $sortfield) $sortfield="m.date_creat";
 
-$sall=isset($_GET["sall"])?$_GET["sall"]:$_POST["sall"];
-$sref=isset($_GET["sref"])?$_GET["sref"]:$_POST["sref"];
+$sall = GETPOST("sall");
+$sref = GETPOST("sref");
 
-$filteremail=$_REQUEST["filteremail"]?$_REQUEST["filteremail"]:'';
+$filteremail = GETPOST("filteremail");
 
 $permissiontoread = $user->hasRight('submiteverywhere', 'read');
 if (!$permissiontoread) {

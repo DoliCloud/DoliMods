@@ -67,8 +67,8 @@ $listoftargets=array(
 $action = GETPOST('action', 'aZ09');
 $id = GETPOSTINT('id');
 
-$sortfield = GETPOST("sortfield", 'alpha');
-$sortorder = GETPOST("sortorder", 'alpha');
+$sortfield = GETPOST("sortfield", 'aZ09comma');
+$sortorder = GETPOST("sortorder", 'aZ09comma');
 $page = GETPOST("page", 'int');
 if ($page == -1) { $page = 0; }
 $offset = $conf->liste_limit * $page;
