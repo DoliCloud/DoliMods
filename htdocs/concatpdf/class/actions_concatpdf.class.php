@@ -400,6 +400,79 @@ class ActionsConcatPdf
 	}
 
 	/**
+	 * Hook AddSignature (context 'onlinesign').
+	 *
+	 * When extra PDFs (typically T&Cs) have been concatenated after the proposal
+	 * PDF by this module, the online signature placement falls on the last page
+	 * of the final PDF — i.e. the last appended document — instead of the
+	 * signature box on the proposal itself.
+	 *
+	 * This handler counts the appended pages and sets PROPAL_SIGNATURE_ON_SPECIFIC_PAGE
+	 * to a negative value (= count from end), so the standard signature flow
+	 * places the stamp on the last page of the proposal. Returns 0 to keep the
+	 * default flow running with the corrected target page.
+	 *
+	 * No-op when nothing has been concatenated, when the object is not a
+	 * proposal, when the mixed (interleaved) concatenation mode is enabled, or
+	 * when the appended documents are dynamic templates whose page count cannot
+	 * be determined without regeneration.
+	 *
+	 * @param   array   $parameters     Hook parameters ('sourcefile', 'newpdffilename')
+	 * @param   object  $object         Signed object (Propal expected)
+	 * @param   string  $action         Current action
+	 * @return  int                     0 = continue default, <0 = KO, >0 = replace default
+	 */
+	public function AddSignature($parameters, &$object, &$action)
+	{
+		global $conf;
+
+		if (!is_object($object) || $object->element !== 'propal') {
+			return 0;
+		}
+		if (empty($object->extraparams['concatpdf']) || !is_array($object->extraparams['concatpdf'])) {
+			return 0;
+		}
+		// Mixed mode interleaves proposal/T&C pages, so "count from end" no longer
+		// matches the last proposal page. Bail out and rely on legacy placement.
+		if (getDolGlobalString('CONCATPDF_MIXED_CONCATENATION_ENABLED')) {
+			dol_syslog(get_class($this).'::AddSignature mixed concatenation enabled, skipping signature realignment', LOG_INFO);
+			return 0;
+		}
+
+		$appendedPages = 0;
+		$reader = pdf_getInstance();
+
+		foreach ($object->extraparams['concatpdf'] as $concatfile) {
+			if ($concatfile === '' || $concatfile === '-1') {
+				continue;
+			}
+			// Dynamic templates would need to be regenerated to be counted; bail out
+			// and let the legacy "last page" placement apply rather than guess wrong.
+			if (preg_match('/^pdf_(.*)+\.modules/', $concatfile)) {
+				dol_syslog(get_class($this).'::AddSignature dynamic concat template "'.$concatfile.'" not measurable, skipping signature realignment', LOG_WARNING);
+				return 0;
+			}
+			$appendedFile = $conf->concatpdf->dir_output.'/proposals/'.$concatfile.(preg_match('/\.pdf$/i', $concatfile) ? '' : '.pdf');
+			if (!dol_is_file($appendedFile)) {
+				dol_syslog(get_class($this).'::AddSignature appended file not found "'.$appendedFile.'"', LOG_WARNING);
+				continue;
+			}
+			$pages = $reader->setSourceFile($appendedFile);
+			if ($pages > 0) {
+				$appendedPages += $pages;
+			}
+		}
+
+		if ($appendedPages > 0) {
+			// Negative value = count from end. Last proposal page = pagecount - appendedPages.
+			$conf->global->PROPAL_SIGNATURE_ON_SPECIFIC_PAGE = -$appendedPages;
+			dol_syslog(get_class($this).'::AddSignature realigning online signature, target page set to -'.$appendedPages);
+		}
+
+		return 0;
+	}
+
+	/**
 	 * Concat PDF files
 	 *
 	 * @param 	PDF		$pdf    Pdf

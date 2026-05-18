@@ -12,6 +12,11 @@
  *       \author     Laurent Destailleur
  */
 
+if (!defined('MAIN_SECURITY_FORCERP')) {
+    // https://wiki.openstreetmap.org/wiki/Referer
+	define('MAIN_SECURITY_FORCERP', 'strict-origin-when-cross-origin');
+}
+
 // Load Dolibarr environment
 $res=0;
 // Try main.inc.php into web root known defined into CONTEXT_DOCUMENT_ROOT (not always defined)
