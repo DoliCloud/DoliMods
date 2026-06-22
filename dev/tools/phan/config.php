@@ -84,6 +84,7 @@ return [
     // Alternately, you can pass in the full path to a PHP file
     // with the plugin's implementation (e.g. 'vendor/phan/phan/dev/tools/phan/plugins/AlwaysReturnPlugin.php')
     'plugins' => [
+		__DIR__.'/plugins/SqlInjectionPlugin.php',
         // checks if a function, closure or method unconditionally returns.
         // can also be written as 'vendor/phan/phan/dev/tools/phan/plugins/AlwaysReturnPlugin.php'
         'DeprecateAliasPlugin',
@@ -114,7 +115,7 @@ return [
     // PhanPluginInlineHTMLTrailing : 65+ occurrences
 
 /* Could be enabled for new code.
-        'ConstantVariablePlugin', // Warns about values that are actually constant 
+        'ConstantVariablePlugin', // Warns about values that are actually constant
         'HasPHPDocPlugin', // Requires PHPDoc
         'InlineHTMLPlugin', // html in PHP file, or at end of file
         'NonBoolBranchPlugin', // Requires test on bool, nont on ints
