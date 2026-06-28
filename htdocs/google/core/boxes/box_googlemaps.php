@@ -128,11 +128,13 @@ class box_googlemaps extends ModeleBoxes
 			$something++;
 
 			$url=dol_buildpath("/google/gmaps_all.php", 1)."?mode=patient";
-			$this->info_box_contents[$i][0] = array('td' => 'align="left" width="16"',
+			$this->info_box_contents[$i][0] = array(
+					'td' => 'class="left" width="16"',
 					'logo' => 'object_user',
 					'url' => $url
 			);
-			$this->info_box_contents[$i][1] = array('td' => 'align="left"',
+			$this->info_box_contents[$i][1] = array(
+					'td' => 'class="left"',
 					'text' => '<a href="'.$url.'">'.$langs->trans("MapOfPatients").'</a>',
 					'url' => $url
 			);
@@ -141,8 +143,10 @@ class box_googlemaps extends ModeleBoxes
 		}
 
 		if (! $something) {
-			$this->info_box_contents[0][0] = array('align' => 'left',
-			'text' => $langs->trans("No map available"));
+			$this->info_box_contents[0][0] = array(
+				'td' => 'class="center opacitymedium"',
+				'text' => '<span class="opacitymedium">'.$langs->trans("NoMapEnabled").'</span>'
+			);
 		}
 	}
 
