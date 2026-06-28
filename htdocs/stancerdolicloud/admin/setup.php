@@ -108,8 +108,11 @@ $item = $formSetup->newItem('STANCER_DOLICLOUD_PROD_SECRET_API_KEY');
 $item->cssClass = 'minwidth500';
 $item->helpText = $langs->transnoentities('STANCER_DOLICLOUD_PROD_SECRET_API_KEY_HELP');
 
-
 $item = $formSetup->newItem('STANCER_DOLICLOUD_BANK_ACCOUNT_FOR_PAYMENTS')->setAsSelectBankAccount();
+
+$item = $formSetup->newItem('STANCER_DOLICLOUD_NB_DAY_PENDING_PAYMENT');
+$item->defaultFieldValue = 10;
+$item->cssClass = 'maxwidth75';
 
 $setupnotempty += count($formSetup->items);
 

@@ -84,6 +84,15 @@ class modMemcached extends DolibarrModules
 		$this->phpmin = array(7,0);                 // Minimum version of PHP required by module
 		$this->need_dolibarr_version = array(17, 0, -4);  // Minimum version of Dolibarr required by module
 		$this->langfiles = array("memcached@memcached");
+		$this->module_parts = [
+			'triggers' => 0,
+			'hooks' => [
+				'data' => [
+					'main',
+				],
+				'entity' => $conf->entity,
+			],
+		];
 
 		// Constants
 		$this->const = array();			// List of parameters
