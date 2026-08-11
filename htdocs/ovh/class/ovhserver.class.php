@@ -30,9 +30,7 @@ require_once DOL_DOCUMENT_ROOT . '/core/class/commonobject.class.php';
 //require_once DOL_DOCUMENT_ROOT . '/societe/class/societe.class.php';
 //require_once DOL_DOCUMENT_ROOT . '/product/class/product.class.php';
 
-require __DIR__ . '/../includes/autoload.php';
-use \Ovh\Api;
-use GuzzleHttp\Client as GClient;
+dol_include_once('/ovh/class/doliovhapi.class.php');
 
 
 /**
@@ -260,24 +258,10 @@ class OvhServer extends CommonObject
 		global $conf, $langs;
 
 		$endpoint = empty($conf->global->OVH_ENDPOINT)?'ovh-eu':$conf->global->OVH_ENDPOINT;
-		$connect_timeout = empty($conf->global->MAIN_USE_CONNECT_TIMEOUT)?20:$conf->global->MAIN_USE_CONNECT_TIMEOUT;
-		$timeout = empty($conf->global->MAIN_USE_RESPONSE_TIMEOUT)?30:$conf->global->MAIN_USE_RESPONSE_TIMEOUT;
 
-		if ('guzzle7.3' == 'guzzle7.3') {
-			$arrayconfig = array(
-				'connect_timeout'=>$connect_timeout,
-				'timeout'=>$timeout
-			);
-			$http_client = new GClient($arrayconfig);
-		} else {
-			$http_client = new GClient();
-			$http_client->setDefaultOption('connect_timeout',$connect_timeout);  // Timeout by default of OVH is 5 and it is not enough
-			$http_client->setDefaultOption('timeout', $timeout);
-		}
+		dol_syslog("createSnapshot endpoint=".$endpoint);
 
-		dol_syslog("createSnapshot endpoint=".$endpoint." connect_timeout=".$connect_timeout." timeout=".$timeout);
-
-		$conn = new Api($conf->global->OVHAPPKEY, $conf->global->OVHAPPSECRET, $endpoint, $conf->global->OVHCONSUMERKEY, $http_client);
+		$conn = new DoliOvhApi($conf->global->OVHAPPKEY, $conf->global->OVHAPPSECRET, $endpoint, $conf->global->OVHCONSUMERKEY);
 
 		$resultcreatesnapshot=null;
 		try {
