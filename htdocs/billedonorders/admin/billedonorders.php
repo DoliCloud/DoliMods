@@ -69,6 +69,8 @@ if ($action == 'update') {
 
 	$res=dolibarr_set_const($db, 'BILLEDONORDERS_DISABLE_REMAINTOPAY', GETPOST("BILLEDONORDERS_DISABLE_REMAINTOPAY"), 'texte', 1, '', $conf->entity);
 
+	$res=dolibarr_set_const($db, 'BILLEDONORDERS_DISABLE_REMAINTOBILL', GETPOST("BILLEDONORDERS_DISABLE_REMAINTOBILL"), 'texte', 1, '', $conf->entity);
+
 	if ($res == 1) $mesg=$langs->trans("RecordModifiedSuccessfully");
 	else {
 		dol_print_error($db);
@@ -132,6 +134,10 @@ print '</tr>';
 
 print '<tr class="oddeven"><td>'.$langs->trans("BILLEDONORDERS_DISABLE_REMAINTOPAY").'</td>';
 print '<td>'.$form->selectyesno('BILLEDONORDERS_DISABLE_REMAINTOPAY', getDolGlobalString('BILLEDONORDERS_DISABLE_REMAINTOPAY'), 1).'</td>';
+print '</tr>';
+
+print '<tr class="oddeven"><td>'.$langs->trans("BILLEDONORDERS_DISABLE_REMAINTOBILL").'</td>';
+print '<td>'.$form->selectyesno('BILLEDONORDERS_DISABLE_REMAINTOBILL', getDolGlobalString('BILLEDONORDERS_DISABLE_REMAINTOBILL'), 1).'</td>';
 print '</tr>';
 
 print '</table>';
