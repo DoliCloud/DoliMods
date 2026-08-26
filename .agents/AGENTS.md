@@ -45,7 +45,8 @@ A template of an external module directory content can be found in the `htdocs/m
 ## Before Coding
 
 Before writing any code, the agent **must**:
-- Search for existing similar functions in `htdocs/core/lib/` and `htdocs/core/class/`
+- Use the skill `skill-doli-devmodule`.
+- Try to use existing function available in Dolibarr project before reriting a new one.
 - Check if the concerned object class extends `CommonObject` and use its built-in methods (fetch, create, update, delete, etc.)
 - Review the module's `modMyModule.class.php` for declared permissions and constants
 - Run a search to ensure no equivalent function already exists in the codebase
@@ -107,11 +108,10 @@ Before writing any code, the agent **must**:
 Before any modification, verify:
 - Creation / edition / deletion workflows
 - User rights enforcement (`$user->hasRights("module", "permission")` or `$user->hasRights("module", "objectname", "permission")`)
-- Multi-entity compatibility (add ` AND entity IN ('.getDolEntity("tablename").')`)
+- Multi-entity compatibility (add ` AND entity IN ('.getDolEntity("tablename").')` in SQL requests)
 
 If possible:
 - If doing an external module, add a PHPUnit test file in `yourmoduledir/test/phpunit/`
-- If modifying the Dolibarr code project, add a PHPUnit test file into `test/phpunit/` and add the entry into file `test/phpunit/AllTests.php`.
 
 
 ---
