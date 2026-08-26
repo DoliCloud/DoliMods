@@ -45,7 +45,6 @@ A template of an external module directory content can be found in the `htdocs/m
 ## Before Coding
 
 Before writing any code, the agent **must**:
-- Use the skill `skill-doli-devmodule`.
 - Try to use existing function available in Dolibarr project before reriting a new one.
 - Check if the concerned object class extends `CommonObject` and use its built-in methods (fetch, create, update, delete, etc.)
 - Review the module's `modMyModule.class.php` for declared permissions and constants
@@ -168,6 +167,7 @@ If possible:
 
 ## What the Agent MUST Do
 
+- Use the skill `skill-doli-devmodule`
 - Read this file before any modification
 - Check if an equivalent function already exists before writing new code
 - Minimize the impact of changes
