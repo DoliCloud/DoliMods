@@ -2,7 +2,7 @@
 
 ## Objective
 
-This project contains the full sources of the Dolibarr ERP and CRM application.
+This project contains the sources of external modules designed for the Dolibarr ERP and CRM application.
 Every modification must respect:
 - Dolibarr's modular architecture
 - Compatibility with upstream updates
