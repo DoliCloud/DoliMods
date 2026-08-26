@@ -38,7 +38,8 @@ External module structure:
 ├── `test/`
 └── `tpl/`
 
-A template of an external module directory content can be found in the `htdocs/modulebuilder/template` folder of this project.
+A template of an external module directory content can be found in the `htdocs/modulebuilder/template` folder of the Dolibarr project.
+Do not explore other directories than the one in the workdir (with external modules) and the directory of Dolibarr project if you need (that is in is ~/git/dolibarr or ~/git/dolibarr_dev). 
 
 ---
 
