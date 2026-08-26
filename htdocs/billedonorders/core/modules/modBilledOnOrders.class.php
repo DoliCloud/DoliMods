@@ -39,7 +39,7 @@ class modBilledOnOrders extends DolibarrModules
 	 *
 	 *   @param		DoliDB		$db		Database handler
 	 */
-	function __construct($db)
+	public function __construct($db)
 	{
 		$this->db = $db;
 
@@ -94,7 +94,7 @@ class modBilledOnOrders extends DolibarrModules
 		// Example: $this->const=array(0=>array('MODULE_MY_NEW_CONST1','chaine','myvalue','This is a constant to add',1),
 		//                             1=>array('MODULE_MY_NEW_CONST2','chaine','myvalue','This is another constant to add',1) );
 		$this->const = array(
-			0=>array('BILLEDONORDERS_DISABLE_BILLEDWOTAX','chaine','1','Disable column billed without tax',1)
+			5=>array('BILLEDONORDERS_SHOW_TOTAL','chaine','0','Show total of columns',1)
 		);
 
 		// Boxes
@@ -142,7 +142,7 @@ class modBilledOnOrders extends DolibarrModules
 	 *      @param      string	$options    Options when enabling module ('', 'noboxes')
 	 *      @return     int             	1 if OK, 0 if KO
 	 */
-	function init($options = '')
+	public function init($options = '')
 	{
 		$sql = array();
 
@@ -157,7 +157,7 @@ class modBilledOnOrders extends DolibarrModules
 	 *      @param      string	$options    Options when enabling module ('', 'noboxes')
 	 *      @return     int             	1 if OK, 0 if KO
 	 */
-	function remove($options = '')
+	public function remove($options = '')
 	{
 		$sql = array();
 
