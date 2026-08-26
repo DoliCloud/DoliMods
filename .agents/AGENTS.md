@@ -38,8 +38,8 @@ External module structure:
 ├── `test/`
 └── `tpl/`
 
+Do not explore other directories than the workdir (that contains external modules) and the directory of Dolibarr project (that is in is ~/git/dolibarr or ~/git/dolibarr_dev). 
 A template of an external module directory content can be found in the `htdocs/modulebuilder/template` folder of the Dolibarr project.
-Do not explore other directories than the one in the workdir (with external modules) and the directory of Dolibarr project if you need (that is in is ~/git/dolibarr or ~/git/dolibarr_dev). 
 
 ---
 
@@ -168,7 +168,7 @@ If possible:
 
 ## What the Agent MUST Do
 
-- Use the skill `skill-doli-devmodule`
+- Before starting, load the skill `skill-doli-devmodule`
 - Read this file before any modification
 - Check if an equivalent function already exists before writing new code
 - Minimize the impact of changes
