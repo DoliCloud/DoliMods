@@ -68,7 +68,7 @@ class ActionsBilledOnOrders
 			if (!getDolGlobalString('BILLEDONORDERS_DISABLE_REMAINTOPAY'))
 				print_liste_field_titre($langs->transnoentitiesnoconv("RemainderToPay"), $_SERVER["PHP_SELF"], '', '', $param, '', $sortfield, $sortorder, 'right ', 'AmongAlreadyCreatedInvoices::-1');
 			if (!getDolGlobalString('BILLEDONORDERS_DISABLE_REMAINTOBILL'))
-				print_liste_field_titre($langs->transnoentitiesnoconv("RemainderToBill"), $_SERVER["PHP_SELF"], '', '', $param, '', $sortfield, $sortorder, 'right ');
+				print_liste_field_titre($langs->transnoentitiesnoconv("RemainderToBillTTC"), $_SERVER["PHP_SELF"], '', '', $param, '', $sortfield, $sortorder, 'right ');
 		}
 		if ($parameters['currentcontext'] == 'supplierorderlist') {
 			$langs->load("billedonorders@billedonorders");
@@ -81,7 +81,7 @@ class ActionsBilledOnOrders
 			if (!getDolGlobalString('BILLEDONORDERS_DISABLE_REMAINTOPAY'))
 				print_liste_field_titre($langs->transnoentitiesnoconv("RemainderToPay"), $_SERVER["PHP_SELF"], '', '', $param, '', $sortfield, $sortorder, 'right ', 'AmongAlreadyCreatedInvoices::-1');
 			if (!getDolGlobalString('BILLEDONORDERS_DISABLE_REMAINTOBILL'))
-				print_liste_field_titre($langs->transnoentitiesnoconv("RemainderToBill"), $_SERVER["PHP_SELF"], '', '', $param, '', $sortfield, $sortorder, 'right ');
+				print_liste_field_titre($langs->transnoentitiesnoconv("RemainderToBillTTC"), $_SERVER["PHP_SELF"], '', '', $param, '', $sortfield, $sortorder, 'right ');
 		}
 
 		return 0;

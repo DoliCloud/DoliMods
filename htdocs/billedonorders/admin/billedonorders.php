@@ -39,10 +39,6 @@ if (! $res && file_exists("../../../main.inc.php")) $res=@include "../../../main
 if (! $res) die("Include of main fails");
 
 require_once DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php";
-require_once DOL_DOCUMENT_ROOT."/core/lib/files.lib.php";
-require_once DOL_DOCUMENT_ROOT.'/core/class/html.formadmin.class.php';
-require_once DOL_DOCUMENT_ROOT.'/core/class/html.formfile.class.php';
-
 
 if (!$user->admin) accessforbidden();
 
@@ -50,40 +46,10 @@ $langs->load("admin");
 $langs->load("other");
 $langs->load("billedonorders@billedonorders");
 
-$def = array();
-$action=GETPOST('action', 'alpha');
-$confirm=GETPOST('confirm', 'alpha');
-$actionsave=GETPOST('save', 'alpha');
-
-
-/*
- * Actions
- */
-
-if ($action == 'update') {
-	$res=dolibarr_set_const($db, 'BILLEDONORDERS_DISABLE_BILLEDWOTAX', GETPOST("BILLEDONORDERS_DISABLE_BILLEDWOTAX"), 'texte', 0, '', $conf->entity);
-
-	$res=dolibarr_set_const($db, 'BILLEDONORDERS_DISABLE_BILLED', GETPOST("BILLEDONORDERS_DISABLE_BILLED"), 'texte', 0, '', $conf->entity);
-
-	$res=dolibarr_set_const($db, 'BILLEDONORDERS_DISABLE_PAYED', GETPOST("BILLEDONORDERS_DISABLE_PAYED"), 'texte', 0, '', $conf->entity);
-
-	$res=dolibarr_set_const($db, 'BILLEDONORDERS_DISABLE_REMAINTOPAY', GETPOST("BILLEDONORDERS_DISABLE_REMAINTOPAY"), 'texte', 1, '', $conf->entity);
-
-	$res=dolibarr_set_const($db, 'BILLEDONORDERS_DISABLE_REMAINTOBILL', GETPOST("BILLEDONORDERS_DISABLE_REMAINTOBILL"), 'texte', 1, '', $conf->entity);
-
-	if ($res == 1) $mesg=$langs->trans("RecordModifiedSuccessfully");
-	else {
-		dol_print_error($db);
-	}
-}
-
 
 /*
  * View
  */
-
-$form=new Form($db);
-$formfile=new FormFile($db);
 
 llxHeader('', 'billedonorders', $linktohelp);
 
@@ -107,9 +73,6 @@ $h++;
 
 
 
-print '<form name="cabinetmed" action="'.$_SERVER["PHP_SELF"].'" method="POST">';
-print '<input type="hidden" name="action" value="update">';
-
 dol_fiche_head($head, 'tabsetup', '', -1);
 
 //print $langs->trans("BilledOnOrdersNothingToSetup");
@@ -121,31 +84,28 @@ print '<td>'.$langs->trans("Value").'</td>';
 print "</tr>\n";
 
 print '<tr class="oddeven"><td>'.$langs->trans("BILLEDONORDERS_DISABLE_BILLEDWOTAX").'</td>';
-print '<td>'.$form->selectyesno('BILLEDONORDERS_DISABLE_BILLEDWOTAX', getDolGlobalString('BILLEDONORDERS_DISABLE_BILLEDWOTAX'), 1).'</td>';
+print '<td>'.ajax_constantonoff('BILLEDONORDERS_DISABLE_BILLEDWOTAX').'</td>';
 print '</tr>';
 
 print '<tr class="oddeven"><td>'.$langs->trans("BILLEDONORDERS_DISABLE_BILLED").'</td>';
-print '<td>'.$form->selectyesno('BILLEDONORDERS_DISABLE_BILLED', getDolGlobalString('BILLEDONORDERS_DISABLE_BILLED'), 1).'</td>';
+print '<td>'.ajax_constantonoff('BILLEDONORDERS_DISABLE_BILLED').'</td>';
 print '</tr>';
 
 print '<tr class="oddeven"><td>'.$langs->trans("BILLEDONORDERS_DISABLE_PAYED").'</td>';
-print '<td>'.$form->selectyesno('BILLEDONORDERS_DISABLE_PAYED', getDolGlobalString('BILLEDONORDERS_DISABLE_PAYED'), 1).'</td>';
+print '<td>'.ajax_constantonoff('BILLEDONORDERS_DISABLE_PAYED').'</td>';
 print '</tr>';
 
 print '<tr class="oddeven"><td>'.$langs->trans("BILLEDONORDERS_DISABLE_REMAINTOPAY").'</td>';
-print '<td>'.$form->selectyesno('BILLEDONORDERS_DISABLE_REMAINTOPAY', getDolGlobalString('BILLEDONORDERS_DISABLE_REMAINTOPAY'), 1).'</td>';
+print '<td>'.ajax_constantonoff('BILLEDONORDERS_DISABLE_REMAINTOPAY').'</td>';
 print '</tr>';
 
 print '<tr class="oddeven"><td>'.$langs->trans("BILLEDONORDERS_DISABLE_REMAINTOBILL").'</td>';
-print '<td>'.$form->selectyesno('BILLEDONORDERS_DISABLE_REMAINTOBILL', getDolGlobalString('BILLEDONORDERS_DISABLE_REMAINTOBILL'), 1).'</td>';
+print '<td>'.ajax_constantonoff('BILLEDONORDERS_DISABLE_REMAINTOBILL').'</td>';
 print '</tr>';
 
 print '</table>';
 
 dol_fiche_end();
-
-print '<div class="center"><input type="submit" name="save" value="'.$langs->trans("Save").'" class="button"></div>';
-print '</form>';
 
 
 // Footer
