@@ -89,6 +89,9 @@ fonction
 espace
 methode
 datee
+reste
+Reste
+
 
 # Some string found because it is part of text that is html entities escaped into files
 tre

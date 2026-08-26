@@ -29,16 +29,16 @@ require_once DOL_DOCUMENT_ROOT."/core/class/commonobject.class.php";
  */
 class ActionsBilledOnOrders
 {
-	var $db;
-	var $error;
-	var $errors=array();
+	public $db;
+	public $error;
+	public $errors=array();
 
 	/**
 	 *	Constructor
 	 *
 	 *  @param		DoliDB		$db      Database handler
 	 */
-	function __construct($db)
+	public function __construct($db)
 	{
 		$this->db = $db;
 	}
@@ -52,7 +52,7 @@ class ActionsBilledOnOrders
 	 * @param	object	$object			Object
 	 * @return	string					HTML content to add by hook
 	 */
-	function printFieldListTitle($parameters, &$object)
+	public function printFieldListTitle($parameters, &$object)
 	{
 		global $langs;
 		global $param, $sortfield, $sortorder;
@@ -67,6 +67,8 @@ class ActionsBilledOnOrders
 				print_liste_field_titre($langs->transnoentitiesnoconv("AlreadyPaid"), $_SERVER["PHP_SELF"], '', '', $param, '', $sortfield, $sortorder, 'right ');
 			if (!getDolGlobalString('BILLEDONORDERS_DISABLE_REMAINTOPAY'))
 				print_liste_field_titre($langs->transnoentitiesnoconv("RemainderToPay"), $_SERVER["PHP_SELF"], '', '', $param, '', $sortfield, $sortorder, 'right ', 'AmongAlreadyCreatedInvoices::-1');
+			if (!getDolGlobalString('BILLEDONORDERS_DISABLE_REMAINTOBILL'))
+				print_liste_field_titre($langs->transnoentitiesnoconv("RemainderToBill"), $_SERVER["PHP_SELF"], '', '', $param, '', $sortfield, $sortorder, 'right ');
 		}
 		if ($parameters['currentcontext'] == 'supplierorderlist') {
 			$langs->load("billedonorders@billedonorders");
@@ -78,6 +80,8 @@ class ActionsBilledOnOrders
 				print_liste_field_titre($langs->transnoentitiesnoconv("AlreadyPaid"), $_SERVER["PHP_SELF"], '', '', $param, '', $sortfield, $sortorder, 'right ');
 			if (!getDolGlobalString('BILLEDONORDERS_DISABLE_REMAINTOPAY'))
 				print_liste_field_titre($langs->transnoentitiesnoconv("RemainderToPay"), $_SERVER["PHP_SELF"], '', '', $param, '', $sortfield, $sortorder, 'right ', 'AmongAlreadyCreatedInvoices::-1');
+			if (!getDolGlobalString('BILLEDONORDERS_DISABLE_REMAINTOBILL'))
+				print_liste_field_titre($langs->transnoentitiesnoconv("RemainderToBill"), $_SERVER["PHP_SELF"], '', '', $param, '', $sortfield, $sortorder, 'right ');
 		}
 
 		return 0;
@@ -90,7 +94,7 @@ class ActionsBilledOnOrders
 	 * @param	object	$object			Object
 	 * @return	string					HTML content to add by hook
 	 */
-	function printFieldListOption($parameters, &$object)
+	public function printFieldListOption($parameters, &$object)
 	{
 		if ($parameters['currentcontext'] == 'orderlist') {
 			//global $param, $sortfield, $sortorder;
@@ -110,6 +114,9 @@ class ActionsBilledOnOrders
 				//print '<td align="right"><input type="text" name="billedonorders_remaintopay" style="max-width:50px" class="flat maxwidth50" value="'.GETPOST('billedonorders_remaintopay').'"></td>';
 				print '<td class="liste_titre" align="right"></td>';
 			}
+			if (!getDolGlobalString('BILLEDONORDERS_DISABLE_REMAINTOBILL')) {
+				print '<td class="liste_titre" align="right"></td>';
+			}
 		}
 
 		if ($parameters['currentcontext'] == 'supplierorderlist') {
@@ -130,6 +137,9 @@ class ActionsBilledOnOrders
 				//print '<td align="right"><input type="text" name="billedonorders_remaintopay" style="max-width:50px" class="flat maxwidth50" value="'.GETPOST('billedonorders_remaintopay').'"></td>';
 				print '<td class="liste_titre" align="right"></td>';
 			}
+			if (!getDolGlobalString('BILLEDONORDERS_DISABLE_REMAINTOBILL')) {
+				print '<td class="liste_titre" align="right"></td>';
+			}
 		}
 
 		return 0;
@@ -142,7 +152,7 @@ class ActionsBilledOnOrders
 	 * @param	object	$object			Object
 	 * @return	string					HTML content to add by hook
 	 */
-	function printFieldListValue($parameters, &$object)
+	public function printFieldListValue($parameters, &$object)
 	{
 		global $langs;
 		global $db;
@@ -161,8 +171,9 @@ class ActionsBilledOnOrders
 
 			$billedht=0;
 			$billedttc=0;
-			$payed=0;
+			$paid=0;
 			$remaintopay=0;
+			$remaintobill=0;
 			//$warning='';  TODO Check if invoice is used for more than one order
 			if (is_object($parameters['obj'])) {
 				$id = $parameters['obj']->rowid ? $parameters['obj']->rowid : $parameters['obj']->id;
@@ -188,7 +199,7 @@ class ActionsBilledOnOrders
 							$paymentarray = $invoicetmpforloop->getListOfPayments();
 							foreach ($paymentarray as $val2) {
 								//var_dump($val2);
-								$payed += $val2['amount'];
+								$paid += $val2['amount'];
 							}
 						}
 					} else {
@@ -196,7 +207,8 @@ class ActionsBilledOnOrders
 					}
 				}
 			}
-			$remaintopay = price2num($billedttc - $payed, 'MT');
+			$remaintopay = price2num($billedttc - $paid, 'MT');
+			$remaintobill = price2num($parameters['obj']->total_ttc - $billedttc, 'MT');
 
 			if (!getDolGlobalString('BILLEDONORDERS_DISABLE_BILLEDWOTAX')) {
 				print '<td class="right nowraponall">'.($billedht ? price($billedht) : '');
@@ -232,7 +244,7 @@ class ActionsBilledOnOrders
 				$totalarray['val']['BILLEDONORDERS_DISABLE_BILLED'] += $billedttc;
 			}
 			if (!getDolGlobalString('BILLEDONORDERS_DISABLE_PAYED')) {
-				print '<td class="right nowraponall">'.($payed?price($payed):'').'</td>';
+				print '<td class="right nowraponall">'.($paid?price($paid):'').'</td>';
 				global $totalarray;
 				if (isset($parameters['i']) && ! $parameters['i']) {
 					$totalarray['nbfield']++;
@@ -241,7 +253,7 @@ class ActionsBilledOnOrders
 					}
 					$totalarray['val']['BILLEDONORDERS_DISABLE_PAYED'] = 0;
 				}
-				$totalarray['val']['BILLEDONORDERS_DISABLE_PAYED'] += $payed;
+				$totalarray['val']['BILLEDONORDERS_DISABLE_PAYED'] += $paid;
 			}
 			if (!getDolGlobalString('BILLEDONORDERS_DISABLE_REMAINTOPAY')) {
 				print '<td class="right nowraponall">'.($remaintopay?price($remaintopay):'').'</td>';
@@ -254,6 +266,18 @@ class ActionsBilledOnOrders
 					$totalarray['val']['BILLEDONORDERS_DISABLE_REMAINTOPAY'] = 0;
 				}
 				$totalarray['val']['BILLEDONORDERS_DISABLE_REMAINTOPAY'] += $remaintopay;
+			}
+			if (!getDolGlobalString('BILLEDONORDERS_DISABLE_REMAINTOBILL')) {
+				print '<td class="right nowraponall">'.($remaintobill?price($remaintobill):'').'</td>';
+				global $totalarray;
+				if (isset($parameters['i']) && ! $parameters['i']) {
+					$totalarray['nbfield']++;
+					if (getDolGlobalString('BILLEDONORDERS_SHOW_TOTAL')) {
+						$totalarray['pos'][$totalarray['nbfield']] = 'BILLEDONORDERS_DISABLE_REMAINTOBILL';
+					}
+					$totalarray['val']['BILLEDONORDERS_DISABLE_REMAINTOBILL'] = 0;
+				}
+				$totalarray['val']['BILLEDONORDERS_DISABLE_REMAINTOBILL'] += $remaintobill;
 			}
 		}
 
@@ -270,8 +294,9 @@ class ActionsBilledOnOrders
 
 			$billedht=0;
 			$billedttc=0;
-			$payed=0;
+			$paid=0;
 			$remaintopay=0;
+			$remaintobill=0;
 			//$warning='';  TODO Check if invoice is used for more than one order
 			if (is_object($parameters['obj'])) {
 				$id = $parameters['obj']->rowid ? $parameters['obj']->rowid : $parameters['obj']->id;
@@ -298,7 +323,7 @@ class ActionsBilledOnOrders
 								$paymentarray = $invoicetmpforloop->getListOfPayments();
 								foreach ($paymentarray as $val2) {
 									//var_dump($val2);
-									$payed += $val2['amount'];
+									$paid += $val2['amount'];
 								}
 							}
 						}
@@ -307,7 +332,8 @@ class ActionsBilledOnOrders
 					}
 				}
 			}
-			$remaintopay = price2num($billedttc - $payed, 'MT');
+			$remaintopay = price2num($billedttc - $paid, 'MT');
+			$remaintobill = price2num($parameters['obj']->total_ttc - $billedttc, 'MT');
 
 			if (!getDolGlobalString('BILLEDONORDERS_DISABLE_BILLEDWOTAX')) {
 				print '<td class="right nowraponall">'.($billedht?price($billedht):'');
@@ -329,7 +355,7 @@ class ActionsBilledOnOrders
 			}
 			if (!getDolGlobalString('BILLEDONORDERS_DISABLE_PAYED')) {
 				print '<td class="right nowraponall">';
-				if (method_exists($invoicetmpforloop, 'getListOfPayments')) print ($payed?price($payed):'');
+				if (method_exists($invoicetmpforloop, 'getListOfPayments')) print ($paid?price($paid):'');
 				else print 'AvailableWithv7.0.1+';
 				print '</td>';
 				global $totalarray;
@@ -338,6 +364,14 @@ class ActionsBilledOnOrders
 			if (!getDolGlobalString('BILLEDONORDERS_DISABLE_REMAINTOPAY')) {
 				print '<td class="right nowraponall">';
 				if (method_exists($invoicetmpforloop, 'getListOfPayments')) print ($remaintopay?price($remaintopay):'');
+				else print 'AvailableWithv7.0.1+';
+				print '</td>';
+				global $totalarray;
+				if (isset($parameters['i']) && ! $parameters['i']) $totalarray['nbfield']++;
+			}
+			if (!getDolGlobalString('BILLEDONORDERS_DISABLE_REMAINTOBILL')) {
+				print '<td class="right nowraponall">';
+				if (method_exists($invoicetmpforloop, 'getListOfPayments')) print ($remaintobill?price($remaintobill):'');
 				else print 'AvailableWithv7.0.1+';
 				print '</td>';
 				global $totalarray;
