@@ -94,7 +94,9 @@ class modBilledOnOrders extends DolibarrModules
 		// Example: $this->const=array(0=>array('MODULE_MY_NEW_CONST1','chaine','myvalue','This is a constant to add',1),
 		//                             1=>array('MODULE_MY_NEW_CONST2','chaine','myvalue','This is another constant to add',1) );
 		$this->const = array(
-			5=>array('BILLEDONORDERS_SHOW_TOTAL','chaine','0','Show total of columns',1)
+			1=>array('BILLEDONORDERS_DISABLE_BILLEDWOTAX','chaine','1','Show total of columns', 0),
+			2=>array('BILLEDONORDERS_DISABLE_REMAINTOBILLEXCLTAX','chaine','1','Show total of columns', 0),
+			5=>array('BILLEDONORDERS_SHOW_TOTAL','chaine','0','Show total of columns', 0)
 		);
 
 		// Boxes

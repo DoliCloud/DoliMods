@@ -99,6 +99,10 @@ print '<tr class="oddeven"><td>'.$langs->trans("BILLEDONORDERS_DISABLE_REMAINTOP
 print '<td>'.ajax_constantonoff('BILLEDONORDERS_DISABLE_REMAINTOPAY').'</td>';
 print '</tr>';
 
+print '<tr class="oddeven"><td>'.$langs->trans("BILLEDONORDERS_DISABLE_REMAINTOBILLEXCLTAX").'</td>';
+print '<td>'.ajax_constantonoff('BILLEDONORDERS_DISABLE_REMAINTOBILLEXCLTAX').'</td>';
+print '</tr>';
+
 print '<tr class="oddeven"><td>'.$langs->trans("BILLEDONORDERS_DISABLE_REMAINTOBILL").'</td>';
 print '<td>'.ajax_constantonoff('BILLEDONORDERS_DISABLE_REMAINTOBILL').'</td>';
 print '</tr>';
