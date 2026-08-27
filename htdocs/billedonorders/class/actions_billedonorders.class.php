@@ -343,8 +343,8 @@ class ActionsBilledOnOrders
 					$linkedobj1 = $ordertmpforloop->linkedObjectsIds;
 					$ordertmpforloop->fetchObjectLinked(0, 'facture', $id, 'commande');
 					$linkedobj2 = $ordertmpforloop->linkedObjectsIds;
-					//$linkedobj2 = $ordertmpforloop->fetchObjectLinked($id, 'commande');
-					$linkedobj = array_merge($linkedobj1, $linkedobj2);
+					// We must not use array_merge because the 2 arrays have key 'facture' and the second one will overwrite the first one.
+					$linkedobj = array_merge_recursive($linkedobj1, $linkedobj2);
 					//var_dump($linkedobj);
 				}
 			}
@@ -480,8 +480,8 @@ class ActionsBilledOnOrders
 					$linkedobj1 = $ordertmpforloop->linkedObjectsIds;
 					$ordertmpforloop->fetchObjectLinked(0, 'invoice_supplier', $id, 'order_supplier');
 					$linkedobj2 = $ordertmpforloop->linkedObjectsIds;
-					//$linkedobj2 = $ordertmpforloop->fetchObjectLinked($id, 'commande');
-					$linkedobj = array_merge($linkedobj1, $linkedobj2);
+					// We must not use array_merge because the 2 arrays have key 'invoice_supplier' and the second one will overwrite the first one.
+					$linkedobj = array_merge_recursive($linkedobj1, $linkedobj2);
 					//var_dump($linkedobj);
 				}
 			}
