@@ -323,7 +323,7 @@ class ActionsBilledOnOrders
 					//var_dump($val);
 					$result = $invoicetmpforloop->fetch($val);
 					if ($result > 0) {
-						if ($invoicetmpforloop->statut != $invoicetmpforloop::STATUS_DRAFT) {
+						if ($invoicetmpforloop->status != $invoicetmpforloop::STATUS_DRAFT && $invoicetmpforloop->status != $invoicetmpforloop::STATUS_ABANDONED) {
 							$billedht += $invoicetmpforloop->total_ht;
 							$billedttc += $invoicetmpforloop->total_ttc;
 							$paymentarray = $invoicetmpforloop->getListOfPayments();
@@ -446,7 +446,7 @@ class ActionsBilledOnOrders
 					//var_dump($val);
 					$result = $invoicetmpforloop->fetch($val);
 					if ($result > 0) {
-						if ($invoicetmpforloop->statut != $invoicetmpforloop::STATUS_DRAFT) {
+						if ($invoicetmpforloop->status != $invoicetmpforloop::STATUS_DRAFT && $invoicetmpforloop->status != $invoicetmpforloop::STATUS_ABANDONED) {
 							$billedht += $invoicetmpforloop->total_ht;
 							$billedttc += $invoicetmpforloop->total_ttc;
 							if (method_exists($invoicetmpforloop, 'getListOfPayments')) {
