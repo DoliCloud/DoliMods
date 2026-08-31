@@ -32,7 +32,11 @@ if (! defined('NOREQUIREMENU')) define('NOREQUIREMENU', '1');
 if (! defined('NOREQUIREHTML')) define('NOREQUIREHTML', '1');
 if (! defined('NOREQUIREAJAX')) define('NOREQUIREAJAX', '1');
 
-// C'est un wrapper, donc header vierge
+/**
+ * Empty function
+ *
+ * @return void
+ */
 function llxHeader()
 { }
 
@@ -50,7 +54,11 @@ if (! $res && file_exists("../main.inc.php")) $res=@include "../main.inc.php";
 if (! $res && file_exists("../../main.inc.php")) $res=@include "../../main.inc.php";
 if (! $res && file_exists("../../../main.inc.php")) $res=@include "../../../main.inc.php";
 if (! $res) die("Include of main fails");
-
+/**
+ * @var DoliDB $db
+ * @var Translate $langs
+ * @var User $user
+ */
 dol_include_once("/filemanager/class/filemanagerroots.class.php");
 include_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 include_once DOL_DOCUMENT_ROOT.'/core/class/html.formfile.class.php';
@@ -66,18 +74,18 @@ $rootpath=GETPOST("rootpath");
 $langs->load("filemanager@filemanager");
 $langs->load("other");
 
-// Suppression de la chaine de caractere ../ dans $original_file
+// Delete ../ from $original_file
 $original_file = str_replace("../", "/", $original_file);
 $original_file_osencoded=dol_osencode($original_file);  // New file name encoded in OS encoding charset
 
 // find the subdirectory name as the reference
-$refname=basename(dirname($original_file)."/");
+$refname = basename(dirname($original_file)."/");
 
 // Define root to scan
 $filemanagerroots=new FilemanagerRoots($db);
 
 if (! empty($rootpath) && is_numeric($rootpath)) {
-	$result=$filemanagerroots->fetch($rootpath);
+	$filemanagerroots->fetch($rootpath);
 	//var_dump($filemanagerroots);
 	$rootpath=$filemanagerroots->rootpath;
 }
@@ -86,7 +94,7 @@ if (! empty($rootpath) && is_numeric($rootpath)) {
 $accessallowed=0;
 $sqlprotectagainstexternals='';
 if ($modulepart) {
-	// On fait une verification des droits et on definit le repertoire concerne
+	// We check permission and we set the directory
 
 	// Wrapping for filemanager
 	if ($modulepart == 'filemanager') {
@@ -100,7 +108,7 @@ if ($modulepart) {
 }
 
 // Basic protection (against external users only)
-if ($user->societe_id > 0) {
+if (isset($user->societe_id) && $user->societe_id > 0) {
 	if ($sqlprotectagainstexternals) {
 		$resql = $db->query($sqlprotectagainstexternals);
 		if ($resql) {
@@ -119,12 +127,9 @@ if ($user->societe_id > 0) {
 }
 
 // Security:
-// Limite acces si droits non corrects
 if (! $accessallowed) accessforbidden();
 
 // Security:
-// On interdit les remontees de repertoire ainsi que les pipe dans
-// les noms de fichiers.
 if (preg_match('/\.\./', $original_file) || preg_match('/[<>|]/', $original_file)) {
 	dol_syslog(__FILE__." Refused to deliver file ".$original_file);
 	// Do no show plain path in shown error message
@@ -376,6 +381,7 @@ if ($type == 'directory') {
 		$memmaxorig=@ini_get("memory_limit");
 		$memmax=@ini_get("memory_limit");
 		if ($memmaxorig != '') {
+			$reg = array();
 			preg_match('/([0-9]+)([a-zA-Z]*)/i', $memmax, $reg);
 			if ($reg[2]) {
 				if (strtoupper($reg[2]) == 'M') $memmax=$reg[1]*1024*1024;
@@ -406,7 +412,7 @@ if ($type == 'directory') {
 				$srclang='';    // We disable geshi
 			}
 
-			if (empty($conf->global->FILEMANAGER_DISABLE_COLORSYNTAXING)) {
+			if (getDolGlobalString('FILEMANAGER_DISABLE_COLORSYNTAXING')) {
 				$warn=' ('.$langs->trans("ColoringDisabled").')';
 				$srclang='';    // We disable geshi
 			}
