@@ -31,7 +31,11 @@ if (! defined('NOREQUIREMENU')) define('NOREQUIREMENU', '1');
 if (! defined('NOREQUIREHTML')) define('NOREQUIREHTML', '1');
 if (! defined('NOREQUIREAJAX')) define('NOREQUIREAJAX', '1');
 
-// C'est un wrapper, donc header vierge
+/**
+ * Empty header
+ *
+ * @return void
+ */
 function llxHeader()
 { }
 
@@ -49,7 +53,11 @@ if (! $res && file_exists("../main.inc.php")) $res=@include "../main.inc.php";
 if (! $res && file_exists("../../main.inc.php")) $res=@include "../../main.inc.php";
 if (! $res && file_exists("../../../main.inc.php")) $res=@include "../../../main.inc.php";
 if (! $res) die("Include of main fails");
-
+/**
+ * @var DoliDB $db
+ * @var Translate $langs
+ * @var User $user
+ */
 include_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 include_once DOL_DOCUMENT_ROOT.'/core/class/doleditor.class.php';
 include_once DOL_DOCUMENT_ROOT."/core/lib/security2.lib.php";
@@ -74,7 +82,7 @@ $attachment = true;
 
 //print "XX".$attachment;exit;
 
-// Suppression de la chaine de caractere ../ dans $original_file
+// Delete the string ../ in $original_file
 $original_file = str_replace("../", "/", $original_file);
 $original_file_osencoded=dol_osencode($original_file);  // New file name encoded in OS encoding charset
 
@@ -94,8 +102,6 @@ if (! empty($rootpath) && is_numeric($rootpath)) {
 $accessallowed=0;
 $sqlprotectagainstexternals='';
 if ($modulepart) {
-	// On fait une verification des droits et on definit le repertoire concerne
-
 	// Wrapping for filemanager
 	if ($modulepart == 'filemanager') {
 		$dirnameslash=str_replace(array("\\","/"), "/", dirname($original_file));
@@ -127,13 +133,10 @@ if ($user->societe_id > 0) {
 }
 
 // Security:
-// Limite acces si droits non corrects
 if (! $accessallowed) accessforbidden();
 
 
 // Security:
-// On interdit les remontees de repertoire ainsi que les pipe dans
-// les noms de fichiers.
 if (preg_match('/\.\./', $original_file) || preg_match('/[<>|]/', $original_file)) {
 	dol_syslog("Refused to deliver file ".$original_file);
 	// Do no show plain path in shown error message
@@ -247,13 +250,13 @@ if ($action == 'save') {   // Remove a file
 
 	if (strlen($content) != $sizeofcontent) {
 		dol_syslog("Size of content (".strlen($content).") for new file differs of size expected (".$sizeofcontent."). May be a limit in POST/GET request. We ignore save to keep file integrity.", LOG_ERR);
-		print 'KO SIZENOTEXPECTED';
+		print "KO SIZENOTEXPECTED - Size of content (".strlen($content).") for new file differs of size expected (".$sizeofcontent."). May be you reach a limit. We ignore save to keep file integrity.";
 		return -2;
 	} else {
 		$f=@fopen($original_file_osencoded, 'w');    // 'w'
 		if ($f) {
 			dol_syslog("original_file_osencoded=".$original_file_osencoded." content=".$content);
-			// If original format was ISO, we kepp this format
+			// If original format was ISO, we keep this format
 
 			if (fwrite($f, $content) === false) {
 				$langs->load("errors");

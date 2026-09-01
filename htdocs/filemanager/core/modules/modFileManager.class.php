@@ -38,7 +38,7 @@ class modFileManager extends DolibarrModules
 	 *
 	 *   @param		DoliDB		$db		Database handler
 	 */
-	function __construct($db)
+	public function __construct($db)
 	{
 		$this->db = $db;
 		$this->numero = 101200;
@@ -49,10 +49,10 @@ class modFileManager extends DolibarrModules
 		$this->description = "A file manager";
 		$this->editor_name = 'DoliCloud';
 		$this->editor_url = 'https://www.dolicloud.com?origin=dolimods';
-		$this->version = '6.0.0';                        // 'experimental' or 'dolibarr' or version
+		$this->version = '6.0.1';                        // 'experimental' or 'dolibarr' or version
 		// Key used in llx_const table to save module status enabled/disabled (where MYMODULE is value of property name of module in uppercase)
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
-		$this->picto='filemanager@filemanager';
+		$this->picto = 'folder';
 
 		// Defined all module parts (triggers, login, substitutions, menus, css, etc...)
 		// for default path (eg: /mymodule/core/xxxxx) (0=disable, 1=enable)
@@ -76,12 +76,12 @@ class modFileManager extends DolibarrModules
 		//-------------
 		$this->config_page_url = array("filemanager.php@filemanager");
 
-		// Dependancies
+		// Dependencies
 		//-------------
 		$this->depends = array();
 		$this->requiredby = array();
-		$this->phpmin = array(4,1);                    // Minimum version of PHP required by module
-		$this->need_dolibarr_version = array(17, 0, -4);  // Minimum version of Dolibarr required by module
+		$this->phpmin = array(7.0);                    		// Minimum version of PHP required by module
+		$this->need_dolibarr_version = array(18, 0, -4);  	// Minimum version of Dolibarr required by module
 		$this->langfiles = array("companies","filemanager@filemanager");
 
 		// Constantes
@@ -101,14 +101,6 @@ class modFileManager extends DolibarrModules
 		$this->rights = array();
 		$this->rights_class = 'filemanager';
 		$r=0;
-
-		// $this->rights[$r][0]     Id permission (unique tous modules confondus)
-		// $this->rights[$r][1]     Libelle par defaut si traduction de cle "PermissionXXX" non trouvee (XXX = Id permission)
-		// $this->rights[$r][2]     Non utilise
-		// $this->rights[$r][3]     1=Permis par defaut, 0=Non permis par defaut
-		// $this->rights[$r][4]     Niveau 1 pour nommer permission dans code
-		// $this->rights[$r][5]     Niveau 2 pour nommer permission dans code
-		// $r++;
 
 		$this->rights[$r][0] = 101201;
 		$this->rights[$r][1] = 'Read/Browse directories and files from the file manager';
@@ -145,29 +137,24 @@ class modFileManager extends DolibarrModules
 		//							'user'=>2);				// 0=Menu for internal users, 1=external users, 2=both
 		// $r++;
 		$this->menu[$r]=array('fk_menu'=>0,
-													'type'=>'top',
-													'titre'=>'FileManager',
-													'mainmenu'=>'filemanager',
-													'url'=>'/filemanager/index.php',
-													'langs'=>'filemanager@filemanager',
-													'position'=>100,
-													'perms'=>'$user->rights->filemanager->read',
-													'enabled'=>'isModEnabled("filemanager")',
-													'target'=>'',
-													'user'=>2);
+			'type'=>'top',
+			'titre'=>'FileManager',
+			'prefix' => img_picto('', $this->picto, 'class="pictofixedwidth valignmiddle"'),
+			'mainmenu'=>'filemanager',
+			'url'=>'/filemanager/index.php',
+			'langs'=>'filemanager@filemanager',
+			'position'=>100,
+			'perms'=>'$user->hasRight("filemanager", "read")',
+			'enabled'=>'isModEnabled("filemanager")',
+			'target'=>'',
+			'user'=>2
+		);
 		$r++;
 
 
 		// Exports
 		//--------
 		$r=0;
-
-		// $this->export_code[$r]          Code unique identifiant l'export (tous modules confondus)
-		// $this->export_label[$r]         Libelle par defaut si traduction de cle "ExportXXX" non trouvee (XXX = Code)
-		// $this->export_permission[$r]    Liste des codes permissions requis pour faire l'export
-		// $this->export_fields_sql[$r]    Liste des champs exportables en codif sql
-		// $this->export_fields_name[$r]   Liste des champs exportables en codif traduction
-		// $this->export_sql[$r]           Requete sql qui offre les donnees a l'export
 	}
 
 
@@ -179,26 +166,25 @@ class modFileManager extends DolibarrModules
 	 *      @param      string	$options    Options when enabling module ('', 'noboxes')
 	 *      @return     int             	1 if OK, 0 if KO
 	 */
-	function init($options = '')
+	public function init($options = '')
 	{
 		// Prevent pb of modules not correctly disabled
 		//$this->remove($options);
 
 		$sql = array();
 
-		$result=$this->load_tables();
+		$this->load_tables();
 
 		return $this->_init($sql, $options);
 	}
 
 	/**
-	 *	Fonction appelee lors de la desactivation d'un module.
-	 *  Supprime de la base les constantes, boites et permissions du module.
+	 *	Fonction called to disable amodule
 	 *
 	 *	@param	string	$options		Options when disabling module
 	 *	@return	void
 	 */
-	function remove($options = '')
+	public function remove($options = '')
 	{
 		$sql = array();
 
@@ -213,7 +199,7 @@ class modFileManager extends DolibarrModules
 	 *
 	 * 	@return		int		<=0 if KO, >0 if OK
 	 */
-	function load_tables()
+	public function load_tables()
 	{
 		return $this->_load_tables('/filemanager/sql/');
 	}

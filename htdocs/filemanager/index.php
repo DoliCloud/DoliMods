@@ -107,7 +107,12 @@ if (! $res && file_exists("../main.inc.php")) $res=@include "../main.inc.php";
 if (! $res && file_exists("../../main.inc.php")) $res=@include "../../main.inc.php";
 if (! $res && file_exists("../../../main.inc.php")) $res=@include "../../../main.inc.php";
 if (! $res) die("Include of main fails");
-
+/**
+ * @var Conf $conf
+ * @var DoliDB $db
+ * @var Translate $langs
+ * @var User $user
+ */
 include_once DOL_DOCUMENT_ROOT."/core/lib/files.lib.php";
 include_once DOL_DOCUMENT_ROOT."/core/lib/security2.lib.php";
 dol_include_once("/filemanager/class/filemanagerroots.class.php");
@@ -118,7 +123,6 @@ $langs->load("ecm");
 $langs->load("other");
 
 // Get parameters
-$myparam=GETPOST("myparam");
 $openeddir=GETPOST('openeddir');
 $id=GETPOST('id', 'int');
 
@@ -139,7 +143,7 @@ if (GETPOST('action')=='deletefile') {
 		$filetodelete=GETPOST('file');
 		if (! dol_is_file($filetodelete)) {
 			$langs->load("errors");
-			setEventMessages($langs->trans("ErrorFileNotFound", $filtetodelete), null, 'errors');
+			setEventMessages($langs->trans("ErrorFileNotFound", $filetodelete), null, 'errors');
 		} else {
 			$langs->load("other");
 			$result=dol_delete_file($filetodelete, 0, 1);
@@ -177,7 +181,7 @@ if (GETPOST('action')=='deletedir') {
  * view
  */
 
-$maxheightwin=(isset($_SESSION["dol_screenheight"]) && $_SESSION["dol_screenheight"] > 500)?($_SESSION["dol_screenheight"]-166):660;
+$maxheightwin=(isset($_SESSION["dol_screenheight"]) && $_SESSION["dol_screenheight"] > 500) ? ($_SESSION["dol_screenheight"] - 200) : 660;
 
 $morecss=array();
 $morejs=array(
@@ -291,19 +295,19 @@ if ($filemanagerroots->rootpath) {
             var choice=\'ko\';
             jQuery("#dialog-confirm").attr("title", \''.dol_escape_js($langs->transnoentities("NewDir")).'\');
             jQuery("#dialog-confirm").empty();
-            jQuery("#dialog-confirm").append(\''.img_help('', '').' '.dol_escape_js($langs->transnoentities("AddDirName")).' <input type="text" id="confirmdirname" name="dirname" value="\'+dirname+\'newdir">\');
-            jQuery("#dialog-confirm").append(\'<br>'.dol_escape_js($langs->transnoentities("ServerMustHavePermission", dol_getwebuser('user'), dol_getwebuser('group'))).'\');
+            jQuery("#dialog-confirm").append(\''.img_help('', '').' '.dol_escape_js($langs->transnoentities("AddDirName")).' <input type="text" id="confirmdirname" class="minwidth300" name="dirname" value="\'+dirname+\'/newdir">\');
+            jQuery("#dialog-confirm").append(\'<br><br><span class="opacitymedium">'.dol_escape_js($langs->transnoentities("ServerMustHavePermission", dol_getwebuser('user'), dol_getwebuser('group'))).'</span>\');
             jQuery("#dialog-confirm").dialog({
                 autoOpen: true,
                 resizable: false,
-                height:220,
+                height:280,
                 width:580,
                 modal: true,
                 closeOnEscape: false,
                 close: function(event, ui) {
                          if (choice == \'ok\') {
-                            /* location.href=\''.$_SERVER["PHP_SELF"].'?action=adddir&token='.newToken().'&id='.$id.'&dir=\'+jQuery("#confirmdirname").val(); */
-                            url=\''.dol_buildpath('/filemanager/ajaxfileactions.php', 1).'?action=newdir&rootpath='.$filemanagerroots->id.'&modulepart=filemanager&type=auto&file=\'+urlencode(jQuery("#confirmdirname").val());
+                            /* location.href=\''.$_SERVER["PHP_SELF"].'?action=adddir&token='.currentToken().'&id='.$id.'&dir=\'+jQuery("#confirmdirname").val(); */
+                            url=\''.dol_buildpath('/filemanager/ajaxfileactions.php', 1).'?action=newdir&token='.currentToken().'&rootpath='.$filemanagerroots->id.'&modulepart=filemanager&type=auto&file=\'+urlencode(jQuery("#confirmdirname").val());
                             console.log(\'url=\'+url);
                             jQuery.post(url,
                                 function(data) {
@@ -343,19 +347,19 @@ if ($filemanagerroots->rootpath) {
     		            var choice=\'ko\';
     		            jQuery("#dialog-confirm").attr("title", \''.dol_escape_js($langs->transnoentities("NewFile")).'\');
     		            jQuery("#dialog-confirm").empty();
-    		            jQuery("#dialog-confirm").append(\''.img_help('', '').' '.dol_escape_js($langs->transnoentities("AddFileName")).' <input type="text" id="confirmfilename" name="filename" value="\'+filename+\'newfile.txt">\');
-    		            jQuery("#dialog-confirm").append(\'<br>'.dol_escape_js($langs->transnoentities("ServerMustHavePermission", dol_getwebuser('user'), dol_getwebuser('group'))).'\');
+    		            jQuery("#dialog-confirm").append(\''.img_help('', '').' '.dol_escape_js($langs->transnoentities("AddFileName")).' <input type="text" class="minwidth300" id="confirmfilename" name="filename" value="\'+filename+\'newfile.txt">\');
+    		            jQuery("#dialog-confirm").append(\'<br><br><span class="opacitymedium">'.dol_escape_js($langs->transnoentities("ServerMustHavePermission", dol_getwebuser('user'), dol_getwebuser('group'))).'</span>\');
     		            jQuery("#dialog-confirm").dialog({
     		                autoOpen: true,
     		                resizable: false,
-    		                height:220,
+    		                height:280,
     		                width:580,
     		                modal: true,
     		                closeOnEscape: false,
     		                close: function(event, ui) {
     		                         if (choice == \'ok\') {
-    		                            /* location.href=\''.$_SERVER["PHP_SELF"].'?action=addfile&token='.newToken().'&id='.$id.'&dir=\'+jQuery("#confirmfilename").val(); */
-    		                            url=\''.dol_buildpath('/filemanager/ajaxfileactions.php', 1).'?action=newfile&rootpath='.$filemanagerroots->id.'&modulepart=filemanager&type=auto&file=\'+urlencode(jQuery("#confirmfilename").val());
+    		                            /* location.href=\''.$_SERVER["PHP_SELF"].'?action=addfile&token='.currentToken().'&id='.$id.'&dir=\'+jQuery("#confirmfilename").val(); */
+    		                            url=\''.dol_buildpath('/filemanager/ajaxfileactions.php', 1).'?action=newfile&token='.currentToken().'&rootpath='.$filemanagerroots->id.'&modulepart=filemanager&type=auto&file=\'+urlencode(jQuery("#confirmfilename").val());
     		                            console.log(\'url=\'+url);
     		                            jQuery.post(url,
     		                                function(data) {
@@ -398,11 +402,11 @@ if ($filemanagerroots->rootpath) {
             jQuery("#dialog-confirm").attr("title", \''.dol_escape_js($langs->transnoentities("DeleteDir")).'\');
             jQuery("#dialog-confirm").empty();
             jQuery("#dialog-confirm").append(\''.img_help('', '').' '.dol_escape_js($langs->transnoentities("DeleteDirName")).' <b>\'+dirname+\'</b>\');
-            jQuery("#dialog-confirm").append(\'<br>'.dol_escape_js($langs->transnoentities("ServerMustHavePermission", dol_getwebuser('user'), dol_getwebuser('group'))).'\');
+            jQuery("#dialog-confirm").append(\'<br><br><span class="opacitymedium">'.dol_escape_js($langs->transnoentities("ServerMustHavePermission", dol_getwebuser('user'), dol_getwebuser('group'))).'</span>\');
             jQuery("#dialog-confirm").dialog({
                 autoOpen: true,
                 resizable: false,
-                height:220,
+                height:280,
                 width:580,
                 modal: true,
                 closeOnEscape: false,
@@ -443,11 +447,11 @@ if ($filemanagerroots->rootpath) {
                 jQuery("#dialog-confirm").attr("title", \''.dol_escape_js($langs->transnoentities("DeleteFile")).'\');
 	            jQuery("#dialog-confirm").empty();
 	            jQuery("#dialog-confirm").append(\''.img_help('', '').' '.dol_escape_js($langs->transnoentities("DeleteFileName")).' <b>\'+filename+\'</b>\');
-	            jQuery("#dialog-confirm").append(\'<br>'.dol_escape_js($langs->transnoentities("ServerMustHavePermission", dol_getwebuser('user'), dol_getwebuser('group'))).'\');
+	            jQuery("#dialog-confirm").append(\'<br><br><span class="opacitymedium">'.dol_escape_js($langs->transnoentities("ServerMustHavePermission", dol_getwebuser('user'), dol_getwebuser('group'))).'</span>\');
 	            jQuery("#dialog-confirm").dialog({
 	                autoOpen: true,
 	                resizable: false,
-	                height:220,
+	                height:280,
 	                width:580,
 	                modal: true,
 	                closeOnEscape: false,
@@ -487,7 +491,7 @@ if ($filemanagerroots->rootpath) {
 			{
 				// TODO Save content
 				//alert(content);
-				url='<?php echo dol_buildpath('/filemanager/ajaxfileactions.php', 1); ?>?action=save&token=<?php echo newToken(); ?>&rootpath=<?php echo $filemanagerroots->id ?>&modulepart=filemanager&type=auto&file='+urlencode(filename);
+				url='<?php echo dol_buildpath('/filemanager/ajaxfileactions.php', 1); ?>?action=save&token=<?php echo currentToken(); ?>&rootpath=<?php echo $filemanagerroots->id ?>&modulepart=filemanager&type=auto&file='+urlencode(filename);
 				// jQuery.post("test.php", $("#testform").serialize());
 				jQuery.post(url, { action: 'save', str: content, sizeofcontent: content.length, textformat: textformat },
 					function(data) {
@@ -512,7 +516,7 @@ if ($filemanagerroots->rootpath) {
 
 			if (filename != '')
 			{
-				url='<?php  echo dol_buildpath('/filemanager/ajaxfileactions.php', 1);  ?>?action=edit&token=<?php echo newToken(); ?>&rootpath=<?php echo $filemanagerroots->id ?>&modulepart=filemanager&type=auto&file='+urlencode(filename);
+				url='<?php  echo dol_buildpath('/filemanager/ajaxfileactions.php', 1);  ?>?action=edit&token=<?php echo currentToken(); ?>&rootpath=<?php echo $filemanagerroots->id ?>&modulepart=filemanager&type=auto&file='+urlencode(filename);
 				jQuery.get(url, function(data) {
 					// alert('Load of url '+url+' was performed : '+data);
 					  jQuery('#fileview').append(data);
@@ -532,7 +536,7 @@ if ($filemanagerroots->rootpath) {
 		//console.log(element);
 		jQuery('#fileview').empty();
 
-		url='<?php echo dol_buildpath('/filemanager/ajaxshowpreview.php', 1); ?>?action=preview&rootpath=<?php echo $filemanagerroots->id ?>&modulepart=filemanager&type=auto&file='+urlencode(filedirname);
+		url='<?php echo dol_buildpath('/filemanager/ajaxshowpreview.php', 1); ?>?action=preview&token=<?php echo currentToken(); ?>&rootpath=<?php echo $filemanagerroots->id ?>&modulepart=filemanager&type=auto&file='+urlencode(filedirname);
 
 		jQuery.get(url, function(data) {
 			//alert('Load of url '+url+' was performed : '+data);
@@ -643,7 +647,7 @@ print '</div>'."\n";
 	<div id="ecm-layout-north" class="hidden toolbar largebutton">
 <?php
 // Toolbar
-print '<div class="toolbarbutton">';
+print '<div class="toolbarbutton fmtoolbarbutton">';
 print '<a href="#" id="anewdir" disabled="disabled" class="toolbarbutton fmbuttondir" title="'.dol_escape_htmltag($langs->transnoentities("NewDir")).'"><img border="0" class="toolbarbutton" src="'.dol_buildpath('/filemanager/images/folder-new.png', 1).'"></a>'."\n";
 print '<a href="#" id="adeletedir" class="toolbarbutton fmbuttondir" title="'.dol_escape_htmltag($langs->transnoentities("DeleteDir")).'"><img border="0" class="toolbarbutton" src="'.dol_buildpath('/filemanager/images/folder-delete.png', 1).'"></a>'."\n";
 print '<a href="#" id="anewfile" class="toolbarbutton fmbuttondir" title="'.dol_escape_htmltag($langs->transnoentities("NewFile")).'"><img border="0" class="toolbarbutton" src="'.dol_buildpath('/filemanager/images/document-new.png', 1).'"></a>'."\n";
