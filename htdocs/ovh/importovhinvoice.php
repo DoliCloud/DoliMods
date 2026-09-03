@@ -801,7 +801,7 @@ if ($action == 'refresh') {
 				$sql .= ' FROM ' . MAIN_DB_PREFIX . 'facture_fourn as f';
 				$sql .= " WHERE ref_supplier = '" . $db->escape($r['billnum']) . "' and fk_soc = " . $ovhthirdparty->id;
 
-				dol_syslog("Seach if invoice exists sql=" . $sql);
+				dol_syslog("Search if invoice exists sql=" . $sql);
 				$resql = $db->query($sql);
 				$num = 0;
 				if ($resql) {
@@ -831,7 +831,6 @@ if ($action == 'refresh') {
 
 						if (file_exists($file_name) || file_exists($file_name_bis) || file_exists($file_name_ter)) {
 							print $langs->trans("InvoicePDFFoundIntoDolibarr") . " " . $facfou->getNomUrl(1) . "\n";
-							//echo "<br>File ".dol_basename($file_name)." also already exists\n";
 						} else {
 							print $langs->transnoentities("InvoiceFoundIntoDolibarr", $facfou->getNomUrl(1)) . "\n";
 							if (!is_dir($upload_dir)) {
