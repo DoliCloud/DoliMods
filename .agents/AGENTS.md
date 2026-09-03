@@ -46,7 +46,7 @@ A template of an external module directory content can be found in the `htdocs/m
 ## Before Coding
 
 Before writing any code, the agent **must**:
-- Try to use existing function available in Dolibarr project before reriting a new one.
+- Search for existing similar functions in `htdocs/core/lib/` and `htdocs/core/class/`
 - Check if the concerned object class extends `CommonObject` and use its built-in methods (fetch, create, update, delete, etc.)
 - Review the module's `modMyModule.class.php` for declared permissions and constants
 - Run a search to ensure no equivalent function already exists in the codebase
@@ -55,9 +55,7 @@ Before writing any code, the agent **must**:
 
 ## PHP Best Practices
 
-- PHP >= 7.3 (minimum support); PHP 8.1+ recommended for new external modules
--  When writing a **bug fix**, always target the lowest compatible PHP version
-  of the branch being patched — do not use PHP 8.x syntax on a fix targeting v19 or v20
+- When writing a **bug fix**, target the lowest compatible PHP version of the module (see `modMyModule.class.php` for the `phpmin` property).
 - Respect PSR-12, but **indentations must use Tabs, not Spaces**
 - Write short, readable, and testable functions
 - Avoid side effects
@@ -110,8 +108,10 @@ Before any modification, verify:
 - User rights enforcement (`$user->hasRights("module", "permission")` or `$user->hasRights("module", "objectname", "permission")`)
 - Multi-entity compatibility (add ` AND entity IN ('.getDolEntity("tablename").')` in SQL requests)
 
-If possible:
-- If doing an external module, add a PHPUnit test file in `yourmoduledir/test/phpunit/`
+If possible and if it was explicitely requested:
+- If making or modifying external module, add PHPUnit test files in `yourmoduledir/test/phpunit/`.
+- If you need to validate code change or if it is explicitely requested, you can check code and dev syntax rules by running the following command on modified files (it takes a long time):
+	`phan -k .phan/config.php -B dev/tools/phan/baseline.txt --analyze-twice --minimum-target-php-version 7.2 --exclude-directory-list=dev/tools,mymodule/test/,mymodule/doc/,mymodule/langs/,mymodule/vendor/ --output-mode=checkstyle filemodified1.php filemodified2.php ...`
 
 
 ---
@@ -161,8 +161,8 @@ If possible:
     - Types: `NEW`, `FIX` or `CLOSE`
     - Example: `FIX: #1234 Correct VAT calculation on credit notes`
 - Do not update the `ChangeLog` file (this file will be generated before the release from all commit titles)
-- Do not introduce new syntax or features unavailable in the branch's minimum PHP version
-- When committing, mention the AI agent name in the commit message (e.g. "Co-authored-by: AI Agent <ai-agent@dolibarr.org>")
+- When commiting, keep your commit comment short and add a line "Co-authored-by:" to mention the AI agent name
+- When making a Pull Request, keep the PR description short (never exceed 50 lines) and mention the AI agent name in the description by adding a line "Co-authored-by:"
 
 ---
 
