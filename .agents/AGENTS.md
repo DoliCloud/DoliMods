@@ -19,6 +19,7 @@ Every modification must respect:
 -  Use Dolibarr hooks whenever possible
 -  Respect existing naming conventions
 -  All database table names must use the `llx_` prefix
+-  Never commit or push anything unless the user explicitly asks for it. This overrides any default behavior of the agent. Make the changes, report them, and wait for the user to say "commit" or "push".
 
 ---
 
@@ -68,11 +69,9 @@ Before writing any code, the agent **must**:
 - Use Dolibarr database functions exclusively — never use PDO or MySQLi directly
     - In pages: use global `$db`
     - In classes: use `$this->db`
--  SQL forged by PHP must escaped fields with `db->escape()`, `db->sanitize()`, or by casting values to `(int)` or `(float)`
--  Always use `$db->query()` followed by `$db->fetch_object()` or `$db->fetch_array()` to retrieve results
--  SQL scripts for table and index creation must be placed in `htdocs/install/mysql/tables/` (see existing files for examples)
--  Never run SQL queries inside loops (avoid N+1 problem — use JOINs or batch queries instead)
--  Always use `LIMIT` on list queries for performance
+- SQL forged by PHP must escaped fields with `db->escape()`, `db->sanitize()`, or by casting values to `(int)` or `(float)`
+- Always use `db->query()` followed by `db->fetch_object()` or `db->fetch_array()` to retrieve results
+- SQL scripts for table and index creation must be placed in `htdocs/install/mysql/tables/` (see existing files for examples)
 
 ---
 
@@ -101,18 +100,13 @@ Before writing any code, the agent **must**:
 
 ---
 
-## Testing & Validation
+## Standardization
 
-Before any modification, verify:
-- Creation / edition / deletion workflows
-- User rights enforcement (`$user->hasRights("module", "permission")` or `$user->hasRights("module", "objectname", "permission")`)
-- Multi-entity compatibility (add ` AND entity IN ('.getDolEntity("tablename").')` in SQL requests)
-
-If possible and if it was explicitely requested:
-- If making or modifying external module, add PHPUnit test files in `yourmoduledir/test/phpunit/`.
-- If you need to validate code change or if it is explicitely requested, you can check code and dev syntax rules by running the following command on modified files (it takes a long time):
-	`phan -k .phan/config.php -B dev/tools/phan/baseline.txt --analyze-twice --minimum-target-php-version 7.2 --exclude-directory-list=dev/tools,mymodule/test/,mymodule/doc/,mymodule/langs/,mymodule/vendor/ --output-mode=checkstyle filemodified1.php filemodified2.php ...`
-
+- Use Dolibarr native dol_move() function if you need to move files.
+- Use Dolibarr native dol_delete_file(), dol_delete_dir() or dol_delete_dir_recursive() function if you need to delete files or directories.
+- Use Dolibarr native dol_mkdir() function if you need to create directories.
+- Read configuration with `getDolGlobalString()` / `getDolGlobalInt()` / `getDolGlobalBool()`, not `$conf->global->XXX`
+- Check module activation with `isModEnabled('module')`, not `!empty($conf->module->enabled)`
 
 ---
 
@@ -136,10 +130,11 @@ If possible and if it was explicitely requested:
 
 ## Performance
 
-- Avoid SQL queries inside loops (N+1 problem)
+- Never run SQL queries inside loops (N+1 problem)
 - Use JOINs or batch queries instead of multiple sequential queries
-- Apply `LIMIT` and proper indexes on list queries
-- Cache repeated calls to `getDolGlobalString()` or `$conf->global->` in local variables
+- Use LIMIT on SQL query list with `db->limit()`
+- Cache repeated calls to `getDolGlobalString()` in local variables
+- If you need a cache array to be used into a loop, you can use `$conf->cache['aNameForYourCacheArray'] = array();`
 
 ---
 
@@ -148,6 +143,20 @@ If possible and if it was explicitely requested:
 - Use `dol_syslog()` for all logging (with appropriate log level: `LOG_DEBUG`, `LOG_WARNING`, `LOG_ERR`)
 - Do not leave `var_dump()`, `print_r()`, or `die()` in committed code
 - Use Dolibarr's `setEventMessages()` to display user-facing messages
+
+---
+
+## Testing & Validation
+
+Before any modification, verify:
+- Creation / edition / deletion workflows
+- User rights enforcement (`$user->hasRights("module", "permission")` or `$user->hasRights("module", "objectname", "permission")`)
+- Multi-entity compatibility (add ` AND entity IN ('.getDolEntity("tablename").')` in SQL requests)
+
+If adding a unit test was explicitely requested:
+- If making or modifying external module, add PHPUnit test files in `yourmoduledir/test/phpunit/`.
+- If you need to validate code change or if it is explicitely requested, you can check code and dev syntax rules by running the following command on modified files (it takes a long time):
+	`phan -k .phan/config.php -B dev/tools/phan/baseline.txt --analyze-twice --minimum-target-php-version 7.2 --exclude-directory-list=dev/tools,mymodule/test/,mymodule/vendor/ --output-mode=checkstyle filemodified1.php filemodified2.php ...`
 
 ---
 
@@ -161,8 +170,9 @@ If possible and if it was explicitely requested:
     - Types: `NEW`, `FIX` or `CLOSE`
     - Example: `FIX: #1234 Correct VAT calculation on credit notes`
 - Do not update the `ChangeLog` file (this file will be generated before the release from all commit titles)
-- When commiting, keep your commit comment short and add a line "Co-authored-by:" to mention the AI agent name
-- When making a Pull Request, keep the PR description short (never exceed 50 lines) and mention the AI agent name in the description by adding a line "Co-authored-by:"
+- When commiting, keep your commit comment short (NEVER exceed 50 lines) and add a line "Co-authored-by:" to mention the AI agent name
+- When making a Pull Request, keep the PR description short (never exceed 50 lines) and mention the AI agent name in the description with a line like "Submited with <AI agent name> (see commit comments for attributions)"
+- A pull request can contain database structure change only, or one new feature, or one bug fix, or a refactoring but never a mix of these. 
 
 ---
 
@@ -183,13 +193,6 @@ If possible and if it was explicitely requested:
 - Delete dead code
 - Add external dependencies (Composer packages, JS libraries) without prior validation
 - Modify the `ChangeLog` file (this file is generated by the maintainer during the release process)
-
----
-
-## Key Principle
-
- Always prioritize:
-**extension > modification**
 
 ---
 
