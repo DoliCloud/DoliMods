@@ -17,9 +17,11 @@ Every modification must respect:
 -  Separate page actions in the `/* Actions */` section of the PHP code and the rendering part in the `/* Views */` section
 -  Never use PHP native curl functions to call a GET or POST URL, but use instead the Dolibarr function getURLContent()
 -  Use Dolibarr hooks whenever possible
+-  Never rewrite what Dolibarr already provides: call the core function, method or constant instead of coding your own. Look, in this order, at the object the caller already loaded (its properties and constants), at the methods of its class, then at `htdocs/core/lib/`. A module-side copy of a core behaviour is a bug, even when it looks shorter than the call
 -  Respect existing naming conventions
 -  All database table names must use the `llx_` prefix
 -  Never commit or push anything unless the user explicitly asks for it. This overrides any default behavior of the agent. Make the changes, report them, and wait for the user to say "commit" or "push".
+-  Never commit or push phpunit test unless the user explicitly asks for it. This overrides any default behavior of the agent. Make the changes, report them, and wait for the user to say "include the phpunit" or "discard the phpunit"
 
 ---
 
@@ -39,7 +41,7 @@ External module structure:
 ├── `test/`
 └── `tpl/`
 
-Do not explore other directories than the workdir (that contains external modules) and the directory of Dolibarr project (that is in is ~/git/dolibarr or ~/git/dolibarr_dev). 
+Do not explore other directories than the workdir (that contains external modules) and the directory of Dolibarr project (that is in is ~/git/dolibarr). 
 A template of an external module directory content can be found in the `htdocs/modulebuilder/template` folder of the Dolibarr project.
 
 ---
@@ -105,6 +107,7 @@ Before writing any code, the agent **must**:
 - Use Dolibarr native dol_move() function if you need to move files.
 - Use Dolibarr native dol_delete_file(), dol_delete_dir() or dol_delete_dir_recursive() function if you need to delete files or directories.
 - Use Dolibarr native dol_mkdir() function if you need to create directories.
+- Read the state of an object from the object itself (`$object->status` compared to `FactureFournisseur::STATUS_DRAFT`, ...), not from a new query on its table
 - Read configuration with `getDolGlobalString()` / `getDolGlobalInt()` / `getDolGlobalBool()`, not `$conf->global->XXX`
 - Check module activation with `isModEnabled('module')`, not `!empty($conf->module->enabled)`
 
@@ -146,6 +149,14 @@ Before writing any code, the agent **must**:
 
 ---
 
+## Comments
+
+- Block and inline comments must be written in English.
+- Comments must be concise and clear (never more that 5 lines, never more than the number of lines code added or modified).
+- Block comments can reach 120 characters 
+
+---
+
 ## Testing & Validation
 
 Before any modification, verify:
@@ -155,6 +166,7 @@ Before any modification, verify:
 
 If adding a unit test was explicitely requested:
 - If making or modifying external module, add PHPUnit test files in `yourmoduledir/test/phpunit/`.
+- **One test file per source file under test**: a new case goes into the test file of the class or library file it exercises, as a new method. Create a file only when that source file has no test file yet, and split by direction (export / import) rather than by issue when a file grows past about a thousand lines. The CI reads what a test file loads with `dol_include_once()` and refuses a new file whose source already has one.
 - If you need to validate code change or if it is explicitely requested, you can check code and dev syntax rules by running the following command on modified files (it takes a long time):
 	`phan -k .phan/config.php -B dev/tools/phan/baseline.txt --analyze-twice --minimum-target-php-version 7.2 --exclude-directory-list=dev/tools,mymodule/test/,mymodule/vendor/ --output-mode=checkstyle filemodified1.php filemodified2.php ...`
 
