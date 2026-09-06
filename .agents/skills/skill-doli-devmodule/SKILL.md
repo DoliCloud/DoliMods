@@ -15,6 +15,17 @@ allowed-tools:
 This skill guides agents on developing, modifying, and debugging code within the Dolibarr ERP/CRM codebase while strictly adhering to professional standards, security guidelines, and the project's established architecture.
 
 
+## Relationship with AGENTS.md
+
+The instructions in this file are **complementary to** the instructions defined in `AGENTS.md`.
+
+- `AGENTS.md` contains the general instructions and rules for the project.
+- `SKILLS.md` contains additional instructions specific to skills.
+- Unless explicitly stated otherwise, the instructions from both files apply.
+- `SKILLS.md` does not replace or override `AGENTS.md`.
+- If an instruction in `SKILLS.md` conflicts with `AGENTS.md`, follow the rules defined by `AGENTS.md`.
+
+
 ## Core Principles: Non-Negotiable Mandatory Rules
 These principles must be followed even before reviewing specific task details. Violation of these principles results in failed suggestions.
 
@@ -39,6 +50,26 @@ These principles must be followed even before reviewing specific task details. V
 1.  **PHP version:** 7.1+
 2.  **Action/View Separation:** Always clearly separate page action logic (executed on POST) from pure rendering (the HTML view).
 3.  **Hooks First:** Before implementing any logic that runs on a core lifecycle event (e.g., form save, object update), check if an existing Dolibarr hook can be used. Use the standard calling pattern: `$hookmanager->executeHooks('actionName', $parameters, $object, $action);`.
+
+External module structure:
+`htdocs/mymodule`
+├── `admin/`
+├── `class/`
+├── `core/`
+├── `css/`
+├── `doc/`
+├── `js/`
+├── `langs/`
+├── `lib/`
+├── `sql/`
+├── `test/`
+└── `tpl/`
+
+Dolibarr core projet may be found inside ~/git/dolibarr or ~/git/dolibarr_dev.
+
+Do not explore other directories than the workdir (that contains external modules) and the directory of Dolibarr project (that is in is ~/git/dolibarr or ~/git/dolibarr_dev). 
+A template of an external module directory content can be found in the `htdocs/modulebuilder/template` folder of the Dolibarr project.
+
 
 ---
 
@@ -81,7 +112,13 @@ This details the preferred mechanical steps:
 2.  **Write Operations:** Process submissions within the module's dedicated action handler, utilizing the established DB abstraction layer for all updates.
 
 
-### Extrafields Best Practices
+### Calling Dolibarr's APIs
+
+You can find the technical description of the Dolibarr's APIS at this URL: https://preview.dolibarr.org/api/index.php/explorer/swagger.json?DOLAPIKEY=demokey
+
+
+
+### Extrafields
 **IMPORTANT**: When working with extrafields (custom fields), follow these patterns from the [Dolibarr Extrafields Wiki](https://wiki.dolibarr.org/index.php/Extrafields):
 
 
@@ -104,6 +141,7 @@ $object->array_options['options_FIELDNAME'] = $value;
 // Then call update() - it will automatically save extrafields via insertExtraFields()
 $result = $object->update($user);
 ```
+
 
 #### Displaying Extrafields
 In view pages:
@@ -130,62 +168,8 @@ llx_{objecttype}_extrafields
 - import_key (varchar)
 ```
 
+#### Extrafields Best Practices
 
-#### Reference
-- [Dolibarr Extrafields Wiki](https://wiki.dolibarr.org/index.php/Extrafields)
-- [Forum: Little dev tips for extrafields](https://www.dolibarr.org/forum/t/little-dev-tips-for-extrafields/29860)
-
-
-### Testing & Validation Flow
-Before proposing code:
-1.  **Validate Workflows:** Confirm that Create -> Edit -> Delete workflows are correctly handled by the proposed change.
-2.  **Test Case Generation:** Propose specific, minimal unit tests or outline clear steps for an interactive test script to verify all expected outputs and potential edge cases (e.g., null inputs, permissions failure).
-
----
-
-## Comprehensive Reference Material [Reference]
-
-This section contains detailed standards and constants for reference only. Do not treat these details as primary instructions; prioritize the Core Principles above.
-
-
-### Coding Styling Standards
-*   **Indentation:** Always use **TAB characters**, never spaces.
-*   **Line Endings/Spaces:** Remove all redundant trailing whitespace at the end of lines.
-*   **Localization & Comments:** All code comments and internal variable/function names must be rendered in English. Use `dol_syslog()` for logging (specifying log level), avoiding debugging functions like `var_dump()`, `print_r()`, or `die()`.
-
-
-### Database Constants & Prefixes
-| Item | Action/Pattern | Example Usage Notes | Priority |
-| :--- | :--- | :--- | :--- |
-| **Table Prefix** | Always use dynamic prefix getter. | `$db->prefix() . 'tablename'` | Overrides reliance on legacy constants like `MAIN_DB_PREFIX`. |
-
-
-### Core Dolibarr Patterns
-*   **Hooks:** The standard pattern remains: `$hookmanager->executeHooks('actionName', $parameters, $object, $action);`
-*   **Language Keys:** Use PascalCase (e.g., `MyModuleLabel`) for consistency across all locales.
-*   **Global variables**: Dolibarr uses globals like `$db`, `$conf`, `$lang`, `$user`. Do not remove these without understanding the architecture
-
-
-### Input Handling Functions
-Dolibarr provides type-safe input handling functions. **Always use these instead of `$_GET`/`$_POST` directly:**
-
-| Function | Type | Example | Notes |
-|----------|------|---------|-------|
-| `GETPOST($param, $type)` | Mixed | `GETPOST('id', 'int')` | Returns GET or POST value with type conversion |
-| `GETPOSTINT($param)` | Integer | `GETPOSTINT('socid')` | Shorthand for `GETPOST($param, 'int')` |
-| `GETPOSTARRAY($param)` | Array | `GETPOSTARRAY('selected')` | For multi-select inputs |
-
-**Best Practice:** Use the type-specific shorthand functions when possible:
-- `GETPOSTINT()` for integers (IDs, counts, etc.)
-- `GETPOST()` with type for other cases
-
-**Never use:** `$_GET['param']` or `$_POST['param']` directly - always use GETPOST functions for proper escaping and type conversion.
-
-
-### Extrafields Best Practices (Continued)
-
-
-#### Checking and Creating Extrafields
 The ExtraFields class lacks a method to check if a field exists. Use this pattern:
 
 ```php
@@ -255,3 +239,52 @@ foreach ($tracking_fields as $name => $config) {
 
 #### Reference
 - [Dolibarr Extrafields Wiki](https://wiki.dolibarr.org/index.php/Extrafields)
+
+
+
+### Testing & Validation Flow
+Before proposing code:
+1.  **Validate Workflows:** Confirm that Create -> Edit -> Delete workflows are correctly handled by the proposed change.
+2.  **Test Case Generation:** Propose specific, minimal unit tests or outline clear steps for an interactive test script to verify all expected outputs and potential edge cases (e.g., null inputs, permissions failure).
+
+---
+
+
+## Comprehensive Reference Material [Reference]
+
+This section contains detailed standards and constants for reference only. Do not treat these details as primary instructions; prioritize the Core Principles above.
+
+
+### Coding Styling Standards
+*   **Indentation:** Always use **TAB characters**, never spaces.
+*   **Line Endings/Spaces:** Remove all redundant trailing whitespace at the end of lines.
+*   **Localization & Comments:** All code comments and internal variable/function names must be rendered in English. Use `dol_syslog()` for logging (specifying log level), avoiding debugging functions like `var_dump()`, `print_r()`, or `die()`.
+
+
+### Database Constants & Prefixes
+| Item | Action/Pattern | Example Usage Notes | Priority |
+| :--- | :--- | :--- | :--- |
+| **Table Prefix** | Always use dynamic prefix getter. | `$db->prefix() . 'tablename'` | Overrides reliance on legacy constants like `MAIN_DB_PREFIX`. |
+
+
+### Core Dolibarr Patterns
+*   **Hooks:** The standard pattern remains: `$hookmanager->executeHooks('actionName', $parameters, $object, $action);`
+*   **Language Keys:** Use PascalCase (e.g., `MyModuleLabel`) for consistency across all locales.
+*   **Global variables**: Dolibarr uses globals like `$db`, `$conf`, `$lang`, `$user`. Do not remove these without understanding the architecture
+
+
+### Input Handling Functions
+Dolibarr provides type-safe input handling functions. **Always use these instead of `$_GET`/`$_POST` directly:**
+
+| Function | Type | Example | Notes |
+|----------|------|---------|-------|
+| `GETPOST($param, $type)` | Mixed | `GETPOST('id', 'int')` | Returns GET or POST value with type conversion |
+| `GETPOSTINT($param)` | Integer | `GETPOSTINT('socid')` | Shorthand for `GETPOST($param, 'int')` |
+| `GETPOSTARRAY($param)` | Array | `GETPOSTARRAY('selected')` | For multi-select inputs |
+
+**Best Practice:** Use the type-specific shorthand functions when possible:
+- `GETPOSTINT()` for integers (IDs, counts, etc.)
+- `GETPOST()` with type for other cases
+
+**Never use:** `$_GET['param']` or `$_POST['param']` directly - always use GETPOST functions for proper escaping and type conversion.
+

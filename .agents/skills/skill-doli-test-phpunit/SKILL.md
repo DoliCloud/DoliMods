@@ -16,8 +16,17 @@ allowed-tools:
 ## When to Use This Skill
 
 Use this skill whenever the user asks to create, modify, or complete a PHP unit test for the Dolibarr ERP/CRM project.
-
 The goal is to produce a unit test that follows Dolibarr conventions and integrates cleanly into the existing PHPUnit test suite.
+
+## Relationship with AGENTS.md
+
+The instructions in this file are **complementary to** the instructions defined in `AGENTS.md`.
+
+- `AGENTS.md` contains the general instructions and rules for the project.
+- `SKILLS.md` contains additional instructions specific to skills.
+- Unless explicitly stated otherwise, the instructions from both files apply.
+- `SKILLS.md` does not replace or override `AGENTS.md`.
+- If an instruction in `SKILLS.md` conflicts with `AGENTS.md`, follow the rules defined by `AGENTS.md`.
 
 ## Inputs
 
