@@ -25,8 +25,7 @@
  */
 require_once NUSOAP_PATH.'/nusoap.php';
 
-require __DIR__ . '/../includes/autoload.php';
-use \Ovh\Api;
+dol_include_once('/ovh/class/doliovhapi.class.php');
 
 
 /**
@@ -145,7 +144,7 @@ class OvhSms extends CommonObject
 			try {
 				// Get the factory to call API.
 				// Array of endpoints is defined into ->$endpoints of Api. The $endpoint key will be used to find final URL.
-				$this->conn = new Api(getDolGlobalString('OVHAPPKEY'), getDolGlobalString('OVHAPPSECRET'), $endpoint, getDolGlobalString('OVHCONSUMERKEY'));
+				$this->conn = new DoliOvhApi(getDolGlobalString('OVHAPPKEY'), getDolGlobalString('OVHAPPSECRET'), $endpoint, getDolGlobalString('OVHCONSUMERKEY'));
 
 				// We save known SMS account
 				$this->account = (getDolGlobalString('OVHSMS_ACCOUNT') ? getDolGlobalString('OVHSMS_ACCOUNT') : 'ErrorNotDefined');
