@@ -42,9 +42,7 @@ include_once DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php";
 dol_include_once("/ovh/class/ovhsms.class.php");
 require_once NUSOAP_PATH.'/nusoap.php';     // Include SOAP
 
-require __DIR__ . '/../includes/autoload.php';
-use \Ovh\Api;
-use GuzzleHttp\Client as GClient;
+dol_include_once('/ovh/class/doliovhapi.class.php');
 
 
 // Load traductions files requiredby by page

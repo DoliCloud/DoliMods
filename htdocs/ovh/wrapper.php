@@ -75,8 +75,7 @@ if (! $res) die("Include of main fails");
 
 include_once DOL_DOCUMENT_ROOT."/core/lib/functions2.lib.php";
 
-require __DIR__ . '/includes/autoload.php';
-use \Ovh\Api;
+dol_include_once('/ovh/class/doliovhapi.class.php');
 
 
 // Security check
@@ -155,7 +154,7 @@ if (! empty($number)) {
 
 				$soap->telephonyClick2CallDo($login, $password, $caller, $number, $caller);
 			} else {
-				$conn = new Api($conf->global->OVHAPPKEY, $conf->global->OVHAPPSECRET, $endpoint, $conf->global->OVHCONSUMERKEY);
+				$conn = new DoliOvhApi($conf->global->OVHAPPKEY, $conf->global->OVHAPPSECRET, $endpoint, $conf->global->OVHCONSUMERKEY);
 				$content = (object) array(
 				"calledNumber" => $called,  // who is called
 				"callingNumber"=> $caller,   // who calls

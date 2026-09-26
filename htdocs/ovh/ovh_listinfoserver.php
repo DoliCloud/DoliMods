@@ -47,9 +47,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/lib/company.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/societe/class/societe.class.php';
 require_once NUSOAP_PATH.'/nusoap.php';     // Include SOAP
 
-require __DIR__ . '/includes/autoload.php';
-use \Ovh\Api;
-use GuzzleHttp\Client as GClient;
+dol_include_once('/ovh/class/doliovhapi.class.php');
 
 
 $langs->load("ovh@ovh");
@@ -187,19 +185,7 @@ if (! empty($conf->global->OVH_OLDAPI) && (empty($conf->global->OVHSMS_NICK) || 
 			//$resultcapa = $soap->dedicatedCapabilitiesGet($session, $server);
 		} else {
 			try {
-				if ('guzzle7.3' == 'guzzle7.3') {
-					$arrayconfig = array(
-						'connect_timeout'=>(empty($conf->global->MAIN_USE_CONNECT_TIMEOUT)?20:$conf->global->MAIN_USE_CONNECT_TIMEOUT),
-						'timeout'=>(empty($conf->global->MAIN_USE_RESPONSE_TIMEOUT)?30:$conf->global->MAIN_USE_RESPONSE_TIMEOUT)
-					);
-					$http_client = new GClient($arrayconfig);
-				} else {
-					$http_client = new GClient();
-					$http_client->setDefaultOption('connect_timeout', empty($conf->global->MAIN_USE_CONNECT_TIMEOUT)?20:$conf->global->MAIN_USE_CONNECT_TIMEOUT);  // Timeout by default of OVH is 5 and it is not enough
-					$http_client->setDefaultOption('timeout', empty($conf->global->MAIN_USE_RESPONSE_TIMEOUT)?30:$conf->global->MAIN_USE_RESPONSE_TIMEOUT);
-				}
-
-				$conn = new Api($conf->global->OVHAPPKEY, $conf->global->OVHAPPSECRET, $endpoint, $conf->global->OVHCONSUMERKEY, $http_client);
+				$conn = new DoliOvhApi($conf->global->OVHAPPKEY, $conf->global->OVHAPPSECRET, $endpoint, $conf->global->OVHCONSUMERKEY);
 
 				// Get servers list
 				if ($mode == 'publiccloud') {
@@ -453,25 +439,12 @@ if (! empty($conf->global->OVH_OLDAPI) && (empty($conf->global->OVHSMS_NICK) || 
 		if (! empty($conf->global->OVH_OLDAPI)) {
 			$resultofproject = array(1);
 		} else {
-			if ('guzzle7.3' == 'guzzle7.3') {
-				$arrayconfig = array(
-					'connect_timeout'=>(empty($conf->global->MAIN_USE_CONNECT_TIMEOUT)?20:$conf->global->MAIN_USE_CONNECT_TIMEOUT),
-					'timeout'=>(empty($conf->global->MAIN_USE_RESPONSE_TIMEOUT)?30:$conf->global->MAIN_USE_RESPONSE_TIMEOUT)
-				);
-				$http_client = new GClient($arrayconfig);
-			} else {
-				$http_client = new GClient();
-				$http_client->setDefaultOption('connect_timeout', empty($conf->global->MAIN_USE_CONNECT_TIMEOUT)?20:$conf->global->MAIN_USE_CONNECT_TIMEOUT);  // Timeout by default of OVH is 5 and it is not enough
-				$http_client->setDefaultOption('timeout', empty($conf->global->MAIN_USE_RESPONSE_TIMEOUT)?30:$conf->global->MAIN_USE_RESPONSE_TIMEOUT);
-			}
-
 			// Get servers list
-			$conn = new Api(
+			$conn = new DoliOvhApi(
 				$conf->global->OVHAPPKEY,
 				$conf->global->OVHAPPSECRET,
 				$endpoint,
-				$conf->global->OVHCONSUMERKEY,
-				$http_client);
+				$conf->global->OVHCONSUMERKEY);
 
 			if ($mode == 'publiccloud') {
 				$resultofproject = $conn->get('/cloud/project');
