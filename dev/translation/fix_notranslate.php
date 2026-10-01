@@ -17,16 +17,16 @@
  */
 
 /**
- * \file       dev/translation/find_notranslate.php
+ * \file       dev/translation/fix_notranslate.php
  * \ingroup    dev
  * \brief      Script to find translation entries containing the string "notranslate" and
  *             display a clickable Transifex link to review and fix them one by one.
  *
- * Usage: php dev/translation/find_notranslate.php [all|lang_code] [all|file.lang]
+ * Usage: php dev/translation/fix_notranslate.php [all|lang_code] [all|module]
  * Examples:
- *   php dev/translation/find_notranslate.php all
- *   php dev/translation/find_notranslate.php fr_FR
- *   php dev/translation/find_notranslate.php fr_FR website.lang
+ *   php dev/translation/fix_notranslate.php all
+ *   php dev/translation/fix_notranslate.php fr_FR
+ *   php dev/translation/fix_notranslate.php fr_FR ovh
  */
 
 $sapi_type = php_sapi_name();
@@ -52,19 +52,19 @@ function printUsage($script_file)
 	echo "for each of them, so you can click on it, fix the translation into Transifex, then press Enter\n";
 	echo "to see the next entry to review.\n";
 	echo "\n";
-	echo "Usage: php dev/translation/".$script_file." [all|lang_code] [all|file.lang]\n";
+	echo "Usage: php dev/translation/".$script_file." [all|lang_code] [all|module]\n";
 	echo "Examples:\n";
 	echo "  php dev/translation/".$script_file." all\n";
 	echo "  php dev/translation/".$script_file." fr_FR\n";
-	echo "  php dev/translation/".$script_file." fr_FR website.lang\n";
+	echo "  php dev/translation/".$script_file." fr_FR ovh\n";
 }
 
 
 /**
- * Parse the .tx/config file and return the map lang file base name => Transifex resource name
+ * Parse the .tx/config file and return the map module/lang file base name => Transifex resource name
  *
  * @param	string	$txconfigfile	Path to the .tx/config file
- * @return	array					Array of lang file base name (example: main) => Transifex resource name
+ * @return	array					Array of 'module/lang file base name' (example: ovh/ovh) => Transifex resource name
  */
 function loadTransifexResourceMap($txconfigfile)
 {
@@ -80,12 +80,12 @@ function loadTransifexResourceMap($txconfigfile)
 	}
 
 	// Example of section to parse:
-	// [o:dolibarr-association:p:dolibarr:r:admin]
-	// file_filter = htdocs/langs/<lang>/admin.lang
+	// [o:dolicloud:p:dolimods:r:ovh]
+	// file_filter = htdocs/ovh/langs/<lang>/ovh.lang
 	$matches = array();
-	preg_match_all('/\[o:dolibarr-association:p:dolibarr:r:([^\]]+)\]\s*\nfile_filter\s*=\s*htdocs\/langs\/<lang>\/([^\s]+)\.lang/', $content, $matches, PREG_SET_ORDER);
+	preg_match_all('/\[o:[^:\]]+:p:[^:\]]+:r:([^\]]+)\]\s*\nfile_filter\s*=\s*htdocs\/([^\/\s]+)\/langs\/<lang>\/([^\s]+)\.lang/', $content, $matches, PREG_SET_ORDER);
 	foreach ($matches as $match) {
-		$resourcemap[$match[2]] = $match[1];
+		$resourcemap[$match[2].'/'.$match[3]] = $match[1];
 	}
 
 	return $resourcemap;
@@ -150,10 +150,7 @@ function printClickableUrl($url)
 $searchstring = 'notranslate';
 
 // Root of Transifex translation pages
-$transifexurlroot = 'https://app.transifex.com/dolibarr-association/dolibarr/translate/#';
-
-// Map of Dolibarr lang codes that differ from Transifex lang codes (see lang_map into .tx/config)
-$langmaptx = array('uz_UZ' => 'uz', 'sw_SW' => 'sw', 'sr_RS' => 'sr@latin');
+$transifexurlroot = 'https://app.transifex.com/dolicloud/dolimods/translate/#';
 
 // Detect if output is a real terminal, so escape sequences for clickable links can be used or not
 $outputistty = true;
@@ -169,34 +166,76 @@ if (in_array($langcode, array('-h', '--help', 'help'))) {
 	exit(0);
 }
 
-$langsdir = $path.'../../htdocs/langs/';
+$htdocsdir = $path.'../../htdocs/';
+
+// Module name (or lang file base name) to scan, when the second parameter is not 'all'
+$filefilter = ($filename != 'all') ? preg_replace('/\.lang$/', '', $filename) : 'all';
 
 
 
-// Build the map lang file base name => Transifex resource name
+// Build the map module/lang file base name => Transifex resource name
 
 $resourcemap = loadTransifexResourceMap($path.'../../.tx/config');
 
 
 
-// Build list of language directories to scan
+// Build list of modules with a langs directory, and list of language directories to scan
+
+$modules = array();
+$content = scandir($htdocsdir);
+if ($content === false) {
+	echo "Error: Can't scan directory ".$htdocsdir."\n";
+	exit(1);
+}
+foreach ($content as $dir) {
+	if (is_dir($htdocsdir.$dir) && $dir != '.' && $dir != '..' && is_dir($htdocsdir.$dir.'/langs')) {
+		$modules[] = $dir;
+	}
+}
+sort($modules);
+
+// Filter on module or lang file name, if provided as second parameter
+
+if ($filefilter != 'all') {
+	$filteredmodules = array();
+	foreach ($modules as $module) {
+		if ($module == $filefilter || glob($htdocsdir.$module.'/langs/*/'.$filefilter.'.lang')) {
+			$filteredmodules[] = $module;
+		}
+	}
+	if (empty($filteredmodules)) {
+		echo "Error: Module or lang file '".$filefilter."' not found into ".$htdocsdir."*/langs/*/\n";
+		printUsage($script_file);
+		exit(1);
+	}
+	$modules = $filteredmodules;
+}
 
 $langs = array();
 if ($langcode == 'all') {
-	$content = scandir($langsdir);
-	if ($content === false) {
-		echo "Error: Can't scan directory ".$langsdir."\n";
-		exit(1);
-	}
-	foreach ($content as $dir) {
-		if (is_dir($langsdir.$dir) && $dir != '.' && $dir != '..') {
-			$langs[] = $dir;
+	foreach ($modules as $module) {
+		$content = scandir($htdocsdir.$module.'/langs/');
+		if ($content === false) {
+			continue;
+		}
+		foreach ($content as $dir) {
+			if (is_dir($htdocsdir.$module.'/langs/'.$dir) && $dir != '.' && $dir != '..') {
+				$langs[$dir] = $dir;
+			}
 		}
 	}
+	$langs = array_keys($langs);
 	sort($langs);
 } else {
-	if (!is_dir($langsdir.$langcode)) {
-		echo "Error: Directory for lang '".$langcode."' not found into ".$langsdir."\n";
+	$foundlang = false;
+	foreach ($modules as $module) {
+		if (is_dir($htdocsdir.$module.'/langs/'.$langcode)) {
+			$foundlang = true;
+			break;
+		}
+	}
+	if (!$foundlang) {
+		echo "Error: Directory for lang '".$langcode."' not found into any ".$htdocsdir."*/langs/ directory\n";
 		printUsage($script_file);
 		exit(1);
 	}
@@ -209,62 +248,61 @@ if ($langcode == 'all') {
 
 $listofmatches = array();
 
-foreach ($langs as $lang) {
-	$langdir = $langsdir.$lang.'/';
+foreach ($modules as $module) {
+	foreach ($langs as $lang) {
+		$langdir = $htdocsdir.$module.'/langs/'.$lang.'/';
+		if (!is_dir($langdir)) {
+			continue;	// This lang does not exist for this module
+		}
 
-	$files = array();
-	if ($filename == 'all') {
+		$files = array();
 		$content = scandir($langdir);
 		if ($content === false) {
 			continue;
 		}
 		foreach ($content as $file) {
-			if (preg_match('/\.lang$/', $file)) {
-				$files[] = $file;
-			}
-		}
-	} else {
-		if (!is_file($langdir.$filename) && !preg_match('/\.lang$/', $filename)) {
-			$filename .= '.lang';
-		}
-		if (!is_file($langdir.$filename)) {
-			echo "Warning: File htdocs/langs/".$lang."/".$filename." not found. Skipped.\n";
-			continue;
-		}
-		$files = array($filename);
-	}
-
-	foreach ($files as $file) {
-		$handle = fopen($langdir.$file, 'r');
-		if (!$handle) {
-			continue;
-		}
-
-		$linenum = 0;
-		while (($line = fgets($handle)) !== false) {
-			$linenum++;
-
-			if (stripos($line, $searchstring) === false) {
+			if (!preg_match('/\.lang$/', $file)) {
 				continue;
 			}
-			$cleanline = ltrim($line);
-			if ($cleanline == '' || substr($cleanline, 0, 1) == '#') {
-				continue;	// This is a comment or an empty line
+			if ($filefilter != 'all' && $filefilter != preg_replace('/\.lang$/', '', $file) && $filefilter != $module) {
+				continue;
 			}
-			$pos = strpos($line, '=');
-			if ($pos === false) {
-				continue;	// This is not a translation entry
+			$files[] = $file;
+		}
+
+		foreach ($files as $file) {
+			$handle = fopen($langdir.$file, 'r');
+			if (!$handle) {
+				continue;
 			}
 
-			$listofmatches[] = array(
-				'lang' => $lang,
-				'file' => $file,
-				'line' => $linenum,
-				'key' => substr($line, 0, $pos),
-				'value' => rtrim(substr($line, $pos + 1))
-			);
+			$linenum = 0;
+			while (($line = fgets($handle)) !== false) {
+				$linenum++;
+
+				if (stripos($line, $searchstring) === false) {
+					continue;
+				}
+				$cleanline = ltrim($line);
+				if ($cleanline == '' || substr($cleanline, 0, 1) == '#') {
+					continue;	// This is a comment or an empty line
+				}
+				$pos = strpos($line, '=');
+				if ($pos === false) {
+					continue;	// This is not a translation entry
+				}
+
+				$listofmatches[] = array(
+					'module' => $module,
+					'lang' => $lang,
+					'file' => $file,
+					'line' => $linenum,
+					'key' => substr($line, 0, $pos),
+					'value' => rtrim(substr($line, $pos + 1))
+				);
+			}
+			fclose($handle);
 		}
-		fclose($handle);
 	}
 }
 
@@ -275,41 +313,41 @@ foreach ($langs as $lang) {
 $num = count($listofmatches);
 
 echo "Found ".$num." ".($num > 1 ? 'entries' : 'entry')." containing '".$searchstring."'";
-echo ($langcode != 'all' ? " for lang '".$langcode."'" : '')." into htdocs/langs/*/*.lang\n";
+echo ($langcode != 'all' ? " for lang '".$langcode."'" : '')." into htdocs/*/langs/*/*.lang\n";
 
 if ($num == 0) {
 	echo "Nothing to review. Perfect!\n";
 	exit(0);
 }
 
-$enUScache = array();	// Cache of en_US values, one entry per lang file already loaded
+$enUScache = array();	// Cache of en_US values, one entry per module and lang file already loaded
 $i = 0;
 
 foreach ($listofmatches as $match) {
 	$i++;
 
 	$filebase = preg_replace('/\.lang$/', '', $match['file']);
-	$resource = isset($resourcemap[$filebase]) ? $resourcemap[$filebase] : '';
-	$langtx = isset($langmaptx[$match['lang']]) ? $langmaptx[$match['lang']] : $match['lang'];
+	$resource = isset($resourcemap[$match['module'].'/'.$filebase]) ? $resourcemap[$match['module'].'/'.$filebase] : '';
 
 	echo "\n".str_repeat('=', 79)."\n";
 	echo "Entry ".$i."/".$num."\n";
-	echo "File:    htdocs/langs/".$match['lang']."/".$match['file']." (line ".$match['line'].")\n";
+	echo "File:    htdocs/".$match['module']."/langs/".$match['lang']."/".$match['file']." (line ".$match['line'].")\n";
 	echo "Key:     ".$match['key']."\n";
 	echo "Current: ".$match['value']."\n";
 
 	// Show the English reference value, so it can be compared with the translation to fix
-	if (!isset($enUScache[$match['file']])) {
-		$enUScache[$match['file']] = loadLangFileKeyValues($langsdir.'en_US/'.$match['file']);
+	$enUScacheid = $match['module'].'/'.$match['file'];
+	if (!isset($enUScache[$enUScacheid])) {
+		$enUScache[$enUScacheid] = loadLangFileKeyValues($htdocsdir.$match['module'].'/langs/en_US/'.$match['file']);
 	}
-	if (isset($enUScache[$match['file']][$match['key']])) {
-		echo "English: ".$enUScache[$match['file']][$match['key']]."\n";
+	if (isset($enUScache[$enUScacheid][$match['key']])) {
+		echo "English: ".$enUScache[$enUScacheid][$match['key']]."\n";
 	}
 
 	if ($resource == '') {
-		echo "Transifex: No Transifex resource found for file ".$match['file'].", fix it directly into the .lang file.\n";
+		echo "Transifex: No Transifex resource found for file ".$match['file']." of module ".$match['module'].", fix it directly into the .lang file.\n";
 	} else {
-		$url = $transifexurlroot.$langtx.'/'.$resource.'?q=key%3A'.rawurlencode($match['key']);
+		$url = $transifexurlroot.$match['lang'].'/'.$resource.'?q=key%3A'.rawurlencode($match['key']);
 		echo "Transifex: ";
 		printClickableUrl($url);
 		echo "\n";
@@ -338,10 +376,10 @@ if ($i == $num) {
 	$resources = array();
 	foreach ($listofmatches as $match) {
 		$filebase = preg_replace('/\.lang$/', '', $match['file']);
-		if (!isset($resourcemap[$filebase])) {
+		if (!isset($resourcemap[$match['module'].'/'.$filebase])) {
 			continue;
 		}
-		$resources[$match['lang'].'/'.$resourcemap[$filebase]] = 1;
+		$resources[$match['lang'].'/'.$resourcemap[$match['module'].'/'.$filebase]] = 1;
 	}
 
 	echo "\nAll entries were shown.\n";
@@ -349,7 +387,7 @@ if ($i == $num) {
 		echo "Once translations are fixed into Transifex, you can refresh local files with:\n";
 		foreach (array_keys($resources) as $resourcekey) {
 			list($resourcelang, $resourcename) = explode('/', $resourcekey, 2);
-			echo "  ./dev/translation/txpull.sh ".$resourcelang." -r dolibarr.".$resourcename."\n";
+			echo "  ./dev/translation/txpull.sh ".$resourcelang." -r dolimods.".$resourcename."\n";
 		}
 	} else {
 		echo "No file matched is on Transifex, translations must be fixed directly into the .lang files.\n";
