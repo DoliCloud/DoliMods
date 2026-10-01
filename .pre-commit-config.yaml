@@ -212,14 +212,15 @@ repos:
     rev: v2.4.1
     hooks:
       - id: codespell
-        # Check spelling into code and other files, but not into language files
-        # (language files are checked by the codespell-lang-en_US hook below)
-        # and not into third-party files into <modulename>/includes/
+        # Check spelling into code and other files only: language files are checked
+        # by the codespell-lang-en_US hook below. Not checked: files into
+        # <modulename>/includes/, htdocs/userguide/, htdocs/bittorrent/docs/, dev/tools/
+        # and *.xml/xsd/sch/xslt/sql/py/ini files.
         # Due to a current limitation of configuration files,
         # we can specify two dicts only on the CLI.
         # You can update the contents of the exclude-file codespell-lines-ignore with the script
         # dev/tools/codespell/addCodespellIgnores.sh
-        exclude: (?x)^(.phan/stubs/.*|phpstan\.neon.*|htdocs/[^/]+/langs/.*|htdocs/[^/]+/includes/.*)$
+        exclude: (?x)^(.phan/stubs/.*|phpstan\.neon.*|htdocs/[^/]+/langs/.*|htdocs/[^/]+/includes/.*|htdocs/userguide/.*|htdocs/bittorrent/docs/.*|dev/tools/.*|.*\.(xml|xsd|sch|xslt|sql|py|ini))$
         args:
           - -D
           - "-"

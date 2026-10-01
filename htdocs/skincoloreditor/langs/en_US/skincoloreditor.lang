@@ -2,20 +2,20 @@
 CHARSET= UTF-8
 SkinColorEditorSetup=Skin editor module setup
 SkinColorEditorDesc=This module allows you to change colors of the skin Eldy with colors of your choice. Colors can be set globally here. To change colors for a particular user only, use the tab "Color editor" on the user card.
-SkinColorEditorDescUser=This tab allows you to change colors of the skin Eldy with colors of your choice. Colors can be modified for current user on this tab. To change globaly (all users at once), go into module setup page with an admin user.
+SkinColorEditorDescUser=This tab allows you to change colors of the skin Eldy with colors of your choice. Colors can be modified for current user on this tab. To change globally (all users at once), go into module setup page with an admin user.
 WarningSkinMustBeEldy=Warning, change of colors works only with skin Eldy. You are using currently the skin %s.
 SkinColorEditorFastEditor=Editeur rapide
 SkinColorEditorAdvancedEditor=Editeur avancé
 Module101880Name=Skin Editor
 Module101880Desc=Allows to edit and personalise colors and font of skin Eldy
 SelectMainColor=Select main color
-ActivateColorPersonalizing=Activate possibility to personalize colors and font (globaly)
+ActivateColorPersonalizing=Activate possibility to personalize colors and font (globally)
 ActivateColorPersonalizingUser=Activate possibility to personalize colors and font (for this user)
 ColorEditor=Skin editor
 YourUseHasPersonalized=Current user has personalized its colors from its personal card (Tab <a href="%s">"%s"</a>). This personal setup will be used in priority so global setup will works only for users whose setup was not edited for themself.
 FontSize=Font size
 UseHoverOnLists=Highlight table lines on mouse over
-AboutInfo=This module is developped and distributed by Laurent Destailleur for DoliCloud, <a href="https://www.dolicloud.com?origin=dolimods">www.dolicloud.com</a> (A Dolibarr Preferred Partner company).
+AboutInfo=This module is developed and distributed by Laurent Destailleur for DoliCloud, <a href="https://www.dolicloud.com?origin=dolimods">www.dolicloud.com</a> (A Dolibarr Preferred Partner company).
 MoreModules=Other modules of same author are available on the official DoliStore market place...
 MoreModulesLink=<a target="_blank" href="https://www.dolistore.com/search.php?search_query=dolicloud">Click here to see full list</a>
 MoreCloudHosting=To use online Dolibarr, choose the secured hosting DoliCloud.

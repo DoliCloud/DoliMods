@@ -1,11 +1,11 @@
 # Dolibarr language file - en_US - zipautofillfr
 CHARSET=UTF-8
 Module101270Name=ZipAutofill FR/BE/CH
-Module101270Desc=Add all zip codes for France, Belgium, Switzerland into Dolibarr tables to have full zip/town autocomplete. Add a dictionnary to edit them.
+Module101270Desc=Add all zip codes for France, Belgium, Switzerland into Dolibarr tables to have full zip/town autocomplete. Add a dictionary to edit them.
 ZipAutoFillSetup=Setup of module ZipAutoFillFr
-ZipAutoFillDesc=This modules load all zip codes and town (for FR, BE, CH) into a table. Dolibarr then use it to suggest zip code or town by an autocompletion of address fields. An entry into menu Home - Setup - Dictionnary to edit zip and town is also added.
-ZipAutoFillNoSetup=There is no specific things to setup. This module is immediatly available at activation.
-AboutInfo=This module is developped and distributed by Laurent Destailleur for DoliCloud, <a href="https://www.dolicloud.com?origin=dolimods">www.dolicloud.com</a> (A Dolibarr Preferred Partner company).
+ZipAutoFillDesc=This modules load all zip codes and town (for FR, BE, CH) into a table. Dolibarr then use it to suggest zip code or town by an autocompletion of address fields. An entry into menu Home - Setup - Dictionary to edit zip and town is also added.
+ZipAutoFillNoSetup=There is no specific things to setup. This module is immediately available at activation.
+AboutInfo=This module is developed and distributed by Laurent Destailleur for DoliCloud, <a href="https://www.dolicloud.com?origin=dolimods">www.dolicloud.com</a> (A Dolibarr Preferred Partner company).
 MoreModules=Other modules of same author are available on the official DoliStore market place...
 MoreModulesLink=<a target="_blank" href="https://www.dolistore.com/search.php?search_query=dolicloud">Click here to see full list</a>
 MoreCloudHosting=To use online Dolibarr, choose the secured hosting DoliCloud.
