@@ -11,7 +11,7 @@ GoogleEnableThisToolThirdParties=Aktivieren Sie dieses Tool auf Karten von Dritt
 GoogleEnableThisToolContacts=Aktivieren Sie dieses Tool auf Kontaktkarten
 GoogleEnableThisToolMembers=Aktivieren Sie diese Tools auf Mitgliedskarten
 GoogleAddPubOnLogonPage=Fügen Sie AdSense-Informationen hinzu, um Ihre eigene Anzeige auf der Anmeldeseite hinzuzufügen (andernfalls leer lassen)
-GoogleAddAnalyticsOnLogonPage=Analytics-ID hinzufügen, um die Google Analytics-Tags auf jeder Seite hinzuzufügen (andernfalls leer lassen)
+GoogleAddAnalyticsOnLogonPage=Add Analytics id to add the Google Analytics tags onto each page (otherwise keep empty)
 GoogleZoomLevel=Zoomstufe standardmäßig (1 bis 10)
 GoogleAddressNotDefined=Die Adresse ist nicht ausreichend definiert, um geolokalisiert zu werden
 GoogleMapsAddressNotFound=Adresse wurde nicht gefunden.
@@ -24,13 +24,13 @@ AgendaView=Google-Agenda anzeigen
 AgendaSync=Mit Google-Agenda synchronisieren
 ContactSync=Mit Google-Kontakt synchronisieren
 GOOGLE_LOGIN=Melden Sie sich bei Google an
-GOOGLE_PASSWORD=Mot de Passe
+GOOGLE_PASSWORD=Password
 GOOGLE_EVENT_LABEL_INC_SOCIETE=Fügen Sie den Namen des Drittanbieters in das Event-Label für Events von Drittanbietern ein
 GOOGLE_EVENT_LABEL_INC_CONTACT=Fügen Sie den Kontaktnamen in die Ereignisbezeichnung für Kontaktereignisse ein
 GOOGLE_CONTACT_LABEL=Label zum Markieren von Kontakten
-GOOGLE_INCLUDE_AUTO_EVENT=Synchronisierung auch für von Dolibarr automatisch erstellte Ereignisse (siehe Setup des Moduls Agenda für eine Liste automatischer Ereignisse). <br> Wenn nein, werden nur manuell in die Agenda eingetragene Termine synchronisiert.
+GOOGLE_INCLUDE_AUTO_EVENT=Sync also for events automatically created by Dolibarr (see setup of module Agenda for list of automatic events).<br>If no, only events entered manually into agenda are synchronized.
 GOOGLE_INCLUDE_ATTENDEES=Add also list of attendees into event. Google may send emails to them when you create an event with attendees. Note: with some Google plan or setup, Google does not allow use of the APIs when there is attendees.
-GOOGLE_INCLUDE_ATTENDEESWarning=You may experience permissions error during connection to API when this options is ON. Enable this only once a test has been ran successfuly.
+GOOGLE_INCLUDE_ATTENDEESWarning=You may experience permissions error during connection to API when this options is ON. Enable this only once a test has been ran successfully.
 MAIN_GOOGLE_AN_ID=Google Analytics ID
 GoogleIDContact=Google Benutzerkonto
 GoogleNoTokenYet=Sie haben noch kein Token. Um eine zu erstellen, authentifizieren Sie sich einfach bei Google mit dem folgenden Link:
@@ -43,14 +43,14 @@ GoogleCalendarSyncConf=GoogleCalendarSyncConf
 TargetUser=Zielbenutzer
 KeepEmptyYoUseLoginPassOfEventUser=Lassen Sie dieses Feld leer, wenn Sie eine Synchronisierung pro Benutzer wünschen. Geben Sie in einem solchen Fall die Agenda-ID auf jeder Benutzerebene ein. Definieren Sie einen Wert, wenn Sie möchten, dass alle Ereignisse in derselben Google-Agenda synchronisiert werden.
 KeepEmptyYoUseLoginPassOfEventUserAssigned=Derzeit ist dieses Setup leer. Dies bedeutet, dass die Ziel-Agenda die Agenda des Benutzers ist, der Eigentümer des Ereignisses ist (ID-Agenda muss für jeden Benutzer definiert werden). Es wird keine Synchronisierung durchgeführt, wenn die Einrichtung der Agenda-ID für diesen Benutzer nicht erfolgt ist.
-KeepEmptyYoUseLoginPassOfEventUserSaleRep=Die angestrebte Agenda ist die Agenda des Erstverkaufsvertreters eines Drittanbieters, mit dem die Veranstaltung verknüpft ist. Wenn es keinen Drittanbieter für die Veranstaltung oder keinen Handelsvertreter für den Drittanbieter gibt, wird keine Synchronisierung durchgeführt.
+KeepEmptyYoUseLoginPassOfEventUserSaleRep=The targeted agenda is agenda of the first sale representative of thirdparty the event is linked to. If there is no thirdparty for event, nor sale representative for third party, no synchronization is done.
 KeepEmptyYoUsePublicQuotaOfAPI=Leer lassen, um das öffentliche Kontingent der API zu verwenden.
 AllowGoogleToLoginWithKey=Sie müssen ein Google-Konto haben und Ihren eigenen Schlüssel von Seite <a href="%s" target="_blank"> %s </a> , Menü "API & Services" -> "Credentials" erstellen. Klicken Sie auf „Schlüssel erstellen“ und wählen Sie „Serverschlüssel“ und dann „Erstellen“. Sie erhalten Ihren Serverschlüssel.
 AllowGoogleToLoginWithClientID=Sie können Ihre <strong> Google-Client-ID und Ihr Geheimnis </strong> auf der Seite <a href="%s" target="_blank"> %s </a> erstellen, ein Projekt auswählen oder eines erstellen und dann im Menü „API & Dienste“ -> „Anmeldeinformationen“ wählen. Klicken Sie auf „Create/Add a Client ID OAuth 2.0“ und wählen Sie „Web Application“, setzen Sie „Allowed Javascript Origin“ auf leer und setzen Sie „Redirect URI“ auf <br> <strong> %s </strong> <br> und klicken Sie dann auf die Schaltfläche „Create“. Sie erhalten eine <strong> neue Client-ID </strong> und einen <strong> Geheimcode </strong> . Sie müssen hier die <strong> Client ID </strong> hier und <strong> Client Secret </strong> in der nächsten Zeile eingeben.
 AllowGoogleToLoginWithClientSecret=Siehe Hinweis in der vorherigen Zeile, um zu erfahren, wie Sie Ihr Google Client Secret erhalten.
 AllowGoogleToLoginWithServiceAccount=Sie können Ihr <strong>-Dienstkonto erstellen, Benutzer/E-Mail-Adresse </strong> von Seite <a href="%s" target="_blank"> %s </a> , ein Projekt auswählen oder eines erstellen, dann Menü "API & Dienste" -> "Anmeldeinformationen". Klicken Sie auf „Client-ID erstellen/hinzufügen“ und wählen Sie „Dienstkonto“ und dann „Erstellen“. Sie erhalten ein neues Dienstkonto mit einer <strong> Dienstkonto-Client-ID </strong> und einer <strong> Dienstkonto-E-Mail </strong> . Sie müssen hier das Dienstkonto <strong> EMail </strong> eingeben.
 EnableAPI=You must enable the API for your Google account. For this go on page <a href="%s" target="_blank">%s</a>, menu "API & Services" -> "API". Click to enable API for "%s".
-ShareCalendarWithServiceAccount=Sie müssen außerdem die Agenda (alle Berechtigungen) mit dem Dienstkontobenutzer/E-Mail-Adresse <strong>%s<span class='notranslate' teilen. ></strong></span>: Gehen Sie dazu in den Google-Kalender. Es muss dieselbe Agenda sein wie die, die im Parameter „%s“ ausgewählt wurde. Wählen Sie „Parameter“ und klicken Sie dann auf den Namen Ihrer Agenda, um den Link „Parameter teilen mit…“ anzuzeigen. Klicken Sie darauf und fügen Sie den Dienstkontobenutzer als Kontakt hinzu, mit dem Sie Ihre Agenda teilen möchten. Wählen Sie die Berechtigung „Ereignisse bearbeiten“ und bestätigen Sie, indem Sie auf „Benutzer hinzufügen“ klicken.
+ShareCalendarWithServiceAccount=You must also share the agenda (all permissions) with the service account user/email <strong>%s</strong>: For this, go into the Google calendar. It must be same Agenda than the one chosen on parameter "%s". Choose "Parameters" then click on your Agenda name to show the link "Share parameters with...". Click on it and add the service account user as a contact to share your agenda with. Choose permission "Edit events" and validate by clicking "Add user".
 ShareCalendarWithServiceAccount2=Mit <strong>Google Suite</strong> (nicht erforderlich für Standard-Gmail-Konto) werden Berechtigungen möglicherweise auf „Nur lesen“ statt auf „Bearbeiten“ erzwungen.Wenn Sie die Berechtigung „Bearbeiten“ nicht auswählen können, gehen Sie zu <a href="https://admin.google.com/AdminHome?pli=1&fral=1#AppDetails:service=Calendar&flyout=sharing" target="_blank">https://admin.google.com/AdminHome?pli=1&fral=1#AppDetails:service=Calendar&flyout=sharing</a> und überprüfen Sie, ob die Freigabeoption der Agenda-Anwendung die Freigabe mit einem externen Dienstkonto zulässt.
 GOOGLE_API_SERVERKEY=API-Schlüssel (Typ "Serverschlüssel")
 GoogleUserConf=Google-Setup
@@ -75,7 +75,7 @@ FromId=Von ID:
 ToId=bis ID:
 IdSelectOptional=Die Auswahl des ID-Bereichs ist optional
 DeleteAllGoogleEvents=Alle Termine des Google-Kalenders <strong> %s </strong> löschen, die mit einem Dolibarr verknüpft sind
-PushToGoogleSucess=Synchronisierung mit Google-Kontakten für %s-Einträge abgeschlossen.
+PushToGoogleSucess=Synchronising to Google contact finished for %s record(s).
 TagsCreatedSuccess=Synchronisieren von Gruppen mit Google-Kontakten abgeschlossen
 DeleteToGoogleSucess=%s Kontakt(e) in Google-Kontakt gelöscht.
 GOOGLE_TAG_PREFIX=Label der Gruppe zum Taggen von Dolibarr-Drittanbietern in Google-Kontakten
@@ -112,7 +112,7 @@ GOOGLE_API_SERVICEACCOUNT_CLIENT_ID=Client-ID des Dienstkontos
 GOOGLE_API_SERVICEACCOUNT_EMAIL=Zuzulassende E-Mail-Adresse des Dienstkontos (NICHT Ihr Google-Konto-Login/Ihre E-Mail-Adresse)
 GOOGLE_API_SERVICEACCOUNT_P12KEY=JSON-Datei des Dienstkontos
 FillThisOnlyIfRequired=Beispiel: +2 (nur bei Problem ausfüllen)
-AboutInfo=This module is developped and distributed by Laurent Destailleur for DoliCloud, <a href="https://www.dolicloud.com?origin=dolimods">www.dolicloud.com</a> (A Dolibarr Preferred Partner company).
+AboutInfo=This module is developed and distributed by Laurent Destailleur for DoliCloud, <a href="https://www.dolicloud.com?origin=dolimods">www.dolicloud.com</a> (A Dolibarr Preferred Partner company).
 MoreModules=Andere Module desselben Autors sind auf dem offiziellen Marktplatz von DoliStore erhältlich...
 MoreModulesLink=<a target="_blank" href="https://www.dolistore.com/search.php?search_query=dolicloud">Click here to see full list</a>
 MoreCloudHosting=Um Online-Dolibarr zu verwenden, wählen Sie das gesicherte Hosting DoliCloud.
@@ -142,3 +142,4 @@ RefreshEventFromGoogle=Ereignisse von Google aktualisieren
 Tool=Tool
 DateExpiration=Expiration date
 GOOGLE_DEBUG=Enable additional logs specific to the Google module (dolibarr_google.* files)
+NoMapEnabled=No map enabled (see module setup)
