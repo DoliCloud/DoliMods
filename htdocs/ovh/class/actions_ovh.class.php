@@ -141,7 +141,7 @@ class ActionsOVH
 			$langs->load("sms");
 			$smsfrom = '';
 
-			if (!empty($_POST["fromsms"])) {
+			if (GETPOST("fromsms")) {
 				$smsfrom = GETPOST("fromsms");
 			}
 
@@ -149,8 +149,7 @@ class ActionsOVH
 				$smsfrom = GETPOST("fromname");
 			}
 
-			$sendto = $this->getReceivers($parameters['toselect']);
-			$receiver = 'contact';
+			$sendto = $this->getReceivers(empty($parameters['toselect']) ? array() : $parameters['toselect']);
 			$body = GETPOST('message');
 			$deliveryreceipt = GETPOST("deliveryreceipt");
 			$deferred = GETPOST('deferred');
@@ -171,13 +170,11 @@ class ActionsOVH
 				$error++;
 			}
 
-			if (empty($sendto) && empty($sendto['phone_numbers'])) {
+			if (empty($sendto['phone_numbers'])) {
 				setEventMessage($langs->trans("ErrorFieldRequired", $langs->transnoentities("SmsTo")), 'errors');
 				$action = 'test';
 				$error++;
 			}
-
-			$sendtonumber = implode(', ', $sendto['phone_numbers']);
 
 			if (!$error) {
 				// Make substitutions into message
@@ -187,46 +184,35 @@ class ActionsOVH
 
 				require_once DOL_DOCUMENT_ROOT . "/core/class/CSMSFile.class.php";
 
-				//if (empty($sendcontext)) $sendcontext = 'standard';
-				$smsfile = new CSMSFile($sendtonumber, $smsfrom, $body, $deliveryreceipt, $deferred, $priority, $class);  // This define OvhSms->login, pass, session and account
+				// One SMS per contact, so the agenda event of each SMS is linked to its contact and thirdparty
+				$sentnumbers = array();
+				foreach ($sendto['contacts'] as $contactid => $contact) {
+					$sendtonumber = $sendto['contact_phone_numbers'][$contactid];
 
-				$smsfile->nostop = GETPOST('disablestop');
-				$smsfile->socid = 0;
-				$smsfile->contactid = 0;
-				$smsfile->contact_id = 0;
-				$smsfile->fk_project = 0;
+					try {
+						$smsfile = new CSMSFile($sendtonumber, $smsfrom, $body, $deliveryreceipt, $deferred, $priority, $class);  // This define OvhSms->login, pass, session and account
 
-				// Send the SMS
-				$result = $smsfile->sendfile(); // This send SMS. It also includes run of triggers 'SENTBYSMS'.
+						$smsfile->nostop = GETPOST('disablestop', 'int');
+						$smsfile->socid = (int) $contact->socid;
+						$smsfile->contact_id = $contactid;
+						$smsfile->fk_project = 0;
 
-				if ($result > 0) {
-					setEventMessages($langs->trans("SmsSuccessfulySent", $smsfrom, $sendtonumber), null);
-
-					//Create manually event because trigger cannot be run as we end 1 SMS to API instead of one SMS per contact
-					foreach ($sendto['contacts'] as $contact) {
-						require_once DOL_DOCUMENT_ROOT . '/comm/action/class/actioncomm.class.php';
-						$now = dol_now();
-						$actioncomm = new ActionComm($db);
-
-						$actioncomm->elementtype = 'sms@ovh';
-
-						$actioncomm->code = 'AC_SENTBYSMS';
-						$actioncomm->type_code = 'AC_OTH_AUTO';
-						$actioncomm->label = $langs->trans("SMSSentTo", $sendto['contact_phone_numbers'][$contact->id]);
-						$actioncomm->datep = $now;
-						$actioncomm->socpeopleassigned = array($contact->id=>null);
-						$actioncomm->socid = $contact->socid;
-						$actioncomm->userownerid = $user->id;
-						$actioncomm->percentage = -1;
-						$actioncomm->note_private = $body ;
-
-						$result = $actioncomm->create($user);
-						if ($result < 0) {
-							setEventMessages($actioncomm->error, $actioncomm->errors, 'errors');
-						}
+						// Send the SMS
+						$result = $smsfile->sendfile(); // This send SMS. It also includes run of triggers 'SENTBYSMS'.
+					} catch (Exception $e) {
+						$smsfile = null;
+						$result = false;
 					}
-				} else {
-					setEventMessages($langs->trans("ResultKo") . ' (sms from' . $smsfrom . ' to ' . $sendto . ')<br>' . $smsfile->error, null, 'errors');
+
+					if ($result > 0) {
+						$sentnumbers[] = $sendtonumber;
+					} else {
+						setEventMessages($langs->trans("ResultKo") . ' (sms from ' . $smsfrom . ' to ' . $sendtonumber . ')<br>' . (is_object($smsfile) ? $smsfile->error : $e->getMessage()), null, 'errors');
+					}
+				}
+
+				if (!empty($sentnumbers)) {
+					setEventMessages($langs->trans("SmsSuccessfulySent", $smsfrom, implode(', ', $sentnumbers)), null);
 				}
 
 				$action = '';
@@ -270,18 +256,15 @@ class ActionsOVH
 		$sendto['contact_phone_numbers'] = array();
 		$sendto['contacts'] = array();
 
+		dol_include_once('/ovh/class/ovhsms.class.php');
+
 		$listofselectedcontacts = $this->getSelectedContacts($selected);
 
 		foreach ($listofselectedcontacts as $contact) {
-			$mobile_phone = preg_replace("/[^0-9+]/", "", $contact->phone_mobile);
+			$international_mobile_phone = OvhSms::formatPhoneNumber($contact->phone_mobile, empty($contact->country_code) ? '' : $contact->country_code);
 
-			if ($mobile_phone[0] == '+' && strlen($mobile_phone) == 12) {
-				$international_mobile_phone = $mobile_phone;
-			} elseif (strlen($mobile_phone) == 10) {
-				$international_mobile_phone = substr($mobile_phone, 1);
-				$international_mobile_phone = '+33' . $international_mobile_phone;
-			} else {
-				setEventMessage($langs->trans('InvalidMobilePhoneNumberForContact', $contact->getFullName($langs), $mobile_phone), 'warnings');
+			if (!preg_match('/^\+[0-9]{8,15}$/', $international_mobile_phone)) {
+				setEventMessage($langs->trans('InvalidMobilePhoneNumberForContact', $contact->getFullName($langs), (string) $contact->phone_mobile), 'warnings');
 				continue;
 			}
 

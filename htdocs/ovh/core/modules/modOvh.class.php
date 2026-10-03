@@ -19,7 +19,7 @@
  */
 
 /**     \defgroup   ovh     Module Ovh
- *      \brief      Permet de s'interface avec les service fourni par OVH (SMS, API,...)
+ *      \brief      Allows to interface Dolibarr with services provided by OVH (SMS, API,...)
  */
 
 /**
@@ -58,7 +58,7 @@ class modOvh extends DolibarrModules
 		$this->editor_name = 'DoliCloud';
 		$this->editor_url = 'https://www.dolicloud.com?origin=dolimods';
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
-		$this->version = '5.0';
+		$this->version = '5.1';
 		// Key used in llx_const table to save module status enabled/disabled (where MYMODULE is value of property name of module in uppercase)
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
 		// Name of image file used for this module.
@@ -71,10 +71,9 @@ class modOvh extends DolibarrModules
 		// for specific path of parts (eg: /mymodule/core/modules/barcode)
 		// for specific css file (eg: /mymodule/css/mymodule.css.php)
 		$this->module_parts = array(
-			'triggers' => 1,                                 	// Set this to 1 if module has its own trigger directory (core/triggers)
+			'triggers' => 0,                                 	// Set this to 1 if module has its own trigger directory (core/triggers). Events of SMS are recorded by the agenda trigger of Dolibarr.
 			'login' => 0,                                    	// Set this to 1 if module has its own login method directory (core/login)
-			'substitutions' => 0,    								'prefix' => img_picto('', $this->picto, 'class="paddingright pictofixedwidth valignmiddle"'),
-			// Set this to 1 if module has its own substitution function file (core/substitutions)
+			'substitutions' => 0,                            	// Set this to 1 if module has its own substitution function file (core/substitutions)
 			'menus' => 0,                                    	// Set this to 1 if module has its own menus handler directory (core/menus)
 			'theme' => 0,                                    	// Set this to 1 if module has its own theme directory (theme)
 			'tpl' => 0,                                      	// Set this to 1 if module overwrite template dir (core/tpl)
@@ -126,7 +125,7 @@ class modOvh extends DolibarrModules
 		// 'product'          to add a tab in product view
 		// 'stock'            to add a tab in stock view
 		// 'propal'           to add a tab in propal view
-		// 'member'           to add a tab in fundation member view
+		// 'member'           to add a tab in foundation member view
 		// 'contract'         to add a tab in contract view
 		// 'user'             to add a tab in user view
 		// 'group'            to add a tab in group view

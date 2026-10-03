@@ -76,7 +76,7 @@ if (getDolGlobalString('MAIN_ENABLE_EXCEPTION')) {
 	 * @param $code string code
 	 * @param $message string message
 	 * @param $fichier string filename
-	 * @param $ligne string lien id
+	 * @param $ligne string line number
 	 * @param $contexte string context
 	 * @return void
 	 * @throws Exception
@@ -99,9 +99,9 @@ $endpoint = getDolGlobalString('OVH_ENDPOINT', 'ovh-eu');    // Can be "soyousta
 
 if ($action == 'setvalue' && $user->admin) {
 	//$result=dolibarr_set_const($db, "PAYBOX_IBS_DEVISE",$_POST["PAYBOX_IBS_DEVISE"],'chaine',0,'',$conf->entity);
-	$result=dolibarr_set_const($db, "OVHSMS_NICK", $_POST["OVHSMS_NICK"], 'chaine', 0, '', $conf->entity);
-	$result=dolibarr_set_const($db, "OVHSMS_PASS", $_POST["OVHSMS_PASS"], 'chaine', 0, '', $conf->entity);
-	$result=dolibarr_set_const($db, "OVHSMS_SOAPURL", $_POST["OVHSMS_SOAPURL"], 'chaine', 0, '', $conf->entity);
+	$result=dolibarr_set_const($db, "OVHSMS_NICK", GETPOST("OVHSMS_NICK"), 'chaine', 0, '', $conf->entity);
+	$result=dolibarr_set_const($db, "OVHSMS_PASS", GETPOST("OVHSMS_PASS", 'none'), 'chaine', 0, '', $conf->entity);
+	$result=dolibarr_set_const($db, "OVHSMS_SOAPURL", GETPOST("OVHSMS_SOAPURL"), 'chaine', 0, '', $conf->entity);
 
 
 	if ($result >= 0) {
@@ -114,7 +114,7 @@ if ($action == 'setvalue' && $user->admin) {
 
 
 if ($action == 'setvalue_account' && $user->admin) {
-	$result=dolibarr_set_const($db, "OVHSMS_ACCOUNT", $_POST["OVHSMS_ACCOUNT"], 'chaine', 0, '', $conf->entity);
+	$result=dolibarr_set_const($db, "OVHSMS_ACCOUNT", trim(GETPOST("OVHSMS_ACCOUNT")), 'chaine', 0, '', $conf->entity);
 
 	if ($result >= 0) {
 		$mesg='<div class="ok">'.$langs->trans("SetupSaved").'</div>';
@@ -124,11 +124,11 @@ if ($action == 'setvalue_account' && $user->admin) {
 }
 
 /* Envoi d'un SMS */
-if ($action == 'send' && ! $_POST['cancel']) {
+if ($action == 'send' && ! GETPOST('cancel')) {
 	$error=0;
 
 	$smsfrom='';
-	if (! empty($_POST["fromsms"])) $smsfrom=GETPOST("fromsms");
+	if (GETPOST("fromsms")) $smsfrom=GETPOST("fromsms");
 	if (empty($smsfrom)) $smsfrom=GETPOST("fromname");
 	$sendto     = GETPOST("sendto");
 	$body       = GETPOST('message');
@@ -168,22 +168,24 @@ if ($action == 'send' && ! $_POST['cancel']) {
 
 		try {
 			$smsfile = new CSMSFile($sendto, $smsfrom, $body, $deliveryreceipt, $deferred, $priority, $class);  // This define OvhSms->login, pass, session and account
+
+			$smsfile->nostop = GETPOST('disablestop', 'int');
+			$smsfile->socid = 0;
+			$smsfile->contact_id = 0;
+			$smsfile->fk_project = 0;
+
+			$result = $smsfile->sendfile(); // This send SMS
+
+			if ($result > 0) {	// Old versions of Dolibarr return -1 on error
+				setEventMessages($langs->trans("SmsSuccessfulySent", $smsfrom, $sendto), null, 'mesgs');
+				if (!empty($smsfile->errors)) {
+					setEventMessages(null, $smsfile->errors, 'warnings');	// Some receivers were rejected
+				}
+			} else {
+				setEventMessages($langs->trans("ResultKo").'<br>'.$smsfile->error, null, 'errors');
+			}
 		} catch (Exception $e) {
 			setEventMessages($e->getMessage(), null, 'errors');
-		}
-
-		$smsfile->nostop = GETPOST('disablestop', 'int');
-		$smsfile->socid = 0;
-		//$smsfile->contactid = 0;
-		$smsfile->contact_id = 0;
-		$smsfile->fk_project = 0;
-
-		$result = $smsfile->sendfile(); // This send SMS
-
-		if ($result) {
-			setEventMessages($langs->trans("SmsSuccessfulySent", $smsfrom, $sendto), null, 'mesgs');
-		} else {
-			setEventMessages($langs->trans("ResultKo").'<br>'.$smsfile->error, null, 'errors');
 		}
 
 		$action='';
@@ -198,10 +200,10 @@ if ($action == 'send' && ! $_POST['cancel']) {
  * View
  */
 
-$WS_DOL_URL = empty($conf->global->OVHSMS_SOAPURL) ? '' : strval($conf->global->OVHSMS_SOAPURL);
+$WS_DOL_URL = getDolGlobalString('OVHSMS_SOAPURL');
 dol_syslog("Will use URL=".$WS_DOL_URL, LOG_DEBUG);
 
-$smsAccount = empty($conf->global->OVHSMS_ACCOUNT) ? '' : strval($conf->global->OVHSMS_ACCOUNT);
+$smsAccount = getDolGlobalString('OVHSMS_ACCOUNT');
 
 llxHeader('', $langs->trans('OvhSmsSetup'), '', '');
 
@@ -211,10 +213,10 @@ print_fiche_titre($langs->trans("OvhSmsSetup"), $linkback, 'setup');
 
 $head=ovhadmin_prepare_head();
 
-if (getDolGlobalString('OVH_OLDAPI') && (empty($conf->global->OVHSMS_NICK) || empty($WS_DOL_URL))) {
+if (getDolGlobalString('OVH_OLDAPI') && (!getDolGlobalString('OVHSMS_NICK') || empty($WS_DOL_URL))) {
 	echo '<div class="warning">'.$langs->trans("OvhSmsNotConfigured").'</div>';
 } else {
-	dol_htmloutput_mesg($mesg);
+	dol_htmloutput_mesg(empty($mesg) ? '' : $mesg);
 
 	// Formulaire d'ajout de compte SMS qui sera valable pour tout Dolibarr
 	print '<form method="POST" action="'.$_SERVER["PHP_SELF"].'">';
@@ -238,7 +240,7 @@ if (getDolGlobalString('OVH_OLDAPI') && (empty($conf->global->OVHSMS_NICK) || em
 
 	print '<tr class="oddeven"><td class="fieldrequired">';
 	print $langs->trans("OvhSmsLabelAccount").'</td><td>';
-	print '<input type="text" name="OVHSMS_ACCOUNT" value="'.$smsAccount.'">';
+	print '<input type="text" name="OVHSMS_ACCOUNT" value="'.dol_escape_htmltag($smsAccount).'">';
 	print '<br><span class="opacitymedium">'.$langs->trans("Example").': sms-aa123-1</span>';
 	print '<td><a href="ovh_smsrecap.php" target="_blank">'.$langs->trans("ListOfSmsAccountsForNH").'</a>';
 	print '</td></tr>';
@@ -273,14 +275,14 @@ if (getDolGlobalString('OVH_OLDAPI') && (empty($conf->global->OVHSMS_NICK) || em
 		$formsms->fromid   = $user->id;
 		$formsms->fromname = $user->getFullName($langs);
 		$formsms->fromsms = $user->user_mobile;
-		$formsms->withfrom=(empty($_POST['fromsms'])?1:$_POST['fromsms']);
+		$formsms->withfrom=(GETPOST('fromsms')?GETPOST('fromsms'):1);
 		$formsms->withfromreadonly=0;
-		$formsms->withto=(empty($_POST["sendto"])?($user->user_mobile?$user->user_mobile:1):$_POST["sendto"]);
+		$formsms->withto=(GETPOST("sendto")?GETPOST("sendto"):($user->user_mobile?$user->user_mobile:1));
 		$formsms->withbody=$langs->trans("SmsTestMessage");
 		$formsms->withcancel=1;
 		// Tableau des substitutions
 		$formsms->substit=$substitutionarrayfortest;
-		// Tableau des parametres complementaires du post
+		// Array of complementary parameters of the form
 		$formsms->param['action']='send';
 		$formsms->param['models']='body';
 		$formsms->param['id']=0;

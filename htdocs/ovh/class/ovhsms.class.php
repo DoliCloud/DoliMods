@@ -56,8 +56,10 @@ class OvhSms extends CommonObject
 	public $class;
 	public $deferred;
 	public $priority;
+	public $deliveryreceipt;
 
 	public $soap;         // Old API
+	public $session;      // Old API
 	public $conn;         // New API
 	public $endpoint;
 
@@ -71,10 +73,14 @@ class OvhSms extends CommonObject
 	{
 		global $conf;
 
+		// CSMSFile calls the constructor with a null database handler
+		if (!is_object($db)) {
+			$db = $GLOBALS['db'];
+		}
 		$this->db = $db;
 
 		// Réglages par défaut
-		$this->validity = 24*60;  // 24 hours. the maximum time -in minute(s)- before the message is dropped, defaut is 48 hours
+		$this->validity = 24*60;  // 24 hours. the maximum time -in minute(s)- before the message is dropped, default is 48 hours
 		$this->class = '2';       // the sms class: flash(0),phone display(1),SIM(2),toolkit(3)
 		$this->deferred = '60';   // the time -in minute(s)- to wait before sending the message, default is 0
 		$this->priority = '3';    // the priority of the message (0 to 3), default is 3
@@ -191,31 +197,59 @@ class OvhSms extends CommonObject
 				$this->soapDebug();
 				return $resultsend;
 			} else {
-				$priority=$this->priority;    // high
-				if ($priority == '0') $priority='high';
-				if ($priority == '1') $priority='medium';
-				if ($priority == '2') $priority='low';
-				if ($priority == '3') $priority='veryLow';
+				// Values come as int or as string from forms. Compare them as int because, since PHP 8, '' == 0 is false.
+				$prioritylabels = array(0 => 'high', 1 => 'medium', 2 => 'low', 3 => 'veryLow');
+				$priority = '';
+				if (in_array($this->priority, $prioritylabels, true)) {
+					$priority = $this->priority;
+				} elseif (is_numeric($this->priority) && isset($prioritylabels[(int) $this->priority])) {
+					$priority = $prioritylabels[(int) $this->priority];
+				}
 
-				$smsclass = $this->class;
-				if ($smsclass == 0) $smsclass='flash';
-				if ($smsclass == 1) $smsclass='phoneDisplay';
-				if ($smsclass == 2) $smsclass='sim';
-				if ($smsclass == 3) $smsclass='toolkit';
+				$classlabels = array(0 => 'flash', 1 => 'phoneDisplay', 2 => 'sim', 3 => 'toolkit');
+				$smsclass = '';
+				if (in_array($this->class, $classlabels, true)) {
+					$smsclass = $this->class;
+				} elseif (is_numeric($this->class) && isset($classlabels[(int) $this->class])) {
+					$smsclass = $classlabels[(int) $this->class];
+				}
 
-				$content = (object) array(
-					"differedPeriod" => $this->deferred,  // time in minutes
+				// Several receivers can be provided, separated with a comma or a semicolon
+				$receivers = array();
+				$rejectedreceivers = array();
+				foreach (preg_split('/[,;]+/', (string) $this->dest) as $number) {
+					$formattednumber = self::formatPhoneNumber($number);
+					if ($formattednumber !== '') {
+						$receivers[] = $formattednumber;
+					} elseif (trim($number) !== '') {
+						$rejectedreceivers[] = trim($number);
+					}
+				}
+				if (empty($receivers)) {
+					$langs->load("ovh@ovh");
+					$this->error = $langs->trans("OvhSmsInvalidReceivers", $this->dest);
+					return -1;
+				}
+
+				$content = array(
+					"differedPeriod" => max(0, (int) $this->deferred),  // time in minutes
 					"charset"=> "UTF-8",
-					"class"=> $smsclass,           // "phoneDisplay",
 					"coding"=> "7bit",
 					"message"=> $this->message.($this->nostop?'':"\n"),
 					"noStopClause"=> $this->nostop?true:false,
-					"priority"=> $priority,
-					"receivers"=> [ $this->dest ],   // [ "+3360000000" ]
+					"receivers"=> $receivers,   // [ "+3360000000" ]
 					"sender"=> $this->expe,
 					"senderForResponse"=> false,
-					"validityPeriod"=> $this->validity    // 28800
+					"validityPeriod"=> (int) $this->validity    // 28800
 				);
+				// When not provided, OVH uses its default class and priority
+				if ($smsclass) {
+					$content["class"] = $smsclass;
+				}
+				if ($priority) {
+					$content["priority"] = $priority;
+				}
+				$content = (object) $content;
 				//var_dump($content);exit;
 				try {
 					//var_dump($content);
@@ -234,15 +268,32 @@ class OvhSms extends CommonObject
 							)
 					); */
 					//var_dump($resultPostJob);
-					if ($resultPostJob['totalCreditsRemoved'] > 0) {
+					$invalidreceivers = (isset($resultPostJob['invalidReceivers']) && is_array($resultPostJob['invalidReceivers'])) ? $resultPostJob['invalidReceivers'] : array();
+					$invalidreceivers = array_merge($rejectedreceivers, $invalidreceivers);
+					if (!empty($invalidreceivers)) {
+						$langs->load("ovh@ovh");
+						dol_syslog(get_class($this)."::SmsSend invalid receivers ".implode(', ', $invalidreceivers), LOG_WARNING);
+					}
+					if (isset($resultPostJob['totalCreditsRemoved']) && $resultPostJob['totalCreditsRemoved'] > 0) {
+						if (!empty($invalidreceivers)) {	// Sent to part of the receivers only
+							$this->errors[] = $langs->trans("OvhSmsInvalidReceivers", implode(', ', $invalidreceivers));
+						}
+						$validreceivers = (isset($resultPostJob['validReceivers']) && is_array($resultPostJob['validReceivers'])) ? $resultPostJob['validReceivers'] : $receivers;
+
 						$object = new stdClass();
+						$object->id = 0;
+						$object->element = '';
 						$triggersendname = 'SENTBYSMS';
 						if ($this->member_id > 0) {
 							$triggersendname = 'MEMBER_SENTBYSMS';
 							//$conf->global->MAIN_AGENDA_ACTIONAUTO_MEMBER_SENTBYSMS should be set from agenda setup
+							$object->id = $this->member_id;
+							$object->element = 'member';
 						} elseif ($this->socid > 0) {
 							$triggersendname = 'COMPANY_SENTBYSMS';
 							//$conf->global->MAIN_AGENDA_ACTIONAUTO_COMPANY_SENTBYSMS should be set from agenda setup
+							$object->id = $this->socid;
+							$object->element = 'societe';
 						}
 
 						// Force automatic event to ON for the generic trigger name
@@ -260,11 +311,14 @@ class OvhSms extends CommonObject
 							$object->socid			= $this->socid;	   		// To link to a company
 							$object->contact_id     = $this->contact_id;
 							$object->fk_adherent    = $this->member_id;
-							//$object->sendtoid		= $sendtoid;	   // To link to contacts/addresses. This is an array.
+							$object->fk_project     = $this->fk_project;
+							$object->sendtoid		= ($this->contact_id > 0 ? array($this->contact_id) : array());	   // To link to contacts/addresses. This is an array.
+							$object->context		= array();
 
+							// The agenda trigger stores these texts into database, so they must not be HTML encoded
 							$object->actiontypecode	= $actiontypecode; // Type of event ('AC_OTH', 'AC_OTH_AUTO', 'AC_XXX'...)
-							$object->actionmsg2		= $langs->trans("SMSSentTo", $this->dest);
-							$object->actionmsg		= $langs->trans("SMSSentTo", $this->dest)."\n".$this->message.($this->nostop?'':"\n");
+							$object->actionmsg2		= $langs->transnoentities("SMSSentTo", implode(', ', $validreceivers));
+							$object->actionmsg		= $langs->transnoentities("SMSSentTo", implode(', ', $validreceivers))."\n".$this->message.($this->nostop?'':"\n");
 							//$object->trackid        = $trackid;
 							//$object->fk_element		= $object->id;
 							//$object->elementtype	= $object->element;
@@ -282,6 +336,9 @@ class OvhSms extends CommonObject
 						}
 
 						return 1;
+					} elseif (!empty($invalidreceivers)) {
+						$this->error = $langs->trans("OvhSmsInvalidReceivers", implode(', ', $invalidreceivers));
+						return -1;
 					} else {
 						$this->error = 'resultPostJob["totalCreditsRemoved"] not set. '.var_export($resultPostJob, true);
 						return -1;
@@ -304,6 +361,35 @@ class OvhSms extends CommonObject
 		}
 
 		return -5;
+	}
+
+	/**
+	 * Clean a phone number and convert it into the international format expected by OVH.
+	 * A national number is converted only for France (+33), other ones must already be international.
+	 *
+	 * @param	string	$phone			Phone number (example: '06 12 34 56 78', '0033612345678', '+33612345678')
+	 * @param	string	$countrycode	Country code used for national numbers ('' = country of company)
+	 * @return	string					Phone number (example: '+33612345678'), '' if empty
+	 */
+	public static function formatPhoneNumber($phone, $countrycode = '')
+	{
+		global $mysoc;
+
+		if (empty($countrycode)) {
+			$countrycode = (is_object($mysoc) && !empty($mysoc->country_code)) ? $mysoc->country_code : 'FR';
+		}
+
+		$number = preg_replace('/[^0-9+]/', '', (string) $phone);
+		if (strpos($number, '00') === 0) {
+			return '+'.substr($number, 2);
+		}
+		if (strpos($number, '+') === 0) {
+			return $number;
+		}
+		if ($countrycode == 'FR' && preg_match('/^0([1-9]\d{8})$/', $number, $reg)) {
+			return '+33'.$reg[1];
+		}
+		return $number;
 	}
 
 	/**
