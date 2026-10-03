@@ -73,7 +73,7 @@ if ($action == 'send' && empty($cancel)) {
 	$error=0;
 
 	$smsfrom='';
-	if (! empty($_POST["fromsms"])) $smsfrom=GETPOST("fromsms");
+	if (GETPOST("fromsms")) $smsfrom=GETPOST("fromsms");
 	if (empty($smsfrom)) $smsfrom=GETPOST("fromname");
 	$sendto     = GETPOST("sendto");
 	$receiver   = GETPOST('receiver');
@@ -87,9 +87,11 @@ if ($action == 'send' && empty($cancel)) {
 	$thirdparty=new Societe($db);
 	$thirdparty->fetch($socid);
 
+	$contactid = 0;
 	if ($receiver == 'thirdparty') $sendto=$thirdparty->phone;
 	if ((empty($sendto) || ! str_replace('+', '', $sendto)) && (! empty($receiver) && $receiver != '-1')) {
 		$sendto=$thirdparty->contact_get_property($receiver, 'mobile');
+		$contactid = (int) $receiver;	// To link the event to the contact
 	}
 
 	// Test param
@@ -128,24 +130,30 @@ if ($action == 'send' && empty($cancel)) {
 
 		require_once DOL_DOCUMENT_ROOT."/core/class/CSMSFile.class.php";
 
-		//if (empty($sendcontext)) $sendcontext = 'standard';
-		$smsfile = new CSMSFile($sendto, $smsfrom, $body, $deliveryreceipt, $deferred, $priority, $class);  // This define OvhSms->login, pass, session and account
+		try {
+			//if (empty($sendcontext)) $sendcontext = 'standard';
+			$smsfile = new CSMSFile($sendto, $smsfrom, $body, $deliveryreceipt, $deferred, $priority, $class);  // This define OvhSms->login, pass, session and account
 
-		$smsfile->nostop = GETPOST('disablestop', 'int');
-		$smsfile->socid = $socid;
-		$smsfile->contactid = 0;
-		$smsfile->contact_id = 0;
-		$smsfile->fk_project = 0;
+			$smsfile->nostop = GETPOST('disablestop', 'int');
+			$smsfile->socid = $socid;
+			$smsfile->contact_id = $contactid;
+			$smsfile->fk_project = 0;
 
-		// Send the SMS
-		$result=$smsfile->sendfile(); // This send SMS. It also includes run of triggers 'SENTBYSMS'.
+			// Send the SMS
+			$result=$smsfile->sendfile(); // This send SMS. It also includes run of triggers 'SENTBYSMS'.
 
-		if ($result > 0) {
-			$object = $thirdparty;
+			if ($result > 0) {
+				$object = $thirdparty;
 
-			setEventMessages($langs->trans("SmsSuccessfulySent", $smsfrom, $sendto), null);
-		} else {
-			setEventMessages($langs->trans("ResultKo").' (sms from'.$smsfrom.' to '.$sendto.')<br>'.$smsfile->error, null, 'errors');
+				setEventMessages($langs->trans("SmsSuccessfulySent", $smsfrom, $sendto), null);
+				if (!empty($smsfile->errors)) {
+					setEventMessages(null, $smsfile->errors, 'warnings');	// Some receivers were rejected
+				}
+			} else {
+				setEventMessages($langs->trans("ResultKo").' (sms from '.$smsfrom.' to '.$sendto.')<br>'.$smsfile->error, null, 'errors');
+			}
+		} catch (Exception $e) {	// For example when no SMS engine is defined
+			setEventMessages($langs->trans("ResultKo").'<br>'.$e->getMessage(), null, 'errors');
 		}
 
 		$action='';
@@ -167,14 +175,14 @@ $form=new Form($db);
 
 
 if ($socid) {
-	if (! empty($conf->global->OVH_OLDAPI)) {
-		if (empty($conf->global->OVHSMS_SOAPURL)) {
+	if (getDolGlobalString('OVH_OLDAPI')) {
+		if (!getDolGlobalString('OVHSMS_SOAPURL')) {
 			$error++;
 			$langs->load("errors");
 			$mesg='<div class="error">'.$langs->trans("ErrorModuleSetupNotComplete").'</div>';
 		}
 	} else {
-		if (empty($conf->global->OVHSMS_ACCOUNT)) {
+		if (!getDolGlobalString('OVHSMS_ACCOUNT')) {
 			$error++;
 			$langs->load("errors");
 			$mesg='<div class="error">'.$langs->trans("ErrorModuleSetupNotComplete").'</div>';
@@ -184,7 +192,7 @@ if ($socid) {
 	$sms = new OvhSms($db);
 
 	/*
-	 * Creation de l'objet client/fournisseur correspondant au socid
+	 * Load the thirdparty of socid
 	 */
 
 	$object = new Societe($db);
@@ -225,7 +233,7 @@ if ($socid) {
 	$formsms->withfrom=1;
 	$formsms->withtosocid=$socid;
 	$formsms->withfromreadonly=0;
-	$formsms->withto=empty($_POST["sendto"])?1:$_POST["sendto"];
+	$formsms->withto=GETPOST("sendto")?GETPOST("sendto"):1;
 	$formsms->withbody=1;
 	$formsms->withcancel=0;
 	// Array of substitution
