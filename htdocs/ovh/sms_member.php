@@ -74,7 +74,7 @@ if ($action == 'send' && empty($cancel)) {
 	$error=0;
 
 	$smsfrom='';
-	if (! empty($_POST["fromsms"])) $smsfrom=GETPOST("fromsms");
+	if (GETPOST("fromsms")) $smsfrom=GETPOST("fromsms");
 	if (empty($smsfrom)) $smsfrom=GETPOST("fromname");
 	$sendto     = GETPOST("sendto");
 	$body       = GETPOST('message');
@@ -107,20 +107,30 @@ if ($action == 'send' && empty($cancel)) {
 
 		require_once DOL_DOCUMENT_ROOT."/core/class/CSMSFile.class.php";
 
-		$smsfile = new CSMSFile($sendto, $smsfrom, $body, $deliveryreceipt, $deferred, $priority, $class);  // This define OvhSms->login, pass, session and account
+		$member = new Adherent($db);
+		$member->fetch($id);
 
-		$smsfile->nostop = GETPOST('disablestop', 'int');
-		$smsfile->socid = 0;
-		$smsfile->contactid = 0;
-		$smsfile->contact_id = 0;
-		$smsfile->fk_project = 0;
+		try {
+			$smsfile = new CSMSFile($sendto, $smsfrom, $body, $deliveryreceipt, $deferred, $priority, $class);  // This define OvhSms->login, pass, session and account
 
-		$result=$smsfile->sendfile(); // This send SMS
+			$smsfile->nostop = GETPOST('disablestop', 'int');
+			$smsfile->member_id = $member->id;	// To link the event to the member
+			$smsfile->socid = (int) $member->socid;
+			$smsfile->contact_id = 0;
+			$smsfile->fk_project = 0;
 
-		if ($result > 0) {
-			setEventMessages($langs->trans("SmsSuccessfulySent", $smsfrom, $sendto), null);
-		} else {
-			setEventMessages($langs->trans("ResultKo").' (sms from'.$smsfrom.' to '.$sendto.')<br>'.$smsfile->error, null, 'errors');
+			$result=$smsfile->sendfile(); // This send SMS
+
+			if ($result > 0) {
+				setEventMessages($langs->trans("SmsSuccessfulySent", $smsfrom, $sendto), null);
+				if (!empty($smsfile->errors)) {
+					setEventMessages(null, $smsfile->errors, 'warnings');	// Some receivers were rejected
+				}
+			} else {
+				setEventMessages($langs->trans("ResultKo").' (sms from '.$smsfrom.' to '.$sendto.')<br>'.$smsfile->error, null, 'errors');
+			}
+		} catch (Exception $e) {	// For example when no SMS engine is defined
+			setEventMessages($langs->trans("ResultKo").'<br>'.$e->getMessage(), null, 'errors');
 		}
 
 		$action='';
@@ -142,14 +152,14 @@ $form=new Form($db);
 
 
 if ($id) {
-	if (! empty($conf->global->OVH_OLDAPI)) {
-		if (empty($conf->global->OVHSMS_SOAPURL)) {
+	if (getDolGlobalString('OVH_OLDAPI')) {
+		if (!getDolGlobalString('OVHSMS_SOAPURL')) {
 			$error++;
 			$langs->load("errors");
 			$mesg='<div class="error">'.$langs->trans("ErrorModuleSetupNotComplete").'</div>';
 		}
 	} else {
-		if (empty($conf->global->OVHSMS_ACCOUNT)) {
+		if (!getDolGlobalString('OVHSMS_ACCOUNT')) {
 			$error++;
 			$langs->load("errors");
 			$mesg='<div class="error">'.$langs->trans("ErrorModuleSetupNotComplete").'</div>';
@@ -171,7 +181,7 @@ if ($id) {
 	print '<input type="hidden" name="token" value="'.newToken().'">';
 
 	$head = member_prepare_head($object);
-	dol_fiche_head($head, 'tabSMS', $langs->trans("Member"), 0, 'user');
+	print dol_get_fiche_head($head, 'tabSMS', $langs->trans("Member"), 0, 'user');
 
 	if ($mesg) {
 		if (preg_match('/class="error"/', $mesg)) dol_htmloutput_mesg($mesg, '', 'error');
@@ -197,7 +207,7 @@ if ($id) {
 		print '</td></tr>';
 
 		// Login
-		if (empty($conf->global->ADHERENT_LOGIN_NOT_REQUIRED)) {
+		if (!getDolGlobalString('ADHERENT_LOGIN_NOT_REQUIRED')) {
 			print '<tr><td>'.$langs->trans("Login").' / '.$langs->trans("Id").'</td><td class="valeur" colspan="2">'.$object->login.'&nbsp;</td>';
 			print '</tr>';
 		}
@@ -240,9 +250,9 @@ if ($id) {
 	$formsms->fromid   = $user->id;
 	$formsms->fromname = $user->getFullName($langs);
 	$formsms->fromsms = $user->user_mobile;
-	$formsms->withfrom=(empty($_POST['fromsms'])?1:$_POST['fromsms']);
+	$formsms->withfrom=(GETPOST('fromsms')?GETPOST('fromsms'):1);
 	$formsms->withfromreadonly=0;
-	$formsms->withto=(empty($_POST["sendto"])?($object->phone_mobile?$object->phone_mobile:1):$_POST["sendto"]);
+	$formsms->withto=(GETPOST("sendto")?GETPOST("sendto"):($object->phone_mobile?$object->phone_mobile:1));
 	$formsms->withbody=1;
 	$formsms->withcancel=0;
 	// Array of substitutions

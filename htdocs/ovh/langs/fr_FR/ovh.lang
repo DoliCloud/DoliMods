@@ -84,6 +84,7 @@ OvhDefaultBankAccount=Banque par défaut pour les factures
 OvhValidVatList=Liste des taux de TVA valides
 OVHVatKeepEmptyToAcceptAll=Garder ce champ vide si vous voulez accepter tous les taux de TVA (calcule automatique)
 InvalidMobilePhoneNumberForContact=Le numéro de téléphone %s n'est pas valide : %s (doit avoir le format international +33123456789)
+OvhSmsInvalidReceivers=Numéro(s) de destinataire invalide(s) pour le SMS : %s (format international attendu, par exemple +33612345678)
 SendSMS=Envoyer un SMS
 OVH_USE_LAST_INVOCIE_VALIDATED_DATE=Suggérer la date de la dernière facture fournisseur du fournisseur sur les outils de facturation d'importation
 ValidImportedInvoice=Factures importées valides
