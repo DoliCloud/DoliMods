@@ -39,7 +39,7 @@ class modScanner extends DolibarrModules
 	 *
 	 *   @param		DoliDB		$db		Database handler
 	 */
-	function __construct($db)
+	public function __construct($db)
 	{
 		$this->db = $db;
 
@@ -79,7 +79,7 @@ class modScanner extends DolibarrModules
 		$this->depends = array();		// List of modules id that must be enabled if this module is enabled
 		$this->requiredby = array();	// List of modules id to disable if this one is disabled
 		$this->phpmin = array(4,3);					// Minimum version of PHP required by module
-		$this->need_dolibarr_version = array(17, 0, -4);	// Minimum version of Dolibarr required by module
+		$this->need_dolibarr_version = array(18, 0, -4);	// Minimum version of Dolibarr required by module
 		$this->langfiles = array("scanner@scanner");
 
 		// Constants
@@ -98,7 +98,7 @@ class modScanner extends DolibarrModules
 		// 'order'            to add a tab in customer order view
 		// 'product'          to add a tab in product view
 		// 'propal'           to add a tab in propal view
-		// 'member'           to add a tab in fundation member view
+		// 'member'           to add a tab in foundation member view
 
 
 		// Boxes
@@ -187,11 +187,11 @@ class modScanner extends DolibarrModules
 	 *      @param      string	$options    Options when enabling module ('', 'noboxes')
 	 *      @return     int             	1 if OK, 0 if KO
 	 */
-	function init($options = '')
+	public function init($options = '')
 	{
 		$sql = array();
 
-		$result=$this->load_tables();
+		$result=$this->load_tables('/scanner/sql/');
 
 		return $this->_init($sql, $options);
 	}
@@ -204,24 +204,10 @@ class modScanner extends DolibarrModules
 	 *      @param      string	$options    Options when enabling module ('', 'noboxes')
 	 *      @return     int             	1 if OK, 0 if KO
 	 */
-	function remove($options = '')
+	public function remove($options = '')
 	{
 		$sql = array();
 
 		return $this->_remove($sql, $options);
-	}
-
-
-	/**
-	 *	Create tables, keys and data required by module
-	 * 	Files llx_table1.sql, llx_table1.key.sql llx_data.sql with create table, create keys
-	 * 	and create data commands must be stored in directory /scanner/sql/
-	 *	This function is called by this->init.
-	 *
-	 * 	@return		int		<=0 if KO, >0 if OK
-	 */
-	function load_tables()
-	{
-		return $this->_load_tables('/scanner/sql/');
 	}
 }

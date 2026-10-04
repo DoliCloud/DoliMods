@@ -39,7 +39,7 @@ class modMyWidgets extends DolibarrModules
 	 *
 	 *   @param		DoliDB		$db		Database handler
 	 */
-	function __construct($db)
+	public function __construct($db)
 	{
 		$this->db = $db;
 
@@ -87,7 +87,7 @@ class modMyWidgets extends DolibarrModules
 		$this->depends = array();		// List of modules id that must be enabled if this module is enabled
 		$this->requiredby = array();	// List of modules id to disable if this one is disabled
 		$this->phpmin = array(5,2);                 // Minimum version of PHP required by module
-		$this->need_dolibarr_version = array(17, 0, -4);  // Minimum version of Dolibarr required by module
+		$this->need_dolibarr_version = array(18, 0, -4);  // Minimum version of Dolibarr required by module
 		$this->langfiles = array("mywidgets@mywidgets");
 
 		// Constants
@@ -145,7 +145,7 @@ class modMyWidgets extends DolibarrModules
 	 *      @param      string	$options    Options when enabling module ('', 'noboxes')
 	 *      @return     int             	1 if OK, 0 if KO
 	 */
-	function init($options = '')
+	public function init($options = '')
 	{
 		$sql = array();
 
@@ -160,7 +160,7 @@ class modMyWidgets extends DolibarrModules
 	 *      @param      string	$options    Options when enabling module ('', 'noboxes')
 	 *      @return     int             	1 if OK, 0 if KO
 	 */
-	function remove($options = '')
+	public function remove($options = '')
 	{
 		$sql = array();
 

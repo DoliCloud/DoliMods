@@ -38,7 +38,7 @@ class modMonitoring extends DolibarrModules
 	 *
 	 *   @param		DoliDB		$db		Database handler
 	 */
-	function __construct($db)
+	public function __construct($db)
 	{
 		$this->db = $db;
 
@@ -52,7 +52,7 @@ class modMonitoring extends DolibarrModules
 		// Module label (no space allowed), used if translation string 'ModuleXXXName' not found (where XXX is value of numeric property 'numero' of module)
 		$this->name = preg_replace('/^mod/i', '', get_class($this));
 		// Module description, used if translation string 'ModuleXXXDesc' not found (where XXX is value of numeric property 'numero' of module)
-		$this->description = "Une interface et des fonctions pour realiser une supervision avec rrdtool";
+		$this->description = "An interface and functions to make supervision using rrdtool";
 		$this->editor_name = 'DoliCloud';
 		$this->editor_url = 'https://www.dolicloud.com?origin=dolimods';
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
@@ -76,7 +76,7 @@ class modMonitoring extends DolibarrModules
 		$this->depends = array();		// List of modules id that must be enabled if this module is enabled
 		$this->requiredby = array();	// List of modules id to disable if this one is disabled
 		$this->phpmin = array(4,3);					// Minimum version of PHP required by module
-		$this->need_dolibarr_version = array(17, 0, -4);	// Minimum version of Dolibarr required by module
+		$this->need_dolibarr_version = array(18, 0, -4);	// Minimum version of Dolibarr required by module
 		$this->langfiles = array("monitoring@monitoring");
 
 		// Constants
@@ -178,11 +178,11 @@ class modMonitoring extends DolibarrModules
 	 *      @param      string	$options    Options when enabling module ('', 'noboxes')
 	 *      @return     int             	1 if OK, 0 if KO
 	 */
-	function init($options = '')
+	public function init($options = '')
 	{
 		$sql = array();
 
-		$result=$this->load_tables();
+		$result=$this->_load_tables('/monitoring/sql/');
 		if ($result <= 0) return $result;
 
 		return $this->_init($sql, $options);
@@ -196,24 +196,10 @@ class modMonitoring extends DolibarrModules
 	 *      @param      string	$options    Options when enabling module ('', 'noboxes')
 	 *      @return     int             	1 if OK, 0 if KO
 	 */
-	function remove($options = '')
+	public function remove($options = '')
 	{
 		$sql = array();
 
 		return $this->_remove($sql, $options);
-	}
-
-
-	/**
-	 *	Create tables, keys and data required by module
-	 * 	Files llx_table1.sql, llx_table1.key.sql llx_data.sql with create table, create keys
-	 * 	and create data commands must be stored in directory /mymodule/sql/
-	 *	This function is called by this->init.
-	 *
-	 * 	@return		int		<=0 if KO, >0 if OK
-	 */
-	function load_tables()
-	{
-		return $this->_load_tables('/monitoring/sql/');
 	}
 }

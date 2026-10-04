@@ -39,7 +39,7 @@ class modBitTorrent extends DolibarrModules
 	 *
 	 *   @param		DoliDB		$db		Database handler
 	 */
-	function __construct($db)
+	public function __construct($db)
 	{
 		global $user;
 
@@ -78,7 +78,7 @@ class modBitTorrent extends DolibarrModules
 		$this->depends = array();		// List of modules id that must be enabled if this module is enabled
 		$this->requiredby = array();	// List of modules id to disable if this one is disabled
 		$this->phpmin = array(4,3);					// Minimum version of PHP required by module
-		$this->need_dolibarr_version = array(17, 0, -4);	// Minimum version of Dolibarr required by module
+		$this->need_dolibarr_version = array(18, 0, -4);	// Minimum version of Dolibarr required by module
 		$this->langfiles = array("bittorrent");
 
 		// Constants
@@ -129,7 +129,7 @@ class modBitTorrent extends DolibarrModules
 									'url'=>'/bittorrent/admin.php',
 									'langs'=>'bittorrent',	// Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 									'position'=>100,
-									'enabled'=>'isModEnabled("bittorent")',			// Define condition to show or hide menu entry. Use '$conf->mymodule->enabled' if entry must be visible if module is enabled.
+									'enabled'=>'isModEnabled("bittorrent")',			// Define condition to show or hide menu entry.
 									'perms'=>'1',			// Use 'perms'=>'$user->rights->mymodule->level1->level2' if you want your menu with a permission rules
 									'target'=>'',
 									'user'=>2);				// 0=Menu for internal users, 1=external users, 2=both
@@ -142,7 +142,7 @@ class modBitTorrent extends DolibarrModules
 									'mainmenu'=>'bittorrent',
 									'url'=>'/bittorrent/admin.php',
 									'langs'=>'bittorrent',	// Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
-									'enabled'=>'isModEnabled("bittorent")',			// Define condition to show or hide menu entry. Use '$conf->mymodule->enabled' if entry must be visible if module is enabled.
+									'enabled'=>'isModEnabled("bittorrent")',			// Define condition to show or hide menu entry. Use '$conf->mymodule->enabled' if entry must be visible if module is enabled.
 									'position'=>100,
 									'perms'=>$user->admin,			// Use 'perms'=>'$user->rights->mymodule->level1->level2' if you want your menu with a permission rules
 									'target'=>'',
@@ -175,11 +175,11 @@ class modBitTorrent extends DolibarrModules
 	 *  @param      string	$options    Options when enabling module ('', 'noboxes')
 	 *  @return     int             	1 if OK, 0 if KO
 	 */
-	function init($options = '')
+	public function init($options = '')
 	{
 		$sql = array();
 
-		$result=$this->load_tables();
+		$result=$this->_load_tables('/bittorrent/sql/');
 
 		return $this->_init($sql, $options);
 	}
@@ -192,24 +192,10 @@ class modBitTorrent extends DolibarrModules
 	 *  @param      string	$options    Options when enabling module ('', 'noboxes')
 	 *  @return     int             	1 if OK, 0 if KO
 	 */
-	function remove($options = '')
+	public function remove($options = '')
 	{
 		$sql = array();
 
 		return $this->_remove($sql, $options);
-	}
-
-
-	/**
-	 *	Create tables and keys required by module
-	 * 	Files mymodule.sql and mymodule.key.sql with create table and create keys
-	 * 	commands must be stored in directory /mymodule/sql/
-	 *	This function is called by this->init.
-	 *
-	 * 	@return		int		<=0 if KO, >0 if OK
-	 */
-	function load_tables()
-	{
-		return $this->_load_tables('/bittorrent/sql/');
 	}
 }

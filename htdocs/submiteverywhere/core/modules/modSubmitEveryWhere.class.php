@@ -39,7 +39,7 @@ class modSubmitEveryWhere extends DolibarrModules
 	 *
 	 *   @param		DoliDB		$db		Database handler
 	 */
-	function __construct($db)
+	public function __construct($db)
 	{
 		$this->db = $db;
 
@@ -82,7 +82,7 @@ class modSubmitEveryWhere extends DolibarrModules
 		$this->depends = array();		// List of modules id that must be enabled if this module is enabled
 		$this->requiredby = array();	// List of modules id to disable if this one is disabled
 		$this->phpmin = array(4,3);					// Minimum version of PHP required by module
-		$this->need_dolibarr_version = array(17, 0, -4);	// Minimum version of Dolibarr required by module
+		$this->need_dolibarr_version = array(18, 0, -4);	// Minimum version of Dolibarr required by module
 		$this->langfiles = array("submiteverywhere@submiteverywhere");
 
 		// Constants
@@ -101,7 +101,7 @@ class modSubmitEveryWhere extends DolibarrModules
 		// 'order'            to add a tab in customer order view
 		// 'product'          to add a tab in product view
 		// 'propal'           to add a tab in propal view
-		// 'member'           to add a tab in fundation member view
+		// 'member'           to add a tab in foundation member view
 		// 'contract'         to add a tab in contract view
 
 
@@ -124,7 +124,7 @@ class modSubmitEveryWhere extends DolibarrModules
 		// Add here list of permission defined by an id, a label, a boolean and two constant strings.
 		// Example:
 		$this->rights[$r][0] = 101261; 				// Permission id (must not be already used)
-		$this->rights[$r][1] = 'Read submited news';	// Permission label
+		$this->rights[$r][1] = 'Read submitted news';	// Permission label
 		$this->rights[$r][3] = 1; 					// Permission by default for new user (0/1)
 		$this->rights[$r][4] = 'read';				// In php code, permission will be checked by test if ($user->rights->permkey->level1->level2)
 		//$this->rights[$r][5] = 'level2';				// In php code, permission will be checked by test if ($user->rights->permkey->level1->level2)
@@ -193,11 +193,11 @@ class modSubmitEveryWhere extends DolibarrModules
 	 *      @param      string	$options    Options when enabling module ('', 'noboxes')
 	 *      @return     int             	1 if OK, 0 if KO
 	 */
-	function init($options = '')
+	public function init($options = '')
 	{
 		$sql = array();
 
-		$result=$this->load_tables();
+		$result=$this->load_tables('/submiteverywhere/sql/');
 		if ($result <= 0) return $result;
 
 		return $this->_init($sql, $options);
@@ -211,23 +211,10 @@ class modSubmitEveryWhere extends DolibarrModules
 	 *      @param      string	$options    Options when enabling module ('', 'noboxes')
 	 *      @return     int             	1 if OK, 0 if KO
 	 */
-	function remove($options = '')
+	public function remove($options = '')
 	{
 		$sql = array();
 
 		return $this->_remove($sql, $options);
-	}
-
-
-	/**
-	 *		\brief		Create tables, keys and data required by module
-	 * 					Files llx_table1.sql, llx_table1.key.sql llx_data.sql with create table, create keys
-	 * 					and create data commands must be stored in directory /NewsSubmitter/sql/
-	 *					This function is called by this->init.
-	 * 		\return		int		<=0 if KO, >0 if OK
-	 */
-	function load_tables()
-	{
-		return $this->_load_tables('/submiteverywhere/sql/');
 	}
 }

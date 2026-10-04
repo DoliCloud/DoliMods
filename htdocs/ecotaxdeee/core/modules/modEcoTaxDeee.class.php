@@ -38,7 +38,7 @@ class modEcoTaxDeee extends DolibarrModules
 	 *
 	 *   @param		DoliDB	$db		Database handler
 	 */
-	function __construct($db)
+	public function __construct($db)
 	{
 		$this->db = $db;
 
@@ -135,7 +135,7 @@ class modEcoTaxDeee extends DolibarrModules
 	 *                          'newboxdefonly' = For boxes, insert def of boxes only and not boxes activation
 	 * @return int				1 if OK, 0 if KO
 	 */
-	function init($options = '')
+	public function init($options = '')
 	{
 		global $langs;
 
@@ -151,7 +151,7 @@ class modEcoTaxDeee extends DolibarrModules
 			return -1;
 		}
 
-		$result = $this->load_tables();
+		$result = $this->_load_tables('/ecotaxdeee/sql/');
 
 		return $this->_init($sql, $options);
 	}
@@ -164,24 +164,10 @@ class modEcoTaxDeee extends DolibarrModules
 	 * @param      string	$options    Options when enabling module ('', 'noboxes')
 	 * @return     int             		1 if OK, 0 if KO
 	 */
-	function remove($options = '')
+	public function remove($options = '')
 	{
 		$sql = array();
 
 		return $this->_remove($sql, $options);
-	}
-
-
-	/**
-	 *		\brief		Create tables and keys required by module
-	 * 					Files Composition.sql and Composition.key.sql with create table and create keys
-	 * 					commands must be stored in directory /composition/sql/
-	 *					This function is called by this->init.
-	 * 		\return		int		<=0 if KO, >0 if OK
-	 */
-	function load_tables()
-	{
-		return $this->_load_tables('/ecotaxdeee/sql/');
-
 	}
 }

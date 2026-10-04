@@ -32,7 +32,7 @@ include_once DOL_DOCUMENT_ROOT ."/core/modules/DolibarrModules.class.php";
 
 
 /**
- * Classe de description et activation du module Energie
+ * Description and activation class for module ExternalBackup
  */
 
 class modExternalBackup extends DolibarrModules
@@ -42,7 +42,7 @@ class modExternalBackup extends DolibarrModules
 	 *
 	 *   @param		DoliDB		$db		Database handler
 	 */
-	function __construct($db)
+	public function __construct($db)
 	{
 		$this->db = $db;
 		$this->numero = 101240;
@@ -62,9 +62,9 @@ class modExternalBackup extends DolibarrModules
 		// Data directories to create when module is enabled
 		$this->dirs = array();
 
-		// Dependances
+		// Dependencies
 		$this->depends = array();
-		$this->need_dolibarr_version = array(17, 0, -4);   // Minimum version of Dolibarr required by module
+		$this->need_dolibarr_version = array(18, 0, -4);   // Minimum version of Dolibarr required by module
 		$this->langfiles = array('externalbackup@externalbackup');
 
 		// Config pages
@@ -77,7 +77,7 @@ class modExternalBackup extends DolibarrModules
 		//                             2=>array('MAIN_MODULE_MYMODULE_NEEDSMARTY','chaine',1,'Constant to say module need smarty',1)
 		$this->const = array(0=>array('EXTERNAL_BACKUP_RCLONE_PATH','chaine','/usr/sbin/rclone','Full path to rclone tool',0,'current',1));
 
-		// Dictionnaries
+		// Dictionaries
 		$this->dictionaries=array(
 		);
 
@@ -97,14 +97,14 @@ class modExternalBackup extends DolibarrModules
 	 *      @param      string	$options    Options when enabling module ('', 'noboxes')
 	 *      @return     int             	1 if OK, 0 if KO
 	 */
-	function init($options = '')
+	public function init($options = '')
 	{
-		// Permissions et valeurs par defaut
+		// Permissions and default values
 		$this->remove($options);
 
 		$sql = array();
 
-		$this->load_tables();
+		$this->_load_tables('/externalbackup/sql/');
 
 		return $this->_init($sql, $options);
 	}
@@ -117,21 +117,10 @@ class modExternalBackup extends DolibarrModules
 	 *      @param      string	$options    Options when enabling module ('', 'noboxes')
 	 *      @return     int             	1 if OK, 0 if KO
 	 */
-	function remove($options = '')
+	public function remove($options = '')
 	{
 		$sql = array();
 
 		return $this->_remove($sql, $options);
-	}
-
-	/**
-	 *	Create tables and keys required by module
-	 *	This function is called by this->init.
-	 *
-	 *	@return		int		<=0 if KO, >0 if OK
-	 */
-	function load_tables()
-	{
-		return $this->_load_tables('/externalbackup/sql/');
 	}
 }
