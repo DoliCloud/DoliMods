@@ -37,7 +37,10 @@
 		var $nr = $('<input type="text" id="osm_pdok_housenumber" class="flat maxwidth75" autocomplete="off">')
 			.attr('placeholder', txt.nr).attr('title', txt.help);
 		var $msg = $('<span id="osm_pdok_message" class="opacitymedium small paddingleft"></span>');
-		$zip.after($msg).after($nr).after(' ');
+		// Visible label, so the field is not mistaken for a second part of the zip code
+		var $label = $('<label for="osm_pdok_housenumber" class="paddingleft paddingright"></label>').text(txt.nr).attr('title', txt.help);
+		var $wrap = $('<span id="osm_pdok_housenumber_wrap" class="nowraponall"></span>').append($label).append($nr).append($msg);
+		$zip.after($wrap);
 
 		// Prefill house number from an existing address ("Straatnaam 10A")
 		var lines = ($address.val() || '').split(/\r?\n/);
@@ -55,8 +58,7 @@
 		}
 
 		function toggle() {
-			$nr.toggle(isNL() && !disabled);
-			$msg.toggle(isNL() && !disabled);
+			$wrap.toggle(isNL() && !disabled);
 		}
 
 		function lookup() {

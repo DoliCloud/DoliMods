@@ -1,6 +1,10 @@
 # ChangeLog MODULE OPENSTREETMAP FOR <a href="https://www.dolibarr.org">DOLIBARR ERP CRM</a>
 
 
+## 4.0.1
+
+* Dutch address autofill: visible label "Huisnr." before the house number field, so it is not mistaken for part of the zip code.
+
 ## 4.0
 
 * Maps displayed with Leaflet (served from the module) instead of OpenLayers 2 loaded over http.
