@@ -42,11 +42,11 @@ class modOpenStreetMap extends DolibarrModules
 		// Module label (no space allowed), used if translation string 'ModuleXXXName' not found (where XXX is value of numeric property 'numero' of module)
 		$this->name = preg_replace('/^mod/i', '', get_class($this));
 		// Module description used if translation string 'ModuleXXXDesc' not found (XXX is value MyModule)
-		$this->description = "Module to integrate OpenStreetMap tools in dolibarr";
+		$this->description = "Module to integrate OpenStreetMap tools in dolibarr (maps, geocoding with PDOK for the Netherlands and Nominatim, Dutch address autofill)";
 		$this->editor_name = 'DoliCloud';
 		$this->editor_url = 'https://www.dolicloud.com?origin=dolimods';
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
-		$this->version = '3.4';
+		$this->version = '4.0';
 		// Key used in llx_const table to save module status enabled/disabled (where MYMODULE is value of property name of module in uppercase)
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
 		// Name of image file used for this module.
@@ -55,7 +55,11 @@ class modOpenStreetMap extends DolibarrModules
 		$this->picto='openstreetmap@openstreetmap';
 
 		// Defined if the directory /mymodule/inc/triggers/ contains triggers or not
-		$this->module_parts = array('triggers' => 0);
+		$this->module_parts = array(
+			'triggers' => 0,
+			// Fill street and town of Dutch addresses from postcode and house number (only active when OPENSTREETMAP_PDOK_AUTOFILL is on)
+			'js' => array('/openstreetmap/js/pdokautofill.js'),
+		);
 
 		// Data directories to create when module is enabled
 		$this->dirs = array();
@@ -73,7 +77,9 @@ class modOpenStreetMap extends DolibarrModules
 		$this->langfiles = array("openstreetmap@openstreetmap");
 
 		// Constants
-		$this->const = array();			// List of parameters
+		$this->const = array(
+			0 => array('OPENSTREETMAP_PDOK_AUTOFILL', 'chaine', '1', 'Fill street and town of Dutch addresses from postcode and house number (PDOK)', 0, 'current', 0),
+		);
 
 		// Tabs
 		$this->tabs = array();
@@ -124,18 +130,50 @@ class modOpenStreetMap extends DolibarrModules
 		//							'target'=>'',
 		//							'user'=>2);				// 0=Menu for internal users, 1=external users, 2=both
 		// $r++;
-		/*$this->menu[$r]=array(	'fk_menu'=>0,
-								'type'=>'top',
-								'titre'=>'MenuAgendaOpenStreetMap',
-								'mainmenu'=>'openstreetmap',
-								'url'=>'/openstreetmap/index.php',
-								'langs'=>'openstreetmap',
-								'position'=>100,
-								'enabled'=>'$conf->openstreetmap->enabled && $conf->global->OPENSTREETMAP_ENABLE_AGENDA',
-								'perms'=>'',
-								'target'=>'',
-								'user'=>0);
-		*/
+		$this->menu[$r] = array(
+			'fk_menu' => 'fk_mainmenu=companies,fk_leftmenu=thirdparties',
+			'type' => 'left',
+			'titre' => 'OpenStreetMapMenuMap',
+			'mainmenu' => 'companies',
+			'leftmenu' => 'openstreetmap_thirdparties',
+			'url' => '/openstreetmap/maps_all.php?mode=thirdparty',
+			'langs' => 'openstreetmap@openstreetmap',
+			'position' => 1000,
+			'enabled' => 'isModEnabled("openstreetmap") && isModEnabled("societe") && getDolGlobalString("OPENSTREETMAP_ENABLE_MAPS")',
+			'perms' => '$user->hasRight("societe", "lire")',
+			'target' => '',
+			'user' => 0
+		);
+		$r++;
+		$this->menu[$r] = array(
+			'fk_menu' => 'fk_mainmenu=companies,fk_leftmenu=contacts',
+			'type' => 'left',
+			'titre' => 'OpenStreetMapMenuMap',
+			'mainmenu' => 'companies',
+			'leftmenu' => 'openstreetmap_contacts',
+			'url' => '/openstreetmap/maps_all.php?mode=contact',
+			'langs' => 'openstreetmap@openstreetmap',
+			'position' => 1000,
+			'enabled' => 'isModEnabled("openstreetmap") && isModEnabled("societe") && getDolGlobalString("OPENSTREETMAP_ENABLE_MAPS_CONTACTS")',
+			'perms' => '$user->hasRight("societe", "contact", "lire")',
+			'target' => '',
+			'user' => 0
+		);
+		$r++;
+		$this->menu[$r] = array(
+			'fk_menu' => 'fk_mainmenu=members,fk_leftmenu=members',
+			'type' => 'left',
+			'titre' => 'OpenStreetMapMenuMap',
+			'mainmenu' => 'members',
+			'leftmenu' => 'openstreetmap_members',
+			'url' => '/openstreetmap/maps_all.php?mode=member',
+			'langs' => 'openstreetmap@openstreetmap',
+			'position' => 1000,
+			'enabled' => 'isModEnabled("openstreetmap") && isModEnabled("adherent") && getDolGlobalString("OPENSTREETMAP_ENABLE_MAPS_MEMBERS")',
+			'perms' => '$user->hasRight("adherent", "lire")',
+			'target' => '',
+			'user' => 0
+		);
 		$r++;
 	}
 
@@ -149,9 +187,24 @@ class modOpenStreetMap extends DolibarrModules
 	 */
 	function init($options = '')
 	{
+		$result = $this->load_tables();
+		if ($result < 0) {
+			return -1;
+		}
+
 		$sql = array();
 
 		return $this->_init($sql, $options);
+	}
+
+	/**
+	 *		Create tables, keys and data required by module (files llx_*.sql in /openstreetmap/sql/)
+	 *
+	 *		@return		int		<=0 if KO, >0 if OK
+	 */
+	function load_tables()
+	{
+		return $this->_load_tables('/openstreetmap/sql/');
 	}
 
 	/**

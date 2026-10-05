@@ -29,3 +29,27 @@ MoreModulesLink=<a target="_blank" href="https://www.dolistore.com/search.php?se
 MoreCloudHosting=To use online Dolibarr, choose the secured hosting DoliCloud.
 MoreCloudHostingLink=<a target="_blank" href="https://www.dolicloud.com?origin=dolimods">Click here for more information</a>
 CompatibleWithDoliDroid=This modules is also compatible with DoliDroid, the Android application for Dolibarr.
+# Maps, geocoding and address autofill
+OpenStreetMapMenuMap=Map
+OpenStreetMapMapOfThirdparties=Map of third parties
+OpenStreetMapMapOfContacts=Map of contacts
+OpenStreetMapMapOfMembers=Map of members
+OpenStreetMapCountGeo=%s records: %s on the map, %s could not be located, %s not geocoded yet.
+OpenStreetMapClickToGeocodeMore=Geocode more addresses now
+OpenStreetMapNominatimSlow=Addresses outside the Netherlands are geocoded with Nominatim at most 1 per second, so this may take a while. Results are stored, each address is searched only once.
+OpenStreetMapFollowingAddressCantBeLocalized=The following %s addresses could not be located
+OpenStreetMapGeocoding=Geocoding and autofill
+OpenStreetMapGeocodingDesc=Addresses in the Netherlands are located with the PDOK Locatieserver (Dutch government, BAG data, free, no key). Other countries use Nominatim (OpenStreetMap). No Google service is used. Coordinates are stored and searched again only when the address changes.
+OpenStreetMapPdokAutofill=Fill street and town from postcode and house number (Netherlands)
+OpenStreetMapPdokAutofillDesc=Adds a house number field next to the zip code on third party, contact and member forms. The request is done by your Dolibarr server.
+OpenStreetMapNominatimEmail=Contact email for Nominatim
+OpenStreetMapNominatimEmailDesc=Recommended by the Nominatim usage policy, so the operators can contact you in case of problems.
+OpenStreetMapNominatimUrl=URL of Nominatim search service
+OpenStreetMapTileUrl=URL of map tiles
+OpenStreetMapTileAttribution=Map attribution (HTML)
+OpenStreetMapEmptyForDefault=Keep empty to use the default value.
+OpenStreetMapErrorUrlMustBeHttps=Value of %s must start with https://
+OpenStreetMapCache=Stored coordinates
+OpenStreetMapCacheDesc=%s addresses are stored with their coordinates.
+OpenStreetMapClearCache=Clear stored coordinates
+OpenStreetMapCacheCleared=Stored coordinates cleared
