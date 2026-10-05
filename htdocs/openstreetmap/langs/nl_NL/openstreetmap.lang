@@ -1,0 +1,42 @@
+# Dolibarr language file - nl_NL - openstreetmap
+CHARSET=UTF-8
+OpenStreetMapSetup=Instellingen OpenStreetMap-integratie
+OpenStreetMapTools=OpenStreetMap-hulpmiddelen
+OpenStreetMapEnableThisToolThirdParties=Activeer deze functie op kaarten van relaties
+OpenStreetMapEnableThisToolContacts=Activeer deze functie op kaarten van contactpersonen
+OpenStreetMapEnableThisToolMembers=Activeer deze functie op kaarten van leden
+OpenStreetMapZoomLevel=Standaard zoomniveau (%s tot %s)
+OpenStreetMapAddressNotDefined=Het adres is onvoldoende ingevuld om op de kaart te tonen
+OpenStreetMapMapsAddressNotFound=Adres niet gevonden.
+Module101160Name=OpenStreetMap
+Module101160Desc=Kaarten met OpenStreetMap, adressen opzoeken via PDOK (Nederland) en Nominatim, en automatisch invullen van Nederlandse adressen
+AboutInfo=Deze module wordt ontwikkeld en verspreid door Laurent Destailleur voor DoliCloud, <a href="https://www.dolicloud.com?origin=dolimods">www.dolicloud.com</a> (een Dolibarr Preferred Partner).
+MoreModules=Andere modules van dezelfde auteur zijn beschikbaar in de officiële DoliStore...
+MoreModulesLink=<a target="_blank" href="https://www.dolistore.com/search.php?search_query=dolicloud">Klik hier voor de volledige lijst</a>
+MoreCloudHosting=Om Dolibarr online te gebruiken, kies de beveiligde hosting van DoliCloud.
+MoreCloudHostingLink=<a target="_blank" href="https://www.dolicloud.com?origin=dolimods">Klik hier voor meer informatie</a>
+CompatibleWithDoliDroid=Deze module is ook geschikt voor DoliDroid, de Android-applicatie voor Dolibarr.
+# Kaarten, geocodering en automatisch invullen
+OpenStreetMapMenuMap=Kaart
+OpenStreetMapMapOfThirdparties=Kaart van relaties
+OpenStreetMapMapOfContacts=Kaart van contactpersonen
+OpenStreetMapMapOfMembers=Kaart van leden
+OpenStreetMapCountGeo=%s records: %s op de kaart, %s niet te lokaliseren, %s nog niet opgezocht.
+OpenStreetMapClickToGeocodeMore=Nu meer adressen opzoeken
+OpenStreetMapNominatimSlow=Adressen buiten Nederland worden via Nominatim opgezocht met maximaal 1 per seconde; dat kan even duren. Resultaten worden opgeslagen, elk adres wordt maar één keer opgezocht.
+OpenStreetMapFollowingAddressCantBeLocalized=De volgende %s adressen konden niet worden gelokaliseerd
+OpenStreetMapGeocoding=Geocodering en automatisch invullen
+OpenStreetMapGeocodingDesc=Adressen in Nederland worden opgezocht via de PDOK Locatieserver (Rijksoverheid, BAG-gegevens, gratis, zonder sleutel). Andere landen via Nominatim (OpenStreetMap). Er wordt geen enkele dienst van Google gebruikt. Coördinaten worden opgeslagen en alleen opnieuw opgezocht als het adres wijzigt.
+OpenStreetMapPdokAutofill=Straat en plaats invullen vanuit postcode en huisnummer (Nederland)
+OpenStreetMapPdokAutofillDesc=Voegt een huisnummerveld toe naast de postcode op de formulieren van relaties, contactpersonen en leden. De opvraging gebeurt door uw eigen Dolibarr-server.
+OpenStreetMapNominatimEmail=Contact-e-mailadres voor Nominatim
+OpenStreetMapNominatimEmailDesc=Aanbevolen door de gebruiksvoorwaarden van Nominatim, zodat de beheerders contact kunnen opnemen bij problemen.
+OpenStreetMapNominatimUrl=URL van de Nominatim-zoekdienst
+OpenStreetMapTileUrl=URL van de kaarttegels
+OpenStreetMapTileAttribution=Bronvermelding op de kaart (HTML)
+OpenStreetMapEmptyForDefault=Leeg laten voor de standaardwaarde.
+OpenStreetMapErrorUrlMustBeHttps=De waarde van %s moet beginnen met https://
+OpenStreetMapCache=Opgeslagen coördinaten
+OpenStreetMapCacheDesc=Er zijn %s adressen met coördinaten opgeslagen.
+OpenStreetMapClearCache=Opgeslagen coördinaten wissen
+OpenStreetMapCacheCleared=Opgeslagen coördinaten gewist
