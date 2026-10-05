@@ -38,22 +38,15 @@ require_once DOL_DOCUMENT_ROOT."/core/lib/company.lib.php";
 require_once DOL_DOCUMENT_ROOT."/core/lib/contact.lib.php";
 require_once DOL_DOCUMENT_ROOT."/core/lib/member.lib.php";
 require_once DOL_DOCUMENT_ROOT."/contact/class/contact.class.php";
+dol_include_once("/openstreetmap/lib/openstreetmap.lib.php");
 
 $langs->load("openstreetmap@openstreetmap");
 
-// url is:  gmaps.php?mode=thirdparty|contact|member&id=id
-//avoid mixing protocol on modern browsers
-if (isset($_SERVER['HTTPS']) &&
-	($_SERVER['HTTPS'] == 'on' || $_SERVER['HTTPS'] == 1) ||
-	isset($_SERVER['HTTP_X_FORWARDED_PROTO']) &&
-	$_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https') {
-	$protocol = 'https://';
-} else {
-	$protocol = 'http://';
-}
+// url is:  maps.php?mode=thirdparty|contact|member|user&id=id
 
-$mode=GETPOST('mode');
+$mode=GETPOST('mode', 'aZ09');
 $address='';
+$object=null;
 
 // Load third party
 if (empty($mode) || $mode=='societe' || $mode=='thirdparty') {
@@ -79,6 +72,30 @@ if ($mode=='member') {
 	$object->id = $id;
 	$object->fetch($id);
 	$address = $object->getFullAddress(1, ', ');
+}
+if ($mode=='user') {
+	include_once DOL_DOCUMENT_ROOT.'/user/class/user.class.php';
+	$id = GETPOST('id', 'int');
+	$object = new User($db);
+	$object->id = $id;
+	$object->fetch($id);
+	$address = $object->getFullAddress(1, ', ');
+}
+if (!is_object($object) || $object->id <= 0) {
+	accessforbidden('Bad value for mode or id');
+}
+
+// Security check
+if ($mode == 'contact') {
+	$result = restrictedArea($user, 'contact', $object->id, 'socpeople&societe', '', '', 'rowid');
+} elseif ($mode == 'member') {
+	$result = restrictedArea($user, 'adherent', $object->id);
+} elseif ($mode == 'user') {
+	if ($object->id != $user->id && !$user->hasRight('user', 'user', 'lire') && !$user->admin) {
+		accessforbidden();
+	}
+} else {
+	$result = restrictedArea($user, 'societe', $object->id, '&societe');
 }
 
 if (isset($object->logo) && !is_null($object->logo)) {
@@ -120,6 +137,12 @@ if ($mode=='contact') {
 if ($mode=='member') {
 	$head = member_prepare_head($object);
 	$title=$langs->trans("Member");
+	$picto='user';
+}
+if ($mode=='user') {
+	require_once DOL_DOCUMENT_ROOT.'/core/lib/usergroups.lib.php';
+	$head = user_prepare_head($object);
+	$title=$langs->trans("User");
 	$picto='user';
 }
 
@@ -170,92 +193,41 @@ print '</table>';
 // Show maps
 
 if ($address && $address != $object->country) {
-	print '<br><div align="center">';
-	print '<div id="map" class="divmap" style="width: 90%; height: 500px; text-align: center; align: center">';
+	$obj = new stdClass();
+	$obj->address = $object->address;
+	$obj->zip = $object->zip;
+	$obj->town = $object->town;
+	$obj->country_code = $object->country_code;
+	$obj->country = $object->country;
+	$obj->state = isset($object->state) ? $object->state : '';
 
-	$url='http://nominatim.openstreetmap.org/search?format=json&polygon=1&addressdetails=1&q='.urlencode($address);
+	$typeobject = (empty($mode) || $mode == 'societe') ? 'thirdparty' : $mode;
+	$point = openstreetmap_get_coordinates($db, $typeobject, $object->id, $obj);
 
-	// Protocol HTTP or HTTPS
-	if (preg_match('/^http/i', $url)) {
-		list($usec, $sec) = explode(" ", microtime());
-		$micro_start_time=((float) $usec + (float) $sec);
+	print '<br><div class="center">';
+	if (isset($point['lat'])) {
+		$zoom = getDolGlobalInt('OPENSTREETMAP_MAPS_ZOOM_LEVEL', 15);
 
-		include_once DOL_DOCUMENT_ROOT.'/core/lib/geturl.lib.php';
-
-		$result = getURLContent($url);
-
-		list($usec, $sec) = explode(" ", microtime());
-		$micro_end_time=((float) $usec + (float) $sec);
-		$end_time=((float) $sec);
-
-		$delay=($micro_end_time-$micro_start_time);
-
-		if (! function_exists('json_decode')) {    // Test with no response
-			print 'Error: function json_decode does not exists. Check PHP module json is loaded.';
-			$error++;
-		}
-
-		if (! empty($result['curl_error_no'])) {
-			print 'Error result of getURLContent: '.$result['curl_error_no'];
-			$error++;
-		}
-
-		if (! $error) {
-			//var_dump($result['content']);
-			$array = json_decode($result['content'], true);
-			$lat=isset($array[0]['lat']) ? $array[0]['lat'] : false;
-			$lon=isset($array[0]['lon']) ? $array[0]['lon'] : false;
-			if ($lat && $lon) {
-				// See example on page http://wiki.openstreetmap.org/wiki/OpenLayers_Marker
-				print '<script src="'.$protocol.'openlayers.org/api/OpenLayers.js"></script>
-                    <script>
-
-             		map = new OpenLayers.Map("map", {
-						controls:[
-                            new OpenLayers.Control.Navigation(),
-                            new OpenLayers.Control.PanZoomBar(),
-                            //new OpenLayers.Control.Permalink(),
-                            new OpenLayers.Control.ScaleLine({geodesic: true}),
-                            //new OpenLayers.Control.Permalink(\'permalink\'),
-                            new OpenLayers.Control.MousePosition(),
-                            //new OpenLayers.Control.Attribution()
-                            ],
-                        units: \'m\',
-        	            //maxExtent: new OpenLayers.Bounds(-20037508.34,-20037508.34,20037508.34,20037508.34),
-    	                //maxResolution: 156543.0339,
-	                    //numZoomLevels: 19,
-                		projection: new OpenLayers.Projection("EPSG:900913"),
-                        displayProjection: new OpenLayers.Projection("EPSG:4326")
-					} );
-
-                    var layer = new OpenLayers.Layer.OSM();
-                    map.addLayer(layer);
-
-                    // Set marker
-					var markers = new OpenLayers.Layer.Markers( "Markers" );
-    				map.addLayer(markers);
-                    var lonLat = new OpenLayers.LonLat('.$lon.','.$lat.')
-                              .transform(
-                                new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
-                                new OpenLayers.Projection("EPSG:900913") // to Spherical Mercator Projection
-                              );
-                	markers.addMarker(new OpenLayers.Marker(lonLat));
-
-                	// Set center and zoom
-                    map.setCenter(lonLat, '.($conf->global->OPENSTREETMAP_MAPS_ZOOM_LEVEL?$conf->global->OPENSTREETMAP_MAPS_ZOOM_LEVEL:15).');
-					//map.zoomToMaxExtent();
-
-                    </script>';
-
-				//print '<iframe width="600" height="500" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://cartosm.eu/map?lon='.$array[0]['lon'].'&lat='.$array[0]['lat'].'&zoom=13&width=600&height=500&mark=true&nav=true&pan=true&zb=bar&style=default&icon=down">';
-				//print '</iframe>';
-			} else {
-				print $langs->trans('OpenStreetMapMapsAddressNotFound');
-			}
+		print openstreetmap_include_leaflet(0);
+		print '<div id="map" class="divmap" style="width: 90%; height: 500px; margin: 0 auto;"></div>';
+		print '<script>
+		(function() {
+			var map = L.map("map").setView(['.((float) $point['lat']).', '.((float) $point['lon']).'], '.((int) $zoom).');
+			L.tileLayer("'.dol_escape_js(openstreetmap_get_tile_url()).'", {
+				maxZoom: 19,
+				attribution: "'.dol_escape_js(openstreetmap_get_tile_attribution()).'"
+			}).addTo(map);
+			L.control.scale().addTo(map);
+			L.marker(['.((float) $point['lat']).', '.((float) $point['lon']).']).addTo(map)
+				.bindPopup("'.dol_escape_js('<b>'.dol_escape_htmltag(isset($object->name) && $object->name ? $object->name : $object->getFullName($langs)).'</b><br>'.dol_escape_htmltag($address)).'");
+		})();
+		</script>';
+	} else {
+		print $langs->trans('OpenStreetMapMapsAddressNotFound');
+		if (!empty($point['label'])) {
+			print ' <span class="opacitymedium">('.dol_escape_htmltag($point['label']).')</span>';
 		}
 	}
-
-	print '</div>';
 	print '</div>';
 } else {
 	print '<br>'.$langs->trans("OpenStreetMapAddressNotDefined").'<br>';
