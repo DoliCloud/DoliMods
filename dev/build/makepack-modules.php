@@ -1337,7 +1337,7 @@ if ($argv[1] == 'pushdolistore') {
 	print "\n";
 	print "Please type enter to confirm to push zip file on Dolistore (CTR+C to cancel): ";
 	$confirmkey = trim(fgets(STDIN));
-	if (empty($confirmkey)) {
+	if (!empty($confirmkey)) {
 		print "Operation canceled.\n";
 		exit(1);
 	}
