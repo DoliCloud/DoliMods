@@ -1,0 +1,1419 @@
+
+packages:
+  - modulename: 'Alumni'
+    author: 'DoliCloud'
+    author_url: 'https://www.dolicloud.com'
+    maintener_email: 'contact@dolicloud.com'
+    label:
+      fr: 'Alumni'
+      en: 'Alumni'
+    description:
+      fr: 'Module d’organisation d’un événement de réunion d’anciens élèves'
+      en: 'Module for organizing an alumni meeting event'
+    status: 'enabled'
+    created_at: '2023-11-02'
+    last_updated_at: "2026-10-11"
+    category: ''
+    git: 'https://github.com/DoliCloud/dolimods/tree/master/htdocs/alumni'
+    git-branch: 'master'
+    git-system: 'github'
+    cover: ''
+    current_version: "1.02"
+    dolibarrmin: "18.0"
+    dolibarrmax: "24.0"
+    phpmin: "7.0"
+    phpmax: ""
+    price: 0
+    # direct-download is yes if we can download the module to install it in application
+    direct-download: 'no'
+    # dolistore-upload is manual if module is also uploaded manually on dolistore.com, auto if sync automatically
+    dolistore-upload: 'manual'
+    # dolistore-download is url of product page for download if module can also be found on dolistore.com
+    # Example: https://www.dolistore.com/product.php?id=xxx
+    dolistore-download: ''
+
+
+  - modulename: 'AWStats'
+    author: 'DoliCloud'
+    author_url: 'https://www.dolicloud.com'
+    maintener_email: 'contact@dolicloud.com'
+    label:
+      fr: 'AWStats'
+      en: 'AWStats'
+    description:
+      fr: 'Module to integrate AWStats statistics reports into Dolibarr'
+      en: 'Module to integrate AWStats statistics reports into Dolibarr'
+    status: 'enabled'
+    created_at: '2008-03-10'
+    last_updated_at: "2026-10-05"
+    category: ''
+    git: 'https://github.com/DoliCloud/dolimods/tree/master/htdocs/awstats'
+    git-branch: 'master'
+    git-system: 'github'
+    cover: 'https://raw.githubusercontent.com/DoliCloud/dolimods/master/htdocs/awstats/img/awstats.png'
+    current_version: "3.4"
+    dolibarrmin: "18.0"
+    dolibarrmax: "24.0"
+    phpmin: "4.1"
+    phpmax: ""
+    price: 0
+    # direct-download is yes if we can download the module to install it in application
+    direct-download: 'no'
+    # dolistore-upload is manual if module is also uploaded manually on dolistore.com, auto if sync automatically
+    dolistore-upload: 'manual'
+    # dolistore-download is url of product page for download if module can also be found on dolistore.com
+    # Example: https://www.dolistore.com/product.php?id=xxx
+    dolistore-download: ''
+
+
+  - modulename: 'BilledOnOrders'
+    author: 'DoliCloud'
+    author_url: 'https://www.dolicloud.com'
+    maintener_email: 'contact@dolicloud.com'
+    label:
+      fr: 'BilledOnOrders'
+      en: 'BilledOnOrders'
+    description:
+      fr: 'Module pour afficher le total du facturé et/ou reste à facturer des factures liées à chaque commande dans la liste des commandes clients ou fournisseurs'
+      en: 'Module to show the amount billed and remain to billed according to linked invoices on the list of customer or supplier orders'
+    status: 'enabled'
+    created_at: '2017-01-12'
+    last_updated_at: "2026-10-05"
+    category: ''
+    git: 'https://github.com/DoliCloud/dolimods/tree/master/htdocs/billedonorders'
+    git-branch: 'master'
+    git-system: 'github'
+    cover: ''
+    current_version: "4.0.2"
+    dolibarrmin: "18.0"
+    dolibarrmax: "24.0"
+    phpmin: "5.2"
+    phpmax: ""
+    price: 0
+    # direct-download is yes if we can download the module to install it in application
+    direct-download: 'no'
+    # dolistore-upload is manual if module is also uploaded manually on dolistore.com, auto if sync automatically
+    dolistore-upload: 'manual'
+    # dolistore-download is url of product page for download if module can also be found on dolistore.com
+    # Example: https://www.dolistore.com/product.php?id=xxx
+    dolistore-download: ''
+
+
+  - modulename: 'BitTorrent'
+    author: 'DoliCloud'
+    author_url: 'https://www.dolicloud.com'
+    maintener_email: 'contact@dolicloud.com'
+    label:
+      fr: 'BitTorrent'
+      en: 'BitTorrent'
+    description:
+      fr: 'Make your Dolibarr able to be a BitTorrent tracker (and serve .torrent files)'
+      en: 'Make your Dolibarr able to be a BitTorrent tracker (and serve .torrent files)'
+    status: 'enabled'
+    created_at: '2009-02-23'
+    last_updated_at: "2026-10-05"
+    category: ''
+    git: 'https://github.com/DoliCloud/dolimods/tree/master/htdocs/bittorrent'
+    git-branch: 'master'
+    git-system: 'github'
+    cover: 'https://raw.githubusercontent.com/DoliCloud/dolimods/master/htdocs/bittorrent/img/bittorrent.png'
+    current_version: "3.4.1"
+    dolibarrmin: "18.0"
+    dolibarrmax: "24.0"
+    phpmin: "4.3"
+    phpmax: ""
+    price: 0
+    # direct-download is yes if we can download the module to install it in application
+    direct-download: 'no'
+    # dolistore-upload is manual if module is also uploaded manually on dolistore.com, auto if sync automatically
+    dolistore-upload: 'manual'
+    # dolistore-download is url of product page for download if module can also be found on dolistore.com
+    # Example: https://www.dolistore.com/product.php?id=xxx
+    dolistore-download: ''
+
+
+  - modulename: 'ConcatPdf'
+    author: 'DoliCloud'
+    author_url: 'https://www.dolicloud.com'
+    maintener_email: 'contact@dolicloud.com'
+    label:
+      fr: 'Concat PDF'
+      en: 'Concat PDF'
+    description:
+      fr: 'Module pour concatainer des PDF (conditions de ventes par exemples) à tout PDF générés (factures, commandes ou propositions commerciales)'
+      en: 'Module to contact PDF (sells conditions for example) to any generated PDF (invoices, orders or proposals)'
+    status: 'enabled'
+    created_at: '2011-05-18'
+    last_updated_at: "2026-10-05"
+    category: ''
+    git: 'https://github.com/DoliCloud/dolimods/tree/master/htdocs/concatpdf'
+    git-branch: 'master'
+    git-system: 'github'
+    cover: 'https://raw.githubusercontent.com/DoliCloud/dolimods/master/htdocs/concatpdf/img/concatpdf.png'
+    current_version: "6.0.4"
+    dolibarrmin: "18.0"
+    dolibarrmax: "24.0"
+    phpmin: "4.3"
+    phpmax: ""
+    price: 0
+    # direct-download is yes if we can download the module to install it in application
+    direct-download: 'no'
+    # dolistore-upload is manual if module is also uploaded manually on dolistore.com, auto if sync automatically
+    dolistore-upload: 'manual'
+    # dolistore-download is url of product page for download if module can also be found on dolistore.com
+    # Example: https://www.dolistore.com/product.php?id=xxx
+    dolistore-download: ''
+
+
+  - modulename: 'Discussion'
+    author: 'DoliCloud'
+    author_url: 'https://www.dolicloud.com'
+    maintener_email: 'contact@dolicloud.com'
+    label:
+      fr: 'Discussion'
+      en: 'Discussion'
+    description:
+      fr: 'Discussion description'
+      en: 'Discussion description'
+    status: 'enabled'
+    created_at: '2025-06-24'
+    last_updated_at: "2026-10-11"
+    category: ''
+    git: 'https://github.com/DoliCloud/dolimods/tree/master/htdocs/discussion'
+    git-branch: 'master'
+    git-system: 'github'
+    cover: ''
+    current_version: "1.0"
+    dolibarrmin: "19.0"
+    dolibarrmax: "24.0"
+    phpmin: "7.1"
+    phpmax: ""
+    price: 0
+    # direct-download is yes if we can download the module to install it in application
+    direct-download: 'no'
+    # dolistore-upload is manual if module is also uploaded manually on dolistore.com, auto if sync automatically
+    dolistore-upload: 'manual'
+    # dolistore-download is url of product page for download if module can also be found on dolistore.com
+    # Example: https://www.dolistore.com/product.php?id=xxx
+    dolistore-download: ''
+
+
+  - modulename: 'DoliCloud'
+    author: 'DoliCloud'
+    author_url: 'https://www.dolicloud.com'
+    maintener_email: 'contact@dolicloud.com'
+    label:
+      fr: 'DoliCloud'
+      en: 'DoliCloud'
+    description:
+      fr: 'Module to integrate DoliCloud tools in dolibarr'
+      en: 'Module to integrate DoliCloud tools in dolibarr'
+    status: 'disabled'
+    created_at: '2012-02-22'
+    last_updated_at: "2026-10-05"
+    category: ''
+    git: 'https://github.com/DoliCloud/dolimods/tree/master/htdocs/dolicloud'
+    git-branch: 'master'
+    git-system: 'github'
+    cover: ''
+    current_version: "3.4"
+    dolibarrmin: "18.0"
+    dolibarrmax: "24.0"
+    phpmin: "4.1"
+    phpmax: ""
+    price: 0
+    # direct-download is yes if we can download the module to install it in application
+    direct-download: 'no'
+    # dolistore-upload is manual if module is also uploaded manually on dolistore.com, auto if sync automatically
+    dolistore-upload: 'manual'
+    # dolistore-download is url of product page for download if module can also be found on dolistore.com
+    # Example: https://www.dolistore.com/product.php?id=xxx
+    dolistore-download: ''
+
+
+  - modulename: 'EcoTaxDeee'
+    author: 'DoliCloud'
+    author_url: 'https://www.dolicloud.com'
+    maintener_email: 'contact@dolicloud.com'
+    label:
+      fr: 'Eco Taxe DEEE'
+      en: 'Eco Tax WEEE'
+    description:
+      fr: 'Module ajoutant automatiquement des lignes d’eco tax deee lors d’édition de facture, commande, propositions.'
+      en: 'Module to add ecotax lines automatically'
+    status: 'enabled'
+    created_at: '2013-12-08'
+    last_updated_at: "2026-10-05"
+    category: ''
+    git: 'https://github.com/DoliCloud/dolimods/tree/master/htdocs/ecotaxdeee'
+    git-branch: 'master'
+    git-system: 'github'
+    cover: ''
+    current_version: "4.3.0"
+    dolibarrmin: "18.0"
+    dolibarrmax: "24.0"
+    phpmin: "7.0"
+    phpmax: ""
+    price: 0
+    # direct-download is yes if we can download the module to install it in application
+    direct-download: 'no'
+    # dolistore-upload is manual if module is also uploaded manually on dolistore.com, auto if sync automatically
+    dolistore-upload: 'manual'
+    # dolistore-download is url of product page for download if module can also be found on dolistore.com
+    # Example: https://www.dolistore.com/product.php?id=xxx
+    dolistore-download: ''
+
+
+  - modulename: 'ExternalBackup'
+    author: 'DoliCloud'
+    author_url: 'https://www.dolicloud.com'
+    maintener_email: 'contact@dolicloud.com'
+    label:
+      fr: 'Backup externe'
+      en: 'External Backup'
+    description:
+      fr: 'Réalise une sauvegarde des données sur tout environnment externe (Cloud)'
+      en: 'Make a backup of your Dolibarr data on any Cloud hosting service.'
+    status: 'enabled'
+    created_at: '2016-03-29'
+    last_updated_at: "2026-10-05"
+    category: ''
+    git: 'https://github.com/DoliCloud/dolimods/tree/master/htdocs/externalbackup'
+    git-branch: 'master'
+    git-system: 'github'
+    cover: 'https://raw.githubusercontent.com/DoliCloud/dolimods/master/htdocs/externalbackup/img/externalbackup.png'
+    current_version: "4.0"
+    dolibarrmin: "18.0"
+    dolibarrmax: "24.0"
+    phpmin: ""
+    phpmax: ""
+    price: 0
+    # direct-download is yes if we can download the module to install it in application
+    direct-download: 'no'
+    # dolistore-upload is manual if module is also uploaded manually on dolistore.com, auto if sync automatically
+    dolistore-upload: 'manual'
+    # dolistore-download is url of product page for download if module can also be found on dolistore.com
+    # Example: https://www.dolistore.com/product.php?id=xxx
+    dolistore-download: ''
+
+
+  - modulename: 'FacturXUtil'
+    author: 'DoliCloud'
+    author_url: 'https://www.dolicloud.com'
+    maintener_email: 'contact@dolicloud.com'
+    label:
+      fr: 'FacturXUtil'
+      en: 'FacturXUtil'
+    description:
+      fr: 'FacturX utility module'
+      en: 'FacturX utility module'
+    status: 'enabled'
+    created_at: '2022-03-10'
+    last_updated_at: "2026-10-05"
+    category: ''
+    git: 'https://github.com/DoliCloud/dolimods/tree/master/htdocs/facturxutil'
+    git-branch: 'master'
+    git-system: 'github'
+    cover: 'https://raw.githubusercontent.com/DoliCloud/dolimods/master/htdocs/facturxutil/img/facturxutil.png'
+    current_version: "1.0"
+    dolibarrmin: "18.0"
+    dolibarrmax: "24.0"
+    phpmin: ""
+    phpmax: ""
+    price: 0
+    # direct-download is yes if we can download the module to install it in application
+    direct-download: 'no'
+    # dolistore-upload is manual if module is also uploaded manually on dolistore.com, auto if sync automatically
+    dolistore-upload: 'manual'
+    # dolistore-download is url of product page for download if module can also be found on dolistore.com
+    # Example: https://www.dolistore.com/product.php?id=xxx
+    dolistore-download: ''
+
+
+  - modulename: 'FileManager'
+    author: 'DoliCloud'
+    author_url: 'https://www.dolicloud.com'
+    maintener_email: 'contact@dolicloud.com'
+    label:
+      fr: 'FileManager'
+      en: 'FileManager'
+    description:
+      fr: 'A file manager'
+      en: 'A file manager'
+    status: 'enabled'
+    created_at: '2010-08-18'
+    last_updated_at: "2026-10-11"
+    category: ''
+    git: 'https://github.com/DoliCloud/dolimods/tree/master/htdocs/filemanager'
+    git-branch: 'master'
+    git-system: 'github'
+    cover: 'https://raw.githubusercontent.com/DoliCloud/dolimods/master/htdocs/filemanager/img/object_filemanager.png'
+    current_version: "6.0.1"
+    dolibarrmin: "18.0"
+    dolibarrmax: "24.0"
+    phpmin: "7.0"
+    phpmax: ""
+    price: 0
+    # direct-download is yes if we can download the module to install it in application
+    direct-download: 'no'
+    # dolistore-upload is manual if module is also uploaded manually on dolistore.com, auto if sync automatically
+    dolistore-upload: 'manual'
+    # dolistore-download is url of product page for download if module can also be found on dolistore.com
+    # Example: https://www.dolistore.com/product.php?id=xxx
+    dolistore-download: ''
+
+
+  - modulename: 'Form'
+    author: 'DoliCloud'
+    author_url: 'https://www.dolicloud.com'
+    maintener_email: 'contact@dolicloud.com'
+    label:
+      fr: 'Form'
+      en: 'Form'
+    description:
+      fr: 'Module to manage and run forms'
+      en: 'Module to manage and run forms'
+    status: 'development'
+    created_at: '2016-02-16'
+    last_updated_at: "2026-10-05"
+    category: ''
+    git: 'https://github.com/DoliCloud/dolimods/tree/master/htdocs/form'
+    git-branch: 'master'
+    git-system: 'github'
+    cover: ''
+    current_version: "development"
+    dolibarrmin: "18.0"
+    dolibarrmax: "24.0"
+    phpmin: "4.1"
+    phpmax: ""
+    price: 0
+    # direct-download is yes if we can download the module to install it in application
+    direct-download: 'no'
+    # dolistore-upload is manual if module is also uploaded manually on dolistore.com, auto if sync automatically
+    dolistore-upload: 'manual'
+    # dolistore-download is url of product page for download if module can also be found on dolistore.com
+    # Example: https://www.dolistore.com/product.php?id=xxx
+    dolistore-download: ''
+
+
+  - modulename: 'Google'
+    author: 'DoliCloud'
+    author_url: 'https://www.dolicloud.com'
+    maintener_email: 'contact@dolicloud.com'
+    label:
+      fr: 'Google'
+      en: 'Google'
+    description:
+      fr: 'Module pour intégrer les outils Google dans Dolibarr'
+      en: 'Module to integrate Google tools with Dolibarr'
+    status: 'enabled'
+    created_at: '2008-03-09'
+    last_updated_at: "2026-10-11"
+    category: ''
+    git: 'https://github.com/DoliCloud/dolimods/tree/master/htdocs/google'
+    git-branch: 'master'
+    git-system: 'github'
+    cover: 'https://raw.githubusercontent.com/DoliCloud/dolimods/master/htdocs/google/img/google.png'
+    current_version: "6.8.2"
+    dolibarrmin: "18.0"
+    dolibarrmax: "24.0"
+    phpmin: "7.2"
+    phpmax: ""
+    price: 0
+    # direct-download is yes if we can download the module to install it in application
+    direct-download: 'no'
+    # dolistore-upload is manual if module is also uploaded manually on dolistore.com, auto if sync automatically
+    dolistore-upload: 'manual'
+    # dolistore-download is url of product page for download if module can also be found on dolistore.com
+    # Example: https://www.dolistore.com/product.php?id=xxx
+    dolistore-download: ''
+
+
+  - modulename: 'IFTTT'
+    author: 'DoliCloud'
+    author_url: 'https://www.dolicloud.com'
+    maintener_email: 'contact@dolicloud.com'
+    label:
+      fr: 'IFTTT'
+      en: 'IFTTT'
+    description:
+      fr: 'IFTTT interface'
+      en: 'IFTTT interface'
+    status: 'enabled'
+    created_at: '2019-05-21'
+    last_updated_at: "2024-09-26"
+    category: ''
+    git: 'https://github.com/DoliCloud/dolimods/tree/master/htdocs/ifttt'
+    git-branch: 'master'
+    git-system: 'github'
+    cover: 'https://raw.githubusercontent.com/DoliCloud/dolimods/master/htdocs/ifttt/img/object_ifttt.png'
+    current_version: "1.0"
+    dolibarrmin: ""
+    dolibarrmax: "24.0"
+    phpmin: "5.4"
+    phpmax: ""
+    price: 0
+    # direct-download is yes if we can download the module to install it in application
+    direct-download: 'no'
+    # dolistore-upload is manual if module is also uploaded manually on dolistore.com, auto if sync automatically
+    dolistore-upload: 'manual'
+    # dolistore-download is url of product page for download if module can also be found on dolistore.com
+    # Example: https://www.dolistore.com/product.php?id=xxx
+    dolistore-download: ''
+
+
+  - modulename: 'IPPhone'
+    author: 'DoliCloud'
+    author_url: 'https://www.dolicloud.com'
+    maintener_email: 'contact@dolicloud.com'
+    label:
+      fr: 'IP Phonebook'
+      en: 'IP Phonebook'
+    description:
+      fr: 'Ajoute un service permettant à un téléphone IP (Cisco, Yealink, Thompson, ...) de lire les contacts Dolibarr pour son carnet d’adresse'
+      en: 'Offer a service to allow an IP Phone (Cisco, Yealink, Thompson, ...) to read Dolibarr contacts for its phone book'
+    status: 'enabled'
+    created_at: '2014-10-16'
+    last_updated_at: "2026-10-05"
+    category: ''
+    git: 'https://github.com/DoliCloud/dolimods/tree/master/htdocs/ipphone'
+    git-branch: 'master'
+    git-system: 'github'
+    cover: ''
+    current_version: "4.0"
+    dolibarrmin: "18.0"
+    dolibarrmax: "24.0"
+    phpmin: "4.3"
+    phpmax: ""
+    price: 0
+    # direct-download is yes if we can download the module to install it in application
+    direct-download: 'no'
+    # dolistore-upload is manual if module is also uploaded manually on dolistore.com, auto if sync automatically
+    dolistore-upload: 'manual'
+    # dolistore-download is url of product page for download if module can also be found on dolistore.com
+    # Example: https://www.dolistore.com/product.php?id=xxx
+    dolistore-download: ''
+
+
+  - modulename: 'Mantis'
+    author: 'DoliCloud'
+    author_url: 'https://www.dolicloud.com'
+    maintener_email: 'contact@dolicloud.com'
+    label:
+      fr: 'Mantis'
+      en: 'Mantis'
+    description:
+      fr: 'Interfacage avec le bug tracking Mantis'
+      en: 'Interfacage avec le bug tracking Mantis'
+    status: 'experimental'
+    created_at: '2011-09-25'
+    last_updated_at: "2026-04-16"
+    category: ''
+    git: 'https://github.com/DoliCloud/dolimods/tree/master/htdocs/mantis'
+    git-branch: 'master'
+    git-system: 'github'
+    cover: ''
+    current_version: "experimental"
+    dolibarrmin: ""
+    dolibarrmax: "24.0"
+    phpmin: ""
+    phpmax: ""
+    price: 0
+    # direct-download is yes if we can download the module to install it in application
+    direct-download: 'no'
+    # dolistore-upload is manual if module is also uploaded manually on dolistore.com, auto if sync automatically
+    dolistore-upload: 'manual'
+    # dolistore-download is url of product page for download if module can also be found on dolistore.com
+    # Example: https://www.dolistore.com/product.php?id=xxx
+    dolistore-download: ''
+
+
+  - modulename: 'Memcached'
+    author: 'DoliCloud'
+    author_url: 'https://www.dolicloud.com'
+    maintener_email: 'contact@dolicloud.com'
+    label:
+      fr: 'Memcached'
+      en: 'Memcached'
+    description:
+      fr: 'Use a memcached server to increase Dolibarr speed (need PHP functions Memcached or Memcache)'
+      en: 'Use a memcached server to increase Dolibarr speed (need PHP functions Memcached or Memcache)'
+    status: 'enabled'
+    created_at: '2010-05-08'
+    last_updated_at: "2026-10-05"
+    category: ''
+    git: 'https://github.com/DoliCloud/dolimods/tree/master/htdocs/memcached'
+    git-branch: 'master'
+    git-system: 'github'
+    cover: ''
+    current_version: "3.5"
+    dolibarrmin: "18.0"
+    dolibarrmax: "24.0"
+    phpmin: "7.0"
+    phpmax: ""
+    price: 0
+    # direct-download is yes if we can download the module to install it in application
+    direct-download: 'no'
+    # dolistore-upload is manual if module is also uploaded manually on dolistore.com, auto if sync automatically
+    dolistore-upload: 'manual'
+    # dolistore-download is url of product page for download if module can also be found on dolistore.com
+    # Example: https://www.dolistore.com/product.php?id=xxx
+    dolistore-download: ''
+
+
+  - modulename: 'Monitoring'
+    author: 'DoliCloud'
+    author_url: 'https://www.dolicloud.com'
+    maintener_email: 'contact@dolicloud.com'
+    label:
+      fr: 'Supervision'
+      en: 'Monitoring'
+    description:
+      fr: 'Module pour ajouter des fonctions de supervision de système externes'
+      en: 'Module to add monitoring of external systems features'
+    status: 'enabled'
+    created_at: '2011-01-22'
+    last_updated_at: "2026-10-05"
+    category: ''
+    git: 'https://github.com/DoliCloud/dolimods/tree/master/htdocs/monitoring'
+    git-branch: 'master'
+    git-system: 'github'
+    cover: ''
+    current_version: "3.4"
+    dolibarrmin: "18.0"
+    dolibarrmax: "24.0"
+    phpmin: "4.3"
+    phpmax: ""
+    price: 0
+    # direct-download is yes if we can download the module to install it in application
+    direct-download: 'no'
+    # dolistore-upload is manual if module is also uploaded manually on dolistore.com, auto if sync automatically
+    dolistore-upload: 'manual'
+    # dolistore-download is url of product page for download if module can also be found on dolistore.com
+    # Example: https://www.dolistore.com/product.php?id=xxx
+    dolistore-download: ''
+
+
+  - modulename: 'MoreTemplates'
+    author: 'DoliCloud'
+    author_url: 'https://www.dolicloud.com'
+    maintener_email: 'contact@dolicloud.com'
+    label:
+      fr: 'DoliCloud Templates'
+      en: 'DoliCloud Templates'
+    description:
+      fr: 'Plus de modèles de documents (par DoliCloud)'
+      en: 'More templates (by DoliCloud)'
+    status: 'enabled'
+    created_at: '2012-03-01'
+    last_updated_at: "2026-10-05"
+    category: ''
+    git: 'https://github.com/DoliCloud/dolimods/tree/master/htdocs/moretemplates'
+    git-branch: 'master'
+    git-system: 'github'
+    cover: ''
+    current_version: "3.4"
+    dolibarrmin: "18.0"
+    dolibarrmax: "24.0"
+    phpmin: "4.3"
+    phpmax: ""
+    price: 0
+    # direct-download is yes if we can download the module to install it in application
+    direct-download: 'no'
+    # dolistore-upload is manual if module is also uploaded manually on dolistore.com, auto if sync automatically
+    dolistore-upload: 'manual'
+    # dolistore-download is url of product page for download if module can also be found on dolistore.com
+    # Example: https://www.dolistore.com/product.php?id=xxx
+    dolistore-download: ''
+
+
+  - modulename: 'MyWidgets'
+    author: 'DoliCloud'
+    author_url: 'https://www.dolicloud.com'
+    maintener_email: 'contact@dolicloud.com'
+    label:
+      fr: 'MyWidgets'
+      en: 'MyWidgets'
+    description:
+      fr: 'Add a widgets for home dashboard with editable HTML content'
+      en: 'Add a widgets for home dashboard with editable HTML content'
+    status: 'enabled'
+    created_at: '2019-03-01'
+    last_updated_at: "2026-10-05"
+    category: ''
+    git: 'https://github.com/DoliCloud/dolimods/tree/master/htdocs/mywidgets'
+    git-branch: 'master'
+    git-system: 'github'
+    cover: ''
+    current_version: "1.0"
+    dolibarrmin: "18.0"
+    dolibarrmax: "24.0"
+    phpmin: "5.2"
+    phpmax: ""
+    price: 0
+    # direct-download is yes if we can download the module to install it in application
+    direct-download: 'no'
+    # dolistore-upload is manual if module is also uploaded manually on dolistore.com, auto if sync automatically
+    dolistore-upload: 'manual'
+    # dolistore-download is url of product page for download if module can also be found on dolistore.com
+    # Example: https://www.dolistore.com/product.php?id=xxx
+    dolistore-download: ''
+
+
+  - modulename: 'Netatmo'
+    author: 'DoliCloud'
+    author_url: 'https://www.dolicloud.com'
+    maintener_email: 'contact@dolicloud.com'
+    label:
+      fr: 'Netatmo'
+      en: 'Netatmo'
+    description:
+      fr: 'Description de Netatmo'
+      en: 'Netatmo description'
+    status: 'enabled'
+    created_at: '2019-07-18'
+    last_updated_at: "2026-10-05"
+    category: ''
+    git: 'https://github.com/DoliCloud/dolimods/tree/master/htdocs/netatmo'
+    git-branch: 'master'
+    git-system: 'github'
+    cover: 'https://raw.githubusercontent.com/DoliCloud/dolimods/master/htdocs/netatmo/img/netatmo.png'
+    current_version: "1.0"
+    dolibarrmin: "18.0"
+    dolibarrmax: "24.0"
+    phpmin: "5.5"
+    phpmax: ""
+    price: 0
+    # direct-download is yes if we can download the module to install it in application
+    direct-download: 'no'
+    # dolistore-upload is manual if module is also uploaded manually on dolistore.com, auto if sync automatically
+    dolistore-upload: 'manual'
+    # dolistore-download is url of product page for download if module can also be found on dolistore.com
+    # Example: https://www.dolistore.com/product.php?id=xxx
+    dolistore-download: ''
+
+
+  - modulename: 'NumberingPack'
+    author: 'DoliCloud'
+    author_url: 'https://www.dolicloud.com'
+    maintener_email: 'contact@dolicloud.com'
+    label:
+      fr: 'Numbering pack'
+      en: 'Numbering pack'
+    description:
+      fr: 'Plus de module des règles de numérotation des codes tiers'
+      en: 'More module to define numbering rules for third parties codes'
+    status: 'enabled'
+    created_at: '2010-08-09'
+    last_updated_at: "2026-10-05"
+    category: ''
+    git: 'https://github.com/DoliCloud/dolimods/tree/master/htdocs/numberingpack'
+    git-branch: 'master'
+    git-system: 'github'
+    cover: ''
+    current_version: "3.4"
+    dolibarrmin: "18.0"
+    dolibarrmax: "24.0"
+    phpmin: "5.6"
+    phpmax: ""
+    price: 0
+    # direct-download is yes if we can download the module to install it in application
+    direct-download: 'no'
+    # dolistore-upload is manual if module is also uploaded manually on dolistore.com, auto if sync automatically
+    dolistore-upload: 'manual'
+    # dolistore-download is url of product page for download if module can also be found on dolistore.com
+    # Example: https://www.dolistore.com/product.php?id=xxx
+    dolistore-download: ''
+
+
+  - modulename: 'NumberWords'
+    author: 'DoliCloud'
+    author_url: 'https://www.dolicloud.com'
+    maintener_email: 'contact@dolicloud.com'
+    label:
+      fr: 'Number Words'
+      en: 'Number Words'
+    description:
+      fr: 'Ajoute la possibilité de convertir des montants ou nombres en une valeur écrite en texte alphabétique (seuls quelques languages sont supportés)'
+      en: 'Add capabilities to convert amounts and numbers into value in full text (only few languages supported)'
+    status: 'enabled'
+    created_at: '2011-03-03'
+    last_updated_at: "2026-10-05"
+    category: ''
+    git: 'https://github.com/DoliCloud/dolimods/tree/master/htdocs/numberwords'
+    git-branch: 'master'
+    git-system: 'github'
+    cover: 'https://raw.githubusercontent.com/DoliCloud/dolimods/master/htdocs/numberwords/img/numberwords.png'
+    current_version: "5.0.4"
+    dolibarrmin: "18.0"
+    dolibarrmax: "24.0"
+    phpmin: "7.0"
+    phpmax: ""
+    price: 0
+    # direct-download is yes if we can download the module to install it in application
+    direct-download: 'no'
+    # dolistore-upload is manual if module is also uploaded manually on dolistore.com, auto if sync automatically
+    dolistore-upload: 'manual'
+    # dolistore-download is url of product page for download if module can also be found on dolistore.com
+    # Example: https://www.dolistore.com/product.php?id=xxx
+    dolistore-download: ''
+
+
+  - modulename: 'OpenStreetMap'
+    author: 'DoliCloud'
+    author_url: 'https://www.dolicloud.com'
+    maintener_email: 'contact@dolicloud.com'
+    label:
+      fr: 'OpenStreetMap'
+      en: 'OpenStreetMap'
+    description:
+      fr: 'Module pour intégrer les outils OpenStreetMap dans Dolibarr'
+      en: 'Module to integrate OpenStreetMap tools with Dolibarr'
+    status: 'enabled'
+    created_at: '2012-04-04'
+    last_updated_at: "2026-10-05"
+    category: ''
+    git: 'https://github.com/DoliCloud/dolimods/tree/master/htdocs/openstreetmap'
+    git-branch: 'master'
+    git-system: 'github'
+    cover: 'https://raw.githubusercontent.com/DoliCloud/dolimods/master/htdocs/openstreetmap/img/object_openstreetmap.png'
+    current_version: "3.4"
+    dolibarrmin: "18.0"
+    dolibarrmax: "24.0"
+    phpmin: "5.6"
+    phpmax: ""
+    price: 0
+    # direct-download is yes if we can download the module to install it in application
+    direct-download: 'no'
+    # dolistore-upload is manual if module is also uploaded manually on dolistore.com, auto if sync automatically
+    dolistore-upload: 'manual'
+    # dolistore-download is url of product page for download if module can also be found on dolistore.com
+    # Example: https://www.dolistore.com/product.php?id=xxx
+    dolistore-download: ''
+
+
+  - modulename: 'Ovh'
+    author: 'DoliCloud'
+    author_url: 'https://www.dolicloud.com'
+    maintener_email: 'contact@dolicloud.com'
+    label:
+      fr: 'Ovh'
+      en: 'Ovh'
+    description:
+      fr: 'Add some features to use OVH interfaces (Send SMS with a subscription to OVH SMS API and make Click2Dial with OVH SIP server)'
+      en: 'Add some features to use OVH interfaces (Send SMS with a subscription to OVH SMS API and make Click2Dial with OVH SIP server)'
+    status: 'enabled'
+    created_at: '2010-12-04'
+    last_updated_at: "2026-10-05"
+    category: ''
+    git: 'https://github.com/DoliCloud/dolimods/tree/master/htdocs/ovh'
+    git-branch: 'master'
+    git-system: 'github'
+    cover: 'https://raw.githubusercontent.com/DoliCloud/dolimods/master/htdocs/ovh/img/ovh.png'
+    current_version: "5.0"
+    dolibarrmin: "18.0"
+    dolibarrmax: "24.0"
+    phpmin: "7.0"
+    phpmax: ""
+    price: 0
+    # direct-download is yes if we can download the module to install it in application
+    direct-download: 'no'
+    # dolistore-upload is manual if module is also uploaded manually on dolistore.com, auto if sync automatically
+    dolistore-upload: 'manual'
+    # dolistore-download is url of product page for download if module can also be found on dolistore.com
+    # Example: https://www.dolistore.com/product.php?id=xxx
+    dolistore-download: ''
+
+
+  - modulename: 'PayplugDolicloud'
+    author: 'DoliCloud'
+    author_url: 'https://www.dolicloud.com'
+    maintener_email: 'contact@dolicloud.com'
+    label:
+      fr: 'PayplugDolicloud'
+      en: 'PayplugDolicloud'
+    description:
+      fr: 'Offer customers a PayPlug online payment page (credit/debit cards). Module provided by Dolicloud. This can be used to allow your customers to make ad-hoc payments or payments related to a specific Dolibarr object (invoice, order etc...)'
+      en: 'Offer customers a PayPlug online payment page (credit/debit cards). Module provided by Dolicloud. This can be used to allow your customers to make ad-hoc payments or payments related to a specific Dolibarr object (invoice, order etc...)'
+    status: 'enabled'
+    created_at: '2024-11-27'
+    last_updated_at: "2026-08-25"
+    category: ''
+    git: 'https://github.com/DoliCloud/dolimods/tree/master/htdocs/payplugdolicloud'
+    git-branch: 'master'
+    git-system: 'github'
+    cover: 'https://raw.githubusercontent.com/DoliCloud/dolimods/master/htdocs/payplugdolicloud/img/object_payplugdolicloud.png'
+    current_version: "1.0"
+    dolibarrmin: "21.0"
+    dolibarrmax: "24.0"
+    phpmin: "7.1"
+    phpmax: ""
+    price: 0
+    # direct-download is yes if we can download the module to install it in application
+    direct-download: 'no'
+    # dolistore-upload is manual if module is also uploaded manually on dolistore.com, auto if sync automatically
+    dolistore-upload: 'manual'
+    # dolistore-download is url of product page for download if module can also be found on dolistore.com
+    # Example: https://www.dolistore.com/product.php?id=xxx
+    dolistore-download: ''
+
+
+  - modulename: 'PHPSysInfo'
+    author: 'DoliCloud'
+    author_url: 'https://www.dolicloud.com'
+    maintener_email: 'contact@dolicloud.com'
+    label:
+      fr: 'PHP Sysinfo'
+      en: 'PHP Sysinfo'
+    description:
+      fr: 'Add a system information page into your Tools menu'
+      en: 'Add a system information page into your Tools menu'
+    status: 'enabled'
+    created_at: '2010-07-19'
+    last_updated_at: "2026-10-05"
+    category: ''
+    git: 'https://github.com/DoliCloud/dolimods/tree/master/htdocs/phpsysinfo'
+    git-branch: 'master'
+    git-system: 'github'
+    cover: ''
+    current_version: "3.9"
+    dolibarrmin: "18.0"
+    dolibarrmax: "24.0"
+    phpmin: "5.2"
+    phpmax: ""
+    price: 0
+    # direct-download is yes if we can download the module to install it in application
+    direct-download: 'no'
+    # dolistore-upload is manual if module is also uploaded manually on dolistore.com, auto if sync automatically
+    dolistore-upload: 'manual'
+    # dolistore-download is url of product page for download if module can also be found on dolistore.com
+    # Example: https://www.dolistore.com/product.php?id=xxx
+    dolistore-download: ''
+
+
+  - modulename: 'PiBarcode'
+    author: 'DoliCloud'
+    author_url: 'https://www.dolicloud.com'
+    maintener_email: 'contact@dolicloud.com'
+    label:
+      fr: 'PiBarcode'
+      en: 'PiBarcode'
+    description:
+      fr: 'Add pibarcode generator to generate barcodes'
+      en: 'Add pibarcode generator to generate barcodes'
+    status: 'enabled'
+    created_at: '2010-06-04'
+    last_updated_at: "2026-10-05"
+    category: ''
+    git: 'https://github.com/DoliCloud/dolimods/tree/master/htdocs/pibarcode'
+    git-branch: 'master'
+    git-system: 'github'
+    cover: ''
+    current_version: "3.4"
+    dolibarrmin: "18.0"
+    dolibarrmax: "24.0"
+    phpmin: "4.3"
+    phpmax: ""
+    price: 0
+    # direct-download is yes if we can download the module to install it in application
+    direct-download: 'no'
+    # dolistore-upload is manual if module is also uploaded manually on dolistore.com, auto if sync automatically
+    dolistore-upload: 'manual'
+    # dolistore-download is url of product page for download if module can also be found on dolistore.com
+    # Example: https://www.dolistore.com/product.php?id=xxx
+    dolistore-download: ''
+
+
+  - modulename: 'PrestashopGet'
+    author: 'DoliCloud'
+    author_url: 'https://www.dolicloud.com'
+    maintener_email: 'contact@dolicloud.com'
+    label:
+      fr: 'PrestashopGet'
+      en: 'PrestashopGet'
+    description:
+      fr: 'Ajoute des fonctions de résumé de ventes issues d’une boutique eCommerce Prestashop'
+      en: 'Add features to get summarized information on sales on a Prestashop eCommerce.'
+    status: 'enabled'
+    created_at: '2019-03-29'
+    last_updated_at: "2026-10-05"
+    category: ''
+    git: 'https://github.com/DoliCloud/dolimods/tree/master/htdocs/prestashopget'
+    git-branch: 'master'
+    git-system: 'github'
+    cover: 'https://raw.githubusercontent.com/DoliCloud/dolimods/master/htdocs/prestashopget/img/prestashopget.png'
+    current_version: "1.0"
+    dolibarrmin: "18.0"
+    dolibarrmax: "24.0"
+    phpmin: ""
+    phpmax: ""
+    price: 0
+    # direct-download is yes if we can download the module to install it in application
+    direct-download: 'no'
+    # dolistore-upload is manual if module is also uploaded manually on dolistore.com, auto if sync automatically
+    dolistore-upload: 'manual'
+    # dolistore-download is url of product page for download if module can also be found on dolistore.com
+    # Example: https://www.dolistore.com/product.php?id=xxx
+    dolistore-download: ''
+
+
+  - modulename: 'RevertInvoice'
+    author: 'DoliCloud'
+    author_url: 'https://www.dolicloud.com'
+    maintener_email: 'contact@dolicloud.com'
+    label:
+      fr: 'RevertInvoice'
+      en: 'RevertInvoice'
+    description:
+      fr: 'Create a supplier invoice on an entity each time a customer invoice is created on a dedicated customer.'
+      en: 'Create a supplier invoice on an entity each time a customer invoice is created on a dedicated customer.'
+    status: 'enabled'
+    created_at: '2019-06-06'
+    last_updated_at: "2026-10-05"
+    category: ''
+    git: 'https://github.com/DoliCloud/dolimods/tree/master/htdocs/revertinvoice'
+    git-branch: 'master'
+    git-system: 'github'
+    cover: 'https://raw.githubusercontent.com/DoliCloud/dolimods/master/htdocs/revertinvoice/img/revertinvoice.png'
+    current_version: "1.0"
+    dolibarrmin: "18.0"
+    dolibarrmax: "24.0"
+    phpmin: "5.5"
+    phpmax: ""
+    price: 0
+    # direct-download is yes if we can download the module to install it in application
+    direct-download: 'no'
+    # dolistore-upload is manual if module is also uploaded manually on dolistore.com, auto if sync automatically
+    dolistore-upload: 'manual'
+    # dolistore-download is url of product page for download if module can also be found on dolistore.com
+    # Example: https://www.dolistore.com/product.php?id=xxx
+    dolistore-download: ''
+
+
+  - modulename: 'SaftPt'
+    author: 'DoliCloud'
+    author_url: 'https://www.dolicloud.com'
+    maintener_email: 'contact@dolicloud.com'
+    label:
+      fr: 'SaftPt'
+      en: 'SaftPt'
+    description:
+      fr: 'Saf-T PT MOSS'
+      en: 'Saf-T PT MOSS'
+    status: 'development'
+    created_at: '2022-01-18'
+    last_updated_at: "2026-10-05"
+    category: ''
+    git: 'https://github.com/DoliCloud/dolimods/tree/master/htdocs/saftpt'
+    git-branch: 'master'
+    git-system: 'github'
+    cover: ''
+    current_version: "development"
+    dolibarrmin: "18.0"
+    dolibarrmax: "24.0"
+    phpmin: "5.3"
+    phpmax: ""
+    price: 0
+    # direct-download is yes if we can download the module to install it in application
+    direct-download: 'no'
+    # dolistore-upload is manual if module is also uploaded manually on dolistore.com, auto if sync automatically
+    dolistore-upload: 'manual'
+    # dolistore-download is url of product page for download if module can also be found on dolistore.com
+    # Example: https://www.dolistore.com/product.php?id=xxx
+    dolistore-download: ''
+
+
+  - modulename: 'Scanner'
+    author: 'DoliCloud'
+    author_url: 'https://www.dolicloud.com'
+    maintener_email: 'contact@dolicloud.com'
+    label:
+      fr: 'Scanner'
+      en: 'Scanner'
+    description:
+      fr: 'Add menu entry to pilot a scanner plugged to a Dolibarr server (Linux server only)'
+      en: 'Add menu entry to pilot a scanner plugged to a Dolibarr server (Linux server only)'
+    status: 'enabled'
+    created_at: '2010-11-13'
+    last_updated_at: "2026-10-05"
+    category: ''
+    git: 'https://github.com/DoliCloud/dolimods/tree/master/htdocs/scanner'
+    git-branch: 'master'
+    git-system: 'github'
+    cover: 'https://raw.githubusercontent.com/DoliCloud/dolimods/master/htdocs/scanner/img/scanner.png'
+    current_version: "3.4"
+    dolibarrmin: "18.0"
+    dolibarrmax: "24.0"
+    phpmin: "4.3"
+    phpmax: ""
+    price: 0
+    # direct-download is yes if we can download the module to install it in application
+    direct-download: 'no'
+    # dolistore-upload is manual if module is also uploaded manually on dolistore.com, auto if sync automatically
+    dolistore-upload: 'manual'
+    # dolistore-download is url of product page for download if module can also be found on dolistore.com
+    # Example: https://www.dolistore.com/product.php?id=xxx
+    dolistore-download: ''
+
+
+  - modulename: 'SelectBank'
+    author: 'DoliCloud'
+    author_url: 'https://www.dolicloud.com'
+    maintener_email: 'contact@dolicloud.com'
+    label:
+      fr: 'Selection banque'
+      en: 'Select Bank'
+    description:
+      fr: 'Permet la sélection du compte bancaire affiché sur les documents de factures générés'
+      en: 'Select Bank account to show on invoice generated documents'
+    status: 'enabled'
+    created_at: '2013-02-23'
+    last_updated_at: "2026-10-05"
+    category: ''
+    git: 'https://github.com/DoliCloud/dolimods/tree/master/htdocs/selectbank'
+    git-branch: 'master'
+    git-system: 'github'
+    cover: 'https://raw.githubusercontent.com/DoliCloud/dolimods/master/htdocs/selectbank/img/selectbank.png'
+    current_version: "3.7.1"
+    dolibarrmin: "18.0"
+    dolibarrmax: "24.0"
+    phpmin: "4.3"
+    phpmax: ""
+    price: 0
+    # direct-download is yes if we can download the module to install it in application
+    direct-download: 'no'
+    # dolistore-upload is manual if module is also uploaded manually on dolistore.com, auto if sync automatically
+    dolistore-upload: 'manual'
+    # dolistore-download is url of product page for download if module can also be found on dolistore.com
+    # Example: https://www.dolistore.com/product.php?id=xxx
+    dolistore-download: ''
+
+
+  - modulename: 'SendGrid'
+    author: 'DoliCloud'
+    author_url: 'https://www.dolicloud.com'
+    maintener_email: 'contact@dolicloud.com'
+    label:
+      fr: 'SendGrid'
+      en: 'SendGrid'
+    description:
+      fr: 'Add some features to use SendGrid interfaces'
+      en: 'Add some features to use SendGrid interfaces'
+    status: 'development'
+    created_at: '2017-10-13'
+    last_updated_at: "2026-10-05"
+    category: ''
+    git: 'https://github.com/DoliCloud/dolimods/tree/master/htdocs/sendgrid'
+    git-branch: 'master'
+    git-system: 'github'
+    cover: 'https://raw.githubusercontent.com/DoliCloud/dolimods/master/htdocs/sendgrid/img/object_sendgrid.png'
+    current_version: "development"
+    dolibarrmin: "18.0"
+    dolibarrmax: "24.0"
+    phpmin: "5.4"
+    phpmax: ""
+    price: 0
+    # direct-download is yes if we can download the module to install it in application
+    direct-download: 'no'
+    # dolistore-upload is manual if module is also uploaded manually on dolistore.com, auto if sync automatically
+    dolistore-upload: 'manual'
+    # dolistore-download is url of product page for download if module can also be found on dolistore.com
+    # Example: https://www.dolistore.com/product.php?id=xxx
+    dolistore-download: ''
+
+
+  - modulename: 'SkinColorEditor'
+    author: 'DoliCloud'
+    author_url: 'https://www.dolicloud.com'
+    maintener_email: 'contact@dolicloud.com'
+    label:
+      fr: 'Skin Editor'
+      en: 'Skin Editor'
+    description:
+      fr: 'Permet l’édition et la personnalisation des couleurs et polices du thème Eldy'
+      en: 'Allows to edit and personalise colors and font of skin Eldy'
+    status: 'deprecated'
+    created_at: '2012-01-15'
+    last_updated_at: "2026-10-05"
+    category: ''
+    git: 'https://github.com/DoliCloud/dolimods/tree/master/htdocs/skincoloreditor'
+    git-branch: 'master'
+    git-system: 'github'
+    cover: 'https://raw.githubusercontent.com/DoliCloud/dolimods/master/htdocs/skincoloreditor/img/object_skincoloreditor.png'
+    current_version: "deprecated"
+    dolibarrmin: "18.0"
+    dolibarrmax: "24.0"
+    phpmin: "4.3"
+    phpmax: ""
+    price: 0
+    # direct-download is yes if we can download the module to install it in application
+    direct-download: 'no'
+    # dolistore-upload is manual if module is also uploaded manually on dolistore.com, auto if sync automatically
+    dolistore-upload: 'manual'
+    # dolistore-download is url of product page for download if module can also be found on dolistore.com
+    # Example: https://www.dolistore.com/product.php?id=xxx
+    dolistore-download: ''
+
+
+  - modulename: 'StancerDolicloud'
+    author: 'DoliCloud'
+    author_url: 'https://www.dolicloud.com'
+    maintener_email: 'contact@dolicloud.com'
+    label:
+      fr: 'StancerDolicloud'
+      en: 'StancerDolicloud'
+    description:
+      fr: 'Offer customers a Stancer online payment page (credit/debit cards). Module provided by Dolicloud. This can be used to allow your customers to make ad-hoc payments or payments related to a specific Dolibarr object (invoice, order etc...)'
+      en: 'Offer customers a Stancer online payment page (credit/debit cards). Module provided by Dolicloud. This can be used to allow your customers to make ad-hoc payments or payments related to a specific Dolibarr object (invoice, order etc...)'
+    status: 'enabled'
+    created_at: '2024-10-30'
+    last_updated_at: "2026-08-25"
+    category: ''
+    git: 'https://github.com/DoliCloud/dolimods/tree/master/htdocs/stancerdolicloud'
+    git-branch: 'master'
+    git-system: 'github'
+    cover: 'https://raw.githubusercontent.com/DoliCloud/dolimods/master/htdocs/stancerdolicloud/img/object_stancerdolicloud.png'
+    current_version: "1.0"
+    dolibarrmin: "21.0"
+    dolibarrmax: "24.0"
+    phpmin: "7.0"
+    phpmax: ""
+    price: 0
+    # direct-download is yes if we can download the module to install it in application
+    direct-download: 'no'
+    # dolistore-upload is manual if module is also uploaded manually on dolistore.com, auto if sync automatically
+    dolistore-upload: 'manual'
+    # dolistore-download is url of product page for download if module can also be found on dolistore.com
+    # Example: https://www.dolistore.com/product.php?id=xxx
+    dolistore-download: ''
+
+
+  - modulename: 'Stat'
+    author: 'DoliCloud'
+    author_url: 'https://www.dolicloud.com'
+    maintener_email: 'contact@dolicloud.com'
+    label:
+      fr: 'Stat'
+      en: 'Stat'
+    description:
+      fr: 'Statistic Module'
+      en: 'Statistic Module'
+    status: 'development'
+    created_at: '2014-04-23'
+    last_updated_at: "2026-10-05"
+    category: ''
+    git: 'https://github.com/DoliCloud/dolimods/tree/master/htdocs/statistic'
+    git-branch: 'master'
+    git-system: 'github'
+    cover: ''
+    current_version: "development"
+    dolibarrmin: "18.0"
+    dolibarrmax: "24.0"
+    phpmin: "4.3"
+    phpmax: ""
+    price: 0
+    # direct-download is yes if we can download the module to install it in application
+    direct-download: 'no'
+    # dolistore-upload is manual if module is also uploaded manually on dolistore.com, auto if sync automatically
+    dolistore-upload: 'manual'
+    # dolistore-download is url of product page for download if module can also be found on dolistore.com
+    # Example: https://www.dolistore.com/product.php?id=xxx
+    dolistore-download: ''
+
+
+  - modulename: 'SubmitEveryWhere'
+    author: 'DoliCloud'
+    author_url: 'https://www.dolicloud.com'
+    maintener_email: 'contact@dolicloud.com'
+    label:
+      fr: 'Submit Every Where'
+      en: 'Submit Every Where'
+    description:
+      fr: 'Un gestionnaire pour aider à la soumission d’article/scoop vers différentes cibles (Twitter, Facebook, Digg, EMail, sites majeurs de nouvelles...)'
+      en: 'A manager to help to submit an article/scoop towards several targets (Twitter, Facebook, Digg, EMail, Major news web sites...)'
+    status: 'development'
+    created_at: '2010-07-28'
+    last_updated_at: "2026-10-05"
+    category: ''
+    git: 'https://github.com/DoliCloud/dolimods/tree/master/htdocs/submiteverywhere'
+    git-branch: 'master'
+    git-system: 'github'
+    cover: ''
+    current_version: "development"
+    dolibarrmin: "18.0"
+    dolibarrmax: "24.0"
+    phpmin: "4.3"
+    phpmax: ""
+    price: 0
+    # direct-download is yes if we can download the module to install it in application
+    direct-download: 'no'
+    # dolistore-upload is manual if module is also uploaded manually on dolistore.com, auto if sync automatically
+    dolistore-upload: 'manual'
+    # dolistore-download is url of product page for download if module can also be found on dolistore.com
+    # Example: https://www.dolistore.com/product.php?id=xxx
+    dolistore-download: ''
+
+
+  - modulename: 'TawkTo'
+    author: 'DoliCloud'
+    author_url: 'https://www.dolicloud.com'
+    maintener_email: 'contact@dolicloud.com'
+    label:
+      fr: 'TawkTo'
+      en: 'TawkTo'
+    description:
+      fr: 'Permet l’activation d’une popup de chat Tawkto dans les écrans Dolibarr (pour discutter avec un fournisseur d’assistance en ligne présent sur TawkTo)'
+      en: 'Allow to activate a tawkto chat popup inside Dolibarr backoffice (to chat with a support provider available on TawkTo)'
+    status: 'enabled'
+    created_at: '2017-10-13'
+    last_updated_at: "2026-10-05"
+    category: ''
+    git: 'https://github.com/DoliCloud/dolimods/tree/master/htdocs/tawkto'
+    git-branch: 'master'
+    git-system: 'github'
+    cover: 'https://raw.githubusercontent.com/DoliCloud/dolimods/master/htdocs/tawkto/img/object_tawkto.png'
+    current_version: "1.0.1"
+    dolibarrmin: "18.0"
+    dolibarrmax: "24.0"
+    phpmin: "7.1"
+    phpmax: ""
+    price: 0
+    # direct-download is yes if we can download the module to install it in application
+    direct-download: 'no'
+    # dolistore-upload is manual if module is also uploaded manually on dolistore.com, auto if sync automatically
+    dolistore-upload: 'manual'
+    # dolistore-download is url of product page for download if module can also be found on dolistore.com
+    # Example: https://www.dolistore.com/product.php?id=xxx
+    dolistore-download: ''
+
+
+  - modulename: 'ThemesPack'
+    author: 'DoliCloud'
+    author_url: 'https://www.dolicloud.com'
+    maintener_email: 'contact@dolicloud.com'
+    label:
+      fr: 'ThemesPack'
+      en: 'ThemesPack'
+    description:
+      fr: 'Add more skins'
+      en: 'Add more skins'
+    status: 'enabled'
+    created_at: '2013-07-18'
+    last_updated_at: "2026-10-05"
+    category: ''
+    git: 'https://github.com/DoliCloud/dolimods/tree/master/htdocs/themespack'
+    git-branch: 'master'
+    git-system: 'github'
+    cover: ''
+    current_version: "3.4"
+    dolibarrmin: "18.0"
+    dolibarrmax: "24.0"
+    phpmin: "4.3"
+    phpmax: ""
+    price: 0
+    # direct-download is yes if we can download the module to install it in application
+    direct-download: 'no'
+    # dolistore-upload is manual if module is also uploaded manually on dolistore.com, auto if sync automatically
+    dolistore-upload: 'manual'
+    # dolistore-download is url of product page for download if module can also be found on dolistore.com
+    # Example: https://www.dolistore.com/product.php?id=xxx
+    dolistore-download: ''
+
+
+  - modulename: 'TvaCerfa'
+    author: 'DoliCloud'
+    author_url: 'https://www.dolicloud.com'
+    maintener_email: 'contact@dolicloud.com'
+    label:
+      fr: 'TVA Cerfa'
+      en: 'VAT Cerfa'
+    description:
+      fr: 'Génération des documents Cerfa de TVA'
+      en: 'Can generate french Cerfa documents for VAT'
+    status: 'enabled'
+    created_at: '2012-02-29'
+    last_updated_at: "2026-10-05"
+    category: ''
+    git: 'https://github.com/DoliCloud/dolimods/tree/master/htdocs/tvacerfa'
+    git-branch: 'master'
+    git-system: 'github'
+    cover: ''
+    current_version: "3.4"
+    dolibarrmin: "18.0"
+    dolibarrmax: "24.0"
+    phpmin: "4.3"
+    phpmax: ""
+    price: 0
+    # direct-download is yes if we can download the module to install it in application
+    direct-download: 'no'
+    # dolistore-upload is manual if module is also uploaded manually on dolistore.com, auto if sync automatically
+    dolistore-upload: 'manual'
+    # dolistore-download is url of product page for download if module can also be found on dolistore.com
+    # Example: https://www.dolistore.com/product.php?id=xxx
+    dolistore-download: ''
+
+
+  - modulename: 'WebMailR'
+    author: 'DoliCloud'
+    author_url: 'https://www.dolicloud.com'
+    maintener_email: 'contact@dolicloud.com'
+    label:
+      fr: 'WebMailR'
+      en: 'WebMailR'
+    description:
+      fr: 'Module to integrate the embended WebMail (RoundCube)'
+      en: 'Module to integrate the embended WebMail (RoundCube)'
+    status: 'development'
+    created_at: '2016-01-07'
+    last_updated_at: "2026-10-05"
+    category: ''
+    git: 'https://github.com/DoliCloud/dolimods/tree/master/htdocs/webmailr'
+    git-branch: 'master'
+    git-system: 'github'
+    cover: ''
+    current_version: "development"
+    dolibarrmin: "18.0"
+    dolibarrmax: "24.0"
+    phpmin: "5.0"
+    phpmax: ""
+    price: 0
+    # direct-download is yes if we can download the module to install it in application
+    direct-download: 'no'
+    # dolistore-upload is manual if module is also uploaded manually on dolistore.com, auto if sync automatically
+    dolistore-upload: 'manual'
+    # dolistore-download is url of product page for download if module can also be found on dolistore.com
+    # Example: https://www.dolistore.com/product.php?id=xxx
+    dolistore-download: ''
+
+
+  - modulename: 'ZipAutoFillFr'
+    author: 'DoliCloud'
+    author_url: 'https://www.dolicloud.com'
+    maintener_email: 'contact@dolicloud.com'
+    label:
+      fr: 'ZipAutofill FR/BE/CH'
+      en: 'ZipAutofill FR/BE/CH'
+    description:
+      fr: 'Ajoute tous les codes postaux de France, Belgique, Suisse en base permettant des complétions de code postaux/ville pleinement opérationnel. Ajoute aussi un dictionnaire pour permettre leur édition.'
+      en: 'Add all zip codes for France, Belgium, Switzerland into Dolibarr tables to have full zip/town autocomplete. Add a dictionary to edit them.'
+    status: 'enabled'
+    created_at: '2011-03-03'
+    last_updated_at: "2026-10-11"
+    category: ''
+    git: 'https://github.com/DoliCloud/dolimods/tree/master/htdocs/zipautofillfr'
+    git-branch: 'master'
+    git-system: 'github'
+    cover: 'https://raw.githubusercontent.com/DoliCloud/dolimods/master/htdocs/zipautofillfr/img/zipautofillfr.png'
+    current_version: "12.0"
+    dolibarrmin: "18.0"
+    dolibarrmax: "24.0"
+    phpmin: ""
+    phpmax: ""
+    price: 0
+    # direct-download is yes if we can download the module to install it in application
+    direct-download: 'no'
+    # dolistore-upload is manual if module is also uploaded manually on dolistore.com, auto if sync automatically
+    dolistore-upload: 'manual'
+    # dolistore-download is url of product page for download if module can also be found on dolistore.com
+    # Example: https://www.dolistore.com/product.php?id=xxx
+    dolistore-download: ''
