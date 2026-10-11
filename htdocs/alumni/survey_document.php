@@ -127,10 +127,10 @@ if ($id > 0 || !empty($ref)) {
 // Permissions
 // (There are several ways to check permission.)
 // Set $enablepermissioncheck to 1 to enable a minimum low level of checks
-$enablepermissioncheck = 0;
+$enablepermissioncheck = 1;
 if ($enablepermissioncheck) {
-	$permissiontoread = $user->rights->alumni->survey->read;
-	$permissiontoadd  = $user->rights->alumni->survey->write; // Used by the include of actions_addupdatedelete.inc.php and actions_linkedfiles.inc.php
+	$permissiontoread = $user->hasRight('alumni', 'survey', 'read');
+	$permissiontoadd  = $user->hasRight('alumni', 'survey', 'write'); // Used by the include of actions_addupdatedelete.inc.php and actions_linkedfiles.inc.php
 } else {
 	$permissiontoread = 1;
 	$permissiontoadd  = 1;
@@ -250,10 +250,6 @@ print '</div>';
 print dol_get_fiche_end();
 
 $modulepart = 'alumni';
-//$permissiontoadd = $user->rights->alumni->survey->write;
-$permissiontoadd = 1;
-//$permtoedit = $user->rights->alumni->survey->write;
-$permtoedit = 1;
 $param = '&id='.$object->id;
 
 //$relativepathwithnofile='survey/' . dol_sanitizeFileName($object->id).'/';
