@@ -35,8 +35,12 @@ $langs->load("google@google");
 $langs->load("companies");
 $langs->load("other");
 
-// Load permissions
-$user->getrights('google');
+// User::loadRights() only exists from Dolibarr 19 on, older versions name it getrights()
+if (method_exists($user, 'loadRights')) {
+	$user->loadRights();
+} else {
+	$user->getrights();
+}
 
 // Get parameters
 $socid = isset($_GET["socid"])?$_GET["socid"]:'';
