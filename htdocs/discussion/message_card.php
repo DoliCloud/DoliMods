@@ -139,13 +139,14 @@ include DOL_DOCUMENT_ROOT.'/core/actions_fetchobject.inc.php'; // Must be 'inclu
 
 // There is several ways to check permission.
 // Set $enablepermissioncheck to 1 to enable a minimum low level of checks
-$enablepermissioncheck = 0;
+$enablepermissioncheck = 1;
 if ($enablepermissioncheck) {
-	$permissiontoread = $user->hasRight('discussion', 'message', 'read');
-	$permissiontoadd = $user->hasRight('discussion', 'message', 'write'); // Used by the include of actions_addupdatedelete.inc.php and actions_lineupdown.inc.php
-	$permissiontodelete = $user->hasRight('discussion', 'message', 'delete') || ($permissiontoadd && isset($object->status) && $object->status == $object::STATUS_DRAFT);
-	$permissionnote = $user->hasRight('discussion', 'message', 'write'); // Used by the include of actions_setnotes.inc.php
-	$permissiondellink = $user->hasRight('discussion', 'message', 'write'); // Used by the include of actions_dellink.inc.php
+	// Note: the discussion module declares only channel permissions, so message permissions are mapped onto channel ones
+	$permissiontoread = $user->hasRight('discussion', 'channel', 'read');
+	$permissiontoadd = $user->hasRight('discussion', 'channel', 'write'); // Used by the include of actions_addupdatedelete.inc.php and actions_lineupdown.inc.php
+	$permissiontodelete = $user->hasRight('discussion', 'channel', 'delete') || ($permissiontoadd && isset($object->status) && $object->status == $object::STATUS_DRAFT);
+	$permissionnote = $user->hasRight('discussion', 'channel', 'write'); // Used by the include of actions_setnotes.inc.php
+	$permissiondellink = $user->hasRight('discussion', 'channel', 'write'); // Used by the include of actions_dellink.inc.php
 } else {
 	$permissiontoread = 1;
 	$permissiontoadd = 1; // Used by the include of actions_addupdatedelete.inc.php and actions_lineupdown.inc.php
