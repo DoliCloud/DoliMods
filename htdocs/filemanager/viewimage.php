@@ -102,9 +102,11 @@ $original_file = str_replace("../", "/", $original_file);
 $filemanagerroots=new FilemanagerRoots($db);
 
 if (! empty($rootpath) && is_numeric($rootpath)) {
-	$result=$filemanagerroots->fetch($rootpath);
+	$result=$filemanagerroots->fetch((int) $rootpath);
 	//var_dump($filemanagerroots);
-	$rootpath=$filemanagerroots->rootpath;
+	$rootpath=$filemanagerroots->rootpath;	// $rootpath is now the path of the root loaded from database
+} else {
+	$rootpath='';	// Never trust a rootpath provided as a string into URL, only a root id is allowed
 }
 
 // Security checks
@@ -116,11 +118,34 @@ if ($modulepart) {
 
 	// Wrapping for filemanager
 	if ($modulepart == 'filemanager') {
-		$dirnameslash=str_replace(array("\\","/"), "/", dirname($original_file));
-		$rootpathslash=str_replace(array("\\","/"), "/", $rootpath);
-		//print "x".$dirnameslash." - ".preg_quote($rootpathslash,'/');
-		if (preg_match('/^'.preg_quote($rootpathslash, '/').'/', $dirnameslash)) {
-			$accessallowed=1;
+		// Check user permission
+		if (empty($user) || ! is_object($user) || ! $user->hasRight('filemanager', 'read')) accessforbidden();
+
+		$dirnameslash=preg_replace('/[\/]+$/', '', str_replace(array("\\","/"), "/", dirname($original_file)));
+
+		// List of roots the file is allowed to be inside
+		$rootpathsarray=array();
+		if (! empty($rootpath)) {
+			$rootpathsarray[]=$rootpath;
+		} else {
+			// No root id provided, so we check the file is inside one of the roots declared into the filemanager setup
+			$sqlrootpaths = "SELECT rootpath FROM ".MAIN_DB_PREFIX."filemanager_roots";
+			$resqlrootpaths = $db->query($sqlrootpaths);
+			if ($resqlrootpaths) {
+				while ($objrootpath = $db->fetch_object($resqlrootpaths)) {
+					if (! empty($objrootpath->rootpath)) $rootpathsarray[]=$objrootpath->rootpath;
+				}
+			}
+		}
+
+		// Access is allowed only if the file is strictly inside a declared root
+		foreach ($rootpathsarray as $rootpathtocheck) {
+			$rootpathslash=preg_replace('/[\/]+$/', '', str_replace(array("\\","/"), "/", $rootpathtocheck));
+			if (empty($rootpathslash)) continue;
+			if ($dirnameslash == $rootpathslash || strpos($dirnameslash, $rootpathslash.'/') === 0) {
+				$accessallowed=1;
+				break;
+			}
 		}
 	}
 }
