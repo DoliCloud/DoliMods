@@ -835,12 +835,6 @@ parameters:
 			path: ../../../htdocs/alumni/survey_list.php
 
 		-
-			message: '#^Function llxHeader invoked with 10 parameters, 0\-9 required\.$#'
-			identifier: arguments.count
-			count: 1
-			path: ../../../htdocs/alumni/survey_list.php
-
-		-
 			message: '#^If condition is always true\.$#'
 			identifier: if.alwaysTrue
 			count: 1
@@ -4347,12 +4341,6 @@ parameters:
 			path: ../../../htdocs/des_fr/index.php
 
 		-
-			message: '#^Function llxHeader invoked with 10 parameters, 0\-9 required\.$#'
-			identifier: arguments.count
-			count: 1
-			path: ../../../htdocs/discussion/admin/about.php
-
-		-
 			message: '#^Negated boolean expression is always true\.$#'
 			identifier: booleanNot.alwaysTrue
 			count: 1
@@ -4389,12 +4377,6 @@ parameters:
 			path: ../../../htdocs/discussion/admin/about.php
 
 		-
-			message: '#^Function llxHeader invoked with 10 parameters, 0\-9 required\.$#'
-			identifier: arguments.count
-			count: 1
-			path: ../../../htdocs/discussion/admin/channel_extrafields.php
-
-		-
 			message: '#^Negated boolean expression is always true\.$#'
 			identifier: booleanNot.alwaysTrue
 			count: 1
@@ -4431,12 +4413,6 @@ parameters:
 			path: ../../../htdocs/discussion/admin/channel_extrafields.php
 
 		-
-			message: '#^Function llxHeader invoked with 10 parameters, 0\-9 required\.$#'
-			identifier: arguments.count
-			count: 1
-			path: ../../../htdocs/discussion/admin/message_extrafields.php
-
-		-
 			message: '#^Negated boolean expression is always true\.$#'
 			identifier: booleanNot.alwaysTrue
 			count: 1
@@ -4471,12 +4447,6 @@ parameters:
 			identifier: variable.undefined
 			count: 1
 			path: ../../../htdocs/discussion/admin/message_extrafields.php
-
-		-
-			message: '#^Function llxHeader invoked with 10 parameters, 0\-9 required\.$#'
-			identifier: arguments.count
-			count: 1
-			path: ../../../htdocs/discussion/admin/setup.php
 
 		-
 			message: '#^Negated boolean expression is always false\.$#'
@@ -4587,12 +4557,6 @@ parameters:
 			path: ../../../htdocs/discussion/channel_agenda.php
 
 		-
-			message: '#^Function llxHeader invoked with 10 parameters, 0\-9 required\.$#'
-			identifier: arguments.count
-			count: 1
-			path: ../../../htdocs/discussion/channel_agenda.php
-
-		-
 			message: '#^If condition is always true\.$#'
 			identifier: if.alwaysTrue
 			count: 1
@@ -4645,12 +4609,6 @@ parameters:
 			identifier: variable.undefined
 			count: 9
 			path: ../../../htdocs/discussion/channel_agenda.php
-
-		-
-			message: '#^Function llxHeader invoked with 10 parameters, 0\-9 required\.$#'
-			identifier: arguments.count
-			count: 1
-			path: ../../../htdocs/discussion/channel_card.php
 
 		-
 			message: '#^If condition is always false\.$#'
@@ -4725,12 +4683,6 @@ parameters:
 			path: ../../../htdocs/discussion/channel_card.php
 
 		-
-			message: '#^Function llxHeader invoked with 10 parameters, 0\-9 required\.$#'
-			identifier: arguments.count
-			count: 1
-			path: ../../../htdocs/discussion/channel_contact.php
-
-		-
 			message: '#^If condition is always true\.$#'
 			identifier: if.alwaysTrue
 			count: 1
@@ -4795,12 +4747,6 @@ parameters:
 			identifier: variable.undefined
 			count: 4
 			path: ../../../htdocs/discussion/channel_contact.php
-
-		-
-			message: '#^Function llxHeader invoked with 10 parameters, 0\-9 required\.$#'
-			identifier: arguments.count
-			count: 1
-			path: ../../../htdocs/discussion/channel_document.php
 
 		-
 			message: '#^If condition is always true\.$#'
@@ -4869,12 +4815,6 @@ parameters:
 			path: ../../../htdocs/discussion/channel_list.php
 
 		-
-			message: '#^Function llxHeader invoked with 10 parameters, 0\-9 required\.$#'
-			identifier: arguments.count
-			count: 1
-			path: ../../../htdocs/discussion/channel_list.php
-
-		-
 			message: '#^If condition is always true\.$#'
 			identifier: if.alwaysTrue
 			count: 1
@@ -4915,12 +4855,6 @@ parameters:
 			identifier: variable.undefined
 			count: 7
 			path: ../../../htdocs/discussion/channel_list.php
-
-		-
-			message: '#^Function llxHeader invoked with 10 parameters, 0\-9 required\.$#'
-			identifier: arguments.count
-			count: 1
-			path: ../../../htdocs/discussion/channel_messages.php
 
 		-
 			message: '#^If condition is always true\.$#'
@@ -4999,12 +4933,6 @@ parameters:
 			identifier: variable.undefined
 			count: 10
 			path: ../../../htdocs/discussion/channel_messages.php
-
-		-
-			message: '#^Function llxHeader invoked with 10 parameters, 0\-9 required\.$#'
-			identifier: arguments.count
-			count: 1
-			path: ../../../htdocs/discussion/channel_note.php
 
 		-
 			message: '#^If condition is always true\.$#'
@@ -5385,12 +5313,6 @@ parameters:
 			path: ../../../htdocs/discussion/core/modules/modDiscussion.class.php
 
 		-
-			message: '#^Function llxHeader invoked with 10 parameters, 0\-9 required\.$#'
-			identifier: arguments.count
-			count: 1
-			path: ../../../htdocs/discussion/discussionindex.php
-
-		-
 			message: '#^Negated boolean expression is always true\.$#'
 			identifier: booleanNot.alwaysTrue
 			count: 1
@@ -5475,12 +5397,6 @@ parameters:
 			path: ../../../htdocs/discussion/lib/discussion_message.lib.php
 
 		-
-			message: '#^Function llxHeader invoked with 10 parameters, 0\-9 required\.$#'
-			identifier: arguments.count
-			count: 1
-			path: ../../../htdocs/discussion/message_card.php
-
-		-
 			message: '#^If condition is always false\.$#'
 			identifier: if.alwaysFalse
 			count: 2
@@ -5547,12 +5463,6 @@ parameters:
 			path: ../../../htdocs/discussion/message_card.php
 
 		-
-			message: '#^Function llxHeader invoked with 10 parameters, 0\-9 required\.$#'
-			identifier: arguments.count
-			count: 1
-			path: ../../../htdocs/discussion/message_document.php
-
-		-
 			message: '#^If condition is always true\.$#'
 			identifier: if.alwaysTrue
 			count: 1
@@ -5615,12 +5525,6 @@ parameters:
 		-
 			message: '#^Empty array passed to foreach\.$#'
 			identifier: foreach.emptyArray
-			count: 1
-			path: ../../../htdocs/discussion/message_list.php
-
-		-
-			message: '#^Function llxHeader invoked with 10 parameters, 0\-9 required\.$#'
-			identifier: arguments.count
 			count: 1
 			path: ../../../htdocs/discussion/message_list.php
 
@@ -7005,12 +6909,6 @@ parameters:
 		-
 			message: '#^Default value of the parameter \#8 \$arrayofcss \(string\) of function llxHeader\(\) is incompatible with type array\.$#'
 			identifier: parameter.defaultValue
-			count: 1
-			path: ../../../htdocs/filemanager/index.php
-
-		-
-			message: '#^Function llxHeader invoked with 10 parameters, 0\-9 required\.$#'
-			identifier: arguments.count
 			count: 1
 			path: ../../../htdocs/filemanager/index.php
 
@@ -11851,12 +11749,6 @@ parameters:
 			path: ../../../htdocs/ovh/admin/ovh_click2dial.php
 
 		-
-			message: '#^Function llxHeader invoked with 10 parameters, 0\-9 required\.$#'
-			identifier: arguments.count
-			count: 1
-			path: ../../../htdocs/ovh/admin/ovh_importinvoice.php
-
-		-
 			message: '#^If condition is always true\.$#'
 			identifier: if.alwaysTrue
 			count: 1
@@ -12799,12 +12691,6 @@ parameters:
 			path: ../../../htdocs/ovh/ovh_listinfoserver.php
 
 		-
-			message: '#^Function llxHeader invoked with 10 parameters, 0\-9 required\.$#'
-			identifier: arguments.count
-			count: 1
-			path: ../../../htdocs/ovh/ovh_listinfoserver.php
-
-		-
 			message: '#^Loose comparison using \=\= between ''guzzle7\.3'' and ''guzzle7\.3'' will always evaluate to true\.$#'
 			identifier: equal.alwaysTrue
 			count: 2
@@ -13153,12 +13039,6 @@ parameters:
 			path: ../../../htdocs/ovh/wrapper.php
 
 		-
-			message: '#^Function llxHeader invoked with 10 parameters, 0\-9 required\.$#'
-			identifier: arguments.count
-			count: 1
-			path: ../../../htdocs/payplugdolicloud/admin/about.php
-
-		-
 			message: '#^Negated boolean expression is always true\.$#'
 			identifier: booleanNot.alwaysTrue
 			count: 1
@@ -13185,12 +13065,6 @@ parameters:
 		-
 			message: '#^Empty array passed to foreach\.$#'
 			identifier: foreach.emptyArray
-			count: 1
-			path: ../../../htdocs/payplugdolicloud/admin/setup.php
-
-		-
-			message: '#^Function llxHeader invoked with 10 parameters, 0\-9 required\.$#'
-			identifier: arguments.count
 			count: 1
 			path: ../../../htdocs/payplugdolicloud/admin/setup.php
 
@@ -13295,12 +13169,6 @@ parameters:
 			identifier: missingType.iterableValue
 			count: 1
 			path: ../../../htdocs/payplugdolicloud/lib/payplugdolicloud.lib.php
-
-		-
-			message: '#^Function llxHeader invoked with 10 parameters, 0\-9 required\.$#'
-			identifier: arguments.count
-			count: 1
-			path: ../../../htdocs/payplugdolicloud/payplugdolicloudindex.php
 
 		-
 			message: '#^Negated boolean expression is always true\.$#'
@@ -14683,12 +14551,6 @@ parameters:
 			path: ../../../htdocs/sendgrid/admin/about.php
 
 		-
-			message: '#^Function llxHeader invoked with 10 parameters, 0\-9 required\.$#'
-			identifier: arguments.count
-			count: 1
-			path: ../../../htdocs/sendgrid/admin/importinvoice.php
-
-		-
 			message: '#^Negated boolean expression is always true\.$#'
 			identifier: booleanNot.alwaysTrue
 			count: 1
@@ -15247,12 +15109,6 @@ parameters:
 			path: ../../../htdocs/skincoloreditor/usercolors.php
 
 		-
-			message: '#^Function llxHeader invoked with 10 parameters, 0\-9 required\.$#'
-			identifier: arguments.count
-			count: 1
-			path: ../../../htdocs/stancerdolicloud/admin/about.php
-
-		-
 			message: '#^Negated boolean expression is always true\.$#'
 			identifier: booleanNot.alwaysTrue
 			count: 1
@@ -15287,12 +15143,6 @@ parameters:
 			identifier: variable.undefined
 			count: 1
 			path: ../../../htdocs/stancerdolicloud/admin/about.php
-
-		-
-			message: '#^Function llxHeader invoked with 10 parameters, 0\-9 required\.$#'
-			identifier: arguments.count
-			count: 1
-			path: ../../../htdocs/stancerdolicloud/admin/setup.php
 
 		-
 			message: '#^If condition is always false\.$#'
@@ -15527,12 +15377,6 @@ parameters:
 			identifier: variable.undefined
 			count: 6
 			path: ../../../htdocs/stancerdolicloud/lib/stancerdolicloud.lib.php
-
-		-
-			message: '#^Function llxHeader invoked with 10 parameters, 0\-9 required\.$#'
-			identifier: arguments.count
-			count: 1
-			path: ../../../htdocs/stancerdolicloud/stancerdolicloudindex.php
 
 		-
 			message: '#^Negated boolean expression is always true\.$#'

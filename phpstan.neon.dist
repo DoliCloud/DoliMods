@@ -72,6 +72,9 @@ parameters:
 			# resolves every include of the modules against it.
 			- %env.DOLIBARR_HTDOCS%/install/*
 			- %env.DOLIBARR_HTDOCS%/support/*
+			# External modules installed into the core checkout: not part of the core, and often symlinks
+			# (sometimes looping) to other repositories, this one included.
+			- %env.DOLIBARR_HTDOCS%/custom/*
 
 	scanDirectories:
 		- %env.DOLIBARR_HTDOCS%
@@ -132,6 +135,13 @@ parameters:
 		-
 			identifier: expr.resultUnused
 			message: '#^Expression "''@phan-(var|var-force|suppress-current-line|suppress-next-line)#'
+
+		# Some wrapper pages (filemanager, ovh) declare their own llxHeader()/llxFooter() before main.inc.php,
+		# which defines them only if not already defined. PHPStan then picks one of these declarations
+		# depending on the scan order and checks every call of every module against it.
+		-
+			identifier: arguments.count
+			message: '#^Function (llxHeader|llxFooter) invoked with \d+ parameters?, 0(\-\d+)? required\.$#'
 
 		# Multicompany is a separate, non free module. The calls are reached only after
 		# isModEnabled(''multicompany''), so its classes are absent from every checkout here.
