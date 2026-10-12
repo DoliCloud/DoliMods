@@ -72,7 +72,8 @@ class mod_codeclient_zebre extends ModeleThirdPartyCode
 	 */
 	public function info($langs)
 	{
-		return "Check if customer/supplier code is CCCC9999. Check only, no automatic generation.";
+		$langs->load("numberingpack@numberingpack");
+		return $langs->trans("CodeClientZebreDesc");
 	}
 
 
