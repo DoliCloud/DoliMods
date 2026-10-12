@@ -593,7 +593,7 @@ if (isset($_GET['IMG'])) {
 	/**
 	 * Draw a filled box with a border and an optional label on a graphic
 	 *
-	 * @param 	int		$im				Image resource
+	 * @param 	resource	$im				Image resource
 	 * @param 	int		$x				X position of the box
 	 * @param 	int		$y				Y position of the box
 	 * @param 	int		$w				Width of the box
@@ -643,7 +643,7 @@ if (isset($_GET['IMG'])) {
 	/**
 	 * fill_arc
 	 *
-	 * @param int $im          Im
+	 * @param resource $im     Image resource
 	 * @param int $centerX     centerX
 	 * @param int $centerY     centerY
 	 * @param int $diameter    diameter
