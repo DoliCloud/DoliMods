@@ -3,7 +3,7 @@
 $res=0;
 // Try main.inc.php into web root known defined into CONTEXT_DOCUMENT_ROOT (not always defined)
 if (! $res && ! empty($_SERVER["CONTEXT_DOCUMENT_ROOT"])) $res=@include str_replace("..", "", $_SERVER["CONTEXT_DOCUMENT_ROOT"])."/main.inc.php";
-// Try main.inc.php into web root detected using web root caluclated from SCRIPT_FILENAME
+// Try main.inc.php into web root detected using web root calculated from SCRIPT_FILENAME
 $tmp=empty($_SERVER['SCRIPT_FILENAME'])?'':$_SERVER['SCRIPT_FILENAME'];$tmp2=realpath(__FILE__); $i=strlen($tmp)-1; $j=strlen($tmp2)-1;
 while ($i > 0 && $j > 0 && isset($tmp[$i]) && isset($tmp2[$j]) && $tmp[$i]==$tmp2[$j]) { $i--; $j--; }
 if (! $res && $i > 0 && file_exists(substr($tmp, 0, ($i+1))."/main.inc.php")) $res=@include substr($tmp, 0, ($i+1))."/main.inc.php";
@@ -109,12 +109,10 @@ if ($_FILES['pdf_classic'] && $_FILES['xml_facturx_tolink']) {
 		$resultBodyHtml = '<div class="alert alert-warning">Impossible to generate the Factur-X PDF file.</div>'.$resultBodyHtml;
 	}
 }
+
+print_fiche_titre("Factur-X Utilities");
+
 ?>
-		<div class="container-fluid">
-			<div class="card">
-				<div class="card-header bg-info text-white">
-					<h2>Factur-X Utilities</h2>
-				</div>
 				<div class="card-body">
 					<div class="row">
 						<div class="col-md-4">
@@ -127,11 +125,11 @@ if ($_FILES['pdf_classic'] && $_FILES['xml_facturx_tolink']) {
 									<div class="card-body">
 										<div class="form-group">
 											<label>Choose the PDF file</label>
-											<input type="file" class="form-control-file" name="pdf_classic" required>
+											<input type="file" class="form-control-file" name="pdf_classic" required accept=".pdf">
 										</div>
 										<div class="form-group">
 											<label>Choose the Factur-X XML file to link</label>
-											<input type="file" class="form-control-file" name="xml_facturx_tolink" required>
+											<input type="file" class="form-control-file" name="xml_facturx_tolink" required accept=".xml">
 										</div>
 										<div class="form-group">
 											<label>(Optional) Choose a file to link :</label>
@@ -156,7 +154,7 @@ if ($_FILES['pdf_classic'] && $_FILES['xml_facturx_tolink']) {
 									<div class="card-body">
 										<div class="form-group">
 											<label>Choose the PDF file containing the Factur-X XML to extract :</label>
-											<input type="file" class="form-control-file" name="pdf_facturx_extract" required>
+											<input type="file" class="form-control-file" name="pdf_facturx_extract" required accept=".pdf">
 										</div>
 									</div>
 									<div class="card-footer text-center">
@@ -173,7 +171,7 @@ if ($_FILES['pdf_classic'] && $_FILES['xml_facturx_tolink']) {
 									<div class="card-body">
 										<div class="form-group">
 											<label>Choose the Factur-X XML file to check :</label>
-											<input type="file" class="form-control-file" name="xml_facturx_check" required>
+											<input type="file" class="form-control-file" name="xml_facturx_check" required accept=".xml">
 										</div>
 									</div>
 									<div class="card-footer text-center">
@@ -199,8 +197,6 @@ if ($_FILES['pdf_classic'] && $_FILES['xml_facturx_tolink']) {
 						<br/>
 					<?php } ?>
 				</div>
-			</div>
-		</div>
 <?php
 llxFooter();
 $db->close();

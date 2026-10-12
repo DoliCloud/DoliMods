@@ -332,13 +332,15 @@ class ActionsStancerDolicloud extends CommonHookActions
 
 		require_once DOL_DOCUMENT_ROOT."/core/lib/geturl.lib.php";
 		include_once DOL_DOCUMENT_ROOT.'/core/lib/security.lib.php';
+		require_once DOL_DOCUMENT_ROOT."/core/lib/date.lib.php";
 		dol_include_once('stancerdolicloud/lib/stancerdolicloud.lib.php');
 
 		$resprints = "";
 
 		$error = 0; // Error counter
 		$errors = array();
-
+		$json_data_payment = array();
+		$new_ref_payment = uniqid("", true);
 		$urlwithroot = DOL_MAIN_URL_ROOT; // This is to use same domain name than current. For Paypal payment, we can use internal URL like localhost.
 
 		// Complete urls for post treatment
@@ -410,6 +412,7 @@ class ActionsStancerDolicloud extends CommonHookActions
 			$urlback .= 'WS='.urlencode($ws).'&';
 		}
 		$urlback .= 'action=returnDoPaymentStancer';
+		$urlback .= '&pendingrefpayment='.$new_ref_payment;
 
 		if ($action == "returnDoPaymentStancer") {
 			dol_syslog("Data after redirect from stancer payment page with session FinalPaymentAmt = ".$_SESSION["FinalPaymentAmt"]." currencycodeType = ".$_SESSION["currencyCodeType"], LOG_DEBUG, 0, '_payment');
@@ -428,17 +431,42 @@ class ActionsStancerDolicloud extends CommonHookActions
 			$headers[] = "accept: application/json";
 			$headers[] = "Authorization: Basic ".$encodedkey;
 			$headers[] = "Content-Type: application/json";
-
+			$ref_payment = GETPOST("pendingrefpayment");
+			$json = new stdClass();
+			$sql = "SELECT data FROM ".MAIN_DB_PREFIX."stancerdolicloud_pending_payments WHERE ref_payment = '".$this->db->escape($ref_payment)."'";
+			$res = $this->db->query($sql);
+			if ($res) {
+				$obj = $this->db->fetch_object($res);
+				$json = json_decode($obj->data);
+			} else {
+				$error++;
+				dol_syslog(__METHOD__."SQL Error on SELECT:".$this->db->lasterror(), "LOG_ERR");
+			}
 			$jsontosenddata = '{}';
+			$ret1 = array();
 			// Find way verify if payment is done
-			$urlforcheckout = "https://".urlencode($stancerurlapi)."/v2/payment_intents/".$_SESSION["STANCER_DOLICLOUD_PAYMENT_ID"];
-			$ret1 = getURLContent($urlforcheckout, 'GET', $jsontosenddata, 1, $headers);
+			if (!empty($json->STANCER_DOLICLOUD_PAYMENT_ID)) {
+				$urlforcheckout = "https://".urlencode($stancerurlapi)."/v2/payment_intents/".$json->STANCER_DOLICLOUD_PAYMENT_ID;
+				$ret1 = getURLContent($urlforcheckout, 'GET', $jsontosenddata, 1, $headers);
+			}
 
 			$urlredirect = $urlwithroot.'/public/payment/';
-			if ($ret1["http_code"] == 200) {
+			if ($ret1["http_code"] == 200 && !$error) {
+				$this->db->begin();
+				$json->paymentoksessioncode = $_SESSION['paymentoksessioncode'];
+				$encodeddata = json_encode($json);
+				$sql = "UPDATE ".MAIN_DB_PREFIX."stancerdolicloud_pending_payments SET data = '".$encodeddata."' WHERE ref_payment = '".$this->db->escape($ref_payment)."'";
+				$res = $this->db->query($sql);
+				if ($res == false) {
+					dol_print_error($this->db);
+					$this->db->rollback();
+					exit;
+				}
+				$this->db->commit();
+
 				$result1 = $ret1["content"];
 				$json1 = json_decode($result1);
-				$urlredirect .= "paymentok.php?fulltag=".urlencode($FULLTAG)."&paymentoksessioncode=".urlencode($_SESSION['paymentoksessioncode']);
+				$urlredirect .= "paymentok.php?fulltag=".urlencode($FULLTAG)."&paymentoksessioncode=".urlencode($_SESSION['paymentoksessioncode'])."&pendingrefpayment=".urlencode($ref_payment);
 				header("Location: ".$urlredirect);
 				exit;
 			} else {
@@ -448,7 +476,7 @@ class ActionsStancerDolicloud extends CommonHookActions
 			}
 		}
 
-		if (in_array($parameters['context'],array('newpayment')) && empty($parameters['paymentmethod'])) {
+		if (in_array($parameters['context'], array('newpayment')) && empty($parameters['paymentmethod'])) {
 			$amount = price2num(stancerDolicloudGetDataFromObjects($source, $ref));
 			if (!GETPOST("currency", 'alpha')) {
 				$currency = $conf->currency;
@@ -457,9 +485,7 @@ class ActionsStancerDolicloud extends CommonHookActions
 			}
 			$_SESSION["FinalPaymentAmt"] = $amount;
 			$_SESSION["currencyCodeType"] = $currency;
-
 		} elseif (in_array($parameters['paymentmethod'], array('stancerdolicloud')) && $parameters['validpaymentmethod']["stancerdolicloud"] == "valid") {
-
 			if (empty($amount)) {
 				$amount = price2num(stancerDolicloudGetDataFromObjects($source, $ref));
 			}
@@ -471,6 +497,8 @@ class ActionsStancerDolicloud extends CommonHookActions
 				}
 			}
 			$FULLTAG = stancerDolicloudCompleteFullTag($FULLTAG, $source, $ref);
+			$json_data_payment["FinalPaymentAmt"] = $amount;
+			$json_data_payment["currencyCodeType"] = $currency;
 			$_SESSION["FinalPaymentAmt"] = $amount;
 			$_SESSION["currencyCodeType"] = $currency;
 
@@ -503,7 +531,7 @@ class ActionsStancerDolicloud extends CommonHookActions
 						$amounttab = explode('.', $amount);
 						if (strlen($amounttab[1]) == 1) {
 							$amounttab[1] .= "0";
-						} else if (strlen($amounttab[1]) > 2) {
+						} elseif (strlen($amounttab[1]) > 2) {
 							$amounttab[1] = substr($amounttab[1], 0, 2);
 						}
 						if (isset($amounttab[0])) {
@@ -543,12 +571,38 @@ class ActionsStancerDolicloud extends CommonHookActions
 						if ($ret1["http_code"] == 200) {
 							$result1 = $ret1["content"];
 							$json1 = json_decode($result1);
+							$json_data_payment["STANCER_DOLICLOUD_PAYMENT_ID"] = urlencode($json1->id);
 							$_SESSION["STANCER_DOLICLOUD_PAYMENT_ID"] = urlencode($json1->id);
 							$urlforredirect = "https://".urlencode($stancerurlpayment)."/".(!getDolGlobalInt("STANCER_DOLICLOUD_LIVE") ? "test_" : "").$_SESSION["STANCER_DOLICLOUD_PAYMENT_ID"];
 
+								$this->db->begin();
+							// Clean table pending_payment
+							$daybeforedelete = getDolGlobalInt("STANCER_DOLICLOUD_NB_DAY_PENDING_PAYMENT", 10) * -1;
+							$datetodelete = dol_time_plus_duree(dol_now(), $daybeforedelete, 'd');
+							$sql = "DELETE FROM ".MAIN_DB_PREFIX."stancerdolicloud_pending_payments WHERE date_creation <= '".$this->db->idate($datetodelete)."'";
+							$res = $this->db->query($sql);
+							if ($res == false) {
+								dol_print_error($this->db);
+								$error++;
+							}
+
+							// Create pending_payment entry
+							$encodeddata = json_encode($json_data_payment);
+							$sql = "INSERT INTO ".MAIN_DB_PREFIX."stancerdolicloud_pending_payments (ref_payment, data, date_creation) VALUES ('".$this->db->escape($new_ref_payment) ."','".$encodeddata."', '".$this->db->idate(dol_now())."')";
+							$res = $this->db->query($sql);
+							if ($res == false) {
+								dol_print_error($this->db);
+								$error++;
+							}
+
+							if ($error) {
+								$this->db->rollback();
+								exit();
+							}
+							$this->db->commit();
+
 							// Gestion redirection
 							dol_syslog("Send redirect to ".$urlforredirect, LOG_DEBUG, 0, '_payment');
-
 							header("Location: ".$urlforredirect);
 							exit;
 						} else {
@@ -560,7 +614,7 @@ class ActionsStancerDolicloud extends CommonHookActions
 								$errors[] = $arrayofmessage['message'];
 							} else {
 								if (!empty($arrayofmessage['errors']) && is_array($arrayofmessage['errors'])) {
-									foreach($arrayofmessage['errors'] as $tmpkey => $tmpmessage) {
+									foreach ($arrayofmessage['errors'] as $tmpkey => $tmpmessage) {
 										if (!empty($tmpmessage['message'])) {
 											$errors[] = $langs->trans("Error").' - '.$tmpmessage['message'];
 										} else {
@@ -610,9 +664,21 @@ class ActionsStancerDolicloud extends CommonHookActions
 		$error = 0; // Error counter
 		$ispaymentok = false;
 
-		if (in_array($parameters['paymentmethod'], array('stancerdolicloud'))){
+		if (in_array($parameters['paymentmethod'], array('stancerdolicloud'))) {
+			$json = new stdClass();
+			$ref_payment = GETPOST("pendingrefpayment");
+			$sql = "SELECT data FROM ".MAIN_DB_PREFIX."stancerdolicloud_pending_payments WHERE ref_payment = '".$this->db->escape($ref_payment)."'";
+			$res = $this->db->query($sql);
+			if ($res) {
+				$obj = $this->db->fetch_object($res);
+				$json_payment = json_decode($obj->data);
+			} else {
+				$error++;
+				dol_syslog(__METHOD__."SQL Error on SELECT:".$this->db->lasterror(), "LOG_ERR");
+			}
 
 			// Prevents direct access to the paymentok page without a valid session flow.
+			$_SESSION['paymentoksessioncode'] = $json_payment->paymentoksessioncode;
 			if (GETPOST('paymentoksessioncode') !== $_SESSION['paymentoksessioncode']) {
 				$error++;
 				$errmsg = 'Attempted direct access to the paymentok page without a valid session.';
@@ -621,7 +687,8 @@ class ActionsStancerDolicloud extends CommonHookActions
 			}
 
 			// Ensures the session holds a valid Stancer payment ID before any API call is attempted.
-			$FinalPaymentID = empty($_SESSION["STANCER_DOLICLOUD_PAYMENT_ID"]) ? '' : $_SESSION["STANCER_DOLICLOUD_PAYMENT_ID"];
+			$FinalPaymentID = empty($json_payment->STANCER_DOLICLOUD_PAYMENT_ID) ? '' : $json_payment->STANCER_DOLICLOUD_PAYMENT_ID;
+			$_SESSION["STANCER_DOLICLOUD_PAYMENT_ID"] = $FinalPaymentID;
 			if (!$error && empty($FinalPaymentID)) {
 				$error++;
 				$errmsg = 'Stancer payment verification failed: STANCER_DOLICLOUD_PAYMENT_ID is not set in session.';
@@ -648,7 +715,7 @@ class ActionsStancerDolicloud extends CommonHookActions
 				$headers[] = "Authorization: Basic ".$encodedkey;
 				$headers[] = "Content-Type: application/json";
 
-				$FinalPaymentID = $_SESSION["STANCER_DOLICLOUD_PAYMENT_ID"];
+				$FinalPaymentID = $json_payment->STANCER_DOLICLOUD_PAYMENT_ID;
 				$urlforcheckout = "https://".urlencode($stancerurlapi)."/v2/payment_intents/".$FinalPaymentID;
 				dol_syslog("Send Get to url=".$urlforcheckout." with session STANCER_DOLICLOUD_PAYMENT_ID = ".$FinalPaymentID, LOG_DEBUG, 0, '_payment');
 				$ret1 = getURLContent($urlforcheckout, 'GET', "", 1, $headers);
@@ -657,8 +724,10 @@ class ActionsStancerDolicloud extends CommonHookActions
 					$json = json_decode($result1);
 
 					// Ensures the payment confirmed by Stancer matches exactly what was presented to the user
-					$FinalPaymentAmt = empty($_SESSION["FinalPaymentAmt"]) ? '' : $_SESSION["FinalPaymentAmt"];
-					$currencyCodeType = empty($_SESSION['currencyCodeType']) ? '' : $_SESSION['currencyCodeType'];
+					$FinalPaymentAmt = empty($json_payment->FinalPaymentAmt) ? '' : $json_payment->FinalPaymentAmt;
+					$currencyCodeType = empty($json_payment->currencyCodeType) ? '' : $json_payment->currencyCodeType;
+					$_SESSION["FinalPaymentAmt"] = $FinalPaymentAmt;
+					$_SESSION['currencyCodeType'] = $currencyCodeType;
 
 					if (!empty($FinalPaymentAmt) && !empty($currencyCodeType)) {
 						$expectedAmount   = (int) round($FinalPaymentAmt * 100);
@@ -699,7 +768,7 @@ class ActionsStancerDolicloud extends CommonHookActions
 						$this->errors[] = $arrayofmessage['message'];
 					} else {
 						if (!empty($arrayofmessage['errors']) && is_array($arrayofmessage['errors'])) {
-							foreach($arrayofmessage['errors'] as $tmpkey => $tmpmessage) {
+							foreach ($arrayofmessage['errors'] as $tmpkey => $tmpmessage) {
 								if (!empty($tmpmessage['message'])) {
 									$this->errors[] = $langs->trans("Error").' - '.$tmpmessage['message'];
 								} else {
@@ -744,7 +813,7 @@ class ActionsStancerDolicloud extends CommonHookActions
 
 		$bankaccountid = 0;
 
-		if (in_array($parameters['paymentmethod'], array('stancerdolicloud'))){
+		if (in_array($parameters['paymentmethod'], array('stancerdolicloud'))) {
 			$bankaccountid = getDolGlobalInt('STANCER_DOLICLOUD_BANK_ACCOUNT_FOR_PAYMENTS');
 			if ($bankaccountid == 0) {
 				$error++;
@@ -768,7 +837,8 @@ class ActionsStancerDolicloud extends CommonHookActions
 	 * @param   HookManager     $hookmanager    Hook manager propagated to allow calling another hook
 	 * @return  int                             Return integer < 0 on error, 0 on success, 1 to replace standard code
 	 */
-	public function doShowOnlinePaymentUrl($parameters, &$object, &$action, $hookmanager){
+	public function doShowOnlinePaymentUrl($parameters, &$object, &$action, $hookmanager)
+	{
 		if (isModEnabled('stancerdolicloud')) {
 			$this->results['showonlinepaymenturl'] = isModEnabled('stancerdolicloud');
 		} else {
@@ -777,4 +847,3 @@ class ActionsStancerDolicloud extends CommonHookActions
 		return 1;
 	}
 }
-

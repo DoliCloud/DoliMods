@@ -16,7 +16,7 @@ session_cache_limiter('public');
 $res=0;
 // Try main.inc.php into web root known defined into CONTEXT_DOCUMENT_ROOT (not always defined)
 if (! $res && ! empty($_SERVER["CONTEXT_DOCUMENT_ROOT"])) $res=@include str_replace("..", "", $_SERVER["CONTEXT_DOCUMENT_ROOT"])."/main.inc.php";
-// Try main.inc.php into web root detected using web root caluclated from SCRIPT_FILENAME
+// Try main.inc.php into web root detected using web root calculated from SCRIPT_FILENAME
 $tmp=empty($_SERVER['SCRIPT_FILENAME'])?'':$_SERVER['SCRIPT_FILENAME'];$tmp2=realpath(__FILE__); $i=strlen($tmp)-1; $j=strlen($tmp2)-1;
 while ($i > 0 && $j > 0 && isset($tmp[$i]) && isset($tmp2[$j]) && $tmp[$i]==$tmp2[$j]) { $i--; $j--; }
 if (! $res && $i > 0 && file_exists(substr($tmp, 0, ($i+1))."/main.inc.php")) $res=@include substr($tmp, 0, ($i+1))."/main.inc.php";
@@ -48,30 +48,42 @@ $fontlist='arial,tahoma,verdana,helvetica';
 
 
 /* For themes that use menu images */
-div.mainmenu.filemanager {
-	background-image: url(<?php echo DOL_URL_ROOT.'/theme/'.$conf->theme.'/img/file.png' ?>);
-}
-
 
 
 .filetree {
-	width: 99%;
-	height: 99%;
+	width: calc(100% - 42px);
+	height: calc(100% - 12px);
 	background: #FFF;
-	padding-left: 2px;
+	padding-left: 20px;
+	padding-right: 20px;
+	padding-top: 5px;
+	padding-bottom: 5px;
 	font-weight: normal;
 	overflow: auto;
 }
 
 .fileview {
-	width: 99%;
-	height: 99%;
+	width: calc(100% - 42px);
+	height: calc(100% - 42px);
 	background: #FFF;
-	padding-left: 2px;
-	padding-top: 4px;
+	padding-left: 20px;
+	padding-right: 20px;
+	padding-top: 20px;
+	padding-bottom: 20px;
 	font-weight: normal;
 	overflow: auto;
 }
+
+.fmtoolbarbutton {
+	vertical-align: middle;
+	height: 100% !important;
+}
+
+.fmbuttondir, .fmbuttonfile, .fmbuttonsave {
+	display: inline-block;
+	vertical-align: text-top;
+}
+
 
 div.filedirelem {
 	position: relative;
@@ -261,7 +273,7 @@ ul.jqueryFileTree A:hover {
 /* NOTE: It looks best when 'hover' and 'dragging' are set to the same color,
 	otherwise color shifts while dragging when bar can't keep up with mouse */
 /*.ui-layout-resizer-open-hover ,*/ /* hover-color to 'resize' */
-.ui-layout-resizer-dragging {   /* resizer beging 'dragging' */
+.ui-layout-resizer-dragging {
 	background: #DDD;
 	width: <?php echo (empty($conf->dol_optimize_smallscreen)?'8':'24'); ?>px;
 }
@@ -306,7 +318,7 @@ ul.jqueryFileTree A:hover {
 	background-color: #DDD;
 	top: 5px !important;
 	<?php } else { ?>
-	diplay: none;
+	display: none;
 	<?php } ?>
 }
 .ui-layout-toggler-open {

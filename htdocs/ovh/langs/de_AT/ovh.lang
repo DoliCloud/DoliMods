@@ -7,7 +7,7 @@ OvhBillingAccount=Nick-Handle für das Hauptkonto
 OvhServiceName=OVH-Dienstkonto
 OvhSmsPass=Passwort
 OvhSmsLabelAccount=Zu verwendendes SMS-Konto
-OvhSmsLoginSuccessFull=Verbindung erfolgreich!
+OvhSmsLoginSuccessFull=Connection successful!
 OvhSmsNotConfigured=Modul nicht konfiguriert
 OvhAuthenticationPartNotConfigured=Authentifizierungsdaten nicht konfiguriert. Gehen Sie zur Einrichtung des Moduls OVH, klicken Sie zunächst auf den Reiter „Authentifizierung“.
 NbSmsLeft=Anzahl der verbleibenden SMS
@@ -18,7 +18,7 @@ OvhSmsDestinataire=Ziel
 OvhSmsLabelTexteMessage=Text der Nachricht
 tabOvhSms=SMS
 OvhSmsStatutSent=Nachricht erhalten
-OvhSmsStatutSubmitted=Eingereicht
+OvhSmsStatutSubmitted=Submitted
 OvhSmsStatutWaiting=Warten
 OvhSmsStatutFailed=Fehlgeschlagen
 OvhSmsBackToAdmin=Zurück zur Modulverwaltung
@@ -53,7 +53,7 @@ InvoiceFoundIntoDolibarr=Rechnung in Dolibarr gefunden: %s
 InvoicePDFFoundIntoDolibarr=Rechnung+PDF in Dolibarr gefunden: %s
 ConnectionParameters=Verbindungsparameter
 TryToUseProxy=Verwendung eines Proxyservers
-AboutInfo=This module is developped and distributed by Laurent Destailleur for DoliCloud, <a href="https://www.dolicloud.com?origin=dolimods">www.dolicloud.com</a> (A Dolibarr Preferred Partner company).
+AboutInfo=This module is developed and distributed by Laurent Destailleur for DoliCloud, <a href="https://www.dolicloud.com?origin=dolimods">www.dolicloud.com</a> (A Dolibarr Preferred Partner company).
 MoreModules=Weitere Module desselben Autors sind auf dem offiziellen DoliStore-Marktplatz erhältlich ...
 MoreModulesLink=<a target="_blank" href="https://www.dolistore.com/search.php?search_query=dolicloud">Click here to see full list</a>
 MoreCloudHosting=Um Dolibarr online zu nutzen, wählen Sie das gesicherte Hosting DoliCloud.
@@ -66,7 +66,7 @@ OvhApplicationSecret=Anwendungsgeheimnis
 OvhConsumerkey=Verbraucherschlüssel
 GoOnPageToCreateYourAPIKey=Gehen Sie zunächst auf die Seite <a href="%s" target="_blank">%s</a>, um Ihren OVH-Bewerbungseintrag zu erstellen und Holen Sie sich den API-Schlüssel und das API-Geheimnis oder erstellen Sie ein neues, wenn Sie möchten. Wenn Sie den API-Schlüssel/das API-Geheimnis verloren haben, füllen Sie diese Seite mit diesen Informationen aus.
 ListOfExistingAPIApp=Hinweis: Eine Liste der bereits erstellten Anwendungen finden Sie auf der Seite <a href="%s" target="_blank">%s</a>.
-ClickHereToLoginAndGetYourConsumerKey=Klicken Sie hier <a href="%s">, um sich anzumelden und einen neuen Verbraucherschlüssel zu erhalten</a> (Sie müssen <strong>< auswählen /span>UNBEGRENZTE<span class='notranslate'></strong> Gültigkeit)
+ClickHereToLoginAndGetYourConsumerKey=Klicken Sie hier <a href="%s">, um sich anzumelden und einen neuen Verbraucherschlüssel zu erhalten</a> (Sie müssen <strong>UNBEGRENZTE</strong> Gültigkeit)
 Authentication=Authentifizierung
 FromThe=Von dem
 ToThe=to the

@@ -1,4 +1,4 @@
-# Dolibarr language file - fr_FR - tawkto 
+# Dolibarr language file - fr_FR - tawkto
 CHARSET= UTF-8
 ModuleTawkToName=Chat TawkTo
 ModuleTawkToDesc=Permet l'activation d'une popup de chat Tawkto dans les écrans Dolibarr (pour discutter avec un fournisseur d'assistance en ligne présent sur TawkTo)

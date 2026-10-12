@@ -24,7 +24,7 @@ $VERSION='';
 $res=0;
 // Try main.inc.php into web root known defined into CONTEXT_DOCUMENT_ROOT (not always defined)
 if (! $res && ! empty($_SERVER["CONTEXT_DOCUMENT_ROOT"])) $res=@include str_replace("..", "", $_SERVER["CONTEXT_DOCUMENT_ROOT"])."/main.inc.php";
-// Try main.inc.php into web root detected using web root caluclated from SCRIPT_FILENAME
+// Try main.inc.php into web root detected using web root calculated from SCRIPT_FILENAME
 $tmp=empty($_SERVER['SCRIPT_FILENAME'])?'':$_SERVER['SCRIPT_FILENAME'];$tmp2=realpath(__FILE__); $i=strlen($tmp)-1; $j=strlen($tmp2)-1;
 while ($i > 0 && $j > 0 && isset($tmp[$i]) && isset($tmp2[$j]) && $tmp[$i]==$tmp2[$j]) { $i--; $j--; }
 if (! $res && $i > 0 && file_exists(substr($tmp, 0, ($i+1))."/main.inc.php")) $res=@include substr($tmp, 0, ($i+1))."/main.inc.php";
@@ -70,6 +70,12 @@ header("Pragma: no-cache");                                    // HTTP/1.0
 
 ///////////MEMCACHE FUNCTIONS /////////////////////////////////////////////////////////////////////
 
+/**
+ * Send a command to all memcache servers
+ *
+ * @param 	string	$command		Command
+ * @return	array<string, array<string, array<string, mixed>>|string>		Array of responses indexed by server
+ */
 function sendMemcacheCommands($command)
 {
 	global $MEMCACHE_SERVERS;
@@ -90,7 +96,7 @@ function sendMemcacheCommands($command)
  * @param 	string	$server			Server
  * @param 	int 		$port			Port
  * @param 	string	$command		Command
- * @return	void
+ * @return	array<string, array<string, mixed>>|string		Response of the server
  */
 function sendMemcacheCommand($server, $port, $command)
 {
@@ -123,6 +129,12 @@ function sendMemcacheCommand($server, $port, $command)
 	fclose($s);
 	return parseMemcacheResults($buf);
 }
+/**
+ * Parse a memcache response into an array
+ *
+ * @param	string	$str			Raw response string
+ * @return	array<string, array<string, mixed>>|string		Parsed results, or a response keyword like DELETED
+ */
 function parseMemcacheResults($str)
 {
 
@@ -147,6 +159,14 @@ function parseMemcacheResults($str)
 	return $res;
 }
 
+/**
+ * Dump the entries of a cache slab
+ *
+ * @param	string	$server			Server
+ * @param	int		$slabId			Slab ID
+ * @param	int		$limit			Maximum number of entries to dump
+ * @return	array<string, array<string, mixed>>|string		Server response
+ */
 function dumpCacheSlab($server, $slabId, $limit)
 {
 	list($host,$port) = explode(':', $server);
@@ -159,7 +179,7 @@ function dumpCacheSlab($server, $slabId, $limit)
  * flushServer
  *
  * @param 	string	$server		Server
- * @return	void
+ * @return	array<string, array<string, mixed>>|string		Response of the server
  */
 function flushServer($server)
 {
@@ -290,9 +310,12 @@ function getMemcacheStats($total = true)
 	return $resp;
 }
 
-//////////////////////////////////////////////////////
-
-
+/**
+ * Return a human readable duration from a timestamp
+ *
+ * @param	int		$ts				Timestamp
+ * @return	string					Human readable duration
+ */
 function duration($ts)
 {
 	global $time;
@@ -316,14 +339,23 @@ function duration($ts)
 	return $str;
 }
 
-// create graphics
-//
+/**
+ * Check if graphics functions are available
+ *
+ * @return	boolean		True if the gd extension is loaded
+ */
 function graphics_avail()
 {
 	return extension_loaded('gd');
 }
 
-// create menu entry
+/**
+ * Return a menu entry
+ *
+ * @param	int|string	$ob			Operation key
+ * @param	string	$title			Menu entry label
+ * @return	string					HTML of the menu entry
+ */
 function menu_entry($ob, $title)
 {
 	global $PHP_SELF;
@@ -509,6 +541,8 @@ function getFooter()
 
 /**
  * getMenu
+ *
+ * @return void
  */
 function getMenu()
 {
@@ -556,6 +590,20 @@ if (isset($_GET['IMG'])) {
 		exit(0);
 	}
 
+	/**
+	 * Draw a filled box with a border and an optional label on a graphic
+	 *
+	 * @param 	resource	$im				Image resource
+	 * @param 	int		$x				X position of the box
+	 * @param 	int		$y				Y position of the box
+	 * @param 	int		$w				Width of the box
+	 * @param 	int		$h				Height of the box
+	 * @param 	int		$color1			Border color
+	 * @param 	int		$color2			Fill color
+	 * @param 	string	$text			Label to draw next to the box
+	 * @param 	int|string	$placeindex	Placement index of the label
+	 * @return	void
+	 */
 	function fill_box($im, $x, $y, $w, $h, $color1, $color2, $text = '', $placeindex = '')
 	{
 		global $col_black;
@@ -595,7 +643,7 @@ if (isset($_GET['IMG'])) {
 	/**
 	 * fill_arc
 	 *
-	 * @param int $im          Im
+	 * @param resource $im     Image resource
 	 * @param int $centerX     centerX
 	 * @param int $centerY     centerY
 	 * @param int $diameter    diameter
@@ -605,6 +653,7 @@ if (isset($_GET['IMG'])) {
 	 * @param int $color2      color2
 	 * @param int $text        text
 	 * @param int $placeindex  placeindex
+	 * @return void
 	 */
 	function fill_arc($im, $centerX, $centerY, $diameter, $start, $end, $color1, $color2, $text = '', $placeindex = 0)
 	{
@@ -780,7 +829,7 @@ EOB;
 		echo <<<EOB
 
 		</div>
-		
+
 
 		<div class="graph div3"><h2>Host Status Diagrams</h2>
 		<table class="noborder"><tbody>
@@ -797,8 +846,7 @@ EOB;
 		echo
 		graphics_avail() ?
 			  '<tr>'.
-			  "<td class=td-0><img alt=\"\" $size src=\"$PHP_SELF&IMG=1&".(isset($_GET['singleout'])? 'singleout='.$_GET['singleout'].'&':'')."$time\"></td>".
-			  "<td class=td-1><img alt=\"\" $size src=\"$PHP_SELF&IMG=2&".(isset($_GET['singleout'])? 'singleout='.$_GET['singleout'].'&':'')."$time\"></td></tr>\n"
+			  "<td class=td-0><img alt=\"\" $size src=\"$PHP_SELF&IMG=1&".(isset($_GET['singleout'])? 'singleout='.$_GET['singleout'].'&':'')."$time\"></td><td class=td-1><img alt=\"\" $size src=\"$PHP_SELF&IMG=2&".(isset($_GET['singleout'])? 'singleout='.$_GET['singleout'].'&':'')."$time\"></td></tr>\n"
 			: "",
 		'<tr>',
 		'<td class=td-0><span class="green box">&nbsp;</span>Free: ',dol_print_size($mem_avail, 1).sprintf(" (%.1f%%)", $mem_avail*100/$mem_size),"</td>\n",
@@ -846,7 +894,7 @@ EOB;
 		$totals = $cacheItems['counts'];
 		$maxDump = MAX_ITEM_DUMP;
 		foreach ($items as $server => $entries) {
-			print $langs->trans("PrefixForKeysInCache").': '.session_name().'_'.'<br>';
+			print $langs->trans("PrefixForKeysInCache").': '.session_name().'_<br>';
 			print '<br>';
 
 			print <<<EOB
@@ -904,7 +952,7 @@ EOB;
 		list($h,$p) = explode(':', $theserver);
 		$r = sendMemcacheCommand($h, $p, 'get '.$theKey);
 
-		print $langs->trans("PrefixForKeysInCache").': '.session_name().'_'.'<br>';
+		print $langs->trans("PrefixForKeysInCache").': '.session_name().'_<br>';
 		print '<br>';
 
 		print <<<EOB

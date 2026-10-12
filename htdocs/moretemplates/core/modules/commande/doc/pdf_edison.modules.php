@@ -22,7 +22,7 @@
 /**
  *	\file       htdocs/core/modules/commande/doc/pdf_edison.modules.php
  *	\ingroup    commande
- *	\brief      Fichier de la classe permettant de generer les commandes au modele Edison
+ *	\brief      File of class to generate orders with the Edison model
  */
 
 require_once DOL_DOCUMENT_ROOT.'/core/modules/commande/modules_commande.php';
@@ -30,16 +30,16 @@ require_once DOL_DOCUMENT_ROOT.'/core/lib/company.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/pdf.lib.php';
 
 /**
- *	Classe permettant de generer les commandes au modele Edison
+ *	Class to generate orders with the Edison model
  */
 class pdf_edison extends ModelePDFCommandes
 {
-	var $marges=array("g"=>10,"h"=>5,"d"=>10,"b"=>15);
+	public $marges=array("g"=>10,"h"=>5,"d"=>10,"b"=>15);
 
-	var $phpmin = array(4,3,0); // Minimum version of PHP required by module
-	var $version = 'dolibarr';
+	public $phpmin = array(4,3,0); // Minimum version of PHP required by module
+	public $version = 'dolibarr';
 
-	var $emetteur;	// Objet societe qui emet
+	public $emetteur;	// Objet societe qui emet
 
 
 	/**
@@ -47,7 +47,7 @@ class pdf_edison extends ModelePDFCommandes
 	 *
 	 *	@param		DoliDb	$db		Database access handler
 	 */
-	function __construct($db = 0)
+	public function __construct($db = 0)
 	{
 		global $conf,$langs,$mysoc;
 
@@ -90,6 +90,7 @@ class pdf_edison extends ModelePDFCommandes
 	}
 
 
+	// phpcs:disable PEAR.NamingConventions.ValidFunctionName.ScopeNotCamelCaps
 	/**
 	 *  Function to build pdf onto disk
 	 *
@@ -102,8 +103,9 @@ class pdf_edison extends ModelePDFCommandes
 	 *  @param		object	$hookmanager		Hookmanager object
 	 *  @return     int             			1=OK, 0=KO
 	 */
-	function write_file($object, $outputlangs, $srctemplatepath = '', $hidedetails = 0, $hidedesc = 0, $hideref = 0, $hookmanager = false)
+	public function write_file($object, $outputlangs, $srctemplatepath = '', $hidedetails = 0, $hidedesc = 0, $hideref = 0, $hookmanager = false)
 	{
+		// phpcs:enable
 		global $user,$conf,$langs,$mysoc;
 		$default_font_size = pdf_getPDFFontSize($outputlangs);
 
@@ -327,6 +329,7 @@ class pdf_edison extends ModelePDFCommandes
 		return 0;   // Erreur par defaut
 	}
 
+	// phpcs:disable PEAR.NamingConventions.ValidFunctionName.PublicUnderscore,PEAR.NamingConventions.ValidFunctionName.ScopeNotCamelCaps
 	/**
 	 *   Show miscellaneous information (payment mode, payment term, ...)
 	 *
@@ -336,8 +339,9 @@ class pdf_edison extends ModelePDFCommandes
 	 *   @param		Translate	$outputlangs	Langs object
 	 *   @return	void
 	 */
-	function _tableau_info(&$pdf, $object, $posy, $outputlangs)
+	protected function _tableau_info(&$pdf, $object, $posy, $outputlangs)
 	{
+		// phpcs:enable
 		global $conf;
 		$default_font_size = pdf_getPDFFontSize($outputlangs);
 
@@ -455,6 +459,7 @@ class pdf_edison extends ModelePDFCommandes
 		return $posy;
 	}
 
+	// phpcs:disable PEAR.NamingConventions.ValidFunctionName.PublicUnderscore
 	/**
 	 *   Show table for lines
 	 *
@@ -467,8 +472,9 @@ class pdf_edison extends ModelePDFCommandes
 	 *   @param		int			$hidebottom		Hide bottom bar of array
 	 *   @return	void
 	 */
-	function _tableau(&$pdf, $tab_top, $tab_height, $nexY, $outputlangs, $hidetop = 0, $hidebottom = 0)
+	protected function _tableau(&$pdf, $tab_top, $tab_height, $nexY, $outputlangs, $hidetop = 0, $hidebottom = 0)
 	{
+		// phpcs:enable
 		global $langs,$conf;
 		$langs->load("main");
 		$langs->load("bills");
@@ -510,6 +516,7 @@ class pdf_edison extends ModelePDFCommandes
 	}
 
 
+	// phpcs:disable PEAR.NamingConventions.ValidFunctionName.PublicUnderscore
 	/**
 	 *  Show top header of page.
 	 *
@@ -520,8 +527,9 @@ class pdf_edison extends ModelePDFCommandes
 	 *  @param	object		$hookmanager	Hookmanager object
 	 *  @return	void
 	 */
-	function _pagehead(&$pdf, $object, $showaddress, $outputlangs, $hookmanager)
+	protected function _pagehead(&$pdf, $object, $showaddress, $outputlangs, $hookmanager)
 	{
+		// phpcs:enable
 		global $conf,$langs,$mysoc;
 		$langs->load("orders");
 		$default_font_size = pdf_getPDFFontSize($outputlangs);
@@ -641,6 +649,7 @@ class pdf_edison extends ModelePDFCommandes
 		$posy = pdf_writeLinkedObjects($pdf, $object, $outputlangs, $posx, $posy, 100, 3, 'L', $default_font_size, $hookmanager);
 	}
 
+	// phpcs:disable PEAR.NamingConventions.ValidFunctionName.PublicUnderscore
 	/**
 	 *   	Show footer of page. Need this->emetteur object
 	 *
@@ -649,8 +658,9 @@ class pdf_edison extends ModelePDFCommandes
 	 *      @param	Translate	$outputlangs		Object lang for output
 	 *      @return	void
 	 */
-	function _pagefoot(&$pdf, $object, $outputlangs)
+	protected function _pagefoot(&$pdf, $object, $outputlangs)
 	{
+		// phpcs:enable
 		return pdf_pagefoot($pdf, $outputlangs, 'COMMANDE_FREE_TEXT', $this->emetteur, $this->marge_basse, $this->marge_gauche, $this->page_hauteur, $object);
 	}
 }

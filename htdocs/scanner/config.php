@@ -25,7 +25,7 @@ $SAVE_PLACE=$conf->scanner->dir_temp;
 //print "x".$SAVE_PLACE;
 
 
-// Set default value of paramters
+// Set default value of parameters
 $PREVIEW_WIDTH_MM   = 210;
 $PREVIEW_HEIGHT_MM  = 297;
 $PREVIEW_DPI        = 100;
@@ -130,7 +130,8 @@ if (empty($geometry_y)) $geometry_y=$PREVIEW_HEIGHT_MM;
 // Check usr_opt - keep only valid chars, otherwise replace with an 'X'
 
 $my_usr_opt = '';
-for ($i = 0; $i < strlen($usr_opt); $i++) {
+$usr_opt_length = strlen($usr_opt);
+for ($i = 0; $i < $usr_opt_length; $i++) {
 	if (preg_match('([0-9]|[a-z]|[A-Z]|[\ \%\+\-_=])', $usr_opt[$i])) {
 		$my_usr_opt .= $usr_opt[$i];
 	} else {
@@ -150,7 +151,7 @@ $facktor = round($PREVIEW_WIDTH_MM / $PREVIEW_WIDTH_PX, 4);
 
 
 
-// reset scanner informations
+// reset scanner information
 if (GETPOST('actionclean')) {
 	unset($_SESSION['scannerlist']);
 	//var_dump($_SESSION);

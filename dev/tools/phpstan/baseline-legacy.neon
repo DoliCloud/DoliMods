@@ -1,0 +1,2594 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Function dolPrintHTMLForAttribute not found\.$#'
+			identifier: function.notFound
+			count: 2
+			path: ../../../htdocs/alumni/class/survey.class.php
+
+		-
+			message: '#^Property CommonObject\:\:\$date_modification \(int\|string\) does not accept null\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: ../../../htdocs/alumni/class/survey.class.php
+
+		-
+			message: '#^Property CommonObject\:\:\$oldref \(CommonObject\) does not accept string\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: ../../../htdocs/alumni/class/survey.class.php
+
+		-
+			message: '#^Property CommonObject\:\:\$status \(int\) in isset\(\) is not nullable\.$#'
+			identifier: isset.property
+			count: 1
+			path: ../../../htdocs/alumni/class/survey.class.php
+
+		-
+			message: '#^Property Survey\:\:\$fk_user_creat has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: ../../../htdocs/alumni/class/survey.class.php
+
+		-
+			message: '#^Property Survey\:\:\$fk_user_modif has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: ../../../htdocs/alumni/class/survey.class.php
+
+		-
+			message: '#^Property Survey\:\:\$tms has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: ../../../htdocs/alumni/class/survey.class.php
+
+		-
+			message: '#^Property mailing_mailing_alumni_selector1\:\:\$desc has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: ../../../htdocs/alumni/core/modules/mailings/mailing_alumni_selector1.modules.php
+
+		-
+			message: '#^Property mailing_mailing_alumni_selector1\:\:\$name has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: ../../../htdocs/alumni/core/modules/mailings/mailing_alumni_selector1.modules.php
+
+		-
+			message: '#^Parameter \#5 \$excludefilter of function dol_dir_list expects array\|null, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/alumni/lib/alumni_survey.lib.php
+
+		-
+			message: '#^Parameter \#5 \$objcon of function show_actions_done expects Contact, null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/alumni/survey_agenda.php
+
+		-
+			message: '#^Property CommonObject\:\:\$status \(int\) in isset\(\) is not nullable\.$#'
+			identifier: isset.property
+			count: 1
+			path: ../../../htdocs/alumni/survey_card.php
+
+		-
+			message: '#^Property Survey\:\:\$entity \(int\) in isset\(\) is not nullable\.$#'
+			identifier: isset.property
+			count: 1
+			path: ../../../htdocs/alumni/survey_card.php
+
+		-
+			message: '#^Parameter \#5 \$excludefilter of function dol_dir_list expects array\|null, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/alumni/survey_document.php
+
+		-
+			message: '#^Parameter \#7 \$sortorder of function dol_dir_list expects string, int given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/alumni/survey_document.php
+
+		-
+			message: '#^Parameter \#11 \$disablesortlink of function getTitleFieldOfList expects string, int given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/alumni/survey_list.php
+
+		-
+			message: '#^Parameter \#4 \$month of function dol_mktime expects int, array\|string given\.$#'
+			identifier: argument.type
+			count: 2
+			path: ../../../htdocs/alumni/survey_list.php
+
+		-
+			message: '#^Parameter \#5 \$day of function dol_mktime expects int, array\|string given\.$#'
+			identifier: argument.type
+			count: 2
+			path: ../../../htdocs/alumni/survey_list.php
+
+		-
+			message: '#^Parameter \#6 \$year of function dol_mktime expects int, array\|string given\.$#'
+			identifier: argument.type
+			count: 2
+			path: ../../../htdocs/alumni/survey_list.php
+
+		-
+			message: '#^Parameter \#1 \$amount of function price expects float, string given\.$#'
+			identifier: argument.type
+			count: 6
+			path: ../../../htdocs/billedonorders/class/actions_billedonorders.class.php
+
+		-
+			message: '#^Parameter \#2 \$input of function ajax_constantonoff expects array, string given\.$#'
+			identifier: argument.type
+			count: 2
+			path: ../../../htdocs/concatpdf/admin/concatpdf.php
+
+		-
+			message: '#^Parameter \#3 \$value of function dolibarr_set_const expects string, int given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/concatpdf/admin/concatpdf.php
+
+		-
+			message: '#^Parameter \#1 \$format of function pdf_getInstance expects string, array\<int, mixed\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/concatpdf/class/actions_concatpdf.class.php
+
+		-
+			message: '#^Call to an undefined static method ExtraFields\:\:getListOfTypesLabels\(\)\.$#'
+			identifier: staticMethod.notFound
+			count: 1
+			path: ../../../htdocs/discussion/admin/channel_extrafields.php
+
+		-
+			message: '#^Call to an undefined static method ExtraFields\:\:getListOfTypesLabels\(\)\.$#'
+			identifier: staticMethod.notFound
+			count: 1
+			path: ../../../htdocs/discussion/admin/message_extrafields.php
+
+		-
+			message: '#^Property FormSetupItem\:\:\$fieldValue \(string\) does not accept int\.$#'
+			identifier: assign.propertyType
+			count: 2
+			path: ../../../htdocs/discussion/admin/setup.php
+
+		-
+			message: '#^Function dol_getcache invoked with 2 parameters, 1 required\.$#'
+			identifier: arguments.count
+			count: 1
+			path: ../../../htdocs/discussion/ajax/channel_messagemanager.php
+
+		-
+			message: '#^Function dol_setcache invoked with 5 parameters, 2\-3 required\.$#'
+			identifier: arguments.count
+			count: 1
+			path: ../../../htdocs/discussion/ajax/channel_messagemanager.php
+
+		-
+			message: '#^Parameter \#1 \$db of function dol_print_error expects DoliDB\|string, null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/discussion/ajax/channel_messagemanager.php
+
+		-
+			message: '#^Parameter \#3 \$duration_unit of function dol_time_plus_duree expects int, string given\.$#'
+			identifier: argument.type
+			count: 2
+			path: ../../../htdocs/discussion/ajax/channel_messagemanager.php
+
+		-
+			message: '#^Function dol_getcache invoked with 2 parameters, 1 required\.$#'
+			identifier: arguments.count
+			count: 1
+			path: ../../../htdocs/discussion/ajax/channelevent_source.php
+
+		-
+			message: '#^Parameter \#3 \$duration_unit of function dol_time_plus_duree expects int, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/discussion/ajax/channelevent_source.php
+
+		-
+			message: '#^Parameter \#5 \$objcon of function show_actions_done expects Contact, null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/discussion/channel_agenda.php
+
+		-
+			message: '#^Property Channel\:\:\$entity \(int\) in isset\(\) is not nullable\.$#'
+			identifier: isset.property
+			count: 1
+			path: ../../../htdocs/discussion/channel_card.php
+
+		-
+			message: '#^Property Channel\:\:\$status \(int\) in isset\(\) is not nullable\.$#'
+			identifier: isset.property
+			count: 1
+			path: ../../../htdocs/discussion/channel_card.php
+
+		-
+			message: '#^Parameter \#5 \$excludefilter of function dol_dir_list expects array\|null, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/discussion/channel_document.php
+
+		-
+			message: '#^Parameter \#7 \$sortorder of function dol_dir_list expects string, int given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/discussion/channel_document.php
+
+		-
+			message: '#^Parameter \#11 \$disablesortlink of function getTitleFieldOfList expects string, int given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/discussion/channel_list.php
+
+		-
+			message: '#^Parameter \#3 \$duration_unit of function dol_time_plus_duree expects int, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/discussion/channel_messages.php
+
+		-
+			message: '#^Parameter \#3 \$width of class DolEditor constructor expects int, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/discussion/channel_messages.php
+
+		-
+			message: '#^Access to an undefined property Channel\:\:\$isextrafieldmanaged\.$#'
+			identifier: property.notFound
+			count: 1
+			path: ../../../htdocs/discussion/class/channel.class.php
+
+		-
+			message: '#^Access to an undefined property ChannelLine\:\:\$isextrafieldmanaged\.$#'
+			identifier: property.notFound
+			count: 1
+			path: ../../../htdocs/discussion/class/channel.class.php
+
+		-
+			message: '#^Function dol_getcache invoked with 2 parameters, 1 required\.$#'
+			identifier: arguments.count
+			count: 3
+			path: ../../../htdocs/discussion/class/channel.class.php
+
+		-
+			message: '#^Function dol_setcache invoked with 5 parameters, 2\-3 required\.$#'
+			identifier: arguments.count
+			count: 2
+			path: ../../../htdocs/discussion/class/channel.class.php
+
+		-
+			message: '#^Method CommonObject\:\:fetchCommon\(\) invoked with 4 parameters, 1\-3 required\.$#'
+			identifier: arguments.count
+			count: 1
+			path: ../../../htdocs/discussion/class/channel.class.php
+
+		-
+			message: '#^Method CommonObject\:\:fetchLinesCommon\(\) invoked with 2 parameters, 0\-1 required\.$#'
+			identifier: arguments.count
+			count: 1
+			path: ../../../htdocs/discussion/class/channel.class.php
+
+		-
+			message: '#^Parameter \#1 \$db of function dol_print_error expects DoliDB\|string, null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/discussion/class/channel.class.php
+
+		-
+			message: '#^Parameter \#2 \$notrigger of method CommonObject\:\:createCommon\(\) expects bool, int\<0, 1\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/discussion/class/channel.class.php
+
+		-
+			message: '#^Parameter \#2 \$notrigger of method CommonObject\:\:deleteCommon\(\) expects bool, int\<0, 1\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/discussion/class/channel.class.php
+
+		-
+			message: '#^Parameter \#2 \$notrigger of method CommonObject\:\:updateCommon\(\) expects bool, int\<0, 1\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/discussion/class/channel.class.php
+
+		-
+			message: '#^Parameter \#3 \$notrigger of method CommonObject\:\:deleteLineCommon\(\) expects bool, int\<0, 1\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/discussion/class/channel.class.php
+
+		-
+			message: '#^Property Channel\:\:\$fields type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: ../../../htdocs/discussion/class/channel.class.php
+
+		-
+			message: '#^Property Channel\:\:\$fk_user_creat has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: ../../../htdocs/discussion/class/channel.class.php
+
+		-
+			message: '#^Property Channel\:\:\$fk_user_modif has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: ../../../htdocs/discussion/class/channel.class.php
+
+		-
+			message: '#^Property Channel\:\:\$status \(int\) in isset\(\) is not nullable\.$#'
+			identifier: isset.property
+			count: 1
+			path: ../../../htdocs/discussion/class/channel.class.php
+
+		-
+			message: '#^Property Channel\:\:\$tms has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: ../../../htdocs/discussion/class/channel.class.php
+
+		-
+			message: '#^Property ChannelLine\:\:\$fk_parent_attribute has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: ../../../htdocs/discussion/class/channel.class.php
+
+		-
+			message: '#^Property ChannelLine\:\:\$parent_element has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: ../../../htdocs/discussion/class/channel.class.php
+
+		-
+			message: '#^Property CommonObject\:\:\$date_modification \(int\|string\) does not accept null\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: ../../../htdocs/discussion/class/channel.class.php
+
+		-
+			message: '#^Property CommonObject\:\:\$ismultientitymanaged \(int\) in isset\(\) is not nullable\.$#'
+			identifier: isset.property
+			count: 1
+			path: ../../../htdocs/discussion/class/channel.class.php
+
+		-
+			message: '#^Property CommonObject\:\:\$oldref \(CommonObject\) does not accept string\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: ../../../htdocs/discussion/class/channel.class.php
+
+		-
+			message: '#^Access to an undefined property Message\:\:\$isextrafieldmanaged\.$#'
+			identifier: property.notFound
+			count: 1
+			path: ../../../htdocs/discussion/class/message.class.php
+
+		-
+			message: '#^Access to an undefined property MessageLine\:\:\$isextrafieldmanaged\.$#'
+			identifier: property.notFound
+			count: 1
+			path: ../../../htdocs/discussion/class/message.class.php
+
+		-
+			message: '#^Method CommonObject\:\:fetchCommon\(\) invoked with 4 parameters, 1\-3 required\.$#'
+			identifier: arguments.count
+			count: 1
+			path: ../../../htdocs/discussion/class/message.class.php
+
+		-
+			message: '#^Method CommonObject\:\:fetchLinesCommon\(\) invoked with 2 parameters, 0\-1 required\.$#'
+			identifier: arguments.count
+			count: 1
+			path: ../../../htdocs/discussion/class/message.class.php
+
+		-
+			message: '#^Parameter \#1 \$db of function dol_print_error expects DoliDB\|string, null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/discussion/class/message.class.php
+
+		-
+			message: '#^Parameter \#2 \$notrigger of method CommonObject\:\:createCommon\(\) expects bool, int\<0, 1\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/discussion/class/message.class.php
+
+		-
+			message: '#^Parameter \#2 \$notrigger of method CommonObject\:\:deleteCommon\(\) expects bool, int\<0, 1\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/discussion/class/message.class.php
+
+		-
+			message: '#^Parameter \#2 \$notrigger of method CommonObject\:\:updateCommon\(\) expects bool, int\<0, 1\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/discussion/class/message.class.php
+
+		-
+			message: '#^Parameter \#3 \$notrigger of method CommonObject\:\:deleteLineCommon\(\) expects bool, int\<0, 1\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/discussion/class/message.class.php
+
+		-
+			message: '#^Property CommonObject\:\:\$date_modification \(int\|string\) does not accept null\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: ../../../htdocs/discussion/class/message.class.php
+
+		-
+			message: '#^Property CommonObject\:\:\$ismultientitymanaged \(int\) in isset\(\) is not nullable\.$#'
+			identifier: isset.property
+			count: 1
+			path: ../../../htdocs/discussion/class/message.class.php
+
+		-
+			message: '#^Property CommonObject\:\:\$oldref \(CommonObject\) does not accept string\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: ../../../htdocs/discussion/class/message.class.php
+
+		-
+			message: '#^Property CommonObject\:\:\$status \(int\) in isset\(\) is not nullable\.$#'
+			identifier: isset.property
+			count: 1
+			path: ../../../htdocs/discussion/class/message.class.php
+
+		-
+			message: '#^Property Message\:\:\$fields type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: ../../../htdocs/discussion/class/message.class.php
+
+		-
+			message: '#^Property Message\:\:\$fk_user_creat has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: ../../../htdocs/discussion/class/message.class.php
+
+		-
+			message: '#^Property Message\:\:\$fk_user_modif has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: ../../../htdocs/discussion/class/message.class.php
+
+		-
+			message: '#^Property Message\:\:\$tms has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: ../../../htdocs/discussion/class/message.class.php
+
+		-
+			message: '#^Property MessageLine\:\:\$fk_parent_attribute has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: ../../../htdocs/discussion/class/message.class.php
+
+		-
+			message: '#^Property MessageLine\:\:\$parent_element has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: ../../../htdocs/discussion/class/message.class.php
+
+		-
+			message: '#^Parameter \#6 \$objsoc of function get_next_value expects Societe, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/discussion/core/modules/discussion/mod_channel_advanced.php
+
+		-
+			message: '#^Access to an undefined property modDiscussion\:\:\$editor_squarred_logo\.$#'
+			identifier: property.notFound
+			count: 1
+			path: ../../../htdocs/discussion/core/modules/modDiscussion.class.php
+
+		-
+			message: '#^Property DolibarrModules\:\:\$hidden \(bool\) does not accept int\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: ../../../htdocs/discussion/core/modules/modDiscussion.class.php
+
+		-
+			message: '#^Function dol_hash invoked with 3 parameters, 1\-2 required\.$#'
+			identifier: arguments.count
+			count: 1
+			path: ../../../htdocs/discussion/lib/discussion_channel.lib.php
+
+		-
+			message: '#^Parameter \#5 \$excludefilter of function dol_dir_list expects array\|null, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/discussion/lib/discussion_channel.lib.php
+
+		-
+			message: '#^Parameter \#5 \$excludefilter of function dol_dir_list expects array\|null, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/discussion/lib/discussion_message.lib.php
+
+		-
+			message: '#^Property CommonObject\:\:\$entity \(int\) in isset\(\) is not nullable\.$#'
+			identifier: isset.property
+			count: 1
+			path: ../../../htdocs/discussion/message_card.php
+
+		-
+			message: '#^Property CommonObject\:\:\$status \(int\) in isset\(\) is not nullable\.$#'
+			identifier: isset.property
+			count: 1
+			path: ../../../htdocs/discussion/message_card.php
+
+		-
+			message: '#^Parameter \#5 \$excludefilter of function dol_dir_list expects array\|null, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/discussion/message_document.php
+
+		-
+			message: '#^Parameter \#7 \$sortorder of function dol_dir_list expects string, int given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/discussion/message_document.php
+
+		-
+			message: '#^Parameter \#11 \$disablesortlink of function getTitleFieldOfList expects string, int given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/discussion/message_list.php
+
+		-
+			message: '#^Parameter \#3 \$width of class DolEditor constructor expects int, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/ecotaxdeee/admin/index.php
+
+		-
+			message: '#^Parameter \#9 \$okforextendededitor of class DolEditor constructor expects bool\|string, int given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/ecotaxdeee/admin/index.php
+
+		-
+			message: '#^Parameter \#1 \$format of function pdf_getInstance expects string, array\<int, mixed\> given\.$#'
+			identifier: argument.type
+			count: 2
+			path: ../../../htdocs/ecotaxdeee/class/actions_ecotaxdeee.class.php
+
+		-
+			message: '#^PHPDoc type date of property Ecotaxdeee\:\:\$date_creation is not covariant with PHPDoc type int\|string of overridden property CommonObject\:\:\$date_creation\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: ../../../htdocs/ecotaxdeee/class/ecotaxdeee.class.php
+
+		-
+			message: '#^Method InterfaceEcotaxdeee\:\:runTrigger\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: ../../../htdocs/ecotaxdeee/core/triggers/interface_50_modEcotaxdeee_Ecotaxdeee.class.php
+
+		-
+			message: '#^Parameter \#1 \$db of function dol_print_error expects DoliDB\|string, int given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/filemanager/ajaxFileTree.php
+
+		-
+			message: '#^Parameter \#1 \$db of function dol_print_error expects DoliDB\|string, int given\.$#'
+			identifier: argument.type
+			count: 5
+			path: ../../../htdocs/filemanager/ajaxfileactions.php
+
+		-
+			message: '#^Parameter \#2 \$check of function GETPOST expects string, int given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/filemanager/ajaxfileactions.php
+
+		-
+			message: '#^Parameter \#1 \$db of function dol_print_error expects DoliDB\|string, int given\.$#'
+			identifier: argument.type
+			count: 3
+			path: ../../../htdocs/filemanager/ajaxshowpreview.php
+
+		-
+			message: '#^Parameter \#5 \$excludefilter of function dol_dir_list expects array\|null, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/filemanager/ajaxshowpreview.php
+
+		-
+			message: '#^Parameter \#7 \$sortorder of function dol_dir_list expects string, int given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/filemanager/ajaxshowpreview.php
+
+		-
+			message: '#^Parameter \#1 \$db of function dol_print_error expects DoliDB\|string, int given\.$#'
+			identifier: argument.type
+			count: 2
+			path: ../../../htdocs/filemanager/document.php
+
+		-
+			message: '#^Parameter \#1 \$menu_array_before of function left_menu expects array, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/filemanager/index.php
+
+		-
+			message: '#^Parameter \#1 \$db of function dol_print_error expects DoliDB\|string, int given\.$#'
+			identifier: argument.type
+			count: 2
+			path: ../../../htdocs/filemanager/viewimage.php
+
+		-
+			message: '#^Parameter \#1 \$hour of function dol_mktime expects int, array\|string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/google/admin/google_calsync.php
+
+		-
+			message: '#^Parameter \#2 \$minute of function dol_mktime expects int, array\|string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/google/admin/google_calsync.php
+
+		-
+			message: '#^Parameter \#4 \$month of function dol_mktime expects int, array\|string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/google/admin/google_calsync.php
+
+		-
+			message: '#^Parameter \#5 \$day of function dol_mktime expects int, array\|string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/google/admin/google_calsync.php
+
+		-
+			message: '#^Parameter \#6 \$year of function dol_mktime expects int, array\|string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/google/admin/google_calsync.php
+
+		-
+			message: '#^Parameter \#1 \$hour of function dol_mktime expects int, array\|string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/google/admin/google_calsync_user.php
+
+		-
+			message: '#^Parameter \#2 \$minute of function dol_mktime expects int, array\|string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/google/admin/google_calsync_user.php
+
+		-
+			message: '#^Parameter \#4 \$month of function dol_mktime expects int, array\|string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/google/admin/google_calsync_user.php
+
+		-
+			message: '#^Parameter \#4 \$shownav of function dol_banner_tab expects int, bool given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/google/admin/google_calsync_user.php
+
+		-
+			message: '#^Parameter \#5 \$day of function dol_mktime expects int, array\|string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/google/admin/google_calsync_user.php
+
+		-
+			message: '#^Parameter \#6 \$year of function dol_mktime expects int, array\|string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/google/admin/google_calsync_user.php
+
+		-
+			message: '#^Property box_googlemaps\:\:\$boximg has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: ../../../htdocs/google/core/boxes/box_googlemaps.php
+
+		-
+			message: '#^Property box_googlemaps\:\:\$boxlabel has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: ../../../htdocs/google/core/boxes/box_googlemaps.php
+
+		-
+			message: '#^Property box_googlemaps\:\:\$depends has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: ../../../htdocs/google/core/boxes/box_googlemaps.php
+
+		-
+			message: '#^Property box_googlemaps\:\:\$info_box_contents has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: ../../../htdocs/google/core/boxes/box_googlemaps.php
+
+		-
+			message: '#^Property box_googlemaps\:\:\$info_box_head has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: ../../../htdocs/google/core/boxes/box_googlemaps.php
+
+		-
+			message: '#^Property box_googlemaps\:\:\$param has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: ../../../htdocs/google/core/boxes/box_googlemaps.php
+
+		-
+			message: '#^Access to an undefined property modCaptchaGoogle\:\:\$conf\.$#'
+			identifier: property.notFound
+			count: 1
+			path: ../../../htdocs/google/core/modules/security/captcha/modCaptchaGoogle.class.php
+
+		-
+			message: '#^Access to an undefined property modCaptchaGoogle\:\:\$db\.$#'
+			identifier: property.notFound
+			count: 1
+			path: ../../../htdocs/google/core/modules/security/captcha/modCaptchaGoogle.class.php
+
+		-
+			message: '#^Access to an undefined property modCaptchaGoogle\:\:\$langs\.$#'
+			identifier: property.notFound
+			count: 1
+			path: ../../../htdocs/google/core/modules/security/captcha/modCaptchaGoogle.class.php
+
+		-
+			message: '#^Access to an undefined property modCaptchaGoogle\:\:\$user\.$#'
+			identifier: property.notFound
+			count: 1
+			path: ../../../htdocs/google/core/modules/security/captcha/modCaptchaGoogle.class.php
+
+		-
+			message: '#^Property modCaptchaGoogle\:\:\$picto has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: ../../../htdocs/google/core/modules/security/captcha/modCaptchaGoogle.class.php
+
+		-
+			message: '#^Parameter \#2 \$htmlid of function dol_print_address expects int, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/google/gmaps.php
+
+		-
+			message: '#^Parameter \#3 \$element of function dol_print_address expects int, array\|string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/google/gmaps.php
+
+		-
+			message: '#^Property CommonObject\:\:\$id \(int\) does not accept array\|string\.$#'
+			identifier: assign.propertyType
+			count: 3
+			path: ../../../htdocs/google/gmaps.php
+
+		-
+			message: '#^Parameter \#4 \$outputlangs of function dol_format_address expects Translate, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/google/gmaps_all.php
+
+		-
+			message: '#^Property CommonObject\:\:\$id \(int\) does not accept array\|string\.$#'
+			identifier: assign.propertyType
+			count: 3
+			path: ../../../htdocs/google/gmaps_all.php
+
+		-
+			message: '#^Variable \$objectstatic might not be defined\.$#'
+			identifier: variable.undefined
+			count: 4
+			path: ../../../htdocs/google/gmaps_all.php
+
+		-
+			message: '#^Variable \$sql might not be defined\.$#'
+			identifier: variable.undefined
+			count: 2
+			path: ../../../htdocs/google/gmaps_all.php
+
+		-
+			message: '#^Parameter \#2 \$b of function dol_html_entity_decode expects string, int given\.$#'
+			identifier: argument.type
+			count: 2
+			path: ../../../htdocs/google/lib/google_contact.lib.php
+
+		-
+			message: '#^Parameter \#2 \$withcode of function getCountry expects string, int given\.$#'
+			identifier: argument.type
+			count: 2
+			path: ../../../htdocs/google/lib/google_contact.lib.php
+
+		-
+			message: '#^Parameter \#3 \$dbtouse of function getCountry expects DoliDB, string given\.$#'
+			identifier: argument.type
+			count: 2
+			path: ../../../htdocs/google/lib/google_contact.lib.php
+
+		-
+			message: '#^Access to an undefined property modIPPhone\:\:\$editor_squarred_logo\.$#'
+			identifier: property.notFound
+			count: 1
+			path: ../../../htdocs/ipphone/core/modules/modIPPhone.class.php
+
+		-
+			message: '#^Access to an undefined property \$this\(Monitoring_probes\)\:\:\$typeprot\.$#'
+			identifier: property.notFound
+			count: 2
+			path: ../../../htdocs/monitoring/class/monitoring_probes.class.php
+
+		-
+			message: '#^Access to an undefined property Monitoring_probes\:\:\$oldesterrordate\.$#'
+			identifier: property.notFound
+			count: 1
+			path: ../../../htdocs/monitoring/class/monitoring_probes.class.php
+
+		-
+			message: '#^Access to an undefined property Monitoring_probes\:\:\$oldesterrortext\.$#'
+			identifier: property.notFound
+			count: 1
+			path: ../../../htdocs/monitoring/class/monitoring_probes.class.php
+
+		-
+			message: '#^Access to an undefined property Monitoring_probes\:\:\$typeprot\.$#'
+			identifier: property.notFound
+			count: 2
+			path: ../../../htdocs/monitoring/class/monitoring_probes.class.php
+
+		-
+			message: '#^Parameter \#1 \$str of function trim expects string, int given\.$#'
+			identifier: argument.type
+			count: 2
+			path: ../../../htdocs/monitoring/class/monitoring_probes.class.php
+
+		-
+			message: '#^Property Monitoring_probes\:\:\$status \(int\) does not accept string\.$#'
+			identifier: assign.propertyType
+			count: 3
+			path: ../../../htdocs/monitoring/class/monitoring_probes.class.php
+
+		-
+			message: '#^Property Monitoring_probes\:\:\$status \(int\) in isset\(\) is not nullable\.$#'
+			identifier: isset.property
+			count: 4
+			path: ../../../htdocs/monitoring/class/monitoring_probes.class.php
+
+		-
+			message: '#^Function pdf_writelinedesc invoked with 12 parameters, 8\-11 required\.$#'
+			identifier: arguments.count
+			count: 1
+			path: ../../../htdocs/moretemplates/core/modules/commande/doc/pdf_edison.modules.php
+
+		-
+			message: '#^Parameter \#1 \$format of function pdf_getInstance expects string, array given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/moretemplates/core/modules/commande/doc/pdf_edison.modules.php
+
+		-
+			message: '#^Parameter \#1 \$object of function pdf_getlineqty expects object, int given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/moretemplates/core/modules/commande/doc/pdf_edison.modules.php
+
+		-
+			message: '#^Parameter \#1 \$object of function pdf_getlineref expects object, int given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/moretemplates/core/modules/commande/doc/pdf_edison.modules.php
+
+		-
+			message: '#^Parameter \#1 \$object of function pdf_getlinetotalexcltax expects object, int given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/moretemplates/core/modules/commande/doc/pdf_edison.modules.php
+
+		-
+			message: '#^Parameter \#1 \$object of function pdf_getlineupexcltax expects object, int given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/moretemplates/core/modules/commande/doc/pdf_edison.modules.php
+
+		-
+			message: '#^Parameter \#1 \$object of function pdf_getlinevatrate expects object, int given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/moretemplates/core/modules/commande/doc/pdf_edison.modules.php
+
+		-
+			message: '#^Parameter \#2 \$object of function pdf_writelinedesc expects object, int given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/moretemplates/core/modules/commande/doc/pdf_edison.modules.php
+
+		-
+			message: '#^Parameter \#3 \$tab_height of method pdf_edison\:\:_tableau\(\) expects string, \(float\|int\) given\.$#'
+			identifier: argument.type
+			count: 6
+			path: ../../../htdocs/moretemplates/core/modules/commande/doc/pdf_edison.modules.php
+
+		-
+			message: '#^Parameter \#3 \$tzoutput of function dol_print_date expects string, false given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/moretemplates/core/modules/commande/doc/pdf_edison.modules.php
+
+		-
+			message: '#^Parameter \#8 \$align of function pdf_writeLinkedObjects expects int, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/moretemplates/core/modules/commande/doc/pdf_edison.modules.php
+
+		-
+			message: '#^Parameter \#9 \$default_font_size of function pdf_writeLinkedObjects expects string, int given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/moretemplates/core/modules/commande/doc/pdf_edison.modules.php
+
+		-
+			message: '#^Property pdf_edison\:\:\$emetteur has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: ../../../htdocs/moretemplates/core/modules/commande/doc/pdf_edison.modules.php
+
+		-
+			message: '#^Property pdf_edison\:\:\$phpmin type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: ../../../htdocs/moretemplates/core/modules/commande/doc/pdf_edison.modules.php
+
+		-
+			message: '#^Property pdf_edison\:\:\$version has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: ../../../htdocs/moretemplates/core/modules/commande/doc/pdf_edison.modules.php
+
+		-
+			message: '#^Function pdf_writelinedesc invoked with 12 parameters, 8\-11 required\.$#'
+			identifier: arguments.count
+			count: 1
+			path: ../../../htdocs/moretemplates/core/modules/facture/doc/pdf_oursin.modules.php
+
+		-
+			message: '#^Parameter \#1 \$format of function pdf_getInstance expects string, array given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/moretemplates/core/modules/facture/doc/pdf_oursin.modules.php
+
+		-
+			message: '#^Parameter \#1 \$object of function pdf_getlineqty expects object, int given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/moretemplates/core/modules/facture/doc/pdf_oursin.modules.php
+
+		-
+			message: '#^Parameter \#1 \$object of function pdf_getlineremisepercent expects object, int given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/moretemplates/core/modules/facture/doc/pdf_oursin.modules.php
+
+		-
+			message: '#^Parameter \#1 \$object of function pdf_getlinetotalexcltax expects object, int given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/moretemplates/core/modules/facture/doc/pdf_oursin.modules.php
+
+		-
+			message: '#^Parameter \#1 \$object of function pdf_getlineupexcltax expects object, int given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/moretemplates/core/modules/facture/doc/pdf_oursin.modules.php
+
+		-
+			message: '#^Parameter \#1 \$object of function pdf_getlinevatrate expects object, int given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/moretemplates/core/modules/facture/doc/pdf_oursin.modules.php
+
+		-
+			message: '#^Parameter \#2 \$level of function dol_syslog expects int, string given\.$#'
+			identifier: argument.type
+			count: 2
+			path: ../../../htdocs/moretemplates/core/modules/facture/doc/pdf_oursin.modules.php
+
+		-
+			message: '#^Parameter \#2 \$object of function pdf_writelinedesc expects object, int given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/moretemplates/core/modules/facture/doc/pdf_oursin.modules.php
+
+		-
+			message: '#^Parameter \#3 \$tzoutput of function dol_print_date expects string, false given\.$#'
+			identifier: argument.type
+			count: 4
+			path: ../../../htdocs/moretemplates/core/modules/facture/doc/pdf_oursin.modules.php
+
+		-
+			message: '#^Parameter \#4 \$nexY of method pdf_oursin\:\:_tableau\(\) expects int, float given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/moretemplates/core/modules/facture/doc/pdf_oursin.modules.php
+
+		-
+			message: '#^Parameter \#8 \$align of function pdf_writeLinkedObjects expects int, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/moretemplates/core/modules/facture/doc/pdf_oursin.modules.php
+
+		-
+			message: '#^Parameter \#9 \$default_font_size of function pdf_writeLinkedObjects expects string, int given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/moretemplates/core/modules/facture/doc/pdf_oursin.modules.php
+
+		-
+			message: '#^Property pdf_oursin\:\:\$emetteur has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: ../../../htdocs/moretemplates/core/modules/facture/doc/pdf_oursin.modules.php
+
+		-
+			message: '#^Property pdf_oursin\:\:\$phpmin type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: ../../../htdocs/moretemplates/core/modules/facture/doc/pdf_oursin.modules.php
+
+		-
+			message: '#^Property pdf_oursin\:\:\$version has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: ../../../htdocs/moretemplates/core/modules/facture/doc/pdf_oursin.modules.php
+
+		-
+			message: '#^Function pdf_writelinedesc invoked with 12 parameters, 8\-11 required\.$#'
+			identifier: arguments.count
+			count: 1
+			path: ../../../htdocs/moretemplates/core/modules/facture/doc/pdf_tourteau.modules.php
+
+		-
+			message: '#^Parameter \#1 \$format of function pdf_getInstance expects string, array given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/moretemplates/core/modules/facture/doc/pdf_tourteau.modules.php
+
+		-
+			message: '#^Parameter \#1 \$object of function pdf_getlineqty expects object, int given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/moretemplates/core/modules/facture/doc/pdf_tourteau.modules.php
+
+		-
+			message: '#^Parameter \#1 \$object of function pdf_getlineremisepercent expects object, int given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/moretemplates/core/modules/facture/doc/pdf_tourteau.modules.php
+
+		-
+			message: '#^Parameter \#1 \$object of function pdf_getlinetotalexcltax expects object, int given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/moretemplates/core/modules/facture/doc/pdf_tourteau.modules.php
+
+		-
+			message: '#^Parameter \#1 \$object of function pdf_getlineupexcltax expects object, int given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/moretemplates/core/modules/facture/doc/pdf_tourteau.modules.php
+
+		-
+			message: '#^Parameter \#1 \$object of function pdf_getlinevatrate expects object, int given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/moretemplates/core/modules/facture/doc/pdf_tourteau.modules.php
+
+		-
+			message: '#^Parameter \#1 \$pdf of method pdf_tourteau\:\:_tableau\(\) expects PDF, TCPDF given\.$#'
+			identifier: argument.type
+			count: 2
+			path: ../../../htdocs/moretemplates/core/modules/facture/doc/pdf_tourteau.modules.php
+
+		-
+			message: '#^Parameter \#2 \$level of function dol_syslog expects int, string given\.$#'
+			identifier: argument.type
+			count: 2
+			path: ../../../htdocs/moretemplates/core/modules/facture/doc/pdf_tourteau.modules.php
+
+		-
+			message: '#^Parameter \#2 \$object of function pdf_writelinedesc expects object, int given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/moretemplates/core/modules/facture/doc/pdf_tourteau.modules.php
+
+		-
+			message: '#^Parameter \#3 \$tzoutput of function dol_print_date expects string, false given\.$#'
+			identifier: argument.type
+			count: 4
+			path: ../../../htdocs/moretemplates/core/modules/facture/doc/pdf_tourteau.modules.php
+
+		-
+			message: '#^Parameter \#4 \$nexY of method pdf_tourteau\:\:_tableau\(\) expects int, float given\.$#'
+			identifier: argument.type
+			count: 2
+			path: ../../../htdocs/moretemplates/core/modules/facture/doc/pdf_tourteau.modules.php
+
+		-
+			message: '#^Parameter \#4 \$outputlangs of function dol_print_date expects Translate, Lang given\.$#'
+			identifier: argument.type
+			count: 2
+			path: ../../../htdocs/moretemplates/core/modules/facture/doc/pdf_tourteau.modules.php
+
+		-
+			message: '#^Property pdf_tourteau\:\:\$emetteur has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: ../../../htdocs/moretemplates/core/modules/facture/doc/pdf_tourteau.modules.php
+
+		-
+			message: '#^Property pdf_tourteau\:\:\$format type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: ../../../htdocs/moretemplates/core/modules/facture/doc/pdf_tourteau.modules.php
+
+		-
+			message: '#^Property pdf_tourteau\:\:\$marge_basse has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: ../../../htdocs/moretemplates/core/modules/facture/doc/pdf_tourteau.modules.php
+
+		-
+			message: '#^Property pdf_tourteau\:\:\$marge_droite has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: ../../../htdocs/moretemplates/core/modules/facture/doc/pdf_tourteau.modules.php
+
+		-
+			message: '#^Property pdf_tourteau\:\:\$marge_gauche has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: ../../../htdocs/moretemplates/core/modules/facture/doc/pdf_tourteau.modules.php
+
+		-
+			message: '#^Property pdf_tourteau\:\:\$marge_haute has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: ../../../htdocs/moretemplates/core/modules/facture/doc/pdf_tourteau.modules.php
+
+		-
+			message: '#^Property pdf_tourteau\:\:\$page_hauteur has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: ../../../htdocs/moretemplates/core/modules/facture/doc/pdf_tourteau.modules.php
+
+		-
+			message: '#^Property pdf_tourteau\:\:\$page_largeur has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: ../../../htdocs/moretemplates/core/modules/facture/doc/pdf_tourteau.modules.php
+
+		-
+			message: '#^Property pdf_tourteau\:\:\$phpmin type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: ../../../htdocs/moretemplates/core/modules/facture/doc/pdf_tourteau.modules.php
+
+		-
+			message: '#^Property pdf_tourteau\:\:\$version has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: ../../../htdocs/moretemplates/core/modules/facture/doc/pdf_tourteau.modules.php
+
+		-
+			message: '#^Access to an undefined property mod_codeclient_lion\:\:\$name\.$#'
+			identifier: property.notFound
+			count: 1
+			path: ../../../htdocs/numberingpack/core/modules/societe/mod_codeclient_lion.php
+
+		-
+			message: '#^Default value of the parameter \#1 \$objsoc \(int\) of method mod_codeclient_lion\:\:getNextValue\(\) is incompatible with type Societe\.$#'
+			identifier: parameter.defaultValue
+			count: 1
+			path: ../../../htdocs/numberingpack/core/modules/societe/mod_codeclient_lion.php
+
+		-
+			message: '#^Method mod_codeclient_lion\:\:verif\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: ../../../htdocs/numberingpack/core/modules/societe/mod_codeclient_lion.php
+
+		-
+			message: '#^Method mod_codeclient_lion\:\:verif\(\) has parameter \$code with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: ../../../htdocs/numberingpack/core/modules/societe/mod_codeclient_lion.php
+
+		-
+			message: '#^Method mod_codeclient_lion\:\:verif\(\) has parameter \$db with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: ../../../htdocs/numberingpack/core/modules/societe/mod_codeclient_lion.php
+
+		-
+			message: '#^Method mod_codeclient_lion\:\:verif\(\) has parameter \$soc with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: ../../../htdocs/numberingpack/core/modules/societe/mod_codeclient_lion.php
+
+		-
+			message: '#^Method mod_codeclient_lion\:\:verif\(\) has parameter \$type with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: ../../../htdocs/numberingpack/core/modules/societe/mod_codeclient_lion.php
+
+		-
+			message: '#^Property mod_codeclient_lion\:\:\$code_auto has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: ../../../htdocs/numberingpack/core/modules/societe/mod_codeclient_lion.php
+
+		-
+			message: '#^Property mod_codeclient_lion\:\:\$code_modifiable has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: ../../../htdocs/numberingpack/core/modules/societe/mod_codeclient_lion.php
+
+		-
+			message: '#^Property mod_codeclient_lion\:\:\$code_modifiable_invalide has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: ../../../htdocs/numberingpack/core/modules/societe/mod_codeclient_lion.php
+
+		-
+			message: '#^Property mod_codeclient_lion\:\:\$code_modifiable_null has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: ../../../htdocs/numberingpack/core/modules/societe/mod_codeclient_lion.php
+
+		-
+			message: '#^Property mod_codeclient_lion\:\:\$code_null has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: ../../../htdocs/numberingpack/core/modules/societe/mod_codeclient_lion.php
+
+		-
+			message: '#^Property mod_codeclient_lion\:\:\$version has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: ../../../htdocs/numberingpack/core/modules/societe/mod_codeclient_lion.php
+
+		-
+			message: '#^Access to an undefined property mod_codeclient_zebre\:\:\$name\.$#'
+			identifier: property.notFound
+			count: 1
+			path: ../../../htdocs/numberingpack/core/modules/societe/mod_codeclient_zebre.php
+
+		-
+			message: '#^Default value of the parameter \#1 \$objsoc \(int\) of method mod_codeclient_zebre\:\:getNextValue\(\) is incompatible with type Societe\.$#'
+			identifier: parameter.defaultValue
+			count: 1
+			path: ../../../htdocs/numberingpack/core/modules/societe/mod_codeclient_zebre.php
+
+		-
+			message: '#^Method mod_codeclient_zebre\:\:verif\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: ../../../htdocs/numberingpack/core/modules/societe/mod_codeclient_zebre.php
+
+		-
+			message: '#^Method mod_codeclient_zebre\:\:verif\(\) has parameter \$code with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: ../../../htdocs/numberingpack/core/modules/societe/mod_codeclient_zebre.php
+
+		-
+			message: '#^Method mod_codeclient_zebre\:\:verif\(\) has parameter \$db with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: ../../../htdocs/numberingpack/core/modules/societe/mod_codeclient_zebre.php
+
+		-
+			message: '#^Method mod_codeclient_zebre\:\:verif\(\) has parameter \$soc with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: ../../../htdocs/numberingpack/core/modules/societe/mod_codeclient_zebre.php
+
+		-
+			message: '#^Method mod_codeclient_zebre\:\:verif\(\) has parameter \$type with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: ../../../htdocs/numberingpack/core/modules/societe/mod_codeclient_zebre.php
+
+		-
+			message: '#^Property mod_codeclient_zebre\:\:\$code_auto has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: ../../../htdocs/numberingpack/core/modules/societe/mod_codeclient_zebre.php
+
+		-
+			message: '#^Property mod_codeclient_zebre\:\:\$code_modifiable has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: ../../../htdocs/numberingpack/core/modules/societe/mod_codeclient_zebre.php
+
+		-
+			message: '#^Property mod_codeclient_zebre\:\:\$code_modifiable_invalide has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: ../../../htdocs/numberingpack/core/modules/societe/mod_codeclient_zebre.php
+
+		-
+			message: '#^Property mod_codeclient_zebre\:\:\$code_modifiable_null has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: ../../../htdocs/numberingpack/core/modules/societe/mod_codeclient_zebre.php
+
+		-
+			message: '#^Property mod_codeclient_zebre\:\:\$code_null has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: ../../../htdocs/numberingpack/core/modules/societe/mod_codeclient_zebre.php
+
+		-
+			message: '#^Property mod_codeclient_zebre\:\:\$version has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: ../../../htdocs/numberingpack/core/modules/societe/mod_codeclient_zebre.php
+
+		-
+			message: '#^Parameter \#3 \$value of function dolibarr_set_const expects string, int given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/numberwords/admin/numberwords.php
+
+		-
+			message: '#^Parameter \#2 \$htmlid of function dol_print_address expects int, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/openstreetmap/maps.php
+
+		-
+			message: '#^Parameter \#3 \$element of function dol_print_address expects int, array\|string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/openstreetmap/maps.php
+
+		-
+			message: '#^Property CommonObject\:\:\$id \(int\) does not accept array\|string\.$#'
+			identifier: assign.propertyType
+			count: 3
+			path: ../../../htdocs/openstreetmap/maps.php
+
+		-
+			message: '#^Parameter \#4 \$deliveryreceipt of class CSMSFile constructor expects int, array\|string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/ovh/admin/ovh_sms_setup.php
+
+		-
+			message: '#^Parameter \#5 \$deferred of class CSMSFile constructor expects int, array\|string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/ovh/admin/ovh_sms_setup.php
+
+		-
+			message: '#^Parameter \#6 \$priority of class CSMSFile constructor expects int, array\|string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/ovh/admin/ovh_sms_setup.php
+
+		-
+			message: '#^Parameter \#7 \$class of class CSMSFile constructor expects int, array\|string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/ovh/admin/ovh_sms_setup.php
+
+		-
+			message: '#^Parameter \#4 \$deliveryreceipt of class CSMSFile constructor expects int, array\|string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/ovh/class/actions_ovh.class.php
+
+		-
+			message: '#^Parameter \#5 \$deferred of class CSMSFile constructor expects int, array\|string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/ovh/class/actions_ovh.class.php
+
+		-
+			message: '#^Parameter \#6 \$priority of class CSMSFile constructor expects int, array\|string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/ovh/class/actions_ovh.class.php
+
+		-
+			message: '#^Parameter \#7 \$class of class CSMSFile constructor expects int, array\|string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/ovh/class/actions_ovh.class.php
+
+		-
+			message: '#^Property ActionComm\:\:\$socpeopleassigned \(array\<int\>\) does not accept array\<null\>\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: ../../../htdocs/ovh/class/actions_ovh.class.php
+
+		-
+			message: '#^Access to an undefined property OvhServer\:\:\$msg\.$#'
+			identifier: property.notFound
+			count: 1
+			path: ../../../htdocs/ovh/class/ovhserver.class.php
+
+		-
+			message: '#^Access to an undefined property OvhServer\:\:\$projectname\.$#'
+			identifier: property.notFound
+			count: 1
+			path: ../../../htdocs/ovh/class/ovhserver.class.php
+
+		-
+			message: '#^Function dolPrintHTMLForAttribute not found\.$#'
+			identifier: function.notFound
+			count: 2
+			path: ../../../htdocs/ovh/class/ovhserver.class.php
+
+		-
+			message: '#^PHPDoc type array of property OvhServer\:\:\$ismultientitymanaged is not covariant with PHPDoc type int of overridden property CommonObject\:\:\$ismultientitymanaged\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: ../../../htdocs/ovh/class/ovhserver.class.php
+
+		-
+			message: '#^Parameter \#1 \$status of method OvhServer\:\:LibStatut\(\) expects string, int given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/ovh/class/ovhserver.class.php
+
+		-
+			message: '#^Access to an undefined property OvhSms\:\:\$session\.$#'
+			identifier: property.notFound
+			count: 7
+			path: ../../../htdocs/ovh/class/ovhsms.class.php
+
+		-
+			message: '#^Method InterfaceOvhTriggers\:\:runTrigger\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: ../../../htdocs/ovh/core/triggers/interface_99_modOvh_OvhTriggers.class.php
+
+		-
+			message: '#^Parameter \#3 \$duration_unit of function dol_time_plus_duree expects int, string given\.$#'
+			identifier: argument.type
+			count: 2
+			path: ../../../htdocs/ovh/importovhinvoice.php
+
+		-
+			message: '#^Parameter \#3 \$order of function dol_sort_array expects int, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/ovh/importovhinvoice.php
+
+		-
+			message: '#^Parameter \#4 \$month of function dol_mktime expects int, array\|string given\.$#'
+			identifier: argument.type
+			count: 2
+			path: ../../../htdocs/ovh/importovhinvoice.php
+
+		-
+			message: '#^Parameter \#5 \$day of function dol_mktime expects int, array\|string given\.$#'
+			identifier: argument.type
+			count: 2
+			path: ../../../htdocs/ovh/importovhinvoice.php
+
+		-
+			message: '#^Parameter \#6 \$year of function dol_mktime expects int, array\|string given\.$#'
+			identifier: argument.type
+			count: 2
+			path: ../../../htdocs/ovh/importovhinvoice.php
+
+		-
+			message: '#^Property CommonObject\:\:\$fk_project \(int\) does not accept array\|string\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: ../../../htdocs/ovh/importovhinvoice.php
+
+		-
+			message: '#^Property CommonObject\:\:\$id \(int\) does not accept array\|string\.$#'
+			identifier: assign.propertyType
+			count: 2
+			path: ../../../htdocs/ovh/ovh_listinfoserver.php
+
+		-
+			message: '#^Parameter \#4 \$deliveryreceipt of class CSMSFile constructor expects int, array\|string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/ovh/sms_member.php
+
+		-
+			message: '#^Parameter \#5 \$deferred of class CSMSFile constructor expects int, array\|string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/ovh/sms_member.php
+
+		-
+			message: '#^Parameter \#6 \$priority of class CSMSFile constructor expects int, array\|string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/ovh/sms_member.php
+
+		-
+			message: '#^Parameter \#7 \$class of class CSMSFile constructor expects int, array\|string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/ovh/sms_member.php
+
+		-
+			message: '#^Parameter \#4 \$deliveryreceipt of class CSMSFile constructor expects int, array\|string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/ovh/sms_thirdparty.php
+
+		-
+			message: '#^Parameter \#4 \$shownav of function dol_banner_tab expects int, bool given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/ovh/sms_thirdparty.php
+
+		-
+			message: '#^Parameter \#5 \$deferred of class CSMSFile constructor expects int, array\|string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/ovh/sms_thirdparty.php
+
+		-
+			message: '#^Parameter \#6 \$priority of class CSMSFile constructor expects int, array\|string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/ovh/sms_thirdparty.php
+
+		-
+			message: '#^Parameter \#7 \$class of class CSMSFile constructor expects int, array\|string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/ovh/sms_thirdparty.php
+
+		-
+			message: '#^Property FormSms\:\:\$withtosocid \(int\) does not accept array\|string\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: ../../../htdocs/ovh/sms_thirdparty.php
+
+		-
+			message: '#^Access to an undefined property modPayplugDolicloud\:\:\$editor_squarred_logo\.$#'
+			identifier: property.notFound
+			count: 1
+			path: ../../../htdocs/payplugdolicloud/core/modules/modPayplugDolicloud.class.php
+
+		-
+			message: '#^Parameter \#3 \$newmask of function dol_copy expects int, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/payplugdolicloud/core/modules/modPayplugDolicloud.class.php
+
+		-
+			message: '#^Property DolibarrModules\:\:\$hidden \(bool\) does not accept int\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: ../../../htdocs/payplugdolicloud/core/modules/modPayplugDolicloud.class.php
+
+		-
+			message: '#^Method InterfacePrestashopGetTriggers\:\:runTrigger\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: ../../../htdocs/prestashopget/core/triggers/interface_99_modPrestashopGet_PrestashopGetTriggers.class.php
+
+		-
+			message: '#^Parameter \#4 \$month of function dol_mktime expects int, array\|string given\.$#'
+			identifier: argument.type
+			count: 2
+			path: ../../../htdocs/prestashopget/index.php
+
+		-
+			message: '#^Parameter \#5 \$day of function dol_mktime expects int, array\|string given\.$#'
+			identifier: argument.type
+			count: 2
+			path: ../../../htdocs/prestashopget/index.php
+
+		-
+			message: '#^Parameter \#6 \$year of function dol_mktime expects int, array\|string given\.$#'
+			identifier: argument.type
+			count: 2
+			path: ../../../htdocs/prestashopget/index.php
+
+		-
+			message: '#^Method InterfaceRevertInvoiceTriggers\:\:runTrigger\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: ../../../htdocs/revertinvoice/core/triggers/interface_99_modRevertInvoice_RevertInvoiceTriggers.class.php
+
+		-
+			message: '#^Property FactureFournisseur\:\:\$lines \(array\<SupplierInvoiceLine\>\) does not accept array\<CommonObjectLine\>\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: ../../../htdocs/revertinvoice/core/triggers/interface_99_modRevertInvoice_RevertInvoiceTriggers.class.php
+
+		-
+			message: '#^Parameter \#4 \$month of function dol_mktime expects int, array\|string given\.$#'
+			identifier: argument.type
+			count: 4
+			path: ../../../htdocs/saftpt/exportsaft.php
+
+		-
+			message: '#^Parameter \#5 \$day of function dol_mktime expects int, array\|string given\.$#'
+			identifier: argument.type
+			count: 4
+			path: ../../../htdocs/saftpt/exportsaft.php
+
+		-
+			message: '#^Parameter \#5 \$excludefilter of function dol_dir_list expects array\|null, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/saftpt/exportsaft.php
+
+		-
+			message: '#^Parameter \#6 \$year of function dol_mktime expects int, array\|string given\.$#'
+			identifier: argument.type
+			count: 4
+			path: ../../../htdocs/saftpt/exportsaft.php
+
+		-
+			message: '#^Parameter \#7 \$sortorder of function dol_dir_list expects string, int given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/saftpt/exportsaft.php
+
+		-
+			message: '#^Parameter \#5 \$excludefilter of function dol_dir_list expects array\|null, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/saftpt/index.php
+
+		-
+			message: '#^Parameter \#7 \$sortorder of function dol_dir_list expects string, int given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/saftpt/index.php
+
+		-
+			message: '#^Parameter \#3 \$duration_unit of function dol_time_plus_duree expects int, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/sendgrid/importinvoice.php
+
+		-
+			message: '#^Parameter \#4 \$month of function dol_mktime expects int, array\|string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/sendgrid/importinvoice.php
+
+		-
+			message: '#^Parameter \#5 \$day of function dol_mktime expects int, array\|string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/sendgrid/importinvoice.php
+
+		-
+			message: '#^Parameter \#6 \$year of function dol_mktime expects int, array\|string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/sendgrid/importinvoice.php
+
+		-
+			message: '#^Parameter \#4 \$shownav of function dol_banner_tab expects int, bool given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/skincoloreditor/usercolors.php
+
+		-
+			message: '#^Property FormSetupItem\:\:\$defaultFieldValue \(string\) does not accept int\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: ../../../htdocs/stancerdolicloud/admin/setup.php
+
+		-
+			message: '#^Parameter \#2 \$level of function dol_syslog expects int, string given\.$#'
+			identifier: argument.type
+			count: 2
+			path: ../../../htdocs/stancerdolicloud/class/actions_stancerdolicloud.class.php
+
+		-
+			message: '#^Parameter \#3 \$duration_unit of function dol_time_plus_duree expects int, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/stancerdolicloud/class/actions_stancerdolicloud.class.php
+
+		-
+			message: '#^Access to an undefined property modStancerDolicloud\:\:\$editor_squarred_logo\.$#'
+			identifier: property.notFound
+			count: 1
+			path: ../../../htdocs/stancerdolicloud/core/modules/modStancerDolicloud.class.php
+
+		-
+			message: '#^Parameter \#13 \$css of class CMailFile constructor expects string, array\<string, mixed\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/submiteverywhere/card.php
+
+		-
+			message: '#^Parameter \#3 \$width of class DolEditor constructor expects int, string given\.$#'
+			identifier: argument.type
+			count: 3
+			path: ../../../htdocs/submiteverywhere/card.php
+
+		-
+			message: '#^Parameter \#5 \$excludefilter of function dol_dir_list expects array\|null, string given\.$#'
+			identifier: argument.type
+			count: 5
+			path: ../../../htdocs/submiteverywhere/card.php
+
+		-
+			message: '#^Parameter \#7 \$sortorder of function dol_dir_list expects string, int given\.$#'
+			identifier: argument.type
+			count: 5
+			path: ../../../htdocs/submiteverywhere/card.php
+
+		-
+			message: '#^Parameter \#1 \$amount of function price expects float, string given\.$#'
+			identifier: argument.type
+			count: 14
+			path: ../../../htdocs/tvacerfa/quadri_detail.php
+
+		-
+			message: '#^Parameter \#1 \$year of function dol_get_first_day expects int, array\|string given\.$#'
+			identifier: argument.type
+			count: 5
+			path: ../../../htdocs/tvacerfa/quadri_detail.php
+
+		-
+			message: '#^Parameter \#1 \$year of function dol_get_last_day expects int, array\|string given\.$#'
+			identifier: argument.type
+			count: 5
+			path: ../../../htdocs/tvacerfa/quadri_detail.php
+		-
+			message: '#^PHPDoc type string\|null of property ActionsDiscussion\:\:\$resprints is not covariant with PHPDoc type string of overridden property CommonHookActions\:\:\$resprints\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: ../../../htdocs/discussion/class/actions_discussion.class.php
+
+		-
+			message: '#^Parameter \#3 \$nosalt of function dol_hash expects string, int given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/discussion/lib/discussion_channel.lib.php
+
+		-
+			message: '#^Property mod_codeclient_lion\:\:\$code_modifiable \(string\) does not accept int\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: ../../../htdocs/numberingpack/core/modules/societe/mod_codeclient_lion.php
+
+		-
+			message: '#^Property mod_codeclient_zebre\:\:\$code_modifiable \(string\) does not accept int\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: ../../../htdocs/numberingpack/core/modules/societe/mod_codeclient_zebre.php
+
+		-
+			message: '#^PHPDoc type string\|null of property ActionsPayplugDolicloud\:\:\$resprints is not covariant with PHPDoc type string of overridden property CommonHookActions\:\:\$resprints\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: ../../../htdocs/payplugdolicloud/class/actions_payplugdolicloud.class.php
+
+		-
+			message: '#^Parameter \#3 \$value of function dolibarr_set_const expects string, int\<1, max\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/payplugdolicloud/core/modules/modPayplugDolicloud.class.php
+
+		-
+			message: '#^Parameter \#3 \$value of function dolibarr_set_const expects string, int\<1, max\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/stancerdolicloud/core/modules/modStancerDolicloud.class.php
+		-
+			message: '#^PHPDoc type int of property Survey\:\:\$ismultientitymanaged is not covariant with PHPDoc type int\<0, 1\>\|string of overridden property CommonObject\:\:\$ismultientitymanaged\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: ../../../htdocs/alumni/class/survey.class.php
+
+		-
+			message: '#^Property CommonObject\:\:\$status \(array\<int, string\>\|int\) in isset\(\) is not nullable\.$#'
+			identifier: isset.property
+			count: 1
+			path: ../../../htdocs/alumni/class/survey.class.php
+
+		-
+			message: '#^Property CommonObject\:\:\$status \(array\<int, string\>\|int\) in isset\(\) is not nullable\.$#'
+			identifier: isset.property
+			count: 1
+			path: ../../../htdocs/alumni/survey_card.php
+
+		-
+			message: '#^Parameter \#1 \$links of function dol_fiche_head expects array\<string, array\<int\<0, 5\>, string\>\>, array\{array\{mixed, mixed, ''tabsetup''\}, array\{''about\.php'', mixed, ''tababout''\}\} given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/billedonorders/admin/billedonorders.php
+
+		-
+			message: '#^Parameter \#1 \$links of function dol_fiche_head expects array\<string, array\<int\<0, 5\>, string\>\>, array\{array\{''concatpdf\.php'', mixed, ''tabsetup''\}, array\{mixed, mixed, ''tababout''\}\} given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/concatpdf/admin/about.php
+
+		-
+			message: '#^Parameter \#1 \$links of function dol_fiche_head expects array\<string, array\<int\<0, 5\>, string\>\>, array\{array\{mixed, mixed, ''tabsetup''\}, array\{''about\.php'', mixed, ''tababout''\}\} given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/concatpdf/admin/concatpdf.php
+
+		-
+			message: '#^Parameter \#1 \$pdf of method ActionsConcatPdf\:\:concat\(\) expects PDF, TCPDF\|TCPDI given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/concatpdf/class/actions_concatpdf.class.php
+
+		-
+			message: '#^Parameter \#1 \$pdf of method ActionsConcatPdf\:\:concatMixed\(\) expects PDF, TCPDF\|TCPDI given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/concatpdf/class/actions_concatpdf.class.php
+
+		-
+			message: '#^Property Channel\:\:\$status \(array\<int, string\>\|int\) in isset\(\) is not nullable\.$#'
+			identifier: isset.property
+			count: 1
+			path: ../../../htdocs/discussion/channel_card.php
+
+		-
+			message: '#^Property Channel\:\:\$status \(array\<int, string\>\|int\) in isset\(\) is not nullable\.$#'
+			identifier: isset.property
+			count: 1
+			path: ../../../htdocs/discussion/class/channel.class.php
+
+		-
+			message: '#^Property CommonObject\:\:\$ismultientitymanaged \(int\<0, 1\>\|string\) in isset\(\) is not nullable\.$#'
+			identifier: isset.property
+			count: 1
+			path: ../../../htdocs/discussion/class/channel.class.php
+
+		-
+			message: '#^Property CommonObject\:\:\$ismultientitymanaged \(int\<0, 1\>\|string\) in isset\(\) is not nullable\.$#'
+			identifier: isset.property
+			count: 1
+			path: ../../../htdocs/discussion/class/message.class.php
+
+		-
+			message: '#^Property CommonObject\:\:\$status \(array\<int, string\>\|int\) in isset\(\) is not nullable\.$#'
+			identifier: isset.property
+			count: 1
+			path: ../../../htdocs/discussion/class/message.class.php
+
+		-
+			message: '#^Property CommonObject\:\:\$status \(array\<int, string\>\|int\) in isset\(\) is not nullable\.$#'
+			identifier: isset.property
+			count: 1
+			path: ../../../htdocs/discussion/message_card.php
+
+		-
+			message: '#^PHPDoc type date of property Ecotaxdeee\:\:\$date_creation is not covariant with PHPDoc type int\|string\|null of overridden property CommonObject\:\:\$date_creation\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: ../../../htdocs/ecotaxdeee/class/ecotaxdeee.class.php
+
+		-
+			message: '#^Parameter \#1 \$links of function dol_fiche_head expects array\<string, array\<int\<0, 5\>, string\>\>, array\{array\{mixed, mixed, ''tabsetup''\}, array\{''about\.php'', mixed, ''tababout''\}\} given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/externalbackup/admin/externalbackup.php
+
+		-
+			message: '#^Unable to resolve the template type T in call to function dol_clone$#'
+			identifier: argument.templateType
+			count: 3
+			path: ../../../htdocs/google/admin/google_contactsync.php
+
+		-
+			message: '#^Property box_googlemaps\:\:\$info_box_contents type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: ../../../htdocs/google/core/boxes/box_googlemaps.php
+
+		-
+			message: '#^Property box_googlemaps\:\:\$info_box_head type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: ../../../htdocs/google/core/boxes/box_googlemaps.php
+
+		-
+			message: '#^Parameter \#1 \$links of function dol_fiche_head expects array\<string, array\<int\<0, 5\>, string\>\>, array\{array\{''setup\.php'', mixed, ''setup''\}\} given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/ipphone/admin/setup.php
+
+		-
+			message: '#^Property Monitoring_probes\:\:\$status \(array\<int, string\>\|int\) does not accept string\.$#'
+			identifier: assign.propertyType
+			count: 3
+			path: ../../../htdocs/monitoring/class/monitoring_probes.class.php
+
+		-
+			message: '#^Property Monitoring_probes\:\:\$status \(array\<int, string\>\|int\) in isset\(\) is not nullable\.$#'
+			identifier: isset.property
+			count: 4
+			path: ../../../htdocs/monitoring/class/monitoring_probes.class.php
+
+		-
+			message: '#^Parameter \#1 \$pdf of method pdf_edison\:\:_pagehead\(\) expects PDF, TCPDF\|TCPDI given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/moretemplates/core/modules/commande/doc/pdf_edison.modules.php
+
+		-
+			message: '#^Parameter \#12 \$align of function pdf_writelinedesc expects string, object given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/moretemplates/core/modules/commande/doc/pdf_edison.modules.php
+
+		-
+			message: '#^Parameter \#1 \$pdf of method pdf_oursin\:\:_pagehead\(\) expects PDF, TCPDF\|TCPDI given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/moretemplates/core/modules/facture/doc/pdf_oursin.modules.php
+
+		-
+			message: '#^Parameter \#12 \$align of function pdf_writelinedesc expects string, object given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/moretemplates/core/modules/facture/doc/pdf_oursin.modules.php
+
+		-
+			message: '#^Parameter \#1 \$pdf of method pdf_tourteau\:\:_pagehead\(\) expects PDF, TCPDF\|TCPDI given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/moretemplates/core/modules/facture/doc/pdf_tourteau.modules.php
+
+		-
+			message: '#^Parameter \#12 \$align of function pdf_writelinedesc expects string, object given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/moretemplates/core/modules/facture/doc/pdf_tourteau.modules.php
+
+		-
+			message: '#^Default value of the parameter \#1 \$objsoc \(int\) of method mod_codeclient_lion\:\:getNextValue\(\) is incompatible with type Societe\|string\.$#'
+			identifier: parameter.defaultValue
+			count: 1
+			path: ../../../htdocs/numberingpack/core/modules/societe/mod_codeclient_lion.php
+
+		-
+			message: '#^Default value of the parameter \#1 \$objsoc \(int\) of method mod_codeclient_zebre\:\:getNextValue\(\) is incompatible with type Societe\|string\.$#'
+			identifier: parameter.defaultValue
+			count: 1
+			path: ../../../htdocs/numberingpack/core/modules/societe/mod_codeclient_zebre.php
+
+		-
+			message: '#^Property ActionComm\:\:\$socpeopleassigned \(array\<int, array\{id\: int, mandatory\: int\<0, 1\>, answer_status\: int, transparency\: int\<0, 1\>\}\>\) does not accept non\-empty\-array\<null\>\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: ../../../htdocs/ovh/class/actions_ovh.class.php
+
+		-
+			message: '#^Property CSMSFile\:\:\$nostop \(bool\) does not accept array\|string\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: ../../../htdocs/ovh/class/actions_ovh.class.php
+
+		-
+			message: '#^Property FormSms\:\:\$withto \(int\) does not accept string\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: ../../../htdocs/ovh/class/actions_ovh.class.php
+
+		-
+			message: '#^PHPDoc type array of property OvhServer\:\:\$ismultientitymanaged is not covariant with PHPDoc type int\<0, 1\>\|string of overridden property CommonObject\:\:\$ismultientitymanaged\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: ../../../htdocs/ovh/class/ovhserver.class.php
+
+		-
+			message: '#^Parameter \#1 \$status of method OvhServer\:\:LibStatut\(\) expects string, array\<int, string\>\|int given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/ovh/class/ovhserver.class.php
+
+		-
+			message: '#^Parameter \#1 \$links of function dol_fiche_head expects array\<string, array\<int\<0, 5\>, string\>\>, array\<int, array\<int, string\>\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/ovh/sms_member.php
+
+		-
+			message: '#^Property CSMSFile\:\:\$nostop \(bool\) does not accept array\|string\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: ../../../htdocs/ovh/sms_member.php
+
+		-
+			message: '#^Property CSMSFile\:\:\$nostop \(bool\) does not accept array\|string\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: ../../../htdocs/ovh/sms_thirdparty.php
+
+		-
+			message: '#^Parameter \#1 \$links of function dol_fiche_head expects array\<string, array\<int\<0, 5\>, string\>\>, array\{array\{string, mixed, ''fasteditor''\}, array\{string, mixed, ''advancededitor''\}\} given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/skincoloreditor/admin/advancededitor.php
+
+		-
+			message: '#^Parameter \#1 \$links of function dol_fiche_head expects array\<string, array\<int\<0, 5\>, string\>\>, array\{array\{string, mixed, ''fasteditor''\}, array\{''about\.php'', mixed, ''tababout''\}\} given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/skincoloreditor/admin/quickeditor.php
+
+		-
+			message: '#^Parameter \#1 \$links of function dol_fiche_head expects array\<string, array\<int\<0, 5\>, string\>\>, array\{array\{''setup\.php'', mixed, ''tabsetup''\}, array\{mixed, mixed, ''tababout''\}\} given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/tawkto/admin/about.php
+
+		-
+			message: '#^Parameter \#1 \$links of function dol_fiche_head expects array\<string, array\<int\<0, 5\>, string\>\>, array\{array\{mixed, string, ''tabsetup''\}, array\{''about\.php'', string, ''tababout''\}\} given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/tawkto/admin/setup.php
+
+		-
+			message: '#^Parameter \#1 \$links of function dol_fiche_head expects array\<string, array\<int\<0, 5\>, string\>\>, array\{array\{mixed, mixed, ''tabsetup''\}, array\{''about\.php'', mixed, ''tababout''\}\} given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/zipautofillfr/admin/zipautofillfr.php
+		-
+			message: '#^PHPDoc type array of property Survey\:\:\$fields is not covariant with PHPDoc type array\<string, array\{type\: string, label\: string, enabled\: int\<0, 2\>\|string, position\: int, notnull\?\: int, visible\: int\<\-6, 5\>\|string, alwayseditable\?\: int\<0, 1\>, noteditable\?\: int\<0, 1\>, \.\.\.\}\> of overridden property CommonObject\:\:\$fields\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: ../../../htdocs/alumni/class/survey.class.php
+
+		-
+			message: '#^Parameter \#4 \$month of function dol_mktime expects int, array\<mixed\>\|string given\.$#'
+			identifier: argument.type
+			count: 2
+			path: ../../../htdocs/alumni/survey_list.php
+
+		-
+			message: '#^Parameter \#5 \$day of function dol_mktime expects int, array\<mixed\>\|string given\.$#'
+			identifier: argument.type
+			count: 2
+			path: ../../../htdocs/alumni/survey_list.php
+
+		-
+			message: '#^Parameter \#6 \$year of function dol_mktime expects int, array\<mixed\>\|string given\.$#'
+			identifier: argument.type
+			count: 2
+			path: ../../../htdocs/alumni/survey_list.php
+
+		-
+			message: '#^Function dol_setcache invoked with 5 parameters, 2\-4 required\.$#'
+			identifier: arguments.count
+			count: 1
+			path: ../../../htdocs/discussion/ajax/channel_messagemanager.php
+
+		-
+			message: '#^Function dol_setcache invoked with 5 parameters, 2\-4 required\.$#'
+			identifier: arguments.count
+			count: 2
+			path: ../../../htdocs/discussion/class/channel.class.php
+
+		-
+			message: '#^Property Channel\:\:\$fields \(array\<string, array\{type\: string, label\: string, enabled\: int\<0, 2\>\|string, position\: int, notnull\?\: int, visible\: int\<\-6, 5\>\|string, alwayseditable\?\: int\<0, 1\>, noteditable\?\: int\<0, 1\>, \.\.\.\}\>\) does not accept default value of type array\{rowid\: array\{type\: ''integer'', label\: ''TechnicalID'', enabled\: ''1'', position\: 1, notnull\: 1, visible\: ''0'', noteditable\: ''1'', index\: ''1'', \.\.\.\}, ref\: array\{type\: ''varchar\(128\)'', label\: ''Ref'', enabled\: ''1'', position\: 20, notnull\: 1, visible\: ''4'', noteditable\: ''1'', default\: ''\(PROV\)'', \.\.\.\}, note_public\: array\{type\: ''html'', label\: ''NotePublic'', enabled\: ''1'', position\: 61, notnull\: 0, visible\: ''0'', cssview\: ''wordbreak'', validate\: ''1''\}, note_private\: array\{type\: ''html'', label\: ''NotePrivate'', enabled\: ''1'', position\: 62, notnull\: 0, visible\: ''0'', cssview\: ''wordbreak'', validate\: ''1''\}, date_creation\: array\{type\: ''datetime'', label\: ''DateCreation'', enabled\: ''1'', position\: 500, notnull\: 1, visible\: ''\-2''\}, tms\: array\{type\: ''timestamp'', label\: ''DateModification'', enabled\: ''1'', position\: 501, notnull\: 0, visible\: ''\-2''\}, fk_user_creat\: array\{type\: ''integer\:User\:user…'', label\: ''UserAuthor'', picto\: ''user'', enabled\: ''1'', position\: 510, notnull\: 1, visible\: ''\-2'', csslist\: ''tdoverflowmax150''\}, fk_user_modif\: array\{type\: ''integer\:User\:user…'', label\: ''UserModif'', picto\: ''user'', enabled\: ''1'', position\: 511, notnull\: \-1, visible\: ''\-2'', csslist\: ''tdoverflowmax150''\}, \.\.\.\}\.$#'
+			identifier: property.defaultValue
+			count: 1
+			path: ../../../htdocs/discussion/class/channel.class.php
+
+		-
+			message: '#^Property Message\:\:\$fields \(array\<string, array\{type\: string, label\: string, enabled\: int\<0, 2\>\|string, position\: int, notnull\?\: int, visible\: int\<\-6, 5\>\|string, alwayseditable\?\: int\<0, 1\>, noteditable\?\: int\<0, 1\>, \.\.\.\}\>\) does not accept default value of type array\{rowid\: array\{type\: ''integer'', label\: ''TechnicalID'', enabled\: ''1'', position\: 1, notnull\: 1, visible\: ''0'', noteditable\: ''1'', index\: ''1'', \.\.\.\}, date_creation\: array\{type\: ''datetime'', label\: ''DateCreation'', enabled\: ''1'', position\: 500, notnull\: 1, visible\: ''\-2''\}, tms\: array\{type\: ''timestamp'', label\: ''DateModification'', enabled\: ''1'', position\: 501, notnull\: 0, visible\: ''\-2''\}, fk_user_creat\: array\{type\: ''integer\:User\:user…'', label\: ''UserAuthor'', picto\: ''user'', enabled\: ''1'', position\: 510, notnull\: 1, visible\: ''\-2'', csslist\: ''tdoverflowmax150''\}, fk_user_modif\: array\{type\: ''integer\:User\:user…'', label\: ''UserModif'', picto\: ''user'', enabled\: ''1'', position\: 511, notnull\: \-1, visible\: ''\-2'', csslist\: ''tdoverflowmax150''\}, last_main_doc\: array\{type\: ''varchar\(255\)'', label\: ''LastMainDoc'', enabled\: ''1'', position\: 600, notnull\: 0, visible\: ''0''\}, message\: array\{type\: ''html'', label\: ''Message'', enabled\: ''1'', position\: 10, notnull\: 1, visible\: ''1''\}, fk_discussion_channel\: array\{type\: ''integer\:Channel…'', label\: ''DiscussionChannel'', enabled\: ''1'', position\: 20, notnull\: 1, visible\: ''1''\}\}\.$#'
+			identifier: property.defaultValue
+			count: 1
+			path: ../../../htdocs/discussion/class/message.class.php
+
+		-
+			message: '#^Property CommonInvoiceLine\:\:\$total_ht \(float\) does not accept string\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: ../../../htdocs/ecotaxdeee/core/triggers/interface_50_modEcotaxdeee_Ecotaxdeee.class.php
+
+		-
+			message: '#^Property CommonInvoiceLine\:\:\$total_localtax1 \(float\) does not accept string\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: ../../../htdocs/ecotaxdeee/core/triggers/interface_50_modEcotaxdeee_Ecotaxdeee.class.php
+
+		-
+			message: '#^Property CommonInvoiceLine\:\:\$total_localtax2 \(float\) does not accept string\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: ../../../htdocs/ecotaxdeee/core/triggers/interface_50_modEcotaxdeee_Ecotaxdeee.class.php
+
+		-
+			message: '#^Property CommonInvoiceLine\:\:\$total_ttc \(float\) does not accept string\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: ../../../htdocs/ecotaxdeee/core/triggers/interface_50_modEcotaxdeee_Ecotaxdeee.class.php
+
+		-
+			message: '#^Property CommonInvoiceLine\:\:\$total_tva \(float\) does not accept string\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: ../../../htdocs/ecotaxdeee/core/triggers/interface_50_modEcotaxdeee_Ecotaxdeee.class.php
+
+		-
+			message: '#^Property DolibarrModules\:\:\$phpmin \(array\<int\>\) does not accept array\<int, float\>\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: ../../../htdocs/filemanager/core/modules/modFileManager.class.php
+
+		-
+			message: '#^Parameter \#4 \$menu_array_after of function left_menu expects array\<array\{rowid\: string, fk_menu\: string, langs\: string, enabled\: int\<0, 2\>, type\: string, fk_mainmenu\: string, fk_leftmenu\: string, url\: string, \.\.\.\}\>, array\<array\{url\: string, titre\: string, enabled\: int\<0, 2\>, target\: string, mainmenu\: string, leftmenu\: string, position\: int, level\?\: int, \.\.\.\}\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/filemanager/index.php
+
+		-
+			message: '#^Parameter \#1 \$hour of function dol_mktime expects int, array\<mixed\>\|string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/google/admin/google_calsync.php
+
+		-
+			message: '#^Parameter \#2 \$minute of function dol_mktime expects int, array\<mixed\>\|string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/google/admin/google_calsync.php
+
+		-
+			message: '#^Parameter \#4 \$month of function dol_mktime expects int, array\<mixed\>\|string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/google/admin/google_calsync.php
+
+		-
+			message: '#^Parameter \#5 \$day of function dol_mktime expects int, array\<mixed\>\|string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/google/admin/google_calsync.php
+
+		-
+			message: '#^Parameter \#6 \$year of function dol_mktime expects int, array\<mixed\>\|string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/google/admin/google_calsync.php
+
+		-
+			message: '#^Parameter \#1 \$hour of function dol_mktime expects int, array\<mixed\>\|string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/google/admin/google_calsync_user.php
+
+		-
+			message: '#^Parameter \#2 \$minute of function dol_mktime expects int, array\<mixed\>\|string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/google/admin/google_calsync_user.php
+
+		-
+			message: '#^Parameter \#4 \$month of function dol_mktime expects int, array\<mixed\>\|string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/google/admin/google_calsync_user.php
+
+		-
+			message: '#^Parameter \#5 \$day of function dol_mktime expects int, array\<mixed\>\|string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/google/admin/google_calsync_user.php
+
+		-
+			message: '#^Parameter \#6 \$year of function dol_mktime expects int, array\<mixed\>\|string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/google/admin/google_calsync_user.php
+
+		-
+			message: '#^Property box_googlemaps\:\:\$info_box_contents \(array\<array\<array\{td\?\: string, text\: string, asis\?\: int\<0, 1\>, maxlength\?\: int\}\|int\|string\>\>\) does not accept non\-empty\-array\<array\<array\{td\: ''align\="left" width\=…'', logo\: ''object_company'', url\: non\-falsy\-string\}\|array\{td\: ''align\="left"'', text\: non\-falsy\-string, url\: non\-falsy\-string\}\|array\{td\?\: string, text\: string, asis\?\: int\<0, 1\>, maxlength\?\: int\}\|int\|string\>\>\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: ../../../htdocs/google/core/boxes/box_googlemaps.php
+
+		-
+			message: '#^Property box_googlemaps\:\:\$info_box_contents \(array\<array\<array\{td\?\: string, text\: string, asis\?\: int\<0, 1\>, maxlength\?\: int\}\|int\|string\>\>\) does not accept non\-empty\-array\<array\<array\{td\: ''align\="left" width\=…'', logo\: ''object_company'', url\: non\-falsy\-string\}\|array\{td\?\: string, text\: string, asis\?\: int\<0, 1\>, maxlength\?\: int\}\|int\|string\>\>\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: ../../../htdocs/google/core/boxes/box_googlemaps.php
+
+		-
+			message: '#^Property Adherent\:\:\$id \(int\) does not accept array\<mixed\>\|string\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: ../../../htdocs/google/gmaps.php
+
+		-
+			message: '#^Property Contact\:\:\$id \(int\) does not accept array\<mixed\>\|string\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: ../../../htdocs/google/gmaps.php
+
+		-
+			message: '#^Property Societe\:\:\$id \(int\) does not accept array\<mixed\>\|string\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: ../../../htdocs/google/gmaps.php
+
+		-
+			message: '#^Property Adherent\:\:\$id \(int\) does not accept array\<mixed\>\|string\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: ../../../htdocs/google/gmaps_all.php
+
+		-
+			message: '#^Property Contact\:\:\$id \(int\) does not accept array\<mixed\>\|string\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: ../../../htdocs/google/gmaps_all.php
+
+		-
+			message: '#^Property Societe\:\:\$id \(int\) does not accept array\<mixed\>\|string\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: ../../../htdocs/google/gmaps_all.php
+
+		-
+			message: '#^Parameter \#1 \$object of function pdf_getlineupexcltax expects Commande\|CommandeFournisseur\|Facture\|FactureFournisseur\|Propal\|StockTransfer\|SupplierProposal, int given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/moretemplates/core/modules/commande/doc/pdf_edison.modules.php
+
+		-
+			message: '#^Parameter \#1 \$object of function pdf_getlineupexcltax expects Commande\|CommandeFournisseur\|Facture\|FactureFournisseur\|Propal\|StockTransfer\|SupplierProposal, int given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/moretemplates/core/modules/facture/doc/pdf_oursin.modules.php
+
+		-
+			message: '#^Parameter \#1 \$object of function pdf_getlineupexcltax expects Commande\|CommandeFournisseur\|Facture\|FactureFournisseur\|Propal\|StockTransfer\|SupplierProposal, int given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/moretemplates/core/modules/facture/doc/pdf_tourteau.modules.php
+
+		-
+			message: '#^Parameter \#5 \$w of function pdf_writelinedesc expects int, float given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/moretemplates/core/modules/facture/doc/pdf_tourteau.modules.php
+
+		-
+			message: '#^PHPDoc type array of property mywidgetwidget1\:\:\$info_box_contents is not covariant with PHPDoc type array\<array\<array\{td\?\: string, text\: string, asis\?\: int\<0, 1\>, maxlength\?\: int\}\|int\|string\>\> of overridden property ModeleBoxes\:\:\$info_box_contents\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: ../../../htdocs/mywidgets/core/boxes/mywidgets.php
+
+		-
+			message: '#^Property Adherent\:\:\$id \(int\) does not accept array\<mixed\>\|string\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: ../../../htdocs/openstreetmap/maps.php
+
+		-
+			message: '#^Property Contact\:\:\$id \(int\) does not accept array\<mixed\>\|string\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: ../../../htdocs/openstreetmap/maps.php
+
+		-
+			message: '#^Property Societe\:\:\$id \(int\) does not accept array\<mixed\>\|string\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: ../../../htdocs/openstreetmap/maps.php
+
+		-
+			message: '#^Parameter \#4 \$deliveryreceipt of class CSMSFile constructor expects int, array\<mixed\>\|string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/ovh/admin/ovh_sms_setup.php
+
+		-
+			message: '#^Parameter \#5 \$deferred of class CSMSFile constructor expects int, array\<mixed\>\|string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/ovh/admin/ovh_sms_setup.php
+
+		-
+			message: '#^Parameter \#6 \$priority of class CSMSFile constructor expects int, array\<mixed\>\|string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/ovh/admin/ovh_sms_setup.php
+
+		-
+			message: '#^Parameter \#7 \$class of class CSMSFile constructor expects int, array\<mixed\>\|string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/ovh/admin/ovh_sms_setup.php
+
+		-
+			message: '#^Parameter \#4 \$deliveryreceipt of class CSMSFile constructor expects int, array\<mixed\>\|string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/ovh/class/actions_ovh.class.php
+
+		-
+			message: '#^Parameter \#5 \$deferred of class CSMSFile constructor expects int, array\<mixed\>\|string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/ovh/class/actions_ovh.class.php
+
+		-
+			message: '#^Parameter \#6 \$priority of class CSMSFile constructor expects int, array\<mixed\>\|string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/ovh/class/actions_ovh.class.php
+
+		-
+			message: '#^Parameter \#7 \$class of class CSMSFile constructor expects int, array\<mixed\>\|string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/ovh/class/actions_ovh.class.php
+
+		-
+			message: '#^Property CSMSFile\:\:\$nostop \(bool\) does not accept array\<mixed\>\|string\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: ../../../htdocs/ovh/class/actions_ovh.class.php
+
+		-
+			message: '#^Property FormSms\:\:\$withto \(int\<0, 1\>\) does not accept non\-falsy\-string\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: ../../../htdocs/ovh/class/actions_ovh.class.php
+
+		-
+			message: '#^PHPDoc type array of property OvhServer\:\:\$fields is not covariant with PHPDoc type array\<string, array\{type\: string, label\: string, enabled\: int\<0, 2\>\|string, position\: int, notnull\?\: int, visible\: int\<\-6, 5\>\|string, alwayseditable\?\: int\<0, 1\>, noteditable\?\: int\<0, 1\>, \.\.\.\}\> of overridden property CommonObject\:\:\$fields\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: ../../../htdocs/ovh/class/ovhserver.class.php
+
+		-
+			message: '#^Parameter \#4 \$month of function dol_mktime expects int, array\<mixed\>\|string given\.$#'
+			identifier: argument.type
+			count: 2
+			path: ../../../htdocs/ovh/importovhinvoice.php
+
+		-
+			message: '#^Parameter \#5 \$day of function dol_mktime expects int, array\<mixed\>\|string given\.$#'
+			identifier: argument.type
+			count: 2
+			path: ../../../htdocs/ovh/importovhinvoice.php
+
+		-
+			message: '#^Parameter \#6 \$year of function dol_mktime expects int, array\<mixed\>\|string given\.$#'
+			identifier: argument.type
+			count: 2
+			path: ../../../htdocs/ovh/importovhinvoice.php
+
+		-
+			message: '#^Property CommonObject\:\:\$fk_project \(int\) does not accept array\<mixed\>\|string\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: ../../../htdocs/ovh/importovhinvoice.php
+
+		-
+			message: '#^Property CommonObject\:\:\$id \(int\) does not accept array\<mixed\>\|string\.$#'
+			identifier: assign.propertyType
+			count: 2
+			path: ../../../htdocs/ovh/ovh_listinfoserver.php
+
+		-
+			message: '#^Parameter \#4 \$deliveryreceipt of class CSMSFile constructor expects int, array\<mixed\>\|string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/ovh/sms_member.php
+
+		-
+			message: '#^Parameter \#5 \$deferred of class CSMSFile constructor expects int, array\<mixed\>\|string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/ovh/sms_member.php
+
+		-
+			message: '#^Parameter \#6 \$priority of class CSMSFile constructor expects int, array\<mixed\>\|string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/ovh/sms_member.php
+
+		-
+			message: '#^Parameter \#7 \$class of class CSMSFile constructor expects int, array\<mixed\>\|string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/ovh/sms_member.php
+
+		-
+			message: '#^Property CSMSFile\:\:\$nostop \(bool\) does not accept array\<mixed\>\|string\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: ../../../htdocs/ovh/sms_member.php
+
+		-
+			message: '#^Parameter \#4 \$deliveryreceipt of class CSMSFile constructor expects int, array\<mixed\>\|string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/ovh/sms_thirdparty.php
+
+		-
+			message: '#^Parameter \#5 \$deferred of class CSMSFile constructor expects int, array\<mixed\>\|string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/ovh/sms_thirdparty.php
+
+		-
+			message: '#^Parameter \#6 \$priority of class CSMSFile constructor expects int, array\<mixed\>\|string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/ovh/sms_thirdparty.php
+
+		-
+			message: '#^Parameter \#7 \$class of class CSMSFile constructor expects int, array\<mixed\>\|string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/ovh/sms_thirdparty.php
+
+		-
+			message: '#^Property CSMSFile\:\:\$nostop \(bool\) does not accept array\<mixed\>\|string\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: ../../../htdocs/ovh/sms_thirdparty.php
+
+		-
+			message: '#^Property CSMSFile\:\:\$socid \(int\) does not accept array\<mixed\>\|string\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: ../../../htdocs/ovh/sms_thirdparty.php
+
+		-
+			message: '#^Property FormSms\:\:\$withtosocid \(int\) does not accept array\<mixed\>\|string\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: ../../../htdocs/ovh/sms_thirdparty.php
+
+		-
+			message: '#^PHPDoc type array of property prestashopgetwidget1\:\:\$info_box_contents is not covariant with PHPDoc type array\<array\<array\{td\?\: string, text\: string, asis\?\: int\<0, 1\>, maxlength\?\: int\}\|int\|string\>\> of overridden property ModeleBoxes\:\:\$info_box_contents\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: ../../../htdocs/prestashopget/core/boxes/prestashopgetwidget1.php
+
+		-
+			message: '#^Parameter \#4 \$month of function dol_mktime expects int, array\<mixed\>\|string given\.$#'
+			identifier: argument.type
+			count: 2
+			path: ../../../htdocs/prestashopget/index.php
+
+		-
+			message: '#^Parameter \#5 \$day of function dol_mktime expects int, array\<mixed\>\|string given\.$#'
+			identifier: argument.type
+			count: 2
+			path: ../../../htdocs/prestashopget/index.php
+
+		-
+			message: '#^Parameter \#6 \$year of function dol_mktime expects int, array\<mixed\>\|string given\.$#'
+			identifier: argument.type
+			count: 2
+			path: ../../../htdocs/prestashopget/index.php
+
+		-
+			message: '#^Parameter \#4 \$month of function dol_mktime expects int, array\<mixed\>\|string given\.$#'
+			identifier: argument.type
+			count: 4
+			path: ../../../htdocs/saftpt/exportsaft.php
+
+		-
+			message: '#^Parameter \#5 \$day of function dol_mktime expects int, array\<mixed\>\|string given\.$#'
+			identifier: argument.type
+			count: 4
+			path: ../../../htdocs/saftpt/exportsaft.php
+
+		-
+			message: '#^Parameter \#6 \$year of function dol_mktime expects int, array\<mixed\>\|string given\.$#'
+			identifier: argument.type
+			count: 4
+			path: ../../../htdocs/saftpt/exportsaft.php
+
+		-
+			message: '#^Parameter \#4 \$month of function dol_mktime expects int, array\<mixed\>\|string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/sendgrid/importinvoice.php
+
+		-
+			message: '#^Parameter \#5 \$day of function dol_mktime expects int, array\<mixed\>\|string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/sendgrid/importinvoice.php
+
+		-
+			message: '#^Parameter \#6 \$year of function dol_mktime expects int, array\<mixed\>\|string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/sendgrid/importinvoice.php
+
+		-
+			message: '#^Parameter \#1 \$year of function dol_get_first_day expects int, array\<mixed\>\|string given\.$#'
+			identifier: argument.type
+			count: 5
+			path: ../../../htdocs/tvacerfa/quadri_detail.php
+
+		-
+			message: '#^Parameter \#1 \$year of function dol_get_last_day expects int, array\<mixed\>\|string given\.$#'
+			identifier: argument.type
+			count: 5
+			path: ../../../htdocs/tvacerfa/quadri_detail.php
+		-
+			message: '#^PHPDoc type array of property Survey\:\:\$fields is not covariant with PHPDoc type array\<string, array\{type\: string, label\: string, langfile\?\: string, enabled\: int\<0, 2\>\|string, position\: int, notnull\?\: int, visible\: int\<\-6, 6\>\|string, alwayseditable\?\: int\<0, 1\>, \.\.\.\}\> of overridden property CommonObject\:\:\$fields\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: ../../../htdocs/alumni/class/survey.class.php
+
+		-
+			message: '#^Property Channel\:\:\$fields \(array\<string, array\{type\: string, label\: string, langfile\?\: string, enabled\: int\<0, 2\>\|string, position\: int, notnull\?\: int, visible\: int\<\-6, 6\>\|string, alwayseditable\?\: int\<0, 1\>, \.\.\.\}\>\) does not accept default value of type array\{rowid\: array\{type\: ''integer'', label\: ''TechnicalID'', enabled\: ''1'', position\: 1, notnull\: 1, visible\: ''0'', noteditable\: ''1'', index\: ''1'', \.\.\.\}, ref\: array\{type\: ''varchar\(128\)'', label\: ''Ref'', enabled\: ''1'', position\: 20, notnull\: 1, visible\: ''4'', noteditable\: ''1'', default\: ''\(PROV\)'', \.\.\.\}, note_public\: array\{type\: ''html'', label\: ''NotePublic'', enabled\: ''1'', position\: 61, notnull\: 0, visible\: ''0'', cssview\: ''wordbreak'', validate\: ''1''\}, note_private\: array\{type\: ''html'', label\: ''NotePrivate'', enabled\: ''1'', position\: 62, notnull\: 0, visible\: ''0'', cssview\: ''wordbreak'', validate\: ''1''\}, date_creation\: array\{type\: ''datetime'', label\: ''DateCreation'', enabled\: ''1'', position\: 500, notnull\: 1, visible\: ''\-2''\}, tms\: array\{type\: ''timestamp'', label\: ''DateModification'', enabled\: ''1'', position\: 501, notnull\: 0, visible\: ''\-2''\}, fk_user_creat\: array\{type\: ''integer\:User\:user…'', label\: ''UserAuthor'', picto\: ''user'', enabled\: ''1'', position\: 510, notnull\: 1, visible\: ''\-2'', csslist\: ''tdoverflowmax150''\}, fk_user_modif\: array\{type\: ''integer\:User\:user…'', label\: ''UserModif'', picto\: ''user'', enabled\: ''1'', position\: 511, notnull\: \-1, visible\: ''\-2'', csslist\: ''tdoverflowmax150''\}, \.\.\.\}\.$#'
+			identifier: property.defaultValue
+			count: 1
+			path: ../../../htdocs/discussion/class/channel.class.php
+
+		-
+			message: '#^Property Message\:\:\$fields \(array\<string, array\{type\: string, label\: string, langfile\?\: string, enabled\: int\<0, 2\>\|string, position\: int, notnull\?\: int, visible\: int\<\-6, 6\>\|string, alwayseditable\?\: int\<0, 1\>, \.\.\.\}\>\) does not accept default value of type array\{rowid\: array\{type\: ''integer'', label\: ''TechnicalID'', enabled\: ''1'', position\: 1, notnull\: 1, visible\: ''0'', noteditable\: ''1'', index\: ''1'', \.\.\.\}, date_creation\: array\{type\: ''datetime'', label\: ''DateCreation'', enabled\: ''1'', position\: 500, notnull\: 1, visible\: ''\-2''\}, tms\: array\{type\: ''timestamp'', label\: ''DateModification'', enabled\: ''1'', position\: 501, notnull\: 0, visible\: ''\-2''\}, fk_user_creat\: array\{type\: ''integer\:User\:user…'', label\: ''UserAuthor'', picto\: ''user'', enabled\: ''1'', position\: 510, notnull\: 1, visible\: ''\-2'', csslist\: ''tdoverflowmax150''\}, fk_user_modif\: array\{type\: ''integer\:User\:user…'', label\: ''UserModif'', picto\: ''user'', enabled\: ''1'', position\: 511, notnull\: \-1, visible\: ''\-2'', csslist\: ''tdoverflowmax150''\}, last_main_doc\: array\{type\: ''varchar\(255\)'', label\: ''LastMainDoc'', enabled\: ''1'', position\: 600, notnull\: 0, visible\: ''0''\}, message\: array\{type\: ''html'', label\: ''Message'', enabled\: ''1'', position\: 10, notnull\: 1, visible\: ''1''\}, fk_discussion_channel\: array\{type\: ''integer\:Channel…'', label\: ''DiscussionChannel'', enabled\: ''1'', position\: 20, notnull\: 1, visible\: ''1''\}\}\.$#'
+			identifier: property.defaultValue
+			count: 1
+			path: ../../../htdocs/discussion/class/message.class.php
+
+		-
+			message: '#^PHPDoc type array of property OvhServer\:\:\$fields is not covariant with PHPDoc type array\<string, array\{type\: string, label\: string, langfile\?\: string, enabled\: int\<0, 2\>\|string, position\: int, notnull\?\: int, visible\: int\<\-6, 6\>\|string, alwayseditable\?\: int\<0, 1\>, \.\.\.\}\> of overridden property CommonObject\:\:\$fields\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: ../../../htdocs/ovh/class/ovhserver.class.php
+		-
+			message: '#^PHPDoc type array of property Survey\:\:\$fields is not covariant with PHPDoc type array\<string, array\{type\: string, label\: string, langfile\?\: string, enabled\: int\<0, 2\>\|string, position\: int, notnull\?\: int, visible\: int\<\-6, 6\>\|string, alwayseditable\?\: int\<0, 1\>\|string, \.\.\.\}\> of overridden property CommonObject\:\:\$fields\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: ../../../htdocs/alumni/class/survey.class.php
+
+		-
+			message: '#^Property Channel\:\:\$fields \(array\<string, array\{type\: string, label\: string, langfile\?\: string, enabled\: int\<0, 2\>\|string, position\: int, notnull\?\: int, visible\: int\<\-6, 6\>\|string, alwayseditable\?\: int\<0, 1\>\|string, \.\.\.\}\>\) does not accept default value of type array\{rowid\: array\{type\: ''integer'', label\: ''TechnicalID'', enabled\: ''1'', position\: 1, notnull\: 1, visible\: ''0'', noteditable\: ''1'', index\: ''1'', \.\.\.\}, ref\: array\{type\: ''varchar\(128\)'', label\: ''Ref'', enabled\: ''1'', position\: 20, notnull\: 1, visible\: ''4'', noteditable\: ''1'', default\: ''\(PROV\)'', \.\.\.\}, note_public\: array\{type\: ''html'', label\: ''NotePublic'', enabled\: ''1'', position\: 61, notnull\: 0, visible\: ''0'', cssview\: ''wordbreak'', validate\: ''1''\}, note_private\: array\{type\: ''html'', label\: ''NotePrivate'', enabled\: ''1'', position\: 62, notnull\: 0, visible\: ''0'', cssview\: ''wordbreak'', validate\: ''1''\}, date_creation\: array\{type\: ''datetime'', label\: ''DateCreation'', enabled\: ''1'', position\: 500, notnull\: 1, visible\: ''\-2''\}, tms\: array\{type\: ''timestamp'', label\: ''DateModification'', enabled\: ''1'', position\: 501, notnull\: 0, visible\: ''\-2''\}, fk_user_creat\: array\{type\: ''integer\:User\:user…'', label\: ''UserAuthor'', picto\: ''user'', enabled\: ''1'', position\: 510, notnull\: 1, visible\: ''\-2'', csslist\: ''tdoverflowmax150''\}, fk_user_modif\: array\{type\: ''integer\:User\:user…'', label\: ''UserModif'', picto\: ''user'', enabled\: ''1'', position\: 511, notnull\: \-1, visible\: ''\-2'', csslist\: ''tdoverflowmax150''\}, \.\.\.\}\.$#'
+			identifier: property.defaultValue
+			count: 1
+			path: ../../../htdocs/discussion/class/channel.class.php
+
+		-
+			message: '#^Property Message\:\:\$fields \(array\<string, array\{type\: string, label\: string, langfile\?\: string, enabled\: int\<0, 2\>\|string, position\: int, notnull\?\: int, visible\: int\<\-6, 6\>\|string, alwayseditable\?\: int\<0, 1\>\|string, \.\.\.\}\>\) does not accept default value of type array\{rowid\: array\{type\: ''integer'', label\: ''TechnicalID'', enabled\: ''1'', position\: 1, notnull\: 1, visible\: ''0'', noteditable\: ''1'', index\: ''1'', \.\.\.\}, date_creation\: array\{type\: ''datetime'', label\: ''DateCreation'', enabled\: ''1'', position\: 500, notnull\: 1, visible\: ''\-2''\}, tms\: array\{type\: ''timestamp'', label\: ''DateModification'', enabled\: ''1'', position\: 501, notnull\: 0, visible\: ''\-2''\}, fk_user_creat\: array\{type\: ''integer\:User\:user…'', label\: ''UserAuthor'', picto\: ''user'', enabled\: ''1'', position\: 510, notnull\: 1, visible\: ''\-2'', csslist\: ''tdoverflowmax150''\}, fk_user_modif\: array\{type\: ''integer\:User\:user…'', label\: ''UserModif'', picto\: ''user'', enabled\: ''1'', position\: 511, notnull\: \-1, visible\: ''\-2'', csslist\: ''tdoverflowmax150''\}, last_main_doc\: array\{type\: ''varchar\(255\)'', label\: ''LastMainDoc'', enabled\: ''1'', position\: 600, notnull\: 0, visible\: ''0''\}, message\: array\{type\: ''html'', label\: ''Message'', enabled\: ''1'', position\: 10, notnull\: 1, visible\: ''1''\}, fk_discussion_channel\: array\{type\: ''integer\:Channel…'', label\: ''DiscussionChannel'', enabled\: ''1'', position\: 20, notnull\: 1, visible\: ''1''\}\}\.$#'
+			identifier: property.defaultValue
+			count: 1
+			path: ../../../htdocs/discussion/class/message.class.php
+
+		-
+			message: '#^PHPDoc type array of property OvhServer\:\:\$fields is not covariant with PHPDoc type array\<string, array\{type\: string, label\: string, langfile\?\: string, enabled\: int\<0, 2\>\|string, position\: int, notnull\?\: int, visible\: int\<\-6, 6\>\|string, alwayseditable\?\: int\<0, 1\>\|string, \.\.\.\}\> of overridden property CommonObject\:\:\$fields\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: ../../../htdocs/ovh/class/ovhserver.class.php

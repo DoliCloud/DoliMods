@@ -2,7 +2,7 @@
 CHARSET= UTF-8
 RrdSetup=Monitoring module setup
 RrdSetupNotComplete=Monitoring module setup is not complete
-MONITORING_COMMANDLINE_TOOL=Path to the rrdtool programm
+MONITORING_COMMANDLINE_TOOL=Path to the rrdtool program
 Monitoring=Monitoring
 Module101310Name=Monitoring
 Module101310Desc=Module to add monitoring of external systems features
@@ -28,7 +28,7 @@ EditProbe=Edit probe
 CheckKey=String to test
 DeleteProbe=Delete probe
 ConfirmDeleteProbe=Are you sure you want to delete this probe (All its data will also be deleted) ?
-MaxValue=Maximum value 
+MaxValue=Maximum value
 UseProxy=Use a proxy server
 SetToYesToUseGlobalProxySetup=Set this field to yes if url is a server you can reach using global proxy parameters (Home->Security).
 RunProbe=Run activable probes
@@ -41,8 +41,8 @@ FirstErrorText=Message first error
 ReinitStatus=Réinit status
 GraphicsNotGeneratedYet=Graphics not yet generated. Click on Refresh.
 YouMustRestartProbeDaemon=Probes daemon must be restarted
-AboutInfo=This module is developped and distributed by Laurent Destailleur for DoliCloud, <a href="https://www.dolicloud.com?origin=dolimods">www.dolicloud.com</a> (A Dolibarr Preferred Partner company).
+AboutInfo=This module is developed and distributed by Laurent Destailleur for DoliCloud, <a href="https://www.dolicloud.com?origin=dolimods">www.dolicloud.com</a> (A Dolibarr Preferred Partner company).
 MoreModules=Other modules of same author are available on the official DoliStore market place...
-MoreModulesLink=<a target="_blank" href="https://www.dolistore.com/search.php?search_query=dolicloud">Click here to see full list</a>  
+MoreModulesLink=<a target="_blank" href="https://www.dolistore.com/search.php?search_query=dolicloud">Click here to see full list</a>
 MoreCloudHosting=To use online Dolibarr, choose the secured hosting DoliCloud.
 MoreCloudHostingLink=<a target="_blank" href="https://www.dolicloud.com?origin=dolimods">Click here for more information</a>

@@ -18,7 +18,7 @@ error_reporting(E_ALL);
 
 $summaryupdate = array();
 
-// Non-persistant: we lock tables!
+// Non-persistent: we lock tables!
 $db = mysql_connect($dbhost, $dbuser, $dbpass) or die(errorMessage() . "Tracker error: can't connect to database - ".mysql_error() . "</p>");
 mysql_select_db($database) or die(errorMessage() . "Tracker error: can't open database $database - ".mysql_error() . "</p>");
 
@@ -37,7 +37,7 @@ if ($locking)
 	<th>Name/Info Hash</th>
 	<th>Seeders</th>
 	<th>Leechers</th>
-	<th>Bytes Transfered</th>
+	<th>Bytes Transferred</th>
 	<th>Stale Clients</th>
 	<th>Peer Cache</th>
 </tr>
@@ -151,6 +151,15 @@ while ($row = mysql_fetch_row($results)) {
 	}
 }
 
+/**
+ * Remove lost peers of a torrent and update its last cycle
+ *
+ * @param 	string	$hash		Info hash of the torrent
+ * @param 	int		$timeout	Peer timeout
+ * @param 	int		$now		Current timestamp
+ * @param 	string	$writeout	 CSS row class
+ * @return	void
+ */
 function myTrashCollector($hash, $timeout, $now, $writeout)
 {
 	global $prefix;
@@ -173,6 +182,6 @@ function myTrashCollector($hash, $timeout, $now, $writeout)
 <p><a href="sanity.php?nolock=on">Not working? Try running this.</a></p>
 <a href="admin.php"><img src="images/admin.png" border="0" class="icon" alt="Admin Page" title="Admin Page" /></a><a href="admin.php">Return to Admin Page</a>
 
-<?
+<?php
 llxFooter();
 ?>

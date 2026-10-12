@@ -7,18 +7,18 @@ OvhBillingAccount=Nick handle for main account
 OvhServiceName=OVH service account
 OvhSmsPass=Password
 OvhSmsLabelAccount=SMS account to use
-OvhSmsLoginSuccessFull=Connection successfull!
+OvhSmsLoginSuccessFull=Connection successful!
 OvhSmsNotConfigured=Module not configured
-OvhAuthenticationPartNotConfigured=Authentication data not configured. Go onto setup of module OVH, tab "Authentication" first. 
+OvhAuthenticationPartNotConfigured=Authentication data not configured. Go onto setup of module OVH, tab "Authentication" first.
 NbSmsLeft=Number of remaining SMS
 OvhSmsSoapUrl=URL of OVH SOAP service
 OvhSmsSend=Send SMS
 OvhSmsAccountInfos=Information on SMS account
 OvhSmsDestinataire=Target
-OvhSmsLabelTexteMessage=Text of message 
+OvhSmsLabelTexteMessage=Text of message
 tabOvhSms=sms
 OvhSmsStatutSent=Received message
-OvhSmsStatutSubmitted=Submited
+OvhSmsStatutSubmitted=Submitted
 OvhSmsStatutWaiting=Waiting
 OvhSmsStatutFailed=Failed
 OvhSmsBackToAdmin=Back to module admin
@@ -40,7 +40,7 @@ SupplierToUseForImport=Supplier to create imported invoices on
 ProductGenericToUseForImport=Product/Service to use for imported lines of invoices
 OrSelectAnotherOne=Or select another one
 ProjectForImport=Attach imported invoices to project
-KeepEmptyToSaveLinesAsFreeLines=Keep this field empty if you don't want to see imported lines using a generic predefined product/service 
+KeepEmptyToSaveLinesAsFreeLines=Keep this field empty if you don't want to see imported lines using a generic predefined product/service
 ScanOvhInvoices=Get invoices list
 ExcludeNullInvoices=Exclude invoices with null total amount
 ExcludeNullLines=Exclude invoice lines with null amount
@@ -53,9 +53,9 @@ InvoiceFoundIntoDolibarr=Invoice found into Dolibarr: %s
 InvoicePDFFoundIntoDolibarr=Invoice+PDF found into Dolibarr: %s
 ConnectionParameters=Connection parameters
 TryToUseProxy=Using proxy server
-AboutInfo=This module is developped and distributed by Laurent Destailleur for DoliCloud, <a href="https://www.dolicloud.com?origin=dolimods">www.dolicloud.com</a> (A Dolibarr Preferred Partner company).
+AboutInfo=This module is developed and distributed by Laurent Destailleur for DoliCloud, <a href="https://www.dolicloud.com?origin=dolimods">www.dolicloud.com</a> (A Dolibarr Preferred Partner company).
 MoreModules=Other modules of same author are available on the official DoliStore market place...
-MoreModulesLink=<a target="_blank" href="https://www.dolistore.com/search.php?search_query=dolicloud">Click here to see full list</a>  
+MoreModulesLink=<a target="_blank" href="https://www.dolistore.com/search.php?search_query=dolicloud">Click here to see full list</a>
 MoreCloudHosting=To use online Dolibarr, choose the secured hosting DoliCloud.
 MoreCloudHostingLink=<a target="_blank" href="https://www.dolicloud.com?origin=dolimods">Click here for more information</a>
 CompatibleWithDoliDroid=This modules is also compatible with DoliDroid, the Android application for Dolibarr.

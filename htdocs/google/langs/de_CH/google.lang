@@ -11,7 +11,7 @@ GoogleEnableThisToolThirdParties=Activate this tools on Thirdparties cards
 GoogleEnableThisToolContacts=Activate this tools on Contacts cards
 GoogleEnableThisToolMembers=Activate this tools on Members cards
 GoogleAddPubOnLogonPage=Add AdSense information to add you own advert on logon page (otherwise keep empty)
-GoogleAddAnalyticsOnLogonPage=Add Analytics id to add the Google Analytics tags onto each page (otherwise keep empy)
+GoogleAddAnalyticsOnLogonPage=Add Analytics id to add the Google Analytics tags onto each page (otherwise keep empty)
 GoogleZoomLevel=Zoom level by default (1 to 10)
 GoogleAddressNotDefined=Address is not enough defined to be geolocalized
 GoogleMapsAddressNotFound=Address was not found.
@@ -24,11 +24,11 @@ AgendaView=View Google agenda
 AgendaSync=Sync to Google agenda
 ContactSync=Sync to Google contact
 GOOGLE_LOGIN=Login Google
-GOOGLE_PASSWORD=Mot de passe
+GOOGLE_PASSWORD=Password
 GOOGLE_EVENT_LABEL_INC_SOCIETE=Add thirdparty name into event label for thirdparty events
 GOOGLE_EVENT_LABEL_INC_CONTACT=Add contact name into event label for contact events
 GOOGLE_CONTACT_LABEL=Label to tag contacts
-GOOGLE_INCLUDE_AUTO_EVENT=Sync also for events automatically created by Dolibarr (see setup of module Agenda for list of automatic events).<br>If no, only events entered manualy into agenda are syncrhonized.
+GOOGLE_INCLUDE_AUTO_EVENT=Sync also for events automatically created by Dolibarr (see setup of module Agenda for list of automatic events).<br>If no, only events entered manually into agenda are synchronized.
 GOOGLE_INCLUDE_ATTENDEES=Add also list of attendees into event. Google may send emails to them when you create an event with attendees. Also sometimes Google does not allow use of the APIs when there is attendees.
 MAIN_GOOGLE_AN_ID=Google analytics ID
 GoogleIDContact=Google Account
@@ -42,15 +42,15 @@ GoogleCalendarSyncConf=GoogleCalendarSyncConf
 TargetUser=Target user
 KeepEmptyYoUseLoginPassOfEventUser=Keep empty if you want a synchronization per user. In such a case, enter the Agenda ID at each user level. Define a value if you want all events be synchronized in the same Google agenda.
 KeepEmptyYoUseLoginPassOfEventUserAssigned=Currently, this setup is empty. It means that the targeted agenda will be the agenda of the user that is the owner of event (ID agenda muse be defined on each user). No synchronization is done if setup of Agenda ID for this user is not done.
-KeepEmptyYoUseLoginPassOfEventUserSaleRep=The targeted agenda is agenda of the first sale representative of thirdparty the event is linked to. If there is no thirdparty for event, nor sale representative for thirparty, no synchronization is done.
+KeepEmptyYoUseLoginPassOfEventUserSaleRep=The targeted agenda is agenda of the first sale representative of thirdparty the event is linked to. If there is no thirdparty for event, nor sale representative for thirdparty, no synchronization is done.
 KeepEmptyYoUsePublicQuotaOfAPI=Keep empty to use the public quota of API.
-AllowGoogleToLoginWithKey=You must have a Google account and create your own key from page <a href="%s" target="_blank">%s</a>, menu "API & Services" -> "Credentials". Click on "Create a key" and choose "Server key" then "Create". You will get your server key.
+AllowGoogleToLoginWithKey=You must have a Google account and create your own key from page <a href="%s" target="_blank">%s</a>, menu "API & Services" -> "Credentials". Click on "Create a key" and choose "API key" then "Create". You will get your server key.
 AllowGoogleToLoginWithClientID=You can create your <strong>Google Client ID and Secret</strong> from page <a href="%s" target="_blank">%s</a>, select a project or create one, then menu "API & Services" -> "Credentials". Click on "Create/Add a client ID OAuth 2.0" and choose "Web Application", set "Allowed Javascript origin" to empty and set "Redirect URI" to<br><strong>%s</strong><br>then click on button "Create". You will get a <strong>new client ID</strong> and a <strong>Secret code</strong>. You need here to enter the <strong>Client ID</strong> here and <strong>Client Secret</strong> on next line.
 AllowGoogleToLoginWithClientSecret=See note on previous line to know how to get your Google Client Secret.
 AllowGoogleToLoginWithServiceAccount=You can create your <strong>service account user/email</strong> from page <a href="%s" target="_blank">%s</a>, select a project or create one, then menu "API & Services" -> "Credentials". Click on "Create/Add a client ID" and choose "Service Account" then "Create". You will get a new service account with a <strong>Service account client ID</strong> and a <strong>Service account EMail</strong>. You need here to enter the <strong>Service account EMail</strong>.
 EnableAPI=You must also enable the API for your Google account. For this go on page <a href="%s" target="_blank">%s</a>, menu "API & Services" -> "API". Click to enable API for "%s".
-ShareCalendarWithServiceAccount=You must also share the agenda (all permissions) with the service account user/email <strong>%s</strong>: For this, go into the Google calendar. It must be same Agenda than the one choosed on parameter "%s". Choose "Parameters" then click on your Agenda name to show the link "Share parameters with...". Click on it and add the service account user as a contact to share your agenda with. Choose permission "Edit events" and validate by clicking "Add user". With <strong>Google Suite</strong> (not required for standard gmail account), permissions may be forced to "Ready only" instead of "Edit". If you can't choose "Edit" permission, go onto <a href="https://admin.google.com/AdminHome?pli=1&fral=1#AppDetails:service=Calendar&flyout=sharing" target="_blank">https://admin.google.com/AdminHome?pli=1&fral=1#AppDetails:service=Calendar&flyout=sharing</a> and check that sharing option of Agenda application allows sharing with external service account.
-GOOGLE_API_SERVERKEY=API key (type "Server key")
+ShareCalendarWithServiceAccount=You must also share the agenda (all permissions) with the service account user/email <strong>%s</strong>: For this, go into the Google calendar. It must be same Agenda than the one chosen on parameter "%s". Choose "Parameters" then click on your Agenda name to show the link "Share parameters with...". Click on it and add the service account user as a contact to share your agenda with. Choose permission "Edit events" and validate by clicking "Add user". With <strong>Google Suite</strong> (not required for standard gmail account), permissions may be forced to "Ready only" instead of "Edit". If you can't choose "Edit" permission, go onto <a href="https://admin.google.com/AdminHome?pli=1&fral=1#AppDetails:service=Calendar&flyout=sharing" target="_blank">https://admin.google.com/AdminHome?pli=1&fral=1#AppDetails:service=Calendar&flyout=sharing</a> and check that sharing option of Agenda application allows sharing with external service account.
+GOOGLE_API_SERVERKEY=API key
 GoogleUserConf=Google setup
 GoogleSetupIsGlobal=Sync setup is done globally for all users to agenda ID <strong>%s</strong>.
 TestCreateUpdateDelete=Test create-update-delete
@@ -70,7 +70,7 @@ DeleteAllGoogleThirdparties=Delete all thirdparties coming from Dolibarr on Gmai
 DeleteAllGoogleContacts=Delete all contacts/addresses coming from Dolibarr on Gmail.
 DeleteAllGoogleMembers=Delete all members coming from Dolibarr on Gmail.
 DeleteAllGoogleEvents=Delete all events of Google calendar <strong>%s</strong> linked to a Dolibarr
-PushToGoogleSucess=Syncronising to Google contact finished for %s record(s).
+PushToGoogleSucess=Synchronising to Google contact finished for %s record(s).
 TagsCreatedSuccess=Synchronising groups to Google contact finished
 DeleteToGoogleSucess=%s contact(s) deleted into Google contact.
 GOOGLE_TAG_PREFIX=Label of group to tags Dolibarr thirdparties into Google contact
@@ -107,7 +107,7 @@ GOOGLE_API_SERVICEACCOUNT_CLIENT_ID=Service account Client ID
 GOOGLE_API_SERVICEACCOUNT_EMAIL=Service account email to allow (NOT your Google account login/email)
 GOOGLE_API_SERVICEACCOUNT_P12KEY=Service account json file
 FillThisOnlyIfRequired=Example: +2 (fill only if problem experienced)
-AboutInfo=This module is developped and distributed by Laurent Destailleur for DoliCloud, <a href="https://www.dolicloud.com?origin=dolimods">www.dolicloud.com</a> (A Dolibarr Preferred Partner company).
+AboutInfo=This module is developed and distributed by Laurent Destailleur for DoliCloud, <a href="https://www.dolicloud.com?origin=dolimods">www.dolicloud.com</a> (A Dolibarr Preferred Partner company).
 MoreModules=Other modules of same author are available on the official DoliStore market place...
 MoreModulesLink=<a target="_blank" href="https://www.dolistore.com/search.php?search_query=dolicloud">Click here to see full list</a>
 MoreCloudHosting=To use online Dolibarr, choose the secured hosting DoliCloud.

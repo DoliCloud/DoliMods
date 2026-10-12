@@ -29,7 +29,7 @@
 $res=0;
 // Try main.inc.php into web root known defined into CONTEXT_DOCUMENT_ROOT (not always defined)
 if (! $res && ! empty($_SERVER["CONTEXT_DOCUMENT_ROOT"])) $res=@include str_replace("..", "", $_SERVER["CONTEXT_DOCUMENT_ROOT"])."/main.inc.php";
-// Try main.inc.php into web root detected using web root caluclated from SCRIPT_FILENAME
+// Try main.inc.php into web root detected using web root calculated from SCRIPT_FILENAME
 $tmp=empty($_SERVER['SCRIPT_FILENAME'])?'':$_SERVER['SCRIPT_FILENAME'];$tmp2=realpath(__FILE__); $i=strlen($tmp)-1; $j=strlen($tmp2)-1;
 while ($i > 0 && $j > 0 && isset($tmp[$i]) && isset($tmp2[$j]) && $tmp[$i]==$tmp2[$j]) { $i--; $j--; }
 if (! $res && $i > 0 && file_exists(substr($tmp, 0, ($i+1))."/main.inc.php")) $res=@include substr($tmp, 0, ($i+1))."/main.inc.php";
@@ -38,7 +38,12 @@ if (! $res && $i > 0 && file_exists(dirname(substr($tmp, 0, ($i+1)))."/main.inc.
 if (! $res && file_exists("../../main.inc.php")) $res=@include "../../main.inc.php";
 if (! $res && file_exists("../../../main.inc.php")) $res=@include "../../../main.inc.php";
 if (! $res) die("Include of main fails");
-
+/**
+ * @var Conf $conf
+ * @var DoliDB $db
+ * @var User $user
+ * @var Translate $langs
+ */
 require_once DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php";
 require_once DOL_DOCUMENT_ROOT."/core/lib/date.lib.php";
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.formadmin.class.php';
@@ -89,7 +94,6 @@ if ($action == 'save') {
 
 	if (! GETPOST('GOOGLE_DUPLICATE_INTO_THIRDPARTIES') && ! GETPOST('GOOGLE_DUPLICATE_INTO_CONTACTS') && ! GETPOST('GOOGLE_DUPLICATE_INTO_MEMBERS')) {
 		$db->begin();
-		//var_dump($conf->entity);
 
 		$res=dolibarr_set_const($db, 'GOOGLE_DUPLICATE_INTO_THIRDPARTIES', trim(GETPOST("GOOGLE_DUPLICATE_INTO_THIRDPARTIES")), 'chaine', 0, '', $conf->entity);
 		if (! $res > 0) $error++;
@@ -326,7 +330,6 @@ if ($action == 'pushallthirdparties') {
 		// Create client object
 		//$service= 'cp';		// cl = calendar, cp=contact, ... Search on AUTH_SERVICE_NAME into Zend API for full list
 		//$client = getClientLoginHttpClientContact($googleuser, $googlepwd, $service);
-		//var_dump($client); exit;
 
 		// Create client/token object
 		$key_file_location = $conf->google->multidir_output[$conf->entity]."/".getDolGlobalString('GOOGLE_API_SERVICEACCOUNT_P12KEY');
@@ -429,7 +432,6 @@ if ($action == 'pushallcontacts') {
 		// Create client object
 		//$service= 'cp';		// cl = calendar, cp=contact, ... Search on AUTH_SERVICE_NAME into Zend API for full list
 		//$client = getClientLoginHttpClientContact($googleuser, $googlepwd, $service);
-		//var_dump($client); exit;
 
 		// Create client/token object
 		$key_file_location = $conf->google->multidir_output[$conf->entity]."/" . getDolGlobalString('GOOGLE_API_SERVICEACCOUNT_P12KEY');
@@ -529,7 +531,6 @@ if ($action == 'pushallmembers') {
 		// Create client object
 		//$service= 'cp';		// cl = calendar, cp=contact, ... Search on AUTH_SERVICE_NAME into Zend API for full list
 		//$client = getClientLoginHttpClientContact($googleuser, $googlepwd, $service);
-		//var_dump($client); exit;
 
 		// Create client/token object
 		$key_file_location = $conf->google->multidir_output[$conf->entity]."/" . getDolGlobalString('GOOGLE_API_SERVICEACCOUNT_P12KEY');
@@ -562,7 +563,7 @@ if ($action == 'pushallmembers') {
 			$sql.= ' ORDER BY rowid';
 
 			$resql = $db->query($sql);
-			if (! $resql) {		// Retreive groups from gContact
+			if (! $resql) {		// Retrieve groups from gContact
 				$tags = $gContact->tags;
 				dol_print_error($db);
 				exit;
@@ -612,7 +613,6 @@ if ($action == 'deleteallthirdparties') {
 	// Create client object
 	//$service= 'cp';		// cl = calendar, cp=contact, ... Search on AUTH_SERVICE_NAME into Zend API for full list
 	//$client = getClientLoginHttpClientContact($googleuser, $googlepwd, $service);
-	//var_dump($client); exit;
 
 	// Create client/token object
 	$key_file_location = $conf->google->multidir_output[$conf->entity]."/".getDolGlobalString('GOOGLE_API_SERVICEACCOUNT_P12KEY');
@@ -652,7 +652,6 @@ if ($action == 'deleteallcontacts') {
 	// Create client object
 	//$service= 'cp';		// cl = calendar, cp=contact, ... Search on AUTH_SERVICE_NAME into Zend API for full list
 	//$client = getClientLoginHttpClientContact($googleuser, $googlepwd, $service);
-	//var_dump($client); exit;
 
 	// Create client/token object
 	$key_file_location = $conf->google->multidir_output[$conf->entity]."/" . getDolGlobalString('GOOGLE_API_SERVICEACCOUNT_P12KEY');
@@ -692,7 +691,6 @@ if ($action == 'deleteallmembers') {
 	// Create client object
 	//$service= 'cp';		// cl = calendar, cp=contact, ... Search on AUTH_SERVICE_NAME into Zend API for full list
 	//$client = getClientLoginHttpClientContact($googleuser, $googlepwd, $service);
-	//var_dump($client); exit;
 
 	// Create client/token object
 	$key_file_location = $conf->google->multidir_output[$conf->entity]."/" . getDolGlobalString('GOOGLE_API_SERVICEACCOUNT_P12KEY');
@@ -796,6 +794,8 @@ if ($conf->use_javascript_ajax) {
 	print '</script>'."\n";
 }
 
+print '<div class="neutral">';
+
 if (isModEnabled('societe')) {
 	print img_picto('', 'company', 'class="pictofixedwidth"').$langs->trans("GoogleEnableSyncToThirdparties").' ';
 	$arraytmp=array(
@@ -806,22 +806,22 @@ if (isModEnabled('societe')) {
 	);
 	print $form->selectarray('GOOGLE_DUPLICATE_INTO_THIRDPARTIES', $arraytmp, getDolGlobalString('GOOGLE_DUPLICATE_INTO_THIRDPARTIES'), 0, 0, 0, '', 0, 0, 0, '', 'maxwidth150');
 	print '<br><br>';
-}
-if (isModEnabled('societe')) {
+
 	print img_picto('', 'contact', 'class="pictofixedwidth"').$langs->trans("GoogleEnableSyncToContacts").' ';
 	print $form->selectyesno("GOOGLE_DUPLICATE_INTO_CONTACTS", GETPOSTISSET("GOOGLE_DUPLICATE_INTO_CONTACTS") ? GETPOST('GOOGLE_DUPLICATE_INTO_CONTACTS') : getDolGlobalString('GOOGLE_DUPLICATE_INTO_CONTACTS'), 1, false, 0, 1);
-	print '<br><br>';
+	print '<br>';
 }
-if (isModEnabled('adherent')) {
+if (isModEnabled('member')) {
+	if (isModEnabled('societe')) { print '<br>'; }
 	print img_picto('', 'member', 'class="pictofixedwidth"').$langs->trans("GoogleEnableSyncToMembers").' ';
 	print $form->selectyesno("GOOGLE_DUPLICATE_INTO_MEMBERS", GETPOSTISSET("GOOGLE_DUPLICATE_INTO_MEMBERS") ? GETPOST("GOOGLE_DUPLICATE_INTO_MEMBERS") : getDolGlobalString('GOOGLE_DUPLICATE_INTO_MEMBERS'), 1, false, 0, 1);
-	print '<br><br>';
+	print '<br>';
 }
+
+print '</div>';
 
 
 print '<div class="syncx">';
-
-print '<br>';
 
 print info_admin($langs->trans("EnableAPI", "https://console.developers.google.com/apis/library/", "https://console.developers.google.com/apis/library/", "People API + Contacts API"));
 
@@ -854,7 +854,7 @@ if (isModEnabled('societe')) {
 	print "</tr>";
 }
 // Label to use for members
-if (isModEnabled('adherent')) {
+if (isModEnabled('member')) {
 	print '<tr class="oddeven" id="trsyncmembers">';
 	print '<td class="fieldrequired">'.$langs->trans("GOOGLE_TAG_PREFIX_MEMBERS")."</td>";
 	print "<td>";
@@ -897,7 +897,7 @@ print "</tr>";
 
 
 // Define $urlwithroot
-$urlwithouturlroot=preg_replace('/'.preg_quote(DOL_URL_ROOT,'/').'$/i','',trim($dolibarr_main_url_root));
+$urlwithouturlroot=preg_replace('/'.preg_quote(DOL_URL_ROOT, '/').'$/i', '', trim($dolibarr_main_url_root));
 $urlwithroot=$urlwithouturlroot.DOL_URL_ROOT;		// This is to use external domain name found into config file
 //$urlwithroot=DOL_MAIN_URL_ROOT;					// This is to use same domain name than current
 $redirect_uri_core = $urlwithroot.'/core/modules/oauth/google_oauthcallback.php';
@@ -1135,7 +1135,7 @@ if (isModEnabled('societe')) {
 }
 
 // Members
-if (isModEnabled('adherent')) {
+if (isModEnabled('member')) {
 	if (getDolGlobalString('GOOGLE_DUPLICATE_INTO_MEMBERS') && is_object($tokenobj)) {
 		print '<div class="syncmembers">';
 		print '<hr><br>';

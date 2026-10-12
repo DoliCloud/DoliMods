@@ -50,7 +50,7 @@ class ActionsGoogle
 	 *
 	 *  @param		DoliDB		$db      Database handler
 	 */
-	function __construct($db)
+	public function __construct($db)
 	{
 		$this->db = $db;
 	}
@@ -63,8 +63,9 @@ class ActionsGoogle
 	 * @param	Object		$object			Object
 	 * @param	string		$action			Action string
 	 * @param	HookManager	$hookmanager	Object HookManager
+	 * @return	int							1
 	 */
-	function setContentSecurityPolicy($parameters, &$object, &$action, &$hookmanager)
+	public function setContentSecurityPolicy($parameters, &$object, &$action, &$hookmanager)
 	{
 		$tmp = ($hookmanager->resPrint ? $hookmanager->resPrint : $parameters['contentsecuritypolicy']);
 
@@ -90,7 +91,7 @@ class ActionsGoogle
 	 * @param	HookManager	$hookmanager	Object HookManager
 	 * @return	int							0=OK
 	 */
-	function addCalendarChoice($parameters, &$object, &$action, $hookmanager)
+	public function addCalendarChoice($parameters, &$object, &$action, $hookmanager)
 	{
 		global $conf, $langs, $user;
 		global $form;
@@ -149,7 +150,6 @@ class ActionsGoogle
 							dolibarr_set_const($this->db, $keyparam, dol_print_date(dol_now('gmt'), 'dayhourrfc', 'gmt'), 'chaine', 1, '', $conf->entity);
 							$valparam = getDolGlobalString($keyparam);
 							$dateminsync = dol_stringtotime($valparam, 1);
-							//var_dump($keyparam);exit;
 						}
 					}
 				}
@@ -180,7 +180,7 @@ class ActionsGoogle
 	 * @param	HookManager	$hookmanager	Object HookManager
 	 * @return	int							0=OK
 	 */
-	function getLoginPageExtraContent($parameters, &$object, &$action, $hookmanager)
+	public function getLoginPageExtraContent($parameters, &$object, &$action, $hookmanager)
 	{
 		return $this->getXXXPageExtraContent($parameters, $object, $action, $hookmanager);
 	}
@@ -194,7 +194,7 @@ class ActionsGoogle
 	 * @param	HookManager	$hookmanager	Object HookManager
 	 * @return	int							0=OK
 	 */
-	function getPasswordForgottenPageExtraContent($parameters, &$object, &$action, $hookmanager)
+	public function getPasswordForgottenPageExtraContent($parameters, &$object, &$action, $hookmanager)
 	{
 		return $this->getXXXPageExtraContent($parameters, $object, $action, $hookmanager);
 	}
@@ -208,7 +208,7 @@ class ActionsGoogle
 	 * @param	HookManager	$hookmanager	Object HookManager
 	 * @return	int							0=OK
 	 */
-	function getPasswordResetExtraContent($parameters, &$object, &$action, $hookmanager)
+	public function getPasswordResetExtraContent($parameters, &$object, &$action, $hookmanager)
 	{
 		return $this->getXXXPageExtraContent($parameters, $object, $action, $hookmanager);
 	}
@@ -229,12 +229,12 @@ class ActionsGoogle
 		$out = '';
 
 		 // Google Analytics
-		 if (isModEnabled('google') && getDolGlobalString('MAIN_GOOGLE_AN_ID')) {
-			 $tmptagarray = explode(',', getDolGlobalString('MAIN_GOOGLE_AN_ID'));
-			 foreach ($tmptagarray as $tmptag) {
-		 		$out .= "\n";
-		 		$out .= "<!-- JS CODE TO ENABLE for google analtics tag -->\n";
-		 		$out .= "<!-- Global site tag (gtag.js) - Google Analytics -->
+		if (isModEnabled('google') && getDolGlobalString('MAIN_GOOGLE_AN_ID')) {
+			$tmptagarray = explode(',', getDolGlobalString('MAIN_GOOGLE_AN_ID'));
+			foreach ($tmptagarray as $tmptag) {
+				$out .= "\n";
+				$out .= "<!-- JS CODE TO ENABLE for google analtics tag -->\n";
+				$out .= "<!-- Global site tag (gtag.js) - Google Analytics -->
 		 <script async src=\"https://www.googletagmanager.com/gtag/js?id=".dol_escape_htmltag(trim($tmptag))."\"></script>
 		 <script>
 		 window.dataLayer = window.dataLayer || [];
@@ -244,12 +244,12 @@ class ActionsGoogle
 		 gtag('config', '".dol_escape_js(trim($tmptag))."');
 		 </script>";
 				$out .= "\n";
-		 	}
-		 }
+			}
+		}
 		 // Google Adsense (need Google module)
-		 if (isModEnabled('google') && getDolGlobalString('MAIN_GOOGLE_AD_CLIENT') && getDolGlobalString('MAIN_GOOGLE_AD_SLOT')) {
-		 	if (empty($conf->dol_use_jmobile)) {
-		 		$out .= "<!-- Global Adsense -->
+		if (isModEnabled('google') && getDolGlobalString('MAIN_GOOGLE_AD_CLIENT') && getDolGlobalString('MAIN_GOOGLE_AD_SLOT')) {
+			if (empty($conf->dol_use_jmobile)) {
+				$out .= "<!-- Global Adsense -->
 				 <div class=\"center\"><br>
 				 <script><!--
 				 google_ad_client = '".dol_escape_js(getDolGlobalString('MAIN_GOOGLE_AD_CLIENT'))."';
@@ -260,8 +260,8 @@ class ActionsGoogle
 				 </script>
 				 <script src=\"//pagead2.googlesyndication.com/pagead/show_ads.js\"></script>
 				 </div>";
-		 	}
-		 }
+			}
+		}
 
 		$this->resprints = $out;
 

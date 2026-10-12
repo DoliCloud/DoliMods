@@ -225,11 +225,11 @@ class Channel extends CommonObject
 		}
 	}
 
-/**
-	 * Init the list of available users;
-	 *
-	 * @return int             Return integer <0 if KO, >0 if OK
-	 */
+	/**
+		 * Init the list of available users;
+		 *
+		 * @return int             Return integer <0 if KO, >0 if OK
+		 */
 	public function initListOfUsers()
 	{
 		global $user;
@@ -1297,12 +1297,20 @@ class Channel extends CommonObject
 		return $result;
 	}
 
-	function channelInitUserArray(){
+	/**
+	 * Init the list of users of the channel into the cache, from the authors of its messages
+	 *
+	 * @return	int		>0 if OK, 1 if already in cache, <0 if KO
+	 */
+	public function channelInitUserArray()
+	{
+		global $langs;
+
 		include_once DOL_DOCUMENT_ROOT.'/core/lib/memory.lib.php';
-		include_once DOL_DOCUMENT_ROOT.'/core/class/user.class.php';
+		include_once DOL_DOCUMENT_ROOT.'/user/class/user.class.php';
 
 		$channelid = $this->id;
-		$discussioncachename = getDolGlobalString("DISCUSSION_CACHE_NAME_PREFIX",'DISCUSSION_CACHE_CHANNEL')."_".((int) $channelid) ;
+		$discussioncachename = getDolGlobalString("DISCUSSION_CACHE_NAME_PREFIX", 'DISCUSSION_CACHE_CHANNEL')."_".((int) $channelid) ;
 		$cache = dol_getcache($discussioncachename, 1);
 		if (!empty($cache) && $cache < 0) {
 			$this->error = "Failed to get cache";
@@ -1319,7 +1327,7 @@ class Channel extends CommonObject
 
 		$sql = "SELECT dc.fk_user_creat as id";
 		$sql .= " FROM ".MAIN_DB_PREFIX."discussion_message as dc";
-		$sql .= " WHERE dc.fk_discussion_channel = ".((int)$channelid);
+		$sql .= " WHERE dc.fk_discussion_channel = ".((int) $channelid);
 		$sql .= " GROUP BY dc.fk_user_creat";
 		$resql = $this->db->query($sql);
 		if (!$resql) {
@@ -1334,13 +1342,13 @@ class Channel extends CommonObject
 				return -2;
 			}
 
-			$imgarray = channelGetUserPhoto($tmpuser, $cache);
+			$imgarray = channelGetUserPhoto($tmpuser, 1);
 
 			$userobj = new stdClass();
 			$userobj->id = $tmpuser->id;
 			$userobj->imgmode = $imgarray["imgmode"];
 			$userobj->img = $imgarray["img"];
-			$userobj->name = $tmpuser->getFullName($langs,0);
+			$userobj->name = $tmpuser->getFullName($langs, 0);
 			$userobj->status = "disconnected";
 			$userarray[] = $userobj;
 		}
@@ -1358,12 +1366,19 @@ class Channel extends CommonObject
 		return $res;
 	}
 
-	function channelGetOnlineUsers($user){
+	/**
+	 * Return the users of the channel that are connected, except the given user
+	 *
+	 * @param	User			$user	Current user, excluded from the result
+	 * @return	array<int,stdClass>|int	Array of connected users indexed by user id, <0 if KO
+	 */
+	public function channelGetOnlineUsers($user)
+	{
 		include_once DOL_DOCUMENT_ROOT.'/core/lib/memory.lib.php';
 
 		$channelid = $this->id;
 		$onlineusers = array();
-		$discussioncachename = getDolGlobalString("DISCUSSION_CACHE_NAME_PREFIX",'DISCUSSION_CACHE_CHANNEL')."_".((int) $channelid) ;
+		$discussioncachename = getDolGlobalString("DISCUSSION_CACHE_NAME_PREFIX", 'DISCUSSION_CACHE_CHANNEL')."_".((int) $channelid) ;
 		$cache = dol_getcache($discussioncachename, 1);
 		if (!empty($cache) && $cache < 0) {
 			$this->error = "Failed to get cache";
@@ -1384,11 +1399,20 @@ class Channel extends CommonObject
 		return $onlineusers;
 	}
 
-	function channelConnectedUser($user, $cache = 0, $status = "connected") {
+	/**
+	 * Set the status of a user of the channel into the cache
+	 *
+	 * @param	User		$user	User
+	 * @param	int|string	$cache	Value of the cache parameter added to the URL of the user photo
+	 * @param	string		$status	Status of user ('connected' or 'disconnected')
+	 * @return	int					>0 if OK, 0 if status was already set, <0 if KO
+	 */
+	public function channelConnectedUser($user, $cache = 0, $status = "connected")
+	{
 		global $langs;
 
 		$channelid = $this->id;
-		$discussioncachename = getDolGlobalString("DISCUSSION_CACHE_NAME_PREFIX",'DISCUSSION_CACHE_CHANNEL')."_".((int) $channelid) ;
+		$discussioncachename = getDolGlobalString("DISCUSSION_CACHE_NAME_PREFIX", 'DISCUSSION_CACHE_CHANNEL')."_".((int) $channelid) ;
 		$data = dol_getcache($discussioncachename, 1);
 		if (!empty($data) && $data < 0) {
 			$this->error = "Failed to get cache";
@@ -1423,7 +1447,7 @@ class Channel extends CommonObject
 		$userobj->id = $user->id;
 		$userobj->imgmode = $imgarray["imgmode"];
 		$userobj->img = $imgarray["img"];
-		$userobj->name = $user->getFullName($langs,0);
+		$userobj->name = $user->getFullName($langs, 0);
 		$userobj->status = $status;
 
 		if (!is_null($userkey)) {

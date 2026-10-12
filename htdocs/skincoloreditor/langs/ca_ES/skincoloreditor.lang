@@ -1,9 +1,9 @@
-# Dolibarr language file - ca_ES - skincoloreditor 
+# Dolibarr language file - ca_ES - skincoloreditor
 CHARSET= UTF-8
 SkinColorEditorSetup=Configuració del mòdul Skin editor
 SkinColorEditorDesc=Aquest mòdul permet modificar els colors del thema Eldy a la seva elecció. Els colors poden ser modificats globalment per a tots en aquesta pàgina. Per a una modificació per a cada usuari, anar a la pestanya "Editor de color" a la fitxa de l'usuari desitjat.
 SkinColorEditorDescUser=Aquest mòdul permet modificar els colors del thema Eldy a la seva elecció. Els colors poden ser modificats per l'usuari d'aquesta pestanya. Per a una modificació global, anar a la pàgina de configurción del mòdul amb un usuari admin.
-WarningSkinMustBeEldy=Atenció, la modificació de colors només és efectiva en el tema Eldy. Actualment està utilitzant el tema %s. 
+WarningSkinMustBeEldy=Atenció, la modificació de colors només és efectiva en el tema Eldy. Actualment està utilitzant el tema %s.
 SkinColorEditorFastEditor=Editor ràpid
 SkinColorEditorAdvancedEditor=Editor avançat
 Module101880Name=Skin Editor

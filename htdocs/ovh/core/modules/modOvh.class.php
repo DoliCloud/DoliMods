@@ -19,7 +19,7 @@
  */
 
 /**     \defgroup   ovh     Module Ovh
- *      \brief      Permet de s'interface avec les service fourni par OVH (SMS, API,...)
+ *      \brief      To connect Dolibarr and some OVH API (SMS, API,...)
  */
 
 /**
@@ -97,7 +97,7 @@ class modOvh extends DolibarrModules
 		$this->depends = array();		// List of modules id that must be enabled if this module is enabled
 		$this->requiredby = array();	// List of modules id to disable if this one is disabled
 		$this->phpmin = array(7,0);					    // Minimum version of PHP required by module
-		$this->need_dolibarr_version = array(17, 0, -4);	// Minimum version of Dolibarr required by module
+		$this->need_dolibarr_version = array(18, 0, -4);	// Minimum version of Dolibarr required by module
 		$this->langfiles = array("ovh@ovh");
 
 		// Constants
@@ -126,7 +126,7 @@ class modOvh extends DolibarrModules
 		// 'product'          to add a tab in product view
 		// 'stock'            to add a tab in stock view
 		// 'propal'           to add a tab in propal view
-		// 'member'           to add a tab in fundation member view
+		// 'member'           to add a tab in foundation member view
 		// 'contract'         to add a tab in contract view
 		// 'user'             to add a tab in user view
 		// 'group'            to add a tab in group view

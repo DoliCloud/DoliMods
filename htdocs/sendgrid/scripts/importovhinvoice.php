@@ -123,17 +123,17 @@ try {
 
 	//login
 	$session = $soap->login($conf->global->OVHSMS_NICK, $conf->global->OVHSMS_PASS, $language, $multisession);
-	print "login successfull\n";
+	print "login successful\n";
 
 
 	$result = $soap->billingGetAccessByNic($session);
-	echo "billingGetAccessByNic successfull\n";
+	echo "billingGetAccessByNic successful\n";
 	print join(',', $result);
 	print "\n";
 
 	//billingInvoiceList
 	$result = $soap->billingInvoiceList($session);
-	echo "billingInvoiceList successfull (".count($result)." ".$langs->trans("Invoices").")\n";
+	echo "billingInvoiceList successful (".count($result)." ".$langs->trans("Invoices").")\n";
 	foreach ($result as $i => $r) {
 		//$vatrate=vatrate($r->totalPrice > 0?round(100*$r->vat/$r->totalPrice,2):0);
 		if ($excludenullinvoice && empty($r->totalPriceWithVat)) {
@@ -239,7 +239,6 @@ try {
 				} else {
 					echo "Failed to get invoice $facid \n";
 				}
-				//print_r($facfou);
 			}
 		}
 	}
@@ -247,7 +246,7 @@ try {
 
 	//logout
 	$soap->logout($session);
-	echo "logout successfull\n";
+	echo "logout successful\n";
 } catch (SoapFault $fault) {
 	echo $fault;
 }

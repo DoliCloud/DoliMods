@@ -12,7 +12,7 @@
 $res=0;
 // Try main.inc.php into web root known defined into CONTEXT_DOCUMENT_ROOT (not always defined)
 if (! $res && ! empty($_SERVER["CONTEXT_DOCUMENT_ROOT"])) $res=@include str_replace("..", "", $_SERVER["CONTEXT_DOCUMENT_ROOT"])."/main.inc.php";
-// Try main.inc.php into web root detected using web root caluclated from SCRIPT_FILENAME
+// Try main.inc.php into web root detected using web root calculated from SCRIPT_FILENAME
 $tmp=empty($_SERVER['SCRIPT_FILENAME'])?'':$_SERVER['SCRIPT_FILENAME'];$tmp2=realpath(__FILE__); $i=strlen($tmp)-1; $j=strlen($tmp2)-1;
 while ($i > 0 && $j > 0 && isset($tmp[$i]) && isset($tmp2[$j]) && $tmp[$i]==$tmp2[$j]) { $i--; $j--; }
 if (! $res && $i > 0 && file_exists(substr($tmp, 0, ($i+1))."/main.inc.php")) $res=@include substr($tmp, 0, ($i+1))."/main.inc.php";
@@ -21,7 +21,12 @@ if (! $res && $i > 0 && file_exists(dirname(substr($tmp, 0, ($i+1)))."/main.inc.
 if (! $res && file_exists("../../main.inc.php")) $res=@include "../../main.inc.php";
 if (! $res && file_exists("../../../main.inc.php")) $res=@include "../../../main.inc.php";
 if (! $res) die("Include of main fails");
-
+/**
+ * @var Conf $conf
+ * @var DoliDB $db
+ * @var User $user
+ * @var Translate $langs
+ */
 require_once DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php";
 require_once DOL_DOCUMENT_ROOT."/core/lib/date.lib.php";
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.formadmin.class.php';
@@ -130,31 +135,32 @@ if ($conf->use_javascript_ajax) {
 	print '</script>'."\n";
 }
 
-if (isModEnabled('societe')) {
-	print img_picto('', 'company', 'class="pictofixedwidth"').$langs->trans("GoogleEnableThisToolThirdParties").': ';
-	if ($conf->societe->enabled) {
-		print $form->selectyesno("GOOGLE_ENABLE_GMAPS", GETPOSTISSET("GOOGLE_ENABLE_GMAPS") ? GETPOST("GOOGLE_ENABLE_GMAPS") : getDolGlobalString('GOOGLE_ENABLE_GMAPS'), 1);
-	} else print $langs->trans("ModuleMustBeEnabledFirst", $langs->transnoentitiesnoconv("Module1Name"));
-	print '<br>';
-}
+print '<div class="neutral">';
 
 if (isModEnabled('societe')) {
+	print img_picto('', 'company', 'class="pictofixedwidth"').$langs->trans("GoogleEnableThisToolThirdParties").': ';
+	if (isModEnabled('societe')) {
+		print $form->selectyesno("GOOGLE_ENABLE_GMAPS", GETPOSTISSET("GOOGLE_ENABLE_GMAPS") ? GETPOST("GOOGLE_ENABLE_GMAPS") : getDolGlobalString('GOOGLE_ENABLE_GMAPS'), 1);
+	} else print $langs->trans("ModuleMustBeEnabledFirst", $langs->transnoentitiesnoconv("Module1Name"));
+	print '<br><br>';
+
 	print img_picto('', 'contact', 'class="pictofixedwidth"').$langs->trans("GoogleEnableThisToolContacts").': ';
-	if ($conf->societe->enabled) {
+	if (isModEnabled('societe')) {
 		print $form->selectyesno("GOOGLE_ENABLE_GMAPS_CONTACTS", GETPOSTISSET("GOOGLE_ENABLE_GMAPS_CONTACTS") ? GETPOST("GOOGLE_ENABLE_GMAPS_CONTACTS") : getDolGlobalString('GOOGLE_ENABLE_GMAPS_CONTACTS'), 1);
 	} else print $langs->trans("ModuleMustBeEnabledFirst", $langs->transnoentitiesnoconv("Module1Name"));
 	print '<br>';
 }
 
 if (isModEnabled('member')) {
+	if (isModEnabled('societe')) { print '<br>'; }
 	print img_picto('', 'member', 'class="pictofixedwidth"').$langs->trans("GoogleEnableThisToolMembers").': ';
-	if ($conf->adherent->enabled) {
+	if (isModEnabled('member')) {
 		print $form->selectyesno("GOOGLE_ENABLE_GMAPS_MEMBERS", GETPOSTISSET("GOOGLE_ENABLE_GMAPS_MEMBERS") ? GETPOST("GOOGLE_ENABLE_GMAPS_MEMBERS") : getDolGlobalString('GOOGLE_ENABLE_GMAPS_MEMBERS'), 1);
 	} else print $langs->trans("ModuleMustBeEnabledFirst", $langs->transnoentitiesnoconv("Module310Name"));
 	print '<br>';
 }
 
-print '<br>';
+print '</div>';
 
 
 print '<div class="syncx">';
@@ -199,7 +205,7 @@ print "</tr>";
 print '<tr class="oddeven">';
 print '<td class="fieldrequired">'.$langs->trans("GOOGLE_API_SERVERKEY")."</td>";
 print "<td>";
-print '<input class="flat minwidth400" type="text" name="GOOGLE_API_SERVERKEY" value="'.getDolGlobalString('GOOGLE_API_SERVERKEY').'">';
+print '<input class="flat minwidth400" type="text" name="GOOGLE_API_SERVERKEY" value="'.getDolGlobalString('GOOGLE_API_SERVERKEY').'" spellcheck="false">';
 print '</td>';
 print '<td>';
 //print $langs->trans("KeepEmptyYoUsePublicQuotaOfAPI","Geocoding API").'<br>';
@@ -212,7 +218,7 @@ print '</div>';
 
 print '</div>';
 
-print '<div align="center">';
+print '<div class="center">';
 print '<input type="submit" name="save" class="button" value="'.$langs->trans("Save").'">';
 print "</div>";
 

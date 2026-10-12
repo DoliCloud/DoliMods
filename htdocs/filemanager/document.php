@@ -29,7 +29,7 @@
  */
 
 define('NOTOKENRENEWAL', 1); // Disables token renewal
-// Pour autre que bittorrent, on charge environnement + info issus de logon (comme le user)
+// For other than bittorrent, we load environment and info from logon (like the user)
 if (isset($_GET["modulepart"]) && $_GET["modulepart"] == 'bittorrent' && ! defined("NOLOGIN")) {
 	define("NOLOGIN", 1);
 	define("NOCSRFCHECK", 1);	// We accept to go on this page from external web site.
@@ -38,7 +38,11 @@ if (! defined('NOREQUIREMENU')) define('NOREQUIREMENU', '1');
 if (! defined('NOREQUIREHTML')) define('NOREQUIREHTML', '1');
 if (! defined('NOREQUIREAJAX')) define('NOREQUIREAJAX', '1');
 
-// C'est un wrapper, donc header vierge
+/**
+ * Wrapper, so header empty
+ *
+ * @return	void
+ */
 function llxHeader()
 { }
 
@@ -46,7 +50,7 @@ function llxHeader()
 $res=0;
 // Try main.inc.php into web root known defined into CONTEXT_DOCUMENT_ROOT (not always defined)
 if (! $res && ! empty($_SERVER["CONTEXT_DOCUMENT_ROOT"])) $res=@include str_replace("..", "", $_SERVER["CONTEXT_DOCUMENT_ROOT"])."/main.inc.php";
-// Try main.inc.php into web root detected using web root caluclated from SCRIPT_FILENAME
+// Try main.inc.php into web root detected using web root calculated from SCRIPT_FILENAME
 $tmp=empty($_SERVER['SCRIPT_FILENAME'])?'':$_SERVER['SCRIPT_FILENAME'];$tmp2=realpath(__FILE__); $i=strlen($tmp)-1; $j=strlen($tmp2)-1;
 while ($i > 0 && $j > 0 && isset($tmp[$i]) && isset($tmp2[$j]) && $tmp[$i]==$tmp2[$j]) { $i--; $j--; }
 if (! $res && $i > 0 && file_exists(substr($tmp, 0, ($i+1))."/main.inc.php")) $res=@include substr($tmp, 0, ($i+1))."/main.inc.php";
@@ -124,7 +128,7 @@ if (GETPOST("attachment")) { $attachment = true; }
 if (! empty($conf->global->MAIN_DISABLE_FORCE_SAVEAS)) $attachment=false;
 //print "XX".$attachment;exit;
 
-// Suppression de la chaine de caractere ../ dans $original_file
+// Remove the string ../ from $original_file
 $original_file = str_replace("../", "/", $original_file);
 
 // Define root to scan
@@ -145,7 +149,7 @@ if ($id) {
 $accessallowed=0;
 $sqlprotectagainstexternals='';
 if ($modulepart) {
-	// On fait une verification des droits et on definit le repertoire concerne
+	// Check permissions and define the related directory
 
 	// Wrapping for third parties
 	if ($modulepart == 'filemanager') {
@@ -177,14 +181,14 @@ if ($user->societe_id > 0) {
 }
 
 // Security:
-// Limite acces si droits non corrects
+// Restrict access if permissions are not correct
 if (! $accessallowed) {
 	accessforbidden();
 }
 
 // Security:
-// On interdit les remontees de repertoire ainsi que les pipe dans
-// les noms de fichiers.
+// Forbid moving up into parent directories and pipes in
+// file names.
 if (preg_match('/\.\./', $original_file) || preg_match('/[<>|]/', $original_file)) {
 	dol_syslog("Refused to deliver file ".$original_file);
 	$file=basename($original_file);		// Do no show plain path of original_file in shown error message
@@ -229,14 +233,14 @@ if ($action == 'remove_file') {	// Remove a file
 		exit;
 	}
 
-	// Les drois sont ok et fichier trouve, on l'envoie
+	// Permissions are ok and file found, we send it
 
 	if ($encoding)   header('Content-Encoding: '.$encoding);
 	if ($type)       header('Content-Type: '.$type.(preg_match('/text/', $type)?'; charset="'.$conf->file->character_set_client:''));
 	if ($attachment) header('Content-Disposition: attachment; filename="'.$filename.'"');
 	else header('Content-Disposition: inline; filename="'.$filename.'"');
 
-	// Ajout directives pour resoudre bug IE
+	// Add directives to solve an IE bug
 	header('Cache-Control: Public, must-revalidate');
 	header('Pragma: public');
 

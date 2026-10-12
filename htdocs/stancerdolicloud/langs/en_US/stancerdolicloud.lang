@@ -37,6 +37,7 @@ STANCER_DOLICLOUD_PROD_PUBLIC_API_KEY_HELP=Stancer public production API key
 STANCER_DOLICLOUD_PROD_SECRET_API_KEY= Stancer secret production API key
 STANCER_DOLICLOUD_PROD_SECRET_API_KEY_HELP=Stancer secret production API key
 STANCER_DOLICLOUD_BANK_ACCOUNT_FOR_PAYMENTS=Bank account for payments
+STANCER_DOLICLOUD_NB_DAY_PENDING_PAYMENT=Number of days we keep stancer pending payments entries
 
 
 ExampleOfTestCreditCardStancer=Example of credit card can be found at this URL:<br> %s 

@@ -10,7 +10,7 @@ $return[1] is the offset over the whole bencoded data of the next
 		   piece of data.
 
 numberdecode returns [0] as the integer read, and [1]-1 points to the
-symbol that was interprented as the end of the interger (either "e" or
+symbol that was interprented as the end of the integer (either "e" or
 ":").
 numberdecode is used for integer decodes both for i11e and 11:hello there
 so it is tolerant of the ending symbol.
@@ -36,11 +36,20 @@ Known bugs:
 
 */
 
-// Protect our namespace using a class
+/**
+ * Protect our namespace using a class
+ */
 class BDecode
 {
 
-	function numberdecode($wholefile, $start)
+	/**
+	 * Decode a bencoded integer (i123e) or a string length (11:hello)
+	 *
+	 * @param string	$wholefile	Bencoded data
+	 * @param int		$start		Offset of the first digit
+	 * @return array<int,int|false>	Array with value and next offset, or array(false) on error
+	 */
+	public function numberdecode($wholefile, $start)
 	{
 		$ret[0] = 0;
 		$offset = $start;
@@ -68,9 +77,8 @@ class BDecode
 				$ret[0] *= 10;
 				$ret[0] += ord($wholefile[$offset]) - ord("0");
 				$offset++;
-			}
-			// Tolerate : or e because this is a multiuse function
-			elseif ($wholefile[$offset] == 'e' || $wholefile[$offset] == ':') {
+			} elseif ($wholefile[$offset] == 'e' || $wholefile[$offset] == ':') {
+				// Tolerate : or e because this is a multiuse function
 				$ret[1] = $offset+1;
 				if ($negative) {
 					if ($ret[0] == 0)
@@ -82,7 +90,14 @@ class BDecode
 		}
 	}
 
-	function decodeEntry($wholefile, $offset = 0)
+	/**
+	 * Decode a bencoded entry (integer, string, list or dictionary)
+	 *
+	 * @param string	$wholefile	Bencoded data
+	 * @param int		$offset		Offset of the entry to decode
+	 * @return array<int,mixed>	Array with value and next offset, or array(false) on error
+	 */
+	public function decodeEntry($wholefile, $offset = 0)
 	{
 		if ($wholefile[$offset] == 'd')
 		return $this->decodeDict($wholefile, $offset);
@@ -101,7 +116,14 @@ class BDecode
 		return $ret;
 	}
 
-	function decodeList($wholefile, $start)
+	/**
+	 * Decode a bencoded list (l...e)
+	 *
+	 * @param string	$wholefile	Bencoded data
+	 * @param int		$start		Offset of the list start
+	 * @return array<int,mixed>	Array with the list of values and next offset, or array(false) on error
+	 */
+	public function decodeList($wholefile, $start)
 	{
 		$offset = $start+1;
 		$i = 0;
@@ -119,20 +141,26 @@ class BDecode
 			$i ++;
 		}
 
-		// The empy list is an empty array. Seems fine.
+		// The empty list is an empty array. Seems fine.
 		$final[0] = $ret;
 		$final[1] = $offset+1;
 		return $final;
 	}
 
-	// Tries to construct an array
-	function decodeDict($wholefile, $start = 0)
+	/**
+	 * Tries to construct an array from a bencoded dictionary (d...e)
+	 *
+	 * @param string	$wholefile	Bencoded data
+	 * @param int		$start		Offset to start from
+	 * @return array<int,mixed>	Array with the dictionary and next offset, or array(false) on error
+	 */
+	public function decodeDict($wholefile, $start = 0)
 	{
 		$offset = $start;
 		if ($wholefile[$offset] == 'l')
 		return $this->decodeList($wholefile, $start);
 		if ($wholefile[$offset] != 'd')
-		return false;
+		return array(false);
 		$ret = array();
 		$offset++;
 		while (true) {
@@ -142,26 +170,26 @@ class BDecode
 			}
 			$left = $this->decodeEntry($wholefile, $offset);
 			if (!$left[0])
-			return false;
+			return array(false);
 			$offset = $left[1];
 			if ($wholefile[$offset] == 'd') {
 				// Recurse
 				$value = $this->decodedict($wholefile, $offset);
 				if (!$value[0])
-				return false;
+				return array(false);
 				$ret[addslashes($left[0])] = $value[0];
 				$offset= $value[1];
 				continue;
 			} elseif ($wholefile[$offset] == 'l') {
 				$value = $this->decodeList($wholefile, $offset);
 				if (!$value[0] && is_bool($value[0]))
-				return false;
+				return array(false);
 				$ret[addslashes($left[0])] = $value[0];
 				$offset = $value[1];
 			} else {
 				$value = $this->decodeEntry($wholefile, $offset);
 				if ($value[0] === false)
-				return false;
+				return array(false);
 				$ret[addslashes($left[0])] = $value[0];
 				$offset = $value[1];
 			}
@@ -176,7 +204,12 @@ class BDecode
 
 
 
-// Use this function. eg:  BDecode("d8:announce44:http://www. ... e");
+/**
+ * Use this function. eg:  BDecode("d8:announce44:http://www. ... e");
+ *
+ * @param string	$wholefile	Bencoded data
+ * @return mixed	Decoded data
+ */
 function BDecode($wholefile)
 {
 	$decoder = new BDecode;

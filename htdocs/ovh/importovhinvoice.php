@@ -29,7 +29,7 @@
 $res = 0;
 // Try main.inc.php into web root known defined into CONTEXT_DOCUMENT_ROOT (not always defined)
 if (!$res && !empty($_SERVER["CONTEXT_DOCUMENT_ROOT"])) $res = @include str_replace("..", "", $_SERVER["CONTEXT_DOCUMENT_ROOT"]) . "/main.inc.php";
-// Try main.inc.php into web root detected using web root caluclated from SCRIPT_FILENAME
+// Try main.inc.php into web root detected using web root calculated from SCRIPT_FILENAME
 $tmp = empty($_SERVER['SCRIPT_FILENAME']) ? '' : $_SERVER['SCRIPT_FILENAME'];
 $tmp2 = realpath(__FILE__);
 $i = strlen($tmp) - 1;
@@ -145,10 +145,10 @@ if (!empty($action)) {
 
 			//login
 			$session = $soap->login(getDolGlobalString('OVHSMS_NICK'), getDolGlobalString('OVHSMS_PASS'), $language, $multisession);
-			dol_syslog("login successfull");
+			dol_syslog("login successful");
 
 			$result = $soap->billingGetAccessByNic($session);
-			dol_syslog("billingGetAccessByNic successfull = " . join(',', $result));
+			dol_syslog("billingGetAccessByNic successful = " . join(',', $result));
 			//print "GetAccessByNic: ".join(',',$result)."<br>\n";
 		} else {
 			if (GETPOST('compte', 'alpha') == 2) {
@@ -205,7 +205,7 @@ if ($action == 'import' && $ovhthirdparty->id > 0) {
 				} catch (Exception $e) {
 					echo 'Exception soap->billingInvoiceList: ' . $e->getMessage() . "\n";
 				}
-				//echo "billingInvoiceList successfull (".count($result)." ".$langs->trans("Invoices").")\n";
+				//echo "billingInvoiceList successful (".count($result)." ".$langs->trans("Invoices").")\n";
 			} else {
 				$result = array();
 				if (getDolGlobalString("OVH_VAT_VALID_LIST")) {
@@ -354,7 +354,6 @@ if ($action == 'import' && $ovhthirdparty->id > 0) {
 					$facfou->fk_project = $projectid;
 				}
 
-				//var_dump($billnum.' - '.$facfou->date.' - '.dol_print_date($facfou->date,'dayhour'));exit;
 
 				$facid = $facfou->create($fuser);
 				if ($facid > 0) {
@@ -603,8 +602,7 @@ if ($action == 'refresh') {
 		if (getDolGlobalString('OVH_OLDAPI')) {
 			//billingInvoiceList
 			$result = $soap->billingInvoiceList($session);
-			dol_syslog("billingInvoiceList successfull (" . count($result) . " invoices)");
-			//var_dump($result[0]->date.' '.dol_print_date(dol_stringtotime($r->date,1),'day'));exit;
+			dol_syslog("billingInvoiceList successful (" . count($result) . " invoices)");
 
 			file_put_contents(DOL_DATA_ROOT . "/dolibarr_ovh_billingInvoiceList.xml", $soap->__getLastResponse());
 			//dolChmod(DOL_DATA_ROOT . "/dolibarr_ovh_billingInvoiceList.xml");
@@ -650,7 +648,6 @@ if ($action == 'refresh') {
 					$MAXLINESINDETAIL = 3;
 					foreach ($r2 as $key2 => $val2) {
 						$r2d = $conn->get('/me/bill/' . $val . '/details/' . $val2);
-						//var_dump($r2d['description']);
 
 						$nblineofdetail++;
 						$description .= $r2d['description'] . "<br>\n";
@@ -799,7 +796,7 @@ if ($action == 'refresh') {
 				$sql .= ' FROM ' . MAIN_DB_PREFIX . 'facture_fourn as f';
 				$sql .= " WHERE ref_supplier = '" . $db->escape($r['billnum']) . "' and fk_soc = " . $ovhthirdparty->id;
 
-				dol_syslog("Seach if invoice exists sql=" . $sql);
+				dol_syslog("Search if invoice exists sql=" . $sql);
 				$resql = $db->query($sql);
 				$num = 0;
 				if ($resql) {
@@ -820,7 +817,6 @@ if ($action == 'refresh') {
 
 						$ref = dol_sanitizeFileName($facfou->ref);
 						$upload_dir = $conf->fournisseur->facture->dir_output . '/' . get_exdir($facfou->id, 2, 0, 0, $facfou, 'invoice_supplier') . $ref;
-						//var_dump($upload_dir);
 						$file_name = ($upload_dir . "/" . $facfou->ref_supplier . ".pdf");
 						$file_name_bis = ($upload_dir . "/" . $facfou->ref . '-' . $facfou->ref_supplier . ".pdf");
 						$file_name_ter = ($upload_dir . "/" . $facfou->ref . '_' . $facfou->ref_supplier . ".pdf");        // Old version made import with this name
@@ -829,7 +825,6 @@ if ($action == 'refresh') {
 
 						if (file_exists($file_name) || file_exists($file_name_bis) || file_exists($file_name_ter)) {
 							print $langs->trans("InvoicePDFFoundIntoDolibarr") . " " . $facfou->getNomUrl(1) . "\n";
-							//echo "<br>File ".dol_basename($file_name)." also already exists\n";
 						} else {
 							print $langs->transnoentities("InvoiceFoundIntoDolibarr", $facfou->getNomUrl(1)) . "\n";
 							if (!is_dir($upload_dir)) {

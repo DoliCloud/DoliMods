@@ -17,7 +17,7 @@ define('NOCSRFCHECK', 1);
 $res=0;
 // Try main.inc.php into web root known defined into CONTEXT_DOCUMENT_ROOT (not always defined)
 if (! $res && ! empty($_SERVER["CONTEXT_DOCUMENT_ROOT"])) $res=@include str_replace("..", "", $_SERVER["CONTEXT_DOCUMENT_ROOT"])."/main.inc.php";
-// Try main.inc.php into web root detected using web root caluclated from SCRIPT_FILENAME
+// Try main.inc.php into web root detected using web root calculated from SCRIPT_FILENAME
 $tmp=empty($_SERVER['SCRIPT_FILENAME'])?'':$_SERVER['SCRIPT_FILENAME'];$tmp2=realpath(__FILE__); $i=strlen($tmp)-1; $j=strlen($tmp2)-1;
 while ($i > 0 && $j > 0 && isset($tmp[$i]) && isset($tmp2[$j]) && $tmp[$i]==$tmp2[$j]) { $i--; $j--; }
 if (! $res && $i > 0 && file_exists(substr($tmp, 0, ($i+1))."/main.inc.php")) $res=@include substr($tmp, 0, ($i+1))."/main.inc.php";
@@ -35,19 +35,23 @@ $langs->load("google@google");
 $langs->load("companies");
 $langs->load("other");
 
-// Load permissions
-$user->getrights('google');
+// User::loadRights() only exists from Dolibarr 19 on, older versions name it getrights()
+if (method_exists($user, 'loadRights')) {
+	$user->loadRights();
+} else {
+	$user->getrights();
+}
 
 // Get parameters
 $socid = isset($_GET["socid"])?$_GET["socid"]:'';
 
-// Protection quand utilisateur externe
+// Protection for external users
 if ($user->societe_id > 0) {
 	$action = '';
 	$socid = $user->societe_id;
 }
 
-$MAXAGENDA=empty($conf->global->GOOGLE_AGENDA_NB)?5:$conf->global->GOOGLE_AGENDA_NB;
+$MAXAGENDA = getDolGlobalInt('GOOGLE_AGENDA_NB', 5);
 
 
 /*
@@ -244,7 +248,6 @@ $frame ='<iframe src="https://www.google.com/calendar/embed?';
 $frame.='showTitle=0';
 $frame.='&amp;height=600';
 // Define first day of week (wkst=1 for sunday, wkst=2 for monday, ...)
-//var_dump($conf->global->MAIN_START_WEEK);
 $frame.='&amp;wkst='.($conf->global->MAIN_START_WEEK+1);
 $frame.='&amp;bgcolor=%23'.$bgcolor;
 

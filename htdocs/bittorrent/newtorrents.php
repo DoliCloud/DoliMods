@@ -28,6 +28,11 @@ if (isset($_FILES["torrent"])) {
 }
 
 
+/**
+ * Add the uploaded torrent into the tracker database
+ *
+ * @return	void
+ */
 function addTorrent()
 {
 	global $urlwithouturlroot,$website_url,$dbhost,$dbuser,$dbpass,$database,$prefix;
@@ -173,6 +178,11 @@ function addTorrent()
 	}
 }
 
+/**
+ * Print the form to add a torrent
+ *
+ * @return	void
+ */
 function endOutput()
 {
 	global $urlwithouturlroot,$website_url;
@@ -205,7 +215,7 @@ function endOutput()
 	</tr>
 	<tr><td colspan="2"><hr></td></tr>
 	<tr>
-	<td class="center" colspan="2"><input type="checkbox" name="getrightseed" checked="checked" value="enabled">Use GetRight HTTP seeding specification (optional but highly recommanded to avoid to have a client running as a seed)</td>
+	<td class="center" colspan="2"><input type="checkbox" name="getrightseed" checked="checked" value="enabled">Use GetRight HTTP seeding specification (optional but highly recommended to avoid to have a client running as a seed)</td>
 	</tr>
 	<tr>
 	<td class="right" valign="top">FTP/HTTP URL of file or directory:<br>

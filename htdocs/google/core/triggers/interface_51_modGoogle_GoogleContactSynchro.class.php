@@ -33,20 +33,20 @@ dol_include_once('/google/lib/google_contact.lib.php');
  */
 class InterfaceGoogleContactSynchro extends DolibarrTriggers
 {
-	var $db;
-	var $error;
+	public $db;
+	public $error;
 
-	var $date;
-	var $duree;
-	var $texte;
-	var $desc;
+	public $date;
+	public $duree;
+	public $texte;
+	public $desc;
 
 	/**
 	 *   Constructor.
 	 *
 	 *   @param		DoliDB		$db      Database handler
 	 */
-	function __construct($db)
+	public function __construct($db)
 	{
 		$this->db = $db;
 
@@ -61,7 +61,7 @@ class InterfaceGoogleContactSynchro extends DolibarrTriggers
 	 *
 	 *   @return     string      Nom du lot de triggers
 	 */
-	function getName()
+	public function getName()
 	{
 		return $this->name;
 	}
@@ -71,7 +71,7 @@ class InterfaceGoogleContactSynchro extends DolibarrTriggers
 	 *
 	 *   @return     string      Descriptif du lot de triggers
 	 */
-	function getDesc()
+	public function getDesc()
 	{
 		return $this->description;
 	}
@@ -81,7 +81,7 @@ class InterfaceGoogleContactSynchro extends DolibarrTriggers
 	 *
 	 *   @return     string      Version du lot de triggers
 	 */
-	function getVersion()
+	public function getVersion()
 	{
 		global $langs;
 		$langs->load("admin");
@@ -94,26 +94,25 @@ class InterfaceGoogleContactSynchro extends DolibarrTriggers
 
 	/**
 	 *      Fonction appelee lors du declenchement d'un evenement Dolibarr.
-	 *      D'autres fonctions runTrigger peuvent etre presentes dans includes/triggers
+	 *      Other functions runTrigger can be present into includes/triggers
 	 *
 	 *      @param	string		$action     Code of event
-	 *      @param 	Object		$object     Objet concerne
-	 *      @param  User		$user       Objet user
-	 *      @param  Translate	$langs      Objet lang
-	 *      @param  Conf		$conf       Objet conf
-	 *      @return int         			<0 if KO, 0 if nothing is done, >0 if OK
+	 *      @param 	Object		$object     Object
+	 *      @param  User		$user       Object user
+	 *      @param  Translate	$langs      Object lang
+	 *      @param  Conf		$conf       Object conf
+	 *      @return int         			Return <0 if KO, 0 if nothing is done, >0 if OK
 	 */
-	function runTrigger($action, $object, User $user, Translate $langs, Conf $conf)
+	public function runTrigger($action, $object, User $user, Translate $langs, Conf $conf)
 	{
-		global $dolibarr_main_url_root;
+		// Creation / Update / Delete event in Google contact
 
-		// Création / Mise à jour / Suppression d'un évènement dans Google contact
+		if (!isModEnabled('google')) {
+			return 0; // Module disabled
+		}
 
-		if (empty($conf->google->enabled)) return 0; // Module non actif
 
-		//var_dump($object); exit;
-
-		$userlogin = empty($conf->global->GOOGLE_CONTACT_LOGIN)?'':$conf->global->GOOGLE_CONTACT_LOGIN;
+		$userlogin = getDolGlobalString('GOOGLE_CONTACT_LOGIN');
 		if (empty($userlogin)) {	// We use setup of user
 			$fuser = new User($this->db);
 			// TODO
@@ -121,7 +120,7 @@ class InterfaceGoogleContactSynchro extends DolibarrTriggers
 		}
 
 
-		$pwd  = empty($conf->global->GOOGLE_CONTACT_PASSWORD)?'':$conf->global->GOOGLE_CONTACT_PASSWORD;
+		$pwd  = getDolGlobalString('GOOGLE_CONTACT_PASSWORD');
 		//print $action.' - '.$user.' - '.$pwd.' - '.$conf->global->GOOGLE_DUPLICATE_INTO_THIRDPARTIES.' - '.$conf->global->GOOGLE_DUPLICATE_INTO_CONTACTS; exit;
 
 
@@ -224,7 +223,6 @@ class InterfaceGoogleContactSynchro extends DolibarrTriggers
 						if ($ret === 0) { // Fails to update because not found, we try to create
 							dol_syslog("Failed to update thirdparty, contact or member. It may have been deleted on Google side. we force the creation");
 							$ret = googleCreateContact($servicearray, $object, $userlogin);
-							//var_dump($ret); exit;
 
 							if (! preg_match('/ERROR/', $ret)) {
 								if ($ret && ! preg_match('/google\.com/', $ret)) {
@@ -244,7 +242,6 @@ class InterfaceGoogleContactSynchro extends DolibarrTriggers
 						return 1;
 					} elseif ($gid == '') {
 						$ret = googleCreateContact($servicearray, $object, $userlogin);
-						//var_dump($ret); exit;
 
 						if (! preg_match('/ERROR/', $ret)) {
 							if ($ret && ! preg_match('/google\.com/', $ret)) {
@@ -327,7 +324,6 @@ class InterfaceGoogleContactSynchro extends DolibarrTriggers
 						$ret = googleUpdateGroup($servicearray, $groupID, $newlabel);
 						if (is_numeric($ret) && $ret > 0) {
 							return 1;
-
 						}
 					}
 					$this->error=$object->error;
@@ -342,7 +338,6 @@ class InterfaceGoogleContactSynchro extends DolibarrTriggers
 						$ret = googleDeleteGroup($servicearray, $groupID);
 						if ($ret > 0) {
 							return 1;
-
 						}
 					}
 					$this->error=$object->error;

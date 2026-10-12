@@ -7,7 +7,7 @@
 $res=0;
 // Try main.inc.php into web root known defined into CONTEXT_DOCUMENT_ROOT (not always defined)
 if (! $res && ! empty($_SERVER["CONTEXT_DOCUMENT_ROOT"])) $res=@include str_replace("..", "", $_SERVER["CONTEXT_DOCUMENT_ROOT"])."/main.inc.php";
-// Try main.inc.php into web root detected using web root caluclated from SCRIPT_FILENAME
+// Try main.inc.php into web root detected using web root calculated from SCRIPT_FILENAME
 $tmp=empty($_SERVER['SCRIPT_FILENAME'])?'':$_SERVER['SCRIPT_FILENAME'];$tmp2=realpath(__FILE__); $i=strlen($tmp)-1; $j=strlen($tmp2)-1;
 while ($i > 0 && $j > 0 && isset($tmp[$i]) && isset($tmp2[$j]) && $tmp[$i]==$tmp2[$j]) { $i--; $j--; }
 if (! $res && $i > 0 && file_exists(substr($tmp, 0, ($i+1))."/main.inc.php")) $res=@include substr($tmp, 0, ($i+1))."/main.inc.php";
@@ -107,14 +107,13 @@ if ($action == 'delete') {
 
 	header("Location: ".$url);
 	exit();
-}	else {
+} else {
 	// Save token into database
 	$langs->load("oauth");
 
 	if (isset($_SESSION['oauthstateanticsrf']) && $state != $_SESSION['oauthstateanticsrf']) {
 		print 'Value for state = '.dol_escape_htmltag($state).' differs from value in $_SESSION["oauthstateanticsrf"]. Code is refused.';
 		unset($_SESSION['oauthstateanticsrf']);
-
 	} else {
 		try {
 			// Save token into database using DoliStorage
@@ -123,15 +122,14 @@ if ($action == 'delete') {
 			$_SESSION['google_web_token_'.$conf->entity] = array('access_token' => $tokenobj->getAccessToken(),
 			'expires_in' => ($tokenobj->getEndOfLife() - time()),
 			'created' => ($tokenobj->getEndOfLife() - 3600)
-		);
+			);
 
 			setEventMessages($langs->trans('NewTokenStored'), null, 'mesgs');
 
 			// Redirect to original page
 			header('Location: '.$backtourl);
 			exit();
-
-		}	catch (Exception $e) {
+		} catch (Exception $e) {
 			$error++;
 			$mesgs.= $e->getMessage();
 		}
@@ -162,8 +160,6 @@ print $mesgs;
  print 'This page is a test page show information on your Google account using Oauth login. It is not used by module.<br>';
 print '<a href="'.$url.'">Click here to authenticate using oauth</a><br><br>';
 
-//var_dump($_GET);
-//var_dump($_POST);
 
 print 'We are into an oauth authenticated session oauth_token='.$google_web_token.'<br>';
 
@@ -177,7 +173,6 @@ exit();
 }
 
 echo "<h3>Addresses:</h3>";
-//var_dump($xmlresponse);
 
 //$xml =  new SimpleXMLElement($xmlresponse);
 //$xml->registerXPathNamespace('gd', 'http://schemas.google.com/g/2005');
@@ -199,7 +194,6 @@ curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
 curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
 $result = curl_exec($curl);
 curl_close($curl);
-var_dump($result);
 */
 
 

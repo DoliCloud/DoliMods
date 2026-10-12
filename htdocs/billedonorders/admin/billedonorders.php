@@ -28,7 +28,7 @@ define('NOCSRFCHECK', 1);
 $res=0;
 // Try main.inc.php into web root known defined into CONTEXT_DOCUMENT_ROOT (not always defined)
 if (! $res && ! empty($_SERVER["CONTEXT_DOCUMENT_ROOT"])) $res=@include str_replace("..", "", $_SERVER["CONTEXT_DOCUMENT_ROOT"])."/main.inc.php";
-// Try main.inc.php into web root detected using web root caluclated from SCRIPT_FILENAME
+// Try main.inc.php into web root detected using web root calculated from SCRIPT_FILENAME
 $tmp=empty($_SERVER['SCRIPT_FILENAME'])?'':$_SERVER['SCRIPT_FILENAME'];$tmp2=realpath(__FILE__); $i=strlen($tmp)-1; $j=strlen($tmp2)-1;
 while ($i > 0 && $j > 0 && isset($tmp[$i]) && isset($tmp2[$j]) && $tmp[$i]==$tmp2[$j]) { $i--; $j--; }
 if (! $res && $i > 0 && file_exists(substr($tmp, 0, ($i+1))."/main.inc.php")) $res=@include substr($tmp, 0, ($i+1))."/main.inc.php";
@@ -39,10 +39,6 @@ if (! $res && file_exists("../../../main.inc.php")) $res=@include "../../../main
 if (! $res) die("Include of main fails");
 
 require_once DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php";
-require_once DOL_DOCUMENT_ROOT."/core/lib/files.lib.php";
-require_once DOL_DOCUMENT_ROOT.'/core/class/html.formadmin.class.php';
-require_once DOL_DOCUMENT_ROOT.'/core/class/html.formfile.class.php';
-
 
 if (!$user->admin) accessforbidden();
 
@@ -50,38 +46,10 @@ $langs->load("admin");
 $langs->load("other");
 $langs->load("billedonorders@billedonorders");
 
-$def = array();
-$action=GETPOST('action', 'alpha');
-$confirm=GETPOST('confirm', 'alpha');
-$actionsave=GETPOST('save', 'alpha');
-
-
-/*
- * Actions
- */
-
-if ($action == 'update') {
-	$res=dolibarr_set_const($db, 'BILLEDONORDERS_DISABLE_BILLEDWOTAX', GETPOST("BILLEDONORDERS_DISABLE_BILLEDWOTAX"), 'texte', 0, '', $conf->entity);
-
-	$res=dolibarr_set_const($db, 'BILLEDONORDERS_DISABLE_BILLED', GETPOST("BILLEDONORDERS_DISABLE_BILLED"), 'texte', 0, '', $conf->entity);
-
-	$res=dolibarr_set_const($db, 'BILLEDONORDERS_DISABLE_PAYED', GETPOST("BILLEDONORDERS_DISABLE_PAYED"), 'texte', 0, '', $conf->entity);
-
-	$res=dolibarr_set_const($db, 'BILLEDONORDERS_DISABLE_REMAINTOPAY', GETPOST("BILLEDONORDERS_DISABLE_REMAINTOPAY"), 'texte', 1, '', $conf->entity);
-
-	if ($res == 1) $mesg=$langs->trans("RecordModifiedSuccessfully");
-	else {
-		dol_print_error($db);
-	}
-}
-
 
 /*
  * View
  */
-
-$form=new Form($db);
-$formfile=new FormFile($db);
 
 llxHeader('', 'billedonorders', $linktohelp);
 
@@ -105,9 +73,6 @@ $h++;
 
 
 
-print '<form name="cabinetmed" action="'.$_SERVER["PHP_SELF"].'" method="POST">';
-print '<input type="hidden" name="action" value="update">';
-
 dol_fiche_head($head, 'tabsetup', '', -1);
 
 //print $langs->trans("BilledOnOrdersNothingToSetup");
@@ -119,27 +84,32 @@ print '<td>'.$langs->trans("Value").'</td>';
 print "</tr>\n";
 
 print '<tr class="oddeven"><td>'.$langs->trans("BILLEDONORDERS_DISABLE_BILLEDWOTAX").'</td>';
-print '<td>'.$form->selectyesno('BILLEDONORDERS_DISABLE_BILLEDWOTAX', getDolGlobalString('BILLEDONORDERS_DISABLE_BILLEDWOTAX'), 1).'</td>';
+print '<td>'.ajax_constantonoff('BILLEDONORDERS_DISABLE_BILLEDWOTAX').'</td>';
 print '</tr>';
 
 print '<tr class="oddeven"><td>'.$langs->trans("BILLEDONORDERS_DISABLE_BILLED").'</td>';
-print '<td>'.$form->selectyesno('BILLEDONORDERS_DISABLE_BILLED', getDolGlobalString('BILLEDONORDERS_DISABLE_BILLED'), 1).'</td>';
+print '<td>'.ajax_constantonoff('BILLEDONORDERS_DISABLE_BILLED').'</td>';
 print '</tr>';
 
 print '<tr class="oddeven"><td>'.$langs->trans("BILLEDONORDERS_DISABLE_PAYED").'</td>';
-print '<td>'.$form->selectyesno('BILLEDONORDERS_DISABLE_PAYED', getDolGlobalString('BILLEDONORDERS_DISABLE_PAYED'), 1).'</td>';
+print '<td>'.ajax_constantonoff('BILLEDONORDERS_DISABLE_PAYED').'</td>';
 print '</tr>';
 
 print '<tr class="oddeven"><td>'.$langs->trans("BILLEDONORDERS_DISABLE_REMAINTOPAY").'</td>';
-print '<td>'.$form->selectyesno('BILLEDONORDERS_DISABLE_REMAINTOPAY', getDolGlobalString('BILLEDONORDERS_DISABLE_REMAINTOPAY'), 1).'</td>';
+print '<td>'.ajax_constantonoff('BILLEDONORDERS_DISABLE_REMAINTOPAY').'</td>';
+print '</tr>';
+
+print '<tr class="oddeven"><td>'.$langs->trans("BILLEDONORDERS_DISABLE_REMAINTOBILLEXCLTAX").'</td>';
+print '<td>'.ajax_constantonoff('BILLEDONORDERS_DISABLE_REMAINTOBILLEXCLTAX').'</td>';
+print '</tr>';
+
+print '<tr class="oddeven"><td>'.$langs->trans("BILLEDONORDERS_DISABLE_REMAINTOBILL").'</td>';
+print '<td>'.ajax_constantonoff('BILLEDONORDERS_DISABLE_REMAINTOBILL').'</td>';
 print '</tr>';
 
 print '</table>';
 
 dol_fiche_end();
-
-print '<div class="center"><input type="submit" name="save" value="'.$langs->trans("Save").'" class="button"></div>';
-print '</form>';
 
 
 // Footer

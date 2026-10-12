@@ -38,7 +38,7 @@ class modConcatPdf extends DolibarrModules
 	 *
 	 *   @param		DoliDB		$db		Database handler
 	 */
-	function __construct($db)
+	public function __construct($db)
 	{
 		$this->db = $db;
 
@@ -73,7 +73,7 @@ class modConcatPdf extends DolibarrModules
 				//						'barcode' => 0,                                  // Set this to 1 if module has its own barcode directory
 				//						'models' => 0,                                   // Set this to 1 if module has its own models directory
 				//						'css' => '/filemanager/css/concatpdf.css.php',   // Set this to relative path of css if module has its own css file
-										'hooks' => array('invoicecard','propalcard','ordercard','invoicesuppliercard','ordersuppliercard','supplier_proposalcard','contractcard','pdfgeneration')  // Set here all hooks context managed by module
+										'hooks' => array('invoicecard','propalcard','ordercard','invoicesuppliercard','ordersuppliercard','supplier_proposalcard','contractcard','pdfgeneration','onlinesign')  // Set here all hooks context managed by module
 		);
 
 		// Data directories to create when module is enabled
@@ -86,7 +86,7 @@ class modConcatPdf extends DolibarrModules
 		$this->depends = array();		// List of modules id that must be enabled if this module is enabled
 		$this->requiredby = array();	// List of modules id to disable if this one is disabled
 		$this->phpmin = array(4,3);                 // Minimum version of PHP required by module
-		$this->need_dolibarr_version = array(17, 0, -4);  // Minimum version of Dolibarr required by module
+		$this->need_dolibarr_version = array(20, 0, -4);  // Minimum version of Dolibarr required by module
 		$this->langfiles = array("concatpdf@concatpdf");
 
 		// Constants
@@ -139,7 +139,7 @@ class modConcatPdf extends DolibarrModules
 	 *      @param      string	$options    Options when enabling module ('', 'noboxes')
 	 *      @return     int             	1 if OK, 0 if KO
 	 */
-	function init($options = '')
+	public function init($options = '')
 	{
 		$sql = array();
 
@@ -154,7 +154,7 @@ class modConcatPdf extends DolibarrModules
 	 *      @param      string	$options    Options when enabling module ('', 'noboxes')
 	 *      @return     int             	1 if OK, 0 if KO
 	 */
-	function remove($options = '')
+	public function remove($options = '')
 	{
 		$sql = array();
 

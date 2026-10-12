@@ -26,7 +26,7 @@
 $res=0;
 // Try main.inc.php into web root known defined into CONTEXT_DOCUMENT_ROOT (not always defined)
 if (! $res && ! empty($_SERVER["CONTEXT_DOCUMENT_ROOT"])) $res=@include str_replace("..", "", $_SERVER["CONTEXT_DOCUMENT_ROOT"])."/main.inc.php";
-// Try main.inc.php into web root detected using web root caluclated from SCRIPT_FILENAME
+// Try main.inc.php into web root detected using web root calculated from SCRIPT_FILENAME
 $tmp=empty($_SERVER['SCRIPT_FILENAME'])?'':$_SERVER['SCRIPT_FILENAME'];$tmp2=realpath(__FILE__); $i=strlen($tmp)-1; $j=strlen($tmp2)-1;
 while ($i > 0 && $j > 0 && isset($tmp[$i]) && isset($tmp2[$j]) && $tmp[$i]==$tmp2[$j]) { $i--; $j--; }
 if (! $res && $i > 0 && file_exists(substr($tmp, 0, ($i+1))."/main.inc.php")) $res=@include substr($tmp, 0, ($i+1))."/main.inc.php";
@@ -65,6 +65,17 @@ $substitutionarrayfortest=array(
 
 // Activate error interceptions
 if (! empty($conf->global->MAIN_ENABLE_EXCEPTION)) {
+	/**
+	 * Error handler that converts PHP errors into exceptions
+	 *
+	 * @param	int		$code		Error level
+	 * @param	string	$message	Error message
+	 * @param	string	$fichier	File where the error occurred
+	 * @param	int		$ligne		Line where the error occurred
+	 * @param	mixed	$contexte	Error context
+	 * @return	void
+	 * @throws	Exception
+	 */
 	function traitementErreur($code, $message, $fichier, $ligne, $contexte)
 	{
 		if (error_reporting() & $code) {
@@ -102,7 +113,7 @@ if ($action == 'setvalue_account' && $user->admin) {
 }
 
 if ($action == 'requestcredential') {
-	// Informations about your application
+	// Information about your application
 	$applicationKey = $conf->global->SENDGRIDAPPKEY;
 	$applicationSecret = $conf->global->SENDGRIDAPPSECRET;
 	$redirect_uri=dol_buildpath('/sendgrid/admin/sendgrid_setup.php?action=backfromauth', 2);
@@ -249,6 +260,7 @@ $db->close();
  * @param string	$str       Str
  * @param string	$file      File
  * @param string	$line      Line
+ * @return void
  */
 function my_error_handler($no, $str, $file, $line)
 {

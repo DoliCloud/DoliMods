@@ -1,0 +1,34 @@
+# This is the YAML file to describe the location of a module
+
+packages:
+  - modulename: 'Alumni'
+    author: 'DoliCloud'
+    author_url: 'https://www.dolicloud.com'
+    maintener_email: 'contact@dolicloud.com'
+    label:
+      fr: "Alumni"
+      en: "Alumni"
+    description:
+      fr: "Module d'organisation d'un événement de réunion d'anciens élèves"
+      en: "Module for organizing an alumni meeting event"
+    status: 'enabled'
+    created_at: '2023-11-02'
+    last_updated_at: 'auto'
+    category: ''
+    git: 'https://github.com/DoliCloud/dolimods/tree/master/htdocs/alumni'
+    git-branch: 'master'
+    git-system: 'github'
+    cover: ''
+    current_version: 'auto'
+    dolibarrmin: 'auto'
+    dolibarrmax: 'auto'
+    phpmin: 'auto'
+    phpmax: 'auto'
+    price: 0
+    # direct-download is yes if we can download the module to install it in application
+    direct-download: 'no'
+    # dolistore-upload is manual if module is also uploaded manually on dolistore.com, auto if sync automatically
+    dolistore-upload: 'manual'
+    # dolistore-download is url of product page for download if module can also be found on dolistore.com
+    # Example: https://www.dolistore.com/product.php?id=xxx
+    dolistore-download: ''

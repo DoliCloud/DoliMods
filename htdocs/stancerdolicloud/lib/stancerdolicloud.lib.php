@@ -87,7 +87,6 @@ function stancerDolicloudAdminPrepareHead()
  *
  * @return	int				The amount to pay if mode amount
  */
-
 function stancerDolicloudGetDataFromObjects($source, $ref, $mode = 'amount')
 {
 	global $db;
@@ -151,7 +150,7 @@ function stancerDolicloudGetDataFromObjects($source, $ref, $mode = 'amount')
 						$amount = $adht->amount;
 					}
 
-					if (!empty($member->last_subscription_amount) && !GETPOSTISSET('newamount') && is_numeric($amount)){
+					if (!empty($member->last_subscription_amount) && !GETPOSTISSET('newamount') && is_numeric($amount)) {
 						$amount = max($member->last_subscription_amount, $amount);
 					}
 					$amount = max(0, getDolGlobalString('MEMBER_MIN_AMOUNT'), $amount);
@@ -225,7 +224,6 @@ function stancerDolicloudGetDataFromObjects($source, $ref, $mode = 'amount')
 				}
 			}
 			break;
-
 	}
 	return $amount;
 }
@@ -239,7 +237,8 @@ function stancerDolicloudGetDataFromObjects($source, $ref, $mode = 'amount')
  *
  * @return 	string 		The completed FULLTAG with appended object data.
  */
-function stancerDolicloudCompleteFullTag($FULLTAG, $source = '', $ref = '') {
+function stancerDolicloudCompleteFullTag($FULLTAG, $source = '', $ref = '')
+{
 	global $db;
 
 	require_once DOL_DOCUMENT_ROOT.'/commande/class/commande.class.php';
@@ -248,21 +247,20 @@ function stancerDolicloudCompleteFullTag($FULLTAG, $source = '', $ref = '') {
 	if ($source && $ref) {
 		switch ($source) {
 			case 'order':
-			$result = $order->fetch('', $ref);
-			if ($result <= 0) {
-				return $FULLTAG;
-			} else {
-				$result = $order->fetch_thirdparty($order->socid);
-				$FULLTAG = $FULLTAG .'.ORD='.$order->id.'.CUS='.$order->thirdparty->id;
-				$FULLTAG = dol_string_unaccent($FULLTAG);
-			}
+				$result = $order->fetch('', $ref);
+				if ($result <= 0) {
+					return $FULLTAG;
+				} else {
+					$result = $order->fetch_thirdparty($order->socid);
+					$FULLTAG = $FULLTAG .'.ORD='.$order->id.'.CUS='.$order->thirdparty->id;
+					$FULLTAG = dol_string_unaccent($FULLTAG);
+				}
 			return $FULLTAG;
 			break;
-		default:
+			default:
 			return $FULLTAG;
 			break;
 		}
-
 	} else {
 		return $FULLTAG;
 	}

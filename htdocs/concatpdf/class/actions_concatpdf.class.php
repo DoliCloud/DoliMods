@@ -170,7 +170,7 @@ class ActionsConcatPdf
 			$out.='<div class="valignmiddle inline-block hideonsmartphone">'.$langs->trans("ConcatFile").'</div> ';
 
 			if (getDolGlobalString('CONCATPDF_MULTIPLE_CONCATENATION_ENABLED')) {
-				foreach($arraypreselected as $tmpkey => $tmpval) {
+				foreach ($arraypreselected as $tmpkey => $tmpval) {
 					$arraypreselected[$tmpkey] = preg_replace('/\.pdf$/i', '', $tmpval);
 				}
 				$out.='<div class="valignmiddle inline-block minwidth300imp">';
@@ -239,7 +239,6 @@ class ActionsConcatPdf
 		if (empty($concatpdffile) && ! $formwassubmittedwithemptyselection) {
 			//var_dump(getDolGlobalString('CONCATPDF_PRESELECTED_MODELS'));
 			if ($preselected == -1 && getDolGlobalString('CONCATPDF_PRESELECTED_MODELS')) {
-
 				// List of value key into setup -> value for modulepart
 				$altkey=array('proposal'=>'propal', 'order'=>'commande', 'invoice'=>'facture', 'supplier_order'=>'order_supplier', 'supplier_invoice'=>'invoice_supplier');
 
@@ -257,7 +256,7 @@ class ActionsConcatPdf
 					//var_dump($key.' - '.$altkey[$key].' - '.$val.' - '.$parameters['object']->element);
 					if (isset($parameters['object']->element) && ($parameters['object']->element == $key || (isset($altkey[$key]) && $parameters['object']->element == $altkey[$key]))) {
 						$tmpval = explode(',', $val);
-						foreach($tmpval as $val2) {
+						foreach ($tmpval as $val2) {
 							$concatpdffile[] = preg_replace('/\.pdf$/i', '', $val2);
 						}
 					}
@@ -399,12 +398,87 @@ class ActionsConcatPdf
 		return $ret;
 	}
 
+	// phpcs:disable PEAR.NamingConventions.ValidFunctionName.ScopeNotCamelCaps
+	/**
+	 * Hook AddSignature (context 'onlinesign').
+	 *
+	 * When extra PDFs (typically T&Cs) have been concatenated after the proposal
+	 * PDF by this module, the online signature placement falls on the last page
+	 * of the final PDF — i.e. the last appended document — instead of the
+	 * signature box on the proposal itself.
+	 *
+	 * This handler counts the appended pages and sets PROPAL_SIGNATURE_ON_SPECIFIC_PAGE
+	 * to a negative value (= count from end), so the standard signature flow
+	 * places the stamp on the last page of the proposal. Returns 0 to keep the
+	 * default flow running with the corrected target page.
+	 *
+	 * No-op when nothing has been concatenated, when the object is not a
+	 * proposal, when the mixed (interleaved) concatenation mode is enabled, or
+	 * when the appended documents are dynamic templates whose page count cannot
+	 * be determined without regeneration.
+	 *
+	 * @param   array   $parameters     Hook parameters ('sourcefile', 'newpdffilename')
+	 * @param   object  $object         Signed object (Propal expected)
+	 * @param   string  $action         Current action
+	 * @return  int                     0 = continue default, <0 = KO, >0 = replace default
+	 */
+	public function AddSignature($parameters, &$object, &$action)
+	{
+		// phpcs:enable
+		global $conf;
+
+		if (!is_object($object) || $object->element !== 'propal') {
+			return 0;
+		}
+		if (empty($object->extraparams['concatpdf']) || !is_array($object->extraparams['concatpdf'])) {
+			return 0;
+		}
+		// Mixed mode interleaves proposal/T&C pages, so "count from end" no longer
+		// matches the last proposal page. Bail out and rely on legacy placement.
+		if (getDolGlobalString('CONCATPDF_MIXED_CONCATENATION_ENABLED')) {
+			dol_syslog(get_class($this).'::AddSignature mixed concatenation enabled, skipping signature realignment', LOG_INFO);
+			return 0;
+		}
+
+		$appendedPages = 0;
+		$reader = pdf_getInstance();
+
+		foreach ($object->extraparams['concatpdf'] as $concatfile) {
+			if ($concatfile === '' || $concatfile === '-1') {
+				continue;
+			}
+			// Dynamic templates would need to be regenerated to be counted; bail out
+			// and let the legacy "last page" placement apply rather than guess wrong.
+			if (preg_match('/^pdf_(.*)+\.modules/', $concatfile)) {
+				dol_syslog(get_class($this).'::AddSignature dynamic concat template "'.$concatfile.'" not measurable, skipping signature realignment', LOG_WARNING);
+				return 0;
+			}
+			$appendedFile = $conf->concatpdf->dir_output.'/proposals/'.$concatfile.(preg_match('/\.pdf$/i', $concatfile) ? '' : '.pdf');
+			if (!dol_is_file($appendedFile)) {
+				dol_syslog(get_class($this).'::AddSignature appended file not found "'.$appendedFile.'"', LOG_WARNING);
+				continue;
+			}
+			$pages = $reader->setSourceFile($appendedFile);
+			if ($pages > 0) {
+				$appendedPages += $pages;
+			}
+		}
+
+		if ($appendedPages > 0) {
+			// Negative value = count from end. Last proposal page = pagecount - appendedPages.
+			$conf->global->PROPAL_SIGNATURE_ON_SPECIFIC_PAGE = -$appendedPages;
+			dol_syslog(get_class($this).'::AddSignature realigning online signature, target page set to -'.$appendedPages);
+		}
+
+		return 0;
+	}
+
 	/**
 	 * Concat PDF files
 	 *
 	 * @param 	PDF		$pdf    Pdf
 	 * @param 	array	$files  Array of files to concat.
-	 * @return	int				Number of files
+	 * @return	int				Number of pages added, -1 if error
 	 */
 	public function concat(&$pdf, $files)
 	{
@@ -540,16 +614,17 @@ class ActionsConcatPdf
 	/**
 	 * Concat PDF files in mixed mode (only on back pages)
 	 *
-	 * @param 	PDF		$pdf    Pdf
-	 * @param 	array	$files  Array of files to concat.
-	 * @return	int				Number of files
+	 * @param 	PDF		$pdf    	Pdf
+	 * @param 	string	$mainpdf	Path of the main PDF file, whose pages are the front pages
+	 * @param 	array	$files  	Array of files to concat on the back pages
+	 * @return	int					Number of pages of the main PDF, -1 if error
 	 */
-	function concatMixed(&$pdf, $mainpdf, $files)
+	public function concatMixed(&$pdf, $mainpdf, $files)
 	{
 		$totalcgupagecount = $pagecount = 0;
 		$cgupage = [];
 		foreach ($files as $file) {
-			if (dol_is_file($file)) {	// We ignore file if not found so if ile has been removed we can still generate the PDF.
+			if (dol_is_file($file)) {	// We ignore file if not found so if file has been removed we can still generate the PDF.
 				$pagecounttmp = $pdf->setSourceFile($file);
 				for ($i = 1; $i <= $pagecounttmp; $i++) {
 					$totalcgupagecount++;
@@ -570,7 +645,7 @@ class ActionsConcatPdf
 					$pdf->useTemplate($tplidx);
 
 					//back
-					if($currentcgupagenum < $totalcgupagecount) {
+					if ($currentcgupagenum < $totalcgupagecount) {
 						$pdf->setSourceFile($cgupage[$currentcgupagenum]);
 						$tplidx = $pdf->ImportPage($currentcgupagenum);
 						$s = $pdf->getTemplatesize($tplidx);
@@ -732,13 +807,13 @@ class ActionsConcatPdf
 	}
 	*/
 
-   /**
-    * findPageNoForRef
-    *
-    * @param  mixed    $parser     Parser
-    * @param  string   $pageRef    Page Ref
-    * @return int                  Return <0 if error
-    */
+	/**
+	* findPageNoForRef
+	*
+	* @param  mixed    $parser     Parser
+	* @param  string   $pageRef    Page Ref
+	* @return int                  Return <0 if error
+	*/
 	/*
 	function findPageNoForRef(&$parser, $pageRef) {
 		$ref_obj = $pageRef[1]; $ref_gen = $pageRef[2];

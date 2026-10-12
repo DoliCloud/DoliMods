@@ -32,7 +32,11 @@ if (! defined('NOREQUIREMENU')) define('NOREQUIREMENU', '1');
 if (! defined('NOREQUIREHTML')) define('NOREQUIREHTML', '1');
 if (! defined('NOREQUIREAJAX')) define('NOREQUIREAJAX', '1');
 
-// C'est un wrapper, donc header vierge
+/**
+ * Empty function
+ *
+ * @return void
+ */
 function llxHeader()
 { }
 
@@ -40,7 +44,7 @@ function llxHeader()
 $res=0;
 // Try main.inc.php into web root known defined into CONTEXT_DOCUMENT_ROOT (not always defined)
 if (! $res && ! empty($_SERVER["CONTEXT_DOCUMENT_ROOT"])) $res=@include str_replace("..", "", $_SERVER["CONTEXT_DOCUMENT_ROOT"])."/main.inc.php";
-// Try main.inc.php into web root detected using web root caluclated from SCRIPT_FILENAME
+// Try main.inc.php into web root detected using web root calculated from SCRIPT_FILENAME
 $tmp=empty($_SERVER['SCRIPT_FILENAME'])?'':$_SERVER['SCRIPT_FILENAME'];$tmp2=realpath(__FILE__); $i=strlen($tmp)-1; $j=strlen($tmp2)-1;
 while ($i > 0 && $j > 0 && isset($tmp[$i]) && isset($tmp2[$j]) && $tmp[$i]==$tmp2[$j]) { $i--; $j--; }
 if (! $res && $i > 0 && file_exists(substr($tmp, 0, ($i+1))."/main.inc.php")) $res=@include substr($tmp, 0, ($i+1))."/main.inc.php";
@@ -50,7 +54,11 @@ if (! $res && file_exists("../main.inc.php")) $res=@include "../main.inc.php";
 if (! $res && file_exists("../../main.inc.php")) $res=@include "../../main.inc.php";
 if (! $res && file_exists("../../../main.inc.php")) $res=@include "../../../main.inc.php";
 if (! $res) die("Include of main fails");
-
+/**
+ * @var DoliDB $db
+ * @var Translate $langs
+ * @var User $user
+ */
 dol_include_once("/filemanager/class/filemanagerroots.class.php");
 include_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 include_once DOL_DOCUMENT_ROOT.'/core/class/html.formfile.class.php';
@@ -66,18 +74,18 @@ $rootpath=GETPOST("rootpath");
 $langs->load("filemanager@filemanager");
 $langs->load("other");
 
-// Suppression de la chaine de caractere ../ dans $original_file
+// Delete ../ from $original_file
 $original_file = str_replace("../", "/", $original_file);
 $original_file_osencoded=dol_osencode($original_file);  // New file name encoded in OS encoding charset
 
 // find the subdirectory name as the reference
-$refname=basename(dirname($original_file)."/");
+$refname = basename(dirname($original_file)."/");
 
 // Define root to scan
 $filemanagerroots=new FilemanagerRoots($db);
 
 if (! empty($rootpath) && is_numeric($rootpath)) {
-	$result=$filemanagerroots->fetch($rootpath);
+	$filemanagerroots->fetch($rootpath);
 	//var_dump($filemanagerroots);
 	$rootpath=$filemanagerroots->rootpath;
 }
@@ -86,7 +94,7 @@ if (! empty($rootpath) && is_numeric($rootpath)) {
 $accessallowed=0;
 $sqlprotectagainstexternals='';
 if ($modulepart) {
-	// On fait une verification des droits et on definit le repertoire concerne
+	// We check permission and we set the directory
 
 	// Wrapping for filemanager
 	if ($modulepart == 'filemanager') {
@@ -100,7 +108,7 @@ if ($modulepart) {
 }
 
 // Basic protection (against external users only)
-if ($user->societe_id > 0) {
+if (isset($user->societe_id) && $user->societe_id > 0) {
 	if ($sqlprotectagainstexternals) {
 		$resql = $db->query($sqlprotectagainstexternals);
 		if ($resql) {
@@ -119,12 +127,9 @@ if ($user->societe_id > 0) {
 }
 
 // Security:
-// Limite acces si droits non corrects
 if (! $accessallowed) accessforbidden();
 
 // Security:
-// On interdit les remontees de repertoire ainsi que les pipe dans
-// les noms de fichiers.
 if (preg_match('/\.\./', $original_file) || preg_match('/[<>|]/', $original_file)) {
 	dol_syslog(__FILE__." Refused to deliver file ".$original_file);
 	// Do no show plain path in shown error message
@@ -169,7 +174,7 @@ if ($action == 'remove_file') {   // Remove a file
  */
 
 
-// Ajout directives pour resoudre bug IE
+// Add directives to solve an IE bug
 header('Cache-Control: Public, must-revalidate');
 header('Pragma: public');
 
@@ -201,7 +206,7 @@ print '<!-- TYPE='.$type.' -->'."\n";
 print '<!-- SIZE='.$sizeoffile.' -->'."\n";
 print '<!-- Ajax page called with url '.dol_escape_htmltag($_SERVER["PHP_SELF"]).'?'.dol_escape_htmltag($_SERVER["QUERY_STRING"]).' -->'."\n";
 
-// Les drois sont ok et fichier trouve, et fichier texte, on l'envoie
+// Permissions are ok, file found and file is text, we send it
 print '<b><font class="liste_titre">'.$langs->trans("Information").'</font></b><br>';
 print '<hr>';
 
@@ -266,7 +271,7 @@ if ($type == 'directory') {
 
 	$(function () {
 		$('#fileupload').on('submit', function (e) {
-			// On empêche le navigateur de soumettre le formulaire
+			// Prevent the browser from submitting the form
 			e.preventDefault();
 
 			var $form = $(this);
@@ -276,12 +281,12 @@ if ($type == 'directory') {
 			$.ajax({
 				url: $form.attr('action'),
 				type: $form.attr('method'),
-				contentType: false, // obligatoire pour de l'upload
-				processData: false, // obligatoire pour de l'upload
-				dataType: 'json', // selon le retour attendu
+				contentType: false, // required for upload
+				processData: false, // required for upload
+				dataType: 'json', // depending on the expected answer
 				data: data,
 				success: function (response) {
-					// La réponse du serveur
+					// Answer of the server
 					console.log(response);
 					if (response[0].error)
 					{
@@ -376,6 +381,7 @@ if ($type == 'directory') {
 		$memmaxorig=@ini_get("memory_limit");
 		$memmax=@ini_get("memory_limit");
 		if ($memmaxorig != '') {
+			$reg = array();
 			preg_match('/([0-9]+)([a-zA-Z]*)/i', $memmax, $reg);
 			if ($reg[2]) {
 				if (strtoupper($reg[2]) == 'M') $memmax=$reg[1]*1024*1024;
@@ -406,7 +412,7 @@ if ($type == 'directory') {
 				$srclang='';    // We disable geshi
 			}
 
-			if (empty($conf->global->FILEMANAGER_DISABLE_COLORSYNTAXING)) {
+			if (getDolGlobalString('FILEMANAGER_DISABLE_COLORSYNTAXING')) {
 				$warn=' ('.$langs->trans("ColoringDisabled").')';
 				$srclang='';    // We disable geshi
 			}
@@ -531,4 +537,3 @@ if ($type == 'directory') {
 }
 
 if (is_object($db)) $db->close();
-
