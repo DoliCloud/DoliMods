@@ -159,13 +159,13 @@ function showError($message, $log = false)
 
 
 /**
- * Print the header of an error message block
+ * Return the header of an error message block
  *
- * @return	void
+ * @return	string	HTML header of the error message block
  */
 function errorMessage()
 {
-	echo "<center><img src=\"images/important.png\" border=\"0\" class=\"icon\" alt=\"Critical Message\" title=\"Critical Message\" /></center>\n<p class=\"error\">";
+	return "<center><img src=\"images/important.png\" border=\"0\" class=\"icon\" alt=\"Critical Message\" title=\"Critical Message\" /></center>\n<p class=\"error\">";
 }
 
 

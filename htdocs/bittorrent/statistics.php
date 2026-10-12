@@ -37,7 +37,7 @@ if (isset($_POST["filename_search"]) && $_POST["filename_search"] != "") {
 	$scriptname = $_SERVER["PHP_SELF"] . "?";
 
 	if (!isset($_GET["activeonly"]))
-		echo "<a href=\"$scriptname" . "activeonly=yes\">Show only torrents with seeders/leechers</a>\n";
+		echo "<a href=\"" . $scriptname . "activeonly=yes\">Show only torrents with seeders/leechers</a>\n";
 	else {
 		echo "<a href=\"$scriptname\">Show all torrents</a>\n";
 		$scriptname = $scriptname . "activeonly=yes&";
@@ -56,10 +56,10 @@ if (isset($_POST["filename_search"]) && $_POST["filename_search"] != "") {
 	$page = 1;
 	while ($count < $res) {
 		if (isset($_GET["page_number"]) && $page == $_GET["page_number"])
-			echo "<b><a href=\"$scriptname" . "page_number=$page\">($page)</a></b> &nbsp; \n";
+			echo "<b><a href=\"" . $scriptname . "page_number=$page\">($page)</a></b> &nbsp; \n";
 		elseif (!isset($_GET["page_number"]) && $page == 1)
-			echo "<b><a href=\"$scriptname" . "page_number=$page\">($page)</a></b> &nbsp; \n";
-		else echo "<a href=\"$scriptname" . "page_number=$page\">$page</a> &nbsp; \n";
+			echo "<b><a href=\"" . $scriptname . "page_number=$page\">($page)</a></b> &nbsp; \n";
+		else echo "<a href=\"" . $scriptname . "page_number=$page\">$page</a> &nbsp; \n";
 		$page++;
 		$count = $count + 5;
 	}
@@ -138,10 +138,10 @@ if (!isset($_POST["filename_search"])) {
 	$page = 1;
 	while ($count < $res) {
 		if (isset($_GET["page_number"]) && $page == $_GET["page_number"])
-		echo "<b><a href=\"$scriptname" . "page_number=$page\">($page)</a></b> &nbsp; \n";
+		echo "<b><a href=\"" . $scriptname . "page_number=$page\">($page)</a></b> &nbsp; \n";
 		elseif (!isset($_GET["page_number"]) && $page == 1)
-		echo "<b><a href=\"$scriptname" . "page_number=$page\">($page)</a></b> &nbsp; \n";
-		else echo "<a href=\"$scriptname" . "page_number=$page\">$page</a> &nbsp; \n";
+		echo "<b><a href=\"" . $scriptname . "page_number=$page\">($page)</a></b> &nbsp; \n";
+		else echo "<a href=\"" . $scriptname . "page_number=$page\">$page</a> &nbsp; \n";
 		$page++;
 		$count = $count + 5;
 	}

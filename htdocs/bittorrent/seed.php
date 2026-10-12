@@ -2,8 +2,15 @@
 //Used for HTTP seeding
 //Requires information in torrent file for client to use
 
-$res=@include "../master.inc.php";
-if (! $res) @include "../../../dolibarr/htdocs/master.inc.php";	// Used on dev env only
+// Load Dolibarr environment
+$res=0;
+// Try master.inc.php into web root detected using web root calculated from SCRIPT_FILENAME
+$tmp=empty($_SERVER['SCRIPT_FILENAME'])?'':$_SERVER['SCRIPT_FILENAME'];$tmp2=realpath(__FILE__); $i=strlen($tmp)-1; $j=strlen($tmp2)-1;
+while ($i > 0 && $j > 0 && isset($tmp[$i]) && isset($tmp2[$j]) && $tmp[$i]==$tmp2[$j]) { $i--; $j--; }
+if (! $res && $i > 0 && file_exists(substr($tmp, 0, ($i+1))."/master.inc.php")) $res=@include substr($tmp, 0, ($i+1))."/master.inc.php";
+if (! $res && $i > 0 && file_exists(dirname(substr($tmp, 0, ($i+1)))."/master.inc.php")) $res=@include dirname(substr($tmp, 0, ($i+1)))."/master.inc.php";
+// Try master.inc.php using relative path
+if (! $res && file_exists("../master.inc.php")) $res=@include "../master.inc.php";
 
 
 header("Content-Type: text/plain");
@@ -27,14 +34,14 @@ if (!is_numeric($piece) || strlen($info_hash) != 20)
 
 $info_hash = bin2hex($info_hash);
 
-//error_log("Info hash=$info_hash, piece numnber=$piece");
+//error_log("Info hash=$info_hash, piece number=$piece");
 
 
 //change from KB to bytes
 $max_upload_rate = $GLOBALS["max_upload_rate"] * 1024;
 
 /**
- * Attempts to aquire a lock by name.
+ * Attempts to acquire a lock by name.
  * Returns true on success, false on failure
  *
  * @param 	string	$hash	Info hash of the torrent
