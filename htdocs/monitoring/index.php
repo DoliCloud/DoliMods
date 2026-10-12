@@ -317,7 +317,7 @@ if (empty($id)) {
 	// Run probes
 	print $langs->trans("RunProbeDesc").'<br><br>';
 
-	// Confirmation de la suppression d'une ligne produit
+	// Confirmation to swap the probe status
 	if ($action == 'swapstatus') {
 		print $form->formconfirm($_SERVER["PHP_SELF"].'?id='.$_GET["id"], $langs->trans('SwapStatus'), $langs->trans('ConfirmSwapStatus'), 'confirm_swapstatus', '', 'yes', 1);
 	}
