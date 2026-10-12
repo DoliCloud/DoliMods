@@ -72,7 +72,8 @@ class mod_codeclient_lion extends ModeleThirdPartyCode
 	 */
 	public function info($langs)
 	{
-		return "Verifie si le code client/fournisseur est de la forme numerique 999 et sur au moins 3 chiffres. Verification mais pas de generation automatique.";
+		$langs->load("numberingpack@numberingpack");
+		return $langs->trans("CodeClientLionDesc");
 	}
 
 
@@ -110,8 +111,8 @@ class mod_codeclient_lion extends ModeleThirdPartyCode
 			if ($obj) {
 				$newval=$obj->maxval+1;
 				$return=sprintf('%03d', $newval);
-				return $return;
 			}
+			return $return;
 		} else {
 			return -1;
 		}
