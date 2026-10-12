@@ -179,7 +179,7 @@ function dumpCacheSlab($server, $slabId, $limit)
  * flushServer
  *
  * @param 	string	$server		Server
- * @return	void
+ * @return	array<string, array<string, mixed>>|string		Response of the server
  */
 function flushServer($server)
 {
@@ -352,7 +352,7 @@ function graphics_avail()
 /**
  * Return a menu entry
  *
- * @param	string	$ob				Operation key
+ * @param	int|string	$ob			Operation key
  * @param	string	$title			Menu entry label
  * @return	string					HTML of the menu entry
  */

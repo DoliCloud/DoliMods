@@ -1598,7 +1598,7 @@ function getGContactTypeGroupID($gdata, $type)
  * Get group id from google contact. Create it if not found.
  *
  * @param	array		$gdata			Array with tokens info
- * @param 	array 		$tag			Array with tag info to retreive or create into Google Contact
+ * @param 	array<string, mixed> 	$tag		Array with tag info to retreive or create into Google Contact
  * @param	string		$useremail		User email
  * @return 	string|int					Google Group ID string or < 0 if KO
  */
@@ -1663,7 +1663,7 @@ function getGContactGroupID($gdata, $tag, $useremail = 'default')
  * Create a group/label into Google contact
  *
  * @param	array		$gdata			Array with tokens info
- * @param 	array		$tag			Tag array of the category ('label' = group name to create into Google Contact)
+ * @param 	array<string, mixed>	$tag		Tag array of the category ('label' = group name to create into Google Contact)
  * @param	Categorie	$objectstatic	Category object to update with the created Google group ID
  * @param	string		$useremail		User email
  * @return string|int					created group ID, -1 if error
