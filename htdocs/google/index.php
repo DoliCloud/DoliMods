@@ -248,7 +248,6 @@ $frame ='<iframe src="https://www.google.com/calendar/embed?';
 $frame.='showTitle=0';
 $frame.='&amp;height=600';
 // Define first day of week (wkst=1 for sunday, wkst=2 for monday, ...)
-//var_dump($conf->global->MAIN_START_WEEK);
 $frame.='&amp;wkst='.($conf->global->MAIN_START_WEEK+1);
 $frame.='&amp;bgcolor=%23'.$bgcolor;
 

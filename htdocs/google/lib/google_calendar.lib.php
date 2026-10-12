@@ -132,11 +132,6 @@ function getTokenFromServiceAccount($service_account_name, $key_file_location, $
 		}
 
 		// Load the session from the Dolibarr storage
-		//var_dump("ggggg");
-		//var_dump(spl_autoload_functions());
-		//var_dump(class_exists('aaa', true));
-		//var_dump(spl_autoload_functions());
-		//var_dump("hhhhh");
 		$storage = new DoliStorage($db, $conf);
 		try {
 			$servicename = isset($_SESSION['servicename']) ? $_SESSION['servicename'] : 'contact'; // We'll go for contact by default
@@ -194,7 +189,6 @@ function getTokenFromServiceAccount($service_account_name, $key_file_location, $
 					*/
 
 					//$fulltokenstoredinclient = $client->getAccessToken();
-					//var_dump($fulltokenstoredinclient);
 
 					$client->refreshToken($refreshtoken);
 
@@ -225,15 +219,8 @@ function getTokenFromServiceAccount($service_account_name, $key_file_location, $
 		}
 
 		/*
-		var_dump($client->getAccessToken());
-		var_dump($force_do_not_use_session);
 
 		// Load the session from the Dolibarr storage
-		//var_dump("ggggg");
-		//var_dump(spl_autoload_functions());
-		//var_dump(class_exists('aaa', true));
-		//var_dump(spl_autoload_functions());
-		//var_dump("hhhhh");
 		$storage = new DoliStorage($db, $conf);
 		try {
 			$servicename = isset($_SESSION['servicename']) ? $_SESSION['servicename'] : 'contact'; // We'll go for contact by default
@@ -242,10 +229,7 @@ function getTokenFromServiceAccount($service_account_name, $key_file_location, $
 			dol_syslog("Token does not exist yet".$e->getMessage(), LOG_INFO);
 		}
 
-		var_dump($tokenobj);
 
-		var_dump($client->getAccessToken());
-		var_dump($force_do_not_use_session);
 
 		exit;
 		*/
@@ -299,9 +283,7 @@ function getTokenFromServiceAccount($service_account_name, $key_file_location, $
 				//dol_syslog("getTokenFromServiceAccount token seems to be expired, we refresh it with the refresh token = ".$refreshtoken);
 				dol_syslog("getTokenFromServiceAccount token seems to be expired. We try to refresh it with client->fetchAccessTokenWithAssertion()", LOG_DEBUG);
 				$result = $client->fetchAccessTokenWithAssertion();
-				//var_dump($result);
 			}
-			//var_dump($checktoken);
 		} catch (Exception $e) {
 			dol_syslog("getTokenFromServiceAccount Error returned by Google with message: ".$e->getMessage(), LOG_ERR);
 			return $e->getMessage();
@@ -557,9 +539,6 @@ function updateEvent($client, $eventId, $object, $login = 'primary', $service = 
 		$urlicon=$urlwithroot.'/favicon.ico';
 
 		// The source can be set only by the creator. And creator may be calendar owner and updater the service account
-		//var_dump($login);
-		//var_dump($conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL);
-		//var_dump($event->getCreator()->getEmail());
 		/*if ($conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL == $event->getCreator()->getEmail())
 		{
 			$source=new Google_Service_Calendar_EventSource();
@@ -795,7 +774,6 @@ function syncEventsFromGoogleCalendar($userlogin, User $fuser, $mindate, $max = 
 
 			// Get last 50 modified record (after mindate)
 			$optParams=array('showDeleted'=>true, 'orderBy'=>'updated', 'maxResults'=>$max, 'updatedMin'=>dol_print_date($mindate, 'dayhourrfc', 'gmt'));
-			//var_dump($optParams);exit;
 			//$optParams=array('maxResults'=>$max, 'orderBy'=>'updated', 'showDeleted'=>True);
 			$events = $service->events->listEvents($userlogin, $optParams);
 
@@ -804,7 +782,6 @@ function syncEventsFromGoogleCalendar($userlogin, User $fuser, $mindate, $max = 
 			while (true) {
 				foreach ($events->getItems() as $event) {
 					//$event = new Google_Service_Calendar_Event();
-					//var_dump($event);
 
 					$i++;
 
@@ -861,7 +838,6 @@ function syncEventsFromGoogleCalendar($userlogin, User $fuser, $mindate, $max = 
 						$newlabel=$event->getSummary();
 						// Remove the ' - thirdpartyname' added when synchronizing from Dolibarr to Google
 						$newlabel = preg_replace('/'.preg_quote(' - '.$object->thirdparty->name, '/').'$/', '', $newlabel);
-						//var_dump($object->thirdparty->name);var_dump($object->label); var_dump($newlabel);
 						$object->label = $newlabel;
 						//exit;
 
@@ -926,7 +902,6 @@ function syncEventsFromGoogleCalendar($userlogin, User $fuser, $mindate, $max = 
 						$attendees = $event->getAttendees();
 						if (! empty($attendees)) {
 							foreach ($attendees as $attendee) {
-								//var_dump($attendee);
 								$emailtmp=$attendee->getEmail();
 								if ($emailtmp) {
 									// Get user
@@ -1089,7 +1064,6 @@ function syncEventsFromGoogleCalendar($userlogin, User $fuser, $mindate, $max = 
 							}
 						}
 
-						//var_dump($object->userassigned);
 						if ($status == 'cancelled') {
 							// It's ok. We wont' add it
 							$nbalreadydeleted++;

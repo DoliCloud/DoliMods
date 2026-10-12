@@ -150,7 +150,6 @@ class ActionsGoogle
 							dolibarr_set_const($this->db, $keyparam, dol_print_date(dol_now('gmt'), 'dayhourrfc', 'gmt'), 'chaine', 1, '', $conf->entity);
 							$valparam = getDolGlobalString($keyparam);
 							$dateminsync = dol_stringtotime($valparam, 1);
-							//var_dump($keyparam);exit;
 						}
 					}
 				}

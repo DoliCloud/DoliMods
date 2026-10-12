@@ -144,7 +144,6 @@ class GContact
 	private function appendTextElement(DOMElement $el, $elName, $text)
 	{
 		if (empty($text)) return;
-		//print_r(htmlspecialchars($text));
 		$el->appendChild($this->doc->createElement($elName, htmlspecialchars($text)));
 	}
 
@@ -648,9 +647,6 @@ class GContact
 			$document->loadXml($response['content']);
 
 			$errorselem = $document->getElementsByTagName("errors");*/
-			//var_dump($errorselem);
-			//var_dump($errorselem->length);
-			//var_dump(count($errorselem));
 			if (!empty($json->error)) {
 				dol_syslog($response['content'], LOG_ERR);
 				return -1;
@@ -682,9 +678,6 @@ class GContact
 				$document->loadXml($response['content']);
 
 				$errorselem = $document->getElementsByTagName("errors");*/
-				//var_dump($errorselem);
-				//var_dump($errorselem->length);
-				//var_dump(count($errorselem));
 				if (!empty($json->error)) {
 					dol_syslog($response['content'], LOG_ERR);
 					return -1;
@@ -721,9 +714,7 @@ class GContact
 				if ($content->key == "dolibarr-id" && preg_match('/([0-9]+)\/'.$type.'/m', $content->value, $reg)) {
 					//$googleIDNodes = $entry->getElementsByTagNameNS(self::ATOM_NAME_SPACE, "id");
 					//$googleEMail = $entry->getElementsByTagNameNS(self::ATOM_NAME_SPACE, "content");
-					//var_dump($googleEMail->item(0)->nodeValue);
 					//$googleEMail = $entry->getElementsByTagNameNS(self::ATOM_NAME_SPACE, "content");
-					//var_dump($googleEMail->item(0)->nodeValue);
 					$reg = array();
 					$googleIDNodes = $entry->resourceName;
 					if (!empty($googleIDNodes)) {
@@ -1114,9 +1105,6 @@ class GContact
 						$document->loadXml($result['content']);
 
 						$errorselem = $document->getElementsByTagName("errors");*/
-						//var_dump($errorselem);
-						//var_dump($errorselem->length);
-						//var_dump(count($errorselem));
 						if (!empty($json->error)) {
 							dol_syslog('ERROR:'.$result['content'], LOG_ERR);
 							return -1;

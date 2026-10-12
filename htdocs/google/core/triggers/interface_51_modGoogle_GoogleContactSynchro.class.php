@@ -111,7 +111,6 @@ class InterfaceGoogleContactSynchro extends DolibarrTriggers
 			return 0; // Module disabled
 		}
 
-		//var_dump($object); exit;
 
 		$userlogin = getDolGlobalString('GOOGLE_CONTACT_LOGIN');
 		if (empty($userlogin)) {	// We use setup of user
@@ -224,7 +223,6 @@ class InterfaceGoogleContactSynchro extends DolibarrTriggers
 						if ($ret === 0) { // Fails to update because not found, we try to create
 							dol_syslog("Failed to update thirdparty, contact or member. It may have been deleted on Google side. we force the creation");
 							$ret = googleCreateContact($servicearray, $object, $userlogin);
-							//var_dump($ret); exit;
 
 							if (! preg_match('/ERROR/', $ret)) {
 								if ($ret && ! preg_match('/google\.com/', $ret)) {
@@ -244,7 +242,6 @@ class InterfaceGoogleContactSynchro extends DolibarrTriggers
 						return 1;
 					} elseif ($gid == '') {
 						$ret = googleCreateContact($servicearray, $object, $userlogin);
-						//var_dump($ret); exit;
 
 						if (! preg_match('/ERROR/', $ret)) {
 							if ($ret && ! preg_match('/google\.com/', $ret)) {
