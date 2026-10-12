@@ -92,7 +92,7 @@ class InterfaceEcotaxdeee extends DolibarrTriggers
 	 *      @param  User		$user       Object user
 	 *      @param  Translate	$langs      Object lang
 	 *      @param  Conf		$conf       Object conf
-	 *      @return int         			<0 if KO, 0 if nothing is done, >0 if OK
+	 *      @return int|null (<0 if KO, 0 if nothing is done, >0 if OK, null if object not supported)
 	 */
 	public function runTrigger($action, $object, User $user, Translate $langs, Conf $conf)
 	{
@@ -274,7 +274,7 @@ class InterfaceEcotaxdeee extends DolibarrTriggers
 		}
 		if (empty($fieldparentid)) {
 			dol_syslog('Object '.$object->element.' not supported', LOG_WARNING);
-			return;
+			return null;
 		}
 		$parentid = $object->$fieldparentid;
 		if (empty($parentid)) {

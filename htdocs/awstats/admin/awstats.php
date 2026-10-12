@@ -19,7 +19,7 @@
 /**
  *	    \file       htdocs/awstats/admin/awstats.php
  *      \ingroup    awstats
- *      \brief      Page de configuration du module AWStats
+ *      \brief      Setup page of module AWStats
  */
 
 define('NOCSRFCHECK', 1);

@@ -18,7 +18,7 @@
 
 /**
  *  \file       htdocs/awstats/lib/awstats.lib.php
- *  \brief      Ensemble de fonctions de base pour le module awstats
+ *  \brief      Library of base functions for module awstats
  *  \ingroup    awstats
  */
 

@@ -19,8 +19,8 @@
 
 /**
  *		\file       htdocs/filemanager/viewimage.php
- *		\brief      Wrapper permettant l'affichage de fichiers du filemanager
- *      \remarks    L'appel est viewimage.php?file=pathrelatifdufichier&modulepart=repfichierconcerne
+ *		\brief      Wrapper to show files of the filemanager
+ *      \remarks    Call is viewimage.php?file=relativepathoffile&modulepart=relateddir
  */
 
 // Do not use urldecode here ($_GET and $_REQUEST are already decoded by PHP).
@@ -38,10 +38,14 @@ if (! defined('NOTOKENRENEWAL'))  define('NOTOKENRENEWAL', '1');
 if (! defined('NOREQUIREMENU'))  define('NOREQUIREMENU', '1');
 if (! defined('NOREQUIREHTML'))  define('NOREQUIREHTML', '1');
 if (! defined('NOREQUIREAJAX'))  define('NOREQUIREAJAX', '1');
-// Pour autre que mycompany, on charge environnement + info issus de logon comme le user
+// For other than mycompany, we load environment and info from logon (like the user)
 if (($modulepart == 'companylogo' || $modulepart == 'mycompany') && ! defined("NOLOGIN")) define("NOLOGIN", '1');
 
-// C'est un wrapper, donc header vierge
+/**
+ * Wrapper, so header empty
+ *
+ * @return	void
+ */
 function llxHeader()
 { }
 
@@ -114,7 +118,7 @@ if (empty($modulepart)) accessforbidden('Bad value for parameter modulepart');
 $accessallowed=0;
 $sqlprotectagainstexternals='';
 if ($modulepart) {
-	// On fait une verification des droits et on definit le repertoire concerne
+	// Check permissions and define the related directory
 
 	// Wrapping for filemanager
 	if ($modulepart == 'filemanager') {
@@ -170,13 +174,13 @@ if ($user->societe_id > 0) {
 }
 
 // Security:
-// Limite acces si droits non corrects
+// Restrict access if permissions are not correct
 if (! $accessallowed) {
 	accessforbidden();
 }
 
 // Security:
-// On interdit les remontees de repertoire ainsi que les pipe dans les noms de fichiers.
+// Forbid moving up into parent directories and pipes in file names.
 if (preg_match('/\.\./', $original_file) || preg_match('/[<>|]/', $original_file)) {
 	dol_syslog("Refused to deliver file ".$original_file, LOG_WARNING);
 	// Do no show plain path in shown error message
@@ -199,7 +203,7 @@ if (! dol_is_file($original_file_osencoded)) {
 	exit;
 }
 
-// Les drois sont ok et fichier trouve
+// Permissions are ok and file found
 if ($type) {
 	//print "eeee".$type;exit;
 	header('Content-Disposition: inline; filename="'.basename($original_file).'"');

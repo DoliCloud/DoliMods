@@ -116,7 +116,11 @@ $sitecount		=		0;
 // Declare functions
 
 
-// Timer Function	#
+/**
+ * Timer function
+ *
+ * @return	float	Current Unix timestamp with microseconds
+ */
 function gettime()
 {
 	list($usec, $sec) = explode(" ", microtime());
@@ -125,6 +129,13 @@ function gettime()
 
 // Text Functions		#
 
+/**
+ * Read an AWStats history file and add its data to the global arrays
+ *
+ * @param	string	$file		Name of the history file
+ * @param	string	$domain		Domain of the history file
+ * @return	int|void			Negative number if error
+ */
 function read_file($file, $domain)
 {
 	global $history_dir;
@@ -214,7 +225,12 @@ $xmldata = array();
 $bigarray = array();
 
 
-// Number formatting function	#
+/**
+ * Number formatting function
+ *
+ * @param	mixed	$number		Number to format
+ * @return	mixed				Formatted number
+ */
 function format($number)
 {
 	global $format_numbers;

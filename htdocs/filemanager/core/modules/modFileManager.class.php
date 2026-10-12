@@ -23,7 +23,7 @@
 /**
  *      \file       htdocs/filemanager/core/modules/modFileManager.class.php
  *      \ingroup    filemanager
- *      \brief      Fichier de description et activation du module FileManager
+ *      \brief      Description and activation file for module FileManager
  */
 include_once DOL_DOCUMENT_ROOT ."/core/modules/DolibarrModules.class.php";
 

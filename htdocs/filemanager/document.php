@@ -29,7 +29,7 @@
  */
 
 define('NOTOKENRENEWAL', 1); // Disables token renewal
-// Pour autre que bittorrent, on charge environnement + info issus de logon (comme le user)
+// For other than bittorrent, we load environment and info from logon (like the user)
 if (isset($_GET["modulepart"]) && $_GET["modulepart"] == 'bittorrent' && ! defined("NOLOGIN")) {
 	define("NOLOGIN", 1);
 	define("NOCSRFCHECK", 1);	// We accept to go on this page from external web site.
@@ -149,7 +149,7 @@ if ($id) {
 $accessallowed=0;
 $sqlprotectagainstexternals='';
 if ($modulepart) {
-	// On fait une verification des droits et on definit le repertoire concerne
+	// Check permissions and define the related directory
 
 	// Wrapping for third parties
 	if ($modulepart == 'filemanager') {
@@ -181,14 +181,14 @@ if ($user->societe_id > 0) {
 }
 
 // Security:
-// Limite acces si droits non corrects
+// Restrict access if permissions are not correct
 if (! $accessallowed) {
 	accessforbidden();
 }
 
 // Security:
-// On interdit les remontees de repertoire ainsi que les pipe dans
-// les noms de fichiers.
+// Forbid moving up into parent directories and pipes in
+// file names.
 if (preg_match('/\.\./', $original_file) || preg_match('/[<>|]/', $original_file)) {
 	dol_syslog("Refused to deliver file ".$original_file);
 	$file=basename($original_file);		// Do no show plain path of original_file in shown error message
@@ -233,14 +233,14 @@ if ($action == 'remove_file') {	// Remove a file
 		exit;
 	}
 
-	// Les drois sont ok et fichier trouve, on l'envoie
+	// Permissions are ok and file found, we send it
 
 	if ($encoding)   header('Content-Encoding: '.$encoding);
 	if ($type)       header('Content-Type: '.$type.(preg_match('/text/', $type)?'; charset="'.$conf->file->character_set_client:''));
 	if ($attachment) header('Content-Disposition: attachment; filename="'.$filename.'"');
 	else header('Content-Disposition: inline; filename="'.$filename.'"');
 
-	// Ajout directives pour resoudre bug IE
+	// Add directives to solve an IE bug
 	header('Cache-Control: Public, must-revalidate');
 	header('Pragma: public');
 

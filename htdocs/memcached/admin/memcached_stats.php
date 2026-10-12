@@ -74,7 +74,7 @@ header("Pragma: no-cache");                                    // HTTP/1.0
  * Send a command to all memcache servers
  *
  * @param 	string	$command		Command
- * @return	array					Array of responses indexed by server
+ * @return	array<string, array<string, array<string, mixed>>|string>		Array of responses indexed by server
  */
 function sendMemcacheCommands($command)
 {
@@ -96,7 +96,7 @@ function sendMemcacheCommands($command)
  * @param 	string	$server			Server
  * @param 	int 		$port			Port
  * @param 	string	$command		Command
- * @return	void
+ * @return	array<string, array<string, mixed>>|string		Response of the server
  */
 function sendMemcacheCommand($server, $port, $command)
 {
@@ -133,7 +133,7 @@ function sendMemcacheCommand($server, $port, $command)
  * Parse a memcache response into an array
  *
  * @param	string	$str			Raw response string
- * @return	array|string			Parsed results, or a response keyword like DELETED
+ * @return	array<string, array<string, mixed>>|string		Parsed results, or a response keyword like DELETED
  */
 function parseMemcacheResults($str)
 {
@@ -165,7 +165,7 @@ function parseMemcacheResults($str)
  * @param	string	$server			Server
  * @param	int		$slabId			Slab ID
  * @param	int		$limit			Maximum number of entries to dump
- * @return	array|string			Server response
+ * @return	array<string, array<string, mixed>>|string		Server response
  */
 function dumpCacheSlab($server, $slabId, $limit)
 {
