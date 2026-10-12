@@ -7,9 +7,9 @@ Nothing yet
 
 ## 5.0
 
-* FIX OVH APIs make sometimes a response that is not correclty UTF8 encoded. A compensation has been introduce to ignore the OVH bug.
+* FIX OVH APIs make sometimes a response that is not correctly UTF8 encoded. A compensation has been introduce to ignore the OVH bug.
 * FIX If dtfrom and dtto are inverted by OVH, we restore correct order
-* FIX Compatiblity Dolibarr 18
+* FIX Compatibility Dolibarr 18
 * FIX round replaced with price2num
 * NEW Add a select all checkbox in the list
 * NEW Add supplier and product selection in form
@@ -25,7 +25,7 @@ Nothing yet
 * Add option OVH_DEBUG
 * Support several OVH projects
 * Fix blank page with Dolidroid
-* Link the event ot thirdparty history with Dolibarr v12 
+* Link the event to thirdparty history with Dolibarr v12 
 * Compatibility with v11 (newToken).
 * Add checkbox to exclude lines with null amount
 * Can enable log into agenda of automatic action "Sent by SMS"
