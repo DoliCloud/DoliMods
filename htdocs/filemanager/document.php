@@ -40,6 +40,8 @@ if (! defined('NOREQUIREAJAX')) define('NOREQUIREAJAX', '1');
 
 /**
  * Wrapper, so header empty
+ *
+ * @return	void
  */
 function llxHeader()
 { }
@@ -126,7 +128,7 @@ if (GETPOST("attachment")) { $attachment = true; }
 if (! empty($conf->global->MAIN_DISABLE_FORCE_SAVEAS)) $attachment=false;
 //print "XX".$attachment;exit;
 
-// Suppression de la chaine de caractere ../ dans $original_file
+// Remove the string ../ from $original_file
 $original_file = str_replace("../", "/", $original_file);
 
 // Define root to scan

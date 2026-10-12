@@ -95,7 +95,7 @@ $type = 'application/octet-stream';
 if (! empty($_GET["type"])) $type=$_GET["type"];
 else $type=dol_mimetype($original_file);
 
-// Suppression de la chaine de caractere ../ dans $original_file
+// Remove the string ../ from $original_file
 $original_file = str_replace("../", "/", $original_file);
 
 // Define root to scan

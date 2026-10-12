@@ -5,27 +5,61 @@
 // Worker functions
 
 if (function_exists("bcadd")) {
+	/**
+	 * Add two numbers using BC math
+	 *
+	 * @param 	string	$left		Left operand
+	 * @param 	string	$right		Right operand
+	 * @return	string
+	 */
 	function sqlAdd($left, $right)
 	{
 		return bcadd($left, $right, 0);
 	}
+	/**
+	 * Subtract two numbers using BC math
+	 *
+	 * @param 	string	$left		Left operand
+	 * @param 	string	$right		Right operand
+	 * @return	string
+	 */
 	function sqlSubtract($left, $right)
 	{
 		return bcsub($left, $right, 0);
 	}
+	/**
+	 * Multiply two numbers using BC math
+	 *
+	 * @param 	string	$left		Left operand
+	 * @param 	string	$right		Right operand
+	 * @return	string
+	 */
 	function sqlMultiply($left, $right)
 	{
 		return bcmul($left, $right, 0);
 	}
+	/**
+	 * Divide two numbers using BC math
+	 *
+	 * @param 	string	$left		Left operand
+	 * @param 	string	$right		Right operand
+	 * @return	string
+	 */
 	function sqlDivide($left, $right)
 	{
 		return bcdiv($left, $right, 0);
 	}
 } else // BC vs SQL math
 {
-	// Uses the mysql database connection to perform string math. :)
-	// Used by byte counting functions
-	// No error handling as we assume nothing can go wrong. :|
+	/**
+	 * Add two numbers using the database connection to perform string math.
+	 * Used by byte counting functions.
+	 * No error handling as we assume nothing can go wrong.
+	 *
+	 * @param 	string	$left		Left operand
+	 * @param 	string	$right		Right operand
+	 * @return	string
+	 */
 	function sqlAdd($left, $right)
 	{
 		$query = 'SELECT '.$left.'+'.$right;
@@ -33,7 +67,13 @@ if (function_exists("bcadd")) {
 		return mysql_result($results, 0, 0);
 	}
 
-	// Ditto
+	/**
+	 * Subtract two numbers using the database connection
+	 *
+	 * @param 	string	$left		Left operand
+	 * @param 	string	$right		Right operand
+	 * @return	string
+	 */
 	function sqlSubtract($left, $right)
 	{
 		$query = 'SELECT '.$left.'-'.$right;
@@ -41,6 +81,13 @@ if (function_exists("bcadd")) {
 		return mysql_result($results, 0, 0);
 	}
 
+	/**
+	 * Divide two numbers using the database connection
+	 *
+	 * @param 	string	$left		Left operand
+	 * @param 	string	$right		Right operand
+	 * @return	string
+	 */
 	function sqlDivide($left, $right)
 	{
 		$query = 'SELECT '.$left.'/'.$right;
@@ -48,6 +95,13 @@ if (function_exists("bcadd")) {
 		return mysql_result($results, 0, 0);
 	}
 
+	/**
+	 * Multiply two numbers using the database connection
+	 *
+	 * @param 	string	$left		Left operand
+	 * @param 	string	$right		Right operand
+	 * @return	string
+	 */
 	function sqlMultiply($left, $right)
 	{
 		$query = 'SELECT '.$left.'*'.$right;
@@ -58,7 +112,12 @@ if (function_exists("bcadd")) {
 
 } // End of BC vs SQL
 
-// Runs a query with no regard for the result
+/**
+ * Runs a query with no regard for the result
+ *
+ * @param 	string	$query	SQL query
+ * @return	bool
+ */
 function quickQuery($query)
 {
 	$results = @mysql_query($query);
@@ -68,6 +127,13 @@ function quickQuery($query)
 	return true;
 }
 
+/**
+ * Convert an hexadecimal string into binary data
+ *
+ * @param 	string	$input			Hexadecimal string
+ * @param 	bool	$assume_safe	Skip validation of the input string
+ * @return	string
+ */
 function bt_hex2bin($input, $assume_safe = true)
 {
 	if ($assume_safe !== true && ! ((strlen($input) % 2) === 0 || preg_match('/^[0-9a-f]+$/i', $input)))
@@ -75,17 +141,28 @@ function bt_hex2bin($input, $assume_safe = true)
 	return pack('H*', $input);
 }
 
-// Reports an error to the client in $message.
-// Any other output will confuse the client, so please don't do that.
+/**
+ * Reports an error to the client in $message.
+ * Any other output will confuse the client, so please don't do that.
+ *
+ * @param 	string	$message	Error message
+ * @param 	bool	$log		Also log the error
+ * @return	void
+ */
 function showError($message, $log = false)
 {
 	if ($log)
 	  error_log("RivetTracker: Sent error ($message)");
-	echo "d14:failure reason".strlen($message).":$message"."e";
+	echo "d14:failure reason".strlen($message).":{$message}e";
 	exit(0);
 }
 
 
+/**
+ * Print the header of an error message block
+ *
+ * @return	void
+ */
 function errorMessage()
 {
 	echo "<center><img src=\"images/important.png\" border=\"0\" class=\"icon\" alt=\"Critical Message\" title=\"Critical Message\" /></center>\n<p class=\"error\">";
@@ -93,8 +170,15 @@ function errorMessage()
 
 
 
-// Used by newtorrents.php
-// Returns true/false, depending on if there were errors.
+/**
+ * Create the tables of a new torrent
+ * Used by newtorrents.php
+ * Returns true/false, depending on if there were errors.
+ *
+ * @param 	string	$hash		Info hash of the torrent
+ * @param 	bool	$tolerate	Do not stop on first error
+ * @return	bool
+ */
 function makeTorrent($hash, $tolerate = false)
 {
 	global $prefix;
@@ -117,8 +201,13 @@ function makeTorrent($hash, $tolerate = false)
 	return $result;
 }
 
-// Returns true if the torrent exists.
-// Currently checks by locating the row in "summary"
+/**
+ * Returns true if the torrent exists.
+ * Currently checks by locating the row in "summary"
+ *
+ * @param 	string	$hash	Info hash of the torrent
+ * @return	bool
+ */
 function verifyTorrent($hash)
 {
 	global $prefix;
@@ -139,6 +228,12 @@ function verifyTorrent($hash)
 	}
 }
 
+/**
+ * Check that a string is a valid info hash (40 hexadecimal chars)
+ *
+ * @param 	string	$input	String to check
+ * @return	bool
+ */
 function verifyHash($input)
 {
 	if (strlen($input) === 40 && preg_match('/^[0-9a-f]+$/', $input))
@@ -149,7 +244,13 @@ function verifyHash($input)
 
 
 
-// Returns info on one peer
+/**
+ * Returns info on one peer
+ *
+ * @param 	string	$user	Peer id
+ * @param 	string	$hash	Info hash of the torrent
+ * @return	array|false
+ */
 function getPeerInfo($user, $hash)
 {
 	global $prefix;
@@ -179,7 +280,13 @@ function getPeerInfo($user, $hash)
 	return $data;
 }
 
-// Slight redesign of loadPeers
+/**
+ * Slight redesign of loadPeers
+ *
+ * @param 	string	$hash	Info hash of the torrent
+ * @param 	string	$where	Additional SQL where clause
+ * @return	array|false
+ */
 function getRandomPeers($hash, $where = "")
 {
 	global $prefix;
@@ -211,10 +318,18 @@ function getRandomPeers($hash, $where = "")
 	return $return;
 }
 
-//  Deletes a peer from the system and performs all cleaning up
-//
-//  $assumepeer contains the result of getPeerInfo, or false
-//  if we should grab it ourselves.
+/**
+ * Deletes a peer from the system and performs all cleaning up
+ *
+ * $assumepeer contains the result of getPeerInfo, or false
+ * if we should grab it ourselves.
+ *
+ * @param 	string	$userid			Peer id
+ * @param 	string	$hash			Info hash of the torrent
+ * @param 	int		$left			Bytes left to download
+ * @param 	array|bool	$assumepeer	Info of the peer, or false to load it
+ * @return	void
+ */
 function killPeer($userid, $hash, $left, $assumepeer = false)
 {
 	global $prefix;
@@ -245,7 +360,14 @@ function killPeer($userid, $hash, $left, $assumepeer = false)
 	}
 }
 
-// Transfers bytes from "left" to "dlbytes" when a peer reports in.
+/**
+ * Transfers bytes from "left" to "dlbytes" when a peer reports in.
+ *
+ * @param 	array	$peer	Info of the peer
+ * @param 	string	$hash	Info hash of the torrent
+ * @param 	int		$left	Bytes left to download
+ * @return	void
+ */
 function collectBytes($peer, $hash, $left)
 {
 	global $prefix;
@@ -264,10 +386,15 @@ function collectBytes($peer, $hash, $left)
 		summaryAdd("dlbytes", $diff);
 }
 
-// Transmits the actual data to the peer. No other output is permitted if
-// this function is called, as that would break BEncoding.
-// I don't use the bencode library, so watch out! If you add data,
-// rules such as dictionary sorting are enforced by the remote side.
+/**
+ * Transmits the actual data to the peer. No other output is permitted if
+ * this function is called, as that would break BEncoding.
+ * I don't use the bencode library, so watch out! If you add data,
+ * rules such as dictionary sorting are enforced by the remote side.
+ *
+ * @param 	array	$peers	Array of peers (with a "size" key)
+ * @return	void
+ */
 function sendPeerList($peers)
 {
 	echo "d";
@@ -301,8 +428,13 @@ function sendPeerList($peers)
 }
 
 
-// Faster pass-through version of getRandompeers => sendPeerList
-// It's the only way to use cache tables. In fact, it only uses it.
+/**
+ * Faster pass-through version of getRandompeers => sendPeerList
+ * It's the only way to use cache tables. In fact, it only uses it.
+ *
+ * @param 	string	$info_hash	Info hash of the torrent
+ * @return	void
+ */
 function sendRandomPeers($info_hash)
 {
 	global $prefix;
@@ -351,8 +483,14 @@ function sendRandomPeers($info_hash)
 }
 
 
-// Returns a $peers array of all peers that have timed out (2* report interval seems fair
-// for any reasonable report interval (900 or larger))
+/**
+ * Returns a $peers array of all peers that have timed out (2* report interval seems fair
+ * for any reasonable report interval (900 or larger))
+ *
+ * @param 	string	$hash		Info hash of the torrent
+ * @param 	int		$timeout	Peer timeout
+ * @return	array|false
+ */
 function loadLostPeers($hash, $timeout)
 {
 	global $prefix;
@@ -370,6 +508,13 @@ function loadLostPeers($hash, $timeout)
 	return $return;
 }
 
+/**
+ * Run the trash collector for a torrent: remove its lost peers
+ *
+ * @param 	string	$hash		Info hash of the torrent
+ * @param 	int		$timeout	Peer timeout
+ * @return	void
+ */
 function trashCollector($hash, $timeout)
 {
 	global $prefix;
@@ -393,8 +538,14 @@ function trashCollector($hash, $timeout)
 	Unlock($hash);
 }
 
-// Attempts to aquire a lock by name.
-// Returns true on success, false on failure
+/**
+ * Attempts to acquire a lock by name.
+ * Returns true on success, false on failure
+ *
+ * @param 	string	$hash	Info hash of the torrent
+ * @param 	int		$time	Timeout to get the lock
+ * @return	bool
+ */
 function Lock($hash, $time = 0)
 {
 	$results = mysql_query("SELECT GET_LOCK('$hash', $time)");
@@ -404,13 +555,23 @@ function Lock($hash, $time = 0)
 	return false;
 }
 
-// Releases a lock. Ignores errors.
+/**
+ * Releases a lock. Ignores errors.
+ *
+ * @param 	string	$hash	Info hash of the torrent
+ * @return	void
+ */
 function Unlock($hash)
 {
 	quickQuery("SELECT RELEASE_LOCK('$hash')");
 }
 
-// Returns true if the lock is available
+/**
+ * Returns true if the lock is available
+ *
+ * @param 	string	$lock	Name of the lock
+ * @return	bool
+ */
 function isFreeLock($lock)
 {
 	if (Lock($lock, 0)) {
@@ -421,7 +582,8 @@ function isFreeLock($lock)
 }
 
 
-/* Returns true if the user is firewalled, NAT'd, or whatever.
+/**
+ * Returns true if the user is firewalled, NAT'd, or whatever.
  * The original tracker had its --nat_check parameter, so
  * here is my version.
  *
@@ -429,6 +591,12 @@ function isFreeLock($lock)
  * but will consume system resources when a lot of httpd processes
  * are lingering around trying to connect to remote hosts.
  * Consider disabling it under higher loads.
+ *
+ * @param 	string	$hash	Info hash of the torrent
+ * @param 	string	$peerid	Peer id
+ * @param 	string	$ip		Peer IP address
+ * @param 	int		$port	Peer port
+ * @return	bool
  */
 function isFireWalled($hash, $peerid, $ip, $port)
 {
@@ -480,9 +648,16 @@ function isFireWalled($hash, $peerid, $ip, $port)
 }
 
 
-// It's cruel, but if people abuse my tracker, I just might do it.
-// It pretends to accept the torrent, and reports that you are the
-// only person connected.
+/**
+ * It's cruel, but if people abuse my tracker, I just might do it.
+ * It pretends to accept the torrent, and reports that you are the
+ * only person connected.
+ *
+ * @param 	string	$ip		Peer IP address
+ * @param 	string	$peer_id	Peer id
+ * @param 	int		$port	Peer port
+ * @return	void
+ */
 function evilReject($ip, $peer_id, $port)
 {
 
@@ -500,6 +675,13 @@ function evilReject($ip, $peer_id, $port)
 }
 
 
+/**
+ * Calculate and store the current download speed of a torrent
+ *
+ * @param 	string	$info_hash	Info hash of the torrent
+ * @param 	int		$delta		Time delta
+ * @return	void
+ */
 function runSpeed($info_hash, $delta)
 {
 	global $prefix;
@@ -533,10 +715,17 @@ function runSpeed($info_hash, $delta)
 		quickQuery('DELETE FROM '.$prefix.'timestamps WHERE info_hash="'.$info_hash.'" ORDER BY sequence LIMIT '.($data['1'] - 20));
 }
 
-// Schedules an update to the summary table. It gets so much traffic
-// that we do all our changes at once.
-// When called, the column $column for the current info_hash is incremented
-// by $value, or set to exactly $value if $abs is true.
+/**
+ * Schedules an update to the summary table. It gets so much traffic
+ * that we do all our changes at once.
+ * When called, the column $column for the current info_hash is incremented
+ * by $value, or set to exactly $value if $abs is true.
+ *
+ * @param 	string	$column	Column of the summary table
+ * @param 	int		$value	Value to add, or to set if $abs is true
+ * @param 	bool	$abs		Set the value instead of incrementing it
+ * @return	void
+ */
 function summaryAdd($column, $value, $abs = false)
 {
 	if (isset($GLOBALS["summaryupdate"][$column])) {
@@ -550,7 +739,12 @@ function summaryAdd($column, $value, $abs = false)
 }
 
 
-//converts byte size to string format for display
+/**
+ * Converts byte size to string format for display
+ *
+ * @param 	int		$total_size	Size in bytes
+ * @return	string
+ */
 function bytesToString($total_size)
 {
 	if ($total_size < 1024) //dealing with bytes
@@ -565,16 +759,27 @@ function bytesToString($total_size)
 
 
 // Even if you're missing PHP 4.3.0, the MHASH extension might be of use.
-// Someone was kind enought to email this code snippit in.
+// Someone was kind enough to email this code snippit in.
 if (function_exists('mhash') && (!function_exists('sha1')) &&
 defined('MHASH_SHA1')) {
+	/**
+	 * Calculate the SHA1 hash of a string using the MHASH extension
+	 *
+	 * @param 	string	$str	String to hash
+	 * @return	string
+	 */
 	function sha1($str)
 	{
 		return bin2hex(mhash(MHASH_SHA1, $str));
 	}
 }
 
-//If magic quotes are on, returns the cleaned (no single quotes) output string
+/**
+ * If magic quotes are on, returns the cleaned (no single quotes) output string
+ *
+ * @param 	string	$input	Input string
+ * @return	string
+ */
 function clean($input)
 {
 	if (get_magic_quotes_gpc())
@@ -582,7 +787,12 @@ function clean($input)
 	return $input;
 }
 
-//If magic quotes are off, returns the added (single quotes) output string
+/**
+ * If magic quotes are off, returns the added (single quotes) output string
+ *
+ * @param 	string	$input	Input string
+ * @return	string
+ */
 function addquotes($input)
 {
 	if (!get_magic_quotes_gpc())

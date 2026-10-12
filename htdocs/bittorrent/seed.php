@@ -33,6 +33,14 @@ $info_hash = bin2hex($info_hash);
 //change from KB to bytes
 $max_upload_rate = $GLOBALS["max_upload_rate"] * 1024;
 
+/**
+ * Attempts to aquire a lock by name.
+ * Returns true on success, false on failure
+ *
+ * @param 	string	$hash	Info hash of the torrent
+ * @param 	int		$time	Timeout to get the lock
+ * @return	bool
+ */
 function Lock($hash, $time = 0)
 {
 	$results = mysql_query("SELECT GET_LOCK('$hash', $time)");
@@ -45,11 +53,24 @@ function Lock($hash, $time = 0)
 	return false;
 }
 
+/**
+ * Releases a lock. Ignores errors.
+ *
+ * @param 	string	$hash	Info hash of the torrent
+ * @return	void
+ */
 function Unlock($hash)
 {
 		mysql_query("SELECT RELEASE_LOCK('$hash')");
 }
 
+/**
+ * Reject the request: send an HTTP error header and a message, then stop
+ *
+ * @param 	string	$error	HTTP error string
+ * @param 	string	$message	Message to send
+ * @return	void
+ */
 function reject($error = "503 Service Temporarily Unavailable", $message = "")
 {
 	header("HTTP/1.0 $error");
