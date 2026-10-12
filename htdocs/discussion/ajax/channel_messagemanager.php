@@ -107,12 +107,12 @@ if ($action == 'addmessage') {
 	if ($res <= 0) {
 		httponly_accessforbidden('Channel '.((int) $channelid).' doesn\'t exists', 403);
 	}
-	
+
 	if (!$channel->isChannelContact($userid)) {
 		httponly_accessforbidden('User doesn\'t have the permission to access this channel', 403);
 	}
 	if (!$error) {
-		$discussioncachename = getDolGlobalString("DISCUSSION_CACHE_NAME_PREFIX",'DISCUSSION_CACHE_CHANNEL')."_".((int) $channelid) ;
+		$discussioncachename = getDolGlobalString("DISCUSSION_CACHE_NAME_PREFIX", 'DISCUSSION_CACHE_CHANNEL')."_".((int) $channelid) ;
 		$now = dol_now();
 		$chanmessage->message = $db->escape($message);
 		$chanmessage->fk_discussion_channel = ((int) $channelid);
@@ -147,7 +147,7 @@ if ($action == 'addmessage') {
 					if (empty($cacheobj->messages)) {
 						$msgarray = array();
 						$cacheobj->messages = array();
-					} else{
+					} else {
 						$tmparray = $msgarray = $cacheobj->messages;
 						foreach ($tmparray as $key => $msg) {
 							$ttl = $msg->ttl;

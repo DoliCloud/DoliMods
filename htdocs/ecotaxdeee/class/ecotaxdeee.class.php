@@ -22,10 +22,13 @@
  */
 require_once DOL_DOCUMENT_ROOT."/core/class/commonobject.class.php";
 
+/**
+ *	Class to manage ecotax amounts, identified by a code
+ */
 class Ecotaxdeee extends CommonObject
 {
 
-    /**
+	/**
 	 * @var string ID to identify managed object
 	 */
 	public $element = 'ecotaxdeee';
@@ -35,26 +38,26 @@ class Ecotaxdeee extends CommonObject
 	 */
 	public $table_element = 'ecotaxdeee';
 
-    /**
+	/**
 	 * @var DoliDB $db Database object
 	 */
 	public $db;
 
-    /**
-     * @var string  code name
-     */
-    public $code;
+	/**
+	 * @var string  code name
+	 */
+	public $code;
 
-    /**
-     * @var double  amount of ecotax
-     */
-    public $amount;
+	/**
+	 * @var double  amount of ecotax
+	 */
+	public $amount;
 
-    /**
-     * @var date  date creation
-     */
-    public $date_creation;
-    /**
+	/**
+	 * @var date  date creation
+	 */
+	public $date_creation;
+	/**
 	 *  Constructor
 	 *
 	 *  @param	DoliDB	$db 	Database handler
@@ -64,167 +67,166 @@ class Ecotaxdeee extends CommonObject
 		$this->db = $db;
 	}
 
-   /**
-	 * Create ecotax record into database
-	 *
-	 * @param	User	$user		User who created the ecotax
-	 * @param	int		$notrigger	Disable triggers
-	 * @return  int  		        Return integer <0 if KO, id of created ecotax if OK
-	 */
-    public function create($user, $notrigger = 0)
-    {
-        global $langs;
+	/**
+	  * Create ecotax record into database
+	  *
+	  * @param	User	$user		User who created the ecotax
+	  * @param	int		$notrigger	Disable triggers
+	  * @return  int  		        Return integer <0 if KO, id of created ecotax if OK
+	  */
+	public function create($user, $notrigger = 0)
+	{
+		global $langs;
 
 
-        if ($this->amount < 0) {
+		if ($this->amount < 0) {
 			$this->error = $langs->trans('FieldCannotBeNegative', $langs->transnoentitiesnoconv("Amount"));
 			return -1;
 		}
-        $this->db->begin();
+		$this->db->begin();
 
-        // check if records already exists
+		// check if records already exists
 
-        $check = "SELECT code,amount FROM ".MAIN_DB_PREFIX."ecotax";
-        $check .= " WHERE code ='".$this->code."' AND amount=".$this->amount;
-        $rslt = $this->db->query($check);
-        $num = $this->db->num_rows($rslt);
+		$check = "SELECT code,amount FROM ".MAIN_DB_PREFIX."ecotax";
+		$check .= " WHERE code ='".$this->code."' AND amount=".$this->amount;
+		$rslt = $this->db->query($check);
+		$num = $this->db->num_rows($rslt);
 
-        if ($num > 1) {
-            $this->error = $langs->trans('RecordAlreadyExists');
-            return -1;
-        }else {
+		if ($num > 1) {
+			$this->error = $langs->trans('RecordAlreadyExists');
+			return -1;
+		} else {
+			$sql = "INSERT INTO ".MAIN_DB_PREFIX."ecotaxdeee (";
+			$sql .= "code, ";
+			$sql .= "amount, ";
+			$sql .= "date_creation";
+			$sql .= ")";
+			$sql .= " VALUES (";
+			$sql .= "'".$this->db->escape($this->code)."'";
+			$sql .= ", ".(float) ($this->amount);
+			$sql .= ", '".$this->db->idate($this->date_creation ? $this->date_creation : dol_now())."'";
+			$sql .= ")";
+			$resql = $this->db->query($sql);
+			if (!$resql) {
+				$this->error = $this->db->lasterror();
+				$this->db->rollback();
+				return -1;
+			}
 
-            $sql = "INSERT INTO ".MAIN_DB_PREFIX."ecotaxdeee (";
-            $sql .= "code, ";
-            $sql .= "amount, ";
-            $sql .= "date_creation";
-            $sql .= ")";
-            $sql .= " VALUES (";
-            $sql .= "'".$this->db->escape($this->code)."'";
-            $sql .= ", ".(float)($this->amount);
-            $sql .= ", '".$this->db->idate($this->date_creation ? $this->date_creation : dol_now())."'";
-            $sql .= ")";
-            $resql = $this->db->query($sql);
-            if (!$resql) {
-                $this->error = $this->db->lasterror();
-                $this->db->rollback();
-                return -1;
-            }
+			$this->db->commit();
+			return 1;
+		}
+	}
 
-            $this->db->commit();
-            return 1;
-        }
-    }
-
-        /**
+		/**
 	 *      Load ecotax records from database
 	 *      @return     array|int     Return integer <0 if KO, >0 if OK
 	 */
 	public function fetchAll()
 	{
-        $sql = "SELECT rowid,code, amount, date_creation";
-        $sql .= " FROM ".MAIN_DB_PREFIX."ecotaxdeee";
+		$sql = "SELECT rowid,code, amount, date_creation";
+		$sql .= " FROM ".MAIN_DB_PREFIX."ecotaxdeee";
 
-        dol_syslog(get_class($this)."::fetchAll", LOG_DEBUG);
-        $resql = $this->db->query($sql);
+		dol_syslog(get_class($this)."::fetchAll", LOG_DEBUG);
+		$resql = $this->db->query($sql);
 
-        if ($resql) {
-            $result = array();
-            while ($obj = $this->db->fetch_object($resql)) {
-                $result[] = $obj;
-            }
-            return $result;
-        } else {
-            dol_print_error($this->db);
-            return -1;
-        }
-    }
+		if ($resql) {
+			$result = array();
+			while ($obj = $this->db->fetch_object($resql)) {
+				$result[] = $obj;
+			}
+			return $result;
+		} else {
+			dol_print_error($this->db);
+			return -1;
+		}
+	}
 
-    /**
+	/**
 	 *      Load ecotax records from database
-     *      @param      int    $id    id of record
+	 *      @param      int    $id    id of record
 	 *      @return     object|int     Return integer <0 if KO, >0 if OK
 	 */
 	public function fetch($id)
 	{
-        $sql = "SELECT rowid,code, amount, date_creation";
-        $sql .= " FROM ".MAIN_DB_PREFIX."ecotaxdeee";
-        if (!empty($id)) {
-            $sql .= " WHERE rowid=".((int) $id);
-        }
+		$sql = "SELECT rowid,code, amount, date_creation";
+		$sql .= " FROM ".MAIN_DB_PREFIX."ecotaxdeee";
+		if (!empty($id)) {
+			$sql .= " WHERE rowid=".((int) $id);
+		}
 
-        dol_syslog(get_class($this)."::fetch", LOG_DEBUG);
-        $resql = $this->db->query($sql);
+		dol_syslog(get_class($this)."::fetch", LOG_DEBUG);
+		$resql = $this->db->query($sql);
 
-        if ($resql) {
-            $obj = $this->db->fetch_object($resql);
-            return $obj;
-        } else {
-            dol_print_error($this->db);
-            return -1;
-        }
-    }
+		if ($resql) {
+			$obj = $this->db->fetch_object($resql);
+			return $obj;
+		} else {
+			dol_print_error($this->db);
+			return -1;
+		}
+	}
 
-    /**
-     * Update record for ecotax
-     * @param    int   $id    id record to update
-     * @return   int   1 if OK, -1 if KO
-     */
-    public function update($id)
-    {
-        global $langs;
+	/**
+	 * Update record for ecotax
+	 * @param    int   $id    id record to update
+	 * @return   int   1 if OK, -1 if KO
+	 */
+	public function update($id)
+	{
+		global $langs;
 
 
-        $code = $this->db->escape($this->code);
-        $amount = ((float) $this->amount);
+		$code = $this->db->escape($this->code);
+		$amount = ((float) $this->amount);
 
-         // check if records already exists
+		 // check if records already exists
 
-         $check = "SELECT code,amount FROM ".MAIN_DB_PREFIX."ecotaxdeee";
-         $check .= " WHERE code ='".$this->code."' AND amount=".$this->amount;
-         $rslt = $this->db->query($check);
-         $num = $this->db->num_rows($rslt);
-         if ($num > 1) {
-             $this->error = $langs->trans('RecordAlreadyExists');
-             return -1;
-            }else {
-                $sql = "UPDATE ".MAIN_DB_PREFIX."ecotax SET ";
-                $sql .= "code = '".$code."', ";
-                $sql .= "amount = '".$amount."', ";
-                $sql .= "date_modification = '".$this->db->idate(dol_now())."' ";
-                $sql .= "WHERE rowid = ".((int) $id);
+		 $check = "SELECT code,amount FROM ".MAIN_DB_PREFIX."ecotaxdeee";
+		 $check .= " WHERE code ='".$this->code."' AND amount=".$this->amount;
+		 $rslt = $this->db->query($check);
+		 $num = $this->db->num_rows($rslt);
+		if ($num > 1) {
+			$this->error = $langs->trans('RecordAlreadyExists');
+			return -1;
+		} else {
+			$sql = "UPDATE ".MAIN_DB_PREFIX."ecotax SET ";
+			$sql .= "code = '".$code."', ";
+			$sql .= "amount = '".$amount."', ";
+			$sql .= "date_modification = '".$this->db->idate(dol_now())."' ";
+			$sql .= "WHERE rowid = ".((int) $id);
 
-                $resql = $this->db->query($sql);
-            if (!$resql) {
-                $this->error = $this->db->lasterror();
-                $this->db->rollback();
-                return -1;
-            }
+			$resql = $this->db->query($sql);
+			if (!$resql) {
+				$this->error = $this->db->lasterror();
+				$this->db->rollback();
+				return -1;
+			}
 
-            $this->db->commit();
-            return 1;
-        }
-    }
+			$this->db->commit();
+			return 1;
+		}
+	}
 
-    /**
-     * Delete record in ecotax table
-     *
-     * @param   User   $user   	User making the deletion
-     * @return  int   			1 if OK, -1 if KO
-     */
-    public function delete($user)
-    {
-        $sql = "DELETE FROM ".MAIN_DB_PREFIX."ecotaxdeee";
-        $sql .= " WHERE rowid = ".((int) $this->id);
+	/**
+	 * Delete record in ecotax table
+	 *
+	 * @param   User   $user   	User making the deletion
+	 * @return  int   			1 if OK, -1 if KO
+	 */
+	public function delete($user)
+	{
+		$sql = "DELETE FROM ".MAIN_DB_PREFIX."ecotaxdeee";
+		$sql .= " WHERE rowid = ".((int) $this->id);
 
-        $resql = $this->db->query($sql);
-        if (!$resql) {
-            $this->error = $this->db->lasterror();
-            $this->db->rollback();
-            return -1;
-        }
+		$resql = $this->db->query($sql);
+		if (!$resql) {
+			$this->error = $this->db->lasterror();
+			$this->db->rollback();
+			return -1;
+		}
 
-        $this->db->commit();
-        return 1;
-    }
+		$this->db->commit();
+		return 1;
+	}
 }

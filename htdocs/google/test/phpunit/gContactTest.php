@@ -32,7 +32,12 @@ require_once dirname(__FILE__).'/../../lib/google_contact.lib.php';
 if (empty($user->id)) {
 	print "Load permissions for admin user nb 1\n";
 	$user->fetch(1);
-	$user->getrights();
+		// User::loadRights() only exists from Dolibarr 19 on, older versions name it getrights()
+	if (method_exists($user, 'loadRights')) {
+		$user->loadRights();
+	} else {
+		$user->getrights();
+	}
 }
 $conf->global->MAIN_DISABLE_ALL_MAILS=1;
 
@@ -82,7 +87,7 @@ class gContactTest extends PHPUnit\Framework\TestCase
 	{
 		global $conf,$user,$langs,$db;
 
-        if (!isModEnabled('google')) {
+		if (!isModEnabled('google')) {
 			print __METHOD__." module google must be enabled.\n"; die(1);
 		}
 
@@ -130,63 +135,64 @@ class gContactTest extends PHPUnit\Framework\TestCase
 	}
 
 
-    /**
-     * testApiConnnection
-     *
-     * @return void
-     */
-    public function testApiConnnection() {
+	/**
+	 * testApiConnnection
+	 *
+	 * @return void
+	 */
+	public function testApiConnnection()
+	{
 
 		global $conf,$user,$langs,$db;
 
-        require_once dirname(__FILE__).'/../../lib/google_calendar.lib.php';
-        // Create client/token object
-	    $key_file_location = $conf->google->multidir_output[$conf->entity]."/".(!empty($conf->global->GOOGLE_API_SERVICEACCOUNT_P12KEY)?$conf->global->GOOGLE_API_SERVICEACCOUNT_P12KEY:"");
-	    $force_do_not_use_session=false; // by default
-        $client=getTokenFromServiceAccount(!empty($conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL)?$conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL:"", $key_file_location, $force_do_not_use_session, 'web');
+		require_once dirname(__FILE__).'/../../lib/google_calendar.lib.php';
+		// Create client/token object
+		$key_file_location = $conf->google->multidir_output[$conf->entity]."/".(!empty($conf->global->GOOGLE_API_SERVICEACCOUNT_P12KEY)?$conf->global->GOOGLE_API_SERVICEACCOUNT_P12KEY:"");
+		$force_do_not_use_session=false; // by default
+		$client=getTokenFromServiceAccount(!empty($conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL)?$conf->global->GOOGLE_API_SERVICEACCOUNT_EMAIL:"", $key_file_location, $force_do_not_use_session, 'web');
 
 
-        // Test token
-        $this->assertEquals(is_array($client), true);
+		// Test token
+		$this->assertEquals(is_array($client), true);
 		print __METHOD__." result=".is_array($client)."\n";
 
-        // Test a connection
+		// Test a connection
 
-        if (is_array($client['google_web_token']) && key_exists('access_token', $client['google_web_token'])) {
-            $access_token=$client['google_web_token']['access_token'];
-        } else {
-            $tmp=json_decode($client['google_web_token']);
-            $access_token=$tmp->access_token;
-        }
-        $addheaderscurl=array('Content-Type: application/json','GData-Version: 3.0', 'Authorization: Bearer '.$access_token, 'If-Match: *');
-        $result = getURLContent('https://people.googleapis.com/v1/contactGroups', 'GET', '', 0, $addheaderscurl);
-        $this->assertEquals($result['http_code'], 200);
-        print __METHOD__." connection try, http_code:".$result['http_code']."\n";
+		if (is_array($client['google_web_token']) && key_exists('access_token', $client['google_web_token'])) {
+			$access_token=$client['google_web_token']['access_token'];
+		} else {
+			$tmp=json_decode($client['google_web_token']);
+			$access_token=$tmp->access_token;
+		}
+		$addheaderscurl=array('Content-Type: application/json','GData-Version: 3.0', 'Authorization: Bearer '.$access_token, 'If-Match: *');
+		$result = getURLContent('https://people.googleapis.com/v1/contactGroups', 'GET', '', 0, $addheaderscurl);
+		$this->assertEquals($result['http_code'], 200);
+		print __METHOD__." connection try, http_code:".$result['http_code']."\n";
+	}
 
-    }
+	/**
+	 * testApiCreateUpdateDeleteThirdParty
+	 *
+	 *
+	 * @return void
+	 */
+	public function testApiCreateUpdateDeleteThirdParty()
+	{
 
-    /**
-     * testApiCreateUpdateDeleteThirdParty
-     *
-     *
-     * @return void
-     */
-    public function testApiCreateUpdateDeleteThirdParty() {
 
-
-        global $conf,$user,$langs,$db;
-        require_once dirname(__FILE__).'/../../../../../htdocs/societe/class/societe.class.php';
-        $object = new Societe($db);
-        $object->initAsSpecimen();
+		global $conf,$user,$langs,$db;
+		require_once dirname(__FILE__).'/../../../../../htdocs/societe/class/societe.class.php';
+		$object = new Societe($db);
+		$object->initAsSpecimen();
 		$object->firstname = 'Joliprenom';
 		$object->lastname = 'Jolinom';
 		$object->email = 'adresse@mail.com';
 		$object->phone_mobile = '1123581321';
 
-        $created=$object->create($user);
+		$created=$object->create($user);
 		// Test if Thirdparty was created properly
-        $this->assertLessThan($created, 0);
-        print __METHOD__." created:".$result."\n";
+		$this->assertLessThan($created, 0);
+		print __METHOD__." created:".$result."\n";
 
 		// Get contact
 		$contactID = $object->ref_ext;
@@ -210,7 +216,7 @@ class gContactTest extends PHPUnit\Framework\TestCase
 		$addheaderscurl=array('Content-Type: application/json','GData-Version: 3.0', 'Authorization: Bearer '.$access_token, 'If-Match: *');
 
 		$personFields = "emailAddresses,names,phoneNumbers";
-        $fund = getURLContent('https://people.googleapis.com/v1/'.$contactID.'?personFields='.$personFields, 'GET', '', 0, $addheaderscurl);
+		$fund = getURLContent('https://people.googleapis.com/v1/'.$contactID.'?personFields='.$personFields, 'GET', '', 0, $addheaderscurl);
 
 		$this->assertEquals($fund['http_code'], 200);
 
@@ -273,28 +279,29 @@ class gContactTest extends PHPUnit\Framework\TestCase
 		$this->assertEquals($fund['http_code'], 404);
 
 		print __METHOD__." google contact deleted\n";
-    }
+	}
 
 
-    /**
-     * testApiCreateUpdateDeleteContact
-     *
-     * @return void
-     */
-	public function testApiCreateUpdateDeleteContact() {
+	/**
+	 * testApiCreateUpdateDeleteContact
+	 *
+	 * @return void
+	 */
+	public function testApiCreateUpdateDeleteContact()
+	{
 		global $conf,$user,$langs,$db;
-        require_once dirname(__FILE__).'/../../../../../htdocs/contact/class/contact.class.php';
-        $object = new Contact($db);
-        $object->initAsSpecimen();
+		require_once dirname(__FILE__).'/../../../../../htdocs/contact/class/contact.class.php';
+		$object = new Contact($db);
+		$object->initAsSpecimen();
 		$object->firstname = 'Joliprenom';
 		$object->lastname = 'Jolinom';
 		$object->email = 'adresse@mail.com';
 		$object->phone_mobile = '1123581321';
 
-        $created=$object->create($user);
+		$created=$object->create($user);
 		// Test if Thirdparty was created properly
-        $this->assertLessThan($created, 0);
-        print __METHOD__." created:".$result."\n";
+		$this->assertLessThan($created, 0);
+		print __METHOD__." created:".$result."\n";
 
 		// Get contact
 		$contactID = $object->ref_ext;
@@ -318,7 +325,7 @@ class gContactTest extends PHPUnit\Framework\TestCase
 		$addheaderscurl=array('Content-Type: application/json','GData-Version: 3.0', 'Authorization: Bearer '.$access_token, 'If-Match: *');
 
 		$personFields = "emailAddresses,names,phoneNumbers";
-        $fund = getURLContent('https://people.googleapis.com/v1/'.$contactID.'?personFields='.$personFields, 'GET', '', 0, $addheaderscurl);
+		$fund = getURLContent('https://people.googleapis.com/v1/'.$contactID.'?personFields='.$personFields, 'GET', '', 0, $addheaderscurl);
 
 		$this->assertEquals($fund['http_code'], 200);
 
@@ -381,25 +388,26 @@ class gContactTest extends PHPUnit\Framework\TestCase
 		print __METHOD__." google contact deleted\n";
 	}
 
-    /**
-     * testApiCreateUpdateDeleteMember
-     *
-     * @return void
-     */
-	public function testApiCreateUpdateDeleteMember() {
+	/**
+	 * testApiCreateUpdateDeleteMember
+	 *
+	 * @return void
+	 */
+	public function testApiCreateUpdateDeleteMember()
+	{
 		global $conf,$user,$langs,$db;
-        require_once dirname(__FILE__).'/../../../../../htdocs/adherents/class/adherent.class.php';
-        $object = new Adherent($db);
-        $object->initAsSpecimen();
+		require_once dirname(__FILE__).'/../../../../../htdocs/adherents/class/adherent.class.php';
+		$object = new Adherent($db);
+		$object->initAsSpecimen();
 		$object->firstname = 'Joliprenom';
 		$object->lastname = 'Jolinom';
 		$object->email = 'adresse@mail.com';
 		$object->phone_mobile = '1123581321';
 
-        $created=$object->create($user);
+		$created=$object->create($user);
 		// Test if Thirdparty was created properly
-        $this->assertLessThan($created, 0);
-        print __METHOD__." created:".$result."\n";
+		$this->assertLessThan($created, 0);
+		print __METHOD__." created:".$result."\n";
 
 		// Get contact
 		$contactID = $object->ref_ext;
@@ -423,7 +431,7 @@ class gContactTest extends PHPUnit\Framework\TestCase
 		$addheaderscurl=array('Content-Type: application/json','GData-Version: 3.0', 'Authorization: Bearer '.$access_token, 'If-Match: *');
 
 		$personFields = "emailAddresses,names,phoneNumbers";
-        $fund = getURLContent('https://people.googleapis.com/v1/'.$contactID.'?personFields='.$personFields, 'GET', '', 0, $addheaderscurl);
+		$fund = getURLContent('https://people.googleapis.com/v1/'.$contactID.'?personFields='.$personFields, 'GET', '', 0, $addheaderscurl);
 
 		$this->assertEquals($fund['http_code'], 200);
 
@@ -487,18 +495,19 @@ class gContactTest extends PHPUnit\Framework\TestCase
 	}
 
 
-    /**
-     * testApiLinkUnlinkDeleteTagThirdParty
-     *
-     * @return void
-     */
-	public function testApiLinkUnlinkDeleteTagThirdParty() {
+	/**
+	 * testApiLinkUnlinkDeleteTagThirdParty
+	 *
+	 * @return void
+	 */
+	public function testApiLinkUnlinkDeleteTagThirdParty()
+	{
 
 		global $conf, $user, $langs, $db;
 
 
 		// Create third party
-        require_once dirname(__FILE__).'/../../../../../htdocs/societe/class/societe.class.php';
+		require_once dirname(__FILE__).'/../../../../../htdocs/societe/class/societe.class.php';
 		$object = new Societe($db);
 		$object->initAsSpecimen();
 
@@ -539,7 +548,7 @@ class gContactTest extends PHPUnit\Framework\TestCase
 		}
 		$addheaderscurl=array('Content-Type: application/json','GData-Version: 3.0', 'Authorization: Bearer '.$access_token, 'If-Match: *');
 
-        $fund = getURLContent('https://people.googleapis.com/v1/'.$groupID, 'GET', '', 0, $addheaderscurl);
+		$fund = getURLContent('https://people.googleapis.com/v1/'.$groupID, 'GET', '', 0, $addheaderscurl);
 
 		$this->assertEquals($fund['http_code'], 200);
 		print __METHOD__." group found\n";
@@ -559,7 +568,7 @@ class gContactTest extends PHPUnit\Framework\TestCase
 		$this->assertEquals($memberCount, 0);
 		print __METHOD__." group empty\n";
 
-		// Readd and delete thirdparty from group and see if group is empty
+		// Re-add and delete thirdparty from group and see if group is empty
 		$result = $categ->add_type($object, 'supplier');
 		$this->assertLessThan($result, 0);
 		print __METHOD__." third party re-linked to category:".$result."\n";
@@ -591,13 +600,14 @@ class gContactTest extends PHPUnit\Framework\TestCase
 	 *
 	 * @return void
 	 */
-	public function testApiLinkUnlinkDeleteTagContact() {
+	public function testApiLinkUnlinkDeleteTagContact()
+	{
 
 		global $conf, $user, $langs, $db;
 
 
 		// Create contact
-        require_once dirname(__FILE__).'/../../../../../htdocs/contact/class/contact.class.php';
+		require_once dirname(__FILE__).'/../../../../../htdocs/contact/class/contact.class.php';
 		$object = new Contact($db);
 		$object->initAsSpecimen();
 
@@ -638,7 +648,7 @@ class gContactTest extends PHPUnit\Framework\TestCase
 		}
 		$addheaderscurl=array('Content-Type: application/json','GData-Version: 3.0', 'Authorization: Bearer '.$access_token, 'If-Match: *');
 
-        $fund = getURLContent('https://people.googleapis.com/v1/'.$groupID, 'GET', '', 0, $addheaderscurl);
+		$fund = getURLContent('https://people.googleapis.com/v1/'.$groupID, 'GET', '', 0, $addheaderscurl);
 
 		$this->assertEquals($fund['http_code'], 200);
 		print __METHOD__." group found\n";
@@ -658,7 +668,7 @@ class gContactTest extends PHPUnit\Framework\TestCase
 		$this->assertEquals($memberCount, 0);
 		print __METHOD__." group empty\n";
 
-		// Readd and delete contact from group and see if group is empty
+		// Re-add and delete contact from group and see if group is empty
 		$result = $categ->add_type($object, 'contact');
 		$this->assertLessThan($result, 0);
 		print __METHOD__." contact re-linked to category:".$result."\n";
@@ -690,13 +700,14 @@ class gContactTest extends PHPUnit\Framework\TestCase
 	 *
 	 * @return void
 	 */
-	public function testApiLinkUnlinkDeleteTagMember() {
+	public function testApiLinkUnlinkDeleteTagMember()
+	{
 
 		global $conf, $user, $langs, $db;
 
 
 		// Create contact
-        require_once dirname(__FILE__).'/../../../../../htdocs/adherents/class/adherent.class.php';
+		require_once dirname(__FILE__).'/../../../../../htdocs/adherents/class/adherent.class.php';
 		$object = new Adherent($db);
 		$object->initAsSpecimen();
 
@@ -737,7 +748,7 @@ class gContactTest extends PHPUnit\Framework\TestCase
 		}
 		$addheaderscurl=array('Content-Type: application/json','GData-Version: 3.0', 'Authorization: Bearer '.$access_token, 'If-Match: *');
 
-        $fund = getURLContent('https://people.googleapis.com/v1/'.$groupID, 'GET', '', 0, $addheaderscurl);
+		$fund = getURLContent('https://people.googleapis.com/v1/'.$groupID, 'GET', '', 0, $addheaderscurl);
 
 		$this->assertEquals($fund['http_code'], 200);
 		print __METHOD__." group found\n";
@@ -757,7 +768,7 @@ class gContactTest extends PHPUnit\Framework\TestCase
 		$this->assertEquals($memberCount, 0);
 		print __METHOD__." group empty\n";
 
-		// Readd and delete member from group and see if group is empty
+		// Re-add and delete member from group and see if group is empty
 		$result = $categ->add_type($object, 'member');
 		$this->assertLessThan($result, 0);
 		print __METHOD__." member re-linked to category:".$result."\n";
@@ -783,5 +794,4 @@ class gContactTest extends PHPUnit\Framework\TestCase
 		$this->assertEquals($fund['http_code'], 404);
 		print __METHOD__." group in google contact deleted\n";
 	}
-
 }

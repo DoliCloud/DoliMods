@@ -25,39 +25,35 @@
 
 require '../../main.inc.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php';
-require_once DOL_DOCUMENT_ROOT.'/saftpt/class/html.formsaftpt.class.php';
+dol_include_once('/saftpt/class/html.formsaftpt.class.php');
 
 $langs->load("admin");
 $langs->load("saftpt@saftpt");
 
 if (!$user->admin) accessforbidden();
 
-$action = GETPOST('action','alpha');
+$action = GETPOST('action', 'alpha');
 
 /*
  * Actions reason for tax exemption
  */
 
-if ($action == 'setvalue')
-{
+if ($action == 'setvalue') {
 	$db->begin();
 
 	//set constant in table llx_const
-	$taxexemption = GETPOST('taxexemption_code','alpha');
+	$taxexemption = GETPOST('taxexemption_code', 'alpha');
 
-	$res=dolibarr_set_const($db, "TAX_EXEMPTION_REASON",$taxexemption,'chaine',0,'',$conf->entity);
+	$res=dolibarr_set_const($db, "TAX_EXEMPTION_REASON", $taxexemption, 'chaine', 0, '', $conf->entity);
 	if (! $res > 0) $error++;
 
-    if (! $error)
-    {
-    	$db->commit();
-    	setEventMessage($langs->trans("SetupSaved"));
-    }
-    else
-    {
-    	$db->rollback();
-    	setEventMessage($langs->trans("Error"),'errors');
-    }
+	if (! $error) {
+		$db->commit();
+		setEventMessage($langs->trans("SetupSaved"));
+	} else {
+		$db->rollback();
+		setEventMessage($langs->trans("Error"), 'errors');
+	}
 }
 
 
@@ -67,10 +63,10 @@ if ($action == 'setvalue')
 
  $formtaxexemption = new FormSaftPt($db);
 
-llxHeader('',$langs->trans("SaftSetup"));
+llxHeader('', $langs->trans("SaftSetup"));
 
 $linkback='<a href="'.DOL_URL_ROOT.'/admin/modules.php">'.$langs->trans("BackToModuleList").'</a>';
-print_fiche_titre($langs->trans("SaftSetup"),$linkback,'setup');
+print_fiche_titre($langs->trans("SaftSetup"), $linkback, 'setup');
 
 $h = 0;
 
@@ -100,7 +96,7 @@ $var=!$var;
 print '<tr '.$bc[$var].'><td>';
 print $langs->trans("TaxExemptionDef").'</td><td>';
 //shows the combo list with the VAT exemption code
-print $formtaxexemption->select_taxexemption($conf->global->TAX_EXEMPTION_REASON,'taxexemption_code');
+print $formtaxexemption->select_taxexemption($conf->global->TAX_EXEMPTION_REASON, 'taxexemption_code');
 
 if (empty($conf->global->TAX_EXEMPTION_REASON)) print ' '.img_warning($langs->trans("TaxExemptionEmpty"));
 print '</td></tr>';
@@ -115,7 +111,3 @@ print '</form>';
 llxFooter();
 
 $db->close();
-
-
-
-?>

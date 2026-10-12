@@ -17,9 +17,9 @@
  */
 
 /**
- *       \file       htdocs/core/modules/societe/mod_codeclient_zebre.class.php
+ *       \file       htdocs/numberingpack/core/modules/societe/mod_codeclient_zebre.php
  *       \ingroup    societe
- *       \brief      Fichier de la classe des gestion zebre des codes clients
+ *       \brief      File of class to manage third party codes with the Zebre model
  *       \version    $Id: mod_codeclient_zebre.php,v 1.5 2011/08/17 16:46:32 eldy Exp $
  */
 
@@ -27,24 +27,32 @@ require_once DOL_DOCUMENT_ROOT."/core/modules/societe/modules_societe.class.php"
 
 
 /**
- *	Classe permettant la gestion zebre des codes tiers
+ *	Class to manage third party codes with the Zebre model
  */
 class mod_codeclient_zebre extends ModeleThirdPartyCode
 {
-	var $nom;							// Nom du modele
-	var $code_modifiable;				// Can be changed if valid
-	var $code_modifiable_invalide;		// Can be changed if not valid
-	var $code_modifiable_null;			// Can be changed if not defined
-	var $code_null;						// Can be undefined
-	var $version;		// 'development', 'experimental', 'dolibarr'
-	var $code_auto; 	// Numerotation automatique
+	/**
+	 * @var DoliDB Database handler
+	 */
+	protected $db;
+
+	public $nom;							// Name of model
+	public $code_modifiable;				// Can be changed if valid
+	public $code_modifiable_invalide;		// Can be changed if not valid
+	public $code_modifiable_null;			// Can be changed if not defined
+	public $code_null;						// Can be undefined
+	public $version;		// 'development', 'experimental', 'dolibarr'
+	public $code_auto; 	// Automatic numbering
 
 
 	/**
 	 * Constructor
+	 *
+	 * @param	DoliDB	$db	Database handler
 	 */
-	function mod_codeclient_zebre()
+	public function __construct($db)
 	{
+		$this->db = $db;
 		$this->nom = "Zebre";
 		$this->name = "Zebre";
 		$this->version = '$Revision: 1.5 $';
@@ -57,69 +65,55 @@ class mod_codeclient_zebre extends ModeleThirdPartyCode
 
 
 	/**
-	 *	Renvoie la description du module
+	 * Return description of numbering module
 	 *
-	 *	@return     string      Texte descripif
+	 * @param	Translate	$langs	Language object
+	 * @return	string				Description
 	 */
-	function info($langs)
+	public function info($langs)
 	{
-		return "Check if customer/supplier code is CCCC9999. Check only, no automatic generation.";
+		$langs->load("numberingpack@numberingpack");
+		return $langs->trans("CodeClientZebreDesc");
 	}
 
 
 	/**
-	 * Renvoi la description du module
+	 * Return an example of code
 	 *
-	 * @return     string      Texte descripif
+	 * @param	?Translate		$langs	Language object
+	 * @param	Societe|string	$objsoc	Third party object
+	 * @param	int				$type	Type of third party (1:customer, 2:supplier, -1:autodetect)
+	 * @return	string					Example
 	 */
-	function getExample($langs)
+	public function getExample($langs = null, $objsoc = '', $type = -1)
 	{
 		return "ABCD7501";
 	}
 
 
 	/**
-	 *  Return next value
+	 * Return next value. This model does not generate codes (code_auto = 0).
 	 *
-	 *  @param      objsoc      Object third party
-	 *  @param      $type       Client ou fournisseur (1:client, 2:fournisseur)
-	 *  @return     string      Value if OK, '' if module not configured, <0 if KO
+	 * @param	Societe|int	$objsoc	Third party object
+	 * @param	int	$type	Type of third party (1:customer, 2:supplier)
+	 * @return	string	Empty string
 	 */
-	function getNextValue($objsoc = 0, $type = -1)
+	public function getNextValue($objsoc = 0, $type = -1)
 	{
-		global $db, $conf;
-
-		$i = 1;
-
-		$is_dispo = $this->verif_dispo($db, $code, $objsoc);
-
-		while ( $is_dispo <> 0 && $i < 99) {
-			$arr = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-
-			$code = substr($code, 0, 6) . substr("00".$i, -2);
-
-			$is_dispo = $this->verif_dispo($db, $code, $objsoc);
-
-			$i++;
-		}
-
-		return $is_dispo;
+		return '';
 	}
 
 
 	/**
-	 *      \brief      Check validity of code according to its rules
-	 *      \param      $db         Database handler
-	 *      \param      $code       Code to check/correct
-	 *      \param      $soc        Object third party
-	 *      \param      $type       0 = customer/prospect , 1 = supplier
-	 *      \return     int     0 if OK
-	 *                          -1 ErrorBadCustomerCodeSyntax
-	 *                          -2 ErrorCustomerCodeRequired
-	 *                          -3 ErrorCustomerCodeAlreadyUsed
-	 *                          -4 ErrorPrefixRequired
+	 * Check validity of code according to its rules
+	 *
+	 * @param	DoliDB	$db	Database handler
+	 * @param	string	$code	Code to check, cleaned (trimmed and uppercased), and changed to a free code if already used
+	 * @param	Societe	$soc	Third party object
+	 * @param	int	$type	0 = customer/prospect, 1 = supplier
+	 * @return	int	0 if OK, -1 ErrorBadCustomerCodeSyntax, -2 ErrorCustomerCodeRequired, -3 ErrorCustomerCodeAlreadyUsed
 	 */
-	function verif($db, &$code, $soc, $type)
+	public function verif($db, &$code, $soc, $type)
 	{
 		$result=0;
 		$code = strtoupper(trim($code));
@@ -157,18 +151,24 @@ class mod_codeclient_zebre extends ModeleThirdPartyCode
 	}
 
 
+	// phpcs:disable PEAR.NamingConventions.ValidFunctionName.ScopeNotCamelCaps
 	/**
-	 *		\brief		Renvoi si un code est pris ou non (par autre tiers)
-	 *		\param		$db			Handler acces base
-	 *		\param		$code		Code a verifier
-	 *		\param		$soc		Objet societe
-	 *		\return		int			0 si dispo, <0 si erreur
+	 * Return if a code is already used by another third party
+	 *
+	 * @param	DoliDB	$db	Database handler
+	 * @param	string	$code	Code to check
+	 * @param	Societe	$soc	Third party object
+	 * @return	int	0 if available, -1 if already used, -2 if error
 	 */
-	function verif_dispo($db, $code, $soc)
+	public function verif_dispo($db, $code, $soc)
 	{
+		// phpcs:enable
 		$sql = "SELECT code_client FROM ".MAIN_DB_PREFIX."societe";
-		$sql.= " WHERE code_client = '".$code."'";
-		if ($soc->id) $sql.= " AND rowid != '".$soc->id."'";
+		$sql.= " WHERE code_client = '".$db->escape($code)."'";
+		$sql.= " AND entity IN (".getEntity('societe').")";
+		if ($soc->id > 0) {
+			$sql.= " AND rowid <> ".((int) $soc->id);
+		}
 
 		$resql=$db->query($sql);
 		if ($resql) {
@@ -183,13 +183,16 @@ class mod_codeclient_zebre extends ModeleThirdPartyCode
 	}
 
 
+	// phpcs:disable PEAR.NamingConventions.ValidFunctionName.ScopeNotCamelCaps
 	/**
-	 *	\brief		Renvoi si un code respecte la syntaxe
-	 *	\param		$code		Code a verifier
-	 *	\return		int			0 si OK, <0 si KO
+	 * Return if a code respects the syntax (4 letters and 4 digits)
+	 *
+	 * @param	string	$code	Code to check
+	 * @return	int	0 if OK, <0 if KO
 	 */
-	function verif_syntax(&$code)
+	public function verif_syntax(&$code)
 	{
+		// phpcs:enable
 		$res = 0;
 
 		if (strlen($code) <> 8) {
@@ -205,11 +208,18 @@ class mod_codeclient_zebre extends ModeleThirdPartyCode
 	}
 
 
-	function is_alpha($str)
+	// phpcs:disable PEAR.NamingConventions.ValidFunctionName.ScopeNotCamelCaps
+	/**
+	 * Count the characters that are not uppercase letters among the first 4 ones
+	 *
+	 * @param	string	$str	String to check
+	 * @return	int	0 if the 4 characters are uppercase letters
+	 */
+	public function is_alpha($str)
 	{
+		// phpcs:enable
 		$ok = 0;
-		// Je n'ai pas trouve de fonction pour tester une chaine alpha sans les caract�re accentu�s
-		// dommage
+		// No function found to test an alpha string without accented characters
 		$alpha = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
 		for ($i = 0 ; $i < 4 ; $i++) {
@@ -222,8 +232,16 @@ class mod_codeclient_zebre extends ModeleThirdPartyCode
 	}
 
 
-	function is_num($str)
+	// phpcs:disable PEAR.NamingConventions.ValidFunctionName.ScopeNotCamelCaps
+	/**
+	 * Count the characters that are not digits among the first 4 ones
+	 *
+	 * @param	string	$str	String to check
+	 * @return	int	0 if the 4 characters are digits
+	 */
+	public function is_num($str)
 	{
+		// phpcs:enable
 		$ok = 0;
 
 		$alpha = '0123456789';

@@ -174,7 +174,7 @@ if ($action == 'remove_file') {   // Remove a file
  */
 
 
-// Ajout directives pour resoudre bug IE
+// Add directives to solve an IE bug
 header('Cache-Control: Public, must-revalidate');
 header('Pragma: public');
 
@@ -206,7 +206,7 @@ print '<!-- TYPE='.$type.' -->'."\n";
 print '<!-- SIZE='.$sizeoffile.' -->'."\n";
 print '<!-- Ajax page called with url '.dol_escape_htmltag($_SERVER["PHP_SELF"]).'?'.dol_escape_htmltag($_SERVER["QUERY_STRING"]).' -->'."\n";
 
-// Les drois sont ok et fichier trouve, et fichier texte, on l'envoie
+// Permissions are ok, file found and file is text, we send it
 print '<b><font class="liste_titre">'.$langs->trans("Information").'</font></b><br>';
 print '<hr>';
 
@@ -271,7 +271,7 @@ if ($type == 'directory') {
 
 	$(function () {
 		$('#fileupload').on('submit', function (e) {
-			// On empêche le navigateur de soumettre le formulaire
+			// Prevent the browser from submitting the form
 			e.preventDefault();
 
 			var $form = $(this);
@@ -281,12 +281,12 @@ if ($type == 'directory') {
 			$.ajax({
 				url: $form.attr('action'),
 				type: $form.attr('method'),
-				contentType: false, // obligatoire pour de l'upload
-				processData: false, // obligatoire pour de l'upload
-				dataType: 'json', // selon le retour attendu
+				contentType: false, // required for upload
+				processData: false, // required for upload
+				dataType: 'json', // depending on the expected answer
 				data: data,
 				success: function (response) {
-					// La réponse du serveur
+					// Answer of the server
 					console.log(response);
 					if (response[0].error)
 					{

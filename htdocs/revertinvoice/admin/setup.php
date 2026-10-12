@@ -82,7 +82,6 @@ if ($action == 'addrevertinvoice') {
 if ($action == 'delete') {
 	if ($revertinvoicethirdpartyid > 0) {
 		$const = 'REVERTINVOICE_THIRDPARTYID_'.$revertinvoicethirdpartyid;
-		var_dump($const);
 		$result = dolibarr_del_const($db, $const, 0);
 
 		header("Location: ".$_SERVER["PHP_SELF"]);

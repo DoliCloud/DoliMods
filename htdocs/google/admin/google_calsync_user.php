@@ -35,6 +35,8 @@ if (! $res && file_exists("../../main.inc.php")) $res=@include "../../main.inc.p
 if (! $res && file_exists("../../../main.inc.php")) $res=@include "../../../main.inc.php";
 if (! $res) die("Include of main fails");
 /**
+ * @var DoliDB	$db
+ * @var Conf $conf
  * @var Translate $langs
  * @var User $user
  */
@@ -60,8 +62,8 @@ $langs->load("google@google");
 $langs->load("admin");
 $langs->load("other");
 
-// Defini si peux lire/modifier permisssions
-$canreaduser=($user->admin || $user->rights->user->user->lire);
+// Define is you want read/write permission
+$canreaduser = ($user->admin || $user->rights->user->user->lire);
 
 $id = GETPOST('id', 'int');
 $action = GETPOST('action', 'alpha');
@@ -86,11 +88,16 @@ if ($user->id <> $id && ! $canreaduser) accessforbidden();
 $dirtop = "../core/menus/standard";
 $dirleft = "../core/menus/standard";
 
-// Charge utilisateur edite
+// Load edited user
 $object = new User($db);
 $result=$object->fetch($id, '', '', 1);
 if ($result < 0) dol_print_error('', $object->error);
-$object->getrights();
+// User::loadRights() only exists from Dolibarr 19 on, older versions name it getrights()
+if (method_exists($user, 'loadRights')) {
+	$user->loadRights();
+} else {
+	$user->getrights();
+}
 
 // Liste des zone de recherche permanentes supportees
 $searchform=array("main_searchform_societe","main_searchform_contact","main_searchform_produitservice");

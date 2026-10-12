@@ -120,17 +120,14 @@ class OvhSms extends CommonObject
 				} catch (SoapFault $se) {
 					error_reporting($err);     // Restore default errors
 					dol_syslog(get_class($this).'::SoapFault: '.$se, LOG_ERR);
-					//var_dump('eeeeeeee');exit;
 					return 0;
 				} catch (Exception $ex) {
 					error_reporting($err);     // Restore default errors
 					dol_syslog(get_class($this).'::SoapFault: '.$ex, LOG_ERR);
-					//var_dump('eeeeeeee');exit;
 					return 0;
 				} catch (Error $e) {
 					error_reporting($err);     // Restore default errors
 					dol_syslog(get_class($this).'::SoapFault: '.$e, LOG_ERR);
-					//var_dump('eeeeeeee');exit;
 					return 0;
 				}
 				error_reporting($err);     // Restore default errors
@@ -252,7 +249,6 @@ class OvhSms extends CommonObject
 				$content = (object) $content;
 				//var_dump($content);exit;
 				try {
-					//var_dump($content);
 					$relurl = '/sms/'. $this->account . '/jobs/';
 
 					$resultPostJob = $this->conn->post($relurl, $content);
@@ -452,7 +448,6 @@ class OvhSms extends CommonObject
 				$this->soapDebug();
 				return $returnList;
 			} else {
-				//var_dump($this->conn);
 				$resultinfo = $this->conn->get('/sms/'.$this->account);
 				$resultinfo = json_decode(json_encode($resultinfo), false);
 				return $resultinfo->creditsLeft;
@@ -519,7 +514,6 @@ class OvhSms extends CommonObject
 				return $telephonySmsSenderList;
 			} else {
 				$resultinfo = $this->conn->get('/sms/'.$this->account.'/senders');
-				//var_dump($resultinfo);
 				$i=0;
 				$senderlist=array();
 				foreach ($resultinfo as $val) {

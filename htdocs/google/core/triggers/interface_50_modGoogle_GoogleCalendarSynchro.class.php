@@ -188,7 +188,6 @@ class InterfaceGoogleCalendarSynchro extends DolibarrTriggers
 			} else {
 				// Event label can now include company and / or contact info, and url link to thirdparty or contact, see configuration
 				google_complete_label_and_note($object, $langs);
-				//var_dump($action.' '.$object->note_private.' '.$object->ref_ext);exit;
 
 				if ($action == 'ACTION_CREATE') {
 					$ret = createEvent($servicearray, $object, $userlogin);
@@ -216,7 +215,6 @@ class InterfaceGoogleCalendarSynchro extends DolibarrTriggers
 
 							// We suppose update failed because record was not found, we try to create it
 							$ret = createEvent($servicearray, $object, $userlogin);
-							//var_dump($ret); exit;
 
 							if (! preg_match('/ERROR/', $ret)) {
 								if (! preg_match('/google\.com/', $ret)) $ret='google:'.$ret;
@@ -230,7 +228,6 @@ class InterfaceGoogleCalendarSynchro extends DolibarrTriggers
 						return 1;
 					} elseif ($gid == '') { // No google id, may be a reaffected event
 						$ret = createEvent($servicearray, $object, $userlogin);
-						//var_dump($ret); exit;
 
 						if (! preg_match('/ERROR/', $ret)) {
 							if (! preg_match('/google\.com/', $ret)) $ret='google:'.$ret;
@@ -246,7 +243,6 @@ class InterfaceGoogleCalendarSynchro extends DolibarrTriggers
 					$gid = basename($object->ref_ext);
 					if ($gid && preg_match('/google/i', $object->ref_ext)) { // This record is linked with Google Calendar
 						$ret = deleteEventById($servicearray, $gid, $userlogin);
-						//var_dump($ret); exit;
 
 						return 1;
 					}

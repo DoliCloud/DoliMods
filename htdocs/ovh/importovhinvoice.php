@@ -356,7 +356,6 @@ if ($action == 'import' && $ovhthirdparty->id > 0) {
 					$facfou->fk_project = $projectid;
 				}
 
-				//var_dump($billnum.' - '.$facfou->date.' - '.dol_print_date($facfou->date,'dayhour'));exit;
 
 				$facid = $facfou->create($fuser);
 				if ($facid > 0) {
@@ -606,7 +605,6 @@ if ($action == 'refresh') {
 			//billingInvoiceList
 			$result = $soap->billingInvoiceList($session);
 			dol_syslog("billingInvoiceList successful (" . count($result) . " invoices)");
-			//var_dump($result[0]->date.' '.dol_print_date(dol_stringtotime($r->date,1),'day'));exit;
 
 			file_put_contents(DOL_DATA_ROOT . "/dolibarr_ovh_billingInvoiceList.xml", $soap->__getLastResponse());
 			//dolChmod(DOL_DATA_ROOT . "/dolibarr_ovh_billingInvoiceList.xml");
@@ -652,7 +650,6 @@ if ($action == 'refresh') {
 					$MAXLINESINDETAIL = 3;
 					foreach ($r2 as $key2 => $val2) {
 						$r2d = $conn->get('/me/bill/' . $val . '/details/' . $val2);
-						//var_dump($r2d['description']);
 
 						$nblineofdetail++;
 						$description .= $r2d['description'] . "<br>\n";
@@ -822,7 +819,6 @@ if ($action == 'refresh') {
 
 						$ref = dol_sanitizeFileName($facfou->ref);
 						$upload_dir = $conf->fournisseur->facture->dir_output . '/' . get_exdir($facfou->id, 2, 0, 0, $facfou, 'invoice_supplier') . $ref;
-						//var_dump($upload_dir);
 						$file_name = ($upload_dir . "/" . $facfou->ref_supplier . ".pdf");
 						$file_name_bis = ($upload_dir . "/" . $facfou->ref . '-' . $facfou->ref_supplier . ".pdf");
 						$file_name_ter = ($upload_dir . "/" . $facfou->ref . '_' . $facfou->ref_supplier . ".pdf");        // Old version made import with this name

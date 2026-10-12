@@ -25,13 +25,13 @@
 
 require '../main.inc.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.form.class.php';
-require_once DOL_DOCUMENT_ROOT.'/saftpt/class/html.formsaftpt.class.php';
+dol_include_once('/saftpt/class/html.formsaftpt.class.php');
 require_once DOL_DOCUMENT_ROOT.'/core/lib/date.lib.php';
 
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.formfile.class.php';
 
 require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
-require_once DOL_DOCUMENT_ROOT.'/saftpt/class/saftpt.class.php';
+dol_include_once('/saftpt/class/saftpt.class.php');
 
 
 $langs->load("saftpt@saftpt");

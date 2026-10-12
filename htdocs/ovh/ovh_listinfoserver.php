@@ -273,7 +273,6 @@ if (! empty($conf->global->OVH_OLDAPI) && (empty($conf->global->OVHSMS_NICK) || 
 
 			print '<br>';
 
-			//var_dump($resultinfosnapshot);
 			print '<div class="div-table-responsive-no-min">';
 			print '<table class="noborder centpercent">';
 			print '<tr><td class="titlefield">'.$langs->trans("Snapshot").'</td><td>'.$langs->trans("Date").'</td><td>'.$langs->trans("Region").'</td><td>'.$langs->trans("Size").'</td></tr>';

@@ -466,7 +466,7 @@ class ActionsPayplugDolicloud extends CommonHookActions
 						$amounttab = explode('.', $amount);
 						if (strlen($amounttab[1]) == 1) {
 							$amounttab[1] .= "0";
-						} else if (strlen($amounttab[1]) > 2) {
+						} elseif (strlen($amounttab[1]) > 2) {
 							$amounttab[1] = substr($amounttab[1], 0, 2);
 						}
 						if (isset($amounttab[0])) {
@@ -498,7 +498,6 @@ class ActionsPayplugDolicloud extends CommonHookActions
 						if (!empty($payerarray["lastName"]) || !empty($payerarray["firstName"]) || !empty($payerarray["email"])
 							|| !empty($payerarray["address"]) || !empty($payerarray["postcode"]) || !empty($payerarray["city"])
 							|| !empty($payerarray["country"]) ) {
-
 							$jsontosenddatabilling = '';
 							if (!empty($payerarray["lastName"])) {
 								$jsontosenddatabilling .= ($jsontosenddatabilling ? ', ' : '').'"last_name": "'.$payerarray["lastName"].'"';
@@ -562,7 +561,7 @@ class ActionsPayplugDolicloud extends CommonHookActions
 								$errors[] = $arrayofmessage['message'];
 
 								if (!empty($arrayofmessage['details']) && is_array($arrayofmessage['details'])) {
-									foreach($arrayofmessage['details'] as $tmpkey => $tmpmessage) {
+									foreach ($arrayofmessage['details'] as $tmpkey => $tmpmessage) {
 										if (!empty($tmpmessage)) {
 											// $tmpmessage can be a string or an array or array of array, so we use a json output
 											$errors[] = $langs->trans("Error"). ' ('.$tmpkey.') : ' .json_encode($tmpmessage);
@@ -613,7 +612,7 @@ class ActionsPayplugDolicloud extends CommonHookActions
 		$langs->load("payplugdolicloud@payplugdolicloud");
 
 		$error = 0;
-		if (in_array($parameters['paymentmethod'], array('payplug'))){
+		if (in_array($parameters['paymentmethod'], array('payplug'))) {
 			$code = GETPOST("code");
 
 			if ($code == "refused") {
@@ -702,7 +701,7 @@ class ActionsPayplugDolicloud extends CommonHookActions
 
 		$bankaccountid = 0;
 
-		if (in_array($parameters['paymentmethod'], array('payplug'))){
+		if (in_array($parameters['paymentmethod'], array('payplug'))) {
 			$bankaccountid = getDolGlobalInt('PAYPLUG_DOLICLOUD_BANK_ACCOUNT_FOR_PAYMENTS');
 			if ($bankaccountid == 0) {
 				$error++;
@@ -726,7 +725,8 @@ class ActionsPayplugDolicloud extends CommonHookActions
 	 * @param   HookManager     $hookmanager    Hook manager propagated to allow calling another hook
 	 * @return  int                             Return integer < 0 on error, 0 on success, 1 to replace standard code
 	 */
-	public function doShowOnlinePaymentUrl($parameters, &$object, &$action, $hookmanager){
+	public function doShowOnlinePaymentUrl($parameters, &$object, &$action, $hookmanager)
+	{
 		if (isModEnabled('payplugdolicloud')) {
 			$this->results['showonlinepaymenturl'] = isModEnabled('payplugdolicloud');
 		} else {
@@ -734,5 +734,4 @@ class ActionsPayplugDolicloud extends CommonHookActions
 		}
 		return 1;
 	}
-
 }

@@ -39,7 +39,7 @@ class modTawkTo extends DolibarrModules
 	 *
 	 *   @param      DoliDB		$db      Database handler
 	 */
-	function __construct($db)
+	public function __construct($db)
 	{
 		global $conf;
 
@@ -104,7 +104,7 @@ class modTawkTo extends DolibarrModules
 		$this->requiredby = array();	// List of modules id to disable if this one is disabled
 		$this->conflictwith = array();	// List of modules id this module is in conflict with
 		$this->phpmin = array(7,1);					// Minimum version of PHP required by module
-		$this->need_dolibarr_version = array(17, 0, -4);	// Minimum version of Dolibarr required by module
+		$this->need_dolibarr_version = array(18, 0, -4);	// Minimum version of Dolibarr required by module
 		$this->langfiles = array("tawkto@tawkto");
 
 		// Constants
@@ -128,7 +128,7 @@ class modTawkTo extends DolibarrModules
 		// 'product'          to add a tab in product view
 		// 'stock'            to add a tab in stock view
 		// 'propal'           to add a tab in propal view
-		// 'member'           to add a tab in fundation member view
+		// 'member'           to add a tab in foundation member view
 		// 'contract'         to add a tab in contract view
 		// 'user'             to add a tab in user view
 		// 'group'            to add a tab in group view
@@ -136,7 +136,7 @@ class modTawkTo extends DolibarrModules
 		// 'categories_x'	  to add a tab in category view (replace 'x' by type of category (0=product, 1=supplier, 2=customer, 3=member)
 		$this->tabs = array();
 
-		// Dictionnaries
+		// Dictionaries
 		if (! isset($conf->tawkto->enabled)) {
 			$conf->tawkto=new stdClass();
 			$conf->tawkto->enabled=0;
@@ -146,15 +146,15 @@ class modTawkTo extends DolibarrModules
 		if (! isset($conf->mymodule->enabled)) $conf->mymodule->enabled=0;	// This is to avoid warnings
 		$this->dictionaries=array(
 			'langs'=>'mylangfile@mymodule',
-			'tabname'=>array(MAIN_DB_PREFIX."table1",MAIN_DB_PREFIX."table2",MAIN_DB_PREFIX."table3"),		// List of tables we want to see into dictonnary editor
+			'tabname'=>array(MAIN_DB_PREFIX."table1",MAIN_DB_PREFIX."table2",MAIN_DB_PREFIX."table3"),		// List of tables we want to see into dictionary editor
 			'tablib'=>array("Table1","Table2","Table3"),													// Label of tables
 			'tabsql'=>array('SELECT f.rowid as rowid, f.code, f.label, f.active FROM '.MAIN_DB_PREFIX.'table1 as f','SELECT f.rowid as rowid, f.code, f.label, f.active FROM '.MAIN_DB_PREFIX.'table2 as f','SELECT f.rowid as rowid, f.code, f.label, f.active FROM '.MAIN_DB_PREFIX.'table3 as f'),	// Request to select fields
 			'tabsqlsort'=>array("label ASC","label ASC","label ASC"),																					// Sort order
-			'tabfield'=>array("code,label","code,label","code,label"),																					// List of fields (result of select to show dictionnary)
+			'tabfield'=>array("code,label","code,label","code,label"),																					// List of fields (result of select to show dictionary)
 			'tabfieldvalue'=>array("code,label","code,label","code,label"),																				// List of fields (list of fields to edit a record)
 			'tabfieldinsert'=>array("code,label","code,label","code,label"),																			// List of fields (list of fields for insert)
 			'tabrowid'=>array("rowid","rowid","rowid"),																									// Name of columns with primary key (try to always name it 'rowid')
-			'tabcond'=>array($conf->mymodule->enabled,$conf->mymodule->enabled,$conf->mymodule->enabled)												// Condition to show each dictionnary
+			'tabcond'=>array($conf->mymodule->enabled,$conf->mymodule->enabled,$conf->mymodule->enabled)												// Condition to show each dictionary
 		);
 		*/
 
@@ -227,7 +227,7 @@ class modTawkTo extends DolibarrModules
 	 *      @param      string	$options    Options when enabling module ('', 'noboxes')
 	 *      @return     int             	1 if OK, 0 if KO
 	 */
-	function init($options = '')
+	public function init($options = '')
 	{
 		$sql = array();
 
@@ -244,7 +244,7 @@ class modTawkTo extends DolibarrModules
 	 *      @param      string	$options    Options when enabling module ('', 'noboxes')
 	 *      @return     int             	1 if OK, 0 if KO
 	 */
-	function remove($options = '')
+	public function remove($options = '')
 	{
 		$sql = array();
 

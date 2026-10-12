@@ -435,12 +435,12 @@ class ActionsStancerDolicloud extends CommonHookActions
 			$json = new stdClass();
 			$sql = "SELECT data FROM ".MAIN_DB_PREFIX."stancerdolicloud_pending_payments WHERE ref_payment = '".$this->db->escape($ref_payment)."'";
 			$res = $this->db->query($sql);
-			if ($res){
+			if ($res) {
 				$obj = $this->db->fetch_object($res);
 				$json = json_decode($obj->data);
 			} else {
 				$error++;
-				dol_syslog(__METHOD__."SQL Error on SELECT:".$this->db->lasterror(),"LOG_ERR");
+				dol_syslog(__METHOD__."SQL Error on SELECT:".$this->db->lasterror(), "LOG_ERR");
 			}
 			$jsontosenddata = '{}';
 			$ret1 = array();
@@ -457,7 +457,7 @@ class ActionsStancerDolicloud extends CommonHookActions
 				$encodeddata = json_encode($json);
 				$sql = "UPDATE ".MAIN_DB_PREFIX."stancerdolicloud_pending_payments SET data = '".$encodeddata."' WHERE ref_payment = '".$this->db->escape($ref_payment)."'";
 				$res = $this->db->query($sql);
-				if ($res == false){
+				if ($res == false) {
 					dol_print_error($this->db);
 					$this->db->rollback();
 					exit;
@@ -476,7 +476,7 @@ class ActionsStancerDolicloud extends CommonHookActions
 			}
 		}
 
-		if (in_array($parameters['context'],array('newpayment')) && empty($parameters['paymentmethod'])) {
+		if (in_array($parameters['context'], array('newpayment')) && empty($parameters['paymentmethod'])) {
 			$amount = price2num(stancerDolicloudGetDataFromObjects($source, $ref));
 			if (!GETPOST("currency", 'alpha')) {
 				$currency = $conf->currency;
@@ -485,9 +485,7 @@ class ActionsStancerDolicloud extends CommonHookActions
 			}
 			$_SESSION["FinalPaymentAmt"] = $amount;
 			$_SESSION["currencyCodeType"] = $currency;
-
 		} elseif (in_array($parameters['paymentmethod'], array('stancerdolicloud')) && $parameters['validpaymentmethod']["stancerdolicloud"] == "valid") {
-
 			if (empty($amount)) {
 				$amount = price2num(stancerDolicloudGetDataFromObjects($source, $ref));
 			}
@@ -533,7 +531,7 @@ class ActionsStancerDolicloud extends CommonHookActions
 						$amounttab = explode('.', $amount);
 						if (strlen($amounttab[1]) == 1) {
 							$amounttab[1] .= "0";
-						} else if (strlen($amounttab[1]) > 2) {
+						} elseif (strlen($amounttab[1]) > 2) {
 							$amounttab[1] = substr($amounttab[1], 0, 2);
 						}
 						if (isset($amounttab[0])) {
@@ -583,7 +581,7 @@ class ActionsStancerDolicloud extends CommonHookActions
 							$datetodelete = dol_time_plus_duree(dol_now(), $daybeforedelete, 'd');
 							$sql = "DELETE FROM ".MAIN_DB_PREFIX."stancerdolicloud_pending_payments WHERE date_creation <= '".$this->db->idate($datetodelete)."'";
 							$res = $this->db->query($sql);
-							if ($res == false){
+							if ($res == false) {
 								dol_print_error($this->db);
 								$error++;
 							}
@@ -592,7 +590,7 @@ class ActionsStancerDolicloud extends CommonHookActions
 							$encodeddata = json_encode($json_data_payment);
 							$sql = "INSERT INTO ".MAIN_DB_PREFIX."stancerdolicloud_pending_payments (ref_payment, data, date_creation) VALUES ('".$this->db->escape($new_ref_payment) ."','".$encodeddata."', '".$this->db->idate(dol_now())."')";
 							$res = $this->db->query($sql);
-							if ($res == false){
+							if ($res == false) {
 								dol_print_error($this->db);
 								$error++;
 							}
@@ -602,7 +600,7 @@ class ActionsStancerDolicloud extends CommonHookActions
 								exit();
 							}
 							$this->db->commit();
-	
+
 							// Gestion redirection
 							dol_syslog("Send redirect to ".$urlforredirect, LOG_DEBUG, 0, '_payment');
 							header("Location: ".$urlforredirect);
@@ -616,7 +614,7 @@ class ActionsStancerDolicloud extends CommonHookActions
 								$errors[] = $arrayofmessage['message'];
 							} else {
 								if (!empty($arrayofmessage['errors']) && is_array($arrayofmessage['errors'])) {
-									foreach($arrayofmessage['errors'] as $tmpkey => $tmpmessage) {
+									foreach ($arrayofmessage['errors'] as $tmpkey => $tmpmessage) {
 										if (!empty($tmpmessage['message'])) {
 											$errors[] = $langs->trans("Error").' - '.$tmpmessage['message'];
 										} else {
@@ -666,17 +664,17 @@ class ActionsStancerDolicloud extends CommonHookActions
 		$error = 0; // Error counter
 		$ispaymentok = false;
 
-		if (in_array($parameters['paymentmethod'], array('stancerdolicloud'))){
+		if (in_array($parameters['paymentmethod'], array('stancerdolicloud'))) {
 			$json = new stdClass();
 			$ref_payment = GETPOST("pendingrefpayment");
 			$sql = "SELECT data FROM ".MAIN_DB_PREFIX."stancerdolicloud_pending_payments WHERE ref_payment = '".$this->db->escape($ref_payment)."'";
 			$res = $this->db->query($sql);
-			if ($res){
+			if ($res) {
 				$obj = $this->db->fetch_object($res);
 				$json_payment = json_decode($obj->data);
 			} else {
 				$error++;
-				dol_syslog(__METHOD__."SQL Error on SELECT:".$this->db->lasterror(),"LOG_ERR");
+				dol_syslog(__METHOD__."SQL Error on SELECT:".$this->db->lasterror(), "LOG_ERR");
 			}
 
 			// Prevents direct access to the paymentok page without a valid session flow.
@@ -770,7 +768,7 @@ class ActionsStancerDolicloud extends CommonHookActions
 						$this->errors[] = $arrayofmessage['message'];
 					} else {
 						if (!empty($arrayofmessage['errors']) && is_array($arrayofmessage['errors'])) {
-							foreach($arrayofmessage['errors'] as $tmpkey => $tmpmessage) {
+							foreach ($arrayofmessage['errors'] as $tmpkey => $tmpmessage) {
 								if (!empty($tmpmessage['message'])) {
 									$this->errors[] = $langs->trans("Error").' - '.$tmpmessage['message'];
 								} else {
@@ -815,7 +813,7 @@ class ActionsStancerDolicloud extends CommonHookActions
 
 		$bankaccountid = 0;
 
-		if (in_array($parameters['paymentmethod'], array('stancerdolicloud'))){
+		if (in_array($parameters['paymentmethod'], array('stancerdolicloud'))) {
 			$bankaccountid = getDolGlobalInt('STANCER_DOLICLOUD_BANK_ACCOUNT_FOR_PAYMENTS');
 			if ($bankaccountid == 0) {
 				$error++;
@@ -839,7 +837,8 @@ class ActionsStancerDolicloud extends CommonHookActions
 	 * @param   HookManager     $hookmanager    Hook manager propagated to allow calling another hook
 	 * @return  int                             Return integer < 0 on error, 0 on success, 1 to replace standard code
 	 */
-	public function doShowOnlinePaymentUrl($parameters, &$object, &$action, $hookmanager){
+	public function doShowOnlinePaymentUrl($parameters, &$object, &$action, $hookmanager)
+	{
 		if (isModEnabled('stancerdolicloud')) {
 			$this->results['showonlinepaymenturl'] = isModEnabled('stancerdolicloud');
 		} else {
@@ -848,4 +847,3 @@ class ActionsStancerDolicloud extends CommonHookActions
 		return 1;
 	}
 }
-

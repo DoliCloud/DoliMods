@@ -29,16 +29,16 @@ require_once DOL_DOCUMENT_ROOT."/core/class/commonobject.class.php";
  */
 class ActionsSelectBank
 {
-	var $db;
-	var $error;
-	var $errors=array();
+	public $db;
+	public $error;
+	public $errors=array();
 
 	/**
 	 *	Constructor
 	 *
 	 *  @param		DoliDB		$db      Database handler
 	 */
-	function __construct($db)
+	public function __construct($db)
 	{
 		$this->db = $db;
 	}
@@ -51,7 +51,7 @@ class ActionsSelectBank
 	 * @param	object	$object			Object
 	 * @return	string					HTML content to add by hook
 	 */
-	function formBuilddocOptions($parameters, &$object)
+	public function formBuilddocOptions($parameters, &$object)
 	{
 		global $langs, $user, $conf, $form;
 		global $form;

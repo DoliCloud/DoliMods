@@ -160,8 +160,6 @@ print $mesgs;
  print 'This page is a test page show information on your Google account using Oauth login. It is not used by module.<br>';
 print '<a href="'.$url.'">Click here to authenticate using oauth</a><br><br>';
 
-//var_dump($_GET);
-//var_dump($_POST);
 
 print 'We are into an oauth authenticated session oauth_token='.$google_web_token.'<br>';
 
@@ -175,7 +173,6 @@ exit();
 }
 
 echo "<h3>Addresses:</h3>";
-//var_dump($xmlresponse);
 
 //$xml =  new SimpleXMLElement($xmlresponse);
 //$xml->registerXPathNamespace('gd', 'http://schemas.google.com/g/2005');
@@ -197,7 +194,6 @@ curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
 curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
 $result = curl_exec($curl);
 curl_close($curl);
-var_dump($result);
 */
 
 

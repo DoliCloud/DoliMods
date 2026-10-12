@@ -23,7 +23,7 @@
 /**
  * 		\file       htdocs/core/modules/facture/doc/pdf_oursin.modules.php
  * 		\ingroup    facture
- * 		\brief      Fichier de la classe permettant de generer les factures au modele oursin
+ * 		\brief      File of class to generate invoices with the oursin model
  * 		\author	    Sylvain SCATTOLINI base sur un modele de Laurent Destailleur
  */
 
@@ -34,16 +34,16 @@ require_once DOL_DOCUMENT_ROOT.'/core/lib/pdf.lib.php';
 
 
 /**
- *  Classe permettant de generer les factures au modele oursin
+ *  Class to generate invoices with the oursin model
  */
 class pdf_oursin extends ModelePDFFactures
 {
-	var $marges=array("g"=>10,"h"=>5,"d"=>10,"b"=>15);
+	public $marges=array("g"=>10,"h"=>5,"d"=>10,"b"=>15);
 
-	var $phpmin = array(4,3,0); // Minimum version of PHP required by module
-	var $version = 'dolibarr';
+	public $phpmin = array(4,3,0); // Minimum version of PHP required by module
+	public $version = 'dolibarr';
 
-	var $emetteur;	// Objet societe qui emet
+	public $emetteur;	// Objet societe qui emet
 
 
 	/**
@@ -51,7 +51,7 @@ class pdf_oursin extends ModelePDFFactures
 	 *
 	 *  @param		DoliDB		$db      Database handler
 	 */
-	function __construct($db)
+	public function __construct($db)
 	{
 		global $conf,$langs,$mysoc;
 
@@ -106,6 +106,7 @@ class pdf_oursin extends ModelePDFFactures
 	}
 
 
+	// phpcs:disable PEAR.NamingConventions.ValidFunctionName.ScopeNotCamelCaps
 	/**
 	 *  Function to build pdf onto disk
 	 *
@@ -118,8 +119,9 @@ class pdf_oursin extends ModelePDFFactures
 	 *  @param		object	$hookmanager		Hookmanager object
 	 *  @return     int             			1=OK, 0=KO
 	 */
-	function write_file($object, $outputlangs, $srctemplatepath = '', $hidedetails = 0, $hidedesc = 0, $hideref = 0, $hookmanager = false)
+	public function write_file($object, $outputlangs, $srctemplatepath = '', $hidedetails = 0, $hidedesc = 0, $hideref = 0, $hookmanager = false)
 	{
+		// phpcs:enable
 		global $user,$langs,$conf;
 
 		if (! is_object($outputlangs)) $outputlangs=$langs;
@@ -360,6 +362,7 @@ class pdf_oursin extends ModelePDFFactures
 	}
 
 
+	// phpcs:disable PEAR.NamingConventions.ValidFunctionName.PublicUnderscore,PEAR.NamingConventions.ValidFunctionName.ScopeNotCamelCaps
 	/**
 	 *  Show payments table
 	 *
@@ -369,8 +372,9 @@ class pdf_oursin extends ModelePDFFactures
 	 *  @param  Translate	$outputlangs    Object langs for output
 	 *  @return int             			<0 if KO, >0 if OK
 	 */
-	function _tableau_versements(&$pdf, $object, $posy, $outputlangs)
+	protected function _tableau_versements(&$pdf, $object, $posy, $outputlangs)
 	{
+		// phpcs:enable
 		$tab3_posx = $this->marges['g']+110;
 		$tab3_top = $posy + 8;
 		$tab3_width = 80;
@@ -475,6 +479,7 @@ class pdf_oursin extends ModelePDFFactures
 		}
 	}
 
+	// phpcs:disable PEAR.NamingConventions.ValidFunctionName.PublicUnderscore,PEAR.NamingConventions.ValidFunctionName.ScopeNotCamelCaps
 	/**
 	 *   Show miscellaneous information (payment mode, payment term, ...)
 	 *
@@ -484,8 +489,9 @@ class pdf_oursin extends ModelePDFFactures
 	 *   @param		Translate	$outputlangs	Langs object
 	 *   @return	void
 	 */
-	function _tableau_info(&$pdf, $object, $posy, $outputlangs)
+	protected function _tableau_info(&$pdf, $object, $posy, $outputlangs)
 	{
+		// phpcs:enable
 		global $conf;
 
 		$default_font_size = pdf_getPDFFontSize($outputlangs);
@@ -601,6 +607,7 @@ class pdf_oursin extends ModelePDFFactures
 	}
 
 
+	// phpcs:disable PEAR.NamingConventions.ValidFunctionName.PublicUnderscore,PEAR.NamingConventions.ValidFunctionName.ScopeNotCamelCaps
 	/**
 	 *	Show total to pay
 	 *
@@ -611,8 +618,9 @@ class pdf_oursin extends ModelePDFFactures
 	 *	@param	Translate	$outputlangs	Objet langs
 	 *	@return int							Position pour suite
 	 */
-	function _tableau_tot(&$pdf, $object, $deja_regle, $posy, $outputlangs)
+	protected function _tableau_tot(&$pdf, $object, $deja_regle, $posy, $outputlangs)
 	{
+		// phpcs:enable
 		global $conf,$langs;
 
 		$sign=1;
@@ -740,6 +748,7 @@ class pdf_oursin extends ModelePDFFactures
 		return ($tab2_top + ($tab2_hl * $index));
 	}
 
+	// phpcs:disable PEAR.NamingConventions.ValidFunctionName.PublicUnderscore
 	/**
 	 *   Show table for lines
 	 *
@@ -752,8 +761,9 @@ class pdf_oursin extends ModelePDFFactures
 	 *   @param		int			$hidebottom		Hide bottom bar of array
 	 *   @return	void
 	 */
-	function _tableau(&$pdf, $tab_top, $tab_height, $nexY, $outputlangs, $hidetop = 0, $hidebottom = 0)
+	protected function _tableau(&$pdf, $tab_top, $tab_height, $nexY, $outputlangs, $hidetop = 0, $hidebottom = 0)
 	{
+		// phpcs:enable
 		global $conf,$langs;
 		$langs->load("main");
 		$langs->load("bills");
@@ -788,6 +798,7 @@ class pdf_oursin extends ModelePDFFactures
 		return $pdf->GetY();
 	}
 
+	// phpcs:disable PEAR.NamingConventions.ValidFunctionName.PublicUnderscore
 	/**
 	 *  Show top header of page.
 	 *
@@ -798,8 +809,9 @@ class pdf_oursin extends ModelePDFFactures
 	 *  @param	object		$hookmanager	Hookmanager object
 	 *  @return	void
 	 */
-	function _pagehead(&$pdf, $object, $showaddress, $outputlangs, $hookmanager)
+	protected function _pagehead(&$pdf, $object, $showaddress, $outputlangs, $hookmanager)
 	{
+		// phpcs:enable
 		global $langs,$conf;
 		$langs->load("main");
 		$langs->load("bills");
@@ -988,6 +1000,7 @@ class pdf_oursin extends ModelePDFFactures
 		$pdf->MultiCell(($pdf->GetStringWidth($titre) + 3), 2, $titre);
 	}
 
+	// phpcs:disable PEAR.NamingConventions.ValidFunctionName.PublicUnderscore
 	/**
 	 *   	Show footer of page. Need this->emetteur object
 	 *
@@ -996,8 +1009,9 @@ class pdf_oursin extends ModelePDFFactures
 	 *      @param	Translate	$outputlangs		Object lang for output
 	 *      @return	int								Return height of bottom margin including footer text
 	 */
-	function _pagefoot(&$pdf, $object, $outputlangs)
+	protected function _pagefoot(&$pdf, $object, $outputlangs)
 	{
+		// phpcs:enable
 		return pdf_pagefoot($pdf, $outputlangs, 'FACTURE_FREE_TEXT', $this->emetteur, $this->marge_basse, $this->marge_gauche, $this->page_hauteur, $object);
 	}
 }

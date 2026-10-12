@@ -2,3 +2,5 @@
 CHARSET=UTF-8
 Module101290Name=Numbering pack
 Module101290Desc=More module to define numbering rules for third parties codes
+CodeClientLionDesc=Check if customer/supplier code is numeric (format 999) with at least 3 digits. Check only, no automatic generation.
+CodeClientZebreDesc=Check if customer/supplier code is CCCC9999. Check only, no automatic generation.

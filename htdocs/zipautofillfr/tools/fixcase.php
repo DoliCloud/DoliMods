@@ -100,7 +100,12 @@ $result = $user->fetch('', 'admin'); // Load user for login 'admin'. Comment lin
 if (!($result > 0)) {
 	dol_print_error('', $user->error); exit;
 }
-$user->getrights();
+// User::loadRights() only exists from Dolibarr 19 on, older versions name it getrights()
+if (method_exists($user, 'loadRights')) {
+	$user->loadRights();
+} else {
+	$user->getrights();
+}
 
 
 print "***** ".$script_file." (".$version.") pid=".dol_getmypid()." *****\n";

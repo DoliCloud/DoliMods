@@ -29,16 +29,16 @@ require_once DOL_DOCUMENT_ROOT."/core/class/commonobject.class.php";
  */
 class ActionsDoliCloud
 {
-	var $db;
-	var $error;
-	var $errors=array();
+	public $db;
+	public $error;
+	public $errors=array();
 
 	/**
 	 *	Constructor
 	 *
 	 *  @param		DoliDB		$db      Database handler
 	 */
-	function ActionsDoliCloud($db)
+	public function __construct($db)
 	{
 		$this->db = $db;
 	}
@@ -49,7 +49,7 @@ class ActionsDoliCloud
 	 * @param	array	$parameters		Array of parameters
 	 * @return	string					HTML content to add by hook
 	 */
-	function printTopRightMenu($parameters)
+	public function printTopRightMenu($parameters)
 	{
 		global $langs, $user, $conf;
 

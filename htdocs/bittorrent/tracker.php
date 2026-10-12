@@ -1,7 +1,14 @@
 <?php
 
-$res=@include "../master.inc.php";
-if (! $res) @include "../../../dolibarr/htdocs/master.inc.php";	// Used on dev env only
+// Load Dolibarr environment
+$res=0;
+// Try master.inc.php into web root detected using web root calculated from SCRIPT_FILENAME
+$tmp=empty($_SERVER['SCRIPT_FILENAME'])?'':$_SERVER['SCRIPT_FILENAME'];$tmp2=realpath(__FILE__); $i=strlen($tmp)-1; $j=strlen($tmp2)-1;
+while ($i > 0 && $j > 0 && isset($tmp[$i]) && isset($tmp2[$j]) && $tmp[$i]==$tmp2[$j]) { $i--; $j--; }
+if ($i > 0 && file_exists(substr($tmp, 0, ($i+1))."/master.inc.php")) $res=@include substr($tmp, 0, ($i+1))."/master.inc.php";
+if (! $res && $i > 0 && file_exists(dirname(substr($tmp, 0, ($i+1)))."/master.inc.php")) $res=@include dirname(substr($tmp, 0, ($i+1)))."/master.inc.php";
+// Try master.inc.php using relative path
+if (! $res && file_exists("../master.inc.php")) $res=@include "../master.inc.php";
 
 header("Content-type: text/plain");
 header("Pragma: no-cache");
@@ -139,10 +146,18 @@ dol_syslog("Tracker.php trackerid=".$GLOBALS["trackerid"]." event=".$event." por
 
 
 
-/////////////////////////////////////////////////////
-// Any section of code might need to make a new peer, so this is a function here.
-// I don't want to put it into funcsv2, even though it should, just for consistency's sake.
-
+/**
+ * Register a new peer for a torrent.
+ * Any section of code might need to make a new peer, so this is a function here.
+ * I don't want to put it into funcsv2, even though it should, just for consistency's sake.
+ *
+ * @param	string	$info_hash	Info hash of the torrent
+ * @param	string	$ip			IP address of the peer
+ * @param	int		$port		Port of the peer
+ * @param	string	$peer_id	Peer id
+ * @param	int		$left		Number of bytes left to download
+ * @return	string				SQL WHERE clause used to select the peers to send back
+ */
 function start($info_hash, $ip, $port, $peer_id, $left)
 {
 	global $prefix;

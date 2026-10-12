@@ -28,16 +28,16 @@ require_once DOL_DOCUMENT_ROOT."/core/class/commonobject.class.php";
  */
 class ActionsEcotaxdeee
 {
-	var $db;
-	var $error;
-	var $errors=array();
+	public $db;
+	public $error;
+	public $errors=array();
 
 	/**
 	 *	Constructor
 	 *
 	 *  @param		DoliDB		$db      Database handler
 	 */
-	function __construct($db)
+	public function __construct($db)
 	{
 		$this->db = $db;
 	}
@@ -53,7 +53,7 @@ class ActionsEcotaxdeee
 	 *                          		=0 if OK but we want to process standard actions too,
 	 *  	                            >0 if OK and we want to replace standard actions.
 	 */
-	function afterPDFCreation($parameters, &$pdfhandler, &$action)
+	public function afterPDFCreation($parameters, &$pdfhandler, &$action)
 	{
 		global $conf, $user;
 
@@ -188,8 +188,9 @@ class ActionsEcotaxdeee
 	 *
 	 * @param TCPDF		$pdf    	Pdf
 	 * @param array		$files  	Files
+	 * @return int				Number of pages of the last concatenated file
 	 */
-	function concat(&$pdf, $files)
+	public function concat(&$pdf, $files)
 	{
 		foreach ($files as $file) {
 			$pagecount = $pdf->setSourceFile($file);

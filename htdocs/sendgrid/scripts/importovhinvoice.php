@@ -239,7 +239,6 @@ try {
 				} else {
 					echo "Failed to get invoice $facid \n";
 				}
-				//print_r($facfou);
 			}
 		}
 	}
