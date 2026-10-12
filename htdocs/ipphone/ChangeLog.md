@@ -1,8 +1,8 @@
 # ChangeLog MODULE IPPHONE FOR <a href="https://www.dolibarr.org">DOLIBARR ERP CRM</a>
 
-## 4.0 not release
+## 4.0 not released
 
-Compatibility with Yearlink phones and some others.
+Compatibility with Yealink phones and some others.
 Need Dolibarr v11+
 
 

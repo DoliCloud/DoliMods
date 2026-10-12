@@ -4,7 +4,7 @@
 ## 4.0.2
 
 NEW Add option BILLEDONORDERS_SHOW_TOTAL
-NEW Show the tooltip on v22 before thte title
+NEW Show the tooltip on v22 before the title
 Update doc
 
 ## 4.0.1

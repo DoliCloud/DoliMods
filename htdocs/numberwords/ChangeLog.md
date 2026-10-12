@@ -14,12 +14,12 @@ NEW Can force text in uppercase
 
 ## 5.0.2
 
-NEW Add Support for english canadian
-FIX Replacement of currency text with symbol work when currency text is not 'Dollar' and 'Euro'
-FIX Support for integer for bulgarian (amount not supported)
-FIX Support for integer for russian
+NEW Add Support for English Canadian
+FIX Replacement of currency text with symbol works when currency text is not 'Dollar' and 'Euro'
+FIX Support for integer for Bulgarian (amount not supported)
+FIX Support for integer for Russian
 FIX Replacement into specimen was not working
-Remove turkish support (was not working)
+Remove Turkish support (was not working)
 
 ## 5.0.1
 
@@ -34,7 +34,7 @@ Need Dolibarr 4.0+
 
 ## 3.4.1
 
-Compatibility wit Dolibarr 3.4.
+Compatibility with Dolibarr 3.4.
 
 
 ## 1.0.0
