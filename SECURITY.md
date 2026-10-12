@@ -27,11 +27,9 @@ To report a vulnerability, for a private report, you can:
 
 ## Hunting vulnerabilities on those Dolibarr modules
 
-We believe that the future of software is online SaaS. This means software are more and more critical and no technology is perfect. Working with skilled security researchers is crucial in identifying weaknesses in our technology.
-
-If you believe you've found a security bug in our service, we are happy to work with you to resolve the issue promptly and ensure you are fairly rewarded for your discovery.
-
-Any type of denial-of-service attack is strictly forbidden, as well as any interference with network equipment and Dolibarr infrastructure.
+We believe that the future of software is online SaaS. This means software is more and more critical and no technology is perfect. Working with skilled security researchers is crucial in identifying weaknesses in our technology.
+If you believe you've found a security bug in our service, we are happy to work with you to resolve the issue promptly.
+However, our project is a community project and we can't provide any bounty or reward.
 
 We recommend to install Dolibarr ERP CRM on your own server (as most Open Source software, download and use is free: [https://www.dolibarr.org/download](https://www.dolibarr.org/download)) to get access on every side of application.
 
