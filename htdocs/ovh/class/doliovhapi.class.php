@@ -31,7 +31,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/lib/geturl.lib.php';
 class DoliOvhApi
 {
 	/**
-	 * @var array Map of endpoint names to API base URLs
+	 * @var array<string, string> Map of endpoint names to API base URLs
 	 */
 	private $endpoints = array(
 		'ovh-eu'        => 'https://eu.api.ovh.com/1.0',
@@ -50,17 +50,17 @@ class DoliOvhApi
 	private $endpoint = null;
 
 	/**
-	 * @var string Application key
+	 * @var string|null Application key
 	 */
 	private $application_key = null;
 
 	/**
-	 * @var string Application secret
+	 * @var string|null Application secret
 	 */
 	private $application_secret = null;
 
 	/**
-	 * @var string Consumer key for authenticated requests
+	 * @var string|null Consumer key for authenticated requests
 	 */
 	private $consumer_key = null;
 
@@ -120,14 +120,14 @@ class DoliOvhApi
 	/**
 	 * Request a consumer key from the API and get the validation URL
 	 *
-	 * @param  array       $accessRules  List of access rules (method + path objects)
+	 * @param  array<int, object{method: string, path: string}> $accessRules List of access rules (method + path objects)
 	 * @param  string|null $redirection  URL to redirect after authentication
-	 * @return array                     Array with 'consumerKey' and 'validationUrl'
+	 * @return array<string, mixed>|null Array with 'consumerKey' and 'validationUrl'
 	 * @throws Exception on HTTP error
 	 */
 	public function requestCredentials(array $accessRules, $redirection = null)
 	{
-		$parameters = new \StdClass();
+		$parameters = new \stdClass();
 		$parameters->accessRules = $accessRules;
 		$parameters->redirection = $redirection;
 
@@ -143,9 +143,9 @@ class DoliOvhApi
 	/**
 	 * Sign and execute an API call using Dolibarr's getURLContent
 	 *
-	 * @param  string                  $method           HTTP method (GET, POST, PUT, DELETE)
-	 * @param  string                  $path             API path (e.g. '/me/bill')
-	 * @param  \stdClass|array|null    $content          Request body or GET query parameters
+	 * @param  string                       $method           HTTP method (GET, POST, PUT, DELETE)
+	 * @param  string                       $path             API path (e.g. '/me/bill')
+	 * @param  \stdClass|array<string, mixed>|null $content          Request body or GET query parameters
 	 * @param  bool                    $is_authenticated Whether to sign the request
 	 * @return string                                    Raw response body
 	 * @throws Exception on HTTP or cURL error
@@ -274,7 +274,7 @@ class DoliOvhApi
 	 * Decode a JSON response string to an array
 	 *
 	 * @param  string $response  Raw JSON response body
-	 * @return array
+	 * @return array<string, mixed>|null
 	 */
 	private function decodeResponse($response)
 	{
@@ -288,9 +288,9 @@ class DoliOvhApi
 	/**
 	 * Wrap call to OVH APIs for GET requests
 	 *
-	 * @param  string     $path    API path
-	 * @param  array|null $content Query parameters
-	 * @return array
+	 * @param  string                        $path    API path
+	 * @param  array<string, mixed>|null     $content Query parameters
+	 * @return array<string, mixed>|null
 	 * @throws Exception on HTTP error
 	 */
 	public function get($path, $content = null)
@@ -309,9 +309,9 @@ class DoliOvhApi
 	/**
 	 * Wrap call to OVH APIs for POST requests
 	 *
-	 * @param  string     $path    API path
-	 * @param  array|null $content Body content
-	 * @return array
+	 * @param  string                    $path    API path
+	 * @param  array<string, mixed>|null $content Body content
+	 * @return array<string, mixed>|null
 	 * @throws Exception on HTTP error
 	 */
 	public function post($path, $content = null)
@@ -324,9 +324,9 @@ class DoliOvhApi
 	/**
 	 * Wrap call to OVH APIs for PUT requests
 	 *
-	 * @param  string $path    API path
-	 * @param  array  $content Body content
-	 * @return array
+	 * @param  string                $path    API path
+	 * @param  array<string, mixed>  $content Body content
+	 * @return array<string, mixed>|null
 	 * @throws Exception on HTTP error
 	 */
 	public function put($path, $content)
@@ -339,9 +339,9 @@ class DoliOvhApi
 	/**
 	 * Wrap call to OVH APIs for DELETE requests
 	 *
-	 * @param  string     $path    API path
-	 * @param  array|null $content Body content
-	 * @return array
+	 * @param  string                    $path    API path
+	 * @param  array<string, mixed>|null $content Body content
+	 * @return array<string, mixed>|null
 	 * @throws Exception on HTTP error
 	 */
 	public function delete($path, $content = null)
