@@ -8,8 +8,8 @@ if (function_exists("bcadd")) {
 	/**
 	 * Add two numbers using BC math
 	 *
-	 * @param 	string	$left		Left operand
-	 * @param 	string	$right		Right operand
+	 * @param 	int|string	$left		Left operand
+	 * @param 	int|string	$right		Right operand
 	 * @return	string
 	 */
 	function sqlAdd($left, $right)
@@ -19,8 +19,8 @@ if (function_exists("bcadd")) {
 	/**
 	 * Subtract two numbers using BC math
 	 *
-	 * @param 	string	$left		Left operand
-	 * @param 	string	$right		Right operand
+	 * @param 	int|string	$left		Left operand
+	 * @param 	int|string	$right		Right operand
 	 * @return	string
 	 */
 	function sqlSubtract($left, $right)
@@ -30,8 +30,8 @@ if (function_exists("bcadd")) {
 	/**
 	 * Multiply two numbers using BC math
 	 *
-	 * @param 	string	$left		Left operand
-	 * @param 	string	$right		Right operand
+	 * @param 	int|string	$left		Left operand
+	 * @param 	int|string	$right		Right operand
 	 * @return	string
 	 */
 	function sqlMultiply($left, $right)
@@ -41,8 +41,8 @@ if (function_exists("bcadd")) {
 	/**
 	 * Divide two numbers using BC math
 	 *
-	 * @param 	string	$left		Left operand
-	 * @param 	string	$right		Right operand
+	 * @param 	int|string	$left		Left operand
+	 * @param 	int|string	$right		Right operand
 	 * @return	string
 	 */
 	function sqlDivide($left, $right)
@@ -56,8 +56,8 @@ if (function_exists("bcadd")) {
 	 * Used by byte counting functions.
 	 * No error handling as we assume nothing can go wrong.
 	 *
-	 * @param 	string	$left		Left operand
-	 * @param 	string	$right		Right operand
+	 * @param 	int|string	$left		Left operand
+	 * @param 	int|string	$right		Right operand
 	 * @return	string
 	 */
 	function sqlAdd($left, $right)
@@ -70,8 +70,8 @@ if (function_exists("bcadd")) {
 	/**
 	 * Subtract two numbers using the database connection
 	 *
-	 * @param 	string	$left		Left operand
-	 * @param 	string	$right		Right operand
+	 * @param 	int|string	$left		Left operand
+	 * @param 	int|string	$right		Right operand
 	 * @return	string
 	 */
 	function sqlSubtract($left, $right)
@@ -84,8 +84,8 @@ if (function_exists("bcadd")) {
 	/**
 	 * Divide two numbers using the database connection
 	 *
-	 * @param 	string	$left		Left operand
-	 * @param 	string	$right		Right operand
+	 * @param 	int|string	$left		Left operand
+	 * @param 	int|string	$right		Right operand
 	 * @return	string
 	 */
 	function sqlDivide($left, $right)
@@ -98,8 +98,8 @@ if (function_exists("bcadd")) {
 	/**
 	 * Multiply two numbers using the database connection
 	 *
-	 * @param 	string	$left		Left operand
-	 * @param 	string	$right		Right operand
+	 * @param 	int|string	$left		Left operand
+	 * @param 	int|string	$right		Right operand
 	 * @return	string
 	 */
 	function sqlMultiply($left, $right)
@@ -249,7 +249,7 @@ function verifyHash($input)
  *
  * @param 	string	$user	Peer id
  * @param 	string	$hash	Info hash of the torrent
- * @return	array|false
+ * @return	array<string,mixed>|false
  */
 function getPeerInfo($user, $hash)
 {
@@ -285,7 +285,7 @@ function getPeerInfo($user, $hash)
  *
  * @param 	string	$hash	Info hash of the torrent
  * @param 	string	$where	Additional SQL where clause
- * @return	array|false
+ * @return	array<int|string,mixed>|false
  */
 function getRandomPeers($hash, $where = "")
 {
@@ -327,7 +327,7 @@ function getRandomPeers($hash, $where = "")
  * @param 	string	$userid			Peer id
  * @param 	string	$hash			Info hash of the torrent
  * @param 	int		$left			Bytes left to download
- * @param 	array|bool	$assumepeer	Info of the peer, or false to load it
+ * @param 	array<string,mixed>|bool	$assumepeer	Info of the peer, or false to load it
  * @return	void
  */
 function killPeer($userid, $hash, $left, $assumepeer = false)
@@ -363,7 +363,7 @@ function killPeer($userid, $hash, $left, $assumepeer = false)
 /**
  * Transfers bytes from "left" to "dlbytes" when a peer reports in.
  *
- * @param 	array	$peer	Info of the peer
+ * @param 	array<string,mixed>	$peer	Info of the peer
  * @param 	string	$hash	Info hash of the torrent
  * @param 	int		$left	Bytes left to download
  * @return	void
@@ -392,7 +392,7 @@ function collectBytes($peer, $hash, $left)
  * I don't use the bencode library, so watch out! If you add data,
  * rules such as dictionary sorting are enforced by the remote side.
  *
- * @param 	array	$peers	Array of peers (with a "size" key)
+ * @param 	array<int|string,mixed>	$peers	Array of peers (with a "size" key)
  * @return	void
  */
 function sendPeerList($peers)
@@ -489,7 +489,7 @@ function sendRandomPeers($info_hash)
  *
  * @param 	string	$hash		Info hash of the torrent
  * @param 	int		$timeout	Peer timeout
- * @return	array|false
+ * @return	array<int|string,mixed>|false
  */
 function loadLostPeers($hash, $timeout)
 {
@@ -722,7 +722,7 @@ function runSpeed($info_hash, $delta)
  * by $value, or set to exactly $value if $abs is true.
  *
  * @param 	string	$column	Column of the summary table
- * @param 	int		$value	Value to add, or to set if $abs is true
+ * @param 	int|string	$value	Value to add, or to set if $abs is true
  * @param 	bool	$abs		Set the value instead of incrementing it
  * @return	void
  */
@@ -753,7 +753,7 @@ function bytesToString($total_size)
 		return round($total_size/1024, 2) . " KB";
 	elseif ($total_size < 1073741824) //dealing with megabytes
 		return round($total_size/1048576, 2) . " MB";
-	elseif ($total_size >= 1073741824) //dealing with gigabytes
+	else //dealing with gigabytes
 		return round($total_size/1073741824, 2) . " GB";
 }
 
