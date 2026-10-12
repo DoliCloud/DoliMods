@@ -56,10 +56,12 @@ class OvhSms extends CommonObject
 	public $class;
 	public $deferred;
 	public $priority;
+	/** @var int 1 to ask for a delivery receipt */
 	public $deliveryreceipt;
 
 	public $soap;         // Old API
-	public $session;      // Old API
+	/** @var string|null Session id returned by the login of the old SOAP API */
+	public $session;
 	public $conn;         // New API
 	public $endpoint;
 

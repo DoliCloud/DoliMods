@@ -169,7 +169,7 @@ if ($action == 'send' && ! GETPOST('cancel')) {
 		try {
 			$smsfile = new CSMSFile($sendto, $smsfrom, $body, $deliveryreceipt, $deferred, $priority, $class);  // This define OvhSms->login, pass, session and account
 
-			$smsfile->nostop = GETPOST('disablestop', 'int');
+			$smsfile->nostop = (bool) GETPOST('disablestop', 'int');
 			$smsfile->socid = 0;
 			$smsfile->contact_id = 0;
 			$smsfile->fk_project = 0;
@@ -179,7 +179,7 @@ if ($action == 'send' && ! GETPOST('cancel')) {
 			if ($result > 0) {	// Old versions of Dolibarr return -1 on error
 				setEventMessages($langs->trans("SmsSuccessfulySent", $smsfrom, $sendto), null, 'mesgs');
 				if (!empty($smsfile->errors)) {
-					setEventMessages(null, $smsfile->errors, 'warnings');	// Some receivers were rejected
+					setEventMessages('', $smsfile->errors, 'warnings');	// Some receivers were rejected
 				}
 			} else {
 				setEventMessages($langs->trans("ResultKo").'<br>'.$smsfile->error, null, 'errors');

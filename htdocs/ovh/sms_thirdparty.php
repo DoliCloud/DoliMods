@@ -36,6 +36,14 @@ if (! $res && file_exists("../main.inc.php")) $res=@include "../main.inc.php";
 if (! $res && file_exists("../../main.inc.php")) $res=@include "../../main.inc.php";
 if (! $res && file_exists("../../../main.inc.php")) $res=@include "../../../main.inc.php";
 if (! $res) die("Include of main fails");
+/**
+ * The main.inc.php has been included so the following variable are now defined:
+ * @var Conf $conf
+ * @var DoliDB $db
+ * @var HookManager $hookmanager
+ * @var Translate $langs
+ * @var User $user
+ */
 
 require_once DOL_DOCUMENT_ROOT."/core/lib/company.lib.php";
 require_once DOL_DOCUMENT_ROOT."/societe/class/societe.class.php";
@@ -134,7 +142,7 @@ if ($action == 'send' && empty($cancel)) {
 			//if (empty($sendcontext)) $sendcontext = 'standard';
 			$smsfile = new CSMSFile($sendto, $smsfrom, $body, $deliveryreceipt, $deferred, $priority, $class);  // This define OvhSms->login, pass, session and account
 
-			$smsfile->nostop = GETPOST('disablestop', 'int');
+			$smsfile->nostop = (bool) GETPOST('disablestop', 'int');
 			$smsfile->socid = $socid;
 			$smsfile->contact_id = $contactid;
 			$smsfile->fk_project = 0;
@@ -147,7 +155,7 @@ if ($action == 'send' && empty($cancel)) {
 
 				setEventMessages($langs->trans("SmsSuccessfulySent", $smsfrom, $sendto), null);
 				if (!empty($smsfile->errors)) {
-					setEventMessages(null, $smsfile->errors, 'warnings');	// Some receivers were rejected
+					setEventMessages('', $smsfile->errors, 'warnings');	// Some receivers were rejected
 				}
 			} else {
 				setEventMessages($langs->trans("ResultKo").' (sms from '.$smsfrom.' to '.$sendto.')<br>'.$smsfile->error, null, 'errors');

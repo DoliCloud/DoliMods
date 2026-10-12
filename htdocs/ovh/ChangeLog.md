@@ -3,17 +3,7 @@
 
 ## 5.1 Unreleased
 
-* FIX Compatibility Dolibarr 24 and PHP 8 for SMS sending:
-  * Priority, class and delay are sent with a valid value or not sent (since PHP 8, an empty value was no more converted).
-  * Recipients are converted into the international format (French national numbers become +33...) and several
-    recipients separated with a comma or a semicolon are sent as several receivers.
-  * Mass action "Send SMS" on contacts sends one SMS per contact (all numbers were sent as one invalid receiver).
-  * Only one agenda event per SMS (the event recorded by the module trigger was a duplicate of the one recorded by
-    Dolibarr), now linked to the contact of the thirdparty, to the member, and with a label not HTML encoded.
-  * Invalid recipients returned by OVH are reported with a clear message.
-  * Catch the error when no SMS engine is defined (error 500 on the SMS tabs of thirdparty and member).
-  * The test page of SMS setup no more reports a success when the sending failed (Dolibarr 17 to 19).
-  * Fix PHP warnings and fatal errors in SMS setup and SMS account pages (history of the selected account, errors of API).
+Nothing yet
 
 ## 5.0
 

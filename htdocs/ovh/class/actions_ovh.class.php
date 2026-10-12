@@ -189,25 +189,27 @@ class ActionsOVH
 				foreach ($sendto['contacts'] as $contactid => $contact) {
 					$sendtonumber = $sendto['contact_phone_numbers'][$contactid];
 
+					$errormsg = '';
 					try {
 						$smsfile = new CSMSFile($sendtonumber, $smsfrom, $body, $deliveryreceipt, $deferred, $priority, $class);  // This define OvhSms->login, pass, session and account
 
-						$smsfile->nostop = GETPOST('disablestop', 'int');
+						$smsfile->nostop = (bool) GETPOST('disablestop', 'int');
 						$smsfile->socid = (int) $contact->socid;
 						$smsfile->contact_id = $contactid;
 						$smsfile->fk_project = 0;
 
 						// Send the SMS
 						$result = $smsfile->sendfile(); // This send SMS. It also includes run of triggers 'SENTBYSMS'.
+						$errormsg = $smsfile->error;
 					} catch (Exception $e) {
-						$smsfile = null;
 						$result = false;
+						$errormsg = $e->getMessage();
 					}
 
 					if ($result > 0) {
 						$sentnumbers[] = $sendtonumber;
 					} else {
-						setEventMessages($langs->trans("ResultKo") . ' (sms from ' . $smsfrom . ' to ' . $sendtonumber . ')<br>' . (is_object($smsfile) ? $smsfile->error : $e->getMessage()), null, 'errors');
+						setEventMessages($langs->trans("ResultKo") . ' (sms from ' . $smsfrom . ' to ' . $sendtonumber . ')<br>' . $errormsg, null, 'errors');
 					}
 				}
 
