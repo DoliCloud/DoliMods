@@ -47,7 +47,7 @@ class BDecode
 	 *
 	 * @param string	$wholefile	Bencoded data
 	 * @param int		$start		Offset of the first digit
-	 * @return array	Array with value and next offset, or array(false) on error
+	 * @return array<int,int|false>	Array with value and next offset, or array(false) on error
 	 */
 	public function numberdecode($wholefile, $start)
 	{
@@ -95,7 +95,7 @@ class BDecode
 	 *
 	 * @param string	$wholefile	Bencoded data
 	 * @param int		$offset		Offset of the entry to decode
-	 * @return array	Array with value and next offset, or array(false) on error
+	 * @return array<int,mixed>	Array with value and next offset, or array(false) on error
 	 */
 	public function decodeEntry($wholefile, $offset = 0)
 	{
@@ -121,7 +121,7 @@ class BDecode
 	 *
 	 * @param string	$wholefile	Bencoded data
 	 * @param int		$start		Offset of the list start
-	 * @return array	Array with the list of values and next offset, or array(false) on error
+	 * @return array<int,mixed>	Array with the list of values and next offset, or array(false) on error
 	 */
 	public function decodeList($wholefile, $start)
 	{
@@ -152,7 +152,7 @@ class BDecode
 	 *
 	 * @param string	$wholefile	Bencoded data
 	 * @param int		$start		Offset to start from
-	 * @return array	Array with the dictionary and next offset, or false on error
+	 * @return array<int,mixed>	Array with the dictionary and next offset, or array(false) on error
 	 */
 	public function decodeDict($wholefile, $start = 0)
 	{
@@ -160,7 +160,7 @@ class BDecode
 		if ($wholefile[$offset] == 'l')
 		return $this->decodeList($wholefile, $start);
 		if ($wholefile[$offset] != 'd')
-		return false;
+		return array(false);
 		$ret = array();
 		$offset++;
 		while (true) {
@@ -170,26 +170,26 @@ class BDecode
 			}
 			$left = $this->decodeEntry($wholefile, $offset);
 			if (!$left[0])
-			return false;
+			return array(false);
 			$offset = $left[1];
 			if ($wholefile[$offset] == 'd') {
 				// Recurse
 				$value = $this->decodedict($wholefile, $offset);
 				if (!$value[0])
-				return false;
+				return array(false);
 				$ret[addslashes($left[0])] = $value[0];
 				$offset= $value[1];
 				continue;
 			} elseif ($wholefile[$offset] == 'l') {
 				$value = $this->decodeList($wholefile, $offset);
 				if (!$value[0] && is_bool($value[0]))
-				return false;
+				return array(false);
 				$ret[addslashes($left[0])] = $value[0];
 				$offset = $value[1];
 			} else {
 				$value = $this->decodeEntry($wholefile, $offset);
 				if ($value[0] === false)
-				return false;
+				return array(false);
 				$ret[addslashes($left[0])] = $value[0];
 				$offset = $value[1];
 			}
