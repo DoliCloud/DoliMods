@@ -166,7 +166,7 @@ if (! empty($_REQUEST['unused']) && $_REQUEST['unused'] == 'true') {
 
 	echo "<h2>Strings in en_US that are never used</h2>";
 	echo "<pre>";
-	print_r($unused);
+	echo empty($unused) ? '' : implode("\n", array_keys($unused));
 	echo "</pre>";
 }
 

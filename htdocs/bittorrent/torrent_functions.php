@@ -18,7 +18,7 @@ function classicoutput($array, $infohash)
 
 	echo "Info hash: <TT>$infohash</TT><br>";
 	echo "<pre>";
-	print_r(cleaner($array));
+	echo json_encode(cleaner($array), JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_PARTIAL_OUTPUT_ON_ERROR);
 	echo "</pre>";
 }
 
@@ -258,7 +258,8 @@ if (isset($_FILES["torrent"]) || isset($_POST["url"]) || isset($_GET["url"])) {
 			if ($left == "url-list" || $left == "httpseeds") {
 				$foundurl=true;
 				echo "<tr><td align=right>$left</td><td>=</td><td>";
-				print_r(cleaner($array[$left]));
+				$urls = cleaner($array[$left]);
+				echo is_array($urls) ? implode('<br>', $urls) : $urls;
 				echo "</td></tr>\n";
 				continue;
 			}

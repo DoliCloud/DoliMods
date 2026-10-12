@@ -594,7 +594,7 @@ function googleUpdateContact($client, $contactId, &$object, $useremail = 'defaul
 			die('ERROR:' . $e->getMessage());
 		}
 
-		//List of properties to set visible with var_dump($xml->saveXML());exit;
+		// List of properties to set visible (dump $xml->saveXML() to see them)
 		//$extra_header = array('If-Match'=>'*');
 		//$newentryResult = $gdata->updateEntry($xmlStr, $entryResult->getEditLink()->href, null, $extra_header);
 	} catch (Exception $e) {
