@@ -16,16 +16,16 @@
 -- ===================================================================
 
 
-CREATE TABLE llx_submitew_targets 
+CREATE TABLE llx_submitew_targets
 (
 	rowid integer AUTO_INCREMENT PRIMARY KEY,
-	label varchar(64) NOT NULL, 
+	label varchar(64) NOT NULL,
 	targetcode varchar(16) NOT NULL,
-	langcode varchar(5) default 'en_US', 
-	url varchar(250), 
-	login varchar(128), 
-	pass varchar(128), 
-	comment varchar(250), 
+	langcode varchar(5) default 'en_US',
+	url varchar(250),
+	login varchar(128),
+	pass varchar(128),
+	comment varchar(250),
 	position INTEGER default 0,
 	titlelength integer default 32,
     descshortlength integer default 256,

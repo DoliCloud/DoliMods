@@ -1,6 +1,6 @@
 # Dolibarr language file - Source file is pt_PT - saftpt
 SaftSetup=Configuração do módulo Saf-t PT
-TaxExemptionDef=Código do motivo de isenção do IVA 
+TaxExemptionDef=Código do motivo de isenção do IVA
 TaxExemptionEmpty=Motivo de isenção do IVA vazio
 MenuSaft=Saf-t PT
 MenuSaftExport=Gerar ficheiro Saf-t PT

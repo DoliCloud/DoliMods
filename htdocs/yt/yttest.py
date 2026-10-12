@@ -68,7 +68,7 @@ if (args.mode == 'push'):
                 # Test if file already present
                 notfound = 0;
 
-            
+
                 if (notfound == 0):
                     full_path = os.path.join(root, file);
 
@@ -76,5 +76,3 @@ if (args.mode == 'push'):
                     ytmusic.upload_song(full_path);
                     print("File uploaded");
                     break;
-
-

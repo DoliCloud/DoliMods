@@ -162,4 +162,3 @@ Documentation
 The project's documentation is maintained on the [Wiki]([https://wiki.dolibarr.org/index.php/Module_Medical_Center](https://wiki.dolibarr.org/index.php/Module_Medical_Center)).
 
 *Note*: to help prevent spam, you need to create an account before being able to edit. Everybody is welcome to contribute to its content.
-

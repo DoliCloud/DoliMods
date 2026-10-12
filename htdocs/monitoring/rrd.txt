@@ -1,8 +1,8 @@
 http://www.ioncannon.net/system-administration/59/php-rrdtool-tutorial/
 
-Créer un rrd:
+Create a rrd:
 rrdtool create /tmp/aaa.rrd --step 10 DS:Test:GAUGE:delaybeforeunkwon:minvalue:maxvalue RRA:AVERAGE:0to1:nbechantillonpourvaleur:nbdelotaconserver
-Exemple
+Example
 rrdtool create /tmp/aaa.rrd --step 10 DS:Test:GAUGE:20:0:200 RRA:AVERAGE:0.5:1:360
 
 Mettre a jour un rrd:

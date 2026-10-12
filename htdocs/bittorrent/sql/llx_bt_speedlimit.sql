@@ -1,8 +1,8 @@
 
 -- --------------------------------------------------------
 
--- 
--- 
+--
+--
 
 CREATE TABLE llx_bt_speedlimit (
 uploaded bigint(25) NOT NULL default 0,

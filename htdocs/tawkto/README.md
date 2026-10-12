@@ -14,4 +14,3 @@ If your support provider is not available, you can still send him your message b
 ## Screenshots
 
 ![Screenshot tawkto](img/tawkto_screenshot.png?raw=true "Tawkto chat"){imgmd}
-

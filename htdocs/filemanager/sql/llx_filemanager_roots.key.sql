@@ -16,5 +16,3 @@
 -- ===================================================================
 
 ALTER TABLE llx_filemanager_roots ADD UNIQUE INDEX idx_filemanager_root(rootlabel);
-
-

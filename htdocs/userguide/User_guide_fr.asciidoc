@@ -23,9 +23,3 @@ L'auteur Philippe GRAND (_aka _http://www.dolibarr.fr/forum/profil/635-grandoc[_
 *Dolibarr* étant par essence modulaire, ce document décrit module par module les étapes à suivre pour réaliser les processus minimaux à travers *Dolibarr*. +
 Ce guide d’instructions prétend donner à l’utilisateur une vision globale, rapide, et non spécifique, de chacun des différents processus et fonctionnalités, afin que celui ci puisse en cas d’oubli, facilement s’éclairer de manière simple et pratique. Nous rappelons qu’il ne s’agit pas d’un manuel complet, seulement d’un guide rapide. +
 *Avertissement* : Les explications et démonstration du livre sont actuellement faites sur une version *8.0* de *Dolibarr*. Cce guide est en constante actualisation, de ce fait nous vous recommandons de porter toute votre attention aux nouvelles versions qui suivront l’évolution de *Dolibarr* et qui seront mises à la disposition de ses utilisateurs sur le http://www.dolistore.com/[DoliStore].
-
-
-
-
-
-

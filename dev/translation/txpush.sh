@@ -32,7 +32,7 @@ fi
 if [ "x$1" = "xsource" ]
 then
 	echo "tx push -s $2 $3"
-	tx push -s $2 $3 
+	tx push -s $2 $3
 else
 	for file in `find htdocs/*/langs/$1/*.lang -type f`
 	do

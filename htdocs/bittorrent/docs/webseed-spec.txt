@@ -70,7 +70,7 @@ in extra service charges.
 
 The script must provide three major functions:
 
-1. Limit its average upload to a reasonable level. 
+1. Limit its average upload to a reasonable level.
 
 2. Intelligently tell peers how long they should wait before
    retrying.

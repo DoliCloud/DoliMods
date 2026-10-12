@@ -1,5 +1,7 @@
 ---
-exclude: (?x)^( htdocs/includes/ckeditor/.*|htdocs/public/includes/ckeditor/.*|htdocs/public/includes/jquery/.*|(\.(?!github/workflows)[^/]*/.*))$
+# Exclude all external libraries (any path with an includes/ directory) and hidden directories
+# (except .github/workflows) from all hooks.
+exclude: (?x)^( .*(^|/)includes/.*|(\.(?!github/workflows)[^/]*/.*))$
 repos:
   # Several miscellaneous checks and fix (on yaml files, end of files fix)
   - repo: https://github.com/pre-commit/pre-commit-hooks
@@ -269,6 +271,8 @@ repos:
     hooks:
       - id: sqlfluff-lint
         stages: [pre-commit, manual]  # manual needed for ci
+        # Dialect is forced on the command line, so no .sqlfluff config file is needed
+        args: [--dialect, mysql]
         exclude: (?x)^
           (dev/initdemo/mysqldump_.*\.sql
           |htdocs/core/menus/init_menu_auguria\.sql

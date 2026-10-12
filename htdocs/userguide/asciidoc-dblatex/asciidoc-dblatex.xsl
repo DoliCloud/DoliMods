@@ -5,7 +5,7 @@ dblatex(1) XSL user stylesheet for asciidoc(1). See dblatex(1) -p option.
 Doc for dblatex syntax: http://dblatex.sourceforge.net/doc/manual/
 -->
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
-	
+
   <xsl:param name="doc.layout">coverpage toc frontmatter mainmatter index </xsl:param>
 
   <!-- TOC links in the titles, and in blue. -->
@@ -39,7 +39,7 @@ Doc for dblatex syntax: http://dblatex.sourceforge.net/doc/manual/
   http://dblatex.sourceforge.net/html/manual/apas03.html
   ./docbook-xsl/common.xsl
   -->
-  
+
   <xsl:param name="doc.toc.show">
     <xsl:choose>
       <xsl:when test="/processing-instruction('asciidoc-toc')">
@@ -147,4 +147,3 @@ figure,table,equation,example
   </xsl:template>
 -->
 </xsl:stylesheet>
-

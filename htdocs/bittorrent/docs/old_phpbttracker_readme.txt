@@ -42,7 +42,7 @@ Requirements:
 
 
 Upload tracker.php, funcsv2.php, newtorrents.php, BDecode.php, BEncode.php
- and install.php to the web site which will be hosting the tracker. Uploading 
+ and install.php to the web site which will be hosting the tracker. Uploading
 index.php is recommended if you want a home page for the tracker. Feel free
 to re-theme it.
 
@@ -108,7 +108,7 @@ modifying most other .php files.
 
 USAGE
 -----
-Create your torrent files as usual. Specify the url to 
+Create your torrent files as usual. Specify the url to
 tracker.php (or its new name if you renamed it) as the announce
 URL.
 
@@ -210,13 +210,13 @@ Namemap:
 
 timestamps:
   Used by the speed calculator to contain the sliding window average
-  download rate. This is of little interest to external users, so 
+  download rate. This is of little interest to external users, so
   I'll skip it.
 
 x<hexadecimal string>:
   Each torrent's user list is stored in a table whose name is the
-  info_hash of the torrent prefixed by an x.  
-  
+  info_hash of the torrent prefixed by an x.
+
 	*peer_id - A 40 character hash that is unique to each client
 
 	*bytes - The number of bytes this peer still needs to download
@@ -227,7 +227,7 @@ x<hexadecimal string>:
 	*port - The port the client is listening on (usually 6881)
 
 	*status - Either "seeder" or "leecher" (see above). It's a bit
-	 redundent right now since "bytes==0" is the same as a seeder	 
+	 redundent right now since "bytes==0" is the same as a seeder
 
 	*lastupdate - Unix time of when the client last reported in.
 	 Clients whose time is 2 * report_interval will be deleted.

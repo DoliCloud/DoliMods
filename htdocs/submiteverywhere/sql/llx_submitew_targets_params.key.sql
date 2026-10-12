@@ -20,4 +20,3 @@ ALTER TABLE llx_submitew_targets_params ADD UNIQUE INDEX idx_submitewtargets_fk_
 ALTER TABLE llx_submitew_targets_params ADD UNIQUE INDEX uk_submitewtargets_params (fk_target, paramkey, paramvalue);
 
 ALTER TABLE llx_submitew_targets_params ADD CONSTRAINT fk_submitewtargets_fk_target FOREIGN KEY (fk_target) REFERENCES llx_submitew_targets(rowid);
-
