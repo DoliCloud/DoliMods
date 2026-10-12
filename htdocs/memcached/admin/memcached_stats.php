@@ -509,6 +509,8 @@ function getFooter()
 
 /**
  * getMenu
+ *
+ * @return void
  */
 function getMenu()
 {
@@ -556,6 +558,20 @@ if (isset($_GET['IMG'])) {
 		exit(0);
 	}
 
+	/**
+	 * Draw a filled box with a border and an optional label on a graphic
+	 *
+	 * @param 	int		$im				Image resource
+	 * @param 	int		$x				X position of the box
+	 * @param 	int		$y				Y position of the box
+	 * @param 	int		$w				Width of the box
+	 * @param 	int		$h				Height of the box
+	 * @param 	int		$color1			Border color
+	 * @param 	int		$color2			Fill color
+	 * @param 	string	$text			Label to draw next to the box
+	 * @param 	int|string	$placeindex	Placement index of the label
+	 * @return	void
+	 */
 	function fill_box($im, $x, $y, $w, $h, $color1, $color2, $text = '', $placeindex = '')
 	{
 		global $col_black;
@@ -605,6 +621,7 @@ if (isset($_GET['IMG'])) {
 	 * @param int $color2      color2
 	 * @param int $text        text
 	 * @param int $placeindex  placeindex
+	 * @return void
 	 */
 	function fill_arc($im, $centerX, $centerY, $diameter, $start, $end, $color1, $color2, $text = '', $placeindex = 0)
 	{

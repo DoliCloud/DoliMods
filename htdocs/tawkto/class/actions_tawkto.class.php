@@ -1,4 +1,8 @@
 <?php
+
+/**
+ * Class ActionsTawkto, hooks of module Tawkto
+ */
 class ActionsTawkto
 {
 	/**
@@ -8,8 +12,9 @@ class ActionsTawkto
 	 * @param	Object		$object			Object
 	 * @param	string		$action			Action string
 	 * @param	HookManager	$hookmanager	Object HookManager
+	 * @return	int							1
 	 */
-	function setContentSecurityPolicy($parameters, &$object, &$action, &$hookmanager)
+	public function setContentSecurityPolicy($parameters, &$object, &$action, &$hookmanager)
 	{
 		$tmp = ($hookmanager->resPrint ? $hookmanager->resPrint : $parameters['contentsecuritypolicy']);
 
@@ -28,8 +33,10 @@ class ActionsTawkto
 
 	/**
 	 * 	Show entity info
+	 *
+	 * @return	int		0
 	 */
-	function printTopRightMenu()
+	public function printTopRightMenu()
 	{
 		global $langs;
 
@@ -73,7 +80,7 @@ class ActionsTawkto
 	/**
 	 * @return number
 	 */
-	function printLeftBlock()
+	public function printLeftBlock()
 	{
 		global $user, $langs, $mysoc;
 

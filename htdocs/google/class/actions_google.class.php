@@ -50,7 +50,7 @@ class ActionsGoogle
 	 *
 	 *  @param		DoliDB		$db      Database handler
 	 */
-	function __construct($db)
+	public function __construct($db)
 	{
 		$this->db = $db;
 	}
@@ -63,8 +63,9 @@ class ActionsGoogle
 	 * @param	Object		$object			Object
 	 * @param	string		$action			Action string
 	 * @param	HookManager	$hookmanager	Object HookManager
+	 * @return	int							1
 	 */
-	function setContentSecurityPolicy($parameters, &$object, &$action, &$hookmanager)
+	public function setContentSecurityPolicy($parameters, &$object, &$action, &$hookmanager)
 	{
 		$tmp = ($hookmanager->resPrint ? $hookmanager->resPrint : $parameters['contentsecuritypolicy']);
 
@@ -90,7 +91,7 @@ class ActionsGoogle
 	 * @param	HookManager	$hookmanager	Object HookManager
 	 * @return	int							0=OK
 	 */
-	function addCalendarChoice($parameters, &$object, &$action, $hookmanager)
+	public function addCalendarChoice($parameters, &$object, &$action, $hookmanager)
 	{
 		global $conf, $langs, $user;
 		global $form;
@@ -180,7 +181,7 @@ class ActionsGoogle
 	 * @param	HookManager	$hookmanager	Object HookManager
 	 * @return	int							0=OK
 	 */
-	function getLoginPageExtraContent($parameters, &$object, &$action, $hookmanager)
+	public function getLoginPageExtraContent($parameters, &$object, &$action, $hookmanager)
 	{
 		return $this->getXXXPageExtraContent($parameters, $object, $action, $hookmanager);
 	}
@@ -194,7 +195,7 @@ class ActionsGoogle
 	 * @param	HookManager	$hookmanager	Object HookManager
 	 * @return	int							0=OK
 	 */
-	function getPasswordForgottenPageExtraContent($parameters, &$object, &$action, $hookmanager)
+	public function getPasswordForgottenPageExtraContent($parameters, &$object, &$action, $hookmanager)
 	{
 		return $this->getXXXPageExtraContent($parameters, $object, $action, $hookmanager);
 	}
@@ -208,7 +209,7 @@ class ActionsGoogle
 	 * @param	HookManager	$hookmanager	Object HookManager
 	 * @return	int							0=OK
 	 */
-	function getPasswordResetExtraContent($parameters, &$object, &$action, $hookmanager)
+	public function getPasswordResetExtraContent($parameters, &$object, &$action, $hookmanager)
 	{
 		return $this->getXXXPageExtraContent($parameters, $object, $action, $hookmanager);
 	}
