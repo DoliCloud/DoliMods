@@ -208,14 +208,13 @@ if ($action == 'remove_file') {
 }
 
 // Show dir for each module
-print '<div class="opacitymedium hideonsmartphone">';
+print '<div class="info hideonsmartphone">';
 print $langs->trans("ConcatPDfTakeFileFrom").'<br><br>';
 foreach ($modules as $module => $moduletrans) {
 	$outputdir=$conf->concatpdf->dir_output.'/'.$module;
 	print '* '.str_replace('{s1}', $moduletrans['picto'], $langs->trans("ConcatPDfTakeFileFrom2", '{s1}'.$langs->transnoentitiesnoconv($moduletrans['label']), $outputdir));
 	print '<br>';
 }
-print '<br>';
 print '</div>';
 
 print '<br>';
