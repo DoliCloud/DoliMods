@@ -26,9 +26,6 @@ require_once DOL_DOCUMENT_ROOT."/projet/class/project.class.php";
 
 $event = new ActionComm($db);
 $event->fetch(53);
-echo '<pre>BEFORE';
-print_r($event);
-echo '</pre>';
 
 $sql = "UPDATE ".MAIN_DB_PREFIX."actioncomm ";
 $sql.= " SET percent='".$event->percentage."'";
@@ -42,11 +39,5 @@ $sql.= ", fk_user_action=2";
 $sql.= " WHERE id=".$event->id;
 
 if ($db->query($sql)) {
-	echo '<pre>AFTER';
-	print_r($event);
-	echo '</pre>';
 	$db->commit();
-	echo '<pre>AFTER 2';
-	print_r($event);
-	echo '</pre>';
 }

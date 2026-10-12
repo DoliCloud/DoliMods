@@ -171,7 +171,7 @@ if (getDolGlobalString('OVH_OLDAPI') && (empty($conf->global->OVHSMS_NICK) || em
 		print '</td></tr>';
 	}
 
-	if (isModEnabled("banque")) {
+	if (isModEnabled("bank")) {
 		print '<tr class="oddeven"><td>';
 		print $langs->trans("OvhDefaultBankAccount") . '</td><td>';
 		print img_picto('', 'bank', 'class="pictofixedwidth"');

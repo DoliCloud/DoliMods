@@ -6,8 +6,9 @@ if (!function_exists("sha1"))
 	@include_once "sha1lib.php";
 
 
-// We'll protect the namespace of our code
-// using a class
+/**
+ * We'll protect the namespace of our code using a class
+ */
 class BEncode
 {
 
@@ -30,9 +31,15 @@ class BEncode
 	return $return;
 	}
 	*/
-	// Encodes strings, integers and empty dictionaries.
-	// $unstrip is set to true when decoding dictionary keys
-	function encodeEntry($entry, &$fd, $unstrip = false)
+	/**
+	 * Encodes strings, integers and empty dictionaries.
+	 *
+	 * @param	mixed	$entry		Value to encode
+	 * @param	string	$fd			Encoded string, completed by reference
+	 * @param	bool	$unstrip	Set to true when decoding dictionary keys
+	 * @return	void
+	 */
+	public function encodeEntry($entry, &$fd, $unstrip = false)
 	{
 		if (is_bool($entry)) {
 			$fd .= "de";
@@ -50,8 +57,14 @@ class BEncode
 		return;
 	}
 
-	// Encodes lists
-	function encodeList($array, &$fd)
+	/**
+	 * Encodes lists
+	 *
+	 * @param	array<int,mixed>	$array	List to encode
+	 * @param	string				$fd		Encoded string, completed by reference
+	 * @return	void
+	 */
+	public function encodeList($array, &$fd)
 	{
 		$fd .= "l";
 
@@ -65,20 +78,35 @@ class BEncode
 		$fd .= "e";
 	}
 
-	// Passes lists and dictionaries accordingly, and has encodeEntry handle
-	// the strings and integers.
-	function decideEncode($unknown, &$fd)
+	/**
+	 * Passes lists and dictionaries accordingly, and has encodeEntry handle
+	 * the strings and integers.
+	 *
+	 * @param	mixed	$unknown	Value to encode
+	 * @param	string	$fd			Encoded string, completed by reference
+	 * @return	void
+	 */
+	public function decideEncode($unknown, &$fd)
 	{
 		if (is_array($unknown)) {
-			if (isset($unknown[0]) || empty($unknown))
-			return $this->encodeList($unknown, $fd);
-			else return $this->encodeDict($unknown, $fd);
+			if (isset($unknown[0]) || empty($unknown)) {
+				$this->encodeList($unknown, $fd);
+			} else {
+				$this->encodeDict($unknown, $fd);
+			}
+			return;
 		}
 		$this->encodeEntry($unknown, $fd);
 	}
 
-	// Encodes dictionaries
-	function encodeDict($array, &$fd)
+	/**
+	 * Encodes dictionaries
+	 *
+	 * @param	array<string,mixed>|bool	$array	Dictionary to encode (true for an empty dictionary)
+	 * @param	string						$fd		Encoded string, completed by reference
+	 * @return	void
+	 */
+	public function encodeDict($array, &$fd)
 	{
 		$fd .= "d";
 		if (is_bool($array)) {
@@ -98,7 +126,12 @@ class BEncode
 	}
 } // End of class declaration.
 
-// Use this function in your own code.
+/**
+ * Use this function in your own code.
+ *
+ * @param	mixed	$array	Data to encode
+ * @return	string			Bencoded data
+ */
 function BEncode($array)
 {
 	$string = "";

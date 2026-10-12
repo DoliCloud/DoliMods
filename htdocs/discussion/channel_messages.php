@@ -216,8 +216,8 @@ if ($id > 0 || !empty($ref)) {
 	$arraymessage = $messagestatic->fetchAll('DESC', 'date_creation', $limit, 0, '((fk_discussion_channel:=:'.((int) $id).'))');
 	$arraymessage = array_reverse($arraymessage, true);
 
-// Loop on record
-// --------------------------------------------------------------------
+	// Loop on record
+	// --------------------------------------------------------------------
 	print '<div class="fichecenter">';
 	print '<div class="underbanner clearboth"></div>';
 	print '<div id="channelmessagediv" style="max-height: 700px; overflow: auto;min-height:500px">';
@@ -247,10 +247,10 @@ if ($id > 0 || !empty($ref)) {
 			$selfuser = 1;
 		}
 
-		
+
 		print '<li class="timeline-message" id="msg_'.$obj->id.'">';
 		print '<div class="timeline-item">';
-		if ($displaydate || $lastuser != $tmpuser->id){
+		if ($displaydate || $lastuser != $tmpuser->id) {
 			print '<h3 class="timeline-header '.($selfuser == 1 ? 'right' : '').'">';
 			print '<div class="inline-block valignmiddle marginrightonly" id="msgauthor_' . $obj->id . '">';
 			print $tmpuser->getNomUrl(-1, 'nolink', 0, 0, 30);
@@ -278,7 +278,7 @@ if ($id > 0 || !empty($ref)) {
 	print '<div id="lastrow" class="">';
 	print '</div>';
 	print '</li>';
-	
+
 	print "</table>";
 	print '</div>';
 
@@ -317,7 +317,7 @@ if ($id > 0 || !empty($ref)) {
 			lidate.addClass("center");
 			lidate.attr("id","msgtime_" + msgid);
 			lidate.data("date",datec);
-	
+
 			lidate.append($("<span>").addClass("timeline-badge-date").text(data.datec_text))
 		}
 

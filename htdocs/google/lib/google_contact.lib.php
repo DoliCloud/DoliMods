@@ -299,9 +299,6 @@ function googleUpdateContact($client, $contactId, &$object, $useremail = 'defaul
 		//$contactId='https://www.google.com/m8/feeds/contacts/contact%40nltechno.com/base/ee6fc620dbab6d7';
 		try {
 			$json = json_decode($result["content"]);
-			//var_dump($errorselem);
-			//var_dump($errorselem->length);
-			//var_dump(count($errorselem));
 			if (preg_match('/<title>.*Not Found.*<\/title>/', $result['content'])) {
 				dol_syslog('Google server return message '.$result['content'].' so we leave with code 0', LOG_DEBUG);
 				return 0;
@@ -442,7 +439,6 @@ function googleUpdateContact($client, $contactId, &$object, $useremail = 'defaul
 			"value" => google_html_convert_entities($tmpnote),
 		];
 
-		//var_dump($xml->organization->asXml());    // $xml->organization is SimpleXMLElement but isset($xml->organization) and $xml->organization->asXml() may be set or not
 		// Company + Function
 		// if (isset($xml->organization)) {
 			// 	if ($object->element == 'contact') {
@@ -562,7 +558,6 @@ function googleUpdateContact($client, $contactId, &$object, $useremail = 'defaul
 			// 		else unset($xml->website);
 			// 	}
 			// */
-			// //var_dump($xmlStr);exit;
 
 			// $xmlStr=$doc->saveXML();
 			$jsonData .='}';
@@ -583,7 +578,6 @@ function googleUpdateContact($client, $contactId, &$object, $useremail = 'defaul
 		$addheaders=array('If-Match'=>'*', 'GData-Version'=>'3.0', 'Authorization'=>'Bearer '.$access_token, 'Content-Type'=>'application/json');
 		$addheaderscurl=array('If-Match: *', 'GData-Version: 3.0', 'Authorization: Bearer '.$access_token, 'Content-Type: application/json');
 
-		//var_dump($person_array);exit;
 
 		// update entry.'&updatePersonFields='.$updatePersonFields
 		//$client_google = new Google_Client($client);
@@ -600,7 +594,7 @@ function googleUpdateContact($client, $contactId, &$object, $useremail = 'defaul
 			die('ERROR:' . $e->getMessage());
 		}
 
-		//List of properties to set visible with var_dump($xml->saveXML());exit;
+		// List of properties to set visible (dump $xml->saveXML() to see them)
 		//$extra_header = array('If-Match'=>'*');
 		//$newentryResult = $gdata->updateEntry($xmlStr, $entryResult->getEditLink()->href, null, $extra_header);
 	} catch (Exception $e) {
@@ -861,7 +855,6 @@ function insertGContactsEntries($gdata, $gContacts, $objectstatic, $useremail = 
 		$feed->appendChild($doc->createElement("title", "The batch title: insert contacts"));
 		$doc->appendChild($feed);
 		foreach ($firstContacts as $gContact) {
-			//print_r($gContact);
 			$entry = $gContact->atomEntry;
 			$entry = $doc->importNode($entry, true);
 			$entry->setAttribute("gdata:etag", "*");
@@ -872,7 +865,6 @@ function insertGContactsEntries($gdata, $gContacts, $objectstatic, $useremail = 
 		}
 
 		$xmlStr = $doc->saveXML();
-		//var_dump($xmlStr);exit;
 
 		// uncomment for debugging :
 		if (getDolGlobalInt('GOOGLE_DEBUG')) {
@@ -1318,9 +1310,6 @@ function getTags($id, $type)
 // 				dol_syslog("getContactGroupsXml Failed to parse xml string ".$xmlStr, LOG_WARNING);
 // 			} else {
 // 				$errorselem = $document->getElementsByTagName("errors");
-// 				//var_dump($errorselem);
-// 				//var_dump($errorselem->length);
-// 				//var_dump(count($errorselem));
 // 				if ($errorselem->length) {
 // 					dol_syslog('getContactGroupsXml ERROR:'.$result['content'], LOG_ERR);
 // 					return '';
@@ -1385,7 +1374,6 @@ function updateGContactGroups($gdata, $gContacts, $type, $useremail = 'default')
 			return -1;
 		}
 
-		//var_dump($type);
 
 		// Set group for element type
 		$typeGroupID = getGContactTypeGroupID($gdata, $type);
@@ -1539,11 +1527,6 @@ function getGContactTypeGroupID($gdata, $type)
 							}
 						}
 					}
-					/*
-					var_dump($groupID);
-					var_dump($jsonData);
-					var_dump($json);exit;
-					*/
 					dol_syslog('insertGContactGroup The group '.getDolGlobalString($tagprefix).' seems to already exists', LOG_DEBUG);
 					//return 'The group '.getDolGlobalString($tagprefix).' seems to already exists';
 					if (empty($groupID)) {
@@ -1598,7 +1581,7 @@ function getGContactTypeGroupID($gdata, $type)
  * Get group id from google contact. Create it if not found.
  *
  * @param	array		$gdata			Array with tokens info
- * @param 	array 		$tag			Array with tag info to retreive or create into Google Contact
+ * @param 	array<string, mixed> 	$tag		Array with tag info to retreive or create into Google Contact
  * @param	string		$useremail		User email
  * @return 	string|int					Google Group ID string or < 0 if KO
  */
@@ -1662,10 +1645,11 @@ function getGContactGroupID($gdata, $tag, $useremail = 'default')
 /**
  * Create a group/label into Google contact
  *
- * @param	array	$gdata			Array with tokens info
- * @param 	string 	$groupName		Group name to create into Google Contact
- * @param	string	$useremail		User email
- * @return string					created group ID
+ * @param	array		$gdata			Array with tokens info
+ * @param 	array<string, mixed>	$tag		Tag array of the category ('label' = group name to create into Google Contact)
+ * @param	Categorie	$objectstatic	Category object to update with the created Google group ID
+ * @param	string		$useremail		User email
+ * @return string|int					created group ID, -1 if error
  */
 function insertGContactGroup($gdata, $tag, $objectstatic, $useremail = 'default')
 {

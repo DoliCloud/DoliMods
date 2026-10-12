@@ -1,0 +1,34 @@
+# This is the YAML file to describe the location of a module
+
+packages:
+  - modulename: 'BitTorrent'
+    author: 'DoliCloud'
+    author_url: 'https://www.dolicloud.com'
+    maintener_email: 'contact@dolicloud.com'
+    label:
+      fr: "BitTorrent"
+      en: "BitTorrent"
+    description:
+      fr: "Make your Dolibarr able to be a BitTorrent tracker (and serve .torrent files)"
+      en: "Make your Dolibarr able to be a BitTorrent tracker (and serve .torrent files)"
+    status: 'enabled'
+    created_at: '2009-02-23'
+    last_updated_at: 'auto'
+    category: ''
+    git: 'https://github.com/DoliCloud/dolimods/tree/master/htdocs/bittorrent'
+    git-branch: 'master'
+    git-system: 'github'
+    cover: 'https://raw.githubusercontent.com/DoliCloud/dolimods/master/htdocs/bittorrent/img/bittorrent.png'
+    current_version: 'auto'
+    dolibarrmin: 'auto'
+    dolibarrmax: 'auto'
+    phpmin: 'auto'
+    phpmax: 'auto'
+    price: 0
+    # direct-download is yes if we can download the module to install it in application
+    direct-download: 'no'
+    # dolistore-upload is manual if module is also uploaded manually on dolistore.com, auto if sync automatically
+    dolistore-upload: 'manual'
+    # dolistore-download is url of product page for download if module can also be found on dolistore.com
+    # Example: https://www.dolistore.com/product.php?id=xxx
+    dolistore-download: ''

@@ -16,10 +16,10 @@
 -- ===================================================================
 
 
-CREATE TABLE llx_submitew_targets_params 
+CREATE TABLE llx_submitew_targets_params
 (
 	rowid integer AUTO_INCREMENT PRIMARY KEY,
-	fk_target INTEGER NOT NULL, 
+	fk_target INTEGER NOT NULL,
 	paramkey varchar(16) NOT NULL,
-	paramvalue varchar(128) default '' 
+	paramvalue varchar(128) default ''
 ) ENGINE = innodb;

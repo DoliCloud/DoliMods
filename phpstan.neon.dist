@@ -1,0 +1,157 @@
+# PHPStan configuration for the modules of this repository (htdocs/<module>).
+#
+# It analyses the module code only. The Dolibarr core is not analysed: it is indexed through
+# scanDirectories so PHPStan knows its classes, methods, properties and functions, and reports
+# nothing about them. The core to index is DOLIBARR_HTDOCS, the variable the CI actions of this
+# repository already use; dev/tools/phpstan/phpstan.sh resolves it and runs the analysis.
+#
+# Phan is untouched and stays the check the Dolibarr module ecosystem expects; PHPStan
+# is a second opinion next to it, mainly on argument types and on the drift between core versions.
+#
+# See dev/tools/phpstan/README.md.
+includes:
+	# What the module already reported when PHPStan was introduced, so the check gates new errors.
+	# baseline.neon holds what the newest supported core reports, baseline-legacy.neon the errors
+	# only the older cores add. Both are always loaded, so every core of the matrix stays green.
+	- dev/tools/phpstan/baseline.neon
+	- dev/tools/phpstan/baseline-legacy.neon
+
+parameters:
+	# The posture of the core, copied from its own phpstan.neon.dist: level 10, with the families of
+	# checks the hand written PHPDoc of Dolibarr cannot honour turned off. Reading it as a plain
+	# level 10 would be wrong - customRulesetUsed says so - and reading it as lax would be wrong too:
+	# on einvoicing (dolibarr-community-modules) it reports more than a strict level 5 does.
+	# Keeping the same dials as the core means a contributor who knows its CI finds what he knows,
+	# and that what the core judges worth reporting is what is reported here.
+	customRulesetUsed: true
+	level: 10
+	polluteScopeWithLoopInitialAssignments: false
+	polluteScopeWithAlwaysIterableForeach: false
+	checkClassCaseSensitivity: true
+	checkFunctionArgumentTypes: true
+	checkFunctionNameCase: true
+	checkInternalClassCaseSensitivity: true
+	checkArgumentsPassedByReference: true
+	checkMaybeUndefinedVariables: true
+	checkNullables: false
+	checkThisOnly: true
+	checkUnionTypes: false
+	checkExplicitMixedMissingReturn: true
+	reportMaybes: false
+	reportMaybesInMethodSignatures: false
+	reportStaticMethodSignatures: false
+	reportMagicMethods: false
+	reportMagicProperties: false
+
+	# The modules are analysed for Dolibarr 18 and up. That range of cores runs on PHP 7.1 (the floor
+	# install/check.php of Dolibarr 18 warns below) up to the 8.4 the latest core is tested on, so
+	# the analysis has to hold on all of them: a PHP 8 only function reaching a page that Dolibarr
+	# 18 serves is a fatal error on a supported instance.
+	phpVersion:
+		min: 70100
+		max: 80400
+
+	paths:
+		- htdocs
+
+	excludePaths:
+		analyse:
+			# Third party libraries: their classes must be known (the modules extend some of them),
+			# their own code is not this repository's to fix. Same list as the phan configuration.
+			- htdocs/*/vendor/*
+			- htdocs/*/includes/*
+		analyseAndScan:
+			# The PHPUnit suites run against a real instance and are not part of the delivered
+			# modules.
+			- htdocs/*/test/*
+			# Third party files written for PHP 5 that no PHP 7 or 8 parser reads. Nothing of the
+			# modules uses them.
+			- htdocs/filemanager/includes/geshi/contrib
+			- htdocs/google/includes/google-api-php-client/vendor/sebastian/diff/tests
+			# Entry points of the core that define DOL_DOCUMENT_ROOT as '..': once indexed, PHPStan
+			# resolves every include of the modules against it.
+			- %env.DOLIBARR_HTDOCS%/install/*
+			- %env.DOLIBARR_HTDOCS%/support/*
+			# External modules installed into the core checkout: not part of the core, and often symlinks
+			# (sometimes looping) to other repositories, this one included.
+			- %env.DOLIBARR_HTDOCS%/custom/*
+
+	scanDirectories:
+		- %env.DOLIBARR_HTDOCS%
+
+	bootstrapFiles:
+		- dev/tools/phpstan/bootstrap.php
+
+	tmpDir: .run-phpstan/cache
+
+	# A module that supports several cores tests the version it runs on. Pinning these to the values
+	# of the checkout under analysis would turn every one of those guards into dead code.
+	dynamicConstantNames:
+		- DOL_VERSION
+		- DOL_MAJOR_VERSION
+		- DOL_MINOR_VERSION
+		# Same reason, for PHP itself: the modules guard a few calls with PHP_VERSION_ID, and the
+		# analysis runs over a range of PHP versions rather than one. The core lists them too.
+		- PHP_VERSION
+		- PHP_MAJOR_VERSION
+		- PHP_MINOR_VERSION
+		- PHP_RELEASE_VERSION
+		- PHP_VERSION_ID
+		- PHP_OS
+		- PHP_OS_FAMILY
+		- PHP_SAPI
+		- PHP_INT_MAX
+		- PHP_INT_MIN
+		- PHP_INT_SIZE
+		- PHP_FLOAT_EPSILON
+		- PHP_FLOAT_MIN
+		- PHP_FLOAT_MAX
+
+	# fetch_object() hands back a stdClass whose properties are the columns of the query.
+	universalObjectCratesClasses:
+		- stdClass
+		- SimpleXMLElement
+
+	# The PHPDoc of the core is written by hand and is wrong often enough that treating it as proof
+	# turns honest defensive code into "always true". Part of the same block as above.
+	treatPhpDocTypesAsCertain: false
+
+	# A baseline built on the newest core lists errors the older cores do not report, and the other
+	# way round. Neither is a problem to flag.
+	reportUnmatchedIgnoredErrors: false
+
+	ignoreErrors:
+		# The header every external Dolibarr module page opens with: it walks up the tree looking
+		# for main.inc.php (master.inc.php for the command line scripts) because it does not know
+		# how deep under htdocs/custom it was installed. The ladder resolves at runtime, from
+		# inside the instance; it cannot resolve here, where the module sits in its own repository
+		# next to the core rather than inside it.
+		-
+			identifier: include.fileNotFound
+			message: '#^Path in include\(\) "(\.\./)+(main|master)\.inc\.php" is not a file or it does not exist\.$#'
+
+		# Phan reads its inline type assertions from a string expression on its own line. PHPStan
+		# sees a statement without effect. The core ignores the same pattern in its own config.
+		-
+			identifier: expr.resultUnused
+			message: '#^Expression "''@phan-(var|var-force|suppress-current-line|suppress-next-line)#'
+
+		# Some wrapper pages (filemanager, ovh) declare their own llxHeader()/llxFooter() before main.inc.php,
+		# which defines them only if not already defined. PHPStan then picks one of these declarations
+		# depending on the scan order and checks every call of every module against it.
+		-
+			identifier: arguments.count
+			message: '#^Function (llxHeader|llxFooter) invoked with \d+ parameters?, 0(\-\d+)? required\.$#'
+
+		# Multicompany is a separate, non free module. The calls are reached only after
+		# isModEnabled(''multicompany''), so its classes are absent from every checkout here.
+		-
+			identifier: class.notFound
+			message: '#(ActionsMulticompany|DaoMulticompany)#'
+		-
+			message: '#^(Call to method \w+\(\)|Access to property \$\w+) on an unknown class (ActionsMulticompany|DaoMulticompany)\.$#'
+
+		# Core files that only exist from a given Dolibarr version (see bootstrap.php for their classes).
+		# The message holds the path of the core checkout, so a baseline can not carry it.
+		-
+			message: '#^Path in require_once\(\) ".*/core/(class/commonhookactions\.class|class/commonnumrefgenerator\.class|modules/security/captcha/modules_captcha)\.php" is not a file or it does not exist\.$#'

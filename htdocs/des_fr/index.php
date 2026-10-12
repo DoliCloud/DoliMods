@@ -10,12 +10,26 @@ $path= DOL_DATA_ROOT.'/'.$patha;
 
 
 
+/**
+ * Write a line into the XML file
+ *
+ * @param 	string		$fic	File path
+ * @param 	string		$line	Line content
+ * @return	void
+ */
 function do_line($fic, $line)
 {
 	// TODO Write into file
 }
 
 
+/**
+ * Write the header of the XML DES declaration file
+ *
+ * @param 	string		$fic	File path
+ * @param 	string		$mo		Period (format 'MM/YYYY')
+ * @return	void
+ */
 function deb_fic($fic, $mo)
 {
 	$mois = explode('/', $mo);
@@ -32,7 +46,7 @@ function deb_fic($fic, $mo)
 
 	$t[]= '  <num_des>'.substr('0000'.$m, -4).'</num_des>';
 
-	$t[]='  <num_tvaFr>'.'FR77480672302'.'</num_tvaFr>';
+	$t[]='  <num_tvaFr>FR77480672302</num_tvaFr>';
 
 	$t[]='  <mois_des>'.$m.'</mois_des>';
 
@@ -45,9 +59,19 @@ function deb_fic($fic, $mo)
 
 
 
+/**
+ * Write a declaration line into the XML file
+ *
+ * @param 	string		$fic	File path
+ * @param 	int			$num	Line number
+ * @param 	string		$mo		Period (format 'MM/YYYY')
+ * @param 	string		$tva	Partner VAT number
+ * @param 	float		$mnt	Amount
+ * @return	void
+ */
 function lin_fic($fic, $num, $mo, $tva, $mnt)
 {
-	// lignes xml
+	// xml lines
 
 	$mois = explode('/', $mo);
 
@@ -67,9 +91,15 @@ function lin_fic($fic, $num, $mo, $tva, $mnt)
 
 
 
+/**
+ * Write the footer of the XML DES declaration file
+ *
+ * @param 	string		$fic	File path
+ * @return	void
+ */
 function fin_fic($fic)
 {
-	// fin du fichier xml
+	// end of the xml file
 
 	$t[]= "</declaration_des>";
 

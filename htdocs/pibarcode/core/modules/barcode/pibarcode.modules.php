@@ -31,15 +31,16 @@ require_once DOL_DOCUMENT_ROOT ."/core/modules/barcode/modules_barcode.class.php
  */
 class modPibarcode extends ModeleBarCode
 {
-	var $version='dolibarr';		// 'development', 'experimental', 'dolibarr'
-	var $error='';
+	public $version='dolibarr';		// 'development', 'experimental', 'dolibarr'
+	public $error='';
 
 	/**
-	 *	Return description of numbering model
+	 *	Return description of barcode generator
 	 *
+	 *	@param	Translate	$langs	Language object
 	 *  @return     string      Text with description
 	 */
-	function info()
+	public function info($langs)
 	{
 		global $langs;
 
@@ -51,7 +52,7 @@ class modPibarcode extends ModeleBarCode
 	 *
 	 * @return     boolean     false if ko, true if ok
 	 */
-	function canBeActivated()
+	public function canBeActivated()
 	{
 		global $langs;
 
@@ -61,10 +62,10 @@ class modPibarcode extends ModeleBarCode
 	/**
 	 * Return true if encoding is supported
 	 *
-	 * @param	string	$encoding	Encoding module
+	 * @param	string	$encoding	Encoding (EAN8, EAN13, UPC, C39, C128...)
 	 * @return	int					>0 if supported, 0 if not
 	 */
-	function encodingIsSupported($encoding)
+	public function encodingIsSupported($encoding)
 	{
 		$supported=0;
 		if ($encoding == 'EAN8')  $supported=1;
@@ -78,12 +79,14 @@ class modPibarcode extends ModeleBarCode
 	/**
 	 *	Return an image file on the fly (no need to write on disk)
 	 *
-	 *	@param   	$code			Value to encode
-	 *	@param   	$encoding		Mode of encoding
-	 *	@param   	$readable		Code can be read
-	 *	@return		int				<0 if KO, >0 if OK
+	 *	@param	string		$code				Value to encode
+	 *	@param	string		$encoding			Mode of encoding
+	 *	@param	string		$readable			Code can be read
+	 *	@param	int			$scale				Scale (not used)
+	 *	@param	int<0,1>	$nooutputiferror	No output if error (not used)
+	 *	@return		int				Return integer <0 if KO, >0 if OK
 	 */
-	function buildBarCode($code, $encoding, $readable = 'Y')
+	public function buildBarCode($code, $encoding, $readable = 'Y', $scale = 1, $nooutputiferror = 0)
 	{
 		global $conf,$_GET;
 		//global $filebarcode;
@@ -97,7 +100,7 @@ class modPibarcode extends ModeleBarCode
 		$_GET["height"]=50;
 		$_GET["readable"]=$readable;
 
-		// Chargement de la classe de codage
+		// Load the encoding class
 		$file=dol_include_once('/pibarcode/includes/barcode/pi_barcode/pi_barcode.php');
 
 		$objCode = new pi_barcode();
@@ -118,18 +121,20 @@ class modPibarcode extends ModeleBarCode
 	/**
 	 *	Save an image file on disk (with no output)
 	 *
-	 *	@param   	$code			Value to encode
-	 *	@param   	$encoding		Mode of encoding
-	 *	@param   	$readable		Code can be read
-	 *	@return		int				<0 if KO, >0 if OK
+	 *	@param	string		$code				Value to encode
+	 *	@param	string		$encoding			Mode of encoding
+	 *	@param	string		$readable			Code can be read
+	 *	@param	int			$scale				Scale (not used)
+	 *	@param	int<0,1>	$nooutputiferror	No output if error (not used)
+	 *	@return		int				Return integer <0 if KO, >0 if OK
 	 */
-	function writeBarCode($code, $encoding, $readable = 'Y')
+	public function writeBarCode($code, $encoding, $readable = 'Y', $scale = 1, $nooutputiferror = 0)
 	{
 		global $conf,$filebarcode;
 
 		dol_mkdir($conf->barcode->dir_temp);
 		$file=$conf->barcode->dir_temp.'/barcode_'.$code.'_'.$encoding.'.png';
-		$filebarcode=$file;	// global var to be used in buildBarCode
+		$filebarcode=$file;	// File to write, stored into a global var
 
 		if (! $this->encodingIsSupported($encoding)) return -1;
 
@@ -140,7 +145,7 @@ class modPibarcode extends ModeleBarCode
 		$_GET["height"]=50;
 		$_GET["readable"]=$readable;
 
-		// Chargement de la classe de codage
+		// Load the encoding class
 		$file=dol_include_once('/pibarcode/includes/barcode/pi_barcode/pi_barcode.php');
 
 		$objCode = new pi_barcode();

@@ -65,6 +65,17 @@ $substitutionarrayfortest=array(
 
 // Activate error interceptions
 if (! empty($conf->global->MAIN_ENABLE_EXCEPTION)) {
+	/**
+	 * Error handler that converts PHP errors into exceptions
+	 *
+	 * @param	int		$code		Error level
+	 * @param	string	$message	Error message
+	 * @param	string	$fichier	File where the error occurred
+	 * @param	int		$ligne		Line where the error occurred
+	 * @param	mixed	$contexte	Error context
+	 * @return	void
+	 * @throws	Exception
+	 */
 	function traitementErreur($code, $message, $fichier, $ligne, $contexte)
 	{
 		if (error_reporting() & $code) {
@@ -249,6 +260,7 @@ $db->close();
  * @param string	$str       Str
  * @param string	$file      File
  * @param string	$line      Line
+ * @return void
  */
 function my_error_handler($no, $str, $file, $line)
 {

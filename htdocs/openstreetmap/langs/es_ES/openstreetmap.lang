@@ -1,8 +1,8 @@
 # Dolibarr language file - es_ES - openstreetmap
 CHARSET = UTF-8
 OpenStreetMapSetup=Configuración integración con OpenStreetMap tools
-OpenStreetMapSetupHelp=Ayuda a definir los parámetros que se encuentran con la URL de configuración de openstreetmap %s 
-OpenStreetMapAgendaNb=Agenda nº %s 
+OpenStreetMapSetupHelp=Ayuda a definir los parámetros que se encuentran con la URL de configuración de openstreetmap %s
+OpenStreetMapAgendaNb=Agenda nº %s
 OpenStreetMapIDAgenda=ID Agenda
 OpenStreetMapNbOfAgenda=Número de agendas
 OpenStreetMapTools=Herramientas OpenStreetMap

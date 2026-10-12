@@ -1,0 +1,75 @@
+---
+name: phan
+
+permissions:
+  contents: read
+
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch.
+  # A change that carries no PHP is left out: phan reads the whole repository whatever the event,
+  # and documentation, a module descriptor or an issue template give it nothing to analyse. The
+  # workflow files themselves stay in, so a change to this one is still tried by phan.
+  push:
+    branches: [ main ]
+    paths-ignore:
+      - '.agents/**'
+      - '**.md'
+      - '**index.yaml'
+      - '.github/ISSUE_TEMPLATE/**'
+
+  pull_request:
+    branches: [ main ]
+    paths-ignore:
+      - '.agents/**'
+      - '**.md'
+      - '**index.yaml'
+      - '.github/ISSUE_TEMPLATE/**'
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+
+concurrency:
+  group: phan-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+env:
+  gh_event: ${{ github.event_name }}
+  PHAN_CONFIG: >
+    ${{ 'dev/tools/phan/config.php' }}
+  PHAN_BASELINE: dev/tools/phan/baseline.txt
+  PHAN_MIN_PHP: 7.2
+  GITHUB_JSON: ${{ toJSON(github) }} # Helps in debugging Github Action
+
+jobs:
+  phan:
+    name: Run phan
+    runs-on: ubuntu-latest
+    # Do not run schedule on forks
+    if: |
+      github.repository == 'Dolibarr/dolibarr-community-modules'
+      || github.event.schedule == false
+    steps:
+      - uses: actions/checkout@v6
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.4
+          coverage: none # disable xdebug, pcov
+          tools: cs2pr:1.8.6,phan:5.5.2
+      - name: Run Phan analysis
+        run: |
+          phan -k $PHAN_CONFIG -B $PHAN_BASELINE --analyze-twice --minimum-target-php-version $PHAN_MIN_PHP --output-mode=checkstyle -o _phan.xml
+      - name: Add results to PR
+        if: ${{ always() }}
+        run: |
+          cs2pr --prepend-filename --prepend-source --notices-as-warnings _phan.xml
+      - name: Provide phan log as artifact
+        uses: actions/upload-artifact@v7
+        if: ${{ always() }}
+        with:
+          name: phan-srcrt
+          # path: ${{ github.workspace }}/phan.log
+          path: ${{ github.workspace }}/_phan.xml
+          retention-days: 2

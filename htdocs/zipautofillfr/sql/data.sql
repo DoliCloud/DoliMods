@@ -47444,5 +47444,3 @@ INSERT IGNORE INTO llx_c_ziptown (zip, town, fk_county, fk_pays) VALUES
 ('1752', 'VILLARS-SUR-GLÂNE', NULL, 6),
 ('1752', 'VILLARS-SUR-GLÂNE 1', NULL, 6),
 ('1752', 'VILLARS-SUR-GLÂNE 2', NULL, 6);
-
-

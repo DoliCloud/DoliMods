@@ -1,5 +1,7 @@
 ---
-exclude: (?x)^( htdocs/includes/ckeditor/.*|htdocs/public/includes/ckeditor/.*|htdocs/public/includes/jquery/.*|(\.(?!github/workflows)[^/]*/.*))$
+# Exclude all external libraries (any path with an includes/ directory) and hidden directories
+# (except .github/workflows) from all hooks.
+exclude: (?x)^( .*(^|/)includes/.*|(\.(?!github/workflows)[^/]*/.*))$
 repos:
   # Several miscellaneous checks and fix (on yaml files, end of files fix)
   - repo: https://github.com/pre-commit/pre-commit-hooks
@@ -141,7 +143,7 @@ repos:
         args: [--standard=dev/setup/codesniffer/ruleset.xml]
       - id: php-cs
         exclude: |
-          (?x)^(htdocs/includes/.*)$
+          (?x)^(.*/includes/.*|dev/tools/phan/.*)$
         files: \.(php)$
         args:
           [
@@ -166,7 +168,7 @@ repos:
         pass_filenames: false # Run on all files
       - id: php-lint
         exclude:
-          (?x)^(htdocs/includes/symfony/var-dumper/Tests/.*)$
+          (?x)^(.*/includes/symfony/var-dumper/Tests/.*)$
       - id: php-stan
         stages: [manual]
         files: \.(php)$
@@ -178,7 +180,7 @@ repos:
       - id: prettier
         stages: [manual]
         exclude:
-          (?x)^( .*\.(phar |min\.css |lock) |htdocs/(includes|theme/common)/.*
+          (?x)^( .*\.(phar |min\.css |lock) |.*/(includes|theme/common)/.*
           )$
         exclude_types:
           - php
@@ -215,12 +217,12 @@ repos:
         # Check spelling into code and other files only: language files are checked
         # by the codespell-lang-en_US hook below. Not checked: files into
         # <modulename>/includes/, htdocs/userguide/, htdocs/bittorrent/docs/, dev/tools/
-        # and *.xml/xsd/sch/xslt/sql/py/ini files.
+        # and *.xml/xsd/sch/xslt/sql/py/ini/yaml files.
         # Due to a current limitation of configuration files,
         # we can specify two dicts only on the CLI.
         # You can update the contents of the exclude-file codespell-lines-ignore with the script
         # dev/tools/codespell/addCodespellIgnores.sh
-        exclude: (?x)^(.phan/stubs/.*|phpstan\.neon.*|htdocs/[^/]+/langs/.*|htdocs/[^/]+/includes/.*|htdocs/userguide/.*|htdocs/bittorrent/docs/.*|dev/tools/.*|.*\.(xml|xsd|sch|xslt|sql|py|ini))$
+        exclude: (?x)^(.phan/stubs/.*|phpstan\.neon.*|htdocs/[^/]+/langs/.*|.*/includes/.*|htdocs/userguide/.*|htdocs/bittorrent/docs/.*|dev/tools/.*|.*\.(xml|xsd|sch|xslt|sql|py|ini|yaml))$
         args:
           - -D
           - "-"
@@ -269,6 +271,8 @@ repos:
     hooks:
       - id: sqlfluff-lint
         stages: [pre-commit, manual]  # manual needed for ci
+        # Dialect is forced on the command line, so no .sqlfluff config file is needed
+        args: [--dialect, mysql]
         exclude: (?x)^
           (dev/initdemo/mysqldump_.*\.sql
           |htdocs/core/menus/init_menu_auguria\.sql

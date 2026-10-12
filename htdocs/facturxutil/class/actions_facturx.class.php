@@ -76,7 +76,7 @@ class ActionsFacturXUtil
 	 *                           				=0 if OK but we want to process standard actions too,
 	 *                            				>0 if OK and we want to replace standard actions.
 	 */
-	function getNomUrl($parameters, &$object, &$action)
+	public function getNomUrl($parameters, &$object, &$action)
 	{
 		global $db,$langs,$conf,$user;
 		$this->resprints = '';
@@ -192,7 +192,7 @@ class ActionsFacturXUtil
 	 *                          		=0 if OK but we want to process standard actions too,
 	 *  	                            >0 if OK and we want to replace standard actions.
 	 */
-	function beforePDFCreation($parameters, &$object, &$action)
+	public function beforePDFCreation($parameters, &$object, &$action)
 	{
 		global $conf, $user, $langs;
 		global $hookmanager;
@@ -219,7 +219,7 @@ class ActionsFacturXUtil
 	 *                          		=0 if OK but we want to process standard actions too,
 	 *  	                            >0 if OK and we want to replace standard actions.
 	 */
-	function afterPDFCreation($parameters, &$pdfhandler, &$action)
+	public function afterPDFCreation($parameters, &$pdfhandler, &$action)
 	{
 		global $conf, $user, $langs;
 		global $hookmanager;

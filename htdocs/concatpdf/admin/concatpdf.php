@@ -56,12 +56,12 @@ $actionsave=GETPOST('save', 'alpha');
 // Define list of object supported
 $modules = array();
 if (isModEnabled("propal")) $modules['proposals']=array('label'=>'Proposals', 'picto'=>img_picto('', 'propal', 'class="pictofixedwidth"'));
-if (isModEnabled("commande")) $modules['orders']=array('label'=>'Orders', 'picto'=>img_picto('', 'order', 'class="pictofixedwidth"'));
-if (isModEnabled("facture")) $modules['invoices']=array('label'=>'Invoices', 'picto'=>img_picto('', 'bill', 'class="pictofixedwidth"'));
+if (isModEnabled("order")) $modules['orders']=array('label'=>'Orders', 'picto'=>img_picto('', 'order', 'class="pictofixedwidth"'));
+if (isModEnabled("invoice")) $modules['invoices']=array('label'=>'Invoices', 'picto'=>img_picto('', 'bill', 'class="pictofixedwidth"'));
 if (isModEnabled("supplier_proposal")) $modules['supplier_proposals']=array('label'=>'SupplierProposals', 'picto'=>img_picto('', 'supplier_proposal', 'class="pictofixedwidth"'));
 if (isModEnabled("fournisseur")) $modules['supplier_orders']=array('label'=>'SuppliersOrders', 'picto'=>img_picto('', 'supplier_order', 'class="pictofixedwidth"'));
 if (isModEnabled("fournisseur")) $modules['supplier_invoices']=array('label'=>'SuppliersInvoices', 'picto'=>img_picto('', 'supplier_invoice', 'class="pictofixedwidth"'));
-if (isModEnabled("contrat")) $modules['contracts']=array('label'=>'Contracts', 'picto'=>img_picto('', 'contract', 'class="pictofixedwidth"'));
+if (isModEnabled("contract")) $modules['contracts']=array('label'=>'Contracts', 'picto'=>img_picto('', 'contract', 'class="pictofixedwidth"'));
 // Add key data-html
 foreach ($modules as $key => $value) {
 	$modules[$key]['data-html'] = dol_escape_htmltag($value['picto'].$langs->transnoentitiesnoconv($value['label']));
@@ -201,21 +201,20 @@ if (getDolGlobalString('PDF_SECURITY_ENCRYPTION')) {
 }
 
 /*
- * Confirmation suppression fichier
+ * Confirmation of file deletion
  */
 if ($action == 'remove_file') {
 	print $form->formconfirm($_SERVER["PHP_SELF"].'?&urlfile='.urlencode(GETPOST("file")), $langs->trans('DeleteFile'), $langs->trans('ConfirmDeleteFile'), 'confirm_deletefile', '', 0, 1);
 }
 
 // Show dir for each module
-print '<div class="opacitymedium hideonsmartphone">';
+print '<div class="info hideonsmartphone">';
 print $langs->trans("ConcatPDfTakeFileFrom").'<br><br>';
 foreach ($modules as $module => $moduletrans) {
 	$outputdir=$conf->concatpdf->dir_output.'/'.$module;
 	print '* '.str_replace('{s1}', $moduletrans['picto'], $langs->trans("ConcatPDfTakeFileFrom2", '{s1}'.$langs->transnoentitiesnoconv($moduletrans['label']), $outputdir));
 	print '<br>';
 }
-print '<br>';
 print '</div>';
 
 print '<br>';

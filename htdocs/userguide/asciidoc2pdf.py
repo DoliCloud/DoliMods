@@ -49,7 +49,7 @@ def execute_export(docfile=None, output=None , debug=False):
         pdfcommand.extend([xmlfile])
         if debug : pdfcommand.insert(1,'--debug')
         logging.info('Build pdf from '+[xmlfile][0]+' with '+" ".join(pdfcommand))
-       
+
         p = Popen(" ".join(pdfcommand),shell=True)
         r = p.wait()
         if r!=0 :
@@ -65,11 +65,11 @@ if __name__ == "__main__" :
     parser.add_argument('--debug', action='store_true', help='add more Debug feature , especially the debug feature of DBLatex (cf. dblatex --help)')
 
     args = parser.parse_args()
-	
+
     logging.info('Use local style sheets')
     dblatex_xsl = os.path.join(os.getcwd(),"asciidoc-dblatex/asciidoc-dblatex.xsl")
     dblatex_sty = os.path.join(os.getcwd(),"asciidoc-dblatex/asciidoc-dblatex.sty")
-    
+
     pdfcommand_base = [
         'dblatex',
         '--type=pdf',
@@ -99,4 +99,3 @@ if __name__ == "__main__" :
     else:
         logging.error("file %s doesn't exists or is not a file")
         sys.exit(1)
-

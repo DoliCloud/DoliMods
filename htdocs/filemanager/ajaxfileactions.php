@@ -285,7 +285,7 @@ if ($action == 'save') {   // Remove a file
  * View
  */
 
-// Ajout directives pour resoudre bug IE
+// Add directives to solve an IE bug
 header('Cache-Control: Public, must-revalidate');
 header('Pragma: public');
 
@@ -314,7 +314,7 @@ if ($action == 'edit') {   // Return file content
 		exit;
 	}
 
-	// Les drois sont ok et fichier trouve, et fichier texte, on l'envoie
+	// Permissions are ok, file found and file is text, we send it
 
 	if (preg_match('/text/i', $type)) {
 		$maxsize=500000;

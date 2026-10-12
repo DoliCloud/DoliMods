@@ -35,8 +35,12 @@ $langs->load("google@google");
 $langs->load("companies");
 $langs->load("other");
 
-// Load permissions
-$user->getrights('google');
+// User::loadRights() only exists from Dolibarr 19 on, older versions name it getrights()
+if (method_exists($user, 'loadRights')) {
+	$user->loadRights();
+} else {
+	$user->getrights();
+}
 
 // Get parameters
 $socid = isset($_GET["socid"])?$_GET["socid"]:'';
@@ -244,7 +248,6 @@ $frame ='<iframe src="https://www.google.com/calendar/embed?';
 $frame.='showTitle=0';
 $frame.='&amp;height=600';
 // Define first day of week (wkst=1 for sunday, wkst=2 for monday, ...)
-//var_dump($conf->global->MAIN_START_WEEK);
 $frame.='&amp;wkst='.($conf->global->MAIN_START_WEEK+1);
 $frame.='&amp;bgcolor=%23'.$bgcolor;
 

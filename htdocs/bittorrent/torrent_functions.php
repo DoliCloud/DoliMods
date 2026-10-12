@@ -3,6 +3,13 @@
 require_once "BDecode.php";
 require_once "BEncode.php";
 
+/**
+ * Print the content of a decoded torrent
+ *
+ * @param	array<string,mixed>	$array		Decoded torrent
+ * @param	string				$infohash	Info hash of the torrent
+ * @return	void
+ */
 function classicoutput($array, $infohash)
 {
 
@@ -11,10 +18,16 @@ function classicoutput($array, $infohash)
 
 	echo "Info hash: <TT>$infohash</TT><br>";
 	echo "<pre>";
-	print_r(cleaner($array));
+	echo json_encode(cleaner($array), JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_PARTIAL_OUTPUT_ON_ERROR);
 	echo "</pre>";
 }
 
+/**
+ * Print the content of a decoded tracker announce answer
+ *
+ * @param	array<string,mixed>	$array	Decoded announce answer
+ * @return	void
+ */
 function announceoutput($array)
 {
 	if (!isset($array["peers"][0])) {
@@ -44,6 +57,12 @@ function announceoutput($array)
 }
 
 
+/**
+ * Return the string, or its hexadecimal form if it contains non printable characters
+ *
+ * @param	string	$str	String to clean
+ * @return	string			Printable string
+ */
 function stringcleaner($str)
 {
 	/* WARNING:
@@ -63,6 +82,12 @@ function stringcleaner($str)
 	return $str;
 }
 
+/**
+ * Clean recursively the keys and values of an array so they can be printed
+ *
+ * @param	mixed	$array	Array to clean (other values are returned as is)
+ * @return	mixed			Cleaned array
+ */
 function cleaner($array)
 {
 	if (!is_array($array))
@@ -233,7 +258,8 @@ if (isset($_FILES["torrent"]) || isset($_POST["url"]) || isset($_GET["url"])) {
 			if ($left == "url-list" || $left == "httpseeds") {
 				$foundurl=true;
 				echo "<tr><td align=right>$left</td><td>=</td><td>";
-				print_r(cleaner($array[$left]));
+				$urls = cleaner($array[$left]);
+				echo is_array($urls) ? implode('<br>', $urls) : $urls;
 				echo "</td></tr>\n";
 				continue;
 			}
@@ -359,9 +385,10 @@ if (isset($_FILES["torrent"]) || isset($_POST["url"]) || isset($_GET["url"])) {
 					mysql_query("INSERT INTO ".$prefix."webseedfiles (info_hash,filename,startpiece,endpiece,startpieceoffset,fileorder) values (\"$hash\", \"$filename\", $startpiece, $pieceno, $startoffset, $fileno)");
 					$fileno++;
 				}
-			} // end of multi-file section
-			else //single file
+			} else {
+				// Single file
 				mysql_query("INSERT INTO ".$prefix."webseedfiles (info_hash,filename,startpiece,endpiece,startpieceoffset,fileorder) values (\"$hash\", \"".mysql_real_escape_string($fsbase)."\", 0, ". (strlen($array["info"]["pieces"])/20 - 1).", 0, 0)");
+			}
 		}
 
 		if ($_POST["getrightseed"] == "enabled" || $_POST["httpseed"] == "enabled") { //only do one write

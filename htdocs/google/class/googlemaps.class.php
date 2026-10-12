@@ -33,22 +33,22 @@
  */
 class Googlemaps // extends CommonObject
 {
-	var $db;							//!< To store db handler
-	var $error;							//!< To return error code (or message)
-	var $errors=array();				//!< To return several error codes (or messages)
+	public $db;							//!< To store db handler
+	public $error;							//!< To return error code (or message)
+	public $errors=array();				//!< To return several error codes (or messages)
 	//var $element='googlemaps';			//!< Id that identify managed objects
 	//var $table_element='googlemaps';	//!< Name of table without prefix where object is stored
 
-	var $id;
+	public $id;
 
-	var $fk_object;
-	var $type_object;
-	var $latitude;
-	var $longitude;
-	var $address;
-	var $result_code;
-	var $result_label;
-	var $result_on_degraded_address;
+	public $fk_object;
+	public $type_object;
+	public $latitude;
+	public $longitude;
+	public $address;
+	public $result_code;
+	public $result_label;
+	public $result_on_degraded_address;
 
 
 	/**
@@ -56,10 +56,9 @@ class Googlemaps // extends CommonObject
 	 *
 	 *      @param     DoliDB   $db      Database handler
 	 */
-	function Googlemaps($db)
+	public function __construct($db)
 	{
 		$this->db = $db;
-		return 1;
 	}
 
 
@@ -70,7 +69,7 @@ class Googlemaps // extends CommonObject
 	 *      @param      int     $notrigger	    0=launch triggers after, 1=disable triggers
 	 *      @return     int                    	<0 if KO, Id of created object if OK
 	 */
-	function create($user, $notrigger = 0)
+	public function create($user, $notrigger = 0)
 	{
 		$error=0;
 
@@ -152,7 +151,7 @@ class Googlemaps // extends CommonObject
 	 *    @param	string	$element_type	Type of object (used only if $id is empty)
 	 *    @return   int     				<0 if KO, >0 if OK
 	 */
-	function fetch($id, $element_id = 0, $element_type = '')
+	public function fetch($id, $element_id = 0, $element_type = '')
 	{
 		$sql = "SELECT";
 		$sql.= " t.rowid,";
@@ -204,7 +203,7 @@ class Googlemaps // extends CommonObject
 	 *      @param      int     $notrigger	    0=launch triggers after, 1=disable triggers
 	 *      @return     int                    	<0 if KO, >0 if OK
 	 */
-	function update($user = null, $notrigger = 0)
+	public function update($user = null, $notrigger = 0)
 	{
 		$error=0;
 
@@ -273,7 +272,7 @@ class Googlemaps // extends CommonObject
 	 *   @param     int     $notrigger	    0=launch triggers after, 1=disable triggers
 	 *   @return	int		         		<0 if KO, >0 if OK
 	 */
-	function delete($user, $notrigger = 0)
+	public function delete($user, $notrigger = 0)
 	{
 		$error=0;
 
@@ -322,7 +321,7 @@ class Googlemaps // extends CommonObject
 	 *		@param      int    $fromid     		Id of object to clone
 	 * 	 	@return		int		           		New id of clone
 	 */
-	function createFromClone($fromid)
+	public function createFromClone($fromid)
 	{
 		global $user;
 
@@ -365,8 +364,10 @@ class Googlemaps // extends CommonObject
 	/**
 	 *		Initialize object with example values
 	 *		Id must be 0 if object instance is a specimen.
+	 *
+	 *		@return	void
 	 */
-	function initAsSpecimen()
+	public function initAsSpecimen()
 	{
 		$this->id=0;
 

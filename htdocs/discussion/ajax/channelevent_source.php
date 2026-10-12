@@ -97,10 +97,10 @@ $channelid = GETPOSTINT('channel');
 $channel = new Channel($db);
 $res = $channel->fetch($channelid);
 if ($res <= 0) {
-  httponly_accessforbidden('Channel '.$channelid.' doesn\'t exists', 403);
+	httponly_accessforbidden('Channel '.$channelid.' doesn\'t exists', 403);
 }
 if (!$channel->isChannelContact($user->id)) {
-  httponly_accessforbidden('User doesn\'t have the permission to access this channel', 403);
+	httponly_accessforbidden('User doesn\'t have the permission to access this channel', 403);
 }
 $messagestatic = new Message($db);
 
@@ -126,68 +126,68 @@ ignore_user_abort(true);
 ob_end_clean();
 ob_implicit_flush();
 
-$discussioncachename = getDolGlobalString("DISCUSSION_CACHE_NAME_PREFIX",'DISCUSSION_CACHE_CHANNEL')."_".((int) $channelid) ;
+$discussioncachename = getDolGlobalString("DISCUSSION_CACHE_NAME_PREFIX", 'DISCUSSION_CACHE_CHANNEL')."_".((int) $channelid) ;
 $lastdateverification = dol_now();
 $userarray = array();
 session_write_close();
 while (true) {
-  if (connection_aborted()) {
-    break;
-  }
-  $channel->channelConnectedUser($user, 1);
-  $nbuserconnected = 0;
-  $datastring = "data: ";
-  $connAbortedStr = connection_aborted() ? "YES" : "NO";
-  $now = dol_now();
+	if (connection_aborted()) {
+		break;
+	}
+	$channel->channelConnectedUser($user, 1);
+	$nbuserconnected = 0;
+	$datastring = "data: ";
+	$connAbortedStr = connection_aborted() ? "YES" : "NO";
+	$now = dol_now();
 
-  $data = dol_getcache($discussioncachename, 1);
-  if (!empty($data) && $data < 0) {
-    $error++;
-  }
-  $msg = "";
-  $userarray = array();
-  if ($error) {
-    $msg .= "'Failed to get cache'";
-  } else {
-    if (empty($data)) {
-      $msg .= '"HEARTBEAT"';
-    } else {
-      $cacheobj = json_decode($data);
-      $msgarray = $cacheobj->messages;
-      $selfuser = 0;
-      $i = 0;
-      $newmsgarray = array();
-      foreach ($msgarray as $key => $value) {
-        if ($value->date > $lastdateverification) {
-          $tmpdata = $value->data;
-          $datec = $tmpdata->datec;
-          $displaydate = $datec > dol_time_plus_duree($lastdate, 1, 'h');
-          $tmpdata->displaydate = $displaydate;
-          $lastdate = $datec;
-          $newmsgarray[] = $tmpdata;
-        }
-      }
+	$data = dol_getcache($discussioncachename, 1);
+	if (!empty($data) && $data < 0) {
+		$error++;
+	}
+	$msg = "";
+	$userarray = array();
+	if ($error) {
+		$msg .= "'Failed to get cache'";
+	} else {
+		if (empty($data)) {
+			$msg .= '"HEARTBEAT"';
+		} else {
+			$cacheobj = json_decode($data);
+			$msgarray = $cacheobj->messages;
+			$selfuser = 0;
+			$i = 0;
+			$newmsgarray = array();
+			foreach ($msgarray as $key => $value) {
+				if ($value->date > $lastdateverification) {
+					$tmpdata = $value->data;
+					$datec = $tmpdata->datec;
+					$displaydate = $datec > dol_time_plus_duree($lastdate, 1, 'h');
+					$tmpdata->displaydate = $displaydate;
+					$lastdate = $datec;
+					$newmsgarray[] = $tmpdata;
+				}
+			}
 
-      if (!empty($newmsgarray)) {
-        $lastdateverification = $now;
-        $msg .= json_encode($newmsgarray);
-      } else {
-        $msg .= '"HEARTBEAT"';
-      }
-      if (!empty($cacheobj->users)) {
-        $userarray = json_encode($cacheobj->users);
-        foreach ($cacheobj->users as $key => $usertmp) {
-          if ($usertmp->status == "connected") {
-            $nbuserconnected++;
-          }
-        }
-      }
-    }
-  }
-  $datastring .= '{"newmsg": '.$msg.', "nbuserconnected" : '.$nbuserconnected.',"users":'.$userarray.'}';
-  echo $datastring."\n\n";
-  flush();
-  sleep(1);
+			if (!empty($newmsgarray)) {
+				$lastdateverification = $now;
+				$msg .= json_encode($newmsgarray);
+			} else {
+				$msg .= '"HEARTBEAT"';
+			}
+			if (!empty($cacheobj->users)) {
+				$userarray = json_encode($cacheobj->users);
+				foreach ($cacheobj->users as $key => $usertmp) {
+					if ($usertmp->status == "connected") {
+						$nbuserconnected++;
+					}
+				}
+			}
+		}
+	}
+	$datastring .= '{"newmsg": '.$msg.', "nbuserconnected" : '.$nbuserconnected.',"users":'.$userarray.'}';
+	echo $datastring."\n\n";
+	flush();
+	sleep(1);
 }
 $channel->channelConnectedUser($user, 1, "disconnected");
 dol_syslog("---ENDING SSE SERVER FOR ".$user->id."---");

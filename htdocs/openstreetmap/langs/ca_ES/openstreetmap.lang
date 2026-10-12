@@ -2,7 +2,7 @@
 CHARSET = UTF-8
 OpenStreetMapSetup=Configuració integració amb OpenStreetMap tools
 OpenStreetMapSetupHelp=Ajuda a definir els paràmetres que es troben amb la URL de configuració de openstreetmap %s
-OpenStreetMapAgendaNb=Agenda nº %s 
+OpenStreetMapAgendaNb=Agenda nº %s
 OpenStreetMapIDAgenda=ID Agenda
 OpenStreetMapNbOfAgenda=Número de agendes
 OpenStreetMapTools=Eines OpenStreetMap

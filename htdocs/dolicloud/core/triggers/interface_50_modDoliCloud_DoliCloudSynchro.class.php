@@ -31,20 +31,20 @@ dol_include_once('/google/lib/google_calendar.lib.php');
  */
 class InterfaceDoliCloudSynchro
 {
-	var $db;
-	var $error;
+	public $db;
+	public $error;
 
-	var $date;
-	var $duree;
-	var $texte;
-	var $desc;
+	public $date;
+	public $duree;
+	public $texte;
+	public $desc;
 
 	/**
 	 *   Constructor.
 	 *
 	 *   @param		DoliDB		$db      Database handler
 	 */
-	function __construct($db)
+	public function __construct($db)
 	{
 		$this->db = $db;
 
@@ -59,7 +59,7 @@ class InterfaceDoliCloudSynchro
 	 *
 	 *   @return     string      Nom du lot de triggers
 	 */
-	function getName()
+	public function getName()
 	{
 		return $this->name;
 	}
@@ -69,7 +69,7 @@ class InterfaceDoliCloudSynchro
 	 *
 	 *   @return     string      Descriptif du lot de triggers
 	 */
-	function getDesc()
+	public function getDesc()
 	{
 		return $this->description;
 	}
@@ -79,7 +79,7 @@ class InterfaceDoliCloudSynchro
 	 *
 	 *   @return     string      Version du lot de triggers
 	 */
-	function getVersion()
+	public function getVersion()
 	{
 		global $langs;
 		$langs->load("admin");
@@ -101,7 +101,7 @@ class InterfaceDoliCloudSynchro
 	 *      @param  Conf		$conf       Objet conf
 	 *      @return int         			<0 if KO, 0 if nothing is done, >0 if OK
 	 */
-	function runTrigger(string $action, $object, $user, $langs, $conf)
+	public function runTrigger(string $action, $object, $user, $langs, $conf)
 	{
 		// Mettre ici le code a executer en reaction de l'action
 		// Les donnees de l'action sont stockees dans $object

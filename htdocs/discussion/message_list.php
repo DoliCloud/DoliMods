@@ -194,11 +194,12 @@ $arrayfields = dol_sort_array($arrayfields, 'position');
 
 // There is several ways to check permission.
 // Set $enablepermissioncheck to 1 to enable a minimum low level of checks
-$enablepermissioncheck = 0;
+$enablepermissioncheck = 1;
 if ($enablepermissioncheck) {
-	$permissiontoread = $user->hasRight('discussion', 'message', 'read');
-	$permissiontoadd = $user->hasRight('discussion', 'message', 'write');
-	$permissiontodelete = $user->hasRight('discussion', 'message', 'delete');
+	// Note: the discussion module declares only channel permissions, so message permissions are mapped onto channel ones
+	$permissiontoread = $user->hasRight('discussion', 'channel', 'read');
+	$permissiontoadd = $user->hasRight('discussion', 'channel', 'write');
+	$permissiontodelete = $user->hasRight('discussion', 'channel', 'delete');
 } else {
 	$permissiontoread = 1;
 	$permissiontoadd = 1;

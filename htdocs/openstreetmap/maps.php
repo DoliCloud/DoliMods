@@ -13,7 +13,7 @@
  */
 
 if (!defined('MAIN_SECURITY_FORCERP')) {
-    // https://wiki.openstreetmap.org/wiki/Referer
+	// https://wiki.openstreetmap.org/wiki/Referer
 	define('MAIN_SECURITY_FORCERP', 'strict-origin-when-cross-origin');
 }
 

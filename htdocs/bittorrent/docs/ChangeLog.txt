@@ -152,4 +152,3 @@ http://creativecommons.org/licenses/by-sa/2.5/
 -heavily modified install.php file to allow for a more robust and easier installation
 -allow config.php file to be saved to server or downloaded in install.php
 -added page in admin section where user can change config.php values right from webpage
-

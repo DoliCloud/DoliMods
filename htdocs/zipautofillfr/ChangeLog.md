@@ -4,7 +4,7 @@
 ## 12.0 unreleased
 
 Add town in uppercase too
-Add code for frenh towns
+Add code for French towns
 
 ## 4.0
 

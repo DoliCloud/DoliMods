@@ -16,18 +16,18 @@
 -- ===================================================================
 
 
-CREATE TABLE llx_monitoring_probes 
+CREATE TABLE llx_monitoring_probes
 (
 	rowid integer AUTO_INCREMENT PRIMARY KEY,
-	typeprot varchar(16) NOT NULL DEFAULT 'GET',	
-	title varchar(64) NOT NULL, 
-    groupname varchar(64) NULL, 
+	typeprot varchar(16) NOT NULL DEFAULT 'GET',
+	title varchar(64) NOT NULL,
+    groupname varchar(64) NULL,
 	url varchar(250) NOT NULL,
 	url_params text NULL,
     useproxy integer default 0,
-    checkkey varchar(250),	
-    maxval integer,  
-	frequency integer default 60, 
+    checkkey varchar(250),
+    maxval integer,
+	frequency integer default 60,
 	active integer default 1,
 	status integer default 0,
 	lastreset datetime,
@@ -36,4 +36,4 @@ CREATE TABLE llx_monitoring_probes
 ) ENGINE = innodb;
 
 -- lastreset = last date of status change
--- 
+--

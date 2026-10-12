@@ -154,10 +154,10 @@ $count = 0;
 $page = 1;
 while ($count < $res) {
 	if (isset($_GET["page_number"]) && $page == $_GET["page_number"])
-		echo "<b><a href=\"$scriptname" . "page_number=$page\">($page)</a></b> &nbsp;\n";
+		echo "<b><a href=\"" . $scriptname . "page_number=$page\">($page)</a></b> &nbsp;\n";
 	elseif (!isset($_GET["page_number"]) && $page == 1)
-		echo "<b><a href=\"$scriptname" . "page_number=$page\">($page)</a></b> &nbsp;\n";
-	else echo "<a href=\"$scriptname" . "page_number=$page\">$page</a> &nbsp;\n";
+		echo "<b><a href=\"" . $scriptname . "page_number=$page\">($page)</a></b> &nbsp;\n";
+	else echo "<a href=\"" . $scriptname . "page_number=$page\">$page</a> &nbsp;\n";
 	$page++;
 	$count = $count + 10;
 }

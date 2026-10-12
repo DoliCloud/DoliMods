@@ -24,7 +24,7 @@ tvacerfa		    A livrer    10
 
 -- special
 leave				A livrer	?
-cabinetmed          Site à créer	
+cabinetmed          Site à créer
 dolicloud			Privé
 
 ------ Dev -----

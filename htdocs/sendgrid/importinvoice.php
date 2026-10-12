@@ -198,8 +198,6 @@ if ($action == 'import' && $sendgridthirdparty->id > 0) {
 					else $vatrate=price2num(($r->info->taxrate - 1) * 100);
 				} else {
 					if ($r['totalPrice'] > 0) $vatrate=round($r['vat'] * 100 / $r['totalPrice'], 2);    // a vat rate is on 2 digits
-					//var_dump($r);
-					//var_dump($vatrate);exit;
 				}
 
 				$facfou = new FactureFournisseur($db);
@@ -216,14 +214,11 @@ if ($action == 'import' && $sendgridthirdparty->id > 0) {
 				}
 				$facfou->note_public   = '';
 
-				//var_dump($billnum.' - '.$facfou->date.' - '.dol_print_date($facfou->date,'dayhour'));exit;
 
 				$facid = $facfou->create($fuser);
 				if ($facid > 0) {
 					if (! empty($conf->global->SENDGRID_OLDAPI)) {
 						foreach ($r->info->details as $d) {
-							//var_dump($d->start);
-							//var_dump($d->end);
 							$label='<strong>ref :'.$d->service.'</strong><br>'.$d->description.'<br>';
 							if ($d->start && $d->start != '0000-00-00' && $d->start != '0000-00-00 00:00:00') $label.=$langs->trans("From").' '.dol_print_date(strtotime($d->start), 'day');
 							if ($d->end && $d->end != '0000-00-00' && $d->end != '0000-00-00 00:00:00')     $label.=($d->start?' ':'').$langs->trans("To").' '.dol_print_date(strtotime($d->end), 'day');
@@ -243,8 +238,6 @@ if ($action == 'import' && $sendgridthirdparty->id > 0) {
 					} else {
 						foreach ($r['details'] as $d) {
 							$vatrate=$vatrate;
-							//var_dump($d->start);
-							//var_dump($d->end);
 							$label='<strong>ref :'.$d['billDetailId'].'</strong><br>'.$d['description'].'<br>';
 							if ($d['domain']) $label.=$d['domain'].'<br>';
 							if ($d['periodStart'] && $d['periodStart'] != '0000-00-00' && $d['periodStart'] != '0000-00-00 00:00:00') $label.=$langs->trans("From").' '.dol_print_date(strtotime($d['periodStart']), 'day');
@@ -355,17 +348,14 @@ if ($action == 'refresh') {
 		} catch (Exception $e) {
 			echo 'Exception : '.$e->getMessage()."\n";
 		}
-		var_dump($result);
 		$i=0;
 		foreach ($result as $key => $val) {
-			var_dump($val);
 			$r = $conn->get('/me/bill/'.$val);
 			if (! $excludenullinvoice || ! empty($r['priceWithoutTax']['value'])) {
 				$r2 = $conn->get('/me/bill/'.$val.'/details');
 				$description='';
 				foreach ($r2 as $key2 => $val2) {
 					$r2d = $conn->get('/me/bill/'.$val.'/details/'.$val2);
-					//var_dump($r2d['description']);
 					$description.=$r2d['description']."<br>\n";
 				}
 				$arrayinvoice[]=array('id'=>$r['billId'], 'billnum'=>$r['billId'], 'date'=>dol_stringtotime($r['date'], 1), 'vat'=>$r['tax']['value'], 'totalPrice'=>$r['priceWithoutTax']['value'], 'totalPriceWithVat'=>$r['priceWithTax']['value'], 'currency'=>$r['priceWithTax']['currencyCode'], 'description'=>$description, 'billingCountry'=>'???', 'ordernum'=>$r['orderId'], 'serialized'=>'???', 'url'=>$r['url'], 'pdfUrl'=>$r['pdfUrl']);
@@ -475,7 +465,6 @@ if ($action == 'refresh') {
 
 						$ref=dol_sanitizeFileName($facfou->ref);
 						$upload_dir = $conf->fournisseur->facture->dir_output.'/'.get_exdir($facfou->id, 2, 0, 0, $facfou, 'invoice_supplier').$ref;
-						//var_dump($upload_dir);
 						$file_name=($upload_dir."/".$facfou->ref_supplier.".pdf");
 						$file_name_bis=($upload_dir."/".$facfou->ref.'_'.$facfou->ref_supplier.".pdf");
 

@@ -27,7 +27,7 @@ ModuleRevertInvoiceDesc = Create a supplier invoice on an entity each time a cus
 #
 RevertInvoiceSetup = Revert Invoice setup
 Settings = Settings
-RevertInvoiceSetupPage = Enter here the list of third parties and the entity they are related to. When a customer invoice will be done on a thirdparty X and entity Y, we will create a supplier invoice similar in entity linked to thirdparty X and on thirdparty linked to entity Y.  
+RevertInvoiceSetupPage = Enter here the list of third parties and the entity they are related to. When a customer invoice will be done on a thirdparty X and entity Y, we will create a supplier invoice similar in entity linked to thirdparty X and on thirdparty linked to entity Y.
 
 
 #

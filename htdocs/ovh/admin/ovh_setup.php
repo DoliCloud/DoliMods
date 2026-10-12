@@ -453,7 +453,6 @@ if (! empty($conf->global->OVH_OLDAPI)) {
 				if (@is_writeable($dolibarr_main_data_root)) {	// Avoid fatal error on fopen with open_basedir
 					if (getDolGlobalString('MAIN_SOAP_DEBUG')) {
 						print "\n";
-						var_dump($e);	// This provide more info than __get functions
 						$outputfile=$dolibarr_main_data_root."/dolibarr_soap.log";
 						$fp = fopen($outputfile, "w");
 						fputs($fp, 'Last SOAP header request:'."\n".$soap->__getLastRequestHeaders()."\n");

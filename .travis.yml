@@ -46,7 +46,7 @@ addons:
     - php8.1-mysqli
     - php8.1-xml
     - php8.1-intl
-    
+
 env:
   global:
   # Set to true for very verbose output
