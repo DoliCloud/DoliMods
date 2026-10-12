@@ -9367,18 +9367,6 @@ parameters:
 			path: ../../../htdocs/memcached/admin/memcached_stats.php
 
 		-
-			message: '#^Parameter \#1 \$im of function imageline expects resource, int given\.$#'
-			identifier: argument.type
-			count: 5
-			path: ../../../htdocs/memcached/admin/memcached_stats.php
-
-		-
-			message: '#^Parameter \#1 \$im of function imagestring expects resource, int given\.$#'
-			identifier: argument.type
-			count: 2
-			path: ../../../htdocs/memcached/admin/memcached_stats.php
-
-		-
 			message: '#^Parameter \#2 \$port of function sendMemcacheCommand expects int, string given\.$#'
 			identifier: argument.type
 			count: 5

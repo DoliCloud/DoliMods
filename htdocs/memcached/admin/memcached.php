@@ -18,7 +18,7 @@
 
 /**
  *     \file       htdocs/memcached/admin/memcached.php
- *     \brief      Page administration de memcached
+ *     \brief      Setup page of module memcached
  */
 
 // Load Dolibarr environment
