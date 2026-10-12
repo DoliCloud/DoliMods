@@ -134,7 +134,7 @@ class OvhServer extends CommonObject
 	 *  @param  string  $morecss            Add more css on link
 	 *	@return	string						String with URL
 	 */
-	function getNomUrl($withpicto = 0, $option = '', $notooltip = 0, $morecss = '')
+	public function getNomUrl($withpicto = 0, $option = '', $notooltip = 0, $morecss = '')
 	{
 		global $db, $conf, $langs;
 		global $dolibarr_main_authentication, $dolibarr_main_demo;
@@ -181,11 +181,12 @@ class OvhServer extends CommonObject
 	 *  @param	int		$mode          0=libelle long, 1=libelle court, 2=Picto + Libelle court, 3=Picto, 4=Picto + Libelle long, 5=Libelle court + Picto
 	 *  @return	string 			       Label of status
 	 */
-	function getLibStatut($mode = 0)
+	public function getLibStatut($mode = 0)
 	{
 		return $this->LibStatut($this->status, $mode);
 	}
 
+	// phpcs:disable PEAR.NamingConventions.ValidFunctionName.ScopeNotCamelCaps
 	/**
 	 *  Return the status
 	 *
@@ -193,8 +194,9 @@ class OvhServer extends CommonObject
 	 *  @param  int		$mode          	0=long label, 1=short label, 2=Picto + short label, 3=Picto, 4=Picto + long label, 5=Short label + Picto, 5=Long label + Picto
 	 *  @return string 			       	Label of status
 	 */
-	static function LibStatut($status, $mode = 0)
+	public static function LibStatut($status, $mode = 0)
 	{
+		// phpcs:enable
 		global $langs;
 
 		if ($mode == 0) {
@@ -271,7 +273,7 @@ class OvhServer extends CommonObject
 			$http_client = new GClient($arrayconfig);
 		} else {
 			$http_client = new GClient();
-			$http_client->setDefaultOption('connect_timeout',$connect_timeout);  // Timeout by default of OVH is 5 and it is not enough
+			$http_client->setDefaultOption('connect_timeout', $connect_timeout);  // Timeout by default of OVH is 5 and it is not enough
 			$http_client->setDefaultOption('timeout', $timeout);
 		}
 

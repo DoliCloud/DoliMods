@@ -127,7 +127,7 @@ function getTokenFromServiceAccount($service_account_name, $key_file_location, $
 
 		// If it is ok to use the token into session
 		if (empty($force_do_not_use_session) && isset($_SESSION['google_web_token_'.$conf->entity])) {
-			dol_syslog("Get web token from session. google_web_token=".(is_array($_SESSION['google_web_token_'.$conf->entity])?implode(",",$_SESSION['google_web_token_'.$conf->entity]):$_SESSION['google_web_token_'.$conf->entity]));
+			dol_syslog("Get web token from session. google_web_token=".(is_array($_SESSION['google_web_token_'.$conf->entity])?implode(",", $_SESSION['google_web_token_'.$conf->entity]):$_SESSION['google_web_token_'.$conf->entity]));
 			$client->setAccessToken($_SESSION['google_web_token_'.$conf->entity]);	// Set the array into $client->token
 		}
 
@@ -174,12 +174,12 @@ function getTokenFromServiceAccount($service_account_name, $key_file_location, $
 		if (empty($_SESSION['google_web_token_'.$conf->entity])) {
 			return 'GoogleWebTokenNotDefinedDoALoginInitFirst';
 		} else {
-			dol_syslog("getTokenFromServiceAccount set current token to ".(is_array($_SESSION['google_web_token_'.$conf->entity]) ? implode(",",$_SESSION['google_web_token_'.$conf->entity]):$_SESSION['google_web_token_'.$conf->entity]), LOG_DEBUG);
+			dol_syslog("getTokenFromServiceAccount set current token to ".(is_array($_SESSION['google_web_token_'.$conf->entity]) ? implode(",", $_SESSION['google_web_token_'.$conf->entity]):$_SESSION['google_web_token_'.$conf->entity]), LOG_DEBUG);
 			// TODO This command seems already executed before.
 			$client->setAccessToken($_SESSION['google_web_token_'.$conf->entity]);	// Set the array into $client->token
 		}
 
-		if (is_object($tokenobj)){
+		if (is_object($tokenobj)) {
 			try {
 				dol_syslog("getTokenFromServiceAccount check isAccessTokenExpired", LOG_DEBUG);
 				$expire = $client->isAccessTokenExpired();
@@ -206,7 +206,7 @@ function getTokenFromServiceAccount($service_account_name, $key_file_location, $
 					// Note: Token in session is now refreshed, but the new one is not stored into database.
 					// Note: We can still make a refresh using the old token object from dataabse.
 
-					dol_syslog("getTokenFromServiceAccount new token in session is now ".(is_array($_SESSION['google_web_token_'.$conf->entity]) ? implode(",",$_SESSION['google_web_token_'.$conf->entity]):$_SESSION['google_web_token_'.$conf->entity]), LOG_DEBUG);
+					dol_syslog("getTokenFromServiceAccount new token in session is now ".(is_array($_SESSION['google_web_token_'.$conf->entity]) ? implode(",", $_SESSION['google_web_token_'.$conf->entity]):$_SESSION['google_web_token_'.$conf->entity]), LOG_DEBUG);
 				} else dol_syslog("getTokenFromServiceAccount token not expired", LOG_DEBUG);
 			} catch (Exception $e) {
 				return $e->getMessage();
@@ -312,7 +312,7 @@ function getTokenFromServiceAccount($service_account_name, $key_file_location, $
 	if ($mode == 'web') {
 		$_SESSION['google_web_token_'.$conf->entity] = $client->getAccessToken();	// Overwrite session with correct token
 
-		dol_syslog("getTokenFromServiceAccount Return client name = ".$applicationname." google_web_token = ".is_array($_SESSION['google_web_token_'.$conf->entity])?implode(",",$_SESSION['google_web_token_'.$conf->entity]):$_SESSION['google_web_token_'.$conf->entity], LOG_INFO);
+		dol_syslog("getTokenFromServiceAccount Return client name = ".$applicationname." google_web_token = ".is_array($_SESSION['google_web_token_'.$conf->entity])?implode(",", $_SESSION['google_web_token_'.$conf->entity]):$_SESSION['google_web_token_'.$conf->entity], LOG_INFO);
 		//dol_syslog("getTokenFromServiceAccount getBasePath = ".$client->getBasePath(), LOG_DEBUG);
 	}
 	if ($mode == 'service') {

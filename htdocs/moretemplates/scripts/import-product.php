@@ -17,11 +17,11 @@
  * or see http://www.gnu.org/
  *
  *
- * Import des produits depuis un fichier XML
- * Ce script est un exemple et a pour vocation a servir de base pour le dev
- * de script personnalise, il utilise les donnes du catalogue de materiel.net
+ * Import products from an XML file
+ * This script is an example, intended to be used as a base to develop
+ * a custom script. It uses the data of the materiel.net catalog.
  *
- * Pour recupere les infos de materiel.net
+ * To get the data of materiel.net
  *
  * wget "http://materiel.net/partenaire/search.php3?format=xml&nobanner=1"
  */
@@ -50,7 +50,7 @@ if (! $res && file_exists("../../../master.inc.php")) $res=@include "../../../ma
 if (! $res && preg_match('/\/nltechno([^\/]*)\//', $_SERVER["PHP_SELF"], $reg)) $res=@include $path."../../../dolibarr".$reg[1]."/htdocs/master.inc.php"; // Used on dev env only
 if (! $res && preg_match('/\/nltechno([^\/]*)\//', $_SERVER["PHP_SELF"], $reg)) $res=@include "../../../dolibarr".$reg[1]."/htdocs/master.inc.php"; // Used on dev env only
 if (! $res) die("Failed to include master.inc.php file\n");
-require_once DOL_DOCUMENT_ROOT ."/product.class.php";
+require_once DOL_DOCUMENT_ROOT ."/product/class/product.class.php";
 
 /*
  *
@@ -117,10 +117,16 @@ if (count($items) > 0) {
 exit ;
 
 /*
- * Fonctions
- *
+ * Functions
  */
 
+/**
+ * charData
+ *
+ * @param 	int		$parser		Parser
+ * @param 	string	$data		Character data
+ * @return	void
+ */
 function charData($parser, $data)
 {
 	global $index, $current, $items;

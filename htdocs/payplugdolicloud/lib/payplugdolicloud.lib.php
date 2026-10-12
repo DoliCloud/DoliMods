@@ -85,8 +85,7 @@ function payplugdolicloudAdminPrepareHead()
  * @param	array	$payerarray		An array to fill the payer informations (Must be set with payer mode)
  * @return	int						The amount to pay if mode amount
  */
-
- function payplugGetDataFromObjects($source, $ref, $mode = 'amount', &$payerarray = null)
+function payplugGetDataFromObjects($source, $ref, $mode = 'amount', &$payerarray = null)
 {
 	global $db;
 
@@ -130,7 +129,7 @@ function payplugdolicloudAdminPrepareHead()
 					} else {
 						$amount = $don->getRemainToPay();
 					}
-				} elseif($mode == 'payer' && !is_null($payerarray)) {
+				} elseif ($mode == 'payer' && !is_null($payerarray)) {
 					$payerarray['firstName'] = $don->firstname;
 					$payerarray['lastName'] = $don->lastname;
 					$payerarray['email'] = $don->email;
@@ -161,11 +160,11 @@ function payplugdolicloudAdminPrepareHead()
 						$amount = $adht->amount;
 					}
 
-					if (!empty($member->last_subscription_amount) && !GETPOSTISSET('newamount') && is_numeric($amount)){
+					if (!empty($member->last_subscription_amount) && !GETPOSTISSET('newamount') && is_numeric($amount)) {
 						$amount = max($member->last_subscription_amount, $amount);
 					}
 					$amount = max(0, getDolGlobalString('MEMBER_MIN_AMOUNT'), $amount);
-				} else if($mode == 'payer' && !is_null($payerarray)) {
+				} elseif ($mode == 'payer' && !is_null($payerarray)) {
 					$payerarray['firstName'] = $member->firstname;
 					$payerarray['lastName'] = $member->lastname;
 					$payerarray['companyName'] = $member->company;
@@ -199,7 +198,7 @@ function payplugdolicloudAdminPrepareHead()
 
 						$amount = $pu_ttc;
 					}
-				} else if ($mode == 'payer' && !is_null($payerarray)) {
+				} elseif ($mode == 'payer' && !is_null($payerarray)) {
 					$contract = new Contrat($db);
 					$contract->fetch($contractline->fk_contrat);
 					$contract->fetch_thirdparty();
@@ -234,7 +233,7 @@ function payplugdolicloudAdminPrepareHead()
 					if (GETPOST("amount", 'alpha')) {
 						$amount = GETPOST("amount", 'alpha');
 					}
-				} else if ($mode == 'payer' && !is_null($payerarray)) {
+				} elseif ($mode == 'payer' && !is_null($payerarray)) {
 					$invoice->fetch_thirdparty();
 
 					if ($invoice->thirdparty->isACompany()) {
@@ -267,7 +266,7 @@ function payplugdolicloudAdminPrepareHead()
 					if (GETPOST("amount", 'alpha')) {
 						$amount = GETPOST("amount", 'alpha');
 					}
-				} else if ($mode == 'payer' && !is_null($payerarray)) {
+				} elseif ($mode == 'payer' && !is_null($payerarray)) {
 					$order->fetch_thirdparty();
 
 					if ($order->thirdparty->isACompany()) {
@@ -296,7 +295,7 @@ function payplugdolicloudAdminPrepareHead()
 			} else {
 				if ($mode == 'amount') {
 					$amount = $invoice->total_ttc;
-				} else if ($mode == 'payer' && !is_null($payerarray)) {
+				} elseif ($mode == 'payer' && !is_null($payerarray)) {
 					$invoice->fetch_thirdparty();
 
 					if ($invoice->thirdparty->isACompany()) {
@@ -316,7 +315,6 @@ function payplugdolicloudAdminPrepareHead()
 				}
 			}
 			break;
-
 	}
 	return $amount;
 }

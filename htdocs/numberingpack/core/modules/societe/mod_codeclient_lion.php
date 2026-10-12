@@ -17,9 +17,9 @@
  */
 
 /**
- *       \file       htdocs/core/modules/societe/mod_codeclient_lion.class.php
+ *       \file       htdocs/numberingpack/core/modules/societe/mod_codeclient_lion.php
  *       \ingroup    societe
- *       \brief      Fichier de la classe des gestion lion des codes clients
+ *       \brief      File of class to manage third party codes with the Lion model
  *       \version    $Id: mod_codeclient_lion.php,v 1.5 2011/08/17 16:46:32 eldy Exp $
  */
 
@@ -27,24 +27,32 @@ require_once DOL_DOCUMENT_ROOT."/core/modules/societe/modules_societe.class.php"
 
 
 /**
- *	Classe permettant la gestion lion des codes tiers
+ *	Class to manage third party codes with the Lion model
  */
 class mod_codeclient_lion extends ModeleThirdPartyCode
 {
-	var $nom;							// Nom du modele
-	var $code_modifiable;				// Code modifiable
-	var $code_modifiable_invalide;		// Code modifiable si il est invalide
-	var $code_modifiable_null;			// Code modifiables si il est null
-	var $code_null;						// Code facultatif
-	var $version;		// 'development', 'experimental', 'dolibarr'
-	var $code_auto; // Numerotation automatique
+	/**
+	 * @var DoliDB Database handler
+	 */
+	protected $db;
+
+	public $nom;							// Name of model
+	public $code_modifiable;				// Code can be changed
+	public $code_modifiable_invalide;		// Code can be changed if not valid
+	public $code_modifiable_null;			// Code can be changed if not defined
+	public $code_null;						// Code is optional
+	public $version;		// 'development', 'experimental', 'dolibarr'
+	public $code_auto; // Automatic numbering
 
 
 	/**
-	 * 	Constructeur classe
+	 * Constructor
+	 *
+	 * @param	DoliDB	$db	Database handler
 	 */
-	function mod_codeclient_lion()
+	public function __construct($db)
 	{
+		$this->db = $db;
 		$this->nom = "Lion";
 		$this->name = "Lion";
 		$this->version = '$Revision: 1.5 $';
@@ -56,30 +64,40 @@ class mod_codeclient_lion extends ModeleThirdPartyCode
 	}
 
 
-	/**		\brief      Renvoi la description du module
-	 *      	\return     string      Texte descripif
+	/**
+	 * Return description of numbering module
+	 *
+	 * @param	Translate	$langs	Language object
+	 * @return	string				Description
 	 */
-	function info($langs)
+	public function info($langs)
 	{
 		return "Verifie si le code client/fournisseur est de la forme numerique 999 et sur au moins 3 chiffres. Verification mais pas de generation automatique.";
 	}
 
 
-	/**		\brief      Renvoi la description du module
-	 *      	\return     string      Texte descripif
+	/**
+	 * Return an example of code
+	 *
+	 * @param	?Translate		$langs	Language object
+	 * @param	Societe|string	$objsoc	Third party object
+	 * @param	int				$type	Type of third party (1:customer, 2:supplier, -1:autodetect)
+	 * @return	string					Example
 	 */
-	function getExample($langs)
+	public function getExample($langs = null, $objsoc = '', $type = -1)
 	{
 		return "001";
 	}
 
 
-	/**     \brief      Return next value
-	 *      \param      objsoc      Object third party
-	 *      \param      $type       Client ou fournisseur (1:client, 2:fournisseur)
-	 *      \return     string      Value if OK, '' if module not configured, <0 if KO
+	/**
+	 * Return next value
+	 *
+	 * @param	Societe|int	$objsoc	Third party object
+	 * @param	int	$type	Type of third party (1:customer, 2:supplier)
+	 * @return	string|int	Next value if OK, -1 if KO
 	 */
-	function getNextValue($objsoc = 0, $type = -1)
+	public function getNextValue($objsoc = 0, $type = -1)
 	{
 		global $db, $conf;
 
@@ -101,18 +119,15 @@ class mod_codeclient_lion extends ModeleThirdPartyCode
 
 
 	/**
-	 *      \brief      Check validity of code according to its rules
-	 *      \param      $db         Database handler
-	 *      \param      $code       Code to check/correct
-	 *      \param      $soc        Object third party
-	 *      \param      $type       0 = customer/prospect , 1 = supplier
-	 *      \return     int     0 if OK
-	 *                          -1 ErrorBadCustomerCodeSyntax
-	 *                          -2 ErrorCustomerCodeRequired
-	 *                          -3 ErrorCustomerCodeAlreadyUsed
-	 *                          -4 ErrorPrefixRequired
+	 * Check validity of code according to its rules
+	 *
+	 * @param	DoliDB	$db	Database handler
+	 * @param	string	$code	Code to check, cleaned (trimmed and uppercased)
+	 * @param	Societe	$soc	Third party object
+	 * @param	int	$type	0 = customer/prospect, 1 = supplier
+	 * @return	int	0 if OK, -1 ErrorBadCustomerCodeSyntax, -2 ErrorCustomerCodeRequired, -3 ErrorCustomerCodeAlreadyUsed
 	 */
-	function verif($db, &$code, $soc, $type)
+	public function verif($db, &$code, $soc, $type)
 	{
 		$result=0;
 		$code = strtoupper(trim($code));
@@ -120,7 +135,7 @@ class mod_codeclient_lion extends ModeleThirdPartyCode
 		if (! $code && $this->code_null) {
 			$result=0;
 		} else {
-			if ($this->_verif_syntax($code) >= 0) {
+			if ($this->verifSyntax($code) >= 0) {
 				$is_dispo = $this->verif_dispo($db, $code, $soc);
 				if ($is_dispo <> 0) {
 					$result=-3;
@@ -140,18 +155,24 @@ class mod_codeclient_lion extends ModeleThirdPartyCode
 	}
 
 
+	// phpcs:disable PEAR.NamingConventions.ValidFunctionName.ScopeNotCamelCaps
 	/**
-	 *		\brief		Renvoi si un code est pris ou non (par autre tiers)
-	 *		\param		$db			Handler acces base
-	 *		\param		$code		Code a verifier
-	 *		\param		$soc		Objet societe
-	 *		\return		int			0 si dispo, <0 si erreur
+	 * Return if a code is already used by another third party
+	 *
+	 * @param	DoliDB	$db	Database handler
+	 * @param	string	$code	Code to check
+	 * @param	Societe	$soc	Third party object
+	 * @return	int	0 if available, -1 if already used, -2 if error
 	 */
-	function verif_dispo($db, $code, $soc)
+	public function verif_dispo($db, $code, $soc)
 	{
+		// phpcs:enable
 		$sql = "SELECT code_client FROM ".MAIN_DB_PREFIX."societe";
-		$sql.= " WHERE code_client = '".$code."'";
-		$sql.= " AND rowid != '".$soc->id."'";
+		$sql.= " WHERE code_client = '".$db->escape($code)."'";
+		$sql.= " AND entity IN (".getEntity('societe').")";
+		if ($soc->id > 0) {
+			$sql.= " AND rowid <> ".((int) $soc->id);
+		}
 
 		$resql=$db->query($sql);
 		if ($resql) {
@@ -167,12 +188,12 @@ class mod_codeclient_lion extends ModeleThirdPartyCode
 
 
 	/**
-	 *	Renvoi si un code respecte la syntaxe
+	 * Return if a code respects the syntax
 	 *
-	 *	@param		$code		Code a verifier
-	 *	@return		int			0 si OK, <0 si KO
+	 * @param	string	$code	Code to check
+	 * @return	int	0 if OK, <0 if KO
 	 */
-	private function _verif_syntax($code)
+	private function verifSyntax($code)
 	{
 		$res = 0;
 

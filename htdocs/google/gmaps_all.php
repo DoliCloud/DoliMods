@@ -535,7 +535,7 @@ $db->close();
  * @param 	string 	$address 	An address
  * @return 	mixed				Array(lat, lng) if OK, error message string if KO
  */
-public function geocoding($address)
+function geocoding($address)
 {
 	global $conf;
 
@@ -580,7 +580,7 @@ public function geocoding($address)
  * @param string $replaceBy	The replacement character
  * @return string
  */
-public function withoutSpecialChars($str, $replaceBy = '_')
+function withoutSpecialChars($str, $replaceBy = '_')
 {
 	$str = htmlentities($str, ENT_NOQUOTES, 'utf-8');
 	$str = preg_replace('#&([A-za-z])(?:acute|cedil|circ|grave|orn|ring|slash|th|tilde|uml);#', '\1', $str);
@@ -604,7 +604,7 @@ public function withoutSpecialChars($str, $replaceBy = '_')
  * @param   string  $param          Params
  * @return	array					returns an associative array containing the response from the server.
  */
-public function googlegetURLContent($url, $postorget = 'GET', $param = '')
+function googlegetURLContent($url, $postorget = 'GET', $param = '')
 {
 	//declaring of global variables
 	global $conf, $langs;

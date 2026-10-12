@@ -121,7 +121,7 @@ class modDiscussion extends DolibarrModules
 			/* BEGIN MODULEBUILDER HOOKSCONTEXTS */
 			'hooks' => array(
 				  'data' => array(
-				      'discussionmessages',
+					  'discussionmessages',
 				  ),
 				//   'entity' => '0',
 			),

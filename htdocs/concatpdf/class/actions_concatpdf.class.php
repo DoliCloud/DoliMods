@@ -170,7 +170,7 @@ class ActionsConcatPdf
 			$out.='<div class="valignmiddle inline-block hideonsmartphone">'.$langs->trans("ConcatFile").'</div> ';
 
 			if (getDolGlobalString('CONCATPDF_MULTIPLE_CONCATENATION_ENABLED')) {
-				foreach($arraypreselected as $tmpkey => $tmpval) {
+				foreach ($arraypreselected as $tmpkey => $tmpval) {
 					$arraypreselected[$tmpkey] = preg_replace('/\.pdf$/i', '', $tmpval);
 				}
 				$out.='<div class="valignmiddle inline-block minwidth300imp">';
@@ -239,7 +239,6 @@ class ActionsConcatPdf
 		if (empty($concatpdffile) && ! $formwassubmittedwithemptyselection) {
 			//var_dump(getDolGlobalString('CONCATPDF_PRESELECTED_MODELS'));
 			if ($preselected == -1 && getDolGlobalString('CONCATPDF_PRESELECTED_MODELS')) {
-
 				// List of value key into setup -> value for modulepart
 				$altkey=array('proposal'=>'propal', 'order'=>'commande', 'invoice'=>'facture', 'supplier_order'=>'order_supplier', 'supplier_invoice'=>'invoice_supplier');
 
@@ -257,7 +256,7 @@ class ActionsConcatPdf
 					//var_dump($key.' - '.$altkey[$key].' - '.$val.' - '.$parameters['object']->element);
 					if (isset($parameters['object']->element) && ($parameters['object']->element == $key || (isset($altkey[$key]) && $parameters['object']->element == $altkey[$key]))) {
 						$tmpval = explode(',', $val);
-						foreach($tmpval as $val2) {
+						foreach ($tmpval as $val2) {
 							$concatpdffile[] = preg_replace('/\.pdf$/i', '', $val2);
 						}
 					}
@@ -399,6 +398,7 @@ class ActionsConcatPdf
 		return $ret;
 	}
 
+	// phpcs:disable PEAR.NamingConventions.ValidFunctionName.ScopeNotCamelCaps
 	/**
 	 * Hook AddSignature (context 'onlinesign').
 	 *
@@ -424,6 +424,7 @@ class ActionsConcatPdf
 	 */
 	public function AddSignature($parameters, &$object, &$action)
 	{
+		// phpcs:enable
 		global $conf;
 
 		if (!is_object($object) || $object->element !== 'propal') {
@@ -477,7 +478,7 @@ class ActionsConcatPdf
 	 *
 	 * @param 	PDF		$pdf    Pdf
 	 * @param 	array	$files  Array of files to concat.
-	 * @return	int				Number of files
+	 * @return	int				Number of pages added, -1 if error
 	 */
 	public function concat(&$pdf, $files)
 	{
@@ -613,16 +614,17 @@ class ActionsConcatPdf
 	/**
 	 * Concat PDF files in mixed mode (only on back pages)
 	 *
-	 * @param 	PDF		$pdf    Pdf
-	 * @param 	array	$files  Array of files to concat.
-	 * @return	int				Number of files
+	 * @param 	PDF		$pdf    	Pdf
+	 * @param 	string	$mainpdf	Path of the main PDF file, whose pages are the front pages
+	 * @param 	array	$files  	Array of files to concat on the back pages
+	 * @return	int					Number of pages of the main PDF, -1 if error
 	 */
-	function concatMixed(&$pdf, $mainpdf, $files)
+	public function concatMixed(&$pdf, $mainpdf, $files)
 	{
 		$totalcgupagecount = $pagecount = 0;
 		$cgupage = [];
 		foreach ($files as $file) {
-			if (dol_is_file($file)) {	// We ignore file if not found so if ile has been removed we can still generate the PDF.
+			if (dol_is_file($file)) {	// We ignore file if not found so if file has been removed we can still generate the PDF.
 				$pagecounttmp = $pdf->setSourceFile($file);
 				for ($i = 1; $i <= $pagecounttmp; $i++) {
 					$totalcgupagecount++;
@@ -643,7 +645,7 @@ class ActionsConcatPdf
 					$pdf->useTemplate($tplidx);
 
 					//back
-					if($currentcgupagenum < $totalcgupagecount) {
+					if ($currentcgupagenum < $totalcgupagecount) {
 						$pdf->setSourceFile($cgupage[$currentcgupagenum]);
 						$tplidx = $pdf->ImportPage($currentcgupagenum);
 						$s = $pdf->getTemplatesize($tplidx);
@@ -805,13 +807,13 @@ class ActionsConcatPdf
 	}
 	*/
 
-   /**
-    * findPageNoForRef
-    *
-    * @param  mixed    $parser     Parser
-    * @param  string   $pageRef    Page Ref
-    * @return int                  Return <0 if error
-    */
+	/**
+	* findPageNoForRef
+	*
+	* @param  mixed    $parser     Parser
+	* @param  string   $pageRef    Page Ref
+	* @return int                  Return <0 if error
+	*/
 	/*
 	function findPageNoForRef(&$parser, $pageRef) {
 		$ref_obj = $pageRef[1]; $ref_gen = $pageRef[2];

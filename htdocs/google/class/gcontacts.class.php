@@ -39,26 +39,26 @@ class GContact
 	const GOOGLE_SYSTEM_GROUP='System Group: ';
 	const MAX_RETREIVE=800;
 
-	var $dolID;
-	var $fullName;
-	var $firstname;
-	var $lastname;
-	var $addr;
-	var $phone_pro;
-	var $phone_perso;
-	var $phone_mobile;
-	var $fax;
-	var $email;
+	public $dolID;
+	public $fullName;
+	public $firstname;
+	public $lastname;
+	public $addr;
+	public $phone_pro;
+	public $phone_perso;
+	public $phone_mobile;
+	public $fax;
+	public $email;
 
-	var $company;
-	var $orgName;
-	var $socid;
+	public $company;
+	public $orgName;
+	public $socid;
 
-	var $poste;
+	public $poste;
 
-	var $googleID;
-	var $lastMod;
-	var $tags;
+	public $googleID;
+	public $lastMod;
+	public $tags;
 
 	public $doc;
 	public $atomEntry;
@@ -739,10 +739,10 @@ class GContact
 
 
 	/**
-	 * Delete contacts marqued as comming from dolibarr on Gmail account
+	 * Delete contacts marqued as coming from dolibarr on Gmail account
 	 *
 	 * @param	array	$gdata		Gdata handler
-	 * @param 	string 	$pattern	pattern : default is 'OnelogMarker' which will suppress all contacts comming from Dolibarr
+	 * @param 	string 	$pattern	pattern : default is 'OnelogMarker' which will suppress all contacts coming from Dolibarr
 	 *                         		To delete a specific contact, use 'OnelogMarker:XX#' where XX is the dolibarr ID of the contact
 	 * @param	string	$type		'thirdparty' or 'contact'
 	 * @return 	int 				<0 if KO, >=0 nb of deleted contacts
@@ -838,7 +838,7 @@ class GContact
 
 				//$groupid = $googleIDNodes->item(0)->textContent;
 				dol_syslog("getContactGroupsXml groupid=".$groupid, LOG_WARNING);
-			} catch(Exception $e) {
+			} catch (Exception $e) {
 				print 'Error when parsing result of group creation in insertGContactGroup. Can\'t find groupid created.';
 				return '';
 			}
@@ -898,7 +898,7 @@ class GContact
 							}
 						}
 					}
-				} catch(Exception $e) {
+				} catch (Exception $e) {
 					print 'Error when getting groups';
 					exit;
 				}
@@ -911,7 +911,7 @@ class GContact
 		if (!$error && !isset($googleGroups[$groupName])) {
 			try {
 				$newGroupID = self::insertGContactGroup($gdata, $groupName, $useremail);
-			} catch(Exception $e) {
+			} catch (Exception $e) {
 				dol_syslog("Error in getGoogleGroupID", LOG_WARNING);
 			}
 			$googleGroups[$groupName] = $newGroupID;
@@ -990,6 +990,12 @@ class GContact
 	// 	return 1;
 	// }
 
+	/**
+	 * Parse the XML response of a Google batch request
+	 *
+	 * @param	string		$xmlStr	XML response
+	 * @return	stdClass			Object with count (number of entries), errors (number of errors) and lastError (message of last error)
+	 */
 	private static function parseResponse($xmlStr)
 	{
 		//$xmlStr = file_get_contents(DOL_DATA_ROOT . "/gcontacts/temp/gmail.response.xml");
@@ -1183,31 +1189,31 @@ class GContact
  */
 class GCaddr
 {
-	var $street;
-	var $zip;
-	var $town;
-	var $state;
-	var $country;
-	var $country_id;
-	var $state_id;
+	public $street;
+	public $zip;
+	public $town;
+	public $state;
+	public $country;
+	public $country_id;
+	public $state_id;
 
 	/**
 	 *	Fill country and state id from labels
 	 *
 	 * 	@return	void
 	 */
-	function fillIDs()
+	public function fillIDs()
 	{
 		$this->guessCountryID();
 		$this->guessStateID();
 	}
 
-	 /**
-	  * Do our best to retreive dolibarr country_id from the country label.
-	  * knowing that labels from google are free and traduction problem could arise...
-	  *
-	  * @return	string	Country id
-	  */
+	/**
+	 * Do our best to set the Dolibarr country_id from the country label,
+	 * knowing that labels from Google are free text and translation problems could arise...
+	 *
+	 * @return	void
+	 */
 	private function guessCountryID()
 	{
 		if (empty($this->country)) return;
@@ -1229,9 +1235,9 @@ class GCaddr
 	}
 
 	/**
-	 * Try to return the dolibarr StateID given a dolibarr countryID and a stateLabel
+	 * Try to set the Dolibarr state_id from the Dolibarr country_id and the state label
 	 *
-	 * @return	int		State id
+	 * @return	void
 	 */
 	private function guessStateID()
 	{
@@ -1240,10 +1246,10 @@ class GCaddr
 		$langs->load("dict");
 
 		$sql = "SELECT d.rowid, d.code_departement as stateCode , d.nom as stateLabel, p.rowid as countryID FROM";
-		$sql .= " ".MAIN_DB_PREFIX ."c_departements as d, ".MAIN_DB_PREFIX."c_regions as r,".MAIN_DB_PREFIX.$countrytable." as p";
+		$sql .= " ".MAIN_DB_PREFIX ."c_departements as d, ".MAIN_DB_PREFIX."c_regions as r,".MAIN_DB_PREFIX."c_country as p";
 		$sql .= " WHERE d.fk_region=r.code_region and r.fk_pays=p.rowid";
 		$sql .= " AND d.active = 1 AND r.active = 1 AND p.active = 1";
-		$sql .= " AND p.rowid = '".$this->country_id."'";
+		$sql .= " AND p.rowid = ".((int) $this->country_id);
 
 		$resql=$db->query($sql);
 		if (!$resql) throw new Exception($db->lasterror());

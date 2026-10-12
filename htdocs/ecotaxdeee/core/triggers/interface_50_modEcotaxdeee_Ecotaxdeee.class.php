@@ -16,7 +16,7 @@
  */
 
 /**
- *  \file       ecotaxdeee/core/triggers/interface_modEcotaxdeee_Ecotaxdeee.class.php
+ *  \file       ecotaxdeee/core/triggers/interface_50_modEcotaxdeee_Ecotaxdeee.class.php
  *  \ingroup    ecotaxdeee
  *  \brief      Add Ecotax for products into specific category
  */
@@ -29,15 +29,15 @@ include_once DOL_DOCUMENT_ROOT.'/core/triggers/dolibarrtriggers.class.php';
  */
 class InterfaceEcotaxdeee extends DolibarrTriggers
 {
-	var $db;
-	var $error;
+	public $db;
+	public $error;
 
 	/**
-	 *   Constructeur.
+	 *   Constructor
 	 *
-	 *   @param	DoliDB	$db      Handler d'acces base
+	 *   @param	DoliDB	$db      Database handler
 	 */
-	function __construct($db)
+	public function __construct($db)
 	{
 		$this->db = $db;
 
@@ -48,31 +48,31 @@ class InterfaceEcotaxdeee extends DolibarrTriggers
 	}
 
 	/**
-	 *   Renvoi nom du lot de triggers
+	 *   Return name of trigger file
 	 *
-	 *   @return     string      Nom du lot de triggers
+	 *   @return     string      Name of trigger file
 	 */
-	function getName()
+	public function getName()
 	{
 		return $this->name;
 	}
 
 	/**
-	 *   Renvoi descriptif du lot de triggers
+	 *   Return description of trigger file
 	 *
-	 *   @return     string      Descriptif du lot de triggers
+	 *   @return     string      Description of trigger file
 	 */
-	function getDesc()
+	public function getDesc()
 	{
 		return $this->description;
 	}
 
 	/**
-	 *   Renvoi version du lot de triggers
+	 *   Return version of trigger file
 	 *
-	 *   @return     string      Version du lot de triggers
+	 *   @return     string      Version of trigger file
 	 */
-	function getVersion()
+	public function getVersion()
 	{
 		global $langs;
 		$langs->load("admin");
@@ -84,19 +84,19 @@ class InterfaceEcotaxdeee extends DolibarrTriggers
 	}
 
 	/**
-	 *      Fonction appelee lors du declenchement d'un evenement Dolibarr.
-	 *      D'autres fonctions runTrigger peuvent etre presentes dans includes/triggers
+	 *      Function called when a Dolibarr business event is done.
+	 *      Other runTrigger functions may exist into other trigger files
 	 *
 	 *      @param	string		$action     Code of event
-	 *      @param 	Object		$object     Objet concerne
-	 *      @param  User		$user       Objet user
-	 *      @param  Translate	$langs      Objet lang
-	 *      @param  Conf		$conf       Objet conf
+	 *      @param 	Object		$object     Object concerned
+	 *      @param  User		$user       Object user
+	 *      @param  Translate	$langs      Object lang
+	 *      @param  Conf		$conf       Object conf
 	 *      @return int         			<0 if KO, 0 if nothing is done, >0 if OK
 	 */
-	function runTrigger($action, $object, User $user, Translate $langs, Conf $conf)
+	public function runTrigger($action, $object, User $user, Translate $langs, Conf $conf)
 	{
-		// Création / Mise à jour / Suppression d'un évènement dans Google contact
+		// Creation / update / deletion of a line: add, update or remove the ecotax line
 		if (!isModEnabled("ecotaxdeee")) {
 			return 0;
 		}
@@ -204,11 +204,12 @@ class InterfaceEcotaxdeee extends DolibarrTriggers
 		}
 		*/
 
-		// Renvoi 0 car aucune action de faite
+		// Return 0 as no action was done
 		return 0;
 	}
 
 
+	// phpcs:disable PEAR.NamingConventions.ValidFunctionName.PublicUnderscore,PEAR.NamingConventions.ValidFunctionName.ScopeNotCamelCaps
 	/**
 	 * Calculate ecotax.
 	 * Called after an insert, update or delete of a line.
@@ -218,9 +219,11 @@ class InterfaceEcotaxdeee extends DolibarrTriggers
 	 * @param  User        $user       User
 	 * @param  Translate   $langs      Langs
 	 * @param  Conf        $conf       Conf
+	 * @return int|null                 1 if OK, 0 if nothing to do, -1 if KO, null if object not supported
 	 */
-	function _add_replace_ecotax($action, $object, $user, $langs, $conf)
+	protected function _add_replace_ecotax($action, $object, $user, $langs, $conf)
 	{
+		// phpcs:enable
 		global $mysoc;
 
 		include_once DOL_DOCUMENT_ROOT.'/core/lib/price.lib.php';
@@ -279,7 +282,7 @@ class InterfaceEcotaxdeee extends DolibarrTriggers
 		}
 		$parentobject->fetch($parentid);	// Note: The fetch_lines() is included into the fetch
 
-		// $parentobject is the parent object of the line we have inserted (so an new invoice if event is a creation of an invoice for example).
+		// $parentobject is the parent object of the line we have inserted (so a new invoice if event is a creation of an invoice for example).
 		$lines = $parentobject->lines;
 
 		// Get eco tax deee amount from extra field
@@ -287,7 +290,7 @@ class InterfaceEcotaxdeee extends DolibarrTriggers
 		$extrafields = new ExtraFields($this->db);
 		$optionsArray = $extrafields->fetch_name_optionals_label('product');
 
-		// Loop on each lines of the object (the proposal, the sale order or the invoice)
+		// Loop on each line of the object (the proposal, the sale order or the invoice)
 		$nboflineswithpossibleecotax=0;
 		foreach ($lines as $key => $line) {
 			$ecocateg='NOCATEG';	// TODO For a future feature
@@ -303,7 +306,7 @@ class InterfaceEcotaxdeee extends DolibarrTriggers
 				continue;
 			}
 
-			if (empty($line->fk_product))  {
+			if (empty($line->fk_product)) {
 				continue;	// This line is not a predefined product, so we suppose there is no eco tax deee
 			}
 
@@ -311,8 +314,8 @@ class InterfaceEcotaxdeee extends DolibarrTriggers
 
 			if ($line->special_code != 1 && $line->special_code != 2) {				// Discard shipping lines and ecotax lines
 				if (preg_match('/_DELETE$/', $action) && $line->id == $object->id) {
-                    continue;	// We discard the line that we delete
-                }
+					continue;	// We discard the line that we delete
+				}
 
 				// If line is a common line, we add it to the $ecoamount array.
 				$nboflineswithpossibleecotax++;
@@ -328,7 +331,7 @@ class InterfaceEcotaxdeee extends DolibarrTriggers
 						}
 
 						$sign = 1;
-						// If unit prices were negative (exemple for a credit note), we must use a negative ecotax too.
+						// If unit prices were negative (example for a credit note), we must use a negative ecotax too.
 						if ($line->total_ht < 0 || $line->total_ttc < 0) {
 							$sign = -1;
 						}
@@ -358,7 +361,7 @@ class InterfaceEcotaxdeee extends DolibarrTriggers
 								}
 
 								$sign = 1;
-								// If unit prices were negative (exemple for a credit note), we must use a negative ecotax too.
+								// If unit prices were negative (example for a credit note), we must use a negative ecotax too.
 								if ($line->total_ht < 0 || $line->total_ttc < 0) {
 									$sign = -1;
 								}
@@ -369,7 +372,6 @@ class InterfaceEcotaxdeee extends DolibarrTriggers
 					} else {
 						dol_syslog(get_class($this).'::checkCode: code not founded');
 					}
-
 				}
 			}
 		}
@@ -450,7 +452,7 @@ class InterfaceEcotaxdeee extends DolibarrTriggers
 				if ($result <= 0) {
 					$error = $tmpecotaxline[$ecocateg]->error;
 				}
-			} else { // If then ecotax line did not yet exists for $ecocateg and we need it
+			} else { // If the ecotax line does not exist yet for $ecocateg and we need it
 				$product_id = getDolGlobalInt('WEEE_PRODUCT_ID');
 
 				// Insert line
@@ -469,7 +471,7 @@ class InterfaceEcotaxdeee extends DolibarrTriggers
 				include_once DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php';
 
 				// addline($desc, $pu_ht, $qty, $txtva, $txlocaltax1=0, $txlocaltax2=0, $fk_product=0, $remise_percent=0, $price_base_type='HT', $pu_ttc=0, $info_bits=0, $type=0, $rang=-1, $special_code=0, $fk_parent_line=0, $fk_fournprice=0, $pa_ht=0, $label='',$date_start='', $date_end='',$array_options=0)
-				if ($parentobject->table_element == 'propal')   {
+				if ($parentobject->table_element == 'propal') {
 					$result=$parentobject->addline($desc, $ecoamount[$ecocateg], 1, $txtva, $localtax1, $localtax2, $product_id, 0, 'HT', 0, 0, 1, $rang, $special_code, '', 0, $ecoamount[$ecocateg], null, '', '', 0);
 				}
 				// addline($desc, $pu_ht, $qty, $txtva, $txlocaltax1=0, $txlocaltax2=0, $fk_product=0, $remise_percent=0, $info_bits=0, $fk_remise_except=0, $price_base_type='HT', $pu_ttc=0, $date_start='', $date_end='', $type=0, $rang=-1, $special_code=0, $fk_parent_line=0, $fk_fournprice=null, $pa_ht=0, $label='',$array_options=0)
@@ -477,7 +479,7 @@ class InterfaceEcotaxdeee extends DolibarrTriggers
 					$result=$parentobject->addline($desc, $ecoamount[$ecocateg], 1, $txtva, $localtax1, $localtax2, $product_id, 0, 0, 0, 'HT', '', '', '', 1, $rang, $special_code, '', 0, $ecoamount[$ecocateg], null, 0, 0);
 				}
 				// addline($desc, $pu_ht, $qty, $txtva, $txlocaltax1=0, $txlocaltax2=0, $fk_product=0, $remise_percent=0, $date_start='', $date_end='', $ventil=0, $info_bits=0, $fk_remise_except='', $price_base_type='HT', $pu_ttc=0, $type=0, $rang=-1, $special_code=0, $origin='', $origin_id=0, $fk_parent_line=0, $fk_fournprice=null, $pa_ht=0, $label='',$array_options=0)
-				if ($parentobject->table_element == 'facture')  {
+				if ($parentobject->table_element == 'facture') {
 					$result=$parentobject->addline($desc, $ecoamount[$ecocateg], 1, $txtva, $localtax1, $localtax2, $product_id, 0, '', '', 0, 0, '', 'HT', 0, 1, $rang, $special_code, '', 0, 0, null, $ecoamount[$ecocateg], '', 0);
 				}
 				// TODO order_supplier and invoice_supplier
@@ -500,16 +502,19 @@ class InterfaceEcotaxdeee extends DolibarrTriggers
 	}
 
 
+	// phpcs:disable PEAR.NamingConventions.ValidFunctionName.PublicUnderscore,PEAR.NamingConventions.ValidFunctionName.ScopeNotCamelCaps
 	/**
 	 * See if the product is in the ecotax category.
 	 * Stop and return 0 if the product is not in it.
 	 *
 	 * @param	string	$ecocat			Category
 	 * @param	int		$product_id		Product id
+	 * @return	int						1 if the product is in the category, 0 if not
 	 */
-	function _is_in_cat($ecocat, $product_id)
+	protected function _is_in_cat($ecocat, $product_id)
 	{
-		require_once DOL_DOCUMENT_ROOT."/categories/categorie.class.php";
+		// phpcs:enable
+		require_once DOL_DOCUMENT_ROOT."/categories/class/categorie.class.php";
 
 		if (!isset($product_id) || empty($product_id)) {
 			return 0;

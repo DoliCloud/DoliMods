@@ -141,7 +141,7 @@ repos:
         args: [--standard=dev/setup/codesniffer/ruleset.xml]
       - id: php-cs
         exclude: |
-          (?x)^(htdocs/includes/.*)$
+          (?x)^(.*/includes/.*|dev/tools/phan/.*)$
         files: \.(php)$
         args:
           [
@@ -166,7 +166,7 @@ repos:
         pass_filenames: false # Run on all files
       - id: php-lint
         exclude:
-          (?x)^(htdocs/includes/symfony/var-dumper/Tests/.*)$
+          (?x)^(.*/includes/symfony/var-dumper/Tests/.*)$
       - id: php-stan
         stages: [manual]
         files: \.(php)$
@@ -178,7 +178,7 @@ repos:
       - id: prettier
         stages: [manual]
         exclude:
-          (?x)^( .*\.(phar |min\.css |lock) |htdocs/(includes|theme/common)/.*
+          (?x)^( .*\.(phar |min\.css |lock) |.*/(includes|theme/common)/.*
           )$
         exclude_types:
           - php
@@ -220,7 +220,7 @@ repos:
         # we can specify two dicts only on the CLI.
         # You can update the contents of the exclude-file codespell-lines-ignore with the script
         # dev/tools/codespell/addCodespellIgnores.sh
-        exclude: (?x)^(.phan/stubs/.*|phpstan\.neon.*|htdocs/[^/]+/langs/.*|htdocs/[^/]+/includes/.*|htdocs/userguide/.*|htdocs/bittorrent/docs/.*|dev/tools/.*|.*\.(xml|xsd|sch|xslt|sql|py|ini|yaml))$
+        exclude: (?x)^(.phan/stubs/.*|phpstan\.neon.*|htdocs/[^/]+/langs/.*|.*/includes/.*|htdocs/userguide/.*|htdocs/bittorrent/docs/.*|dev/tools/.*|.*\.(xml|xsd|sch|xslt|sql|py|ini|yaml))$
         args:
           - -D
           - "-"

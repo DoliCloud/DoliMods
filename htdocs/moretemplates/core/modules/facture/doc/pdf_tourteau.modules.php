@@ -37,23 +37,23 @@ require_once DOL_DOCUMENT_ROOT.'/core/lib/pdf.lib.php';
  */
 class pdf_tourteau extends ModelePDFFactures
 {
-	var $db;
-	var $name;
-	var $description;
-	var $type;
+	public $db;
+	public $name;
+	public $description;
+	public $type;
 
-	var $phpmin = array(4,3,0); // Minimum version of PHP required by module
-	var $version = 'dolibarr';
+	public $phpmin = array(4,3,0); // Minimum version of PHP required by module
+	public $version = 'dolibarr';
 
-	var $page_largeur;
-	var $page_hauteur;
-	var $format;
-	var $marge_gauche;
-	var	$marge_droite;
-	var	$marge_haute;
-	var	$marge_basse;
+	public $page_largeur;
+	public $page_hauteur;
+	public $format;
+	public $marge_gauche;
+	public	$marge_droite;
+	public	$marge_haute;
+	public	$marge_basse;
 
-	var $emetteur;	// Objet societe qui emet
+	public $emetteur;	// Objet societe qui emet
 
 
 	/**
@@ -61,7 +61,7 @@ class pdf_tourteau extends ModelePDFFactures
 	 *
 	 *  @param		DoliDB		$db      Database handler
 	 */
-	function pdf_tourteau($db)
+	public function __construct($db)
 	{
 		global $conf,$langs,$mysoc;
 
@@ -117,6 +117,7 @@ class pdf_tourteau extends ModelePDFFactures
 	}
 
 
+	// phpcs:disable PEAR.NamingConventions.ValidFunctionName.ScopeNotCamelCaps
 	/**
 	 *  Function to build pdf onto disk
 	 *
@@ -129,8 +130,9 @@ class pdf_tourteau extends ModelePDFFactures
 	 *  @param		object	$hookmanager		Hookmanager object
 	 *  @return     int             			1=OK, 0=KO
 	 */
-	function write_file($object, $outputlangs, $srctemplatepath = '', $hidedetails = 0, $hidedesc = 0, $hideref = 0, $hookmanager = false)
+	public function write_file($object, $outputlangs, $srctemplatepath = '', $hidedetails = 0, $hidedesc = 0, $hideref = 0, $hookmanager = false)
 	{
+		// phpcs:enable
 		global $user,$langs,$conf;
 
 		if (! is_object($outputlangs)) $outputlangs=$langs;
@@ -287,7 +289,7 @@ class pdf_tourteau extends ModelePDFFactures
 					$pdf->SetXY($this->postotalht, $curY);
 					$pdf->MultiCell($this->page_largeur-$this->marge_droite-$this->postotalht, 3, $total_excl_tax, 0, 'R', 0);
 
-					// Collecte des totaux par valeur de tva dans $this->tva["taux"]=total_tva
+					// Collect totals by VAT rate into $this->tva[rate]=total_vat
 					$tvaligne=$object->lines[$i]->total_tva;
 					$localtax1ligne=$object->lines[$i]->total_localtax1;
 					$localtax2ligne=$object->lines[$i]->total_localtax2;
@@ -307,11 +309,11 @@ class pdf_tourteau extends ModelePDFFactures
 
 					$nexY+=2;    // Passe espace entre les lignes
 
-					// Cherche nombre de lignes a venir pour savoir si place suffisante
+					// Count the next lines to check that there is enough room
 					if ($i < ($nblignes - 1) && empty($hidedesc)) {	// If it's not last line
-						//on recupere la description du produit suivant
+						//get the description of the next product
 						$follow_descproduitservice = $object->lines[$i+1]->desc;
-						//on compte le nombre de ligne afin de verifier la place disponible (largeur de ligne 52 caracteres)
+						//count the number of lines to check the available room (line width is 52 characters)
 						$nblineFollowDesc = dol_nboflines_bis($follow_descproduitservice, 52, $outputlangs->charset_output)*4;
 						// Et si on affiche dates de validite, on ajoute encore une ligne
 						if ($object->lines[$i]->date_start && $object->lines[$i]->date_end) {
@@ -407,6 +409,7 @@ class pdf_tourteau extends ModelePDFFactures
 	}
 
 
+	// phpcs:disable PEAR.NamingConventions.ValidFunctionName.PublicUnderscore,PEAR.NamingConventions.ValidFunctionName.ScopeNotCamelCaps
 	/**
 	 *  Show payments table
 	 *
@@ -416,8 +419,9 @@ class pdf_tourteau extends ModelePDFFactures
 	 *  @param  Lang	$outputlangs    Object langs for output
 	 *  @return int             		<0 if KO, >0 if OK
 	 */
-	function _tableau_versements(&$pdf, $object, $posy, $outputlangs)
+	protected function _tableau_versements(&$pdf, $object, $posy, $outputlangs)
 	{
+		// phpcs:enable
 		$tab3_posx = 120;
 		$tab3_top = $posy + 8;
 		$tab3_width = 80;
@@ -523,6 +527,7 @@ class pdf_tourteau extends ModelePDFFactures
 	}
 
 
+	// phpcs:disable PEAR.NamingConventions.ValidFunctionName.PublicUnderscore,PEAR.NamingConventions.ValidFunctionName.ScopeNotCamelCaps
 	/**
 	 *   Show miscellaneous information (payment mode, payment term, ...)
 	 *
@@ -532,8 +537,9 @@ class pdf_tourteau extends ModelePDFFactures
 	 *   @param		Translate	$outputlangs	Langs object
 	 *   @return	void
 	 */
-	function _tableau_info(&$pdf, $object, $posy, $outputlangs)
+	protected function _tableau_info(&$pdf, $object, $posy, $outputlangs)
 	{
+		// phpcs:enable
 		global $conf;
 
 		$default_font_size = pdf_getPDFFontSize($outputlangs);
@@ -648,6 +654,7 @@ class pdf_tourteau extends ModelePDFFactures
 	}
 
 
+	// phpcs:disable PEAR.NamingConventions.ValidFunctionName.PublicUnderscore,PEAR.NamingConventions.ValidFunctionName.ScopeNotCamelCaps
 	/**
 	 *	Show total to pay
 	 *
@@ -658,8 +665,9 @@ class pdf_tourteau extends ModelePDFFactures
 	 *	@param	Translate	$outputlangs	Objet langs
 	 *	@return int							Position pour suite
 	 */
-	function _tableau_tot(&$pdf, $object, $deja_regle, $posy, $outputlangs)
+	protected function _tableau_tot(&$pdf, $object, $deja_regle, $posy, $outputlangs)
 	{
+		// phpcs:enable
 		global $conf,$mysoc;
 
 		$sign=1;
@@ -850,6 +858,7 @@ class pdf_tourteau extends ModelePDFFactures
 		return ($tab2_top + ($tab2_hl * $index));
 	}
 
+	// phpcs:disable PEAR.NamingConventions.ValidFunctionName.PublicUnderscore
 	/**
 	 *   Show table for lines
 	 *
@@ -860,8 +869,9 @@ class pdf_tourteau extends ModelePDFFactures
 	 *   @param		Translate	$outputlangs	Langs object
 	 *   @return	void
 	 */
-	function _tableau(&$pdf, $tab_top, $tab_height, $nexY, $outputlangs)
+	protected function _tableau(&$pdf, $tab_top, $tab_height, $nexY, $outputlangs)
 	{
+		// phpcs:enable
 		global $conf;
 
 		$default_font_size = pdf_getPDFFontSize($outputlangs);
@@ -912,6 +922,7 @@ class pdf_tourteau extends ModelePDFFactures
 		$pdf->MultiCell(30, 2, $outputlangs->transnoentities("TotalHT"), '', 'C');
 	}
 
+	// phpcs:disable PEAR.NamingConventions.ValidFunctionName.PublicUnderscore
 	/**
 	 *  Show top header of page.
 	 *
@@ -921,8 +932,9 @@ class pdf_tourteau extends ModelePDFFactures
 	 *  @param  Translate	$outputlangs	Object lang for output
 	 *  @return	void
 	 */
-	function _pagehead(&$pdf, $object, $showaddress, $outputlangs)
+	protected function _pagehead(&$pdf, $object, $showaddress, $outputlangs)
 	{
+		// phpcs:enable
 		global $conf,$langs;
 
 		$outputlangs->load("main");
@@ -1143,6 +1155,7 @@ class pdf_tourteau extends ModelePDFFactures
 		}
 	}
 
+	// phpcs:disable PEAR.NamingConventions.ValidFunctionName.PublicUnderscore
 	/**
 	 *   	Show footer of page. Need this->emetteur object
 	 *
@@ -1151,8 +1164,9 @@ class pdf_tourteau extends ModelePDFFactures
 	 *      @param	Translate	$outputlangs		Object lang for output
 	 *      @return	void
 	 */
-	function _pagefoot(&$pdf, $object, $outputlangs)
+	protected function _pagefoot(&$pdf, $object, $outputlangs)
 	{
+		// phpcs:enable
 		return pdf_pagefoot($pdf, $outputlangs, 'FACTURE_FREE_TEXT', $this->emetteur, $this->marge_basse, $this->marge_gauche, $this->page_hauteur, $object);
 	}
 }

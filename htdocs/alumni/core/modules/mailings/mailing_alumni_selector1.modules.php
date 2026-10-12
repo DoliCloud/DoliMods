@@ -81,7 +81,7 @@ class mailing_mailing_alumni_selector1 extends MailingTargets
 		$extrafields = new ExtraFields($this->db);
 		$extrafields->fetch_name_optionals_label($tmp->table_element);
 
-		foreach($extrafields->attributes[$tmp->table_element]['label'] as $key => $label) {
+		foreach ($extrafields->attributes[$tmp->table_element]['label'] as $key => $label) {
 			$s .= $langs->trans($label).' ';
 			$s .= '<input type="text" value="'.GETPOST($key).'" name="'.$key.'">';
 			$s .= '<br>';
@@ -132,7 +132,7 @@ class mailing_mailing_alumni_selector1 extends MailingTargets
 		$extrafields = new ExtraFields($this->db);
 		$extrafields->fetch_name_optionals_label($tmp->table_element);
 
-		foreach($extrafields->attributes[$tmp->table_element]['label'] as $key => $label) {
+		foreach ($extrafields->attributes[$tmp->table_element]['label'] as $key => $label) {
 			if (GETPOSTISSET($key) && GETPOST($key) == '0') {
 				$sql .= " AND IFNULL(ase.".$this->db->sanitize($key).", 0) = 0";
 			} elseif (GETPOSTISSET($key) && GETPOST($key) != '' && $extrafields->attributes[$tmp->table_element]['type'][$key] == 'int') {
