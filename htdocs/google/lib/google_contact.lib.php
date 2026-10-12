@@ -1662,10 +1662,11 @@ function getGContactGroupID($gdata, $tag, $useremail = 'default')
 /**
  * Create a group/label into Google contact
  *
- * @param	array	$gdata			Array with tokens info
- * @param 	string 	$groupName		Group name to create into Google Contact
- * @param	string	$useremail		User email
- * @return string					created group ID
+ * @param	array		$gdata			Array with tokens info
+ * @param 	array		$tag			Tag array of the category ('label' = group name to create into Google Contact)
+ * @param	Categorie	$objectstatic	Category object to update with the created Google group ID
+ * @param	string		$useremail		User email
+ * @return string|int					created group ID, -1 if error
  */
 function insertGContactGroup($gdata, $tag, $objectstatic, $useremail = 'default')
 {

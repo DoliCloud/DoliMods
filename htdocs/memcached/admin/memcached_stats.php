@@ -70,6 +70,12 @@ header("Pragma: no-cache");                                    // HTTP/1.0
 
 ///////////MEMCACHE FUNCTIONS /////////////////////////////////////////////////////////////////////
 
+/**
+ * Send a command to all memcache servers
+ *
+ * @param 	string	$command		Command
+ * @return	array					Array of responses indexed by server
+ */
 function sendMemcacheCommands($command)
 {
 	global $MEMCACHE_SERVERS;
@@ -123,6 +129,12 @@ function sendMemcacheCommand($server, $port, $command)
 	fclose($s);
 	return parseMemcacheResults($buf);
 }
+/**
+ * Parse a memcache response into an array
+ *
+ * @param	string	$str			Raw response string
+ * @return	array|string			Parsed results, or a response keyword like DELETED
+ */
 function parseMemcacheResults($str)
 {
 
@@ -147,6 +159,14 @@ function parseMemcacheResults($str)
 	return $res;
 }
 
+/**
+ * Dump the entries of a cache slab
+ *
+ * @param	string	$server			Server
+ * @param	int		$slabId			Slab ID
+ * @param	int		$limit			Maximum number of entries to dump
+ * @return	array|string			Server response
+ */
 function dumpCacheSlab($server, $slabId, $limit)
 {
 	list($host,$port) = explode(':', $server);
@@ -290,9 +310,12 @@ function getMemcacheStats($total = true)
 	return $resp;
 }
 
-//////////////////////////////////////////////////////
-
-
+/**
+ * Return a human readable duration from a timestamp
+ *
+ * @param	int		$ts				Timestamp
+ * @return	string					Human readable duration
+ */
 function duration($ts)
 {
 	global $time;
@@ -316,14 +339,23 @@ function duration($ts)
 	return $str;
 }
 
-// create graphics
-//
+/**
+ * Check if graphics functions are available
+ *
+ * @return	boolean		True if the gd extension is loaded
+ */
 function graphics_avail()
 {
 	return extension_loaded('gd');
 }
 
-// create menu entry
+/**
+ * Return a menu entry
+ *
+ * @param	string	$ob				Operation key
+ * @param	string	$title			Menu entry label
+ * @return	string					HTML of the menu entry
+ */
 function menu_entry($ob, $title)
 {
 	global $PHP_SELF;
@@ -814,8 +846,7 @@ EOB;
 		echo
 		graphics_avail() ?
 			  '<tr>'.
-			  "<td class=td-0><img alt=\"\" $size src=\"$PHP_SELF&IMG=1&".(isset($_GET['singleout'])? 'singleout='.$_GET['singleout'].'&':'')."$time\"></td>".
-			  "<td class=td-1><img alt=\"\" $size src=\"$PHP_SELF&IMG=2&".(isset($_GET['singleout'])? 'singleout='.$_GET['singleout'].'&':'')."$time\"></td></tr>\n"
+			  "<td class=td-0><img alt=\"\" $size src=\"$PHP_SELF&IMG=1&".(isset($_GET['singleout'])? 'singleout='.$_GET['singleout'].'&':'')."$time\"></td><td class=td-1><img alt=\"\" $size src=\"$PHP_SELF&IMG=2&".(isset($_GET['singleout'])? 'singleout='.$_GET['singleout'].'&':'')."$time\"></td></tr>\n"
 			: "",
 		'<tr>',
 		'<td class=td-0><span class="green box">&nbsp;</span>Free: ',dol_print_size($mem_avail, 1).sprintf(" (%.1f%%)", $mem_avail*100/$mem_size),"</td>\n",
@@ -863,7 +894,7 @@ EOB;
 		$totals = $cacheItems['counts'];
 		$maxDump = MAX_ITEM_DUMP;
 		foreach ($items as $server => $entries) {
-			print $langs->trans("PrefixForKeysInCache").': '.session_name().'_'.'<br>';
+			print $langs->trans("PrefixForKeysInCache").': '.session_name().'_<br>';
 			print '<br>';
 
 			print <<<EOB
@@ -921,7 +952,7 @@ EOB;
 		list($h,$p) = explode(':', $theserver);
 		$r = sendMemcacheCommand($h, $p, 'get '.$theKey);
 
-		print $langs->trans("PrefixForKeysInCache").': '.session_name().'_'.'<br>';
+		print $langs->trans("PrefixForKeysInCache").': '.session_name().'_<br>';
 		print '<br>';
 
 		print <<<EOB
