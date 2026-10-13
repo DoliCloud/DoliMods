@@ -18,6 +18,7 @@ if (!defined('MAIN_SECURITY_FORCERP')) {
 // Load Dolibarr environment
 $res=0;
 // Try main.inc.php into web root known defined into CONTEXT_DOCUMENT_ROOT (not always defined)
+// @phpstan-ignore booleanNot.alwaysTrue (standard header of module pages, $res is still 0 here)
 if (! $res && ! empty($_SERVER["CONTEXT_DOCUMENT_ROOT"])) $res=@include str_replace("..", "", $_SERVER["CONTEXT_DOCUMENT_ROOT"])."/main.inc.php";
 // Try main.inc.php into web root detected using web root calculated from SCRIPT_FILENAME
 $tmp=empty($_SERVER['SCRIPT_FILENAME'])?'':$_SERVER['SCRIPT_FILENAME'];$tmp2=realpath(__FILE__); $i=strlen($tmp)-1; $j=strlen($tmp2)-1;
@@ -184,7 +185,7 @@ if ($mode == 'thirdparty') {
 		print $formother->select_salesrepresentatives($search_sale, 'search_sale', $user, 0, $langs->trans('ThirdPartiesOfSaleRepresentative'), 'maxwidth250');
 		print '</div>';
 	}
-	if (isModEnabled('categorie')) {
+	if (isModEnabled('category') || !empty($conf->modules['categorie'])) {	// 'category' is known by isModEnabled() only on recent versions
 		print '<div class="divsearchfield">';
 		print img_picto($langs->trans("CustomersCategoriesShort"), 'category', 'class="paddingrightonly"');
 		print $formother->select_categories(2, $search_tag_customer, 'search_tag_customer', 0, $langs->trans("CustomersCategoriesShort"), 'maxwidth250');
@@ -196,7 +197,7 @@ if ($mode == 'thirdparty' || $mode == 'contact') {
 	print $form->selectarray('search_status', array('0' => $langs->trans('ActivityCeased'), '1' => $langs->trans('InActivity')), $search_status, 1, 0, 0, '', 0, 0, 0, '', 'maxwidth150');
 	print '</div>';
 }
-if ($mode == 'member' && isModEnabled('categorie')) {
+if ($mode == 'member' && (isModEnabled('category') || !empty($conf->modules['categorie']))) {
 	print '<div class="divsearchfield">';
 	print img_picto($langs->trans("MembersCategoriesShort"), 'category', 'class="paddingrightonly"');
 	print $formother->select_categories(3, $search_tag_member, 'search_tag_member', 0, $langs->trans("MembersCategoriesShort"), 'maxwidth250');

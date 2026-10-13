@@ -32,7 +32,10 @@ if (! $res && file_exists("../../main.inc.php")) $res=@include "../../main.inc.p
 if (! $res && file_exists("../../../main.inc.php")) $res=@include "../../../main.inc.php";
 if (! $res) die("Include of main fails");
 /**
- * @var DoliDb $db
+ * @var Conf $conf
+ * @var DoliDB $db
+ * @var Translate $langs
+ * @var User $user
  */
 require_once DOL_DOCUMENT_ROOT."/core/lib/company.lib.php";
 require_once DOL_DOCUMENT_ROOT."/core/lib/contact.lib.php";
@@ -84,7 +87,7 @@ if ($mode=='user') {
 	include_once DOL_DOCUMENT_ROOT.'/user/class/user.class.php';
 	$id = GETPOST('id', 'int');
 	$object = new User($db);
-	$object->id = $id;
+	$object->id = (int) $id;
 	$object->fetch($id);
 	$address = $object->getFullAddress(1, ', ');
 }

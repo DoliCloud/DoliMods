@@ -123,7 +123,7 @@ function openstreetmap_include_leaflet($withcluster = 0)
  *  Call an external geocoding service and return decoded JSON
  *
  *  @param		string		$url		URL to call
- *  @return		array|string			Decoded JSON array if OK, error message string if KO
+ *  @return		array<mixed>|string		Decoded JSON array if OK, error message string if KO
  */
 function openstreetmap_get_json($url)
 {
@@ -135,7 +135,7 @@ function openstreetmap_get_json($url)
 	$host = parse_url((string) $dolibarr_main_url_root, PHP_URL_HOST);
 	$headers = array('User-Agent: Dolibarr-module-OpenStreetMap'.($host ? ' ('.$host.')' : ''), 'Accept: application/json');
 
-	$result = getURLContent($url, 'GET', '', 1, $headers, array('https'), 0, -1, 5, 10);
+	$result = getURLContent($url, 'GET', '', 1, $headers, array('https'), 0, -1);
 	if (!empty($result['curl_error_no'])) {
 		return 'CURL_'.$result['curl_error_no'].' '.$result['curl_error_msg'];
 	}
@@ -153,7 +153,7 @@ function openstreetmap_get_json($url)
  *  Convert a PDOK point "POINT(lon lat)" into an array
  *
  *  @param		string		$point		Point in WKT format
- *  @return		array|null				array('lat'=>, 'lon'=>) or null
+ *  @return		array{lat:float,lon:float}|null		array('lat'=>, 'lon'=>) or null
  */
 function openstreetmap_pdok_parse_point($point)
 {
@@ -169,7 +169,7 @@ function openstreetmap_pdok_parse_point($point)
  *  @param		string		$q			Query (Solr syntax allowed)
  *  @param		string		$type		Type of object to search ('adres', 'postcode', 'woonplaats')
  *  @param		int			$rows		Max number of results
- *  @return		array|string			Array of documents if OK, error message string if KO
+ *  @return		array<int,array<string,mixed>>|string	Array of documents if OK, error message string if KO
  */
 function openstreetmap_pdok_search($q, $type = 'adres', $rows = 1)
 {
@@ -193,7 +193,7 @@ function openstreetmap_pdok_search($q, $type = 'adres', $rows = 1)
  *
  *  @param		string		$q				Address to search
  *  @param		string		$countrycode	ISO country code to restrict search (optional)
- *  @return		array|string				array('lat'=>, 'lon'=>) if found, 'ZERO_RESULTS' or error message string if KO
+ *  @return		array{lat:float,lon:float}|string	array('lat'=>, 'lon'=>) if found, 'ZERO_RESULTS' or error message string if KO
  */
 function openstreetmap_nominatim_search($q, $countrycode = '')
 {
@@ -231,11 +231,13 @@ function openstreetmap_nominatim_search($q, $countrycode = '')
  *  Dutch addresses are searched with PDOK, other countries with Nominatim.
  *
  *  @param		object		$obj		Object with properties address, zip, town, country_code, country
- *  @return		array					array('lat'=>, 'lon'=>, 'source'=>, 'degraded'=>0|1) if OK,
+ *  @return		array<string,mixed>		array('lat'=>, 'lon'=>, 'source'=>, 'degraded'=>0|1) if OK,
  *  									array('error'=>code, 'source'=>) if KO
  */
 function openstreetmap_geocode($obj)
 {
+	global $langs;
+
 	$address = trim(preg_replace('/\s+/', ' ', (string) $obj->address));
 	$zip = trim((string) $obj->zip);
 	$town = trim((string) $obj->town);
@@ -275,7 +277,7 @@ function openstreetmap_geocode($obj)
 	$degraded = 0;
 	if ($point === 'ZERO_RESULTS' && ($zip || $town)) {
 		// Try with a degraded address (zip and town only)
-		$point = openstreetmap_nominatim_search(dol_format_address($obj, 1, ', ', null, 1), $countrycode);
+		$point = openstreetmap_nominatim_search(dol_format_address($obj, 1, ', ', $langs, 1), $countrycode);
 		$degraded = 1;
 	}
 	if (is_array($point)) {
@@ -291,9 +293,9 @@ function openstreetmap_geocode($obj)
  *  @param		string		$type			Type of object ('thirdparty', 'contact', 'member', 'user')
  *  @param		int			$id				Id of object
  *  @param		object		$obj			Object with properties address, zip, town, country_code, country
- *  @param		array|null	$cached			Cached row if already loaded (array with keys latitude, longitude, address, result_code, result_label, rowid) or null to load it
+ *  @param		array<string,mixed>|null	$cached	Cached row if already loaded (array with keys latitude, longitude, address, result_code, result_label, rowid) or null to load it
  *  @param		int			$nosearch		1=Never call an external service (only read cache)
- *  @return		array						array('lat'=>, 'lon'=>, 'cached'=>0|1) if OK, array('error'=>, 'label'=>, 'cached'=>0|1) if KO, array('pending'=>1) if not searched
+ *  @return		array<string,mixed>			array('lat'=>, 'lon'=>, 'cached'=>0|1) if OK, array('error'=>, 'label'=>, 'cached'=>0|1) if KO, array('pending'=>1) if not searched
  */
 function openstreetmap_get_coordinates($db, $type, $id, $obj, $cached = null, $nosearch = 0)
 {
@@ -360,4 +362,3 @@ function openstreetmap_get_coordinates($db, $type, $id, $obj, $cached = null, $n
 	}
 	return array('error' => $code, 'label' => $label, 'cached' => 0);
 }
-
