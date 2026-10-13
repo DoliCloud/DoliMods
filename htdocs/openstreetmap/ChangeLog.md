@@ -1,6 +1,10 @@
 # ChangeLog MODULE OPENSTREETMAP FOR <a href="https://www.dolibarr.org">DOLIBARR ERP CRM</a>
 
 
+## 4.0.3
+
+* The About page of the module setup works again on Dolibarr 18: dolPrintHTMLForAttribute() exists only from Dolibarr 19, dol_escape_htmltag() is used instead.
+
 ## 4.0.2
 
 * Security fixes of DoliCloud master (e6f8112f) on maps.php: page refused when the module is disabled, permission check of the third party, contact or member, escaping of zip, town, country and state.
