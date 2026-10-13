@@ -1,6 +1,11 @@
 # ChangeLog MODULE OPENSTREETMAP FOR <a href="https://www.dolibarr.org">DOLIBARR ERP CRM</a>
 
 
+## 4.0.2
+
+* Security fixes of DoliCloud master (e6f8112f) on maps.php: page refused when the module is disabled, permission check of the third party, contact or member, escaping of zip, town, country and state.
+* Fixes reported by phpcs and phpstan (Dolibarr 18 and 24): category filter also on Dolibarr 18, getURLContent() called with the parameters of Dolibarr 18, typed PHPDoc.
+
 ## 4.0.1
 
 * Dutch address autofill: visible label "Huisnr." before the house number field, so it is not mistaken for part of the zip code.
