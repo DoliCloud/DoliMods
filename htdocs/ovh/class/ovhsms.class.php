@@ -548,7 +548,8 @@ class OvhSms extends CommonObject
 	public function soapDebug()
 	{
 		if (method_exists($this->soap, '__getLastRequestHeaders')) dol_syslog(get_class($this).'::OvhSms REQUEST HEADER: ' . $this->soap->__getLastRequestHeaders(), LOG_DEBUG, 0, '_ovhsms');
-		if (method_exists($this->soap, '__getLastRequest')) dol_syslog(get_class($this).'::OvhSms REQUEST: ' . $this->soap->__getLastRequest(), LOG_DEBUG, 0, '_ovhsms');
+		// The request contains the password (login) or the session id, so we truncate them
+		if (method_exists($this->soap, '__getLastRequest')) dol_syslog(get_class($this).'::OvhSms REQUEST: ' . preg_replace('/(<(password|session)\b[^>]*>[^<]{0,3})[^<]*/i', '$1...', (string) $this->soap->__getLastRequest()), LOG_DEBUG, 0, '_ovhsms');
 
 		if (method_exists($this->soap, '__getLastResponseHeaders')) dol_syslog(get_class($this).'::OvhSms RESPONSE HEADER: ' . $this->soap->__getLastResponseHeaders(), LOG_DEBUG, 0, '_ovhsms');
 		if (method_exists($this->soap, '__getLastResponse')) dol_syslog(get_class($this).'::OvhSms RESPONSE: ' . $this->soap->__getLastResponse(), LOG_DEBUG, 0, '_ovhsms');

@@ -142,20 +142,21 @@ class ActionsTawkto
 			";
 
 
+		// Each value is inside a JS string with simple quotes, so it must be escaped
 		$this->resprints = strtr($htmlChatScript, array(
-			'{USER_NAME}' => $userIdentity,
-			'{USER_EMAIL}' => $userEmail,
-			'{USER_PHONE}' => (string) ($user->office_phone ? $user->office_phone : $user->user_mobile),
-			'{HASH}' => hash_hmac("sha256", $userEmail, getDolGlobalString('TAWKTO_JSAPI_KEY')),
+			'{USER_NAME}' => dol_escape_js($userIdentity),
+			'{USER_EMAIL}' => dol_escape_js($userEmail),
+			'{USER_PHONE}' => dol_escape_js((string) ($user->office_phone ? $user->office_phone : $user->user_mobile)),
+			'{HASH}' => dol_escape_js(hash_hmac("sha256", $userEmail, getDolGlobalString('TAWKTO_JSAPI_KEY'))),
 
-			'{MYCOMPANY_NAME}' => getDolGlobalString('MAIN_INFO_SOCIETE_NOM'),
-			'{MYCOMPANY_EMAIL}' => getDolGlobalString('MAIN_INFO_SOCIETE_MAIL'),
-			'{MYCOMPANY_PHONE}' => getDolGlobalString('MAIN_INFO_SOCIETE_TEL'),
-			'{MYCOMPANY_IDPROF1}' => $mysoc->idprof1,
+			'{MYCOMPANY_NAME}' => dol_escape_js(getDolGlobalString('MAIN_INFO_SOCIETE_NOM')),
+			'{MYCOMPANY_EMAIL}' => dol_escape_js(getDolGlobalString('MAIN_INFO_SOCIETE_MAIL')),
+			'{MYCOMPANY_PHONE}' => dol_escape_js(getDolGlobalString('MAIN_INFO_SOCIETE_TEL')),
+			'{MYCOMPANY_IDPROF1}' => dol_escape_js($mysoc->idprof1),
 
-			'{DOLIBARR_VERSION}' => DOL_VERSION,
-			'{IDTAWKTO}' => $idsitetawkto,
-			'{IDWIDGET}' => getDolGlobalString('TAWKTO_WIDGET_ID', 'default')
+			'{DOLIBARR_VERSION}' => dol_escape_js(DOL_VERSION),
+			'{IDTAWKTO}' => dol_escape_js($idsitetawkto),
+			'{IDWIDGET}' => dol_escape_js(getDolGlobalString('TAWKTO_WIDGET_ID', 'default'))
 		));
 
 		return 0;
