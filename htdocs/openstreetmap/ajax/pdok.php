@@ -28,6 +28,7 @@ if (!defined('NOREQUIREAJAX'))  define('NOREQUIREAJAX', '1');
 // Load Dolibarr environment
 $res=0;
 // Try main.inc.php into web root known defined into CONTEXT_DOCUMENT_ROOT (not always defined)
+// @phpstan-ignore booleanNot.alwaysTrue (standard header of module pages, $res is still 0 here)
 if (! $res && ! empty($_SERVER["CONTEXT_DOCUMENT_ROOT"])) $res=@include str_replace("..", "", $_SERVER["CONTEXT_DOCUMENT_ROOT"])."/main.inc.php";
 // Try main.inc.php into web root detected using web root calculated from SCRIPT_FILENAME
 $tmp=empty($_SERVER['SCRIPT_FILENAME'])?'':$_SERVER['SCRIPT_FILENAME'];$tmp2=realpath(__FILE__); $i=strlen($tmp)-1; $j=strlen($tmp2)-1;
@@ -38,6 +39,12 @@ if (! $res && $i > 0 && file_exists(dirname(substr($tmp, 0, ($i+1)))."/main.inc.
 if (! $res && file_exists("../../main.inc.php")) $res=@include "../../main.inc.php";
 if (! $res && file_exists("../../../main.inc.php")) $res=@include "../../../main.inc.php";
 if (! $res) die("Include of main fails");
+/**
+ * @var Conf $conf
+ * @var DoliDB $db
+ * @var Translate $langs
+ * @var User $user
+ */
 
 dol_include_once("/openstreetmap/lib/openstreetmap.lib.php");
 
@@ -46,7 +53,7 @@ top_httphead('application/json');
 /**
  * Print a JSON answer and exit
  *
- * @param	array	$data		Data to return
+ * @param	array<string,mixed>	$data		Data to return
  * @param	int		$httpcode	HTTP code
  * @return	void
  */

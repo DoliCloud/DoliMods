@@ -187,7 +187,7 @@ class modOpenStreetMap extends DolibarrModules
 	 */
 	public function init($options = '')
 	{
-		$result = $this->load_tables();
+		$result = $this->_load_tables('/openstreetmap/sql/');
 		if ($result < 0) {
 			return -1;
 		}
@@ -197,15 +197,6 @@ class modOpenStreetMap extends DolibarrModules
 		return $this->_init($sql, $options);
 	}
 
-	/**
-	 *		Create tables, keys and data required by module (files llx_*.sql in /openstreetmap/sql/)
-	 *
-	 *		@return		int		<=0 if KO, >0 if OK
-	 */
-	function load_tables()
-	{
-		return $this->_load_tables('/openstreetmap/sql/');
-	}
 
 	/**
 	 *		Function called when module is disabled.
