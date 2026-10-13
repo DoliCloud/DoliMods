@@ -67,12 +67,12 @@ class prestashopgetwidget1 extends ModeleBoxes
 	public $param;
 
 	/**
-	 * @var array Header informations. Usually created at runtime by loadBox().
+	 * @var array Header information. Usually created at runtime by loadBox().
 	 */
 	public $info_box_head = array();
 
 	/**
-	 * @var array Contents informations. Usually created at runtime by loadBox().
+	 * @var array Contents information. Usually created at runtime by loadBox().
 	 */
 	public $info_box_contents = array();
 

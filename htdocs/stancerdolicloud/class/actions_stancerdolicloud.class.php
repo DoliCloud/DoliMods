@@ -346,7 +346,7 @@ class ActionsStancerDolicloud extends CommonHookActions
 		// Complete urls for post treatment
 		$ref = $REF = GETPOST('ref', 'alpha');
 		$TAG = GETPOST("tag", 'alpha');
-		$FULLTAG = GETPOST("fulltag", 'alpha'); // fulltag is tag with more informations
+		$FULLTAG = GETPOST("fulltag", 'alpha'); // fulltag is tag with more information
 		$SECUREKEY = GETPOST("securekey"); // Secure key
 		$source = GETPOST('s', 'alpha') ? GETPOST('s', 'alpha') : GETPOST('source', 'alpha');
 		$suffix = GETPOST('suffix'); 	// ???
@@ -455,7 +455,7 @@ class ActionsStancerDolicloud extends CommonHookActions
 				$this->db->begin();
 				$json->paymentoksessioncode = $_SESSION['paymentoksessioncode'];
 				$encodeddata = json_encode($json);
-				$sql = "UPDATE ".MAIN_DB_PREFIX."stancerdolicloud_pending_payments SET data = '".$encodeddata."' WHERE ref_payment = '".$this->db->escape($ref_payment)."'";
+				$sql = "UPDATE ".MAIN_DB_PREFIX."stancerdolicloud_pending_payments SET data = '".$this->db->escape($encodeddata)."' WHERE ref_payment = '".$this->db->escape($ref_payment)."'";
 				$res = $this->db->query($sql);
 				if ($res == false) {
 					dol_print_error($this->db);
@@ -497,6 +497,7 @@ class ActionsStancerDolicloud extends CommonHookActions
 				}
 			}
 			$FULLTAG = stancerDolicloudCompleteFullTag($FULLTAG, $source, $ref);
+			$json_data_payment["fulltag"] = $FULLTAG;	// Bind the payment to the paid object
 			$json_data_payment["FinalPaymentAmt"] = $amount;
 			$json_data_payment["currencyCodeType"] = $currency;
 			$_SESSION["FinalPaymentAmt"] = $amount;
@@ -588,7 +589,7 @@ class ActionsStancerDolicloud extends CommonHookActions
 
 							// Create pending_payment entry
 							$encodeddata = json_encode($json_data_payment);
-							$sql = "INSERT INTO ".MAIN_DB_PREFIX."stancerdolicloud_pending_payments (ref_payment, data, date_creation) VALUES ('".$this->db->escape($new_ref_payment) ."','".$encodeddata."', '".$this->db->idate(dol_now())."')";
+							$sql = "INSERT INTO ".MAIN_DB_PREFIX."stancerdolicloud_pending_payments (ref_payment, data, date_creation) VALUES ('".$this->db->escape($new_ref_payment) ."','".$this->db->escape($encodeddata)."', '".$this->db->idate(dol_now())."')";
 							$res = $this->db->query($sql);
 							if ($res == false) {
 								dol_print_error($this->db);
@@ -682,6 +683,15 @@ class ActionsStancerDolicloud extends CommonHookActions
 			if (GETPOST('paymentoksessioncode') !== $_SESSION['paymentoksessioncode']) {
 				$error++;
 				$errmsg = 'Attempted direct access to the paymentok page without a valid session.';
+				dol_syslog($errmsg, LOG_ERR, 0, '_payment');
+				$this->errors[] = $errmsg;
+			}
+
+			// Refuses to record the payment on another object than the one it was created for
+			$fulltag = GETPOST('FULLTAG') ? GETPOST('FULLTAG') : GETPOST('fulltag');
+			if (!$error && (empty($json_payment->fulltag) || $json_payment->fulltag !== $fulltag)) {
+				$error++;
+				$errmsg = 'Stancer payment verification failed: the payment was not created for fulltag '.$fulltag;
 				dol_syslog($errmsg, LOG_ERR, 0, '_payment');
 				$this->errors[] = $errmsg;
 			}
@@ -785,6 +795,18 @@ class ActionsStancerDolicloud extends CommonHookActions
 
 					$error++;
 					$ispaymentok = false;
+				}
+			}
+			if (!$error && $ispaymentok) {
+				// Consume the pending payment so it can't be replayed. Only the request that deletes it may record it.
+				$sql = "DELETE FROM ".MAIN_DB_PREFIX."stancerdolicloud_pending_payments WHERE ref_payment = '".$this->db->escape($ref_payment)."'";
+				$res = $this->db->query($sql);
+				if (!$res || $this->db->affected_rows($res) != 1) {
+					$error++;
+					dol_syslog('Stancer pending payment '.$ref_payment.' already consumed', LOG_WARNING, 0, '_payment');
+				} else {
+					// Let the core refuse a second record of this transaction
+					$_SESSION['TRANSACTIONID'] = $FinalPaymentID;
 				}
 			}
 			if (!$error) {

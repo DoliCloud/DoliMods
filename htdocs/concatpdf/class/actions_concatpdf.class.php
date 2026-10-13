@@ -178,7 +178,7 @@ class ActionsConcatPdf
 				$out.='</div>';
 			} else {
 				$preselected = preg_replace('/\.pdf$/i', '', reset($arraypreselected));
-				$out.= '<!-- preselected value is '.$preselected.' (key to set preselected value in CONCATPDF_PRESELECTED_MODELS is '.$parameters['modulepart'].') -->';
+				$out.= '<!-- preselected value is '.dol_escape_htmltag($preselected).' (key to set preselected value in CONCATPDF_PRESELECTED_MODELS is '.dol_escape_htmltag($parameters['modulepart']).') -->';
 				$out.= $form->selectarray('concatpdffile', $morefiles, $preselected, 1, 0, 0);
 			}
 			$out.='</td></tr>';
@@ -277,6 +277,9 @@ class ActionsConcatPdf
 			if ($parameters['object']->element == 'contract' || $parameters['object']->element == 'contrat')  $element='contracts';
 		}
 
+		// Keep only files that really exist into the concatpdf directory of the element (values may come from user input or extraparams)
+		$concatpdffile = $this->filterConcatFiles($concatpdffile, $element);
+
 		$filetoconcat1=array($parameters['file']);
 		$filetoconcat2=array();
 
@@ -284,7 +287,7 @@ class ActionsConcatPdf
 			$hidedetails = $hidedesc = $hideref = 0;
 			foreach ($concatpdffile as $concatfile) {
 				// We search which second file to add (or generate it if file to add as a name matching pdf__...modules)
-				if (preg_match('/^pdf_(.*)+\.modules/', $concatfile)) {
+				if (preg_match('/^pdf_.+\.modules$/', $concatfile)) {
 					// We will generate the file to concat
 					require_once DOL_DOCUMENT_ROOT."/core/lib/files.lib.php";
 
@@ -443,7 +446,7 @@ class ActionsConcatPdf
 		$appendedPages = 0;
 		$reader = pdf_getInstance();
 
-		foreach ($object->extraparams['concatpdf'] as $concatfile) {
+		foreach ($this->filterConcatFiles($object->extraparams['concatpdf'], 'proposals') as $concatfile) {
 			if ($concatfile === '' || $concatfile === '-1') {
 				continue;
 			}
@@ -471,6 +474,42 @@ class ActionsConcatPdf
 		}
 
 		return 0;
+	}
+
+	/**
+	 * Return the list of files to concat, keeping only names of files that exist into the concatpdf directory of the element.
+	 * This prevents path traversal or inclusion of any other file.
+	 *
+	 * @param	mixed	$concatpdffile	Array (or string) of file names, without directory
+	 * @param	string	$element		Subdirectory of the element ('proposals', 'invoices', ...)
+	 * @return	array					Array of allowed file names
+	 */
+	private function filterConcatFiles($concatpdffile, $element)
+	{
+		global $conf;
+
+		$result = array();
+		if (empty($element) || empty($concatpdffile)) {
+			return $result;
+		}
+		if (! is_array($concatpdffile)) {
+			$concatpdffile = array($concatpdffile);
+		}
+		$dir = $conf->concatpdf->dir_output.'/'.$element;
+		foreach ($concatpdffile as $concatfile) {
+			if (! is_string($concatfile) || $concatfile === '' || $concatfile !== basename($concatfile) || strpos($concatfile, '..') !== false || strpos($concatfile, '\\') !== false) {
+				continue;
+			}
+			if (preg_match('/^pdf_.+\.modules$/', $concatfile)) {
+				$file = $dir.'/'.$concatfile.'.php';
+			} else {
+				$file = $dir.'/'.$concatfile.(preg_match('/\.pdf$/i', $concatfile) ? '' : '.pdf');
+			}
+			if (is_file($file)) {
+				$result[] = $concatfile;
+			}
+		}
+		return $result;
 	}
 
 	/**
@@ -782,7 +821,7 @@ class ActionsConcatPdf
 					while(1) {
 						$value = $parser->pdf_read_value($c);
 						if ($value === false || count($result) > 4) {
-							// in this case the parser coudn't find an endobj so we break here
+							// in this case the parser could not find an endobj so we break here
 							break;
 						}
 

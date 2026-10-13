@@ -46,15 +46,19 @@ include_once DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php';
 $langs->load("admin");
 $langs->load("ipphone@ipphone");
 
+if (!$user->admin) {
+	accessforbidden();
+}
+
+$action = GETPOST('action', 'aZ09');
+
 
 /*
  * Actions
  */
 
-$actionsave=GETPOST('save', 'alpha');
-
-// Save parameters
-if ($actionsave) {
+// Save parameters (POST only, so main.inc.php checks the CSRF token)
+if ($action == 'update' && $_SERVER['REQUEST_METHOD'] == 'POST') {
 	$i=0;
 
 	$db->begin();
@@ -92,6 +96,7 @@ print load_fiche_titre($langs->trans("IPPhoneSetup"), $linkback, 'setup');
 
 print '<form name="agendasetupform" action="'.$_SERVER["PHP_SELF"].'" method="post">';
 print '<input type="hidden" name="token" value="'.newToken().'">';
+print '<input type="hidden" name="action" value="update">';
 
 $head = array();
 $h = 0;

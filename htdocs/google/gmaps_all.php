@@ -51,9 +51,9 @@ $MAXADDRESS=GETPOST('max', 'int')?GETPOST('max', 'int'):'25';	// Set packet size
 $address='';
 $socid = GETPOST('socid', 'int');
 
-$search_sale=empty($conf->global->GOOGLE_MAPS_FORCE_FILTER_BY_SALE_REPRESENTATIVES)?GETPOST('search_sale'):-1;
-$search_tag_customer=GETPOST('search_tag_customer');
-$search_tag_supplier=GETPOST('search_tag_supplier');
+$search_sale=empty($conf->global->GOOGLE_MAPS_FORCE_FILTER_BY_SALE_REPRESENTATIVES)?(int) GETPOST('search_sale', 'int'):-1;
+$search_tag_customer=(int) GETPOST('search_tag_customer', 'int');
+$search_tag_supplier=(int) GETPOST('search_tag_supplier', 'int');
 $search_departement = GETPOST("state_id", "int");
 $search_customer = GETPOST('search_customer', 'alpha');
 $search_supplier = GETPOST('search_supplier', 'alpha');
@@ -61,6 +61,27 @@ $search_status = GETPOST('search_status', 'intcomma');
 
 if ($search_status == '') {
 	$search_status = '1';
+}
+
+// Security check
+if ($user->socid > 0) {
+	$socid = $user->socid;
+}
+if (!isModEnabled('google')) {
+	accessforbidden();
+}
+if (empty($mode) || in_array($mode, array('thirdparty', 'patient'))) {
+	if (!$user->hasRight('societe', 'lire')) {
+		accessforbidden();
+	}
+} elseif ($mode == 'contact') {
+	if (!$user->hasRight('societe', 'contact', 'lire') || $socid > 0) {
+		accessforbidden();
+	}
+} elseif ($mode == 'member') {
+	if (!$user->hasRight('adherent', 'lire') || $socid > 0) {
+		accessforbidden();
+	}
 }
 
 // Load third party
@@ -155,7 +176,7 @@ if (empty($mode) || $mode=='thirdparty') {
 	if ($search_sale > 0 || (! $user->hasRight('societe', 'client', 'voir') && ! $socid))	$sql.= " AND s.rowid = sc.fk_soc AND sc.fk_user = " .((int) $user->id);
 	if ($search_sale > 0)          $sql.= " AND s.rowid = sc.fk_soc AND sc.fk_user = " .((int) $search_sale);
 	if ($search_departement != '' && $search_departement > 0) $sql.= " AND s.fk_departement = dp.rowid AND dp.rowid = ".((int) $search_departement);
-	if ($socid) $sql.= " AND s.rowid = ".$socid;	// protect for external user
+	if ($socid) $sql.= " AND s.rowid = ".((int) $socid);	// protect for external user
 	if ($search_tag_customer > 0)           $sql.= " AND s.rowid IN (SELECT fk_soc FROM ".MAIN_DB_PREFIX."categorie_societe as cs WHERE fk_categorie = ".((int) $search_tag_customer).")";
 	if ($search_tag_supplier > 0)           $sql.= " AND s.rowid IN (SELECT fk_soc FROM ".MAIN_DB_PREFIX."categorie_fournisseur as cs WHERE fk_categorie = ".((int) $search_tag_supplier).")";
 	if ($search_customer != '' && $search_customer != '-1') {
@@ -184,9 +205,13 @@ if (empty($mode) || $mode=='thirdparty') {
 	$sql.= " LEFT JOIN ".MAIN_DB_PREFIX."c_country as c ON s.fk_pays = c.rowid";
 	$sql.= " LEFT JOIN ".MAIN_DB_PREFIX."google_maps as g ON s.rowid = g.fk_object and g.type_object='".$type."'";
 	$sql.= " WHERE s.entity IN (".getEntity('societe', 1).")";
+	$sql.= " AND (s.priv = 0 OR s.fk_user_creat = ".((int) $user->id).")";
+	if (!$user->hasRight('societe', 'client', 'voir')) {
+		$sql.= " AND s.fk_soc IN (SELECT sc.fk_soc FROM ".MAIN_DB_PREFIX."societe_commerciaux as sc WHERE sc.fk_user = ".((int) $user->id).")";
+	}
 	$sql.= " ORDER BY g.tms ASC, s.rowid ASC";
 } elseif ($mode=='member') {
-	$search_tag_member=GETPOST('search_tag_member');
+	$search_tag_member=(int) GETPOST('search_tag_member', 'int');
 
 	$title=$langs->trans("MapOfMembers");
 	$picto='user';
@@ -199,14 +224,9 @@ if (empty($mode) || $mode=='thirdparty') {
 	$sql.= " LEFT JOIN ".MAIN_DB_PREFIX."google_maps as g ON s.rowid = g.fk_object and g.type_object='".$type."'";
 	$sql.= " WHERE s.statut = 1";
 	$sql.= " AND s.entity IN (".getEntity('adherent', 1).")";
-	if ($search_tag_member > 0)           $sql.= " AND s.rowid IN (SELECT fk_member FROM ".MAIN_DB_PREFIX."categorie_member as cs WHERE fk_categorie = ".$db->escape($search_tag_member).")";
+	if ($search_tag_member > 0)           $sql.= " AND s.rowid IN (SELECT fk_member FROM ".MAIN_DB_PREFIX."categorie_member as cs WHERE fk_categorie = ".((int) $search_tag_member).")";
 	$sql.= " ORDER BY g.tms ASC, s.rowid ASC";
 } elseif ($mode=='patient') {
-	$search_sale=empty($conf->global->GOOGLE_MAPS_FORCE_FILTER_BY_SALE_REPRESENTATIVES)?GETPOST('search_sale'):-1;
-	$search_tag_customer=GETPOST('search_tag_customer');
-	$search_tag_supplier=GETPOST('search_tag_supplier');
-	$search_departement = GETPOST("state_id", "int");
-
 	$title=$langs->trans("MapOfPatients");
 	$picto='user';
 	$type='patient';
@@ -220,12 +240,12 @@ if (empty($mode) || $mode=='thirdparty') {
 	if ($search_departement != '' && $search_departement > 0) $sql.= ", ".MAIN_DB_PREFIX."c_departements as dp";
 	$sql.= " WHERE s.canvas='patient@cabinetmed'";
 	$sql.= " AND s.entity IN (".getEntity('societe', 1).")";
-	if ($search_sale == -1 || (! $user->hasRight('societe', 'client', 'voir') && ! $socid))	$sql.= " AND s.rowid = sc.fk_soc AND sc.fk_user = " .$user->id;
-	if ($search_sale > 0)          $sql.= " AND s.rowid = sc.fk_soc AND sc.fk_user = " .$search_sale;
-	if ($search_departement != '' && $search_departement > 0) $sql.= " AND s.fk_departement = dp.rowid AND dp.rowid = ".$db->escape($search_departement);
-	if ($socid) $sql.= " AND s.rowid = ".$socid;	// protect for external user
-	if ($search_tag_customer > 0)           $sql.= " AND s.rowid IN (SELECT fk_soc FROM ".MAIN_DB_PREFIX."categorie_societe as cs WHERE fk_categorie = ".$search_tag_customer.")";
-	if ($search_tag_supplier > 0)           $sql.= " AND s.rowid IN (SELECT fk_soc FROM ".MAIN_DB_PREFIX."categorie_fournisseur as cs WHERE fk_categorie = ".$search_tag_supplier.")";
+	if ($search_sale == -1 || (! $user->hasRight('societe', 'client', 'voir') && ! $socid))	$sql.= " AND s.rowid = sc.fk_soc AND sc.fk_user = " .((int) $user->id);
+	if ($search_sale > 0)          $sql.= " AND s.rowid = sc.fk_soc AND sc.fk_user = " .((int) $search_sale);
+	if ($search_departement != '' && $search_departement > 0) $sql.= " AND s.fk_departement = dp.rowid AND dp.rowid = ".((int) $search_departement);
+	if ($socid) $sql.= " AND s.rowid = ".((int) $socid);	// protect for external user
+	if ($search_tag_customer > 0)           $sql.= " AND s.rowid IN (SELECT fk_soc FROM ".MAIN_DB_PREFIX."categorie_societe as cs WHERE fk_categorie = ".((int) $search_tag_customer).")";
+	if ($search_tag_supplier > 0)           $sql.= " AND s.rowid IN (SELECT fk_soc FROM ".MAIN_DB_PREFIX."categorie_fournisseur as cs WHERE fk_categorie = ".((int) $search_tag_supplier).")";
 	$sql.= " ORDER BY g.tms ASC, s.rowid ASC";
 }
 //print $sql;

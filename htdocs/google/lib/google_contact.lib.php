@@ -235,7 +235,7 @@ function googleCreateContact($client, $object, $useremail = 'default')
  * the title specified.  Also outputs the new and old title
  * with HTML br elements separating the lines
  *
- * @param  array		$client   		Array with tokens informations
+ * @param  array		$client   		Array with tokens information
  * @param  string       $contactId  	The ref into Google contact
  * @param  Object       $object			Object
  * @param  string		$useremail		User email
@@ -773,7 +773,7 @@ function googleUpdateGroup($client, $groupID, $name)
  * example purposes only, as it is inefficient to retrieve the entire
  * atom entry only for the purposes of deleting it.
  *
- * @param  array		$client   		Array with tokens informations
+ * @param  array		$client   		Array with tokens information
  * @param  string       $ref			The ref string
  * @param  string		$useremail		User email
  * @return string 						'' if OK, error message if KO

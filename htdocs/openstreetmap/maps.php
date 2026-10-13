@@ -44,6 +44,10 @@ $langs->load("openstreetmap@openstreetmap");
 
 // url is:  maps.php?mode=thirdparty|contact|member|user&id=id
 
+if (!isModEnabled('openstreetmap')) {
+	accessforbidden();
+}
+
 $mode=GETPOST('mode', 'aZ09');
 $address='';
 $object=null;
@@ -55,6 +59,7 @@ if (empty($mode) || $mode=='societe' || $mode=='thirdparty') {
 	$object = new Societe($db);
 	$object->id = $id;
 	$object->fetch($id);
+	$result = restrictedArea($user, 'societe', $object->id, '&societe', '', 'fk_soc', 'rowid', 0);
 	$address = $object->getFullAddress(1, ', ');
 }
 if ($mode=='contact') {
@@ -63,6 +68,7 @@ if ($mode=='contact') {
 	$object = new Contact($db);
 	$object->id = $id;
 	$object->fetch($id);
+	$result = restrictedArea($user, 'contact', $id, 'socpeople&societe', '', '', 'rowid', 0);
 	$address = $object->getFullAddress(1, ', ');
 }
 if ($mode=='member') {
@@ -71,6 +77,7 @@ if ($mode=='member') {
 	$object = new Adherent($db);
 	$object->id = $id;
 	$object->fetch($id);
+	$result = restrictedArea($user, 'adherent', $object->id, '', '', 'socid', 'rowid', 0);
 	$address = $object->getFullAddress(1, ', ');
 }
 if ($mode=='user') {
@@ -85,17 +92,11 @@ if (!is_object($object) || $object->id <= 0) {
 	accessforbidden('Bad value for mode or id');
 }
 
-// Security check
-if ($mode == 'contact') {
-	$result = restrictedArea($user, 'contact', $object->id, 'socpeople&societe', '', '', 'rowid');
-} elseif ($mode == 'member') {
-	$result = restrictedArea($user, 'adherent', $object->id);
-} elseif ($mode == 'user') {
+// Security check for users (third parties, contacts and members are checked when loaded)
+if ($mode == 'user') {
 	if ($object->id != $user->id && !$user->hasRight('user', 'user', 'lire') && !$user->admin) {
 		accessforbidden();
 	}
-} else {
-	$result = restrictedArea($user, 'societe', $object->id, '&societe');
 }
 
 if (isset($object->logo) && !is_null($object->logo)) {
@@ -174,18 +175,18 @@ print "</td></tr>";
 
 // Zip / Town
 print '<tr><td width="25%">'.$langs->trans('Zip').' / '.$langs->trans("Town").'</td><td colspan="'.(2+(($showlogo || $showbarcode)?0:1)).'">';
-print $object->zip.($object->zip && $object->town?" / ":"").$object->town;
+print dol_escape_htmltag($object->zip).($object->zip && $object->town?" / ":"").dol_escape_htmltag($object->town);
 print "</td>";
 print '</tr>';
 
 // Country
 print '<tr><td>'.$langs->trans("Country").'</td><td colspan="'.(2+(($showlogo || $showbarcode)?0:1)).'" nowrap="nowrap">';
 $img=picto_from_langcode($object->country_code);
-print ($img?$img.' ':'').$object->country;
+print ($img?$img.' ':'').dol_escape_htmltag($object->country);
 print '</td></tr>';
 
 // State
-if (empty($conf->global->SOCIETE_DISABLE_STATE)) print '<tr><td>'.$langs->trans('State').'</td><td colspan="'.(2+(($showlogo || $showbarcode)?0:1)).'">'.$object->state.'</td>';
+if (empty($conf->global->SOCIETE_DISABLE_STATE)) print '<tr><td>'.$langs->trans('State').'</td><td colspan="'.(2+(($showlogo || $showbarcode)?0:1)).'">'.dol_escape_htmltag($object->state).'</td>';
 
 print '</table>';
 

@@ -11,22 +11,26 @@ allowed-tools:
  - grep
 ---
 
+
 # Skill: Add or modify a PHP Unit Test for Dolibarr
+
 
 ## When to Use This Skill
 
 Use this skill whenever the user asks to create, modify, or complete a PHP unit test for the Dolibarr ERP/CRM project.
 The goal is to produce a unit test that follows Dolibarr conventions and integrates cleanly into the existing PHPUnit test suite.
 
+
 ## Relationship with AGENTS.md
 
-The instructions in this file are **complementary to** the instructions defined in `AGENTS.md`.
+The instructions in this file are **complementary to** the instructions defined in `.agents/AGENTS.md`.
 
 - `AGENTS.md` contains the general instructions and rules for the project.
 - `SKILLS.md` contains additional instructions specific to skills.
 - Unless explicitly stated otherwise, the instructions from both files apply.
 - `SKILLS.md` does not replace or override `AGENTS.md`.
 - If an instruction in `SKILLS.md` conflicts with `AGENTS.md`, follow the rules defined by `AGENTS.md`.
+
 
 ## Inputs
 
@@ -35,20 +39,31 @@ The user request should contain, when available:
 - a name of the function to test
 - or the class method name to test
 
+
 ## General Rules
 
-- follow the coding style already used in files in the `mymodule/test/phpunit/` directory
+- follow the coding style already used in files in the `test/phpunit/` directory
 - modify the minimum amount of existing code
 - prefer adding new test methods instead of modifying existing ones
 - tests must be deterministic and independent
 - avoid dependencies on external services
 - clean up every object created during the test
+- when launching phpunit, do not use cache directory with `--do-not-cache-result`
+
+
+## Critical Rules (DO NOT VIOLATE)
+
+- Do not use @dataProvider or #[DataProvider] in test methods. Use a simple PHP loop instead. 
+- Do not use the `assertRegExp()`, `assertNotRegExp`, `assertNull`, `assertNotNull`, `assertMatchesRegularExpression()`, or `assertDoesNotMatchRegularExpression()` method. Use a simple PHP regex and an assert on result instead.
+- Do not remove comment like, above all lines with @depends
+
 
 ## Test Location
 
-Locate the most appropriate existing PHPUnit test file in `mymodule/test/phpunit/`.
+Locate the most appropriate existing PHPUnit test file in `test/phpunit/`.
 
 If no suitable test file exists, create one using the naming convention `FeatureTest.php`.
+
 
 ## Naming
 
@@ -62,6 +77,7 @@ public function testDeleteObject()
 public function testFetchReturnsExpectedValues()
 public function testInvalidInputThrowsException()
 ```
+
 
 ## Assertions
 
@@ -78,6 +94,7 @@ $this->assertNull($value);
 $this->assertNotNull($value);
 ```
 
+
 ## Output
 
 When generating code:
@@ -93,15 +110,15 @@ When generating code:
 ### Input: "Add a unit test for the create() method of the Invoice class"
 
 **Action:**
-1. locate or create `mymodule/test/phpunit/MyObjectTest.php`
+1. locate or create `test/phpunit/MyObjectTest.php`
 2. add test method following Dolibarr conventions
 
 ### Input: "Write tests for the calculateVAT() function in price.lib.php"
 
 **Action:**
-1. locate or create appropriate test file in `mymodule/test/phpunit/`
+1. locate or create appropriate test file in `test/phpunit/`
 2. add test methods for various VAT calculation scenarios
-3. you can test or suggest to test it by running the command: `phpunit mymodule/test/phpunit/TheTestFile.php`
+3. you can test or suggest to test it by running the command: `phpunit test/phpunit/TheTestFile.php`
 
 
 ## Error Handling
@@ -110,7 +127,7 @@ When generating code:
 
 | Issue | Validation | Solution |
 |-------|------------|----------|
-| Test file does not exist | Check `mymodule/test/phpunit/` directory | Create new test file with proper naming |
+| Test file does not exist | Check `test/phpunit/` directory | Create new test file with proper naming |
 | Class or method not found | Verify namespace and file location | Use proper use statements and class paths |
 | Database dependencies | Review test for external DB calls | Mock database interactions or use test fixtures |
 | Non-deterministic behavior | Check for random values or timestamps | Use fixed seeds or mock time |

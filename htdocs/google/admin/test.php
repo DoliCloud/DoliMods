@@ -24,6 +24,11 @@ require_once DOL_DOCUMENT_ROOT."/comm/action/class/actioncomm.class.php";
 require_once DOL_DOCUMENT_ROOT."/core/class/html.formactions.class.php";
 require_once DOL_DOCUMENT_ROOT."/projet/class/project.class.php";
 
+// Security check
+if (!$user->admin) {
+	accessforbidden();
+}
+
 $event = new ActionComm($db);
 $event->fetch(53);
 
