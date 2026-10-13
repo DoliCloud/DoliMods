@@ -82,7 +82,7 @@ function payplugdolicloudAdminPrepareHead()
  * @param	string	$source 		The type of the object
  * @param	string	$ref			The ref of the object
  * @param	string	$mode			The mode to use for the function amount
- * @param	array	$payerarray		An array to fill the payer informations (Must be set with payer mode)
+ * @param	array	$payerarray		An array to fill the payer information (Must be set with payer mode)
  * @return	int						The amount to pay if mode amount
  */
 function payplugGetDataFromObjects($source, $ref, $mode = 'amount', &$payerarray = null)

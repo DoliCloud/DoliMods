@@ -69,6 +69,11 @@ $mesg='';
 if ($user->socid > 0) {
 	accessforbidden();
 }
+// Security check
+if (!isModEnabled('ovh') || !$user->hasRight('ovh', 'send')) {
+	accessforbidden();
+}
+$result = restrictedArea($user, 'societe', $socid, '&societe');
 
 
 
@@ -98,8 +103,14 @@ if ($action == 'send' && empty($cancel)) {
 	$contactid = 0;
 	if ($receiver == 'thirdparty') $sendto=$thirdparty->phone;
 	if ((empty($sendto) || ! str_replace('+', '', $sendto)) && (! empty($receiver) && $receiver != '-1')) {
-		$sendto=$thirdparty->contact_get_property($receiver, 'mobile');
-		$contactid = (int) $receiver;	// To link the event to the contact
+		// The receiver must be a contact of the thirdparty
+		$receivercontact = new Contact($db);
+		if ($receivercontact->fetch((int) $receiver) > 0 && $receivercontact->socid == $thirdparty->id) {
+			$sendto=$thirdparty->contact_get_property($receiver, 'mobile');
+			$contactid = (int) $receiver;	// To link the event to the contact
+		} else {
+			$receiver = '';
+		}
 	}
 
 	// Test param

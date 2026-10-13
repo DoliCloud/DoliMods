@@ -316,6 +316,7 @@ if ($action == 'pushallevents') {
 			// Search all events
 			$sql = 'SELECT id, datep, datep2 as datef, code, label, transparency, priority, fulldayevent, percent, location, fk_soc, fk_contact, note as note_private';
 			$sql.= ' FROM '.MAIN_DB_PREFIX.'actioncomm';
+			$sql.= ' WHERE entity IN ('.getEntity('agenda').')';
 			$sql.=$db->order('datep', 'DESC');
 			$sql.=$db->plimit($max);
 

@@ -67,6 +67,11 @@ use Ovh\Api;
 
 $langs->loadLangs(array("bills", "orders", "ovh@ovh"));
 
+// Security check
+if (!isModEnabled('ovh') || !$user->hasRight('ovh', 'importinvoice') || $user->socid > 0) {
+	accessforbidden();
+}
+
 $url_pdf = "https://www.ovh.com/cgi-bin/order/facture.pdf";
 
 $endpoint = getDolGlobalString('OVH_ENDPOINT', 'ovh-eu');    // Can be "soyoustart-eu" or "kimsufi-eu"

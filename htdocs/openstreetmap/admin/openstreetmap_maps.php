@@ -52,7 +52,7 @@ if ($actionsave) {
 	$res+=dolibarr_set_const($db, 'OPENSTREETMAP_ENABLE_MAPS', trim(isset($_POST["OPENSTREETMAP_ENABLE_MAPS"])?$_POST["OPENSTREETMAP_ENABLE_MAPS"]:'0'), 'chaine', 0);
 	$res+=dolibarr_set_const($db, 'OPENSTREETMAP_ENABLE_MAPS_CONTACTS', trim(isset($_POST["OPENSTREETMAP_ENABLE_MAPS_CONTACTS"])?$_POST["OPENSTREETMAP_ENABLE_MAPS_CONTACTS"]:'0'), 'chaine', 0);
 	$res+=dolibarr_set_const($db, 'OPENSTREETMAP_ENABLE_MAPS_MEMBERS', trim(isset($_POST["OPENSTREETMAP_ENABLE_MAPS_MEMBERS"])?$_POST["OPENSTREETMAP_ENABLE_MAPS_MEMBERS"]:'0'), 'chaine', 0);
-	$res+=dolibarr_set_const($db, 'OPENSTREETMAP_MAPS_ZOOM_LEVEL', trim(isset($_POST["OPENSTREETMAP_MAPS_ZOOM_LEVEL"])?$_POST["OPENSTREETMAP_MAPS_ZOOM_LEVEL"]:'0'), 'chaine', 0);
+	$res+=dolibarr_set_const($db, 'OPENSTREETMAP_MAPS_ZOOM_LEVEL', GETPOST("OPENSTREETMAP_MAPS_ZOOM_LEVEL", 'int'), 'chaine', 0);
 
 	if ($res == 4) {
 		$db->commit();
@@ -113,7 +113,7 @@ print '<br>';
 
 //print '<br>';
 print $langs->trans("OpenStreetMapZoomLevel", 2, 18).': ';
-print '<input class="flat" name="OPENSTREETMAP_MAPS_ZOOM_LEVEL" id="OPENSTREETMAP_MAPS_ZOOM_LEVEL" value="'.(isset($_POST["OPENSTREETMAP_MAPS_ZOOM_LEVEL"])?$_POST["OPENSTREETMAP_MAPS_ZOOM_LEVEL"]:($conf->global->OPENSTREETMAP_MAPS_ZOOM_LEVEL?$conf->global->OPENSTREETMAP_MAPS_ZOOM_LEVEL:15)).'" size="2">';
+print '<input class="flat" name="OPENSTREETMAP_MAPS_ZOOM_LEVEL" id="OPENSTREETMAP_MAPS_ZOOM_LEVEL" value="'.(GETPOSTISSET("OPENSTREETMAP_MAPS_ZOOM_LEVEL") ? GETPOST("OPENSTREETMAP_MAPS_ZOOM_LEVEL", 'int') : getDolGlobalInt('OPENSTREETMAP_MAPS_ZOOM_LEVEL', 15)).'" size="2">';
 
 dol_fiche_end();
 

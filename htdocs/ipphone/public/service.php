@@ -88,16 +88,15 @@ $langs->load("ipphone@ipphone");
  * View
  */
 
-if (! empty($conf->global->IPPHONE_EXPORTKEY)) {
-	// Protection is on, we check key
-	if ($key != $conf->global->IPPHONE_EXPORTKEY) {
-		$user->getrights();
+// The export is refused while no key is set, so the annuary is never public
+$exportkey = getDolGlobalString('IPPHONE_EXPORTKEY');
+if ($exportkey === '' || !hash_equals($exportkey, (string) $key)) {
+	$user->getrights();
 
-		llxHeaderVierge();
-		print '<div class="error">Bad value for key.</div>';
-		llxFooterVierge();
-		exit;
-	}
+	llxHeaderVierge();
+	print '<div class="error">Bad value for key.</div>';
+	llxFooterVierge();
+	exit;
 }
 
 
@@ -112,9 +111,10 @@ $sql = '';
 $sql .= "select s.rowid, s.nom as name, s.phone";
 $sql .= ", p.rowid as contactid, p.lastname, p.firstname, p.phone as contactphone, p.phone_mobile as contactphonemobile";
 $sql .= " FROM ".MAIN_DB_PREFIX."societe as s";
-$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."socpeople as p ON p.fk_soc = s.rowid";
+$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."socpeople as p ON p.fk_soc = s.rowid AND p.priv = 0";
+$sql .= " WHERE s.entity IN (".getEntity('societe').")";
 if ($search) {
-	$sql.= " WHERE p.rowid IS NULL or (s.nom LIKE '".$db->escape($search)."%' OR p.lastname LIKE '".$db->escape($search)."%' OR p.firstname LIKE '".$db->escape($search)."%')";
+	$sql.= " AND (p.rowid IS NULL or (s.nom LIKE '".$db->escape($search)."%' OR p.lastname LIKE '".$db->escape($search)."%' OR p.firstname LIKE '".$db->escape($search)."%'))";
 }
 
 

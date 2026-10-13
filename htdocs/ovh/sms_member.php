@@ -70,6 +70,11 @@ $mesg='';
 if ($user->socid > 0) {
 	accessforbidden();
 }
+// Security check
+if (!isModEnabled('ovh') || !$user->hasRight('ovh', 'send')) {
+	accessforbidden();
+}
+$result = restrictedArea($user, 'adherent', $id);
 
 
 

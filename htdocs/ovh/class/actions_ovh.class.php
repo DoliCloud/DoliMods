@@ -23,12 +23,12 @@ class ActionsOVH
 	public function addMoreMassActions($parameters, &$object, &$action, $hookmanager)
 	{
 		$error = 0; // Error counter
-		global $langs;
+		global $langs, $user;
 		$langs->load('ovh@ovh');
 		$langs->load("sms");
 		$massaction = GETPOST('massaction');
 
-		if (in_array('contactlist', explode(':', $parameters['context'])) && getDolGlobalString('OVHSMS_ACCOUNT')) {
+		if (in_array('contactlist', explode(':', $parameters['context'])) && getDolGlobalString('OVHSMS_ACCOUNT') && $user->hasRight('ovh', 'send')) {
 			$labelAction = img_picto('', 'fontawesome_sms', 'class="pictofixedwidth"') . $langs->trans("SendSMS");
 			$this->resprints = '<option value="presendsms" data-html="' . dol_escape_htmltag($labelAction) . '"';
 
@@ -65,7 +65,7 @@ class ActionsOVH
 		$langs->load("sms");
 		$massaction = GETPOST('massaction');
 
-		if (in_array('contactlist', explode(':', $parameters['context']))) {
+		if (in_array('contactlist', explode(':', $parameters['context'])) && $user->hasRight('ovh', 'send')) {
 			if ($massaction == 'presendsms' && !GETPOST('cancel', 'aZ09')) {
 				include_once DOL_DOCUMENT_ROOT . '/core/class/html.formsms.class.php';
 
@@ -135,7 +135,7 @@ class ActionsOVH
 	{
 		global $user, $db, $langs;
 
-		if (GETPOST('sendsms') && empty(GETPOST('cancel', 'aZ09'))) {
+		if (GETPOST('sendsms') && empty(GETPOST('cancel', 'aZ09')) && $user->hasRight('ovh', 'send')) {
 			$error = 0;
 			$langs->load('ovh@ovh');
 			$langs->load("sms");

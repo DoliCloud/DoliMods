@@ -21,6 +21,7 @@ if (! $res) die("Include of main fails");
 require_once DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php";
 require_once DOL_DOCUMENT_ROOT."/core/lib/date.lib.php";
 require_once DOL_DOCUMENT_ROOT."/core/lib/geturl.lib.php";
+require_once DOL_DOCUMENT_ROOT."/core/lib/security2.lib.php";
 if (file_exists(DOL_DOCUMENT_ROOT.'/core/lib/json.lib.php')) {
 	require_once DOL_DOCUMENT_ROOT.'/core/lib/json.lib.php';
 }
@@ -53,6 +54,19 @@ $scope = GETPOST('scope');
 $backtourl = GETPOST('backtourl') ? GETPOST('backtourl') : $_SESSION['backtourlsavedbeforeoauthjump'];
 $servicename = GETPOSTISSET('servicename') ? GETPOST('servicename') : $_SESSION['servicenamesavedbeforeoauthjump'];
 $mesgs = '';
+
+// Security check
+if (!isModEnabled('google') || !$user->admin) {
+	accessforbidden();
+}
+// Only the token of the Google contact sync can be managed here
+if (!in_array($servicename, array('contact'))) {
+	accessforbidden('Bad value for servicename');
+}
+// Only a local url is allowed to go back
+if (!preg_match('/^\/[^\/\\\\]/', (string) $backtourl)) {
+	$backtourl = dol_buildpath('/google/admin/google_contactsync.php', 1);
+}
 
 
 
@@ -95,15 +109,13 @@ if ($action == 'delete') {
 	$_SESSION['backtourlsavedbeforeoauthjump'] = $backtourl;
 	$_SESSION['servicenamesavedbeforeoauthjump'] = $servicename;
 	$_SESSION['shortscopesavedbeforeoauthjump'] = $shortscope;
+	// The state sent to Google is random and kept in session, so a code obtained by someone else is refused
+	$state = $state.'-'.getRandomPassword(true);
 	$_SESSION['oauthstateanticsrf'] = $state;
 
 	$apiService->setApprouvalPrompt('force');
 
-	if ($state) {
-		$url = $apiService->getAuthorizationUri(array('state' => $state));
-	} else {
-		$url = $apiService->getAuthorizationUri(); // Parameter state will be randomly generated
-	}
+	$url = $apiService->getAuthorizationUri(array('state' => $state));
 
 	header("Location: ".$url);
 	exit();
@@ -111,9 +123,10 @@ if ($action == 'delete') {
 	// Save token into database
 	$langs->load("oauth");
 
-	if (isset($_SESSION['oauthstateanticsrf']) && $state != $_SESSION['oauthstateanticsrf']) {
+	$statefromsession = empty($_SESSION['oauthstateanticsrf']) ? '' : $_SESSION['oauthstateanticsrf'];
+	unset($_SESSION['oauthstateanticsrf']);
+	if (empty($statefromsession) || !hash_equals($statefromsession, (string) $state)) {
 		print 'Value for state = '.dol_escape_htmltag($state).' differs from value in $_SESSION["oauthstateanticsrf"]. Code is refused.';
-		unset($_SESSION['oauthstateanticsrf']);
 	} else {
 		try {
 			// Save token into database using DoliStorage

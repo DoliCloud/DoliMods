@@ -385,7 +385,7 @@ class Facturx
     }
 
     /**
-     * Prepare PDF Metadata informations from Factur-X XML.
+     * Prepare PDF Metadata information from Factur-X XML.
      *
      * @param \DOMDocument $facturxXml
      *
