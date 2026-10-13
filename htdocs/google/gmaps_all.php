@@ -634,7 +634,7 @@ function googlegetURLContent($url, $postorget = 'GET', $param = '')
 	$PROXY_USER=empty($conf->global->MAIN_PROXY_USER)?0:$conf->global->MAIN_PROXY_USER;
 	$PROXY_PASS=empty($conf->global->MAIN_PROXY_PASS)?0:$conf->global->MAIN_PROXY_PASS;
 
-	dol_syslog("getURLContent postorget=".$postorget." URL=".$url." param=".$param);
+	dol_syslog("getURLContent postorget=".$postorget." URL=".preg_replace('/([?&]key=[^&]{0,3})[^&]*/', '$1...', $url)." param=".$param);
 
 	//setting the curl parameters.
 	$ch = curl_init();
@@ -663,7 +663,7 @@ function googlegetURLContent($url, $postorget = 'GET', $param = '')
 
 	//if USE_PROXY constant set to TRUE in Constants.php, then only proxy will be enabled.
 	if ($USE_PROXY) {
-		dol_syslog("getURLContent set proxy to ".$PROXY_HOST. ":" . $PROXY_PORT." - ".$PROXY_USER. ":" . $PROXY_PASS);
+		dol_syslog("getURLContent set proxy to ".$PROXY_HOST. ":" . $PROXY_PORT." - ".$PROXY_USER. ":" . dol_substr((string) $PROXY_PASS, 0, 3)."...");
 		//curl_setopt ($ch, CURLOPT_PROXYTYPE, CURLPROXY_HTTP); // Curl 7.10
 		curl_setopt($ch, CURLOPT_PROXY, $PROXY_HOST. ":" . $PROXY_PORT);
 		if ($PROXY_USER) curl_setopt($ch, CURLOPT_PROXYUSERPWD, $PROXY_USER. ":" . $PROXY_PASS);

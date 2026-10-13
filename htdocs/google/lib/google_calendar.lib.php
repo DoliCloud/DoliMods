@@ -57,6 +57,35 @@ $_authSubKeyFilePassphrase = null;
 
 
 /**
+ * Return a token (array, json or string) as a string for logs, with secret values truncated to their 3 first chars.
+ *
+ * @param	mixed	$token	Token
+ * @return	string			Token with secrets masked
+ */
+function googleTokenForLog($token)
+{
+	if (is_object($token)) {
+		$token = (array) $token;
+	}
+	if (is_string($token)) {
+		$tmparray = json_decode($token, true);
+		if (!is_array($tmparray)) {
+			return dol_substr($token, 0, 3).'...';
+		}
+		$token = $tmparray;
+	}
+	if (!is_array($token)) {
+		return (string) $token;
+	}
+	foreach ($token as $key => $val) {
+		if (is_scalar($val) && preg_match('/token|secret|key|code/i', (string) $key)) {
+			$token[$key] = dol_substr((string) $val, 0, 3).'...';
+		}
+	}
+	return json_encode($token);
+}
+
+/**
  * Get service
  *
  * @param	string		$clientid			Client ID
@@ -127,7 +156,7 @@ function getTokenFromServiceAccount($service_account_name, $key_file_location, $
 
 		// If it is ok to use the token into session
 		if (empty($force_do_not_use_session) && isset($_SESSION['google_web_token_'.$conf->entity])) {
-			dol_syslog("Get web token from session. google_web_token=".(is_array($_SESSION['google_web_token_'.$conf->entity])?implode(",", $_SESSION['google_web_token_'.$conf->entity]):$_SESSION['google_web_token_'.$conf->entity]));
+			dol_syslog("Get web token from session. google_web_token=".googleTokenForLog($_SESSION['google_web_token_'.$conf->entity]));
 			$client->setAccessToken($_SESSION['google_web_token_'.$conf->entity]);	// Set the array into $client->token
 		}
 
@@ -162,14 +191,14 @@ function getTokenFromServiceAccount($service_account_name, $key_file_location, $
 				'expires_in' => ($tokenobj->getEndOfLife() - time()),
 				'created' => ($tokenobj->getEndOfLife() - 3600)			// We suppose token was created 1 hour before expires. This is not true if token has been refreshed !
 			);
-			dol_syslog("Get service token from database and save into session. google_web_token=".var_export($_SESSION['google_web_token_'.$conf->entity], true));
+			dol_syslog("Get service token from database and save into session. google_web_token=".googleTokenForLog($_SESSION['google_web_token_'.$conf->entity]));
 			$client->setAccessToken($_SESSION['google_web_token_'.$conf->entity]);	// Set the array into $client->token
 		}
 
 		if (empty($_SESSION['google_web_token_'.$conf->entity])) {
 			return 'GoogleWebTokenNotDefinedDoALoginInitFirst';
 		} else {
-			dol_syslog("getTokenFromServiceAccount set current token to ".(is_array($_SESSION['google_web_token_'.$conf->entity]) ? implode(",", $_SESSION['google_web_token_'.$conf->entity]):$_SESSION['google_web_token_'.$conf->entity]), LOG_DEBUG);
+			dol_syslog("getTokenFromServiceAccount set current token to ".googleTokenForLog($_SESSION['google_web_token_'.$conf->entity]), LOG_DEBUG);
 			// TODO This command seems already executed before.
 			$client->setAccessToken($_SESSION['google_web_token_'.$conf->entity]);	// Set the array into $client->token
 		}
@@ -180,7 +209,7 @@ function getTokenFromServiceAccount($service_account_name, $key_file_location, $
 				$expire = $client->isAccessTokenExpired();
 				if ($expire) {
 					$refreshtoken = $tokenobj->getRefreshToken();
-					dol_syslog("getTokenFromServiceAccount token seems to be expired, we refresh it with the refresh token = ".$refreshtoken);
+					dol_syslog("getTokenFromServiceAccount token seems to be expired, we refresh it with the refresh token = ".googleTokenForLog($refreshtoken));
 
 					/* this is what is done by generic module OAuth to refresh the token from database, saving it into database.
 					$tokenobj = $client->refreshAccessToken($tokenobj);
@@ -200,7 +229,7 @@ function getTokenFromServiceAccount($service_account_name, $key_file_location, $
 					// Note: Token in session is now refreshed, but the new one is not stored into database.
 					// Note: We can still make a refresh using the old token object from dataabse.
 
-					dol_syslog("getTokenFromServiceAccount new token in session is now ".(is_array($_SESSION['google_web_token_'.$conf->entity]) ? implode(",", $_SESSION['google_web_token_'.$conf->entity]):$_SESSION['google_web_token_'.$conf->entity]), LOG_DEBUG);
+					dol_syslog("getTokenFromServiceAccount new token in session is now ".googleTokenForLog($_SESSION['google_web_token_'.$conf->entity]), LOG_DEBUG);
 				} else dol_syslog("getTokenFromServiceAccount token not expired", LOG_DEBUG);
 			} catch (Exception $e) {
 				return $e->getMessage();
@@ -214,7 +243,7 @@ function getTokenFromServiceAccount($service_account_name, $key_file_location, $
 
 		// If it is ok to use the token into session
 		if (empty($force_do_not_use_session) && isset($_SESSION['google_service_token_'.$conf->entity])) {
-			dol_syslog("Get service token from session with client->setAccessToken(".json_encode($_SESSION['google_service_token_'.$conf->entity]).")", LOG_DEBUG);
+			dol_syslog("Get service token from session with client->setAccessToken(".googleTokenForLog($_SESSION['google_service_token_'.$conf->entity]).")", LOG_DEBUG);
 			$client->setAccessToken($_SESSION['google_service_token_'.$conf->entity]);
 		}
 
@@ -294,7 +323,7 @@ function getTokenFromServiceAccount($service_account_name, $key_file_location, $
 	if ($mode == 'web') {
 		$_SESSION['google_web_token_'.$conf->entity] = $client->getAccessToken();	// Overwrite session with correct token
 
-		dol_syslog("getTokenFromServiceAccount Return client name = ".$applicationname." google_web_token = ".is_array($_SESSION['google_web_token_'.$conf->entity])?implode(",", $_SESSION['google_web_token_'.$conf->entity]):$_SESSION['google_web_token_'.$conf->entity], LOG_INFO);
+		dol_syslog("getTokenFromServiceAccount Return client name = ".$applicationname." google_web_token = ".googleTokenForLog($_SESSION['google_web_token_'.$conf->entity]), LOG_INFO);
 		//dol_syslog("getTokenFromServiceAccount getBasePath = ".$client->getBasePath(), LOG_DEBUG);
 	}
 	if ($mode == 'service') {
@@ -302,7 +331,7 @@ function getTokenFromServiceAccount($service_account_name, $key_file_location, $
 
 		$_SESSION['google_service_token_'.$conf->entity] = $tmpres;	// Overwrite session with correct token
 
-		dol_syslog("getTokenFromServiceAccount Return client name = ".$applicationname." google_service_token = ".json_encode($_SESSION['google_service_token_'.$conf->entity]), LOG_INFO);
+		dol_syslog("getTokenFromServiceAccount Return client name = ".$applicationname." google_service_token = ".googleTokenForLog($_SESSION['google_service_token_'.$conf->entity]), LOG_INFO);
 		//dol_syslog("getTokenFromServiceAccount getBasePath = ".$client->getBasePath(), LOG_DEBUG);
 	}
 

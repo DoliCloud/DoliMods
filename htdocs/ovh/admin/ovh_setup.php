@@ -77,7 +77,7 @@ if (! empty($conf->global->MAIN_ENABLE_EXCEPTION)) {
 	 * @param $code string code
 	 * @param $message string message
 	 * @param $fichier string filename
-	 * @param $ligne string lien id
+	 * @param $ligne string link id
 	 * @param $contexte string context
 	 * @return void
 	 * @throws Exception
@@ -138,7 +138,7 @@ if ($action == 'setvalue_account' && $user->admin) {
 }
 
 if ($action == 'requestcredential' || $action == 'requestcredential2') {
-	// Informations about your application
+	// Information about your application
 	$applicationKey = $conf->global->OVHAPPKEY;
 	$applicationSecret = $conf->global->OVHAPPSECRET;
 	$redirect_uri=dol_buildpath('/ovh/admin/ovh_setup.php?action=backfromauth&token='.newToken(), 2);
@@ -169,7 +169,7 @@ if ($action == 'requestcredential' || $action == 'requestcredential2') {
 	// Get credentials
 	try {
 		dol_syslog("Request credential to endpoint ".$endpoint);
-		dol_syslog("applicationKey=".$applicationKey." applicationSecret=".$applicationKey." redirect_uri=".$redirect_uri);
+		dol_syslog("applicationKey=".dol_substr($applicationKey, 0, 3)."... applicationSecret=".dol_substr($applicationSecret, 0, 3)."... redirect_uri=".$redirect_uri);
 
 		if ('guzzle7.3' == 'guzzle7.3') {
 			$arrayconfig = array(
