@@ -976,6 +976,20 @@ function zipDir($folder, &$zip, $root = "")
 
 
 /**
+ * Format a Dolibarr version for the Dolistore min/max extrafields: "24.0" or "24" gives "V24", "24.1" gives "V24.1".
+ *
+ * @param   string  $version    Version found in index.yaml.
+ * @return  string              Version with syntax Vxx.
+ */
+function formatDolistoreVersion($version)
+{
+	$version = preg_replace('/^v/i', '', trim($version));
+	$version = preg_replace('/(\.0)+$/', '', $version);
+	return 'V' . $version;
+}
+
+
+/**
  * Push a module zip package to the Dolistore (remote Dolibarr instance) using the REST API.
  *
  * The product ID is read from the dolistore-download URL found in the root index.yaml file.
@@ -1170,10 +1184,10 @@ function pushModuleToDolistore($apikey, $dolistoreApiUrl, $modulename, $director
 		$arrayOptions['options_marketplace_module_version'] = $moduleVersion;
 	}
 	if (!empty($dolibarrMin)) {
-		$arrayOptions['options_marketplace_min_version'] = $dolibarrMin;
+		$arrayOptions['options_marketplace_min_version'] = formatDolistoreVersion($dolibarrMin);
 	}
 	if (!empty($dolibarrMax)) {
-		$arrayOptions['options_marketplace_max_version'] = $dolibarrMax;
+		$arrayOptions['options_marketplace_max_version'] = formatDolistoreVersion($dolibarrMax);
 	}
 	if (!empty($phpMin)) {
 		$arrayOptions['options_marketplace_php_min_version'] = $phpMin;
