@@ -86,7 +86,8 @@ $suffix = strtoupper($reg[2]);
 
 $docs = openstreetmap_pdok_search('postcode:'.$postcode.' and huisnummer:'.$nr, 'adres', 50);
 if (!is_array($docs)) {
-	openstreetmap_pdok_answer(array('error' => 'SERVICE_UNAVAILABLE', 'detail' => $docs), 502);
+	dol_syslog("openstreetmap ajax/pdok.php: PDOK request failed: ".$docs, LOG_WARNING);
+	openstreetmap_pdok_answer(array('error' => 'SERVICE_UNAVAILABLE'), 502);
 }
 
 // Keep only exact matches on postcode and house number, then prefer the matching letter/addition

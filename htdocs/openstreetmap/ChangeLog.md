@@ -1,6 +1,14 @@
 # ChangeLog MODULE OPENSTREETMAP FOR <a href="https://www.dolibarr.org">DOLIBARR ERP CRM</a>
 
 
+## 4.0.4
+
+* Multicompany: the table llx_openstreetmap_geo has a column entity; coordinates are read, written and cleared per company. Disable and enable the module after the upgrade so the column is added.
+* Map of all records refused when the module is disabled.
+* Setup of maps: values read with GETPOST and getDolGlobalInt, saved per company, zoom level limited to 2-18.
+* No technical error text shown to the user (SQL errors and PDOK errors are written to the log).
+* JSON of the markers encoded with JSON_HEX_* flags.
+
 ## 4.0.3
 
 * The About page of the module setup works again on Dolibarr 18: dolPrintHTMLForAttribute() exists only from Dolibarr 19, dol_escape_htmltag() is used instead.

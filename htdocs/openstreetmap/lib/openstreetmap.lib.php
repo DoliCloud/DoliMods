@@ -299,6 +299,8 @@ function openstreetmap_geocode($obj)
  */
 function openstreetmap_get_coordinates($db, $type, $id, $obj, $cached = null, $nosearch = 0)
 {
+	global $conf;
+
 	$addresstosearch = dol_format_address($obj, 1, ' ');
 	if (trim($addresstosearch) == '' || trim($addresstosearch) == trim((string) $obj->country)) {
 		return array('error' => 'NO_ADDRESS', 'label' => 'Address not defined', 'cached' => 0);
@@ -307,7 +309,7 @@ function openstreetmap_get_coordinates($db, $type, $id, $obj, $cached = null, $n
 	if ($cached === null) {
 		$cached = array();
 		$sql = "SELECT rowid, latitude, longitude, address, result_code, result_label FROM ".MAIN_DB_PREFIX."openstreetmap_geo";
-		$sql .= " WHERE fk_object = ".((int) $id)." AND type_object = '".$db->escape($type)."'";
+		$sql .= " WHERE fk_object = ".((int) $id)." AND type_object = '".$db->escape($type)."' AND entity = ".((int) $conf->entity);
 		$resql = $db->query($sql);
 		if ($resql && ($o = $db->fetch_object($resql))) {
 			$cached = (array) $o;
@@ -335,7 +337,13 @@ function openstreetmap_get_coordinates($db, $type, $id, $obj, $cached = null, $n
 	$code = isset($res['error']) ? dol_trunc((string) $res['error'], 16, 'right', 'UTF-8', 1) : 'OK';
 	$label = '';
 	if (isset($res['error'])) {
-		$label = ($res['error'] == 'ZERO_RESULTS' ? 'Address not complete or unknown' : 'Geocoding failed: '.$res['error']);
+		if ($res['error'] == 'ZERO_RESULTS') {
+			$label = 'Address not complete or unknown';
+		} else {
+			// Technical detail goes to the log only, the user sees a plain message
+			dol_syslog("openstreetmap_get_coordinates: geocoding of ".$type." ".$id." failed: ".$res['error'], LOG_WARNING);
+			$label = 'Geocoding service not reachable, will be retried';
+		}
 	} elseif (!empty($res['degraded'])) {
 		$label = 'Located on zip or town only';
 	}
@@ -347,10 +355,10 @@ function openstreetmap_get_coordinates($db, $type, $id, $obj, $cached = null, $n
 		$sql = "UPDATE ".MAIN_DB_PREFIX."openstreetmap_geo SET";
 		$sql .= " latitude = ".$sqllat.", longitude = ".$sqllon.", address = ".$sqladdress.",";
 		$sql .= " source = '".$db->escape($res['source'])."', result_code = '".$db->escape($code)."', result_label = '".$db->escape($label)."'";
-		$sql .= " WHERE rowid = ".((int) $cached['rowid']);
+		$sql .= " WHERE rowid = ".((int) $cached['rowid'])." AND entity = ".((int) $conf->entity);
 	} else {
-		$sql = "INSERT INTO ".MAIN_DB_PREFIX."openstreetmap_geo (fk_object, type_object, latitude, longitude, address, source, result_code, result_label)";
-		$sql .= " VALUES (".((int) $id).", '".$db->escape($type)."', ".$sqllat.", ".$sqllon.", ".$sqladdress.",";
+		$sql = "INSERT INTO ".MAIN_DB_PREFIX."openstreetmap_geo (entity, fk_object, type_object, latitude, longitude, address, source, result_code, result_label)";
+		$sql .= " VALUES (".((int) $conf->entity).", ".((int) $id).", '".$db->escape($type)."', ".$sqllat.", ".$sqllon.", ".$sqladdress.",";
 		$sql .= " '".$db->escape($res['source'])."', '".$db->escape($code)."', '".$db->escape($label)."')";
 	}
 	if (!$db->query($sql)) {
