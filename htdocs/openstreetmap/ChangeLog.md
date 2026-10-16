@@ -1,6 +1,12 @@
 # ChangeLog MODULE OPENSTREETMAP FOR <a href="https://www.dolibarr.org">DOLIBARR ERP CRM</a>
 
 
+## 4.1.0
+
+* Address autofill for countries other than the Netherlands: town from the postcode (Nominatim, one request per postcode) and street suggestions while typing the address (Photon). A postcode outside the Netherlands covers many streets, so the street is chosen from suggestions.
+* Requests go through the Dolibarr server (ajax/address.php) and are cached in documents/openstreetmap/cache; Nominatim requests are limited to 1 per second for the whole server.
+* New setup options: autofill for other countries on/off, URL of the Photon service.
+
 ## 4.0.4
 
 * Multicompany: the table llx_openstreetmap_geo has a column entity; coordinates are read, written and cleared per company. Disable and enable the module after the upgrade so the column is added.

@@ -53,3 +53,6 @@ OpenStreetMapCache=Stored coordinates
 OpenStreetMapCacheDesc=%s addresses are stored with their coordinates.
 OpenStreetMapClearCache=Clear stored coordinates
 OpenStreetMapCacheCleared=Stored coordinates cleared
+OpenStreetMapEuAutofill=Address autofill for other countries
+OpenStreetMapEuAutofillDesc=Town from postcode (Nominatim) and street suggestions while typing the address (Photon, OpenStreetMap data). The requests are done by your Dolibarr server and cached.
+OpenStreetMapPhotonUrl=URL of Photon search service

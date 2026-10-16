@@ -8,6 +8,7 @@ This module provides OpenStreet Map integration into Dolibarr, without any Googl
 * Addresses in the Netherlands are located with the PDOK Locatieserver (Dutch government service using the BAG, free, no key). Other countries use Nominatim (OpenStreetMap), at most 1 request per second as required by its usage policy.
 * Coordinates are stored in the database and searched again only when the address changes.
 * For Dutch addresses, enter postcode and house number on third party, contact or member forms: street and town are filled automatically. The request is done by the Dolibarr server, the browser of the user never contacts an external service.
+* For other countries: the town is filled from the postcode (Nominatim) and street names are suggested while typing the address (Photon). Also through the Dolibarr server, with a cache.
 * Maps are displayed with Leaflet, served from the module itself (no external CDN).
 
 ## Upgrade from a previous version

@@ -46,7 +46,7 @@ class modOpenStreetMap extends DolibarrModules
 		$this->editor_name = 'DoliCloud';
 		$this->editor_url = 'https://www.dolicloud.com?origin=dolimods';
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
-		$this->version = '4.0.4';
+		$this->version = '4.1.0';
 		// Key used in llx_const table to save module status enabled/disabled (where MYMODULE is value of property name of module in uppercase)
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
 		// Name of image file used for this module.
@@ -79,6 +79,7 @@ class modOpenStreetMap extends DolibarrModules
 		// Constants
 		$this->const = array(
 			0 => array('OPENSTREETMAP_PDOK_AUTOFILL', 'chaine', '1', 'Fill street and town of Dutch addresses from postcode and house number (PDOK)', 0, 'current', 0),
+			1 => array('OPENSTREETMAP_EU_AUTOFILL', 'chaine', '1', 'Other countries: town from postcode (Nominatim) and street suggestions (Photon)', 0, 'current', 0),
 		);
 
 		// Tabs

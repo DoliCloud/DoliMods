@@ -40,3 +40,6 @@ OpenStreetMapCache=Opgeslagen coördinaten
 OpenStreetMapCacheDesc=Er zijn %s adressen met coördinaten opgeslagen.
 OpenStreetMapClearCache=Opgeslagen coördinaten wissen
 OpenStreetMapCacheCleared=Opgeslagen coördinaten gewist
+OpenStreetMapEuAutofill=Adressen automatisch invullen voor andere landen
+OpenStreetMapEuAutofillDesc=Plaats bij de postcode (Nominatim) en straatsuggesties tijdens het typen van het adres (Photon, gegevens van OpenStreetMap). De opvragingen gebeuren door uw eigen Dolibarr-server en worden bewaard.
+OpenStreetMapPhotonUrl=URL van de Photon-zoekdienst

@@ -54,6 +54,7 @@ $action = GETPOST('action', 'aZ09');
 $textconsts = array(
 	'OPENSTREETMAP_NOMINATIM_EMAIL' => 'alphanohtml',
 	'OPENSTREETMAP_NOMINATIM_URL' => 'alphanohtml',
+	'OPENSTREETMAP_PHOTON_URL' => 'alphanohtml',
 	'OPENSTREETMAP_TILE_URL' => 'alphanohtml',
 	'OPENSTREETMAP_TILE_ATTRIBUTION' => 'restricthtml',
 );
@@ -69,9 +70,12 @@ if ($action == 'save') {
 	if (dolibarr_set_const($db, 'OPENSTREETMAP_PDOK_AUTOFILL', GETPOST('OPENSTREETMAP_PDOK_AUTOFILL', 'int') ? '1' : '0', 'chaine', 0, '', $conf->entity) < 0) {
 		$error++;
 	}
+	if (dolibarr_set_const($db, 'OPENSTREETMAP_EU_AUTOFILL', GETPOST('OPENSTREETMAP_EU_AUTOFILL', 'int') ? '1' : '0', 'chaine', 0, '', $conf->entity) < 0) {
+		$error++;
+	}
 	foreach ($textconsts as $key => $check) {
 		$value = trim(GETPOST($key, $check));
-		if (in_array($key, array('OPENSTREETMAP_NOMINATIM_URL', 'OPENSTREETMAP_TILE_URL')) && $value != '' && !preg_match('/^https:\/\//i', $value)) {
+		if (in_array($key, array('OPENSTREETMAP_NOMINATIM_URL', 'OPENSTREETMAP_PHOTON_URL', 'OPENSTREETMAP_TILE_URL')) && $value != '' && !preg_match('/^https:\/\//i', $value)) {
 			setEventMessages($langs->trans("OpenStreetMapErrorUrlMustBeHttps", $key), null, 'errors');
 			$error++;
 			continue;
@@ -134,12 +138,20 @@ print '<tr class="oddeven"><td>'.$langs->trans("OpenStreetMapPdokAutofill").'<br
 print $form->selectyesno('OPENSTREETMAP_PDOK_AUTOFILL', getDolGlobalInt('OPENSTREETMAP_PDOK_AUTOFILL'), 1);
 print '</td></tr>';
 
+print '<tr class="oddeven"><td>'.$langs->trans("OpenStreetMapEuAutofill").'<br><span class="opacitymedium small">'.$langs->trans("OpenStreetMapEuAutofillDesc").'</span></td><td>';
+print $form->selectyesno('OPENSTREETMAP_EU_AUTOFILL', getDolGlobalInt('OPENSTREETMAP_EU_AUTOFILL'), 1);
+print '</td></tr>';
+
 print '<tr class="oddeven"><td>'.$langs->trans("OpenStreetMapNominatimEmail").'<br><span class="opacitymedium small">'.$langs->trans("OpenStreetMapNominatimEmailDesc").'</span></td><td>';
 print '<input type="email" class="flat minwidth300" name="OPENSTREETMAP_NOMINATIM_EMAIL" value="'.dol_escape_htmltag(getDolGlobalString('OPENSTREETMAP_NOMINATIM_EMAIL')).'">';
 print '</td></tr>';
 
 print '<tr class="oddeven"><td>'.$langs->trans("OpenStreetMapNominatimUrl").'<br><span class="opacitymedium small">'.$langs->trans("OpenStreetMapEmptyForDefault").'</span></td><td>';
 print '<input type="text" class="flat minwidth500" name="OPENSTREETMAP_NOMINATIM_URL" placeholder="https://nominatim.openstreetmap.org/search" value="'.dol_escape_htmltag(getDolGlobalString('OPENSTREETMAP_NOMINATIM_URL')).'">';
+print '</td></tr>';
+
+print '<tr class="oddeven"><td>'.$langs->trans("OpenStreetMapPhotonUrl").'<br><span class="opacitymedium small">'.$langs->trans("OpenStreetMapEmptyForDefault").'</span></td><td>';
+print '<input type="text" class="flat minwidth500" name="OPENSTREETMAP_PHOTON_URL" placeholder="https://photon.komoot.io/api" value="'.dol_escape_htmltag(getDolGlobalString('OPENSTREETMAP_PHOTON_URL')).'">';
 print '</td></tr>';
 
 print '<tr class="oddeven"><td>'.$langs->trans("OpenStreetMapTileUrl").'<br><span class="opacitymedium small">'.$langs->trans("OpenStreetMapEmptyForDefault").'</span></td><td>';
