@@ -18,6 +18,7 @@
 
 CREATE TABLE llx_openstreetmap_geo (
 	rowid INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	entity INTEGER DEFAULT 1 NOT NULL,	-- multicompany id
 	fk_object INTEGER NOT NULL,
 	type_object varchar(16) NOT NULL,
 	latitude double NULL,

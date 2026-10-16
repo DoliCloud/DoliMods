@@ -13,4 +13,7 @@
 -- along with this program. If not, see <http://www.gnu.org/licenses/>.
 -- ===================================================================
 
-ALTER TABLE llx_openstreetmap_geo ADD UNIQUE INDEX uk_openstreetmap_geo (fk_object, type_object);
+-- The cache is kept per entity (multicompany): a shared third party has one row per company.
+-- Installations before 4.0.4 have the old key without entity: it is removed first (no error if missing).
+ALTER TABLE llx_openstreetmap_geo DROP INDEX uk_openstreetmap_geo;
+ALTER TABLE llx_openstreetmap_geo ADD UNIQUE INDEX uk_openstreetmap_geo (entity, fk_object, type_object);

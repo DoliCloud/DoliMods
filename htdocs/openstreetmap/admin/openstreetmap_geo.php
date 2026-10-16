@@ -95,11 +95,12 @@ if ($action == 'save') {
 }
 
 if ($action == 'clearcache') {
-	$sql = "DELETE FROM ".MAIN_DB_PREFIX."openstreetmap_geo";
+	$sql = "DELETE FROM ".MAIN_DB_PREFIX."openstreetmap_geo WHERE entity = ".((int) $conf->entity);
 	if ($db->query($sql)) {
 		setEventMessages($langs->trans("OpenStreetMapCacheCleared"), null, 'mesgs');
 	} else {
-		setEventMessages($db->lasterror(), null, 'errors');
+		dol_syslog("openstreetmap clear cache: ".$db->lasterror(), LOG_ERR);
+		setEventMessages($langs->trans("Error"), null, 'errors');
 	}
 }
 
@@ -159,7 +160,7 @@ print '</form>';
 
 // Cache of coordinates
 $nb = 0;
-$resql = $db->query("SELECT COUNT(rowid) as nb FROM ".MAIN_DB_PREFIX."openstreetmap_geo");
+$resql = $db->query("SELECT COUNT(rowid) as nb FROM ".MAIN_DB_PREFIX."openstreetmap_geo WHERE entity = ".((int) $conf->entity));
 if ($resql && ($obj = $db->fetch_object($resql))) {
 	$nb = $obj->nb;
 }

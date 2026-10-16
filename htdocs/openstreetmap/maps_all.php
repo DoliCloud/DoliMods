@@ -64,6 +64,9 @@ if ($search_status == '') {
 }
 
 // Security check
+if (!isModEnabled('openstreetmap')) {
+	accessforbidden();
+}
 if (!empty($user->socid)) {
 	$socid = $user->socid;
 }
@@ -96,7 +99,7 @@ if ($mode == 'thirdparty') {
 	$sql = "SELECT s.rowid as id, s.nom as name, s.address, s.zip, s.town, s.phone, s.email, ".$sqlselect;
 	$sql .= " FROM ".MAIN_DB_PREFIX."societe as s";
 	$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."c_country as c ON s.fk_pays = c.rowid";
-	$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."openstreetmap_geo as g ON s.rowid = g.fk_object AND g.type_object = 'thirdparty'";
+	$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."openstreetmap_geo as g ON s.rowid = g.fk_object AND g.type_object = 'thirdparty' AND g.entity = ".((int) $conf->entity);
 	$sql .= " WHERE s.entity IN (".getEntity('societe').")";
 	if (!$user->hasRight('societe', 'client', 'voir') && !$socid) {
 		$sql .= " AND s.rowid IN (SELECT sc.fk_soc FROM ".MAIN_DB_PREFIX."societe_commerciaux as sc WHERE sc.fk_user = ".((int) $user->id).")";
@@ -131,7 +134,7 @@ if ($mode == 'thirdparty') {
 	$sql = "SELECT s.rowid as id, s.lastname, s.firstname, s.address, s.zip, s.town, s.phone, s.email, ".$sqlselect;
 	$sql .= " FROM ".MAIN_DB_PREFIX."socpeople as s";
 	$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."c_country as c ON s.fk_pays = c.rowid";
-	$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."openstreetmap_geo as g ON s.rowid = g.fk_object AND g.type_object = 'contact'";
+	$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."openstreetmap_geo as g ON s.rowid = g.fk_object AND g.type_object = 'contact' AND g.entity = ".((int) $conf->entity);
 	$sql .= " WHERE s.entity IN (".getEntity('contact').")";
 	$sql .= " AND (s.priv = 0 OR s.fk_user_creat = ".((int) $user->id).")";
 	if (!$user->hasRight('societe', 'client', 'voir') && !$socid) {
@@ -148,7 +151,7 @@ if ($mode == 'thirdparty') {
 	$sql = "SELECT s.rowid as id, s.lastname, s.firstname, s.societe, s.address, s.zip, s.town, s.phone, s.email, ".$sqlselect;
 	$sql .= " FROM ".MAIN_DB_PREFIX."adherent as s";
 	$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."c_country as c ON s.country = c.rowid";
-	$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."openstreetmap_geo as g ON s.rowid = g.fk_object AND g.type_object = 'member'";
+	$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."openstreetmap_geo as g ON s.rowid = g.fk_object AND g.type_object = 'member' AND g.entity = ".((int) $conf->entity);
 	$sql .= " WHERE s.statut = 1";
 	$sql .= " AND s.entity IN (".getEntity('adherent').")";
 	if ($search_tag_member > 0) {
@@ -222,7 +225,8 @@ $num = 0;
 dol_syslog("openstreetmap maps_all search addresses", LOG_DEBUG);
 $resql = $db->query($sql);
 if (!$resql) {
-	dol_print_error($db);
+	dol_syslog("openstreetmap maps_all: ".$db->lasterror(), LOG_ERR);
+	setEventMessages($langs->trans("Error"), null, 'errors');
 } else {
 	$num = $db->num_rows($resql);
 	while ($obj = $db->fetch_object($resql)) {
@@ -277,7 +281,7 @@ print openstreetmap_include_leaflet(1);
 print '<div id="map" class="divmap" style="width: 100%; height: 600px;"></div>';
 print '<script>
 (function() {
-	var markers = '.json_encode($markers).';
+	var markers = '.json_encode($markers, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT).';
 	var map = L.map("map").setView(['.(float) getDolGlobalString('OPENSTREETMAP_DEFAULT_LAT', '52.2').', '.(float) getDolGlobalString('OPENSTREETMAP_DEFAULT_LON', '5.3').'], 7);
 	L.tileLayer("'.dol_escape_js(openstreetmap_get_tile_url()).'", {
 		maxZoom: 19,

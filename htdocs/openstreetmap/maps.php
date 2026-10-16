@@ -189,7 +189,7 @@ print ($img?$img.' ':'').dol_escape_htmltag($object->country);
 print '</td></tr>';
 
 // State
-if (empty($conf->global->SOCIETE_DISABLE_STATE)) print '<tr><td>'.$langs->trans('State').'</td><td colspan="'.(2+(($showlogo || $showbarcode)?0:1)).'">'.dol_escape_htmltag($object->state).'</td>';
+if (!getDolGlobalString('SOCIETE_DISABLE_STATE')) print '<tr><td>'.$langs->trans('State').'</td><td colspan="'.(2+(($showlogo || $showbarcode)?0:1)).'">'.dol_escape_htmltag($object->state).'</td>';
 
 print '</table>';
 
