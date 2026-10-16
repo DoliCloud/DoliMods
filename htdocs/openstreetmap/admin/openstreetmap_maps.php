@@ -56,10 +56,11 @@ if ($actionsave) {
 	$res=0;
 	$res+=dolibarr_set_const($db, 'OPENSTREETMAP_ENABLE_MAPS', (GETPOSTINT('OPENSTREETMAP_ENABLE_MAPS') ? '1' : '0'), 'chaine', 0, '', $conf->entity);
 	$res+=dolibarr_set_const($db, 'OPENSTREETMAP_ENABLE_MAPS_CONTACTS', (GETPOSTINT('OPENSTREETMAP_ENABLE_MAPS_CONTACTS') ? '1' : '0'), 'chaine', 0, '', $conf->entity);
+	$res+=dolibarr_set_const($db, 'OPENSTREETMAP_MENU_MAP_CONTACTS', (GETPOSTINT('OPENSTREETMAP_MENU_MAP_CONTACTS') ? '1' : '0'), 'chaine', 0, '', $conf->entity);
 	$res+=dolibarr_set_const($db, 'OPENSTREETMAP_ENABLE_MAPS_MEMBERS', (GETPOSTINT('OPENSTREETMAP_ENABLE_MAPS_MEMBERS') ? '1' : '0'), 'chaine', 0, '', $conf->entity);
 	$res+=dolibarr_set_const($db, 'OPENSTREETMAP_MAPS_ZOOM_LEVEL', (string) max(2, min(18, GETPOSTINT('OPENSTREETMAP_MAPS_ZOOM_LEVEL') ? GETPOSTINT('OPENSTREETMAP_MAPS_ZOOM_LEVEL') : 15)), 'chaine', 0, '', $conf->entity);
 
-	if ($res == 4) {
+	if ($res == 5) {
 		$db->commit();
 		setEventMessages($langs->trans("SetupSaved"), null, 'mesgs');
 	} else {
@@ -106,6 +107,13 @@ print '<br>';
 print $langs->trans("OpenStreetMapEnableThisToolContacts").': ';
 if (isset($conf->societe->enabled) && $conf->societe->enabled) {
 	print $form->selectyesno("OPENSTREETMAP_ENABLE_MAPS_CONTACTS", GETPOSTISSET('OPENSTREETMAP_ENABLE_MAPS_CONTACTS') ? GETPOSTINT('OPENSTREETMAP_ENABLE_MAPS_CONTACTS') : getDolGlobalInt('OPENSTREETMAP_ENABLE_MAPS_CONTACTS'), 1);
+} else print $langs->trans("ModuleMustBeEnabledFirst", $langs->transnoentitiesnoconv("Module1Name"));
+print '<br>';
+
+print $langs->trans("OpenStreetMapMenuMapContacts").': ';
+if (isset($conf->societe->enabled) && $conf->societe->enabled) {
+	print $form->selectyesno("OPENSTREETMAP_MENU_MAP_CONTACTS", GETPOSTISSET('OPENSTREETMAP_MENU_MAP_CONTACTS') ? GETPOSTINT('OPENSTREETMAP_MENU_MAP_CONTACTS') : getDolGlobalInt('OPENSTREETMAP_MENU_MAP_CONTACTS'), 1);
+	print ' <span class="opacitymedium small">'.$langs->trans("OpenStreetMapMenuMapContactsDesc").'</span>';
 } else print $langs->trans("ModuleMustBeEnabledFirst", $langs->transnoentitiesnoconv("Module1Name"));
 print '<br>';
 
