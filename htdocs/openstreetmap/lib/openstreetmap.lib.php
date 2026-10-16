@@ -197,13 +197,7 @@ function openstreetmap_pdok_search($q, $type = 'adres', $rows = 1)
  */
 function openstreetmap_nominatim_search($q, $countrycode = '')
 {
-	static $lastcall = 0;
-
-	// Respect the rate limit of 1 request per second
-	$wait = 1.1 - (microtime(true) - $lastcall);
-	if ($lastcall && $wait > 0) {
-		usleep((int) ($wait * 1000000));
-	}
+	openstreetmap_nominatim_throttle();
 
 	$url = getDolGlobalString('OPENSTREETMAP_NOMINATIM_URL', 'https://nominatim.openstreetmap.org/search');
 	$url .= '?format=jsonv2&limit=1&q='.urlencode($q);
@@ -215,7 +209,6 @@ function openstreetmap_nominatim_search($q, $countrycode = '')
 	}
 
 	$data = openstreetmap_get_json($url);
-	$lastcall = microtime(true);
 
 	if (!is_array($data)) {
 		return $data;
@@ -369,4 +362,193 @@ function openstreetmap_get_coordinates($db, $type, $id, $obj, $cached = null, $n
 		return array('lat' => $lat, 'lon' => $lon, 'cached' => 0);
 	}
 	return array('error' => $code, 'label' => $label, 'cached' => 0);
+}
+
+/**
+ *  Wait so that Nominatim gets at most 1 request per second from this server, also between
+ *  concurrent PHP processes (a lock file holds the time of the last request).
+ *
+ *  @return		void
+ */
+function openstreetmap_nominatim_throttle()
+{
+	$dir = openstreetmap_cache_dir();
+	$fp = ($dir ? @fopen($dir.'/nominatim.lock', 'c+') : false);
+	if (!$fp) {
+		usleep(1100000);	// No lock file possible: always wait, never exceed the limit
+		return;
+	}
+	flock($fp, LOCK_EX);
+	$last = (float) stream_get_contents($fp);
+	$wait = 1.1 - (microtime(true) - $last);
+	if ($wait > 0) {
+		usleep((int) ($wait * 1000000));
+	}
+	ftruncate($fp, 0);
+	rewind($fp);
+	fwrite($fp, (string) microtime(true));
+	flock($fp, LOCK_UN);
+	fclose($fp);
+}
+
+/**
+ *  Return the directory used to cache answers of external services (created if needed)
+ *
+ *  @return		string		Directory, or '' if it can not be created
+ */
+function openstreetmap_cache_dir()
+{
+	$dir = DOL_DATA_ROOT.'/openstreetmap/cache';
+	if (!is_dir($dir) && dol_mkdir($dir) < 0) {
+		return '';
+	}
+	return $dir;
+}
+
+/**
+ *  Read an answer of an external service from the cache
+ *
+ *  @param		string		$key		Key of the request
+ *  @param		int			$maxage		Max age in seconds
+ *  @return		array<mixed>|null		Cached data or null
+ */
+function openstreetmap_cache_get($key, $maxage = 2592000)
+{
+	$dir = openstreetmap_cache_dir();
+	$file = $dir.'/'.md5($key).'.json';
+	if (!$dir || !is_file($file) || (time() - filemtime($file)) > $maxage) {
+		return null;
+	}
+	$data = json_decode((string) file_get_contents($file), true);
+	return is_array($data) ? $data : null;
+}
+
+/**
+ *  Store an answer of an external service in the cache
+ *
+ *  @param		string			$key		Key of the request
+ *  @param		array<mixed>	$data		Data to store
+ *  @return		void
+ */
+function openstreetmap_cache_set($key, $data)
+{
+	$dir = openstreetmap_cache_dir();
+	if ($dir) {
+		@file_put_contents($dir.'/'.md5($key).'.json', json_encode($data), LOCK_EX);
+	}
+}
+
+/**
+ *  Return the ISO code of a country from its id in llx_c_country
+ *
+ *  @param		DoliDB		$db			Database handler
+ *  @param		int			$countryid	Id of country
+ *  @return		string					ISO code (2 letters) or ''
+ */
+function openstreetmap_country_code($db, $countryid)
+{
+	$resql = $db->query("SELECT code FROM ".MAIN_DB_PREFIX."c_country WHERE rowid = ".((int) $countryid));
+	if ($resql && ($obj = $db->fetch_object($resql)) && preg_match('/^[A-Z]{2}$/', (string) $obj->code)) {
+		return $obj->code;
+	}
+	return '';
+}
+
+/**
+ *  Return the towns of a postcode with Nominatim (one request per postcode, answers cached).
+ *
+ *  @param		string		$zip			Postcode
+ *  @param		string		$countrycode	ISO country code
+ *  @return		array<int,string>|string	List of town names, or error message string if KO
+ */
+function openstreetmap_postcode_towns($zip, $countrycode)
+{
+	$key = 'postcode|'.strtoupper($countrycode).'|'.strtoupper($zip);
+	$cached = openstreetmap_cache_get($key);
+	if ($cached !== null) {
+		return $cached;
+	}
+
+	openstreetmap_nominatim_throttle();
+
+	$url = getDolGlobalString('OPENSTREETMAP_NOMINATIM_URL', 'https://nominatim.openstreetmap.org/search');
+	$url .= '?format=jsonv2&addressdetails=1&limit=10&postalcode='.urlencode($zip).'&countrycodes='.urlencode(strtolower($countrycode));
+	if (getDolGlobalString('OPENSTREETMAP_NOMINATIM_EMAIL')) {
+		$url .= '&email='.urlencode(getDolGlobalString('OPENSTREETMAP_NOMINATIM_EMAIL'));
+	}
+	$data = openstreetmap_get_json($url);
+	if (!is_array($data)) {
+		return $data;
+	}
+
+	$towns = array();
+	foreach ($data as $place) {
+		if (!is_array($place) || empty($place['address']) || !is_array($place['address'])) {
+			continue;
+		}
+		foreach (array('city', 'town', 'village', 'municipality', 'hamlet') as $k) {
+			if (!empty($place['address'][$k]) && is_string($place['address'][$k])) {
+				$towns[] = $place['address'][$k];
+				break;
+			}
+		}
+	}
+	$towns = array_values(array_unique($towns));
+	openstreetmap_cache_set($key, $towns);
+	return $towns;
+}
+
+/**
+ *  Return streets matching a text, in a country and near a postcode or town, with Photon
+ *  (search-as-you-type service on OpenStreetMap data; answers cached).
+ *
+ *  @param		string		$q				Beginning of the street name typed by the user
+ *  @param		string		$countrycode	ISO country code
+ *  @param		string		$zip			Postcode (optional)
+ *  @param		string		$town			Town (optional)
+ *  @param		string		$lang			Language code for the names (optional, 2 letters)
+ *  @return		array<int,array<string,string>>|string	List of array('street'=>, 'zip'=>, 'town'=>), or error message string if KO
+ */
+function openstreetmap_photon_streets($q, $countrycode, $zip = '', $town = '', $lang = '')
+{
+	$query = trim($q.' '.($zip ? $zip : $town));
+	$key = 'street|'.strtoupper($countrycode).'|'.$lang.'|'.mb_strtolower($query);
+	$cached = openstreetmap_cache_get($key, 604800);
+	if ($cached !== null) {
+		return $cached;
+	}
+
+	$url = getDolGlobalString('OPENSTREETMAP_PHOTON_URL', 'https://photon.komoot.io/api');
+	$url .= '?q='.urlencode($query).'&layer=street&limit=10&countrycode='.urlencode(strtoupper($countrycode));
+	if (preg_match('/^[a-z]{2}$/', $lang)) {
+		$url .= '&lang='.$lang;
+	}
+	$data = openstreetmap_get_json($url);
+	if (!is_array($data)) {
+		return $data;
+	}
+	if (!isset($data['features']) || !is_array($data['features'])) {
+		return 'BAD_RESPONSE';
+	}
+
+	$streets = array();
+	foreach ($data['features'] as $feature) {
+		$prop = (is_array($feature) && isset($feature['properties']) && is_array($feature['properties'])) ? $feature['properties'] : array();
+		if (!empty($prop['countrycode']) && strtoupper((string) $prop['countrycode']) != strtoupper($countrycode)) {
+			continue;
+		}
+		$name = !empty($prop['street']) ? $prop['street'] : (isset($prop['name']) ? $prop['name'] : '');
+		if (!is_string($name) || $name === '') {
+			continue;
+		}
+		$item = array(
+			'street' => $name,
+			'zip' => (isset($prop['postcode']) && is_string($prop['postcode'])) ? $prop['postcode'] : '',
+			'town' => (isset($prop['city']) && is_string($prop['city'])) ? $prop['city'] : ((isset($prop['district']) && is_string($prop['district'])) ? $prop['district'] : ''),
+		);
+		$streets[implode('|', $item)] = $item;
+	}
+	$streets = array_values($streets);
+	openstreetmap_cache_set($key, $streets);
+	return $streets;
 }
