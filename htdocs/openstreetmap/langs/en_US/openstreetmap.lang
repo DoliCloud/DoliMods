@@ -56,3 +56,5 @@ OpenStreetMapCacheCleared=Stored coordinates cleared
 OpenStreetMapEuAutofill=Address autofill for other countries
 OpenStreetMapEuAutofillDesc=Town from postcode (Nominatim) and street suggestions while typing the address (Photon, OpenStreetMap data). The requests are done by your Dolibarr server and cached.
 OpenStreetMapPhotonUrl=URL of Photon search service
+OpenStreetMapMenuMapContacts=Show the entry "Map" also in the menu of contacts
+OpenStreetMapMenuMapContactsDesc=Only useful when contacts have their own address. The map pictogram on the card of a contact does not depend on this option.

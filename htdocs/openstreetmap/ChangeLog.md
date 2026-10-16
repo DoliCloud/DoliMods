@@ -1,6 +1,10 @@
 # ChangeLog MODULE OPENSTREETMAP FOR <a href="https://www.dolibarr.org">DOLIBARR ERP CRM</a>
 
 
+## 4.1.1
+
+* The entry "Map" in the menu of contacts is hidden by default (contacts usually share the address of their third party). New setup option to show it. The map pictogram on contact cards is not changed. Disable and enable the module so the menu is updated.
+
 ## 4.1.0
 
 * Address autofill for countries other than the Netherlands: town from the postcode (Nominatim, one request per postcode) and street suggestions while typing the address (Photon). A postcode outside the Netherlands covers many streets, so the street is chosen from suggestions.
