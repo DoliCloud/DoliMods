@@ -21,6 +21,12 @@ if (! $res && $i > 0 && file_exists(dirname(substr($tmp, 0, ($i+1)))."/main.inc.
 if (! $res && file_exists("../../main.inc.php")) $res=@include "../../main.inc.php";
 if (! $res && file_exists("../../../main.inc.php")) $res=@include "../../../main.inc.php";
 if (! $res) die("Include of main fails");
+/**
+ * @var Conf $conf
+ * @var DoliDB $db
+ * @var Translate $langs
+ * @var User $user
+ */
 
 require_once DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php";
 require_once DOL_DOCUMENT_ROOT."/core/lib/date.lib.php";
@@ -36,8 +42,7 @@ $langs->load("admin");
 $langs->load("other");
 
 $def = array();
-$actiontest=isset($_POST["test"]) ? $_POST["test"] : false;
-$actionsave=isset($_POST["save"]) ? $_POST["save"] : false;
+$actionsave = GETPOST('save', 'alpha');
 
 
 
@@ -49,17 +54,18 @@ if ($actionsave) {
 	$db->begin();
 
 	$res=0;
-	$res+=dolibarr_set_const($db, 'OPENSTREETMAP_ENABLE_MAPS', trim(isset($_POST["OPENSTREETMAP_ENABLE_MAPS"])?$_POST["OPENSTREETMAP_ENABLE_MAPS"]:'0'), 'chaine', 0);
-	$res+=dolibarr_set_const($db, 'OPENSTREETMAP_ENABLE_MAPS_CONTACTS', trim(isset($_POST["OPENSTREETMAP_ENABLE_MAPS_CONTACTS"])?$_POST["OPENSTREETMAP_ENABLE_MAPS_CONTACTS"]:'0'), 'chaine', 0);
-	$res+=dolibarr_set_const($db, 'OPENSTREETMAP_ENABLE_MAPS_MEMBERS', trim(isset($_POST["OPENSTREETMAP_ENABLE_MAPS_MEMBERS"])?$_POST["OPENSTREETMAP_ENABLE_MAPS_MEMBERS"]:'0'), 'chaine', 0);
-	$res+=dolibarr_set_const($db, 'OPENSTREETMAP_MAPS_ZOOM_LEVEL', GETPOST("OPENSTREETMAP_MAPS_ZOOM_LEVEL", 'int'), 'chaine', 0);
+	$res+=dolibarr_set_const($db, 'OPENSTREETMAP_ENABLE_MAPS', (GETPOSTINT('OPENSTREETMAP_ENABLE_MAPS') ? '1' : '0'), 'chaine', 0, '', $conf->entity);
+	$res+=dolibarr_set_const($db, 'OPENSTREETMAP_ENABLE_MAPS_CONTACTS', (GETPOSTINT('OPENSTREETMAP_ENABLE_MAPS_CONTACTS') ? '1' : '0'), 'chaine', 0, '', $conf->entity);
+	$res+=dolibarr_set_const($db, 'OPENSTREETMAP_MENU_MAP_CONTACTS', (GETPOSTINT('OPENSTREETMAP_MENU_MAP_CONTACTS') ? '1' : '0'), 'chaine', 0, '', $conf->entity);
+	$res+=dolibarr_set_const($db, 'OPENSTREETMAP_ENABLE_MAPS_MEMBERS', (GETPOSTINT('OPENSTREETMAP_ENABLE_MAPS_MEMBERS') ? '1' : '0'), 'chaine', 0, '', $conf->entity);
+	$res+=dolibarr_set_const($db, 'OPENSTREETMAP_MAPS_ZOOM_LEVEL', (string) max(2, min(18, GETPOSTINT('OPENSTREETMAP_MAPS_ZOOM_LEVEL') ? GETPOSTINT('OPENSTREETMAP_MAPS_ZOOM_LEVEL') : 15)), 'chaine', 0, '', $conf->entity);
 
-	if ($res == 4) {
+	if ($res == 5) {
 		$db->commit();
-		$mesg = "<font class=\"ok\">".$langs->trans("SetupSaved")."</font>";
+		setEventMessages($langs->trans("SetupSaved"), null, 'mesgs');
 	} else {
 		$db->rollback();
-		$mesg = "<font class=\"error\">".$langs->trans("Error")."</font>";
+		setEventMessages($langs->trans("Error"), null, 'errors');
 	}
 }
 
@@ -93,21 +99,28 @@ dol_fiche_head($head, 'maps', $langs->trans("OpenStreetMapTools"));
 
 print $langs->trans("OpenStreetMapEnableThisToolThirdParties").': ';
 if (isset($conf->societe->enabled) && $conf->societe->enabled) {
-	print $form->selectyesno("OPENSTREETMAP_ENABLE_MAPS", isset($_POST["OPENSTREETMAP_ENABLE_MAPS"])?$_POST["OPENSTREETMAP_ENABLE_MAPS"]:$conf->global->OPENSTREETMAP_ENABLE_MAPS, 1);
+	print $form->selectyesno("OPENSTREETMAP_ENABLE_MAPS", GETPOSTISSET('OPENSTREETMAP_ENABLE_MAPS') ? GETPOSTINT('OPENSTREETMAP_ENABLE_MAPS') : getDolGlobalInt('OPENSTREETMAP_ENABLE_MAPS'), 1);
 } else print $langs->trans("ModuleMustBeEnabledFirst", $langs->transnoentitiesnoconv("Module1Name"));
 print '<br>';
 
 //print '<br>';
 print $langs->trans("OpenStreetMapEnableThisToolContacts").': ';
 if (isset($conf->societe->enabled) && $conf->societe->enabled) {
-	print $form->selectyesno("OPENSTREETMAP_ENABLE_MAPS_CONTACTS", isset($_POST["OPENSTREETMAP_ENABLE_MAPS_CONTACTS"])?$_POST["OPENSTREETMAP_ENABLE_MAPS_CONTACTS"]:$conf->global->OPENSTREETMAP_ENABLE_MAPS_CONTACTS, 1);
+	print $form->selectyesno("OPENSTREETMAP_ENABLE_MAPS_CONTACTS", GETPOSTISSET('OPENSTREETMAP_ENABLE_MAPS_CONTACTS') ? GETPOSTINT('OPENSTREETMAP_ENABLE_MAPS_CONTACTS') : getDolGlobalInt('OPENSTREETMAP_ENABLE_MAPS_CONTACTS'), 1);
+} else print $langs->trans("ModuleMustBeEnabledFirst", $langs->transnoentitiesnoconv("Module1Name"));
+print '<br>';
+
+print $langs->trans("OpenStreetMapMenuMapContacts").': ';
+if (isset($conf->societe->enabled) && $conf->societe->enabled) {
+	print $form->selectyesno("OPENSTREETMAP_MENU_MAP_CONTACTS", GETPOSTISSET('OPENSTREETMAP_MENU_MAP_CONTACTS') ? GETPOSTINT('OPENSTREETMAP_MENU_MAP_CONTACTS') : getDolGlobalInt('OPENSTREETMAP_MENU_MAP_CONTACTS'), 1);
+	print ' <span class="opacitymedium small">'.$langs->trans("OpenStreetMapMenuMapContactsDesc").'</span>';
 } else print $langs->trans("ModuleMustBeEnabledFirst", $langs->transnoentitiesnoconv("Module1Name"));
 print '<br>';
 
 //print '<br>';
 print $langs->trans("OpenStreetMapEnableThisToolMembers").': ';
 if (isset($conf->adherent->enabled) && $conf->adherent->enabled) {
-	print $form->selectyesno("OPENSTREETMAP_ENABLE_MAPS_MEMBERS", isset($_POST["OPENSTREETMAP_ENABLE_MAPS_MEMBERS"])?$_POST["OPENSTREETMAP_ENABLE_MAPS_MEMBERS"]:$conf->global->OPENSTREETMAP_ENABLE_MAPS_MEMBERS, 1);
+	print $form->selectyesno("OPENSTREETMAP_ENABLE_MAPS_MEMBERS", GETPOSTISSET('OPENSTREETMAP_ENABLE_MAPS_MEMBERS') ? GETPOSTINT('OPENSTREETMAP_ENABLE_MAPS_MEMBERS') : getDolGlobalInt('OPENSTREETMAP_ENABLE_MAPS_MEMBERS'), 1);
 } else print $langs->trans("ModuleMustBeEnabledFirst", $langs->transnoentitiesnoconv("Module310Name"));
 print '<br>';
 
@@ -125,7 +138,6 @@ print "</center>";
 
 print "</form>\n";
 
-dol_htmloutput_mesg($mesg);
 
 // Show message
 $message='';
