@@ -248,7 +248,7 @@ class DoliOvhApi
 
 			dol_syslog("DoliOvhApi::rawCall ".$method." ".$url." connect_timeout=".$connect_timeout." timeout=".$timeout);
 
-			$result = getURLContent($url, $httpMethod, $param, 1, $headers, array('https'), 0, 1, $connect_timeout, $timeout);
+			$result = getURLContent($url, $httpMethod, $param, 1, $headers, array('https'), 0, 1, $connect_timeout, $timeout);	// @phpstan-ignore arguments.count (parameters exist since Dolibarr 22 only)
 		} else {
 			dol_syslog("DoliOvhApi::rawCall ".$method." ".$url." connect_timeout=".getDolGlobalInt('MAIN_USE_CONNECT_TIMEOUT', 5)." timeout=".getDolGlobalInt('MAIN_USE_RESPONSE_TIMEOUT', 30));
 
