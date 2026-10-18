@@ -240,14 +240,20 @@ class DoliOvhApi
 		}
 
 		// Timeout by default of Dolibarr for connection is 5s and it is not enough for OVH, so we use 20s by default.
-		// Note: the timeout parameters are supported by getURLContent since Dolibarr 22. On older versions,
-		// MAIN_USE_CONNECT_TIMEOUT and MAIN_USE_RESPONSE_TIMEOUT are still used, but with the default of Dolibarr.
-		$connect_timeout = getDolGlobalInt('MAIN_USE_CONNECT_TIMEOUT', 20);
-		$timeout = getDolGlobalInt('MAIN_USE_RESPONSE_TIMEOUT', 30);
+		// The timeout parameters of getURLContent exist only since Dolibarr 22. On older versions, getURLContent
+		// still uses MAIN_USE_CONNECT_TIMEOUT and MAIN_USE_RESPONSE_TIMEOUT, but with the default values of Dolibarr.
+		if ((int) DOL_VERSION >= 22) {
+			$connect_timeout = getDolGlobalInt('MAIN_USE_CONNECT_TIMEOUT', 20);
+			$timeout = getDolGlobalInt('MAIN_USE_RESPONSE_TIMEOUT', 30);
 
-		dol_syslog("DoliOvhApi::rawCall ".$method." ".$url." connect_timeout=".$connect_timeout." timeout=".$timeout);
+			dol_syslog("DoliOvhApi::rawCall ".$method." ".$url." connect_timeout=".$connect_timeout." timeout=".$timeout);
 
-		$result = getURLContent($url, $httpMethod, $param, 1, $headers, array('https'), 0, 1, $connect_timeout, $timeout);
+			$result = getURLContent($url, $httpMethod, $param, 1, $headers, array('https'), 0, 1, $connect_timeout, $timeout);
+		} else {
+			dol_syslog("DoliOvhApi::rawCall ".$method." ".$url." connect_timeout=".getDolGlobalInt('MAIN_USE_CONNECT_TIMEOUT', 5)." timeout=".getDolGlobalInt('MAIN_USE_RESPONSE_TIMEOUT', 30));
+
+			$result = getURLContent($url, $httpMethod, $param, 1, $headers, array('https'), 0, 1);
+		}
 		if (!isset($result['content'])) {
 			$result['content'] = '';	// getURLContent does not set the key when the response is empty
 		}
