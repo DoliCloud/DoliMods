@@ -76,8 +76,6 @@ function numberwords_completesubstitutionarray(&$substitutionarray, $outlangs, $
 			$numbertext=$outlangs->getLabelFromNumber((isset($object->number) ? $object->number : ''), 0);
 			$substitutionarray['__NUMBER_WORDS__'] = numberwordsStrToUpper($numbertext);
 		}
-
-
 	}
 }
 

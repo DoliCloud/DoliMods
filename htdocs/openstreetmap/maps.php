@@ -13,7 +13,7 @@
  */
 
 if (!defined('MAIN_SECURITY_FORCERP')) {
-    // https://wiki.openstreetmap.org/wiki/Referer
+	// https://wiki.openstreetmap.org/wiki/Referer
 	define('MAIN_SECURITY_FORCERP', 'strict-origin-when-cross-origin');
 }
 
@@ -33,6 +33,7 @@ if (! $res && file_exists("../../../main.inc.php")) $res=@include "../../../main
 if (! $res) die("Include of main fails");
 /**
  * @var DoliDb $db
+ * @var User $user
  */
 require_once DOL_DOCUMENT_ROOT."/core/lib/company.lib.php";
 require_once DOL_DOCUMENT_ROOT."/core/lib/contact.lib.php";
@@ -52,6 +53,10 @@ if (isset($_SERVER['HTTPS']) &&
 	$protocol = 'http://';
 }
 
+if (!isModEnabled('openstreetmap')) {
+	accessforbidden();
+}
+
 $mode=GETPOST('mode');
 $address='';
 
@@ -62,6 +67,7 @@ if (empty($mode) || $mode=='societe' || $mode=='thirdparty') {
 	$object = new Societe($db);
 	$object->id = $id;
 	$object->fetch($id);
+	$result = restrictedArea($user, 'societe', $object->id, '&societe', '', 'fk_soc', 'rowid', 0);
 	$address = $object->getFullAddress(1, ', ');
 }
 if ($mode=='contact') {
@@ -70,6 +76,7 @@ if ($mode=='contact') {
 	$object = new Contact($db);
 	$object->id = $id;
 	$object->fetch($id);
+	$result = restrictedArea($user, 'contact', $id, 'socpeople&societe', '', '', 'rowid', 0);
 	$address = $object->getFullAddress(1, ', ');
 }
 if ($mode=='member') {
@@ -78,6 +85,7 @@ if ($mode=='member') {
 	$object = new Adherent($db);
 	$object->id = $id;
 	$object->fetch($id);
+	$result = restrictedArea($user, 'adherent', $object->id, '', '', 'socid', 'rowid', 0);
 	$address = $object->getFullAddress(1, ', ');
 }
 
@@ -151,18 +159,18 @@ print "</td></tr>";
 
 // Zip / Town
 print '<tr><td width="25%">'.$langs->trans('Zip').' / '.$langs->trans("Town").'</td><td colspan="'.(2+(($showlogo || $showbarcode)?0:1)).'">';
-print $object->zip.($object->zip && $object->town?" / ":"").$object->town;
+print dol_escape_htmltag($object->zip).($object->zip && $object->town?" / ":"").dol_escape_htmltag($object->town);
 print "</td>";
 print '</tr>';
 
 // Country
 print '<tr><td>'.$langs->trans("Country").'</td><td colspan="'.(2+(($showlogo || $showbarcode)?0:1)).'" nowrap="nowrap">';
 $img=picto_from_langcode($object->country_code);
-print ($img?$img.' ':'').$object->country;
+print ($img?$img.' ':'').dol_escape_htmltag($object->country);
 print '</td></tr>';
 
 // State
-if (empty($conf->global->SOCIETE_DISABLE_STATE)) print '<tr><td>'.$langs->trans('State').'</td><td colspan="'.(2+(($showlogo || $showbarcode)?0:1)).'">'.$object->state.'</td>';
+if (empty($conf->global->SOCIETE_DISABLE_STATE)) print '<tr><td>'.$langs->trans('State').'</td><td colspan="'.(2+(($showlogo || $showbarcode)?0:1)).'">'.dol_escape_htmltag($object->state).'</td>';
 
 print '</table>';
 
@@ -173,7 +181,7 @@ if ($address && $address != $object->country) {
 	print '<br><div align="center">';
 	print '<div id="map" class="divmap" style="width: 90%; height: 500px; text-align: center; align: center">';
 
-	$url='http://nominatim.openstreetmap.org/search?format=json&polygon=1&addressdetails=1&q='.urlencode($address);
+	$url='https://nominatim.openstreetmap.org/search?format=json&polygon=1&addressdetails=1&q='.urlencode($address);
 
 	// Protocol HTTP or HTTPS
 	if (preg_match('/^http/i', $url)) {
@@ -203,9 +211,10 @@ if ($address && $address != $object->country) {
 		if (! $error) {
 			//var_dump($result['content']);
 			$array = json_decode($result['content'], true);
-			$lat=isset($array[0]['lat']) ? $array[0]['lat'] : false;
-			$lon=isset($array[0]['lon']) ? $array[0]['lon'] : false;
-			if ($lat && $lon) {
+			// Coordinates are injected into JS, so keep only numeric values
+			$lat=(isset($array[0]['lat']) && is_numeric($array[0]['lat'])) ? (float) $array[0]['lat'] : false;
+			$lon=(isset($array[0]['lon']) && is_numeric($array[0]['lon'])) ? (float) $array[0]['lon'] : false;
+			if ($lat !== false && $lon !== false) {
 				// See example on page http://wiki.openstreetmap.org/wiki/OpenLayers_Marker
 				print '<script src="'.$protocol.'openlayers.org/api/OpenLayers.js"></script>
                     <script>
@@ -242,7 +251,7 @@ if ($address && $address != $object->country) {
                 	markers.addMarker(new OpenLayers.Marker(lonLat));
 
                 	// Set center and zoom
-                    map.setCenter(lonLat, '.($conf->global->OPENSTREETMAP_MAPS_ZOOM_LEVEL?$conf->global->OPENSTREETMAP_MAPS_ZOOM_LEVEL:15).');
+                    map.setCenter(lonLat, '.getDolGlobalInt('OPENSTREETMAP_MAPS_ZOOM_LEVEL', 15).');
 					//map.zoomToMaxExtent();
 
                     </script>';

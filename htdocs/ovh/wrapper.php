@@ -72,6 +72,12 @@ if (! $res && file_exists("../main.inc.php")) $res=@include "../main.inc.php";
 if (! $res && file_exists("../../main.inc.php")) $res=@include "../../main.inc.php";
 if (! $res && file_exists("../../../main.inc.php")) $res=@include "../../../main.inc.php";
 if (! $res) die("Include of main fails");
+/**
+ * @var Conf $conf
+ * @var DoliDB $db
+ * @var Translate $langs
+ * @var User $user
+ */
 
 include_once DOL_DOCUMENT_ROOT."/core/lib/functions2.lib.php";
 
@@ -80,9 +86,13 @@ use \Ovh\Api;
 
 
 // Security check
-if (!isModEnabled("clicktodial")) {
+if (!isModEnabled("clicktodial") || !isModEnabled("ovh") || $user->socid > 0) {
 	accessforbidden();
 	exit;
+}
+// No CSRF token can be put into the click to dial url, so we refuse requests sent by another site
+if (!empty($_SERVER['HTTP_SEC_FETCH_SITE']) && !in_array($_SERVER['HTTP_SEC_FETCH_SITE'], array('same-origin', 'same-site', 'none'))) {
+	accessforbidden('Click to dial request coming from another site');
 }
 
 
@@ -95,6 +105,17 @@ $caller = str_replace(' ', '', GETPOST('caller'));
 $called = str_replace(' ', '', GETPOST('called'));
 $billingAccount = str_replace(' ', '', GETPOST('billingaccount'));
 $serviceName = str_replace(' ', '', GETPOST('servicename'));
+// Values set into setup or into the user card must not be overwritten by the url
+// (servicename is kept from url as it may be a different SIP line per user)
+if (getDolGlobalString('OVHC2C_ACCOUNT')) {
+	$billingAccount = getDolGlobalString('OVHC2C_ACCOUNT');
+}
+if (empty($user->clicktodial_loaded)) {
+	$user->fetch_clicktodial();
+}
+if (!empty($user->clicktodial_poste)) {
+	$caller = str_replace(' ', '', $user->clicktodial_poste);
+}
 
 if (! empty($conf->global->OVH_OLDAPI)) {
 	if (empty($conf->global->OVHSMS_SOAPURL)) {
@@ -161,7 +182,7 @@ if (! empty($number)) {
 				"callingNumber"=> $caller,   // who calls
 				'intercom' => (empty($conf->global->OVH_CLICKTODIAL_NO_INTERCOM) ? true : false)
 				);
-				$result = $conn->post('/telephony/'.$billingAccount.'/line/'.$serviceName.'/click2Call', $content);
+				$result = $conn->post('/telephony/'.rawurlencode($billingAccount).'/line/'.rawurlencode($serviceName).'/click2Call', $content);
 			}
 
 			llxHeader();

@@ -56,12 +56,12 @@ $actionsave=GETPOST('save', 'alpha');
 // Define list of object supported
 $modules = array();
 if (isModEnabled("propal")) $modules['proposals']=array('label'=>'Proposals', 'picto'=>img_picto('', 'propal', 'class="pictofixedwidth"'));
-if (isModEnabled("commande")) $modules['orders']=array('label'=>'Orders', 'picto'=>img_picto('', 'order', 'class="pictofixedwidth"'));
-if (isModEnabled("facture")) $modules['invoices']=array('label'=>'Invoices', 'picto'=>img_picto('', 'bill', 'class="pictofixedwidth"'));
+if (isModEnabled("order")) $modules['orders']=array('label'=>'Orders', 'picto'=>img_picto('', 'order', 'class="pictofixedwidth"'));
+if (isModEnabled("invoice")) $modules['invoices']=array('label'=>'Invoices', 'picto'=>img_picto('', 'bill', 'class="pictofixedwidth"'));
 if (isModEnabled("supplier_proposal")) $modules['supplier_proposals']=array('label'=>'SupplierProposals', 'picto'=>img_picto('', 'supplier_proposal', 'class="pictofixedwidth"'));
 if (isModEnabled("fournisseur")) $modules['supplier_orders']=array('label'=>'SuppliersOrders', 'picto'=>img_picto('', 'supplier_order', 'class="pictofixedwidth"'));
 if (isModEnabled("fournisseur")) $modules['supplier_invoices']=array('label'=>'SuppliersInvoices', 'picto'=>img_picto('', 'supplier_invoice', 'class="pictofixedwidth"'));
-if (isModEnabled("contrat")) $modules['contracts']=array('label'=>'Contracts', 'picto'=>img_picto('', 'contract', 'class="pictofixedwidth"'));
+if (isModEnabled("contract")) $modules['contracts']=array('label'=>'Contracts', 'picto'=>img_picto('', 'contract', 'class="pictofixedwidth"'));
 // Add key data-html
 foreach ($modules as $key => $value) {
 	$modules[$key]['data-html'] = dol_escape_htmltag($value['picto'].$langs->transnoentitiesnoconv($value['label']));
@@ -76,8 +76,11 @@ if (!isModEnabled("concatpdf")) {
  * Actions
  */
 
+// Only the on/off options of the module can be set or deleted here
+$allowedconsts = array('CONCATPDF_MULTIPLE_CONCATENATION_ENABLED', 'CONCATPDF_MIXED_CONCATENATION_ENABLED');
+
 $reg = array();
-if (preg_match('/set_(.*)/', $action, $reg)) {
+if (preg_match('/^set_(.*)$/', $action, $reg) && in_array($reg[1], $allowedconsts)) {
 	$code=$reg[1];
 	if (dolibarr_set_const($db, $code, 1, 'chaine', 0, '', 0) > 0) {
 		Header("Location: ".$_SERVER["PHP_SELF"]);
@@ -87,7 +90,7 @@ if (preg_match('/set_(.*)/', $action, $reg)) {
 	}
 }
 
-if (preg_match('/del_(.*)/', $action, $reg)) {
+if (preg_match('/^del_(.*)$/', $action, $reg) && in_array($reg[1], $allowedconsts)) {
 	$code=$reg[1];
 	if (dolibarr_del_const($db, $code, 0) > 0) {
 		Header("Location: ".$_SERVER["PHP_SELF"]);
@@ -201,21 +204,20 @@ if (getDolGlobalString('PDF_SECURITY_ENCRYPTION')) {
 }
 
 /*
- * Confirmation suppression fichier
+ * Confirmation of file deletion
  */
 if ($action == 'remove_file') {
 	print $form->formconfirm($_SERVER["PHP_SELF"].'?&urlfile='.urlencode(GETPOST("file")), $langs->trans('DeleteFile'), $langs->trans('ConfirmDeleteFile'), 'confirm_deletefile', '', 0, 1);
 }
 
 // Show dir for each module
-print '<div class="opacitymedium hideonsmartphone">';
+print '<div class="info hideonsmartphone">';
 print $langs->trans("ConcatPDfTakeFileFrom").'<br><br>';
 foreach ($modules as $module => $moduletrans) {
 	$outputdir=$conf->concatpdf->dir_output.'/'.$module;
 	print '* '.str_replace('{s1}', $moduletrans['picto'], $langs->trans("ConcatPDfTakeFileFrom2", '{s1}'.$langs->transnoentitiesnoconv($moduletrans['label']), $outputdir));
 	print '<br>';
 }
-print '<br>';
 print '</div>';
 
 print '<br>';
@@ -244,9 +246,9 @@ if (getDolGlobalString('MAIN_USE_JQUERY_MULTISELECT')) {
 		print ajax_constantonoff('CONCATPDF_MULTIPLE_CONCATENATION_ENABLED', '', 0);
 	} else {
 		if (!getDolGlobalString('CONCATPDF_MULTIPLE_CONCATENATION_ENABLED')) {
-			print '<a href="'.$_SERVER['PHP_SELF'].'?action=set_CONCATPDF_MULTIPLE_CONCATENATION_ENABLED">'.img_picto($langs->trans("Disabled"), 'off').'</a>';
+			print '<a href="'.$_SERVER['PHP_SELF'].'?action=set_CONCATPDF_MULTIPLE_CONCATENATION_ENABLED&token='.newToken().'">'.img_picto($langs->trans("Disabled"), 'off').'</a>';
 		} else {
-			print '<a href="'.$_SERVER['PHP_SELF'].'?action=del_CONCATPDF_MULTIPLE_CONCATENATION_ENABLED">'.img_picto($langs->trans("Enabled"), 'on').'</a>';
+			print '<a href="'.$_SERVER['PHP_SELF'].'?action=del_CONCATPDF_MULTIPLE_CONCATENATION_ENABLED&token='.newToken().'">'.img_picto($langs->trans("Enabled"), 'on').'</a>';
 		}
 	}
 	print '</td></tr>';
@@ -262,9 +264,9 @@ if (! empty($conf->use_javascript_ajax)) {
 	print ajax_constantonoff('CONCATPDF_MIXED_CONCATENATION_ENABLED', '', 0);
 } else {
 	if (empty($conf->global->CONCATPDF_MIXED_CONCATENATION_ENABLED)) {
-		print '<a href="'.$_SERVER['PHP_SELF'].'?action=set_CONCATPDF_MIXED_CONCATENATION_ENABLED">'.img_picto($langs->trans("Disabled"), 'off').'</a>';
+		print '<a href="'.$_SERVER['PHP_SELF'].'?action=set_CONCATPDF_MIXED_CONCATENATION_ENABLED&token='.newToken().'">'.img_picto($langs->trans("Disabled"), 'off').'</a>';
 	} else {
-		print '<a href="'.$_SERVER['PHP_SELF'].'?action=del_CONCATPDF_MIXED_CONCATENATION_ENABLED">'.img_picto($langs->trans("Enabled"), 'on').'</a>';
+		print '<a href="'.$_SERVER['PHP_SELF'].'?action=del_CONCATPDF_MIXED_CONCATENATION_ENABLED&token='.newToken().'">'.img_picto($langs->trans("Enabled"), 'on').'</a>';
 	}
 }
 print '</td></tr>';
@@ -297,12 +299,12 @@ foreach ($modules as $module => $moduletrans) {
 
 // TODO
 // Replace this with a checkbox on each file line
-print '<form action="'.$_SERVER["PHP_SELF"].'" mode="POST">';
+print '<form action="'.$_SERVER["PHP_SELF"].'" method="POST">';
 print '<input type="hidden" name="page_y">';
 print '<input type="hidden" name="action" value="save">';
 print '<input type="hidden" name="token" value="'.newToken().'">';
 print '<div class="">';
-print 'CONCATPDF_PRESELECTED_MODELS = <input type="text" class="minwidth300" name="CONCATPDF_PRESELECTED_MODELS" value="'.getDolGlobalString('CONCATPDF_PRESELECTED_MODELS').'">';
+print 'CONCATPDF_PRESELECTED_MODELS = <input type="text" class="minwidth300" name="CONCATPDF_PRESELECTED_MODELS" value="'.dol_escape_htmltag(getDolGlobalString('CONCATPDF_PRESELECTED_MODELS')).'">';
 print '<input type="submit" class="button smallpaddingimp reposition" value="'.$langs->trans("Save").'">';
 print '</div>';
 print '</form>';

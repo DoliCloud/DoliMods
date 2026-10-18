@@ -170,7 +170,7 @@ class ActionsConcatPdf
 			$out.='<div class="valignmiddle inline-block hideonsmartphone">'.$langs->trans("ConcatFile").'</div> ';
 
 			if (getDolGlobalString('CONCATPDF_MULTIPLE_CONCATENATION_ENABLED')) {
-				foreach($arraypreselected as $tmpkey => $tmpval) {
+				foreach ($arraypreselected as $tmpkey => $tmpval) {
 					$arraypreselected[$tmpkey] = preg_replace('/\.pdf$/i', '', $tmpval);
 				}
 				$out.='<div class="valignmiddle inline-block minwidth300imp">';
@@ -178,7 +178,7 @@ class ActionsConcatPdf
 				$out.='</div>';
 			} else {
 				$preselected = preg_replace('/\.pdf$/i', '', reset($arraypreselected));
-				$out.= '<!-- preselected value is '.$preselected.' (key to set preselected value in CONCATPDF_PRESELECTED_MODELS is '.$parameters['modulepart'].') -->';
+				$out.= '<!-- preselected value is '.dol_escape_htmltag($preselected).' (key to set preselected value in CONCATPDF_PRESELECTED_MODELS is '.dol_escape_htmltag($parameters['modulepart']).') -->';
 				$out.= $form->selectarray('concatpdffile', $morefiles, $preselected, 1, 0, 0);
 			}
 			$out.='</td></tr>';
@@ -239,7 +239,6 @@ class ActionsConcatPdf
 		if (empty($concatpdffile) && ! $formwassubmittedwithemptyselection) {
 			//var_dump(getDolGlobalString('CONCATPDF_PRESELECTED_MODELS'));
 			if ($preselected == -1 && getDolGlobalString('CONCATPDF_PRESELECTED_MODELS')) {
-
 				// List of value key into setup -> value for modulepart
 				$altkey=array('proposal'=>'propal', 'order'=>'commande', 'invoice'=>'facture', 'supplier_order'=>'order_supplier', 'supplier_invoice'=>'invoice_supplier');
 
@@ -257,7 +256,7 @@ class ActionsConcatPdf
 					//var_dump($key.' - '.$altkey[$key].' - '.$val.' - '.$parameters['object']->element);
 					if (isset($parameters['object']->element) && ($parameters['object']->element == $key || (isset($altkey[$key]) && $parameters['object']->element == $altkey[$key]))) {
 						$tmpval = explode(',', $val);
-						foreach($tmpval as $val2) {
+						foreach ($tmpval as $val2) {
 							$concatpdffile[] = preg_replace('/\.pdf$/i', '', $val2);
 						}
 					}
@@ -278,6 +277,9 @@ class ActionsConcatPdf
 			if ($parameters['object']->element == 'contract' || $parameters['object']->element == 'contrat')  $element='contracts';
 		}
 
+		// Keep only files that really exist into the concatpdf directory of the element (values may come from user input or extraparams)
+		$concatpdffile = $this->filterConcatFiles($concatpdffile, $element);
+
 		$filetoconcat1=array($parameters['file']);
 		$filetoconcat2=array();
 
@@ -285,7 +287,7 @@ class ActionsConcatPdf
 			$hidedetails = $hidedesc = $hideref = 0;
 			foreach ($concatpdffile as $concatfile) {
 				// We search which second file to add (or generate it if file to add as a name matching pdf__...modules)
-				if (preg_match('/^pdf_(.*)+\.modules/', $concatfile)) {
+				if (preg_match('/^pdf_.+\.modules$/', $concatfile)) {
 					// We will generate the file to concat
 					require_once DOL_DOCUMENT_ROOT."/core/lib/files.lib.php";
 
@@ -316,74 +318,72 @@ class ActionsConcatPdf
 
 			dol_syslog(get_class($this).'::afterPDFCreation '.join(',', $filetoconcat1).' - '.join(',', $filetoconcat2));
 
-			if (! empty($filetoconcat2) && ! empty($concatpdffile) && $concatpdffile != '-1') {
-				$filetoconcat = array_merge($filetoconcat1, $filetoconcat2);
+			$filetoconcat = array_merge($filetoconcat1, $filetoconcat2);
 
-				$formatarray = pdf_getFormat();
-				$format = array($formatarray['width'], $formatarray['height']);
+			$formatarray = pdf_getFormat();
+			$format = array($formatarray['width'], $formatarray['height']);
 
-				// Create empty PDF
-				$pdf = pdf_getInstance($format);
-				//$pdf->SetAutoPageBreak(1, 0);
-				if (class_exists('TCPDF')) {
-					$pdf->setPrintHeader(false);
-					$pdf->setPrintFooter(false);
-				}
-				$pdf->SetFont(pdf_getPDFFont($outputlangs));
+			// Create empty PDF
+			$pdf = pdf_getInstance($format);
+			//$pdf->SetAutoPageBreak(1, 0);
+			if (class_exists('TCPDF')) {
+				$pdf->setPrintHeader(false);
+				$pdf->setPrintFooter(false);
+			}
+			$pdf->SetFont(pdf_getPDFFont($outputlangs));
 
-				if (getDolGlobalString('MAIN_DISABLE_PDF_COMPRESSION')) {
-					$pdf->SetCompression(false);
-				}
-				//$pdf->SetCompression(false);
+			if (getDolGlobalString('MAIN_DISABLE_PDF_COMPRESSION')) {
+				$pdf->SetCompression(false);
+			}
+			//$pdf->SetCompression(false);
 
-				if (getDolGlobalString('CONCATPDF_MIXED_CONCATENATION_ENABLED')) {
-					$pagecount = $this->concatMixed($pdf, reset($filetoconcat1), $filetoconcat2);
-				} else {
-					$pagecount = $this->concat($pdf, $filetoconcat);
-				}
+			if (getDolGlobalString('CONCATPDF_MIXED_CONCATENATION_ENABLED')) {
+				$pagecount = $this->concatMixed($pdf, reset($filetoconcat1), $filetoconcat2);
+			} else {
+				$pagecount = $this->concat($pdf, $filetoconcat);
+			}
 
-				if ($pagecount > 0) {
-					if (function_exists('pdfExtractMetadata')) {	// From Dolibarr v22
-						// Now we get the metadata keywords from the $sourcefile PDF (by parsing the binary PDF file) and use it to extract
-						// the page x in PAGESIGN=x into $propalsignonspecificpage
-						$keywords = pdfExtractMetadata($filetoconcat1[0], 'Keywords');
-						$subject = pdfExtractMetadata($filetoconcat1[0], 'Subject');
-						$author = pdfExtractMetadata($filetoconcat1[0], 'Author');
-						$creator = pdfExtractMetadata($filetoconcat1[0], 'Creator');
+			if ($pagecount > 0) {
+				if (function_exists('pdfExtractMetadata')) {	// From Dolibarr v22
+					// Now we get the metadata keywords from the $sourcefile PDF (by parsing the binary PDF file) and use it to extract
+					// the page x in PAGESIGN=x into $propalsignonspecificpage
+					$keywords = pdfExtractMetadata($filetoconcat1[0], 'Keywords');
+					$subject = pdfExtractMetadata($filetoconcat1[0], 'Subject');
+					$author = pdfExtractMetadata($filetoconcat1[0], 'Author');
+					$creator = pdfExtractMetadata($filetoconcat1[0], 'Creator');
 
-						if (!preg_match('/^ERROR/', $keywords)) {
-							$pdf->setKeywords($keywords);
-						}
-						if (!preg_match('/^ERROR/', $subject)) {
-							$pdf->setSubject($subject);
-						}
-						if (!preg_match('/^ERROR/', $author)) {
-							$pdf->setAuthor($author);
-						}
-						if (!preg_match('/^ERROR/', $creator)) {
-							$pdf->setCreator($creator);
-						}
+					if (!preg_match('/^ERROR/', $keywords)) {
+						$pdf->setKeywords($keywords);
 					}
-
-					$pdf->Output($filetoconcat1[0], 'F');
-					dolChmod($filetoconcat1[0]);
-
-					if (! empty($deltemp)) {
-						// Delete temp files
-						foreach ($deltemp as $dirtemp) {
-							dol_delete_dir_recursive($dirtemp);
-						}
+					if (!preg_match('/^ERROR/', $subject)) {
+						$pdf->setSubject($subject);
+					}
+					if (!preg_match('/^ERROR/', $author)) {
+						$pdf->setAuthor($author);
+					}
+					if (!preg_match('/^ERROR/', $creator)) {
+						$pdf->setCreator($creator);
 					}
 				}
-				if ($pagecount < 0) {
-					return -1;
-				}
 
-				// Save selected files into extraparams
-				$params['concatpdf'] = $concatpdffile;
-				if (is_object($parameters['object'])) {
-					$parameters['object']->extraparams = array_merge(is_array($parameters['object']->extraparams) ? $parameters['object']->extraparams : array(), $params);
+				$pdf->Output($filetoconcat1[0], 'F');
+				dolChmod($filetoconcat1[0]);
+
+				if (! empty($deltemp)) {
+					// Delete temp files
+					foreach ($deltemp as $dirtemp) {
+						dol_delete_dir_recursive($dirtemp);
+					}
 				}
+			}
+			if ($pagecount < 0) {
+				return -1;
+			}
+
+			// Save selected files into extraparams
+			$params['concatpdf'] = $concatpdffile;
+			if (is_object($parameters['object'])) {
+				$parameters['object']->extraparams = array_merge(is_array($parameters['object']->extraparams) ? $parameters['object']->extraparams : array(), $params);
 			}
 		} else {
 			// Remove extraparams for concatpdf
@@ -399,6 +399,7 @@ class ActionsConcatPdf
 		return $ret;
 	}
 
+	// phpcs:disable PEAR.NamingConventions.ValidFunctionName.ScopeNotCamelCaps
 	/**
 	 * Hook AddSignature (context 'onlinesign').
 	 *
@@ -424,6 +425,7 @@ class ActionsConcatPdf
 	 */
 	public function AddSignature($parameters, &$object, &$action)
 	{
+		// phpcs:enable
 		global $conf;
 
 		if (!is_object($object) || $object->element !== 'propal') {
@@ -442,7 +444,7 @@ class ActionsConcatPdf
 		$appendedPages = 0;
 		$reader = pdf_getInstance();
 
-		foreach ($object->extraparams['concatpdf'] as $concatfile) {
+		foreach ($this->filterConcatFiles($object->extraparams['concatpdf'], 'proposals') as $concatfile) {
 			if ($concatfile === '' || $concatfile === '-1') {
 				continue;
 			}
@@ -473,11 +475,47 @@ class ActionsConcatPdf
 	}
 
 	/**
+	 * Return the list of files to concat, keeping only names of files that exist into the concatpdf directory of the element.
+	 * This prevents path traversal or inclusion of any other file.
+	 *
+	 * @param	mixed	$concatpdffile	Array (or string) of file names, without directory
+	 * @param	string	$element		Subdirectory of the element ('proposals', 'invoices', ...)
+	 * @return	string[]				Array of allowed file names
+	 */
+	private function filterConcatFiles($concatpdffile, $element)
+	{
+		global $conf;
+
+		$result = array();
+		if (empty($element) || empty($concatpdffile)) {
+			return $result;
+		}
+		if (! is_array($concatpdffile)) {
+			$concatpdffile = array($concatpdffile);
+		}
+		$dir = $conf->concatpdf->dir_output.'/'.$element;
+		foreach ($concatpdffile as $concatfile) {
+			if (! is_string($concatfile) || $concatfile === '' || $concatfile !== basename($concatfile) || strpos($concatfile, '..') !== false || strpos($concatfile, '\\') !== false) {
+				continue;
+			}
+			if (preg_match('/^pdf_.+\.modules$/', $concatfile)) {
+				$file = $dir.'/'.$concatfile.'.php';
+			} else {
+				$file = $dir.'/'.$concatfile.(preg_match('/\.pdf$/i', $concatfile) ? '' : '.pdf');
+			}
+			if (is_file($file)) {
+				$result[] = $concatfile;
+			}
+		}
+		return $result;
+	}
+
+	/**
 	 * Concat PDF files
 	 *
 	 * @param 	PDF		$pdf    Pdf
 	 * @param 	array	$files  Array of files to concat.
-	 * @return	int				Number of files
+	 * @return	int				Number of pages added, -1 if error
 	 */
 	public function concat(&$pdf, $files)
 	{
@@ -613,16 +651,17 @@ class ActionsConcatPdf
 	/**
 	 * Concat PDF files in mixed mode (only on back pages)
 	 *
-	 * @param 	PDF		$pdf    Pdf
-	 * @param 	array	$files  Array of files to concat.
-	 * @return	int				Number of files
+	 * @param 	PDF		$pdf    	Pdf
+	 * @param 	string	$mainpdf	Path of the main PDF file, whose pages are the front pages
+	 * @param 	array	$files  	Array of files to concat on the back pages
+	 * @return	int					Number of pages of the main PDF, -1 if error
 	 */
-	function concatMixed(&$pdf, $mainpdf, $files)
+	public function concatMixed(&$pdf, $mainpdf, $files)
 	{
 		$totalcgupagecount = $pagecount = 0;
 		$cgupage = [];
 		foreach ($files as $file) {
-			if (dol_is_file($file)) {	// We ignore file if not found so if ile has been removed we can still generate the PDF.
+			if (dol_is_file($file)) {	// We ignore file if not found so if file has been removed we can still generate the PDF.
 				$pagecounttmp = $pdf->setSourceFile($file);
 				for ($i = 1; $i <= $pagecounttmp; $i++) {
 					$totalcgupagecount++;
@@ -643,7 +682,7 @@ class ActionsConcatPdf
 					$pdf->useTemplate($tplidx);
 
 					//back
-					if($currentcgupagenum < $totalcgupagecount) {
+					if ($currentcgupagenum < $totalcgupagecount) {
 						$pdf->setSourceFile($cgupage[$currentcgupagenum]);
 						$tplidx = $pdf->ImportPage($currentcgupagenum);
 						$s = $pdf->getTemplatesize($tplidx);
@@ -780,7 +819,7 @@ class ActionsConcatPdf
 					while(1) {
 						$value = $parser->pdf_read_value($c);
 						if ($value === false || count($result) > 4) {
-							// in this case the parser coudn't find an endobj so we break here
+							// in this case the parser could not find an endobj so we break here
 							break;
 						}
 
@@ -805,13 +844,13 @@ class ActionsConcatPdf
 	}
 	*/
 
-   /**
-    * findPageNoForRef
-    *
-    * @param  mixed    $parser     Parser
-    * @param  string   $pageRef    Page Ref
-    * @return int                  Return <0 if error
-    */
+	/**
+	* findPageNoForRef
+	*
+	* @param  mixed    $parser     Parser
+	* @param  string   $pageRef    Page Ref
+	* @return int                  Return <0 if error
+	*/
 	/*
 	function findPageNoForRef(&$parser, $pageRef) {
 		$ref_obj = $pageRef[1]; $ref_gen = $pageRef[2];

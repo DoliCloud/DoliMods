@@ -1,4 +1,4 @@
-# Copyright (C) 2023 Alice Adminson 
+# Copyright (C) 2023 Alice Adminson
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -40,7 +40,7 @@ STANCER_DOLICLOUD_BANK_ACCOUNT_FOR_PAYMENTS=Bank account for payments
 STANCER_DOLICLOUD_NB_DAY_PENDING_PAYMENT=Number of days we keep stancer pending payments entries
 
 
-ExampleOfTestCreditCardStancer=Example of credit card can be found at this URL:<br> %s 
+ExampleOfTestCreditCardStancer=Example of credit card can be found at this URL:<br> %s
 TestConnectionStancer=Test Connection
 
 # About page

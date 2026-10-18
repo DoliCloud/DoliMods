@@ -35,6 +35,8 @@ if (! $res && file_exists("../../main.inc.php")) $res=@include "../../main.inc.p
 if (! $res && file_exists("../../../main.inc.php")) $res=@include "../../../main.inc.php";
 if (! $res) die("Include of main fails");
 /**
+ * @var DoliDB	$db
+ * @var Conf $conf
  * @var Translate $langs
  * @var User $user
  */
@@ -60,12 +62,13 @@ $langs->load("google@google");
 $langs->load("admin");
 $langs->load("other");
 
-// Defini si peux lire/modifier permisssions
-$canreaduser=($user->admin || $user->rights->user->user->lire);
+// Define is you want read/write permission
+$canreaduser = ($user->admin || $user->rights->user->user->lire);
 
 $id = GETPOST('id', 'int');
 $action = GETPOST('action', 'alpha');
 
+$caneditfield = 0;
 if ($id) {
 	// $user est le user qui edite, $id est l'id de l'utilisateur edite
 	$caneditfield=((($user->id == $id) && $user->rights->user->self->creer)
@@ -82,15 +85,24 @@ if ($user->id == $id) {	// A user can always read its own card
 }
 $result = restrictedArea($user, 'user', $id, 'user&user', $feature2);
 if ($user->id <> $id && ! $canreaduser) accessforbidden();
+// Actions that write into Dolibarr or Google need the permission to edit the user
+if ((preg_match('/^test/', $action) || in_array($action, array('save', 'pushallevents', 'syncfromgoogle', 'deleteallevents'))) && !$caneditfield && !$user->admin) {
+	accessforbidden();
+}
 
 $dirtop = "../core/menus/standard";
 $dirleft = "../core/menus/standard";
 
-// Charge utilisateur edite
+// Load edited user
 $object = new User($db);
 $result=$object->fetch($id, '', '', 1);
 if ($result < 0) dol_print_error('', $object->error);
-$object->getrights();
+// User::loadRights() only exists from Dolibarr 19 on, older versions name it getrights()
+if (method_exists($user, 'loadRights')) {
+	$user->loadRights();
+} else {
+	$user->getrights();
+}
 
 // Liste des zone de recherche permanentes supportees
 $searchform=array("main_searchform_societe","main_searchform_contact","main_searchform_produitservice");
@@ -113,9 +125,15 @@ if ($action == 'save' && ($caneditfield  || $user->admin)) {
 	if (! GETPOST('cancel', 'alpha')) {
 		$tabparam=array();
 
-		$tabparam["GOOGLE_DUPLICATE_INTO_GCAL"]=$_POST["GOOGLE_DUPLICATE_INTO_GCAL"];
-		$tabparam["GOOGLE_LOGIN"]=$_POST["GOOGLE_LOGIN"];
-		$tabparam["GOOGLE_PASSWORD"]=$_POST["GOOGLE_PASSWORD"];
+		$tabparam["GOOGLE_DUPLICATE_INTO_GCAL"]=GETPOST("GOOGLE_DUPLICATE_INTO_GCAL", 'alphanohtml');
+		$tabparam["GOOGLE_LOGIN"]=GETPOST("GOOGLE_LOGIN", 'alphanohtml');
+		$tabparam["GOOGLE_PASSWORD"]=GETPOST("GOOGLE_PASSWORD", 'none');
+		// A non admin user can only use the calendar of the email of the edited user, not the one of somebody else
+		if (!$user->admin && $tabparam["GOOGLE_LOGIN"] !== '' && $tabparam["GOOGLE_LOGIN"] !== (string) $object->email) {
+			$langs->load("errors");
+			setEventMessages($langs->trans("ErrorBadValueForParameter", $tabparam["GOOGLE_LOGIN"], $langs->transnoentitiesnoconv("GoogleIDAgenda")), null, 'warnings');
+			$tabparam["GOOGLE_LOGIN"] = empty($object->conf->GOOGLE_LOGIN) ? '' : $object->conf->GOOGLE_LOGIN;
+		}
 
 		$result=dol_set_user_param($db, $conf, $object, $tabparam);
 
@@ -187,7 +205,7 @@ if (preg_match('/^test/', $action)) {
 }
 
 
-if (GETPOST('cleanup')) {
+if ($action == 'deleteallevents') {
 	$error=0;
 	$nbdeleted=0;
 
@@ -278,6 +296,10 @@ if ($action == 'pushallevents') {
 			// Search all events
 			$sql = 'SELECT id, datep, datep2 as datef, code, label, transparency, priority, fulldayevent, percent, location, fk_soc, fk_contact, note';
 			$sql.= ' FROM '.MAIN_DB_PREFIX.'actioncomm';
+			// Only events of the current entities owned by or assigned to the edited user
+			$sql.= ' WHERE entity IN ('.getEntity('agenda').')';
+			$sql.= ' AND (fk_user_action = '.((int) $object->id);
+			$sql.= " OR id IN (SELECT fk_actioncomm FROM ".MAIN_DB_PREFIX."actioncomm_resources WHERE element_type = 'user' AND fk_element = ".((int) $object->id)."))";
 			$sql.=$db->order('datep', 'DESC');
 			$sql.=$db->plimit($max);
 
@@ -411,7 +433,7 @@ if (! empty($userlogin)) {	// We use setup of user
 	if (getDolGlobalString('GOOGLE_LOGIN')) {
 		print getDolGlobalString('GOOGLE_LOGIN');
 	} else {
-		print '<input class="flat" type="text" size="30" name="GOOGLE_LOGIN" value="'.$object->conf->GOOGLE_LOGIN.'">';
+		print '<input class="flat" type="text" size="30" name="GOOGLE_LOGIN" value="'.dol_escape_htmltag(empty($object->conf->GOOGLE_LOGIN) ? '' : $object->conf->GOOGLE_LOGIN).'">';
 	}
 	print "</td>";
 	print '<td>';
@@ -534,6 +556,7 @@ if (empty($userlogin)) {	// We use setup of user
 
 	if (getDolGlobalString('GOOGLE_DUPLICATE_INTO_GCAL')) {
 		print '<form name="googleconfig" action="'.$_SERVER["PHP_SELF"].'" method="post">';
+		print '<input type="hidden" name="token" value="'.newToken().'">';
 		print '<input type="hidden" name="action" value="deleteallevents">';
 		print '<input type="hidden" name="id" value="'.$id.'">';
 		print $langs->trans("DeleteAllGoogleEvents", empty($object->conf->GOOGLE_LOGIN) ? '' : $object->conf->GOOGLE_LOGIN)." ";

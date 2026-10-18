@@ -21,9 +21,9 @@
 
 ## 6.7
 
-- FIX OAUth2 module for Google with scopes for people and calendar
+- FIX OAuth2 module for Google with scopes for people and calendar
 - GOOGLE_CAL_TZ_FIX accept +00:0x format
-- WARNING: Do not work with Dolibarr 17.0.0 and 17.0.1 and 17.0.2 (need 17.0.3)
+- WARNING: Does not work with Dolibarr 17.0.0 and 17.0.1 and 17.0.2 (need 17.0.3)
 
 
 ## 6.6
@@ -75,7 +75,7 @@
 
 ## 6.1
 
-- NEW Add 2 variables to hange TZ offset between Dolibarr and Google
+- NEW Add 2 variables to change TZ offset between Dolibarr and Google
 - NEW Add option GOOGLE_ENABLE_GMAPS_TICON to use different picto for customers and vendors
 - NEW Add option GOOGLE_CAN_USE_PROSPECT_ICONS to use different picto for each prospect status
 - FIX list of maps visible in widget.
@@ -96,7 +96,7 @@
 ## 3.7
 
 - Compatibility with Dolibarr 3.7 and +
-- Add filter on sale representative.
+- Add filter on sales representative.
 
 
 ## 1.0

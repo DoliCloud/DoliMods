@@ -1,0 +1,120 @@
+---
+# PHPStan on the module code, against the Dolibarr cores the module supports.
+#
+# The core is checked out only so PHPStan knows its classes and functions; nothing of the core is
+# analysed and no database is needed. Running the same analysis on several cores is what catches a
+# call written against a recent core reaching a page an older one still serves.
+name: phpstan
+
+permissions:
+  contents: read
+
+
+on:
+  push:
+    branches: [ master ]
+    paths:
+      - 'htdocs/**'
+      - '!htdocs/**.md'
+      - 'dev/tools/phpstan/**'
+      - 'phpstan.neon.dist'
+      - '.github/workflows/phpstan.yml'
+  pull_request:
+    branches: [ master ]
+    paths:
+      - 'htdocs/**'
+      - '!htdocs/**.md'
+      - 'dev/tools/phpstan/**'
+      - 'phpstan.neon.dist'
+      - '.github/workflows/phpstan.yml'
+
+  workflow_dispatch:
+
+concurrency:
+  group: phpstan-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  # The version the Dolibarr core runs in its own CI, and the one dev/tools/phpstan/phpstan.sh pins.
+  PHPSTAN_VERSION: 2.1.12
+
+jobs:
+  # Which cores to analyse against. A pull request answers on the two ends of the supported range,
+  # where the drift between core versions shows; what lands on master is analysed on all of them.
+  #
+  # The oldest core stays in the pull request list even when it is also in the push list: an error a
+  # core reports alone is found by whoever can still fix it, rather than on a master nobody is looking
+  # at. It is the cheap half of the matrix - PHPStan indexes the core, it does not analyse it.
+  cores:
+    name: Cores to analyse against
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.pick.outputs.matrix }}
+    steps:
+      - id: pick
+        run: |
+          all='["18.0.0","24.0.0"]'
+          review='["18.0.0","24.0.0"]'
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            echo "matrix=$review" >> "$GITHUB_OUTPUT"
+          else
+            echo "matrix=$all" >> "$GITHUB_OUTPUT"
+          fi
+
+  phpstan:
+    name: PHPStan on Dolibarr ${{ matrix.dolibarr }}
+    needs: cores
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        dolibarr: ${{ fromJSON(needs.cores.outputs.matrix) }}
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Checkout Dolibarr ${{ matrix.dolibarr }}
+        uses: actions/checkout@v7
+        with:
+          repository: Dolibarr/dolibarr
+          ref: ${{ matrix.dolibarr }}
+          path: dolibarr
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          # PHPStan runs on one PHP and is told which range to analyse for by phpstan.neon.dist,
+          # so the PHP of the job has nothing to do with the PHP of the core.
+          php-version: '8.3'
+          coverage: none # disable xdebug, pcov
+          tools: cs2pr:1.8.6
+          extensions: mbstring, intl, dom, simplexml, zip, curl
+
+      # The pinned phar and the analysis cache. The cache is per core: PHPStan stores what it read
+      # of the checkout it was pointed at.
+      - name: Restore the PHPStan cache
+        uses: actions/cache@v6
+        with:
+          path: .run-phpstan
+          key: phpstan-${{ env.PHPSTAN_VERSION }}-${{ matrix.dolibarr }}-${{ github.sha }}
+          restore-keys: |
+            phpstan-${{ env.PHPSTAN_VERSION }}-${{ matrix.dolibarr }}-
+
+      - name: Run PHPStan
+        env:
+          DOLIBARR_HTDOCS: ${{ github.workspace }}/dolibarr/htdocs
+        run: |
+          # PHPStan writes its report on stdout; the progress and the banner of the runner script
+          # go to stderr, so the redirection carries the checkstyle document alone.
+          ./dev/tools/phpstan/phpstan.sh --no-progress --error-format=checkstyle > _phpstan.xml
+
+      - name: Add results to PR
+        if: ${{ always() }}
+        run: cs2pr --prepend-filename --prepend-source --graceful-warnings _phpstan.xml
+
+      - name: Provide the PHPStan report as artifact
+        uses: actions/upload-artifact@v7
+        if: ${{ always() }}
+        with:
+          name: phpstan-${{ matrix.dolibarr }}
+          path: ${{ github.workspace }}/_phpstan.xml
+          retention-days: 2

@@ -13,6 +13,12 @@ if (! $res && $i > 0 && file_exists(dirname(substr($tmp, 0, ($i+1)))."/main.inc.
 if (! $res && file_exists("../../main.inc.php")) $res=@include "../../main.inc.php";
 if (! $res && file_exists("../../../main.inc.php")) $res=@include "../../../main.inc.php";
 if (! $res) die("Include of main fails");
+/**
+ * @var Conf $conf
+ * @var DoliDB $db
+ * @var Translate $langs
+ * @var User $user
+ */
 
 require_once DOL_DOCUMENT_ROOT."/core/lib/agenda.lib.php";
 require_once DOL_DOCUMENT_ROOT."/core/lib/project.lib.php";
@@ -24,11 +30,13 @@ require_once DOL_DOCUMENT_ROOT."/comm/action/class/actioncomm.class.php";
 require_once DOL_DOCUMENT_ROOT."/core/class/html.formactions.class.php";
 require_once DOL_DOCUMENT_ROOT."/projet/class/project.class.php";
 
+// Security check
+if (!$user->admin) {
+	accessforbidden();
+}
+
 $event = new ActionComm($db);
 $event->fetch(53);
-echo '<pre>BEFORE';
-print_r($event);
-echo '</pre>';
 
 $sql = "UPDATE ".MAIN_DB_PREFIX."actioncomm ";
 $sql.= " SET percent='".$event->percentage."'";
@@ -42,11 +50,5 @@ $sql.= ", fk_user_action=2";
 $sql.= " WHERE id=".$event->id;
 
 if ($db->query($sql)) {
-	echo '<pre>AFTER';
-	print_r($event);
-	echo '</pre>';
 	$db->commit();
-	echo '<pre>AFTER 2';
-	print_r($event);
-	echo '</pre>';
 }

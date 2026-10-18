@@ -351,7 +351,7 @@ class ActionsPayplugDolicloud extends CommonHookActions
 		// Complete urls for post treatment
 		$ref = $REF = GETPOST('ref', 'alpha');
 		$TAG = GETPOST("tag", 'alpha');
-		$FULLTAG = GETPOST("fulltag", 'alpha'); // fulltag is tag with more informations
+		$FULLTAG = GETPOST("fulltag", 'alpha'); // fulltag is tag with more information
 		$SECUREKEY = GETPOST("securekey"); // Secure key
 		$source = GETPOST('s', 'alpha') ? GETPOST('s', 'alpha') : GETPOST('source', 'alpha');
 		$object = null;
@@ -466,7 +466,7 @@ class ActionsPayplugDolicloud extends CommonHookActions
 						$amounttab = explode('.', $amount);
 						if (strlen($amounttab[1]) == 1) {
 							$amounttab[1] .= "0";
-						} else if (strlen($amounttab[1]) > 2) {
+						} elseif (strlen($amounttab[1]) > 2) {
 							$amounttab[1] = substr($amounttab[1], 0, 2);
 						}
 						if (isset($amounttab[0])) {
@@ -498,7 +498,6 @@ class ActionsPayplugDolicloud extends CommonHookActions
 						if (!empty($payerarray["lastName"]) || !empty($payerarray["firstName"]) || !empty($payerarray["email"])
 							|| !empty($payerarray["address"]) || !empty($payerarray["postcode"]) || !empty($payerarray["city"])
 							|| !empty($payerarray["country"]) ) {
-
 							$jsontosenddatabilling = '';
 							if (!empty($payerarray["lastName"])) {
 								$jsontosenddatabilling .= ($jsontosenddatabilling ? ', ' : '').'"last_name": "'.$payerarray["lastName"].'"';
@@ -543,6 +542,8 @@ class ActionsPayplugDolicloud extends CommonHookActions
 							$result2 = $ret2["content"];
 							$json2 = json_decode($result2);
 							$_SESSION["PAYPLUG_DOLICLOUD_PAYMENT_ID"] = urlencode($json2->id);
+							// Bind the payment to the paid object, so its return can't be used for another one
+							$_SESSION["PAYPLUG_DOLICLOUD_FULLTAG"] = $FULLTAG;
 							$urlforredirect = $json2->hosted_payment->payment_url;
 
 							// Gestion redirection
@@ -562,7 +563,7 @@ class ActionsPayplugDolicloud extends CommonHookActions
 								$errors[] = $arrayofmessage['message'];
 
 								if (!empty($arrayofmessage['details']) && is_array($arrayofmessage['details'])) {
-									foreach($arrayofmessage['details'] as $tmpkey => $tmpmessage) {
+									foreach ($arrayofmessage['details'] as $tmpkey => $tmpmessage) {
 										if (!empty($tmpmessage)) {
 											// $tmpmessage can be a string or an array or array of array, so we use a json output
 											$errors[] = $langs->trans("Error"). ' ('.$tmpkey.') : ' .json_encode($tmpmessage);
@@ -613,7 +614,8 @@ class ActionsPayplugDolicloud extends CommonHookActions
 		$langs->load("payplugdolicloud@payplugdolicloud");
 
 		$error = 0;
-		if (in_array($parameters['paymentmethod'], array('payplug'))){
+		$paymentId = '';
+		if (in_array($parameters['paymentmethod'], array('payplug'))) {
 			$code = GETPOST("code");
 
 			if ($code == "refused") {
@@ -625,10 +627,16 @@ class ActionsPayplugDolicloud extends CommonHookActions
 				$paymentId = isset($_SESSION["PAYPLUG_DOLICLOUD_PAYMENT_ID"]) ? $_SESSION["PAYPLUG_DOLICLOUD_PAYMENT_ID"] : '';
 				$amounttotest = isset($_SESSION["FinalPaymentAmt"]) ? $_SESSION["FinalPaymentAmt"] : 0;
 				$currencyCodeTypetotest = isset($_SESSION["currencyCodeType"]) ? $_SESSION["currencyCodeType"] : '';
+				$fulltagtotest = isset($_SESSION["PAYPLUG_DOLICLOUD_FULLTAG"]) ? $_SESSION["PAYPLUG_DOLICLOUD_FULLTAG"] : '';
+				$fulltag = GETPOST('FULLTAG') ? GETPOST('FULLTAG') : GETPOST('fulltag');
 
 				if (empty($paymentId) || empty($amounttotest) || empty($currencyCodeTypetotest)) {
 					$error++;
 					$this->errors[] = $langs->trans("ErrorSessionNotFound");
+				} elseif (empty($fulltagtotest) || $fulltagtotest !== $fulltag) {
+					// The payment was not created for the object we are asked to record it on
+					$error++;
+					$this->errors[] = $langs->trans("ErrorPaymentNotFound");
 				}
 
 				if (!$error) {
@@ -655,7 +663,7 @@ class ActionsPayplugDolicloud extends CommonHookActions
 					}
 
 
-					if ($ret1["http_code"] == 200 && empty($json1->failure) && !$error) {
+					if ($ret1["http_code"] == 200 && empty($json1->failure) && !empty($json1->is_paid) && !$error) {
 						if (empty($json1->id) || $json1->id != $_SESSION["PAYPLUG_DOLICLOUD_PAYMENT_ID"]) {
 							$error++;
 							$this->errors[] = $langs->trans("ErrorPaymentNotFound");
@@ -680,6 +688,11 @@ class ActionsPayplugDolicloud extends CommonHookActions
 		}
 
 		if (!$error) {
+			if (in_array($parameters['paymentmethod'], array('payplug'))) {
+				// Let the core refuse a second record of this transaction, and consume it so it can't be replayed
+				$_SESSION['TRANSACTIONID'] = $paymentId;
+				unset($_SESSION["PAYPLUG_DOLICLOUD_PAYMENT_ID"], $_SESSION["PAYPLUG_DOLICLOUD_FULLTAG"]);
+			}
 			$this->results["ispaymentok"] = true;
 			return 1;
 		} else {
@@ -702,7 +715,7 @@ class ActionsPayplugDolicloud extends CommonHookActions
 
 		$bankaccountid = 0;
 
-		if (in_array($parameters['paymentmethod'], array('payplug'))){
+		if (in_array($parameters['paymentmethod'], array('payplug'))) {
 			$bankaccountid = getDolGlobalInt('PAYPLUG_DOLICLOUD_BANK_ACCOUNT_FOR_PAYMENTS');
 			if ($bankaccountid == 0) {
 				$error++;
@@ -726,7 +739,8 @@ class ActionsPayplugDolicloud extends CommonHookActions
 	 * @param   HookManager     $hookmanager    Hook manager propagated to allow calling another hook
 	 * @return  int                             Return integer < 0 on error, 0 on success, 1 to replace standard code
 	 */
-	public function doShowOnlinePaymentUrl($parameters, &$object, &$action, $hookmanager){
+	public function doShowOnlinePaymentUrl($parameters, &$object, &$action, $hookmanager)
+	{
 		if (isModEnabled('payplugdolicloud')) {
 			$this->results['showonlinepaymenturl'] = isModEnabled('payplugdolicloud');
 		} else {
@@ -734,5 +748,4 @@ class ActionsPayplugDolicloud extends CommonHookActions
 		}
 		return 1;
 	}
-
 }

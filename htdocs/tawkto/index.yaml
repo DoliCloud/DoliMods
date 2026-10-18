@@ -1,0 +1,34 @@
+# This is the YAML file to describe the location of a module
+
+packages:
+  - modulename: 'TawkTo'
+    author: 'DoliCloud'
+    author_url: 'https://www.dolicloud.com'
+    maintener_email: 'contact@dolicloud.com'
+    label:
+      fr: "TawkTo"
+      en: "TawkTo"
+    description:
+      fr: "Permet l'activation d'une popup de chat Tawkto dans les écrans Dolibarr (pour discutter avec un fournisseur d'assistance en ligne présent sur TawkTo)"
+      en: "Allow to activate a tawkto chat popup inside Dolibarr backoffice (to chat with a support provider available on TawkTo)"
+    status: 'enabled'
+    created_at: '2017-10-13'
+    last_updated_at: 'auto'
+    category: ''
+    git: 'https://github.com/DoliCloud/dolimods/tree/master/htdocs/tawkto'
+    git-branch: 'master'
+    git-system: 'github'
+    cover: 'https://raw.githubusercontent.com/DoliCloud/dolimods/master/htdocs/tawkto/img/object_tawkto.png'
+    current_version: 'auto'
+    dolibarrmin: 'auto'
+    dolibarrmax: 'auto'
+    phpmin: 'auto'
+    phpmax: 'auto'
+    price: 0
+    # direct-download is yes if we can download the module to install it in application
+    direct-download: 'no'
+    # dolistore-upload is manual if module is also uploaded manually on dolistore.com, auto if sync automatically
+    dolistore-upload: 'manual'
+    # dolistore-download is url of product page for download if module can also be found on dolistore.com
+    # Example: https://www.dolistore.com/product.php?id=xxx
+    dolistore-download: 'https://www.dolistore.com/product.php?id=1582'

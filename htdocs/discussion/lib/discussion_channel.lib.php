@@ -115,9 +115,19 @@ function channelPrepareHead($object)
 	return $head;
 }
 
-function channelGetUserPhoto($user, $cache = 0){
+/**
+ * Return the image to show as photo of a user
+ *
+ * @param	User		$user	User
+ * @param	int|string	$cache	Value of the cache parameter added to the URL of the image
+ * @return	array{img:string,imgmode:string}	'img' is the path, URL parameters or hash of image, 'imgmode' is 'generic', 'viewimage' or 'gravatar'
+ */
+function channelGetUserPhoto($user, $cache = 0)
+{
 	global $conf;
 	$dir = $conf->user->dir_output;
+	$file = '';
+	$altfile = '';
 	if (!empty($user->photo)) {
 		if (dolIsAllowedForPreview($user->photo)) {
 			$file = get_exdir(0, 0, 0, 0, $user, 'user') . 'photos/' . getImageFileNameForSize($user->photo, '_mini');
@@ -131,7 +141,7 @@ function channelGetUserPhoto($user, $cache = 0){
 	$entity = (empty($user->entity) ? $conf->entity : $user->entity);
 	$nophoto = '/public/theme/common/nophoto.png';
 	$img = $nophoto;
-	$imgmode = "generic"; 
+	$imgmode = "generic";
 	if ($dir) {
 		if ($file && file_exists($dir . "/" . $file)) {
 			$img = '?modulepart=userphoto&entity=' . $entity . '&file=' . urlencode($file) . '&cache='.$cache;
@@ -140,16 +150,16 @@ function channelGetUserPhoto($user, $cache = 0){
 			$img = '?modulepart=userphoto&entity=' . $entity . '&file=' . urlencode($altfile) . '&cache='.$cache;
 			$imgmode = "viewimage";
 		} else {
-			if (!empty($object->gender) && $user->gender == 'man') {
+			if (!empty($user->gender) && $user->gender == 'man') {
 				$img = '/public/theme/common/user_man.png';
 			}
-			if (!empty($object->gender) && $user->gender == 'woman') {
+			if (!empty($user->gender) && $user->gender == 'woman') {
 				$img = '/public/theme/common/user_woman.png';
 			}
 			if (isModEnabled('gravatar') && $email) {
 				// see https://gravatar.com/site/implement/images/php/
-				$img = dol_hash(strtolower(trim($email)), 'sha256', 1) . '?s=0&d=identicon'; // gravatar need md5 hash
-				$imgmode = "gravatar"; 
+				$img = dol_hash(strtolower(trim($email)), 'sha256', 1) . '?s=0&d=identicon'; // gravatar accepts a sha256 hash
+				$imgmode = "gravatar";
 			}
 		}
 	}

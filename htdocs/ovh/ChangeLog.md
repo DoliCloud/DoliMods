@@ -3,13 +3,23 @@
 
 ## 5.1 Unreleased
 
-Nothing yet
+* FIX Compatibility Dolibarr 24 and PHP 8 for SMS sending:
+  * Priority, class and delay are sent with a valid value or not sent (since PHP 8, an empty value was no longer converted).
+  * Recipients are converted into the international format (French national numbers become +33...) and several
+    recipients separated with a comma or a semicolon are sent as several receivers.
+  * Mass action "Send SMS" on contacts sends one SMS per contact (all numbers were sent as one invalid receiver).
+  * Only one agenda event per SMS (the event recorded by the module trigger was a duplicate of the one recorded by
+    Dolibarr), now linked to the contact of the thirdparty, to the member, and with a label not HTML encoded.
+  * Invalid recipients returned by OVH are reported with a clear message.
+  * Catch the error when no SMS engine is defined (error 500 on the SMS tabs of thirdparty and member).
+  * The test page of SMS setup no longer reports a success when the sending failed (Dolibarr 17 to 19).
+  * Fix PHP warnings and fatal errors in SMS setup and SMS account pages (history of the selected account, errors of API).
 
 ## 5.0
 
-* FIX OVH APIs make sometimes a response that is not correclty UTF8 encoded. A compensation has been introduce to ignore the OVH bug.
+* FIX OVH APIs sometimes return a response that is not correctly UTF8 encoded. A compensation has been introduced to ignore the OVH bug.
 * FIX If dtfrom and dtto are inverted by OVH, we restore correct order
-* FIX Compatiblity Dolibarr 18
+* FIX Compatibility Dolibarr 18
 * FIX round replaced with price2num
 * NEW Add a select all checkbox in the list
 * NEW Add supplier and product selection in form
@@ -17,7 +27,7 @@ Nothing yet
 * NEW Can set end date for invoice import
 * NEW OVH_FIX_API_BUGS_OF_QTY_IN_PRORATAS
 * Better PHP 8.2 compatibility
-* QUAL CLean code to follow Dolibarr precommit rules
+* QUAL Clean code to follow Dolibarr precommit rules
 
 ## 4.1
 
@@ -25,7 +35,7 @@ Nothing yet
 * Add option OVH_DEBUG
 * Support several OVH projects
 * Fix blank page with Dolidroid
-* Link the event ot thirdparty history with Dolibarr v12 
+* Link the event to thirdparty history with Dolibarr v12 
 * Compatibility with v11 (newToken).
 * Add checkbox to exclude lines with null amount
 * Can enable log into agenda of automatic action "Sent by SMS"
@@ -39,7 +49,7 @@ Nothing yet
 
 * Add constant OVH_DEFAULT_BANK_ACCOUNT to set default bank account
 * Payment condition and terms on imported invoices use the value on supplier if defined.
-* Fix: can also select product that are not on sell as product for imported invoice lines.
+* Fix: can also select product that are not on sale as product for imported invoice lines.
 
 ## 3.8.4
 

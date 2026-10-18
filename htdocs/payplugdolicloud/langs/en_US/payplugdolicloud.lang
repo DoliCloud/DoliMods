@@ -25,7 +25,7 @@ PAYPLUG_DOLICLOUD_PROD_SECRET_API_KEY= PayPlug secret Live API key
 PAYPLUG_DOLICLOUD_PROD_SECRET_API_KEY_HELP=PayPlug secret Live API key
 PAYPLUG_DOLICLOUD_BANK_ACCOUNT_FOR_PAYMENTS=Bank account for payments
 
-ExampleOfTestCreditCardPayplug=Example of credit card can be found at this URL:<br> %s 
+ExampleOfTestCreditCardPayplug=Example of credit card can be found at this URL:<br> %s
 #
 # About page
 #

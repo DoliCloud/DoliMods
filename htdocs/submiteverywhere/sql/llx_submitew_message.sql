@@ -40,8 +40,8 @@ create table llx_submitew_message
   email_errorsto	varchar(160),                        -- Email addresse for errors
   tag				varchar(128) NULL,
   date_creat		datetime,                            -- creation date
-  date_valid		datetime,                            -- 
-  date_appro		datetime,                            -- 
+  date_valid		datetime,                            --
+  date_appro		datetime,                            --
   date_envoi		datetime,                            -- date d'envoi
   fk_user_creat		integer,                             -- user creator
   fk_user_valid		integer,                             -- user validator

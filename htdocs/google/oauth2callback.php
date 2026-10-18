@@ -17,10 +17,17 @@ if (! $res && file_exists("../main.inc.php")) $res=@include "../main.inc.php";
 if (! $res && file_exists("../../main.inc.php")) $res=@include "../../main.inc.php";
 if (! $res && file_exists("../../../main.inc.php")) $res=@include "../../../main.inc.php";
 if (! $res) die("Include of main fails");
+/**
+ * @var Conf $conf
+ * @var DoliDB $db
+ * @var Translate $langs
+ * @var User $user
+ */
 
 require_once DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php";
 require_once DOL_DOCUMENT_ROOT."/core/lib/date.lib.php";
 require_once DOL_DOCUMENT_ROOT."/core/lib/geturl.lib.php";
+require_once DOL_DOCUMENT_ROOT."/core/lib/security2.lib.php";
 if (file_exists(DOL_DOCUMENT_ROOT.'/core/lib/json.lib.php')) {
 	require_once DOL_DOCUMENT_ROOT.'/core/lib/json.lib.php';
 }
@@ -53,6 +60,19 @@ $scope = GETPOST('scope');
 $backtourl = GETPOST('backtourl') ? GETPOST('backtourl') : $_SESSION['backtourlsavedbeforeoauthjump'];
 $servicename = GETPOSTISSET('servicename') ? GETPOST('servicename') : $_SESSION['servicenamesavedbeforeoauthjump'];
 $mesgs = '';
+
+// Security check
+if (!isModEnabled('google') || !$user->admin) {
+	accessforbidden();
+}
+// Only the token of the Google contact sync can be managed here
+if (!in_array($servicename, array('contact'))) {
+	accessforbidden('Bad value for servicename');
+}
+// Only a local url is allowed to go back
+if (!preg_match('/^\/[^\/\\\\]/', (string) $backtourl)) {
+	$backtourl = dol_buildpath('/google/admin/google_contactsync.php', 1);
+}
 
 
 
@@ -95,15 +115,13 @@ if ($action == 'delete') {
 	$_SESSION['backtourlsavedbeforeoauthjump'] = $backtourl;
 	$_SESSION['servicenamesavedbeforeoauthjump'] = $servicename;
 	$_SESSION['shortscopesavedbeforeoauthjump'] = $shortscope;
+	// The state sent to Google is random and kept in session, so a code obtained by someone else is refused
+	$state = $state.'-'.getRandomPassword(true);
 	$_SESSION['oauthstateanticsrf'] = $state;
 
 	$apiService->setApprouvalPrompt('force');
 
-	if ($state) {
-		$url = $apiService->getAuthorizationUri(array('state' => $state));
-	} else {
-		$url = $apiService->getAuthorizationUri(); // Parameter state will be randomly generated
-	}
+	$url = $apiService->getAuthorizationUri(array('state' => $state));
 
 	header("Location: ".$url);
 	exit();
@@ -111,9 +129,10 @@ if ($action == 'delete') {
 	// Save token into database
 	$langs->load("oauth");
 
-	if (isset($_SESSION['oauthstateanticsrf']) && $state != $_SESSION['oauthstateanticsrf']) {
+	$statefromsession = empty($_SESSION['oauthstateanticsrf']) ? '' : $_SESSION['oauthstateanticsrf'];
+	unset($_SESSION['oauthstateanticsrf']);
+	if (empty($statefromsession) || !hash_equals($statefromsession, (string) $state)) {
 		print 'Value for state = '.dol_escape_htmltag($state).' differs from value in $_SESSION["oauthstateanticsrf"]. Code is refused.';
-		unset($_SESSION['oauthstateanticsrf']);
 	} else {
 		try {
 			// Save token into database using DoliStorage
@@ -160,8 +179,6 @@ print $mesgs;
  print 'This page is a test page show information on your Google account using Oauth login. It is not used by module.<br>';
 print '<a href="'.$url.'">Click here to authenticate using oauth</a><br><br>';
 
-//var_dump($_GET);
-//var_dump($_POST);
 
 print 'We are into an oauth authenticated session oauth_token='.$google_web_token.'<br>';
 
@@ -175,7 +192,6 @@ exit();
 }
 
 echo "<h3>Addresses:</h3>";
-//var_dump($xmlresponse);
 
 //$xml =  new SimpleXMLElement($xmlresponse);
 //$xml->registerXPathNamespace('gd', 'http://schemas.google.com/g/2005');
@@ -197,7 +213,6 @@ curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
 curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
 $result = curl_exec($curl);
 curl_close($curl);
-var_dump($result);
 */
 
 

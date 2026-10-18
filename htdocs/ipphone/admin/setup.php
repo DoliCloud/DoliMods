@@ -40,21 +40,31 @@ if (! $res && $i > 0 && file_exists(dirname(substr($tmp, 0, ($i+1)))."/main.inc.
 if (! $res && file_exists("../../main.inc.php")) $res=@include "../../main.inc.php";
 if (! $res && file_exists("../../../main.inc.php")) $res=@include "../../../main.inc.php";
 if (! $res) die("Include of main fails");
+/**
+ * @var Conf $conf
+ * @var DoliDB $db
+ * @var Translate $langs
+ * @var User $user
+ */
 
 include_once DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php';
 
 $langs->load("admin");
 $langs->load("ipphone@ipphone");
 
+if (!$user->admin) {
+	accessforbidden();
+}
+
+$action = GETPOST('action', 'aZ09');
+
 
 /*
  * Actions
  */
 
-$actionsave=GETPOST('save', 'alpha');
-
-// Save parameters
-if ($actionsave) {
+// Save parameters (POST only, so main.inc.php checks the CSRF token)
+if ($action == 'update' && $_SERVER['REQUEST_METHOD'] == 'POST') {
 	$i=0;
 
 	$db->begin();
@@ -92,6 +102,7 @@ print load_fiche_titre($langs->trans("IPPhoneSetup"), $linkback, 'setup');
 
 print '<form name="agendasetupform" action="'.$_SERVER["PHP_SELF"].'" method="post">';
 print '<input type="hidden" name="token" value="'.newToken().'">';
+print '<input type="hidden" name="action" value="update">';
 
 $head = array();
 $h = 0;

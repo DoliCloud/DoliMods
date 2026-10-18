@@ -79,6 +79,17 @@ $user->getrights();
 */
 
 // Activate error interceptions
+/**
+ * Error handler that converts PHP errors into exceptions
+ *
+ * @param	int		$code		Error level
+ * @param	string	$message	Error message
+ * @param	string	$fichier	File where the error occurred
+ * @param	int		$ligne		Line where the error occurred
+ * @param	mixed	$contexte	Error context
+ * @return	void
+ * @throws	Exception
+ */
 function traitementErreur($code, $message, $fichier, $ligne, $contexte)
 {
 	if (error_reporting() & $code) {

@@ -45,5 +45,5 @@ else
 fi
 
 echo
-#echo Think to launch also: 
+#echo Think to launch also:
 #echo "> dev/fixaltlanguages.sh fix all"

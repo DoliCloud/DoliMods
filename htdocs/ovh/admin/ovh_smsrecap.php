@@ -57,7 +57,7 @@ if (!$user->admin) accessforbidden();
 // Get parameters
 $account = GETPOST("account");
 
-$endpoint = empty($conf->global->OVH_ENDPOINT)?'ovh-eu':$conf->global->OVH_ENDPOINT;    // Can be "soyoustart-eu" or "kimsufi-eu"
+$endpoint = getDolGlobalString('OVH_ENDPOINT', 'ovh-eu');    // Can be "soyoustart-eu" or "kimsufi-eu"
 
 
 
@@ -86,8 +86,9 @@ $sms = new OvhSms($db);
 if (! empty($sms)) {  // Do not use here sms > 0 as a constructor return an object
 	//telephonySmsAccountList
 	$telephonySmsAccountList = $sms->getSmsListAccount($sms->session);	// $this->session is used only when OVH_OLDAPI is set
-	if ($telephonySmsAccountList) {
-		print $sms->error;
+	if (!is_array($telephonySmsAccountList)) {
+		setEventMessages($sms->error, null, 'errors');
+		$telephonySmsAccountList = array();
 	}
 
 	print '<table class="liste centpercent">';
@@ -99,7 +100,7 @@ if (! empty($sms)) {  // Do not use here sms > 0 as a constructor return an obje
 	foreach ($telephonySmsAccountList as $accountlisted) {
 		print '<tr class="oddeven">';
 		print '<td>';
-		print '<a href="'.$_SERVER["PHP_SELF"].'?account='.$accountlisted.'">'.$accountlisted.'</a>';
+		print '<a href="'.$_SERVER["PHP_SELF"].'?account='.urlencode($accountlisted).'">'.dol_escape_htmltag($accountlisted).'</a>';
 		print '</td>';
 		print '<td>';
 		$sms->account=$accountlisted;
@@ -109,9 +110,9 @@ if (! empty($sms)) {  // Do not use here sms > 0 as a constructor return an obje
 		} else {
 			$i=0;
 			foreach ($result as $val) {
-				if (! empty($conf->global->OVH_OLDAPI)) print ($val->status=='enable'?'':'<strike>');
-				print $val->number.(empty($val->description)?'':' ('.$val->description.')');
-				if (! empty($conf->global->OVH_OLDAPI)) print ($val->status=='enable'?'':'</strike>');
+				if (getDolGlobalString('OVH_OLDAPI')) print ($val->status=='enable'?'':'<strike>');
+				print dol_escape_htmltag($val->number.(empty($val->description)?'':' ('.$val->description.')'));
+				if (getDolGlobalString('OVH_OLDAPI')) print ($val->status=='enable'?'':'</strike>');
 				$i++;
 				if ($i < count($result)) print ', ';
 			}
@@ -129,33 +130,38 @@ if (! empty($sms)) {  // Do not use here sms > 0 as a constructor return an obje
 
 
 	if (!empty($account)) {
-		// $stopafternbenvoi = 0;
+		$stopafternbenvoi = 50;
 
 		//telephonySmsHistory
 		print '<br>';
 		print_fiche_titre($langs->trans('OvhSmsHistory').' ('.$account.')', '', '');
 
-		$resulthistory = $sms->SmsHistory($account);
+		$sms->account = $account;
+		$resulthistory = $sms->SmsHistory();
+		if (!is_array($resulthistory)) {
+			setEventMessages($sms->error, null, 'errors');
+			$resulthistory = array();
+		}
 		rsort($resulthistory);
 
 		print '<table class="liste centpercent">';
 		print '<tr class="liste_titre">';
-		if (empty($conf->global->OVH_OLDAPI)) echo '<th class="liste_titre">ID</th>';
+		if (!getDolGlobalString('OVH_OLDAPI')) echo '<th class="liste_titre">ID</th>';
 		echo '<th class="liste_titre">'.$langs->trans("Date").'</th>';
 		echo '<th class="liste_titre">'.$langs->trans("Sender").'</th>';
 		echo '<th class="liste_titre">'.$langs->trans("Recipient").'</th>';
 		echo '<th class="liste_titre">'.$langs->trans("Text").'</th>';
-		if (! empty($conf->global->OVH_OLDAPI)) echo '<th class="liste_titre">'.$langs->trans("Status").'</th>';
+		if (getDolGlobalString('OVH_OLDAPI')) echo '<th class="liste_titre">'.$langs->trans("Status").'</th>';
 		//echo '<td>Message</td>';
 		//echo '<td>Etat</td>';
 		echo '</tr>';
 
 
 		$i=0;
-		while (isset($resulthistory[$i]) && $i < 50) {
+		while (isset($resulthistory[$i]) && $i < $stopafternbenvoi) {
 			print '<tr class="oddeven">';
 
-			if (! empty($conf->global->OVH_OLDAPI)) {
+			if (getDolGlobalString('OVH_OLDAPI')) {
 				//date
 				$date = $resulthistory[$i]->date;
 				$an = substr($date, 0, 4);
@@ -184,15 +190,19 @@ if (! empty($sms)) {  // Do not use here sms > 0 as a constructor return an obje
 				echo '</td>';
 				echo '</tr>';
 			} else {
-				print '<td>'.$resulthistory[$i].'</td>';
+				print '<td>'.((int) $resulthistory[$i]).'</td>';
 
-				$resultinfo = $sms->conn->get('/sms/'.$sms->account.'/outgoing/'.$resulthistory[$i]);
-				$resultinfo = json_decode(json_encode($resultinfo), true);
+				try {
+					$resultinfo = $sms->conn->get('/sms/'.$sms->account.'/outgoing/'.((int) $resulthistory[$i]));
+					$resultinfo = json_decode(json_encode($resultinfo), true);
+				} catch (Exception $e) {
+					$resultinfo = array('message' => $e->getMessage());
+				}
 
-				echo '<td>'.$resultinfo['creationDatetime'].'</td>';
-				echo '<td>'.$resultinfo['sender'].'</td>';
-				echo '<td>'.$resultinfo['receiver'].'</td>';
-				echo '<td>'.$resultinfo['message'].'</td>';
+				echo '<td>'.dol_escape_htmltag(isset($resultinfo['creationDatetime']) ? $resultinfo['creationDatetime'] : '').'</td>';
+				echo '<td>'.dol_escape_htmltag(isset($resultinfo['sender']) ? $resultinfo['sender'] : '').'</td>';
+				echo '<td>'.dol_escape_htmltag(isset($resultinfo['receiver']) ? $resultinfo['receiver'] : '').'</td>';
+				echo '<td>'.dol_escape_htmltag(isset($resultinfo['message']) ? $resultinfo['message'] : '', 0, 1).'</td>';
 				/*echo '<td>';
 				if ($resulthistory[$i]->status == "sent") { echo $langs->trans("OvhSmsStatutSent");}
 				if ($resulthistory[$i]->status == "submitted") { echo $langs->trans('OvhSmsStatutSubmitted');}
@@ -205,7 +215,6 @@ if (! empty($sms)) {  // Do not use here sms > 0 as a constructor return an obje
 			}
 
 			$i++;
-			if ($i == $stopafternbenvoi) {break;}
 		}
 		print '</table>';
 

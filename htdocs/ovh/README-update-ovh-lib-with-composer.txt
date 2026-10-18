@@ -10,4 +10,3 @@ rm composer.lock
 
 * Then load ovh lib and dependencies with:
 composer require ovh/ovh vX.Y.Z -w
-

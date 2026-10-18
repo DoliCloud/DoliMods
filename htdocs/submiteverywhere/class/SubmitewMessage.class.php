@@ -37,38 +37,38 @@
  */
 class SubmitewMessage // extends CommonObject
 {
-	var $db;							//!< To store db handler
-	var $error;							//!< To return error code (or message)
-	var $errors=array();				//!< To return several error codes (or messages)
+	public $db;							//!< To store db handler
+	public $error;							//!< To return error code (or message)
+	public $errors=array();				//!< To return several error codes (or messages)
 	//var $element='submitew_message';			//!< Id that identify managed objects
 	//var $table_element='submitew_message';	//!< Name of table without prefix where object is stored
 
-	var $id;
+	public $id;
 
-	var $statut;
-	var $label;
-	var $entity;
-	var $title;
-	var $body;
-	var $bgcolor;
-	var $bgimage;
-	var $cible;
-	var $nbemail;
-	var $email_from;
-	var $email_replyto;
-	var $email_errorsto;
-	var $tag;
-	var $date_creat='';
-	var $date_valid='';
-	var $date_appro='';
-	var $date_envoi='';
-	var $fk_user_creat;
-	var $fk_user_valid;
-	var $fk_user_appro;
-	var $joined_file1;
-	var $joined_file2;
-	var $joined_file3;
-	var $joined_file4;
+	public $statut;
+	public $label;
+	public $entity;
+	public $title;
+	public $body;
+	public $bgcolor;
+	public $bgimage;
+	public $cible;
+	public $nbemail;
+	public $email_from;
+	public $email_replyto;
+	public $email_errorsto;
+	public $tag;
+	public $date_creat='';
+	public $date_valid='';
+	public $date_appro='';
+	public $date_envoi='';
+	public $fk_user_creat;
+	public $fk_user_valid;
+	public $fk_user_appro;
+	public $joined_file1;
+	public $joined_file2;
+	public $joined_file3;
+	public $joined_file4;
 
 
 
@@ -78,10 +78,9 @@ class SubmitewMessage // extends CommonObject
 	 *
 	 *  @param      DoliDb		$db      Database handler
 	 */
-	function SubmitewMessage($db)
+	public function __construct($db)
 	{
 		$this->db = $db;
-		return 1;
 	}
 
 
@@ -92,7 +91,7 @@ class SubmitewMessage // extends CommonObject
 	 *  @param      int		$notrigger   0=launch triggers after, 1=disable triggers
 	 *  @return     int      		   	 <0 if KO, Id of created object if OK
 	 */
-	function create($user, $notrigger = 0)
+	public function create($user, $notrigger = 0)
 	{
 		global $conf, $langs;
 		$error=0;
@@ -223,7 +222,7 @@ class SubmitewMessage // extends CommonObject
 	 *  @param      int	$id    Id object
 	 *  @return     int          <0 if KO, >0 if OK
 	 */
-	function fetch($id)
+	public function fetch($id)
 	{
 		global $langs;
 		$sql = "SELECT";
@@ -307,7 +306,7 @@ class SubmitewMessage // extends CommonObject
 	 *  @param      int		$notrigger	 0=launch triggers after, 1=disable triggers
 	 *  @return     int     		   	 <0 if KO, >0 if OK
 	 */
-	function update($user = null, $notrigger = 0)
+	public function update($user = null, $notrigger = 0)
 	{
 		global $conf, $langs;
 		$error=0;
@@ -411,7 +410,7 @@ class SubmitewMessage // extends CommonObject
 	 *  @param     int		$notrigger	 0=launch triggers after, 1=disable triggers
 	 *  @return	int					 <0 if KO, >0 if OK
 	 */
-	function delete($user, $notrigger = 0)
+	public function delete($user, $notrigger = 0)
 	{
 		$error=0;
 
@@ -460,7 +459,7 @@ class SubmitewMessage // extends CommonObject
 	 *	@param      int		$fromid     Id of object to clone
 	 * 	@return		int					New id of clone
 	 */
-	function createFromClone($fromid)
+	public function createFromClone($fromid)
 	{
 		global $user,$langs;
 
@@ -507,7 +506,7 @@ class SubmitewMessage // extends CommonObject
 	 *
 	 *	@return	void
 	 */
-	function initAsSpecimen()
+	public function initAsSpecimen()
 	{
 		$this->id=0;
 

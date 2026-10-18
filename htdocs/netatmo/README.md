@@ -19,7 +19,7 @@ Step 1:
 Go on https://dev.netatmo.com/apidocumentation/security 
 Login with your NetAtmo account.
 Execute the API #gethomedata with no parameters.
-You will receive informations on your Cameras.
+You will receive information on your Cameras.
 
 Step 2:
 
@@ -56,5 +56,3 @@ Open the live stream with vlc or mpv
 ## Creating a app to use the module
 
 TODO
-
-

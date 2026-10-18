@@ -139,7 +139,7 @@ include DOL_DOCUMENT_ROOT.'/core/actions_fetchobject.inc.php'; // Must be 'inclu
 
 // There is several ways to check permission.
 // Set $enablepermissioncheck to 1 to enable a minimum low level of checks
-$enablepermissioncheck = 0;
+$enablepermissioncheck = 1;
 if ($enablepermissioncheck) {
 	$permissiontoread = $user->hasRight('discussion', 'channel', 'read');
 	$permissiontoadd = $user->hasRight('discussion', 'channel', 'write'); // Used by the include of actions_addupdatedelete.inc.php and actions_lineupdown.inc.php
@@ -171,7 +171,7 @@ if (!$permissiontoread) {
 }
 
 if (!empty($object->id) && !$object->isChannelContact($user->id)) {
-  accessforbidden();
+	accessforbidden();
 }
 $error = 0;
 

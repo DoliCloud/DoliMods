@@ -21,14 +21,10 @@ if (mysql_num_rows($results) == 0 || $enablerss == false) {
 } else //otherwise, generate new rss.xml file
 {
 	$fd = fopen(DOL_DATA_ROOT."/bittorrent/rss/rss.xml", "w") or die(errorMessage() . "Error: Unable to write to rss.xml file!</p>");
-	$start_text =
-	"<?xml version=\"1.0\" encoding=\"utf-8\"?>\n" .
-	"<rss version=\"2.0\">\n" .
-	"<channel>\n" .
-	"<title>" . clean($rss_title) . "</title>\n" .
-	"<link>" . $rss_link . "</link>\n" .
-	"<description>" . clean($rss_description) . "</description>\n" .
-	"<lastBuildDate>" . date('D, j M Y h:i:s') . " " . $timezone . "</lastBuildDate>\n";
+	$start_text = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<rss version=\"2.0\">\n<channel>\n<title>" . clean($rss_title)
+	. "</title>\n<link>" . $rss_link
+	. "</link>\n<description>" . clean($rss_description)
+	. "</description>\n<lastBuildDate>" . date('D, j M Y h:i:s') . " " . $timezone . "</lastBuildDate>\n";
 
 	while ($row = mysql_fetch_row($results)) {
 		//figure out full torrent URL
@@ -43,14 +39,13 @@ if (mysql_num_rows($results) == 0 || $enablerss == false) {
 		$file_size = bytesToString($row[2]);
 
 		//go through each entry in database
-		$middle_text = $middle_text . "<item>\n" .
-		"<title>" . $row[0] . " (" . $file_size . ")</title>\n" .
-		"<description>" . $row[0] . " (" . $file_size . ") " . $row[1] . "</description>\n" .
-		"<pubDate>" . $row[3] . " " . $timezone . "</pubDate>\n" .
-		"<guid>" . $url . "</guid>\n" .
-		"<link>" . $url . "</link>\n" .
-		"<enclosure url=\"" . $url . "\" length=\"" . filesize(DOL_DATA_ROOT."/bittorrent/torrents/" . $row[0] . ".torrent") . "\" type=\"application/x-bittorrent\" />\n" .
-		"</item>\n";
+		$middle_text = $middle_text . "<item>\n<title>" . $row[0] . " (" . $file_size . ")</title>\n<description>" . $row[0]
+		. " (" . $file_size . ") " . $row[1] . "</description>\n<pubDate>" . $row[3]
+		. " " . $timezone . "</pubDate>\n<guid>" . $url
+		. "</guid>\n<link>" . $url
+		. "</link>\n<enclosure url=\"" . $url
+		. "\" length=\"" . filesize(DOL_DATA_ROOT."/bittorrent/torrents/" . $row[0] . ".torrent")
+		. "\" type=\"application/x-bittorrent\" />\n</item>\n";
 	}
 
 	$end_text = "</channel>\n</rss>";

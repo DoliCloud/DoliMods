@@ -13,9 +13,9 @@ get the URL of the tracker used by a .torrent, use
 	$fd = fopen("myfile.torrent", "rb");
 	$stream = fread($fd, filesize("myfile.torrent"));
 	fclose($fd);
-	
+
 	$array = BDecode($stream);
-	
+
 	echo "Url: ".$array["announce"]."\n";
 
 

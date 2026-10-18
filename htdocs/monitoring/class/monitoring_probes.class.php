@@ -34,25 +34,25 @@ require_once DOL_DOCUMENT_ROOT."/core/class/commonobject.class.php";
  */
 class Monitoring_probes extends CommonObject
 {
-	var $db;							//!< To store db handler
-	var $error;							//!< To return error code (or message)
-	var $errors=array();				//!< To return several error codes (or messages)
-	var $element='monitoring_probes';		//!< Id that identify managed objects
-	var $table_element='monitoring_probes';	//!< Name of table without prefix where object is stored
+	public $db;							//!< To store db handler
+	public $error;							//!< To return error code (or message)
+	public $errors=array();				//!< To return several error codes (or messages)
+	public $element='monitoring_probes';		//!< Id that identify managed objects
+	public $table_element='monitoring_probes';	//!< Name of table without prefix where object is stored
 
-	var $id;
+	public $id;
 
-	var $title;
-	var $groupname;
-	var $url;
-	var $url_params;
-	var $useproxy;
-	var $checkkey;
-	var $maxvalue;
-	var $frequency;
-	var $active;
-	var $status;
-	var $lastreset;
+	public $title;
+	public $groupname;
+	public $url;
+	public $url_params;
+	public $useproxy;
+	public $checkkey;
+	public $maxvalue;
+	public $frequency;
+	public $active;
+	public $status;
+	public $lastreset;
 
 
 
@@ -61,10 +61,9 @@ class Monitoring_probes extends CommonObject
 	 *
 	 *  @param		DoliDB		$db      Database handler
 	 */
-	function Monitoring_probes($db)
+	public function __construct($db)
 	{
 		$this->db = $db;
-		return 1;
 	}
 
 
@@ -75,7 +74,7 @@ class Monitoring_probes extends CommonObject
 	 *   @param 	int		$notrigger	    0=launch triggers after, 1=disable triggers
 	 *   @return    int         			<0 if KO, Id of created object if OK
 	 */
-	function create($user, $notrigger = 0)
+	public function create($user, $notrigger = 0)
 	{
 		global $conf, $langs;
 		$error=0;
@@ -159,7 +158,7 @@ class Monitoring_probes extends CommonObject
 	 *  @param	int		$id         id object
 	 *  @return int         		<0 if KO, >0 if OK
 	 */
-	function fetch($id)
+	public function fetch($id)
 	{
 		global $langs;
 		$sql = "SELECT";
@@ -222,7 +221,7 @@ class Monitoring_probes extends CommonObject
 	 *  @param  int		$notrigger	    0=launch triggers after, 1=disable triggers
 	 *  @return int         			<0 if KO, >0 if OK
 	 */
-	function update($user = null, $notrigger = 0)
+	public function update($user = null, $notrigger = 0)
 	{
 		global $conf, $langs;
 		$error=0;
@@ -288,7 +287,7 @@ class Monitoring_probes extends CommonObject
 	 *  @param  int		$notrigger	    0=launch triggers after, 1=disable triggers
 	 *	@return	int						<0 if KO, >0 if OK
 	 */
-	function delete($user, $notrigger = 0)
+	public function delete($user, $notrigger = 0)
 	{
 		global $conf, $langs;
 		$error=0;
@@ -325,7 +324,7 @@ class Monitoring_probes extends CommonObject
 	 *  @param  string	$errortext      To change also value and date of first error
 	 *  @return int             		<0 if KO, >0 if OK
 	 */
-	function updateStatus($newstatus, $end_time, $errortext)
+	public function updateStatus($newstatus, $end_time, $errortext)
 	{
 		global $conf, $langs;
 		$error=0;
@@ -373,7 +372,7 @@ class Monitoring_probes extends CommonObject
 	 *	@param		int		$fromid     Id of object to clone
 	 * 	@return		int					New id of clone
 	 */
-	function createFromClone($fromid)
+	public function createFromClone($fromid)
 	{
 		global $user,$langs;
 
@@ -420,11 +419,12 @@ class Monitoring_probes extends CommonObject
 	 *  @param      int		$mode		0=long label, 1=short label, 2=Picto + short label, 3=Picto, 4=Picto + long label, 5=short label + picto
 	 *  @return     string   		   	Label
 	 */
-	function getLibStatut($mode = 0)
+	public function getLibStatut($mode = 0)
 	{
 		return $this->LibStatut($this->status, $mode, $this->active);
 	}
 
+	// phpcs:disable PEAR.NamingConventions.ValidFunctionName.ScopeNotCamelCaps
 	/**
 	 *  Renvoi le libelle d'un statut donne
 	 *
@@ -433,8 +433,9 @@ class Monitoring_probes extends CommonObject
 	 *  @param      int		$active         Active or not
 	 *  @return     string          		Libelle du statut
 	 */
-	function LibStatut($status, $mode = 0, $active = 1)
+	public function LibStatut($status, $mode = 0, $active = 1)
 	{
+		// phpcs:enable
 		global $langs;
 		$langs->load('bills');
 
@@ -477,7 +478,7 @@ class Monitoring_probes extends CommonObject
 	 *
 	 *	@return	void
 	 */
-	function initAsSpecimen()
+	public function initAsSpecimen()
 	{
 		$this->id=0;
 

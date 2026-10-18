@@ -131,10 +131,11 @@ if ($id > 0 || !empty($ref)) {
 // Permissions
 // (There are several ways to check permission.)
 // Set $enablepermissioncheck to 1 to enable a minimum low level of checks
-$enablepermissioncheck = 0;
+$enablepermissioncheck = 1;
 if ($enablepermissioncheck) {
-	$permissiontoread = $user->hasRight('discussion', 'message', 'read');
-	$permissiontoadd  = $user->hasRight('discussion', 'message', 'write'); // Used by the include of actions_addupdatedelete.inc.php and actions_linkedfiles.inc.php
+	// Note: the discussion module declares only channel permissions, so message permissions are mapped onto channel ones
+	$permissiontoread = $user->hasRight('discussion', 'channel', 'read');
+	$permissiontoadd  = $user->hasRight('discussion', 'channel', 'write'); // Used by the include of actions_addupdatedelete.inc.php and actions_linkedfiles.inc.php
 } else {
 	$permissiontoread = 1;
 	$permissiontoadd  = 1;

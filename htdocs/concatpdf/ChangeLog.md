@@ -22,7 +22,7 @@ FIX: Look and feel v8 in setup page
 
 ## 6.0.1
 
-FIX: concat of file selected mut be done also without clicking generate
+FIX: concat of file selected must be done also without clicking generate
 
 ## 6.0
 

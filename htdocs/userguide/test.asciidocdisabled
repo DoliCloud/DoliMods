@@ -66,7 +66,7 @@ Ce guide d’instructions prétend donner à l’utilisateur une vision globale,
 
 === 2.1. Introduction
 
-==== 2.1.1. Doliwamp	
+==== 2.1.1. Doliwamp
 
 
 
@@ -79,13 +79,13 @@ Cliquez sur le lien : https://sourceforge.net/projects/dolibarr/files/latest/dow
 
 
 
-==== 2.1.2. Étapes de l'installation	
+==== 2.1.2. Étapes de l'installation
 
 
 
-		
+
 Première étape, récupération et lancement de l’exécutable.
-		
+
 
 
 
@@ -133,7 +133,7 @@ Utilisez la ligne de commande suivante : +
 *_« git clone https://github.com/Dolibarr/dolibarr.git »_* +
 Le téléchargement une fois terminé, déplacez vous dans le dossier *dolibarr*(renommé en dolibarr_800) que vous venez de télécharger pour y lancer la ligne de commande suivante : *_« git checkout 8.0 »_*__ __pour utiliser la version désirée de *Dolibarr* .
 
-		
+
 
 
 Nous allons maintenant créer un alias dans wampserver pour accéder directement à notre site *dolibarr *(sans avoir à rajouter /htdocs/ dans l’adresse de l’instance *Dolibarr *). Pour cela rendez vous à la racine du dossier wamp, dans le dossier alias. Dupliquez un des fichiers existants, renommez le en _dolibarr_800.conf _(ou bien ce que vous voulez). Ouvrez le fichier à l'aide d'un éditeur de texte ( Notepad++ par exemple), et faites les changements suivants :
@@ -232,7 +232,7 @@ _Masquer les menus non autorisés aussi pour les utilisateurs internes (sinon ju
 ==== 3.1.4. Affichage
 
 Vous pouvez choisir ici tous les paramètres liés à l'apparence de *Dolibarr*. Choisissez votre langue. L'option multi-langue elle, permet de gérer différentes traductions pour l'affichage des produits par exemple, ainsi que de choisir par défaut la langue des tiers afin d'éditer les documents PDF dans leur langue. Choisissez le thème visuel.  +
-Avec le thème _eldy_, vous pouvez maintenant changer la couleur de fond du menu du haut. 
+Avec le thème _eldy_, vous pouvez maintenant changer la couleur de fond du menu du haut.
 
 
 
@@ -461,7 +461,7 @@ MAIN_USE_OLD_SEARCH_FORM => Afficher l'ancien formulaire de recherche dans le me
 
 Le module « _Adhérents_ » permet de gérer les adhérents d’une association. Nous rappelons que *Dolibarr* fait de la gestion de trésorerie mais ne fait pas de comptabilité analytique (pas encore). Cette lacune suffit pour dire que *Dolibarr* n'est pas adapté à une association de grosse taille (plus de 5000 adhérents). Il n'offre pas non plus de module de gestion de la paie, ce qui limite là aussi son utilisation aux associations qui n'ont pas de salariés. Le module de gestion d'association appelé _« module Adhérents_ » est en fait plutôt orienté vers les petites associations (dont fait parti l’association *Dolibarr*). +
 *Configuration* +
-Ce module est livré en standard avec la distribution de *Dolibarr*, aussi il est déjà installé. Vous trouverez ce dernier dans la famille “ _Modules disponibles/Gestion des Ressources Humaines (RH)_ “. Le pictogramme d'état doit être vert pour signifier son activation, 
+Ce module est livré en standard avec la distribution de *Dolibarr*, aussi il est déjà installé. Vous trouverez ce dernier dans la famille “ _Modules disponibles/Gestion des Ressources Humaines (RH)_ “. Le pictogramme d'état doit être vert pour signifier son activation,
 
 
 
@@ -513,8 +513,8 @@ _Sujet du mail de validation adhésion:_ Remplissez le champ “_valeur”_, et 
 
 _Email de validation d'une adhésion:_ Remplissez le champ “_valeur”_, et cliquez sur le bouton action “_Modifier”_. (__FIRSTNAME__ Cet email confirme que le règlement de votre cotisation à l'association *Dolibarr* a été reçu et enregistré. Votre adhésion est une aide précieuse pour aider au développement de *Dolibarr*. Vous pouvez suivre les actions et informations de l'association sur le wiki à l'adresse:http://asso.dolibarr.org/[http://asso.dolibarr.org/[ ]]http://asso.dolibarr.org/[http://asso.dolibarr.org]. Vous pouvez aussi nous suivre sur : Google+, Facebook ou Twitter :
 
-* 	Google+ : 	https://plus.google.com/106793900529658571751[https://plus.google.com/106793900529658571751]	
-* 	Twitter : 	http://twitter.com/dolibarr[http://twitter.com/dolibarr]	
+* 	Google+ : 	https://plus.google.com/106793900529658571751[https://plus.google.com/106793900529658571751]
+* 	Twitter : 	http://twitter.com/dolibarr[http://twitter.com/dolibarr]
 * 	Facebook : 	http://www.facebook.com/dolibarr[http://www.facebook.com/dolibarr] 	,
 pour ce qui nous concerne.
 
@@ -529,8 +529,8 @@ _Email de résiliation:_** **Remplissez le champ « _valeur _», et cliquez sur 
 Note: vous pouvez toujours nous suivre sur : +
 Google+, Facebook ou Twitter :
 
-* Google+ : 	https://plus.google.com/106793900529658571751[https://plus.google.com/106793900529658571751]	
-* Twitter : 	http://twitter.com/dolibarr[http://twitter.com/dolibarr]	
+* Google+ : 	https://plus.google.com/106793900529658571751[https://plus.google.com/106793900529658571751]
+* Twitter : 	http://twitter.com/dolibarr[http://twitter.com/dolibarr]
 * Facebook :http://www.facebook.com/dolibarr[    ]http://www.facebook.com/dolibarr[http://www.facebook.com/dolibarr], 	pour ce qui nous concerne.
 _Email émetteur pour les mails automatiques_: Remplissez le champ “_valeur”_, et cliquez sur le bouton action “_Modifier”_ . (+++<u>+++contact@dolibarr.org+++</u>+++), pour ce qui nous concerne.
 
@@ -556,8 +556,8 @@ _Rediriger sur la page intégrée de paiement en ligne : _S’il existe un modul
 
 _Email à avertir en cas de retour de paiement validé pour une cotisation : _On renseignera en général l'adresse mail du trésorier.
 
-* Cliquez sur _« Modifier_ » pour faire prendre en compte vos choix.	
-* L’adresse du formulaire public d’inscription de l’association est la suivante : 	
+* Cliquez sur _« Modifier_ » pour faire prendre en compte vos choix.
+* L’adresse du formulaire public d’inscription de l’association est la suivante :
 _« _http://asso.dolibarr.org/dolibarr/public/members/new.php[http://asso.dolibarr.org/dolibarr/public/members/new.php] »
 
 === 4.2. Type d’adhérent
@@ -566,8 +566,8 @@ _« _http://asso.dolibarr.org/dolibarr/public/members/new.php[http://asso.doliba
 
 Avant toute chose, il est nécessaire de définir les profils d'adhérents. Pour cela, il faut créer un type d'adhérent via le menu _« Type d'adhérents/Nouveau_ » . Nous nous trouvons sur la page d'accueil du module Adhérents, après avoir cliqué sur l'onglet du même nom dans la barre de menu supérieure. Cliquez sur le bouton _« Nouveau type d’adhérent_ ». Pour ce qui est de l’association, nous en avons défini deux types:
 
-* _Libellé_: Standard, _Soumis à cotisation_: Oui, _Vote autorisé_: Oui, _Description_: Voir wiki 	http://wiki.dolibarr.org/index.php/Grilles_de_cotisation_dolibarr[http://wiki.dolibarr.org/index.php/Grilles_de_cotisation_dolibarr], _Email 	d’accueil_: néant.	
-* _Libellé_: Preferred Partners, _Soumis à cotisation_: Oui, _Vote autorisé_: Oui, _Description_: 	voir wiki 	
+* _Libellé_: Standard, _Soumis à cotisation_: Oui, _Vote autorisé_: Oui, _Description_: Voir wiki 	http://wiki.dolibarr.org/index.php/Grilles_de_cotisation_dolibarr[http://wiki.dolibarr.org/index.php/Grilles_de_cotisation_dolibarr], _Email 	d’accueil_: néant.
+* _Libellé_: Preferred Partners, _Soumis à cotisation_: Oui, _Vote autorisé_: Oui, _Description_: 	voir wiki
 * http://wiki.dolibarr.org/index.php/Dolibarr_Preferred_Partner_fr, _Email 	d’accueil_: néant.
 Un _« _*_Dolibarr Preferred Partner_** »* est un fournisseur de service autour de Dolibarr ERP-CRM qui s'est engagé à prouver sa crédibilité et compétence autour du produit et offrant une garantie de qualité et de compétences dans ses prestations.
 
@@ -693,7 +693,7 @@ Les espaces ne sont pas permis. Les “/” sont par contre permis maintenant. +
 Exemple sur un Tiers créé le 31/03/2017: +
 ABC{yy}{mm}-{000000} donnera ABC1703-000099 +
 {0000+100}-XXX-{dd}-YYY donnera 0199-XXX-31-YYY +
-IN{yy}{mm}-{0000}-{t} donnera IN0701-0099-A si la société a le type “Responsable Inscripto” avec le code type qui est “A_RI”. 
+IN{yy}{mm}-{0000}-{t} donnera IN0701-0099-A si la société a le type “Responsable Inscripto” avec le code type qui est “A_RI”.
 
 Choisir le modèle Leopard : +
 Code client/fournisseur libre sans vérification. Peut être modifié à tout moment.
@@ -725,66 +725,66 @@ Voici la liste des tags qui seront remplacés par les informations appropriées 
 
 informations Société/association :
 
-* mycompany_logo = {mycompany_logo}	
-* mycompany_name = {mycompany_name}	
-* mycompany_address = {mycompany_address}	
-* mycompany_zip = {mycompany_zip}	
-* mycompany_town = {mycompany_town}	
-* mycompany_country = {mycompany_country}	
-* mycompany_country_code = {mycompany_country_code}	
-* mycompany_state = {mycompany_state}	
+* mycompany_logo = {mycompany_logo}
+* mycompany_name = {mycompany_name}
+* mycompany_address = {mycompany_address}
+* mycompany_zip = {mycompany_zip}
+* mycompany_town = {mycompany_town}
+* mycompany_country = {mycompany_country}
+* mycompany_country_code = {mycompany_country_code}
+* mycompany_state = {mycompany_state}
 * mycompany_state_code = {mycompany_state_code}**	**
-* mycompany_phone 	= {mycompany_phone}	
-* mycompany_fax = {mycompany_fax}	
-* mycompany_email = {mycompany_email}	
-* mycompany_web = {mycompany_web}	
-* mycompany_barcode = {mycompany_barcode}	
+* mycompany_phone 	= {mycompany_phone}
+* mycompany_fax = {mycompany_fax}
+* mycompany_email = {mycompany_email}
+* mycompany_web = {mycompany_web}
+* mycompany_barcode = {mycompany_barcode}
 * mycompany_capital= {mycompany_capital}**	**
-* mycompany_juridicalstatus= {mycompany_juridicalstatus}	
+* mycompany_juridicalstatus= {mycompany_juridicalstatus}
 * mycompany_idprof1 = {mycompany_idprof1}**	**
-* mycompany_idprof2 = {mycompany_idprof2}	
-* mycompany_idprof3 = {mycompany_idprof3}	
-* mycompany_idprof4 = {mycompany_idprof4}	
-* mycompany_idprof5 = {mycompany_idprof5}	
-* mycompany_idprof6 = {mycompany_idprof6}	
-* mycompany_vatnumber = {mycompany_vatnumber}	
+* mycompany_idprof2 = {mycompany_idprof2}
+* mycompany_idprof3 = {mycompany_idprof3}
+* mycompany_idprof4 = {mycompany_idprof4}
+* mycompany_idprof5 = {mycompany_idprof5}
+* mycompany_idprof6 = {mycompany_idprof6}
+* mycompany_vatnumber = {mycompany_vatnumber}
 * mycompany_note = {mycompany_note}
 *	…* +
 Informations clients, prospects ou fournisseurs :
 
-* company_name = {company_name}	
-* company_address = {company_address}	
-* company_zip = {company_zip}	
-* company_town = {company_town}	
-* company_country = {company_country}	
-* company_country_code = {company_country_code}	
+* company_name = {company_name}
+* company_address = {company_address}
+* company_zip = {company_zip}
+* company_town = {company_town}
+* company_country = {company_country}
+* company_country_code = {company_country_code}
 * company_state = {company_state}
-* company_state_code = {company_state_code}	
-* company_phone = {company_phone}	
-* company_fax = {company_fax}	
-* company_email = {company_email}	
-* company_web = {company_web}	
-* company_barcode = {company_barcode}	
-* company_customercode = {company_customercode}	
-* company_suppliercode = {company_suppliercode}	
-* Company customer accountancy code = {company_customeraccountancycode} 
-* Company supplier accountancy code = {company_supplieraccountancycode} 
-* company_capital = {company_capital}	
-* company_juridicalstatus = {company_juridicalstatus}	
-* company_idprof1 = {company_idprof1}	
-* company_idprof2 = {company_idprof2}	
-* company_idprof3 = {company_idprof3}	
-* company_idprof4 = {company_idprof4}	
-* company_idprof5 = {company_idprof5}	
-* company_idprof6 = {company_idprof6}	
-* company_vatnumber = {company_vatnumber}	
+* company_state_code = {company_state_code}
+* company_phone = {company_phone}
+* company_fax = {company_fax}
+* company_email = {company_email}
+* company_web = {company_web}
+* company_barcode = {company_barcode}
+* company_customercode = {company_customercode}
+* company_suppliercode = {company_suppliercode}
+* Company customer accountancy code = {company_customeraccountancycode}
+* Company supplier accountancy code = {company_supplieraccountancycode}
+* company_capital = {company_capital}
+* company_juridicalstatus = {company_juridicalstatus}
+* company_idprof1 = {company_idprof1}
+* company_idprof2 = {company_idprof2}
+* company_idprof3 = {company_idprof3}
+* company_idprof4 = {company_idprof4}
+* company_idprof5 = {company_idprof5}
+* company_idprof6 = {company_idprof6}
+* company_vatnumber = {company_vatnumber}
 * Customer or Supplier company public note = {company_note_public}
 
 Informations utilisateurs :
 
-* myuser_lastname = {myuser_lastname}	
-* myuser_firstname = {myuser_firstname}	
-* myuser_login = {myuser_login}	
+* myuser_lastname = {myuser_lastname}
+* myuser_firstname = {myuser_firstname}
+* myuser_login = {myuser_login}
 * myuser_email = {myuser_email}
 * myuser_zip = {myuser_zip}
 * myuser->town = {myuser->town}
@@ -807,15 +807,15 @@ Autres informations
 
 Informations sur l'objet (facture, proposition commercial, commande, …)
 
-* object_id = {object_id}	
-* object_ref = {object_ref}	
-* object_ref_customer = {object_ref_customer}	
-* object_ref_supplier = {object_ref_supplier}	
-* object_date = {object_date}	
-* object_date_creation = {object_date_creation}	
-* object_date_modification = {object_date_modification}	
-* object_date_validation = {object_date_validation}				
-* object_note_private = {object_note_private}	
+* object_id = {object_id}
+* object_ref = {object_ref}
+* object_ref_customer = {object_ref_customer}
+* object_ref_supplier = {object_ref_supplier}
+* object_date = {object_date}
+* object_date_creation = {object_date_creation}
+* object_date_modification = {object_date_modification}
+* object_date_validation = {object_date_validation}
+* object_note_private = {object_note_private}
 * object_note_public = {object_note_public}
 * object_note = {object_note}
 
@@ -850,10 +850,10 @@ Spécifique aux commandes :
 
 Spécifique aux factures :
 
-* object_date_limit = {object_date_limit}	
-* object_payment_mode = {object_payment_mode}	
-* object_payment_term = {object_payment_term}	
-* object_already_payed = {object_already_payed}    Montant déjà payé	
+* object_date_limit = {object_date_limit}
+* object_payment_mode = {object_payment_mode}
+* object_payment_term = {object_payment_term}
+* object_already_payed = {object_already_payed}    Montant déjà payé
 * object_remain_to_pay = {object_remain_to_pay}    Montant restant à payer
 * object_source_invoice_ref = {object_source_invoice_ref}
 * {object_already_payed_locale} : Montant déjà payé (au format texte)
@@ -870,18 +870,18 @@ Voici comment utiliser les tableaux de lignes des objets (lignes de factures, co
 Ensuite, vous ajoutez les tags de votre choix dans les lignes. +
 Liste de tags :
 
-* {line_fulldesc}	
-* {line_product_ref}	
-* {line_product_label}	
-* {line_desc}	
-* {line_vatrate}	
-* {line_up}	
-* {line_qty}	
-* {line_discount_percent}	
-* {line_price_ht}	
-* {line_price_vat}	
-* {line_price_ttc}	
-* {line_date_start}	
+* {line_fulldesc}
+* {line_product_ref}
+* {line_product_label}
+* {line_desc}
+* {line_vatrate}
+* {line_up}
+* {line_qty}
+* {line_discount_percent}
+* {line_price_ht}
+* {line_price_vat}
+* {line_price_ttc}
+* {line_date_start}
 * {line_date_end}
 
 
@@ -950,7 +950,7 @@ Définissez ici la liste des attributs supplémentaires, non disponibles en stan
 
 Aller dans le menu _Tiers - Nouveau tiers (prospect/client/fournisseur)_, Saisissez les informations
 
-La première action à pratiquer est de cocher le type du tiers, s'il s'agit d'une Société/Association ou bien d'un individu privé (ce qui créera automatiquement un contact physique avec les mêmes informations). 
+La première action à pratiquer est de cocher le type du tiers, s'il s'agit d'une Société/Association ou bien d'un individu privé (ce qui créera automatiquement un contact physique avec les mêmes informations).
 
 En fonction de ce premier choix des champs supplémentaires s'afficheront, et nous aurons des champs obligatoires différents : +
 Pour un tiers Société/Association : les champs « _nom du Tiers_ », « _Prospect/Client_ » et « _Fournisseur_ » sont obligatoires.
@@ -1252,7 +1252,7 @@ Aller dans le menu _Produits>Nouveau produit_, Saisissez les informations. +
 Les champs _Réf, Libellé, État (Vente), État (Achat)_ sont obligatoires. +
 Une fois les champs désirés renseignés, cliquez sur _Créer_.
 
- 
+
 Depuis la version précédente de Dolibarr, la façon de rattacher une image au produit a changé. Il faut passer par l’onglet « _Fichiers joints_ », et utiliser la fonctionnalité « _Ajouter un fichier/document_ »
 
 
@@ -1331,7 +1331,7 @@ Règle de gestion des décrémentations de stock :
 
 * Décrémente les stocks physiques sur validation des factures/avoirs clients (*Attention !*, dans cette version, c'est toujours dans le premier entrepôt que se fait l'ajustement)
 * Décrémente les stocks physiques sur validation des commandes clients (*Attention !*, dans cette version, c'est toujours dans le premier entrepôt que se fait l'ajustement)
-* Décrémente les stocks physiques sur validation des expéditions 
+* Décrémente les stocks physiques sur validation des expéditions
 Règle de gestion des incrémentations de stock :
 
 * Incrémente les stocks physiques sur validation des factures/avoirs fournisseurs (*Attention !*, dans cette version, c'est toujours dans le premier entrepôt que se fait l'ajustement)
@@ -1424,17 +1424,17 @@ Puis paramétrez les Type de code-barres utilisé par défaut pour les produits 
 
 
 *Gestionnaire pour la génération automatique de numéro de code-barres (Produit)* +
-Renvoie un numéro personnalisable selon un masque à définir.* Attention !* pour EAN13, ne renseignez que 12 chiffres, le 13ème est automatiquement calculé par le moteur, c’est la clef de contrôle (Checksum). Par exemple : *300999{000000} *300 étant le code pays de la France, 999 le code entreprise et les 6 zéros entre crochets, le compteur sur 6 chiffres incrémenté à chaque création de produit. 
+Renvoie un numéro personnalisable selon un masque à définir.* Attention !* pour EAN13, ne renseignez que 12 chiffres, le 13ème est automatiquement calculé par le moteur, c’est la clef de contrôle (Checksum). Par exemple : *300999{000000} *300 étant le code pays de la France, 999 le code entreprise et les 6 zéros entre crochets, le compteur sur 6 chiffres incrémenté à chaque création de produit.
 
 ==== 6.4.2. Utiliser les codes-barres
 
 Une fois l'étape de configuration terminée, vous verrez apparaître un champ « _code-barres_ » sur les écrans en fonction de votre choix (écran de tiers et/ou de produits). Vous pouvez alimenter à votre guise ce champ avec la valeur du code-barres, en utilisant le clavier ou un scanner de code-barres. +
-Pour l’utilisation du clavier, il suffit d'entrer le nombre représenté dans le code-barres par le clavier. Cela suppose que ce nombre ait été imprimé et soit visible sous le code-barres. Ce sera le cas si vous imprimez les étiquettes de code-barres à l'aide de la fonction “ _Imprimer code-barres_ “ fournie avec *Dolibarr 3.6*+ (menu *Outils*). 
+Pour l’utilisation du clavier, il suffit d'entrer le nombre représenté dans le code-barres par le clavier. Cela suppose que ce nombre ait été imprimé et soit visible sous le code-barres. Ce sera le cas si vous imprimez les étiquettes de code-barres à l'aide de la fonction “ _Imprimer code-barres_ “ fournie avec *Dolibarr 3.6*+ (menu *Outils*).
 
 
 
 Pour l’utilisation d’un scanner de code-barres :  +
-Si le numéro de code-barres n'est pas visible, ou si vous ne voulez pas perdre de temps à taper tous les chiffres, vous pouvez utiliser un scanner de code-barres matériel. Pour être compatible avec *Dolibarr*, votre scanner de code-barres doit prendre en charge l' “ émulation de clavier “ . Lorsque vous numérisez le code-barres, c'est comme lorsque vous tapez le numéro à partir du clavier. Pour trouver un scanner de code-barres supportant une telle émulation (c'est le cas de la plupart mais pas tous), vous pouvez regarder la spécification technique du lecteur. Le Scanner doit faire apparaître le terme : 
+Si le numéro de code-barres n'est pas visible, ou si vous ne voulez pas perdre de temps à taper tous les chiffres, vous pouvez utiliser un scanner de code-barres matériel. Pour être compatible avec *Dolibarr*, votre scanner de code-barres doit prendre en charge l' “ émulation de clavier “ . Lorsque vous numérisez le code-barres, c'est comme lorsque vous tapez le numéro à partir du clavier. Pour trouver un scanner de code-barres supportant une telle émulation (c'est le cas de la plupart mais pas tous), vous pouvez regarder la spécification technique du lecteur. Le Scanner doit faire apparaître le terme :
 
 * « _HID_ » ( pour Human Interface Device )
 ou
@@ -2183,7 +2183,7 @@ Vous trouverez le module _Taxes, charges et dividendes_ dans la famille _Modules
 TVA standard et règles d'arrondi
 
 |===
-|A 
+|A
 Description|B|C|D|E|F|G|H|I
 
 |Produit
@@ -2425,7 +2425,7 @@ Clé de substitution disponible (__INVOICE_MONTH__, __INVOICE_PREVIOUS_MONTH__, 
 INVOICE_DISABLE_DEPOSIT = Désactiver les factures de dépôt.
 
 
-INVOICE_USE_SITUATION = Active la fonctionnalité “facture de situation”. 
+INVOICE_USE_SITUATION = Active la fonctionnalité “facture de situation”.
 
 *Attention !* il faut partir du tiers à facturer ou bien d’une proposition commerciale ou une commande qui lui ont été faites et non pas de factures>nouvelle facture.
 
@@ -2443,7 +2443,7 @@ Si on clic dessus, le brouillon créé propose un nouveau type de facture : “f
 
 
 
-*Attention !* : si vous voulez rajouter un montant de 40% par rapport à la facture précédente il faut en fait incrémenter le montant de la progression de 40%, soit renseigner 80% 
+*Attention !* : si vous voulez rajouter un montant de 40% par rapport à la facture précédente il faut en fait incrémenter le montant de la progression de 40%, soit renseigner 80%
 ( 40%+40%).  +
 Pour créer une troisième et dernière facture de situation on procédera de la même façon, en rajoutant 20% à notre total pour arriver aux 100% du montant.
 
@@ -2509,7 +2509,7 @@ Réponse : Saisissez la facture fournisseur ( facture de doit), puis saisissez u
 ==== 8.4.1. Gérer une facture commande
 
 Dans le menu de gauche, cliquez sur le lien _Commandes à facturer_. La liste des commandes à facturer apparaît alors dans le panneau de droite. *Attention!* seules les commandes clôturées apparaissent. Celles ci sont classées en fonction de leur référence, mais vous pouvez adopter un tri différent en cliquant sur l’icône ascendante ou descendante du champ _Société, Réf. commande client, Date commande, Date de livraison_ ou bien _État_ . En cliquant sur le lien de la référence de la commande vous +
-ouvrez la fiche de cette dernière. Vous pouvez alors en utilisant le bouton correspondant, soit : 
+ouvrez la fiche de cette dernière. Vous pouvez alors en utilisant le bouton correspondant, soit :
 
 * Cloner la commande, Astuce! : il vous est offert la possibilité de choisir un Tiers différent comme client, pour cela allez dans _Configuration>Divers_, et dans le champ « _nom _» placez la constante FACTURE_CHANGE_THIRDPARTY en lui donnant la valeur 1)
 * Classer facturée.
@@ -3275,7 +3275,7 @@ Si vous voulez filtrer sur certaines valeurs, saisissez ces valeurs.
 
 
 
- A l’étape suivante vous pouvez trier l’ordre de la liste des champs à exporter. 
+ A l’étape suivante vous pouvez trier l’ordre de la liste des champs à exporter.
 
 
 
@@ -3450,7 +3450,7 @@ Paramètres :
 * Régler automatiquement ce type d'événement dans le filtre de recherche de la vue agenda : choisissez dans la liste déroulante le type d’événement.
 * Réglez automatiquement le statut d'événement dans le filtre de recherche de la vue agenda : exemple : A réaliser, en cours…
 * Quel onglet voulez-vous voir ouvrir par défaut quand on choisit le menu Agenda ? : exemple : Vue semaine, vue mois etc…
- 
+
 
 * *Alimentation automatique de l'agenda*
 Définissez dans cet onglet les événements pour lesquels *Dolibarr* créera automatiquement une action dans l'agenda. Si aucune case n'est cochée (par défaut), seules les actions manuelles seront incluses dans l'agenda. +
@@ -3533,10 +3533,3 @@ MAIN_ADD_EVENT_ON_ELEMENT_CARD => Permet de créer un événement à partir d'un
 
 
 == 15. Modules Complémentaires
-
-
-
-
-
-
-

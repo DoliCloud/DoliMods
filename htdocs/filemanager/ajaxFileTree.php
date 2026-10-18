@@ -32,7 +32,11 @@ if (! defined('NOREQUIREMENU')) define('NOREQUIREMENU', '1');
 if (! defined('NOREQUIREHTML')) define('NOREQUIREHTML', '1');
 if (! defined('NOREQUIREAJAX')) define('NOREQUIREAJAX', '1');
 
-// C'est un wrapper, donc header vierge
+/**
+ * Wrapper, so header empty
+ *
+ * @return	void
+ */
 function llxHeader()
 { }
 
@@ -59,8 +63,8 @@ $selecteddir = urldecode(GETPOST('dir'));
 $openeddir = GETPOST('openeddir');
 
 // Security:
-// On interdit les remontees de repertoire ainsi que les pipe dans
-// les noms de fichiers.
+// Forbid moving up into parent directories and pipes in
+// file names.
 if (preg_match('/\.\./', $selecteddir) || preg_match('/[<>|]/', $selecteddir)) {
 	dol_syslog("Refused to deliver file ".$original_file);
 	// Do no show plain path in shown error message
@@ -95,7 +99,7 @@ if ( file_exists($selecteddir) ) {
 					print "<a id=\"a_".(md5($selecteddir . $file))."\" idparent=\"a_".(md5($selecteddir))."\" class=\"fmdirlia jqft\" href=\"#\" rel=\"" . dol_escape_htmltag($selecteddir . $file . '/') . "\"";
 					print " onClick=\"loadandshowpreview('".dol_escape_js($selecteddir . $file)."', this)\"";
 					print ">" . dol_escape_htmltag($file) . "</a>";
-					print "</li>"."\n";
+					print "</li>\n";
 				}
 			}
 			// All files
@@ -106,7 +110,7 @@ if ( file_exists($selecteddir) ) {
 					print "<a id=\"a_".(md5($selecteddir . $file))."\" idparent=\"a_".(md5($selecteddir))."\" class=\"fmfilelia jqft\" href=\"#\" rel=\"" . dol_escape_htmltag($selecteddir . $file) . "\"";
 					print " onClick=\"loadandshowpreview('".dol_escape_js($selecteddir . $file)."', this)\"";
 					print ">" . dol_escape_htmltag($file) . "</a>";
-					print "</li>"."\n";
+					print "</li>\n";
 				}
 			}
 			echo "</ul>\n";

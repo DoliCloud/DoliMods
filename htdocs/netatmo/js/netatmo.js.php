@@ -58,5 +58,3 @@ else header('Cache-Control: no-cache');
 ?>
 
 /* Javascript library of module Netatmo */
-
-

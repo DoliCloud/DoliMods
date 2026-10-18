@@ -103,6 +103,15 @@ while ($row = mysql_fetch_row($results)) {
 }
 
 
+/**
+ * Remove lost peers of a torrent and update its last cycle
+ *
+ * @param 	string	$hash		Info hash of the torrent
+ * @param 	int		$timeout	Peer timeout
+ * @param 	int		$now		Current timestamp
+ * @param 	string	$writeout	CSS row class
+ * @return	void
+ */
 function myTrashCollector($hash, $timeout, $now, $writeout)
 {
 	global $prefix;

@@ -113,7 +113,6 @@ if ($action == 'addcontact' && $permissiontoadd) {
 	$contactid = (GETPOST('userid') ? GETPOSTINT('userid') : GETPOSTINT('contactid'));
 	$typeid = (GETPOST('typecontact') ? GETPOST('typecontact') : GETPOST('type'));
 	$source = GETPOST("source", 'aZ09');
-	$rights = $object->getRights();
 	$module = "discussion";
 	$result = $object->add_contact($contactid, $typeid, $source);
 	if ($result >= 0) {

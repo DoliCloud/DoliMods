@@ -26,6 +26,12 @@ if (! $res && file_exists("../main.inc.php")) $res=@include "../main.inc.php";
 if (! $res && file_exists("../../main.inc.php")) $res=@include "../../main.inc.php";
 if (! $res && file_exists("../../../main.inc.php")) $res=@include "../../../main.inc.php";
 if (! $res) die("Include of main fails");
+/**
+ * @var Conf $conf
+ * @var DoliDB $db
+ * @var Translate $langs
+ * @var User $user
+ */
 
 require_once DOL_DOCUMENT_ROOT."/core/lib/company.lib.php";
 require_once DOL_DOCUMENT_ROOT."/core/lib/contact.lib.php";
@@ -39,6 +45,20 @@ $langs->loadLangs(array("companies", "google@google"));
 
 $mode=GETPOST('mode', 'alpha');
 $address='';
+
+// Security check
+if (!isModEnabled('google')) {
+	accessforbidden();
+}
+if (empty($mode) || $mode=='thirdparty' || $mode=='societe') {
+	restrictedArea($user, 'societe', GETPOST('id', 'int'), '&societe');
+} elseif ($mode=='contact') {
+	restrictedArea($user, 'contact', GETPOST('id', 'int'), 'socpeople&societe', '', '', 'rowid');
+} elseif ($mode=='member') {
+	restrictedArea($user, 'adherent', GETPOST('id', 'int'));
+} else {
+	accessforbidden('Bad value for mode');
+}
 
 // Load third party
 if (empty($mode) || $mode=='thirdparty' || $mode=='societe') {
@@ -202,7 +222,7 @@ if ($address && $address != $object->country) {		// $address != $object->country
 			position: results[0].geometry.location
 		});
 
-		var infowindow = new google.maps.InfoWindow({ content: '<div style="width:250px; height:80px;" class="divdolibarrgoogleaddress"><?php echo dol_escape_js($object->name); ?><br><?php echo dol_escape_js(dol_string_nospecial($address, '<br>', array("\r\n","\n","\r"))).(empty($url)?'':'<br><a href="'.$url.'">'.$url.'</a>'); ?></div>' });
+		var infowindow = new google.maps.InfoWindow({ content: '<div style="width:250px; height:80px;" class="divdolibarrgoogleaddress"><?php echo dol_escape_js(dol_escape_htmltag($object->name)); ?><br><?php echo dol_escape_js(dol_string_nospecial(dol_escape_htmltag($address), '<br>', array("\r\n","\n","\r")).(empty($url)?'':'<br><a href="'.dol_escape_htmltag(dol_sanitizeUrl($url, 0)).'">'.dol_escape_htmltag($url).'</a>')); ?></div>' });
 
 		google.maps.event.addListener(marker, 'click', function() {
 		  infowindow.open(map,marker);

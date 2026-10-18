@@ -94,7 +94,6 @@ if ($action == 'save') {
 
 	if (! GETPOST('GOOGLE_DUPLICATE_INTO_THIRDPARTIES') && ! GETPOST('GOOGLE_DUPLICATE_INTO_CONTACTS') && ! GETPOST('GOOGLE_DUPLICATE_INTO_MEMBERS')) {
 		$db->begin();
-		//var_dump($conf->entity);
 
 		$res=dolibarr_set_const($db, 'GOOGLE_DUPLICATE_INTO_THIRDPARTIES', trim(GETPOST("GOOGLE_DUPLICATE_INTO_THIRDPARTIES")), 'chaine', 0, '', $conf->entity);
 		if (! $res > 0) $error++;
@@ -331,7 +330,6 @@ if ($action == 'pushallthirdparties') {
 		// Create client object
 		//$service= 'cp';		// cl = calendar, cp=contact, ... Search on AUTH_SERVICE_NAME into Zend API for full list
 		//$client = getClientLoginHttpClientContact($googleuser, $googlepwd, $service);
-		//var_dump($client); exit;
 
 		// Create client/token object
 		$key_file_location = $conf->google->multidir_output[$conf->entity]."/".getDolGlobalString('GOOGLE_API_SERVICEACCOUNT_P12KEY');
@@ -434,7 +432,6 @@ if ($action == 'pushallcontacts') {
 		// Create client object
 		//$service= 'cp';		// cl = calendar, cp=contact, ... Search on AUTH_SERVICE_NAME into Zend API for full list
 		//$client = getClientLoginHttpClientContact($googleuser, $googlepwd, $service);
-		//var_dump($client); exit;
 
 		// Create client/token object
 		$key_file_location = $conf->google->multidir_output[$conf->entity]."/" . getDolGlobalString('GOOGLE_API_SERVICEACCOUNT_P12KEY');
@@ -534,7 +531,6 @@ if ($action == 'pushallmembers') {
 		// Create client object
 		//$service= 'cp';		// cl = calendar, cp=contact, ... Search on AUTH_SERVICE_NAME into Zend API for full list
 		//$client = getClientLoginHttpClientContact($googleuser, $googlepwd, $service);
-		//var_dump($client); exit;
 
 		// Create client/token object
 		$key_file_location = $conf->google->multidir_output[$conf->entity]."/" . getDolGlobalString('GOOGLE_API_SERVICEACCOUNT_P12KEY');
@@ -617,7 +613,6 @@ if ($action == 'deleteallthirdparties') {
 	// Create client object
 	//$service= 'cp';		// cl = calendar, cp=contact, ... Search on AUTH_SERVICE_NAME into Zend API for full list
 	//$client = getClientLoginHttpClientContact($googleuser, $googlepwd, $service);
-	//var_dump($client); exit;
 
 	// Create client/token object
 	$key_file_location = $conf->google->multidir_output[$conf->entity]."/".getDolGlobalString('GOOGLE_API_SERVICEACCOUNT_P12KEY');
@@ -657,7 +652,6 @@ if ($action == 'deleteallcontacts') {
 	// Create client object
 	//$service= 'cp';		// cl = calendar, cp=contact, ... Search on AUTH_SERVICE_NAME into Zend API for full list
 	//$client = getClientLoginHttpClientContact($googleuser, $googlepwd, $service);
-	//var_dump($client); exit;
 
 	// Create client/token object
 	$key_file_location = $conf->google->multidir_output[$conf->entity]."/" . getDolGlobalString('GOOGLE_API_SERVICEACCOUNT_P12KEY');
@@ -697,7 +691,6 @@ if ($action == 'deleteallmembers') {
 	// Create client object
 	//$service= 'cp';		// cl = calendar, cp=contact, ... Search on AUTH_SERVICE_NAME into Zend API for full list
 	//$client = getClientLoginHttpClientContact($googleuser, $googlepwd, $service);
-	//var_dump($client); exit;
 
 	// Create client/token object
 	$key_file_location = $conf->google->multidir_output[$conf->entity]."/" . getDolGlobalString('GOOGLE_API_SERVICEACCOUNT_P12KEY');

@@ -118,8 +118,7 @@ if (isModEnabled('alumni')) {
 	//$sql.= " WHERE c.entity IN (".getEntity('commande').")";
 
 	$resql = $db->query($sql);
-	if ($resql)
-	{
+	if ($resql) {
 		$total = 0;
 		$num = $db->num_rows($resql);
 		$obj = $db->fetch_object($resql);
@@ -171,9 +170,7 @@ if (isModEnabled('alumni')) {
 		print "</table><br>";
 
 		$db->free($resql);
-	}
-	else
-	{
+	} else {
 		dol_print_error($db);
 	}
 }

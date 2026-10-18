@@ -23,8 +23,8 @@
 
 class FormSaftPt
 {
-	var $db;
-	var $error;
+	public $db;
+	public $error;
 
 
 
@@ -33,7 +33,7 @@ class FormSaftPt
 	 *
 	 *	@param	DoliDB	$db		Database handler
 	 */
-	function __construct($db)
+	public function __construct($db)
 	{
 		$this->db = $db;
 
@@ -41,6 +41,7 @@ class FormSaftPt
 	}
 
 
+	// phpcs:disable PEAR.NamingConventions.ValidFunctionName.ScopeNotCamelCaps
 	/**
 	 *  Return combo list with tax exemption
 	 *
@@ -48,8 +49,9 @@ class FormSaftPt
 	 * 	@param	string	$htmlname		Name of HTML select combo field
 	 *  @return	string					String with HTML select
 	 */
-	function select_taxexemption($selected='',$htmlname='taxexemption_code')
+	public function select_taxexemption($selected = '', $htmlname = 'taxexemption_code')
 	{
+		// phpcs:enable
 		global $conf,$langs,$user;
 		$langs->load("dict");
 
@@ -60,42 +62,31 @@ class FormSaftPt
 
 		dol_syslog("Form::select_taxexemption sql=".$sql);
 		$resql=$this->db->query($sql);
-		if ($resql)
-		{
+		if ($resql) {
 			$out.= '<select class="flat" name="'.$htmlname.'">';
 			$out.= '<option value="">&nbsp;</option>';
 			$num = $this->db->num_rows($resql);
 			$i = 0;
-			if ($num)
-			{
-				while ($i < $num)
-				{
+			if ($num) {
+				while ($i < $num) {
 					$obj = $this->db->fetch_object($resql);
-					if ($selected == $obj->code)
-					{
+					if ($selected == $obj->code) {
 						$out.= '<option value="'.$obj->code.'" selected="selected">';
-					}
-					else
-					{
+					} else {
 						$out.= '<option value="'.$obj->code.'">';
 					}
-					
+
 					$out.= ($langs->trans("TaxExemption".$obj->code)!="TaxExemption".$obj->code ? $langs->trans("TaxExemption".$obj->code) : ($obj->label!='-'?$obj->code.'-' .$obj->label:''));
 					$out.= '</option>';
 					$i++;
 				}
 			}
 			$out.= '</select>';
-			if ($user->admin) $out.= info_admin($langs->trans("YouCanChangeValuesForThisListFromDictionnarySetup"),1);
-		}
-		else
-		{
+			if ($user->admin) $out.= info_admin($langs->trans("YouCanChangeValuesForThisListFromDictionnarySetup"), 1);
+		} else {
 			dol_print_error($this->db);
 		}
 
 		return $out;
 	}
-
 }
-
-?>

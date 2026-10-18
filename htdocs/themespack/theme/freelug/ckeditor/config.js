@@ -17,7 +17,7 @@ CKEDITOR.editorConfig = function( config )
 	config.removePlugins = 'elementspath,save'; // config.removePlugins = 'elementspath,save,font';
 	config.removeDialogTabs = 'flash:advanced';	// config.removeDialogTabs = 'flash:advanced;image:Link';
 	config.protectedSource.push( /<\?[\s\S]*?\?>/g );   // Prevent PHP Code to be formatted
-	//config.menu_groups = 'clipboard,table,anchor,link,image';	// for context menu 'clipboard,form,tablecell,tablecellproperties,tablerow,tablecolumn,table,anchor,link,image,flash,checkbox,radio,textfield,hiddenfield,imagebutton,button,select,textarea' 
+	//config.menu_groups = 'clipboard,table,anchor,link,image';	// for context menu 'clipboard,form,tablecell,tablecellproperties,tablerow,tablecolumn,table,anchor,link,image,flash,checkbox,radio,textfield,hiddenfield,imagebutton,button,select,textarea'
 	//config.language = 'de';
 	//config.defaultLanguage = 'en';
 	//config.contentsLanguage = 'fr';
@@ -45,7 +45,7 @@ CKEDITOR.editorConfig = function( config )
 	    ['Maximize', 'ShowBlocks','-','About']
 	];
 
-	config.toolbar_dolibarr_mailings = 
+	config.toolbar_dolibarr_mailings =
 	[
 	 	['Source','Maximize'],
 	 	['Cut','Copy','Paste','-','SpellChecker'],
@@ -56,7 +56,7 @@ CKEDITOR.editorConfig = function( config )
 	 	['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],
 	 	['Link','Unlink','Anchor','Image','Table','SpecialChar']
 	 ];
-	
+
 	config.toolbar_dolibarr_notes =
 	[
 	 	['Source'],
@@ -68,7 +68,7 @@ CKEDITOR.editorConfig = function( config )
 	 	['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],
 	    ['Link','Unlink','Image','Table','SpecialChar']
 	];
-	
+
 	config.toolbar_dolibarr_details =
 	[
 	 	['Source','Maximize'],
