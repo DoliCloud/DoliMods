@@ -34,6 +34,7 @@ if (! $res) die("Include of main fails");
 require_once DOL_DOCUMENT_ROOT."/core/lib/company.lib.php";
 require_once DOL_DOCUMENT_ROOT."/core/lib/contact.lib.php";
 require_once DOL_DOCUMENT_ROOT."/core/lib/member.lib.php";
+require_once DOL_DOCUMENT_ROOT."/core/lib/geturl.lib.php";
 require_once DOL_DOCUMENT_ROOT."/core/class/html.formother.class.php";
 require_once DOL_DOCUMENT_ROOT."/core/class/html.formcompany.class.php";
 require_once DOL_DOCUMENT_ROOT."/contact/class/contact.class.php";
@@ -564,8 +565,7 @@ function geocoding($address)
 	$url = "https://maps.googleapis.com/maps/api/geocode/json?address=".$encodeAddress;
 	if (! empty($conf->global->GOOGLE_API_SERVERKEY)) $url.="&key=" . getDolGlobalString('GOOGLE_API_SERVERKEY');
 
-	ini_set("allow_url_open", "1");
-	$response = googlegetURLContent($url, 'GET');
+	$response = getURLContent($url, 'GET', '', 1, array(), array('https'));
 
 	if ($response['curl_error_no']) {
 		$returnstring=$response['curl_error_no'].' '.$response['curl_error_msg'];
@@ -613,85 +613,4 @@ function withoutSpecialChars($str, $replaceBy = '_')
 	$text = strtr($text, $accents, $sansAccents);
 	$text = preg_replace('/([^.a-z0-9]+)/i', $replaceBy, $text);
 	return $text;*/
-}
-
-
-/**
- * Function get content from an URL (use proxy if proxy defined)
- *
- * @param	string	$url 			URL to call.
- * @param	string	$postorget		'post' = POST, 'get='GET'
- * @param   string  $param          Params
- * @return	array					returns an associative array containing the response from the server.
- */
-function googlegetURLContent($url, $postorget = 'GET', $param = '')
-{
-	//declaring of global variables
-	global $conf, $langs;
-	$USE_PROXY=empty($conf->global->MAIN_PROXY_USE)?0:$conf->global->MAIN_PROXY_USE;
-	$PROXY_HOST=empty($conf->global->MAIN_PROXY_HOST)?0:$conf->global->MAIN_PROXY_HOST;
-	$PROXY_PORT=empty($conf->global->MAIN_PROXY_PORT)?0:$conf->global->MAIN_PROXY_PORT;
-	$PROXY_USER=empty($conf->global->MAIN_PROXY_USER)?0:$conf->global->MAIN_PROXY_USER;
-	$PROXY_PASS=empty($conf->global->MAIN_PROXY_PASS)?0:$conf->global->MAIN_PROXY_PASS;
-
-	dol_syslog("getURLContent postorget=".$postorget." URL=".preg_replace('/([?&]key=[^&]{0,3})[^&]*/', '$1...', $url)." param=".$param);
-
-	//setting the curl parameters.
-	$ch = curl_init();
-
-	/*print $API_Endpoint."-".$API_version."-".$PAYPAL_API_USER."-".$PAYPAL_API_PASSWORD."-".$PAYPAL_API_SIGNATURE."<br>";
-	 print $USE_PROXY."-".$gv_ApiErrorURL."<br>";
-	print $nvpStr;
-	exit;*/
-	curl_setopt($ch, CURLOPT_URL, $url);
-	curl_setopt($ch, CURLOPT_VERBOSE, 1);
-	curl_setopt($ch, CURLOPT_USERAGENT, 'Dolibarr googlegeturlcontent function');
-
-	// $conf->global->GOOGLE_SSLVERSION should be set to 1 to use TLSv1 by default or change to TLSv1.2 in module configuration
-	if (isset($conf->global->GOOGLE_SSLVERSION)) curl_setopt($ch, CURLOPT_SSLVERSION, $conf->global->GOOGLE_SSLVERSION);
-
-	//turning off the server and peer verification(TrustManager Concept).
-	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-	curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
-
-	curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, empty($conf->global->MAIN_USE_CONNECT_TIMEOUT)?5:$conf->global->MAIN_USE_CONNECT_TIMEOUT);
-	curl_setopt($ch, CURLOPT_TIMEOUT, empty($conf->global->MAIN_USE_RESPONSE_TIMEOUT)?5:$conf->global->MAIN_USE_RESPONSE_TIMEOUT);
-
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-	if ($postorget == 'POST') curl_setopt($ch, CURLOPT_POST, 1);
-	else curl_setopt($ch, CURLOPT_POST, 0);
-
-	//if USE_PROXY constant set to TRUE in Constants.php, then only proxy will be enabled.
-	if ($USE_PROXY) {
-		dol_syslog("getURLContent set proxy to ".$PROXY_HOST. ":" . $PROXY_PORT." - ".$PROXY_USER. ":" . dol_substr((string) $PROXY_PASS, 0, 3)."...");
-		//curl_setopt ($ch, CURLOPT_PROXYTYPE, CURLPROXY_HTTP); // Curl 7.10
-		curl_setopt($ch, CURLOPT_PROXY, $PROXY_HOST. ":" . $PROXY_PORT);
-		if ($PROXY_USER) curl_setopt($ch, CURLOPT_PROXYUSERPWD, $PROXY_USER. ":" . $PROXY_PASS);
-	}
-
-	//setting the nvpreq as POST FIELD to curl
-	curl_setopt($ch, CURLOPT_POSTFIELDS, $param);
-
-	//getting response from server
-	$response = curl_exec($ch);
-
-	$rep=array();
-	$rep['content']=$response;
-	$rep['curl_error_no'] = 0;
-	$rep['curl_error_msg'] = '';
-
-	//dol_syslog("getURLContent response=".$response);
-
-	if (curl_errno($ch)) {
-		// moving to display page to display curl errors
-		$rep['curl_error_no']=curl_errno($ch);
-		$rep['curl_error_msg']=curl_error($ch);
-
-		dol_syslog("getURLContent curl_error array is ".join(',', $rep));
-	} else {
-		//closing the curl
-		curl_close($ch);
-	}
-
-	return $rep;
 }
