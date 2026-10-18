@@ -4,7 +4,7 @@ Pick the oldest open Bug issue of the repository, ask the Mistral API for a fix
 and apply the proposed edits to the working tree.
 
 The git branch / commit / push / PR creation is done by the calling workflow
-(.github/workflows/mistral-fix-bug.yml). This script only writes the files and
+(.github/workflows/ci-on-demand-mistral-fix-bug.yml). This script only writes the files and
 exposes some values into $GITHUB_OUTPUT.
 
 Environment variables:
