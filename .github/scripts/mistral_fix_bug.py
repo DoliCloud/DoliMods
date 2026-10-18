@@ -22,6 +22,7 @@ import json
 import os
 import subprocess
 import sys
+import time
 import urllib.error
 import urllib.request
 
@@ -43,6 +44,7 @@ MAX_FILES = 8
 MAX_FILE_LIST = 4000
 MAX_FILE_CHARS = 60000
 MAX_TOTAL_CHARS = 250000
+MAX_RETRIES = 2
 
 TEXT_EXTENSIONS = (
 	".php", ".inc", ".js", ".css", ".tpl", ".html", ".htm", ".sql", ".lang",
@@ -53,7 +55,36 @@ FORBIDDEN_PREFIXES = (".github/", ".git/")
 
 
 def log(msg):
-	print(msg, file=sys.stderr, flush=True)
+	# Printed on stdout so GitHub interprets the ::group::, ::error:: ... workflow commands
+	print(msg, flush=True)
+
+
+def step(title):
+	log(f"\n========== {title} ==========")
+
+
+def group(title, content):
+	"""Print a block of text collapsed in the GitHub log."""
+	log(f"::group::{title}")
+	log(content)
+	log("::endgroup::")
+
+
+def summary(markdown):
+	"""Append markdown to the job summary of the GitHub run."""
+	path = os.environ.get("GITHUB_STEP_SUMMARY")
+	if path:
+		with open(path, "a", encoding="utf-8") as f:
+			f.write(markdown + "\n")
+
+
+def fail(msg):
+	"""Stop with an error annotation visible on the GitHub run page."""
+	log(f"::error::{msg.splitlines()[0][:500]}")
+	if "\n" in msg:
+		log(msg)
+	summary(f"### :x: Error\n\n```\n{msg[:3000]}\n```\n")
+	sys.exit(1)
 
 
 def set_output(name, value):
@@ -109,19 +140,27 @@ def find_issue():
 	if ISSUE_NUMBER:
 		status, issue = gh(f"/repos/{REPO}/issues/{ISSUE_NUMBER}")
 		if status != 200:
-			sys.exit(f"Issue #{ISSUE_NUMBER} not found: {issue}")
+			fail(f"Issue #{ISSUE_NUMBER} not found: {issue}")
+		log(f"Issue #{ISSUE_NUMBER} forced by the workflow input")
 		return issue
 
+	log(f"Looking for the oldest open issue with label '{BUG_LABEL}' or type '{BUG_TYPE}' "
+		f"(skipping labels '{DONE_LABEL}' and '{FAILED_LABEL}')")
 	page = 1
 	while True:
 		status, issues = gh(f"/repos/{REPO}/issues?state=open&sort=created&direction=asc&per_page=100&page={page}")
 		if status != 200:
-			sys.exit(f"Failed to list issues: {issues}")
+			fail(f"Failed to list issues: {issues}")
 		if not issues:
 			return None
 		for issue in issues:
-			if is_bug(issue) and not branch_exists(f"ai/fix-issue-{issue['number']}"):
-				return issue
+			if not is_bug(issue):
+				continue
+			branch = f"ai/fix-issue-{issue['number']}"
+			if branch_exists(branch):
+				log(f"  skip #{issue['number']}: branch {branch} already exists")
+				continue
+			return issue
 		page += 1
 
 
@@ -132,25 +171,114 @@ def get_comments(number):
 	return comments
 
 
-def mistral(system, user):
+def mistral(label, system, user, history=None):
+	"""Send a prompt to Mistral. Return (parsed JSON answer, messages of the conversation)."""
+	messages = history or [{"role": "system", "content": system}]
+	messages = messages + [{"role": "user", "content": user}]
 	headers = {"Authorization": f"Bearer {MISTRAL_API_KEY}", "Accept": "application/json"}
 	payload = {
 		"model": MISTRAL_MODEL,
 		"temperature": 0.1,
 		"response_format": {"type": "json_object"},
-		"messages": [
-			{"role": "system", "content": system},
-			{"role": "user", "content": user},
-		],
+		"messages": messages,
 	}
+	log(f"Calling Mistral ({label}), model {MISTRAL_MODEL}, prompt of {len(user)} chars...")
+	group(f"Prompt sent to Mistral ({label})", user if len(user) < 20000 else user[:20000] + "\n[... truncated in log ...]")
+	start = time.time()
 	status, data = http_json(MISTRAL_API, headers, payload, "POST")
 	if status != 200:
-		sys.exit(f"Mistral API error {status}: {data}")
+		fail(f"Mistral API error {status}: {data}")
 	content = data["choices"][0]["message"]["content"]
+	usage = data.get("usage") or {}
+	log(f"Mistral answered in {time.time() - start:.1f}s "
+		f"(tokens: prompt {usage.get('prompt_tokens', '?')}, answer {usage.get('completion_tokens', '?')})")
+	group(f"Answer of Mistral ({label})", content)
+	messages.append({"role": "assistant", "content": content})
 	try:
-		return json.loads(content)
+		return json.loads(content), messages
 	except json.JSONDecodeError:
-		sys.exit(f"Mistral returned invalid JSON: {content[:2000]}")
+		fail(f"Mistral returned invalid JSON: {content[:2000]}")
+
+
+def normalize(line):
+	return " ".join(line.split())
+
+
+def reindent(text, use_tabs):
+	"""Convert leading groups of 4 spaces into tabs when the file is indented with tabs."""
+	if not use_tabs:
+		return text
+	lines = []
+	for line in text.split("\n"):
+		stripped = line.lstrip(" \t")
+		indent = line[:len(line) - len(stripped)].replace("    ", "\t")
+		lines.append(indent + stripped)
+	return "\n".join(lines)
+
+
+def apply_edit(content, search, replace):
+	"""
+	Replace search by replace in content. Try an exact match first, then a match ignoring
+	differences of whitespace on each line (the AI often turns tabs into spaces).
+	Return (new content, error).
+	"""
+	count = content.count(search)
+	if count == 1:
+		return content.replace(search, replace, 1), None
+	if count > 1:
+		return None, f"search block found {count} times, add more context lines to make it unique"
+
+	lines = content.split("\n")
+	search_lines = [normalize(x) for x in search.strip("\n").split("\n")]
+	while search_lines and not search_lines[-1]:
+		search_lines.pop()
+	if not search_lines:
+		return None, "search block is empty"
+	matches = []
+	n = len(search_lines)
+	for i in range(len(lines) - n + 1):
+		if all(normalize(lines[i + j]) == search_lines[j] for j in range(n)):
+			matches.append(i)
+	if len(matches) != 1:
+		return None, f"search block found {len(matches)} times (even ignoring whitespace)"
+	i = matches[0]
+	use_tabs = sum(x.startswith("\t") for x in lines) >= sum(x.startswith("    ") for x in lines)
+	new_lines = reindent(replace.strip("\n"), use_tabs).split("\n")
+	return "\n".join(lines[:i] + new_lines + lines[i + n:]), None
+
+
+def compute_edits(edits):
+	"""Validate all edits in memory: a partial fix is worse than no fix. Return (new contents, errors)."""
+	new_contents = {}
+	errors = []
+	for edit in edits:
+		path = safe_path(edit.get("path", ""))
+		search = edit.get("search", "")
+		replace = edit.get("replace", "")
+		if not path:
+			errors.append(f"Refused path {edit.get('path')}")
+			continue
+		if search == "":
+			if os.path.exists(path) or path in new_contents:
+				errors.append(f"{path}: empty search on an existing file")
+				continue
+			new_contents[path] = replace
+			continue
+		if path in new_contents:
+			content = new_contents[path]
+		elif os.path.isfile(path):
+			with open(path, encoding="utf-8", errors="surrogateescape", newline="") as fh:
+				content = fh.read()
+		else:
+			errors.append(f"{path}: file not found")
+			continue
+		result, error = apply_edit(content, search, replace)
+		if error:
+			first_line = next((x.strip() for x in search.split("\n") if x.strip()), "")
+			errors.append(f"{path}: {error} (search block starting with: {first_line[:120]})")
+			continue
+		new_contents[path] = result
+	return new_contents, errors
 
 
 def git_files():
@@ -185,8 +313,10 @@ SYSTEM = (
 
 def main():
 	if not MISTRAL_API_KEY:
-		sys.exit("MISTRAL_API_KEY secret is not defined")
+		fail("MISTRAL_API_KEY secret is not defined")
 
+	log(f"Repository: {REPO}, model: {MISTRAL_MODEL}")
+	step("Selecting the issue")
 	issue = find_issue()
 	if not issue:
 		log("No open Bug issue to process.")
@@ -194,27 +324,34 @@ def main():
 		return
 
 	number = issue["number"]
-	log(f"Processing issue #{number}: {issue['title']}")
+	log(f"Selected issue #{number}: {issue['title']}")
+	log(f"  {issue['html_url']} (created {issue['created_at']})")
+	summary(f"## Issue [#{number}]({issue['html_url']}): {issue['title']}\n\nModel: `{MISTRAL_MODEL}`\n")
 	set_output("found", "true")
 	set_output("issue_number", number)
 	set_output("issue_title", issue["title"])
 	set_output("issue_url", issue["html_url"])
 
-	bug = issue_text(issue, get_comments(number))
+	comments = get_comments(number)
+	bug = issue_text(issue, comments)
+	log(f"  {len(comments)} comment(s), {len(bug)} chars sent as bug report")
 	files = git_files()
 
-	# Step 1: find the modules concerned
+	step("Step 1/3: finding the modules concerned")
 	modules = sorted({f.split("/")[1] for f in files if f.startswith("htdocs/") and f.count("/") >= 2})
-	answer = mistral(SYSTEM, (
+	answer, _ = mistral("step 1 - modules", SYSTEM, (
 		f"Bug report:\n<<<\n{bug}\n>>>\n\n"
 		f"Available modules (directories in htdocs/):\n{chr(10).join(modules)}\n\n"
 		f"Return the module(s) most likely concerned by this bug, at most {MAX_MODULES}, as "
 		'{"modules": ["name", ...]}. Return an empty list if none applies.'
 	))
 	chosen_modules = [m for m in answer.get("modules", []) if m in modules][:MAX_MODULES]
-	log(f"Modules: {chosen_modules}")
+	log(f"Modules chosen: {chosen_modules or 'none (only root files will be proposed)'}")
+	ignored = [m for m in answer.get("modules", []) if m not in modules]
+	if ignored:
+		log(f"::warning::Unknown modules returned by Mistral ignored: {ignored}")
 
-	# Step 2: find the files concerned
+	step("Step 2/3: finding the files concerned")
 	prefixes = tuple(f"htdocs/{m}/" for m in chosen_modules)
 	candidates = [
 		f for f in files
@@ -222,18 +359,23 @@ def main():
 		and f.lower().endswith(TEXT_EXTENSIONS)
 		and safe_path(f)
 	][:MAX_FILE_LIST]
-	answer = mistral(SYSTEM, (
+	log(f"{len(candidates)} candidate files")
+	answer, _ = mistral("step 2 - files", SYSTEM, (
 		f"Bug report:\n<<<\n{bug}\n>>>\n\n"
 		f"Candidate files:\n{chr(10).join(candidates)}\n\n"
 		f"Return the files you need to read to fix this bug, at most {MAX_FILES}, as "
 		'{"files": ["path", ...]}.'
 	))
 	chosen_files = [f for f in answer.get("files", []) if f in candidates][:MAX_FILES]
-	log(f"Files: {chosen_files}")
+	log(f"Files chosen: {chosen_files}")
+	ignored = [f for f in answer.get("files", []) if f not in candidates]
+	if ignored:
+		log(f"::warning::Unknown files returned by Mistral ignored: {ignored}")
+	summary(f"**Modules:** {', '.join(chosen_modules) or '-'}  \n**Files read:** {', '.join(chosen_files)}\n")
 	if not chosen_files:
-		sys.exit("Mistral did not find any relevant file")
+		fail("Mistral did not find any relevant file")
 
-	# Step 3: ask for the fix
+	step("Step 3/3: asking for the fix")
 	sources = ""
 	for f in chosen_files:
 		with open(f, encoding="utf-8", errors="replace") as fh:
@@ -241,10 +383,12 @@ def main():
 		if len(content) > MAX_FILE_CHARS:
 			content = content[:MAX_FILE_CHARS] + "\n[... file truncated ...]\n"
 		if len(sources) + len(content) > MAX_TOTAL_CHARS:
+			log(f"::warning::Prompt size limit reached, {f} and next files are not sent")
 			break
+		log(f"  sending {f} ({len(content)} chars)")
 		sources += f"\n===== FILE: {f} =====\n{content}\n===== END FILE: {f} =====\n"
 
-	answer = mistral(SYSTEM, (
+	answer, history = mistral("step 3 - fix", SYSTEM, (
 		f"Bug report:\n<<<\n{bug}\n>>>\n\n"
 		f"Source files:\n{sources}\n\n"
 		"Fix the bug with a minimal change, keeping the existing code style (tabs for indentation). "
@@ -261,45 +405,27 @@ def main():
 		"If you cannot find a reliable fix, set fixable to false, explain why in pr_body and return no edits."
 	))
 
-	if not answer.get("fixable") or not answer.get("edits"):
-		log(f"Mistral could not fix the bug: {answer.get('pr_body', '')}")
-		set_output("fixed", "false")
-		set_output("reason", answer.get("pr_body", "No explanation"))
-		return
-
-	# Validate all edits in memory first: a partial fix is worse than no fix
-	new_contents = {}
-	errors = []
-	for edit in answer["edits"]:
-		path = safe_path(edit.get("path", ""))
-		search = edit.get("search", "")
-		replace = edit.get("replace", "")
-		if not path:
-			errors.append(f"Refused path {edit.get('path')}")
-			continue
-		if search == "":
-			if os.path.exists(path) or path in new_contents:
-				errors.append(f"{path}: empty search on an existing file")
-				continue
-			new_contents[path] = replace
-			continue
-		if path in new_contents:
-			content = new_contents[path]
-		elif os.path.isfile(path):
-			with open(path, encoding="utf-8", errors="surrogateescape", newline="") as fh:
-				content = fh.read()
-		else:
-			errors.append(f"{path}: file not found")
-			continue
-		count = content.count(search)
-		if count != 1:
-			errors.append(f"{path}: search block found {count} times")
-			continue
-		new_contents[path] = content.replace(search, replace, 1)
-
-	if errors:
+	for attempt in range(MAX_RETRIES + 1):
+		if not answer.get("fixable") or not answer.get("edits"):
+			log(f"::warning::Mistral could not fix the bug: {answer.get('pr_body', '')[:300]}")
+			set_output("fixed", "false")
+			set_output("reason", answer.get("pr_body", "No explanation"))
+			return
+		log(f"Applying {len(answer['edits'])} edit(s) proposed by Mistral (attempt {attempt + 1})")
+		new_contents, errors = compute_edits(answer["edits"])
+		if not errors:
+			break
 		for e in errors:
-			log(f"Edit error: {e}")
+			log(f"::warning::Edit error (attempt {attempt + 1}): {e}")
+		if attempt < MAX_RETRIES:
+			answer, history = mistral(f"step 3 - fix, retry {attempt + 1}", SYSTEM, (
+				"Your edits could not be applied:\n- " + "\n- ".join(errors) + "\n\n"
+				"Return the complete JSON object again, with ALL the edits (not only the failing ones). "
+				"Each \"search\" block must be copied character by character from the source files given above, "
+				"with the same lines, the same indentation (tabs) and no line added, removed or modified."
+			), history)
+	else:
+		log(f"::error::Edits could not be applied after {MAX_RETRIES + 1} attempts")
 		set_output("fixed", "false")
 		set_output("reason", "The edits proposed by Mistral could not be applied:\n- " + "\n- ".join(errors))
 		return
@@ -310,7 +436,11 @@ def main():
 			fh.write(content)
 	applied = len(answer["edits"])
 
-	log(f"{applied} edit(s) applied")
+	log(f"{applied} edit(s) applied on {len(new_contents)} file(s)")
+	diff = subprocess.run(["git", "diff"], capture_output=True, text=True).stdout
+	group("Diff of the fix", diff)
+	summary(f"### Proposed fix\n\n{answer.get('pr_body', '')}\n\n<details><summary>Diff</summary>\n\n"
+		f"```diff\n{diff[:60000]}\n```\n</details>\n")
 	body = (
 		f"Fix #{number}\n\n{answer.get('pr_body', '')}\n\n---\n"
 		f"_This PR was generated automatically by the Mistral API (model `{MISTRAL_MODEL}`). "
