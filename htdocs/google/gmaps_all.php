@@ -559,13 +559,15 @@ function geocoding($address)
 {
 	global $conf;
 
-	$encodeAddress = urlencode(withoutSpecialChars($address));
-	// URL to geoencode
-	$url = "https://maps.googleapis.com/maps/api/geocode/json?address=".$encodeAddress;
-	if (! empty($conf->global->GOOGLE_API_SERVERKEY)) $url.="&key=" . getDolGlobalString('GOOGLE_API_SERVERKEY');
+		$encodeAddress = urlencode(withoutSpecialChars($address));
+		// URL to geoencode
+		$url = "https://maps.googleapis.com/maps/api/geocode/json?address=".$encodeAddress;
+		if (! empty($conf->global->GOOGLE_API_SERVERKEY)) $url.="&key=" . getDolGlobalString('GOOGLE_API_SERVERKEY');
 
-	ini_set("allow_url_open", "1");
-	$response = googlegetURLContent($url, 'GET');
+		$response = array();
+		$response['content'] = file_get_contents($url);
+		$response['curl_error_no'] = 0;
+		$response['curl_error_msg'] = '';
 
 	if ($response['curl_error_no']) {
 		$returnstring=$response['curl_error_no'].' '.$response['curl_error_msg'];
