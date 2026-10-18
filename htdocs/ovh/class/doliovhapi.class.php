@@ -1,5 +1,5 @@
 <?php
-/* Copyright (C) 2007-2017 Laurent Destailleur  <eldy@users.sourceforge.net>
+/* Copyright (C) 2026      Eric Seigne          <eric.seigne@cap-rel.fr>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -181,6 +181,10 @@ class DoliOvhApi
 				$url .= (strpos($url, '?') === false ? '?' : '&') . $queryString;
 			}
 		} elseif (isset($content)) {
+			if ($method == 'DELETE') {
+				// getURLContent does not send a body with DELETE, so the signature would not match
+				throw new Exception("DoliOvhApi: Body content is not supported with DELETE requests");
+			}
 			$body = json_encode($content, JSON_UNESCAPED_SLASHES);
 		}
 
@@ -213,7 +217,9 @@ class DoliOvhApi
 			$filefd = fopen($logfile, 'a+');
 			if ($filefd) {
 				fwrite($filefd, date('Y-m-d H:i:s') . ' ' . $method . ' ' . $url . "\n");
-				fwrite($filefd, var_export($headers, true) . "\n");
+				// Do not write the consumer key and signature in clear into the log file
+				$headerstolog = preg_replace('/^(X-Ovh-(Consumer|Signature): ).*$/', '\\1***', $headers);
+				fwrite($filefd, var_export($headerstolog, true) . "\n");
 				if ($body) {
 					fwrite($filefd, 'BODY: ' . $body . "\n");
 				}
@@ -233,7 +239,21 @@ class DoliOvhApi
 			$param = $body;
 		}
 
-		$result = getURLContent($url, $httpMethod, $param, 1, $headers, array('https'), 0, 1);
+		// Timeout by default of Dolibarr for connection is 5s and it is not enough for OVH, so we use 20s by default.
+		// Note: the timeout parameters are supported by getURLContent since Dolibarr 22. On older versions,
+		// MAIN_USE_CONNECT_TIMEOUT and MAIN_USE_RESPONSE_TIMEOUT are still used, but with the default of Dolibarr.
+		$connect_timeout = getDolGlobalInt('MAIN_USE_CONNECT_TIMEOUT', 20);
+		$timeout = getDolGlobalInt('MAIN_USE_RESPONSE_TIMEOUT', 30);
+
+		dol_syslog("DoliOvhApi::rawCall ".$method." ".$url." connect_timeout=".$connect_timeout." timeout=".$timeout);
+
+		$result = getURLContent($url, $httpMethod, $param, 1, $headers, array('https'), 0, 1, $connect_timeout, $timeout);
+		if (!isset($result['content'])) {
+			$result['content'] = '';	// getURLContent does not set the key when the response is empty
+		}
+		if (!isset($result['http_code'])) {
+			$result['http_code'] = 0;	// Not set on a cURL error
+		}
 
 		// Debug response logging
 		if (getDolGlobalString('OVH_DEBUG')) {
