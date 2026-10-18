@@ -564,16 +564,12 @@ function geocoding($address)
 		$url = "https://maps.googleapis.com/maps/api/geocode/json?address=".$encodeAddress;
 		if (! empty($conf->global->GOOGLE_API_SERVERKEY)) $url.="&key=" . getDolGlobalString('GOOGLE_API_SERVERKEY');
 
-		$response = array();
-		$response['content'] = file_get_contents($url);
-		$response['curl_error_no'] = 0;
-		$response['curl_error_msg'] = '';
-
-	if ($response['curl_error_no']) {
-		$returnstring=$response['curl_error_no'].' '.$response['curl_error_msg'];
-		echo "<!-- geocoding : failure to geocode : ".dol_escape_htmltag($encodeAddress)." => " . dol_escape_htmltag($returnstring) . " -->\n";
-		return $returnstring;
-	}
+		$response = file_get_contents($url);
+		if ($response === false) {
+			$returnstring = 'Failed to fetch URL: ' . $url;
+			echo "<!-- geocoding : failure to geocode : ".dol_escape_htmltag($encodeAddress)." => " . dol_escape_htmltag($returnstring) . " -->\n";
+			return $returnstring;
+		}
 
 	$data = json_decode($response['content']);
 	//$data = json_decode($response['content'], false, 0, JSON_BIGINT_AS_STRING);
