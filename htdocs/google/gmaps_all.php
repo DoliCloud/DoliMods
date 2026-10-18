@@ -474,9 +474,9 @@ if ($resql) {
 		$param='';
 		if ($search_customer != '' && $search_customer != '-1') $param.='&search_customer='.urlencode($search_customer);
 		if ($search_supplier != '' && $search_supplier != '-1') $param.='&search_supplier='.urlencode($search_supplier);
-		if ($search_sale != '' && $search_sale != '-1') $param.='&search_sale='.urlencode($search_sale);
-		if ($search_tag_customer != '' && $search_tag_customer != '-1') $param.='&search_tag_customer='.urlencode($search_tag_customer);
-		if ($search_tag_supplier != '' && $search_tag_supplier != '-1') $param.='&search_tag_supplier='.urlencode($search_tag_supplier);
+		if ($search_sale != '' && $search_sale != '-1') $param.='&search_sale='.urlencode((string) $search_sale);
+		if ($search_tag_customer != '' && $search_tag_customer != '-1') $param.='&search_tag_customer='.urlencode((string) $search_tag_customer);
+		if ($search_tag_supplier != '' && $search_tag_supplier != '-1') $param.='&search_tag_supplier='.urlencode((string) $search_tag_supplier);
 		if ($search_departement != '' && $search_departement != '-1') $param.='&search_departement='.urlencode($search_departement);
 
 		print $langs->trans("ClickHereToIncludeXMore").': &nbsp;';

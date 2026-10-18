@@ -78,12 +78,12 @@ print '<br><hr><br>';
 
 print $langs->trans("MoreModules").'<br>';
 $url='https://www.dolistore.com/search.php?search_query=dolicloud';
-print '<a href="'.$url.'" target="_blank"><img border="0" width="180" alt="'.dolPrintHTMLForAttribute(dol_string_nohtmltag($langs->transnoentities("MoreModulesLink"))).'" src="'.DOL_URL_ROOT.'/theme/dolistore_logo.png"></a><br><br><br>';
+print '<a href="'.$url.'" target="_blank"><img border="0" width="180" alt="'.dol_escape_htmltag(dol_string_nohtmltag($langs->transnoentities("MoreModulesLink"))).'" src="'.DOL_URL_ROOT.'/theme/dolistore_logo.png"></a><br><br><br>';
 
 print '<br>';
 print $langs->trans("MoreCloudHosting").'<br>';
 $url='https://www.dolicloud.com?origin=dolimods';
-print '<a href="'.$url.'" target="_blank"><img border="0" width="180" alt="'.dolPrintHTMLForAttribute(dol_string_nohtmltag($langs->transnoentities("MoreCloudHostingLink"))).'" src="../img/dolicloud_logo.png"></a><br><br><br>';
+print '<a href="'.$url.'" target="_blank"><img border="0" width="180" alt="'.dol_escape_htmltag(dol_string_nohtmltag($langs->transnoentities("MoreCloudHostingLink"))).'" src="../img/dolicloud_logo.png"></a><br><br><br>';
 
 print '<br>';
 print $langs->trans("CompatibleWithDoliDroid").'<br>';

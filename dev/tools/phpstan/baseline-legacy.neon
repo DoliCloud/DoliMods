@@ -2592,3 +2592,21 @@ parameters:
 			identifier: property.phpDocType
 			count: 1
 			path: ../../../htdocs/ovh/class/ovhserver.class.php
+
+		-
+			message: '#^Parameter \#2 \$start of function dol_substr expects string, int given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../htdocs/google/gmaps_all.php
+
+		-
+			message: '#^Parameter \#2 \$start of function dol_substr expects string, int given\.$#'
+			identifier: argument.type
+			count: 2
+			path: ../../../htdocs/google/lib/google_calendar.lib.php
+
+		-
+			message: '#^Parameter \#2 \$start of function dol_substr expects string, int given\.$#'
+			identifier: argument.type
+			count: 2
+			path: ../../../htdocs/ovh/admin/ovh_setup.php
