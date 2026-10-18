@@ -559,17 +559,17 @@ function geocoding($address)
 {
 	global $conf;
 
-		$encodeAddress = urlencode(withoutSpecialChars($address));
-		// URL to geoencode
-		$url = "https://maps.googleapis.com/maps/api/geocode/json?address=".$encodeAddress;
-		if (! empty($conf->global->GOOGLE_API_SERVERKEY)) $url.="&key=" . getDolGlobalString('GOOGLE_API_SERVERKEY');
+	$encodeAddress = urlencode(withoutSpecialChars($address));
+	// URL to geoencode
+	$url = "https://maps.googleapis.com/maps/api/geocode/json?address=".$encodeAddress;
+	if (! empty($conf->global->GOOGLE_API_SERVERKEY)) $url.="&key=" . getDolGlobalString('GOOGLE_API_SERVERKEY');
 
-		$response = file_get_contents($url);
-		if ($response === false) {
-			$returnstring = 'Failed to fetch URL: ' . $url;
-			echo "<!-- geocoding : failure to geocode : ".dol_escape_htmltag($encodeAddress)." => " . dol_escape_htmltag($returnstring) . " -->\n";
-			return $returnstring;
-		}
+	$response = file_get_contents($url);
+	if ($response === false) {
+		$returnstring = 'Failed to fetch URL: ' . $url;
+		echo "<!-- geocoding : failure to geocode : ".dol_escape_htmltag($encodeAddress)." => " . dol_escape_htmltag($returnstring) . " -->\n";
+		return $returnstring;
+	}
 
 	$data = json_decode($response['content']);
 	//$data = json_decode($response['content'], false, 0, JSON_BIGINT_AS_STRING);
