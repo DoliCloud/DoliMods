@@ -295,7 +295,7 @@ if ($action == 'pushallevents') {
 	// Create client/token object
 	$key_file_location = $conf->google->multidir_output[$conf->entity]."/" . getDolGlobalString('GOOGLE_API_SERVICEACCOUNT_P12KEY');
 	$force_do_not_use_session=(in_array(GETPOST('action'), array('testall','testcreate'))?true:false);	// false by default
-	$servicearray=getTokenFromServiceAccount(getDolGlobalSting('GOOGLE_API_SERVICEACCOUNT_EMAIL'), $key_file_location, $force_do_not_use_session, 'service');
+		$servicearray=getTokenFromServiceAccount(getDolGlobalString('GOOGLE_API_SERVICEACCOUNT_EMAIL'), $key_file_location, $force_do_not_use_session, 'service');
 
 	if (! is_array($servicearray)) {
 		$errors[]=$servicearray;
