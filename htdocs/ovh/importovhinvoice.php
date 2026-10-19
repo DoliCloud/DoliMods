@@ -45,6 +45,12 @@ if (!$res && file_exists("../main.inc.php")) $res = @include "../main.inc.php";
 if (!$res && file_exists("../../main.inc.php")) $res = @include "../../main.inc.php";
 if (!$res && file_exists("../../../main.inc.php")) $res = @include "../../../main.inc.php";
 if (!$res) die("Include of main fails");
+/**
+ * @var Conf $conf
+ * @var DoliDB $db
+ * @var Translate $langs
+ * @var User $user
+ */
 
 require_once DOL_DOCUMENT_ROOT . '/user/class/user.class.php';
 require_once DOL_DOCUMENT_ROOT . '/fourn/class/paiementfourn.class.php';
@@ -60,9 +66,7 @@ require_once DOL_DOCUMENT_ROOT . '/core/class/html.formfile.class.php';
 require_once DOL_DOCUMENT_ROOT . '/core/class/html.formprojet.class.php';
 require_once DOL_DOCUMENT_ROOT . '/compta/tva/class/tva.class.php';
 
-require __DIR__ . '/includes/autoload.php';
-
-use Ovh\Api;
+dol_include_once('/ovh/class/doliovhapi.class.php');
 
 
 $langs->loadLangs(array("bills", "orders", "ovh@ovh"));
@@ -164,14 +168,14 @@ if (!empty($action)) {
 					exit;
 				}
 
-				$conn = new Api(getDolGlobalString('OVHAPPKEY2'), getDolGlobalString('OVHAPPSECRET2'), $endpoint, getDolGlobalString('OVHCONSUMERKEY2'));
+				$conn = new DoliOvhApi(getDolGlobalString('OVHAPPKEY2'), getDolGlobalString('OVHAPPSECRET2'), $endpoint, getDolGlobalString('OVHCONSUMERKEY2'));
 			} else {
 				if (!getDolGlobalString('OVHCONSUMERKEY')) {
 					print 'Error: ' . $langs->trans("ModuleSetupNotComplete") . "\n";
 					exit;
 				}
 
-				$conn = new Api(getDolGlobalString('OVHAPPKEY'), getDolGlobalString('OVHAPPSECRET'), $endpoint, getDolGlobalString('OVHCONSUMERKEY'));
+				$conn = new DoliOvhApi(getDolGlobalString('OVHAPPKEY'), getDolGlobalString('OVHAPPSECRET'), $endpoint, getDolGlobalString('OVHCONSUMERKEY'));
 			}
 		}
 	} catch (SoapFault $fault) {

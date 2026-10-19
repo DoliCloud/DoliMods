@@ -29,6 +29,7 @@ if (! $res && file_exists("../../../main.inc.php")) $res=@include "../../../main
 if (! $res) die("Include of main fails");
 
 require_once DOL_DOCUMENT_ROOT."/core/lib/agenda.lib.php";
+require_once DOL_DOCUMENT_ROOT."/core/lib/geturl.lib.php";
 
 // Load traductions files
 $langs->load("google@google");
@@ -98,23 +99,9 @@ if (! empty($client_id)) {		// If we setup to use the oauth login
 		}
 		$post = rtrim($post, '&');
 
-		$curl = curl_init();
-		curl_setopt($curl, CURLOPT_URL, 'https://accounts.google.com/o/oauth2/token');
-		curl_setopt($curl, CURLOPT_POST, 5);
-		curl_setopt($curl, CURLOPT_POSTFIELDS, $post);
-		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+		$result = getURLContent('https://accounts.google.com/o/oauth2/token', 'POST', $post, 0, array(), array('https'));
 
-		// $conf->global->GOOGLE_SSLVERSION should be set to 1 to use TLSv1 by default or change to TLSv1.2 in module configuration
-		if (isset($conf->global->GOOGLE_SSLVERSION)) curl_setopt($curl, CURLOPT_SSLVERSION, $conf->global->GOOGLE_SSLVERSION);
-
-		//turning off the server and peer verification(TrustManager Concept).
-		curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-		curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
-
-		$result = curl_exec($curl);
-		curl_close($curl);
-
-		$response =  json_decode($result);
+		$response =  json_decode($result['content']);
 
 		$_SESSION['google_web_token_'.$conf->entity]=$response->access_token;
 	}

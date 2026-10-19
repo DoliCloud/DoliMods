@@ -72,11 +72,16 @@ if (! $res && file_exists("../main.inc.php")) $res=@include "../main.inc.php";
 if (! $res && file_exists("../../main.inc.php")) $res=@include "../../main.inc.php";
 if (! $res && file_exists("../../../main.inc.php")) $res=@include "../../../main.inc.php";
 if (! $res) die("Include of main fails");
+/**
+ * @var Conf $conf
+ * @var DoliDB $db
+ * @var Translate $langs
+ * @var User $user
+ */
 
 include_once DOL_DOCUMENT_ROOT."/core/lib/functions2.lib.php";
 
-require __DIR__ . '/includes/autoload.php';
-use \Ovh\Api;
+dol_include_once('/ovh/class/doliovhapi.class.php');
 
 
 // Security check
@@ -87,7 +92,6 @@ if (!isModEnabled("clicktodial") || !isModEnabled("ovh") || $user->socid > 0) {
 // No CSRF token can be put into the click to dial url, so we refuse requests sent by another site
 if (!empty($_SERVER['HTTP_SEC_FETCH_SITE']) && !in_array($_SERVER['HTTP_SEC_FETCH_SITE'], array('same-origin', 'same-site', 'none'))) {
 	accessforbidden('Click to dial request coming from another site');
-	exit;
 }
 
 
@@ -171,7 +175,7 @@ if (! empty($number)) {
 
 				$soap->telephonyClick2CallDo($login, $password, $caller, $number, $caller);
 			} else {
-				$conn = new Api($conf->global->OVHAPPKEY, $conf->global->OVHAPPSECRET, $endpoint, $conf->global->OVHCONSUMERKEY);
+				$conn = new DoliOvhApi($conf->global->OVHAPPKEY, $conf->global->OVHAPPSECRET, $endpoint, $conf->global->OVHCONSUMERKEY);
 				$content = (object) array(
 				"calledNumber" => $called,  // who is called
 				"callingNumber"=> $caller,   // who calls
