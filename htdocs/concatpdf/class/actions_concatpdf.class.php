@@ -318,74 +318,72 @@ class ActionsConcatPdf
 
 			dol_syslog(get_class($this).'::afterPDFCreation '.join(',', $filetoconcat1).' - '.join(',', $filetoconcat2));
 
-			if (! empty($filetoconcat2) && ! empty($concatpdffile) && $concatpdffile != '-1') {
-				$filetoconcat = array_merge($filetoconcat1, $filetoconcat2);
+			$filetoconcat = array_merge($filetoconcat1, $filetoconcat2);
 
-				$formatarray = pdf_getFormat();
-				$format = array($formatarray['width'], $formatarray['height']);
+			$formatarray = pdf_getFormat();
+			$format = array($formatarray['width'], $formatarray['height']);
 
-				// Create empty PDF
-				$pdf = pdf_getInstance($format);
-				//$pdf->SetAutoPageBreak(1, 0);
-				if (class_exists('TCPDF')) {
-					$pdf->setPrintHeader(false);
-					$pdf->setPrintFooter(false);
-				}
-				$pdf->SetFont(pdf_getPDFFont($outputlangs));
+			// Create empty PDF
+			$pdf = pdf_getInstance($format);
+			//$pdf->SetAutoPageBreak(1, 0);
+			if (class_exists('TCPDF')) {
+				$pdf->setPrintHeader(false);
+				$pdf->setPrintFooter(false);
+			}
+			$pdf->SetFont(pdf_getPDFFont($outputlangs));
 
-				if (getDolGlobalString('MAIN_DISABLE_PDF_COMPRESSION')) {
-					$pdf->SetCompression(false);
-				}
-				//$pdf->SetCompression(false);
+			if (getDolGlobalString('MAIN_DISABLE_PDF_COMPRESSION')) {
+				$pdf->SetCompression(false);
+			}
+			//$pdf->SetCompression(false);
 
-				if (getDolGlobalString('CONCATPDF_MIXED_CONCATENATION_ENABLED')) {
-					$pagecount = $this->concatMixed($pdf, reset($filetoconcat1), $filetoconcat2);
-				} else {
-					$pagecount = $this->concat($pdf, $filetoconcat);
-				}
+			if (getDolGlobalString('CONCATPDF_MIXED_CONCATENATION_ENABLED')) {
+				$pagecount = $this->concatMixed($pdf, reset($filetoconcat1), $filetoconcat2);
+			} else {
+				$pagecount = $this->concat($pdf, $filetoconcat);
+			}
 
-				if ($pagecount > 0) {
-					if (function_exists('pdfExtractMetadata')) {	// From Dolibarr v22
-						// Now we get the metadata keywords from the $sourcefile PDF (by parsing the binary PDF file) and use it to extract
-						// the page x in PAGESIGN=x into $propalsignonspecificpage
-						$keywords = pdfExtractMetadata($filetoconcat1[0], 'Keywords');
-						$subject = pdfExtractMetadata($filetoconcat1[0], 'Subject');
-						$author = pdfExtractMetadata($filetoconcat1[0], 'Author');
-						$creator = pdfExtractMetadata($filetoconcat1[0], 'Creator');
+			if ($pagecount > 0) {
+				if (function_exists('pdfExtractMetadata')) {	// From Dolibarr v22
+					// Now we get the metadata keywords from the $sourcefile PDF (by parsing the binary PDF file) and use it to extract
+					// the page x in PAGESIGN=x into $propalsignonspecificpage
+					$keywords = pdfExtractMetadata($filetoconcat1[0], 'Keywords');
+					$subject = pdfExtractMetadata($filetoconcat1[0], 'Subject');
+					$author = pdfExtractMetadata($filetoconcat1[0], 'Author');
+					$creator = pdfExtractMetadata($filetoconcat1[0], 'Creator');
 
-						if (!preg_match('/^ERROR/', $keywords)) {
-							$pdf->setKeywords($keywords);
-						}
-						if (!preg_match('/^ERROR/', $subject)) {
-							$pdf->setSubject($subject);
-						}
-						if (!preg_match('/^ERROR/', $author)) {
-							$pdf->setAuthor($author);
-						}
-						if (!preg_match('/^ERROR/', $creator)) {
-							$pdf->setCreator($creator);
-						}
+					if (!preg_match('/^ERROR/', $keywords)) {
+						$pdf->setKeywords($keywords);
 					}
-
-					$pdf->Output($filetoconcat1[0], 'F');
-					dolChmod($filetoconcat1[0]);
-
-					if (! empty($deltemp)) {
-						// Delete temp files
-						foreach ($deltemp as $dirtemp) {
-							dol_delete_dir_recursive($dirtemp);
-						}
+					if (!preg_match('/^ERROR/', $subject)) {
+						$pdf->setSubject($subject);
+					}
+					if (!preg_match('/^ERROR/', $author)) {
+						$pdf->setAuthor($author);
+					}
+					if (!preg_match('/^ERROR/', $creator)) {
+						$pdf->setCreator($creator);
 					}
 				}
-				if ($pagecount < 0) {
-					return -1;
-				}
 
-				// Save selected files into extraparams
-				$params['concatpdf'] = $concatpdffile;
-				if (is_object($parameters['object'])) {
-					$parameters['object']->extraparams = array_merge(is_array($parameters['object']->extraparams) ? $parameters['object']->extraparams : array(), $params);
+				$pdf->Output($filetoconcat1[0], 'F');
+				dolChmod($filetoconcat1[0]);
+
+				if (! empty($deltemp)) {
+					// Delete temp files
+					foreach ($deltemp as $dirtemp) {
+						dol_delete_dir_recursive($dirtemp);
+					}
 				}
+			}
+			if ($pagecount < 0) {
+				return -1;
+			}
+
+			// Save selected files into extraparams
+			$params['concatpdf'] = $concatpdffile;
+			if (is_object($parameters['object'])) {
+				$parameters['object']->extraparams = array_merge(is_array($parameters['object']->extraparams) ? $parameters['object']->extraparams : array(), $params);
 			}
 		} else {
 			// Remove extraparams for concatpdf
@@ -482,7 +480,7 @@ class ActionsConcatPdf
 	 *
 	 * @param	mixed	$concatpdffile	Array (or string) of file names, without directory
 	 * @param	string	$element		Subdirectory of the element ('proposals', 'invoices', ...)
-	 * @return	array					Array of allowed file names
+	 * @return	string[]				Array of allowed file names
 	 */
 	private function filterConcatFiles($concatpdffile, $element)
 	{

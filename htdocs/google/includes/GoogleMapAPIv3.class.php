@@ -279,26 +279,6 @@ class GoogleMapAPI
 	}
 
 	/**
-	 * Get URL content using cURL.
-	 *
-	 * @param string $url the url
-	 * @return string the html code
-	 *
-	 * @todo add proxy settings
-	 */
-	public function getContent($url)
-	{
-		$curl = curl_init();
-		curl_setopt($curl, CURLOPT_TIMEOUT, 10);
-		curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, 5);
-		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-		curl_setopt($curl, CURLOPT_URL, $url);
-		$data = curl_exec($curl);
-		curl_close($curl);
-		return $data;
-	}
-
-	/**
 	 * Remove accentued characters
 	 *
 	 * @param string $str		   The string to treat
