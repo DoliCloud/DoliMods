@@ -7,6 +7,7 @@ ALTER TABLE llx_c_ziptown ADD COLUMN town_up varchar(180);
 
 -- France
 INSERT INTO llx_c_ziptown (code, fk_county, fk_pays, zip, town, active, town_up) VALUES
+('12999', NULL, 1, '12200', 'Le Bas Segala', 1, 'LE BAS SEGALA'),
 ('64001', NULL, 1, '64460', 'Aast', 1, 'AAST'),
 ('55001', NULL, 1, '55130', 'Abainville', 1, 'ABAINVILLE'),
 ('59001', NULL, 1, '59265', 'Abancourt', 1, 'ABANCOURT'),
