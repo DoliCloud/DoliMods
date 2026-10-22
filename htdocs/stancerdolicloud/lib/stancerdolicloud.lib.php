@@ -265,3 +265,114 @@ function stancerDolicloudCompleteFullTag($FULLTAG, $source = '', $ref = '')
 		return $FULLTAG;
 	}
 }
+
+/**
+ * Save the data of a pending payment, to find them back on the return pages.
+ * v25+ uses the functions of the core (table llx_onlinepayment_session), older versions use the table of the module.
+ *
+ * @param 	string		$ref_payment	Unique key of the pending payment (generated when the payment is initiated, sent in the return url)
+ * @param 	array		$data			Data to save (stored in json)
+ * @return 	int			1 if the data was saved successfully, -1 if error
+ */
+function stancerDolicloudPendingPaymentSave($ref_payment, $data)
+{
+	global $db;
+
+	if ((int) DOL_VERSION >= 25) {
+		require_once DOL_DOCUMENT_ROOT.'/core/lib/payments.lib.php';
+		return onlinePaymentSessionSave('Stancer', $ref_payment, $data);
+	}
+
+	$sql = "INSERT INTO ".MAIN_DB_PREFIX."stancerdolicloud_pending_payments (ref_payment, data, date_creation)";
+	$sql .= " VALUES ('".$db->escape($ref_payment)."', '".$db->escape(json_encode($data))."', '".$db->idate(dol_now())."')";
+	return $db->query($sql) ? 1 : -1;
+}
+
+/**
+ * Get the data of a pending payment.
+ *
+ * @param 	string		$ref_payment	Unique key of the pending payment (sent in the return url)
+ * @return 	stdClass|null				Data of the pending payment, or null if not found or error
+ */
+function stancerDolicloudPendingPaymentFetch($ref_payment)
+{
+	global $db;
+
+	if ((int) DOL_VERSION >= 25) {
+		require_once DOL_DOCUMENT_ROOT.'/core/lib/payments.lib.php';
+		return onlinePaymentSessionFetch('Stancer', $ref_payment);
+	}
+
+	$sql = "SELECT data FROM ".MAIN_DB_PREFIX."stancerdolicloud_pending_payments WHERE ref_payment = '".$db->escape($ref_payment)."'";
+	$resql = $db->query($sql);
+	if (!$resql) {
+		dol_syslog(__FUNCTION__." SQL Error on SELECT: ".$db->lasterror(), LOG_ERR);
+		return null;
+	}
+	$obj = $db->fetch_object($resql);
+	if (!$obj) {
+		return null;
+	}
+	$json = json_decode($obj->data);
+	return is_object($json) ? $json : null;
+}
+
+/**
+ * Replace the data of a pending payment.
+ *
+ * @param 	string		$ref_payment	Unique key of the pending payment
+ * @param 	stdClass	$data			New data (stored in json)
+ * @return 	int			1 if the data was updated successfully, -1 if error
+ */
+function stancerDolicloudPendingPaymentUpdate($ref_payment, $data)
+{
+	global $db;
+
+	if ((int) DOL_VERSION >= 25) {
+		require_once DOL_DOCUMENT_ROOT.'/core/lib/payments.lib.php';
+		// onlinePaymentSessionSave() updates the row if it already exists
+		return onlinePaymentSessionSave('Stancer', $ref_payment, $data);
+	}
+
+	$sql = "UPDATE ".MAIN_DB_PREFIX."stancerdolicloud_pending_payments SET data = '".$db->escape(json_encode($data))."' WHERE ref_payment = '".$db->escape($ref_payment)."'";
+	return $db->query($sql) ? 1 : -1;
+}
+
+/**
+ * Delete a pending payment so it can't be replayed. Only the call that really deletes it returns 1.
+ *
+ * @param 	string		$ref_payment	Unique key of the pending payment
+ * @return 	int			1 if exactly one row was deleted, -1 if error
+ */
+function stancerDolicloudPendingPaymentConsume($ref_payment)
+{
+	global $db;
+
+	if ((int) DOL_VERSION >= 25) {
+		require_once DOL_DOCUMENT_ROOT.'/core/lib/payments.lib.php';
+		return onlinePaymentSessionConsume('Stancer', $ref_payment);
+	}
+
+	$sql = "DELETE FROM ".MAIN_DB_PREFIX."stancerdolicloud_pending_payments WHERE ref_payment = '".$db->escape($ref_payment)."'";
+	$resql = $db->query($sql);
+	return ($resql && $db->affected_rows($resql) == 1) ? 1 : -1;
+}
+
+/**
+ * Delete the old pending payments.
+ *
+ * @param 	integer		$datelimit		Pending payments created before this date (timestamp) are deleted
+ * @return 	int			1 if the old pending payments were deleted successfully, -1 if error
+ */
+function stancerDolicloudPendingPaymentPurge($datelimit)
+{
+	global $db;
+
+	if ((int) DOL_VERSION >= 25) {
+		// Nothing to do: onlinePaymentSessionSave() of the core already purges the old rows, and the purge of the core is not limited to this module
+		return 1;
+	}
+
+	$sql = "DELETE FROM ".MAIN_DB_PREFIX."stancerdolicloud_pending_payments WHERE date_creation <= '".$db->idate($datelimit)."'";
+	return $db->query($sql) ? 1 : -1;
+}
