@@ -321,18 +321,18 @@ function payplugGetDataFromObjects($source, $ref, $mode = 'amount', &$payerarray
 
 /**
  * Save the data of a pending payment, to find them back on the return pages.
- * v25+ uses the functions of the core (table llx_onlinepayment_session), older versions use the table of the module.
+ * When the core provides onlinePaymentSession*() (v25+), they are used (table llx_onlinepayment_session), else the table of the module is used.
  *
  * @param 	string		$ref_payment	Unique key of the pending payment (generated when the payment is initiated, sent in the return url)
- * @param 	array		$data			Data to save (stored in json)
+ * @param 	array<string,mixed>	$data		Data to save (stored in json)
  * @return 	int			1 if the data was saved successfully, -1 if error
  */
 function payplugDolicloudPendingPaymentSave($ref_payment, $data)
 {
 	global $db;
 
-	if ((int) DOL_VERSION >= 25) {
-		require_once DOL_DOCUMENT_ROOT.'/core/lib/payments.lib.php';
+	require_once DOL_DOCUMENT_ROOT.'/core/lib/payments.lib.php';
+	if (function_exists('onlinePaymentSessionSave')) {
 		return onlinePaymentSessionSave('PayPlug', $ref_payment, $data);
 	}
 
@@ -351,8 +351,8 @@ function payplugDolicloudPendingPaymentFetch($ref_payment)
 {
 	global $db;
 
-	if ((int) DOL_VERSION >= 25) {
-		require_once DOL_DOCUMENT_ROOT.'/core/lib/payments.lib.php';
+	require_once DOL_DOCUMENT_ROOT.'/core/lib/payments.lib.php';
+	if (function_exists('onlinePaymentSessionFetch')) {
 		return onlinePaymentSessionFetch('PayPlug', $ref_payment);
 	}
 
@@ -374,17 +374,17 @@ function payplugDolicloudPendingPaymentFetch($ref_payment)
  * Replace the data of a pending payment.
  *
  * @param 	string		$ref_payment	Unique key of the pending payment
- * @param 	stdClass	$data			New data (stored in json)
+ * @param 	stdClass|array<string,mixed>	$data	New data (stored in json)
  * @return 	int			1 if the data was updated successfully, -1 if error
  */
 function payplugDolicloudPendingPaymentUpdate($ref_payment, $data)
 {
 	global $db;
 
-	if ((int) DOL_VERSION >= 25) {
-		require_once DOL_DOCUMENT_ROOT.'/core/lib/payments.lib.php';
+	require_once DOL_DOCUMENT_ROOT.'/core/lib/payments.lib.php';
+	if (function_exists('onlinePaymentSessionSave')) {
 		// onlinePaymentSessionSave() updates the row if it already exists
-		return onlinePaymentSessionSave('PayPlug', $ref_payment, $data);
+		return onlinePaymentSessionSave('PayPlug', $ref_payment, (array) $data);
 	}
 
 	$sql = "UPDATE ".MAIN_DB_PREFIX."payplugdolicloud_pending_payments SET data = '".$db->escape(json_encode($data))."' WHERE ref_payment = '".$db->escape($ref_payment)."'";
@@ -401,8 +401,8 @@ function payplugDolicloudPendingPaymentConsume($ref_payment)
 {
 	global $db;
 
-	if ((int) DOL_VERSION >= 25) {
-		require_once DOL_DOCUMENT_ROOT.'/core/lib/payments.lib.php';
+	require_once DOL_DOCUMENT_ROOT.'/core/lib/payments.lib.php';
+	if (function_exists('onlinePaymentSessionConsume')) {
 		return onlinePaymentSessionConsume('PayPlug', $ref_payment);
 	}
 
@@ -421,7 +421,8 @@ function payplugDolicloudPendingPaymentPurge($datelimit)
 {
 	global $db;
 
-	if ((int) DOL_VERSION >= 25) {
+	require_once DOL_DOCUMENT_ROOT.'/core/lib/payments.lib.php';
+	if (function_exists('onlinePaymentSessionSave')) {
 		// Nothing to do: onlinePaymentSessionSave() of the core already purges the old rows, and the purge of the core is not limited to this module
 		return 1;
 	}

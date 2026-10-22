@@ -571,8 +571,7 @@ class ActionsStancerDolicloud extends CommonHookActions
 
 								$this->db->begin();
 							// Clean table pending_payment
-							$daybeforedelete = getDolGlobalInt("STANCER_DOLICLOUD_NB_DAY_PENDING_PAYMENT", 10) * -1;
-							$datetodelete = dol_time_plus_duree(dol_now(), $daybeforedelete, 'd');
+							$datetodelete = dol_now() - (getDolGlobalInt("STANCER_DOLICLOUD_NB_DAY_PENDING_PAYMENT", 10) * 86400);
 							$res = stancerDolicloudPendingPaymentPurge($datetodelete);
 							if ($res < 0) {
 								dol_print_error($this->db);

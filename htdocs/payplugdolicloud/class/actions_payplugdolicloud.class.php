@@ -564,8 +564,7 @@ class ActionsPayplugDolicloud extends CommonHookActions
 							$urlforredirect = $json2->hosted_payment->payment_url;
 
 							// Clean the old pending payments
-							$daybeforedelete = getDolGlobalInt("PAYPLUG_DOLICLOUD_NB_DAY_PENDING_PAYMENT", 10) * -1;
-							payplugDolicloudPendingPaymentPurge(dol_time_plus_duree(dol_now(), $daybeforedelete, 'd'));
+							payplugDolicloudPendingPaymentPurge(dol_now() - (getDolGlobalInt("PAYPLUG_DOLICLOUD_NB_DAY_PENDING_PAYMENT", 10) * 86400));
 
 							$json_data_payment = array(
 								"PAYPLUG_DOLICLOUD_PAYMENT_ID" => urlencode($json2->id),
