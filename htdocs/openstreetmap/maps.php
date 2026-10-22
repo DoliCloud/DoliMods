@@ -62,7 +62,7 @@ if (empty($mode) || $mode=='societe' || $mode=='thirdparty') {
 	$object = new Societe($db);
 	$object->id = $id;
 	$object->fetch($id);
-	$result = restrictedArea($user, 'societe', $object->id, '&societe', '', 'fk_soc', 'rowid', 0);
+	restrictedArea($user, 'societe', $object->id, '&societe', '', 'fk_soc', 'rowid', 0);
 	$address = $object->getFullAddress(1, ', ');
 }
 if ($mode=='contact') {
@@ -71,7 +71,7 @@ if ($mode=='contact') {
 	$object = new Contact($db);
 	$object->id = $id;
 	$object->fetch($id);
-	$result = restrictedArea($user, 'contact', $id, 'socpeople&societe', '', '', 'rowid', 0);
+	restrictedArea($user, 'contact', $id, 'socpeople&societe', '', '', 'rowid', 0);
 	$address = $object->getFullAddress(1, ', ');
 }
 if ($mode=='member') {
@@ -80,7 +80,7 @@ if ($mode=='member') {
 	$object = new Adherent($db);
 	$object->id = $id;
 	$object->fetch($id);
-	$result = restrictedArea($user, 'adherent', $object->id, '', '', 'socid', 'rowid', 0);
+	restrictedArea($user, 'adherent', $object->id, '', '', 'socid', 'rowid', 0);
 	$address = $object->getFullAddress(1, ', ');
 }
 if ($mode=='user') {
@@ -121,14 +121,11 @@ llxHeader();
 
 $form=new Form($db);
 
-$content = "Default content";
-$act = "";
-
-//On fabrique les onglets
+// Tabs of the card
 $head=array();
 $title='';
 $picto='';
-if (empty($mode) || $mode=='thirdparty') {
+if (empty($mode) || $mode=='societe' || $mode=='thirdparty') {
 	$head = societe_prepare_head($object);
 	$title=$langs->trans("ThirdParty");
 	$picto='company';
@@ -150,7 +147,7 @@ if ($mode=='user') {
 	$picto='user';
 }
 
-dol_fiche_head($head, 'gmaps', $title, 0, $picto);
+print dol_get_fiche_head($head, 'gmaps', $title, -1, $picto);
 
 
 print '<table class="border" width="100%">';
@@ -158,7 +155,7 @@ print '<table class="border" width="100%">';
 // Name
 print '<tr><td width="20%">'.$langs->trans('ThirdPartyName').'</td>';
 print '<td colspan="3">';
-print $form->showrefnav($object, 'id', '', (isset($user->societe_id) && $user->societe_id ? 0:1), 'rowid', 'nom', '', '&mode='.$mode);
+print $form->showrefnav($object, 'id', '', (empty($user->socid) ? 1 : 0), 'rowid', 'nom', '', '&mode='.$mode);
 print '</td>';
 print '</tr>';
 
@@ -168,7 +165,6 @@ print '<tr><td>'.$langs->trans("Status").'</td>';
 print '<td colspan="'.(2+(($showlogo || $showbarcode)?0:1)).'">';
 print $object->getLibStatut(2);
 print '</td>';
-// print $htmllogobar; $htmllogobar='';
 print '</tr>';
 
 // Address
@@ -237,8 +233,8 @@ if ($address && $address != $object->country) {
 	print '<br>'.$langs->trans("OpenStreetMapAddressNotDefined").'<br>';
 }
 
-dol_fiche_end();
+print dol_get_fiche_end();
 
-llxfooter();
+llxFooter();
 
 $db->close();

@@ -1,6 +1,13 @@
 # ChangeLog MODULE OPENSTREETMAP FOR <a href="https://www.dolibarr.org">DOLIBARR ERP CRM</a>
 
 
+## 4.1.2
+
+* Clean code: removed commented code and unused translation keys left from the Google module this module was derived from, unused includes and variables.
+* Setup and about pages, card map page: use dol_get_fiche_head/dol_get_fiche_end, load_fiche_titre and isModEnabled() instead of deprecated functions.
+* Card map page: the navigation to previous/next record now uses $user->socid (the old societe_id property no longer exists), and the tabs are also shown with mode=societe.
+* The tab "Maps" of the setup has its own translation key.
+
 ## 4.1.1
 
 * The entry "Map" in the menu of contacts is hidden by default (contacts usually share the address of their third party). New setup option to show it. The map pictogram on contact cards is not changed. Disable and enable the module so the menu is updated.
