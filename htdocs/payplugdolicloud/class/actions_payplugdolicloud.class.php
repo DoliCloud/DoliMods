@@ -646,6 +646,7 @@ class ActionsPayplugDolicloud extends CommonHookActions
 
 		$error = 0;
 		$paymentId = '';
+		$ref_payment = '';
 		if (in_array($parameters['paymentmethod'], array('payplug'))) {
 			$code = GETPOST("code");
 
