@@ -52,7 +52,7 @@ jobs:
           # Token used by the "git push" of the PR branch
           token: ${{ secrets.AI_PUSH_TOKEN || secrets.GITHUB_TOKEN }}
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v7
         with:
           python-version: "3.12"
 
