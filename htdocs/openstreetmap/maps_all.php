@@ -281,7 +281,7 @@ print openstreetmap_include_leaflet(1);
 print '<div id="map" class="divmap" style="width: 100%; height: 600px;"></div>';
 print '<script>
 (function() {
-	var markers = '.json_encode($markers, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT).';
+	var markers = '.str_replace(array('<', '>', '&'), array('\\u003C', '\\u003E', '\\u0026'), (string) json_encode($markers)).';
 	var map = L.map("map").setView(['.(float) getDolGlobalString('OPENSTREETMAP_DEFAULT_LAT', '52.2').', '.(float) getDolGlobalString('OPENSTREETMAP_DEFAULT_LON', '5.3').'], 7);
 	L.tileLayer("'.dol_escape_js(openstreetmap_get_tile_url()).'", {
 		maxZoom: 19,
