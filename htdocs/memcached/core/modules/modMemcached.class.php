@@ -40,7 +40,7 @@ class modMemcached extends DolibarrModules
 	 */
 	public function __construct($db)
 	{
-		global $dolibarr_memcached_setup_disable;
+		global $conf, $dolibarr_memcached_setup_disable;
 
 		$this->db = $db;
 
