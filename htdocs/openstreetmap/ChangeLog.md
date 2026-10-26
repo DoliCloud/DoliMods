@@ -1,6 +1,10 @@
 # ChangeLog MODULE OPENSTREETMAP FOR <a href="https://www.dolibarr.org">DOLIBARR ERP CRM</a>
 
 
+## 4.1.3
+
+* Map of all objects: the map now fills the remaining height of the window (at least 400px) and follows when the window is resized, instead of a fixed height of 600px.
+
 ## 4.1.2
 
 * Clean code: removed commented code and unused translation keys left from the Google module this module was derived from, unused includes and variables.

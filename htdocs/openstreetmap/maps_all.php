@@ -278,9 +278,20 @@ if ($nbpending > 0) {
 print '<br>';
 
 print openstreetmap_include_leaflet(1);
-print '<div id="map" class="divmap" style="width: 100%; height: 600px;"></div>';
+print '<div id="map" class="divmap" style="width: 100%; height: 600px; min-height: 400px;"></div>';
 print '<script>
 (function() {
+	// Fit the map to the remaining height of the window (at least 400px), also after resizing the window
+	var el = document.getElementById("map");
+	function fitHeight() {
+		var top = el.getBoundingClientRect().top + window.pageYOffset;
+		var height = window.innerHeight - top - 20;
+		if (height < 400) {
+			height = Math.max(400, window.innerHeight - 40);
+		}
+		el.style.height = height + "px";
+	}
+	fitHeight();
 	var markers = '.str_replace(array('<', '>', '&'), array('\\u003C', '\\u003E', '\\u0026'), (string) json_encode($markers)).';
 	var map = L.map("map").setView(['.(float) getDolGlobalString('OPENSTREETMAP_DEFAULT_LAT', '52.2').', '.(float) getDolGlobalString('OPENSTREETMAP_DEFAULT_LON', '5.3').'], 7);
 	L.tileLayer("'.dol_escape_js(openstreetmap_get_tile_url()).'", {
@@ -296,6 +307,14 @@ print '<script>
 	if (markers.length > 0) {
 		map.fitBounds(group.getBounds(), {padding: [20, 20], maxZoom: 15});
 	}
+	var timer = null;
+	window.addEventListener("resize", function() {
+		clearTimeout(timer);
+		timer = setTimeout(function() {
+			fitHeight();
+			map.invalidateSize();
+		}, 150);
+	});
 })();
 </script>';
 
