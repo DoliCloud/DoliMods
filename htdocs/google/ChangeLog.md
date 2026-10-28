@@ -1,6 +1,10 @@
 # ChangeLog GOOGLE MODULE FOR <a href="https://www.dolibarr.org">DOLIBARR ERP CRM</a> 
 
 
+## 7.0.0
+
+- Fir error 500 on some pages.
+
 
 ## 6.8.2
 

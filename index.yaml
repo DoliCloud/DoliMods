@@ -12,14 +12,14 @@ packages:
       en: 'Module for organizing an alumni meeting event'
     status: 'enabled'
     created_at: '2023-11-02'
-    last_updated_at: "2026-10-11"
+    last_updated_at: "2026-10-12"
     category: ''
     git: 'https://github.com/DoliCloud/dolimods/tree/master/htdocs/alumni'
     git-branch: 'master'
     git-system: 'github'
     cover: ''
     current_version: "1.02"
-    dolibarrmin: "18.0"
+    dolibarrmin: "20.0"
     dolibarrmax: "24.0"
     phpmin: "7.0"
     phpmax: ""
@@ -45,7 +45,7 @@ packages:
       en: 'Module to integrate AWStats statistics reports into Dolibarr'
     status: 'enabled'
     created_at: '2008-03-10'
-    last_updated_at: "2026-10-11"
+    last_updated_at: "2026-10-18"
     category: ''
     git: 'https://github.com/DoliCloud/dolimods/tree/master/htdocs/awstats'
     git-branch: 'master'
@@ -78,7 +78,7 @@ packages:
       en: 'Module to show the amount billed and remain to billed according to linked invoices on the list of customer or supplier orders'
     status: 'enabled'
     created_at: '2017-01-12'
-    last_updated_at: "2026-10-11"
+    last_updated_at: "2026-10-18"
     category: ''
     git: 'https://github.com/DoliCloud/dolimods/tree/master/htdocs/billedonorders'
     git-branch: 'master'
@@ -111,7 +111,7 @@ packages:
       en: 'Make your Dolibarr able to be a BitTorrent tracker (and serve .torrent files)'
     status: 'enabled'
     created_at: '2009-02-23'
-    last_updated_at: "2026-10-11"
+    last_updated_at: "2026-10-12"
     category: ''
     git: 'https://github.com/DoliCloud/dolimods/tree/master/htdocs/bittorrent'
     git-branch: 'master'
@@ -144,14 +144,14 @@ packages:
       en: 'Module to contact PDF (sells conditions for example) to any generated PDF (invoices, orders or proposals)'
     status: 'enabled'
     created_at: '2011-05-18'
-    last_updated_at: "2026-10-11"
+    last_updated_at: "2026-10-18"
     category: ''
     git: 'https://github.com/DoliCloud/dolimods/tree/master/htdocs/concatpdf'
     git-branch: 'master'
     git-system: 'github'
     cover: 'https://raw.githubusercontent.com/DoliCloud/dolimods/master/htdocs/concatpdf/img/concatpdf.png'
     current_version: "6.0.4"
-    dolibarrmin: "18.0"
+    dolibarrmin: "20.0"
     dolibarrmax: "24.0"
     phpmin: "4.3"
     phpmax: ""
@@ -177,7 +177,7 @@ packages:
       en: 'Discussion description'
     status: 'enabled'
     created_at: '2025-06-24'
-    last_updated_at: "2026-10-11"
+    last_updated_at: "2026-10-12"
     category: ''
     git: 'https://github.com/DoliCloud/dolimods/tree/master/htdocs/discussion'
     git-branch: 'master'
@@ -210,7 +210,7 @@ packages:
       en: 'Module to integrate DoliCloud tools in dolibarr'
     status: 'disabled'
     created_at: '2012-02-22'
-    last_updated_at: "2026-10-11"
+    last_updated_at: "2026-10-12"
     category: ''
     git: 'https://github.com/DoliCloud/dolimods/tree/master/htdocs/dolicloud'
     git-branch: 'master'
@@ -243,7 +243,7 @@ packages:
       en: 'Module to add ecotax lines automatically'
     status: 'enabled'
     created_at: '2013-12-08'
-    last_updated_at: "2026-10-11"
+    last_updated_at: "2026-10-18"
     category: ''
     git: 'https://github.com/DoliCloud/dolimods/tree/master/htdocs/ecotaxdeee'
     git-branch: 'master'
@@ -276,7 +276,7 @@ packages:
       en: 'Make a backup of your Dolibarr data on any Cloud hosting service.'
     status: 'enabled'
     created_at: '2016-03-29'
-    last_updated_at: "2026-10-11"
+    last_updated_at: "2026-10-18"
     category: ''
     git: 'https://github.com/DoliCloud/dolimods/tree/master/htdocs/externalbackup'
     git-branch: 'master'
@@ -309,7 +309,7 @@ packages:
       en: 'FacturX utility module'
     status: 'enabled'
     created_at: '2022-03-10'
-    last_updated_at: "2026-10-11"
+    last_updated_at: "2026-10-18"
     category: ''
     git: 'https://github.com/DoliCloud/dolimods/tree/master/htdocs/facturxutil'
     git-branch: 'master'
@@ -342,7 +342,7 @@ packages:
       en: 'A file manager'
     status: 'enabled'
     created_at: '2010-08-18'
-    last_updated_at: "2026-10-11"
+    last_updated_at: "2026-10-18"
     category: ''
     git: 'https://github.com/DoliCloud/dolimods/tree/master/htdocs/filemanager'
     git-branch: 'master'
@@ -375,7 +375,7 @@ packages:
       en: 'Module to manage and run forms'
     status: 'development'
     created_at: '2016-02-16'
-    last_updated_at: "2026-10-11"
+    last_updated_at: "2026-10-12"
     category: ''
     git: 'https://github.com/DoliCloud/dolimods/tree/master/htdocs/form'
     git-branch: 'master'
@@ -408,13 +408,13 @@ packages:
       en: 'Module to integrate Google tools with Dolibarr'
     status: 'enabled'
     created_at: '2008-03-09'
-    last_updated_at: "2026-10-11"
+    last_updated_at: "2026-10-28"
     category: ''
     git: 'https://github.com/DoliCloud/dolimods/tree/master/htdocs/google'
     git-branch: 'master'
     git-system: 'github'
     cover: 'https://raw.githubusercontent.com/DoliCloud/dolimods/master/htdocs/google/img/google.png'
-    current_version: "6.8.2"
+    current_version: "7.0.0"
     dolibarrmin: "18.0"
     dolibarrmax: "24.0"
     phpmin: "7.2"
@@ -441,7 +441,7 @@ packages:
       en: 'IFTTT interface'
     status: 'enabled'
     created_at: '2019-05-21'
-    last_updated_at: "2026-10-11"
+    last_updated_at: "2026-10-12"
     category: ''
     git: 'https://github.com/DoliCloud/dolimods/tree/master/htdocs/ifttt'
     git-branch: 'master'
@@ -474,7 +474,7 @@ packages:
       en: 'Offer a service to allow an IP Phone (Cisco, Yealink, Thompson, ...) to read Dolibarr contacts for its phone book'
     status: 'enabled'
     created_at: '2014-10-16'
-    last_updated_at: "2026-10-11"
+    last_updated_at: "2026-10-18"
     category: ''
     git: 'https://github.com/DoliCloud/dolimods/tree/master/htdocs/ipphone'
     git-branch: 'master'
@@ -507,7 +507,7 @@ packages:
       en: 'Use a memcached server to increase Dolibarr speed (need PHP functions Memcached or Memcache)'
     status: 'enabled'
     created_at: '2010-05-08'
-    last_updated_at: "2026-10-11"
+    last_updated_at: "2026-10-26"
     category: ''
     git: 'https://github.com/DoliCloud/dolimods/tree/master/htdocs/memcached'
     git-branch: 'master'
@@ -540,7 +540,7 @@ packages:
       en: 'Module to add monitoring of external systems features'
     status: 'enabled'
     created_at: '2011-01-22'
-    last_updated_at: "2026-10-11"
+    last_updated_at: "2026-10-18"
     category: ''
     git: 'https://github.com/DoliCloud/dolimods/tree/master/htdocs/monitoring'
     git-branch: 'master'
@@ -573,7 +573,7 @@ packages:
       en: 'More templates (by DoliCloud)'
     status: 'enabled'
     created_at: '2012-03-01'
-    last_updated_at: "2026-10-11"
+    last_updated_at: "2026-10-12"
     category: ''
     git: 'https://github.com/DoliCloud/dolimods/tree/master/htdocs/moretemplates'
     git-branch: 'master'
@@ -606,7 +606,7 @@ packages:
       en: 'Add a widgets for home dashboard with editable HTML content'
     status: 'enabled'
     created_at: '2019-03-01'
-    last_updated_at: "2026-10-11"
+    last_updated_at: "2026-10-18"
     category: ''
     git: 'https://github.com/DoliCloud/dolimods/tree/master/htdocs/mywidgets'
     git-branch: 'master'
@@ -639,7 +639,7 @@ packages:
       en: 'Netatmo description'
     status: 'enabled'
     created_at: '2019-07-18'
-    last_updated_at: "2026-10-11"
+    last_updated_at: "2026-10-18"
     category: ''
     git: 'https://github.com/DoliCloud/dolimods/tree/master/htdocs/netatmo'
     git-branch: 'master'
@@ -672,7 +672,7 @@ packages:
       en: 'More module to define numbering rules for third parties codes'
     status: 'enabled'
     created_at: '2010-08-09'
-    last_updated_at: "2026-10-11"
+    last_updated_at: "2026-10-12"
     category: ''
     git: 'https://github.com/DoliCloud/dolimods/tree/master/htdocs/numberingpack'
     git-branch: 'master'
@@ -705,7 +705,7 @@ packages:
       en: 'Add capabilities to convert amounts and numbers into value in full text (only few languages supported)'
     status: 'enabled'
     created_at: '2011-03-03'
-    last_updated_at: "2026-10-11"
+    last_updated_at: "2026-10-18"
     category: ''
     git: 'https://github.com/DoliCloud/dolimods/tree/master/htdocs/numberwords'
     git-branch: 'master'
@@ -738,7 +738,7 @@ packages:
       en: 'Module to integrate OpenStreetMap tools with Dolibarr'
     status: 'enabled'
     created_at: '2012-04-04'
-    last_updated_at: "2026-10-11"
+    last_updated_at: "2026-10-18"
     category: ''
     git: 'https://github.com/DoliCloud/dolimods/tree/master/htdocs/openstreetmap'
     git-branch: 'master'
@@ -771,13 +771,13 @@ packages:
       en: 'Add some features to use OVH interfaces (Send SMS with a subscription to OVH SMS API and make Click2Dial with OVH SIP server)'
     status: 'enabled'
     created_at: '2010-12-04'
-    last_updated_at: "2026-10-11"
+    last_updated_at: "2026-10-19"
     category: ''
     git: 'https://github.com/DoliCloud/dolimods/tree/master/htdocs/ovh'
     git-branch: 'master'
     git-system: 'github'
     cover: 'https://raw.githubusercontent.com/DoliCloud/dolimods/master/htdocs/ovh/img/ovh.png'
-    current_version: "5.0"
+    current_version: "5.1"
     dolibarrmin: "18.0"
     dolibarrmax: "24.0"
     phpmin: "7.0"
@@ -804,7 +804,7 @@ packages:
       en: 'Offer customers a PayPlug online payment page (credit/debit cards). Module provided by Dolicloud. This can be used to allow your customers to make ad-hoc payments or payments related to a specific Dolibarr object (invoice, order etc...)'
     status: 'enabled'
     created_at: '2024-11-27'
-    last_updated_at: "2026-10-11"
+    last_updated_at: "2026-10-23"
     category: ''
     git: 'https://github.com/DoliCloud/dolimods/tree/master/htdocs/payplugdolicloud'
     git-branch: 'master'
@@ -837,7 +837,7 @@ packages:
       en: 'Add a system information page into your Tools menu'
     status: 'enabled'
     created_at: '2010-07-19'
-    last_updated_at: "2026-10-11"
+    last_updated_at: "2026-10-18"
     category: ''
     git: 'https://github.com/DoliCloud/dolimods/tree/master/htdocs/phpsysinfo'
     git-branch: 'master'
@@ -870,7 +870,7 @@ packages:
       en: 'Add pibarcode generator to generate barcodes'
     status: 'enabled'
     created_at: '2010-06-04'
-    last_updated_at: "2026-10-11"
+    last_updated_at: "2026-10-12"
     category: ''
     git: 'https://github.com/DoliCloud/dolimods/tree/master/htdocs/pibarcode'
     git-branch: 'master'
@@ -903,7 +903,7 @@ packages:
       en: 'Add features to get summarized information on sales on a Prestashop eCommerce.'
     status: 'enabled'
     created_at: '2019-03-29'
-    last_updated_at: "2026-10-11"
+    last_updated_at: "2026-10-13"
     category: ''
     git: 'https://github.com/DoliCloud/dolimods/tree/master/htdocs/prestashopget'
     git-branch: 'master'
@@ -936,7 +936,7 @@ packages:
       en: 'Create a supplier invoice on an entity each time a customer invoice is created on a dedicated customer.'
     status: 'enabled'
     created_at: '2019-06-06'
-    last_updated_at: "2026-10-11"
+    last_updated_at: "2026-10-12"
     category: ''
     git: 'https://github.com/DoliCloud/dolimods/tree/master/htdocs/revertinvoice'
     git-branch: 'master'
@@ -969,7 +969,7 @@ packages:
       en: 'Saf-T PT MOSS'
     status: 'development'
     created_at: '2022-01-18'
-    last_updated_at: "2026-10-11"
+    last_updated_at: "2026-10-12"
     category: ''
     git: 'https://github.com/DoliCloud/dolimods/tree/master/htdocs/saftpt'
     git-branch: 'master'
@@ -1002,7 +1002,7 @@ packages:
       en: 'Add menu entry to pilot a scanner plugged to a Dolibarr server (Linux server only)'
     status: 'enabled'
     created_at: '2010-11-13'
-    last_updated_at: "2026-10-11"
+    last_updated_at: "2026-10-12"
     category: ''
     git: 'https://github.com/DoliCloud/dolimods/tree/master/htdocs/scanner'
     git-branch: 'master'
@@ -1035,7 +1035,7 @@ packages:
       en: 'Select Bank account to show on invoice generated documents'
     status: 'enabled'
     created_at: '2013-02-23'
-    last_updated_at: "2026-10-11"
+    last_updated_at: "2026-10-18"
     category: ''
     git: 'https://github.com/DoliCloud/dolimods/tree/master/htdocs/selectbank'
     git-branch: 'master'
@@ -1068,7 +1068,7 @@ packages:
       en: 'Add some features to use SendGrid interfaces'
     status: 'development'
     created_at: '2017-10-13'
-    last_updated_at: "2026-10-11"
+    last_updated_at: "2026-10-18"
     category: ''
     git: 'https://github.com/DoliCloud/dolimods/tree/master/htdocs/sendgrid'
     git-branch: 'master'
@@ -1101,7 +1101,7 @@ packages:
       en: 'Allows to edit and personalise colors and font of skin Eldy'
     status: 'deprecated'
     created_at: '2012-01-15'
-    last_updated_at: "2026-10-11"
+    last_updated_at: "2026-10-18"
     category: ''
     git: 'https://github.com/DoliCloud/dolimods/tree/master/htdocs/skincoloreditor'
     git-branch: 'master'
@@ -1134,7 +1134,7 @@ packages:
       en: 'Offer customers a Stancer online payment page (credit/debit cards). Module provided by Dolicloud. This can be used to allow your customers to make ad-hoc payments or payments related to a specific Dolibarr object (invoice, order etc...)'
     status: 'enabled'
     created_at: '2024-10-30'
-    last_updated_at: "2026-10-11"
+    last_updated_at: "2026-10-22"
     category: ''
     git: 'https://github.com/DoliCloud/dolimods/tree/master/htdocs/stancerdolicloud'
     git-branch: 'master'
@@ -1167,7 +1167,7 @@ packages:
       en: 'A manager to help to submit an article/scoop towards several targets (Twitter, Facebook, Digg, EMail, Major news web sites...)'
     status: 'development'
     created_at: '2010-07-28'
-    last_updated_at: "2026-10-11"
+    last_updated_at: "2026-10-12"
     category: ''
     git: 'https://github.com/DoliCloud/dolimods/tree/master/htdocs/submiteverywhere'
     git-branch: 'master'
@@ -1200,7 +1200,7 @@ packages:
       en: 'Allow to activate a tawkto chat popup inside Dolibarr backoffice (to chat with a support provider available on TawkTo)'
     status: 'enabled'
     created_at: '2017-10-13'
-    last_updated_at: "2026-10-11"
+    last_updated_at: "2026-10-18"
     category: ''
     git: 'https://github.com/DoliCloud/dolimods/tree/master/htdocs/tawkto'
     git-branch: 'master'
@@ -1233,7 +1233,7 @@ packages:
       en: 'Add more skins'
     status: 'enabled'
     created_at: '2013-07-18'
-    last_updated_at: "2026-10-11"
+    last_updated_at: "2026-10-12"
     category: ''
     git: 'https://github.com/DoliCloud/dolimods/tree/master/htdocs/themespack'
     git-branch: 'master'
@@ -1266,7 +1266,7 @@ packages:
       en: 'Can generate french Cerfa documents for VAT'
     status: 'enabled'
     created_at: '2012-02-29'
-    last_updated_at: "2026-10-11"
+    last_updated_at: "2026-10-12"
     category: ''
     git: 'https://github.com/DoliCloud/dolimods/tree/master/htdocs/tvacerfa'
     git-branch: 'master'
@@ -1276,39 +1276,6 @@ packages:
     dolibarrmin: "18.0"
     dolibarrmax: "24.0"
     phpmin: "4.3"
-    phpmax: ""
-    price: 0
-    # direct-download is yes if we can download the module to install it in application
-    direct-download: 'no'
-    # dolistore-upload is manual if module is also uploaded manually on dolistore.com, auto if sync automatically
-    dolistore-upload: 'manual'
-    # dolistore-download is url of product page for download if module can also be found on dolistore.com
-    # Example: https://www.dolistore.com/product.php?id=xxx
-    dolistore-download: ''
-
-
-  - modulename: 'WebMailR'
-    author: 'DoliCloud'
-    author_url: 'https://www.dolicloud.com'
-    maintener_email: 'contact@dolicloud.com'
-    label:
-      fr: 'WebMailR'
-      en: 'WebMailR'
-    description:
-      fr: 'Module to integrate the embended WebMail (RoundCube)'
-      en: 'Module to integrate the embended WebMail (RoundCube)'
-    status: 'development'
-    created_at: '2016-01-07'
-    last_updated_at: "2026-10-11"
-    category: ''
-    git: 'https://github.com/DoliCloud/dolimods/tree/master/htdocs/webmailr'
-    git-branch: 'master'
-    git-system: 'github'
-    cover: ''
-    current_version: "development"
-    dolibarrmin: "18.0"
-    dolibarrmax: "24.0"
-    phpmin: "5.0"
     phpmax: ""
     price: 0
     # direct-download is yes if we can download the module to install it in application
@@ -1332,7 +1299,7 @@ packages:
       en: 'Add all zip codes for France, Belgium, Switzerland into Dolibarr tables to have full zip/town autocomplete. Add a dictionary to edit them.'
     status: 'enabled'
     created_at: '2011-03-03'
-    last_updated_at: "2026-10-11"
+    last_updated_at: "2026-10-18"
     category: ''
     git: 'https://github.com/DoliCloud/dolimods/tree/master/htdocs/zipautofillfr'
     git-branch: 'master'
