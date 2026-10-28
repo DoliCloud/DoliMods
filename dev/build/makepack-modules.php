@@ -647,7 +647,7 @@ function buildModulePackages($action, $modulename)
 					$returnCode = 0;
 					$repo = $modulesDir . DIRECTORY_SEPARATOR . $project;
 					$command = sprintf('git -C %s tag %s 2>&1', escapeshellarg($repo), escapeshellarg($tag));
-					$command .= "; git tag push origin ".escapeshellarg($tag);
+					$command .= "; git push origin ".escapeshellarg($tag);
 					$lastmessagetoshow .= "YOU MUST COMMIT ALL FILES (INCLUDING THE ZIP) AND CREATE A TAG WITH COMMAND:\n";
 					$lastmessagetoshow .= $command."\n";
 					/*exec(
@@ -1018,9 +1018,11 @@ function pushModuleToDolistore($apikey, $dolistoreApiUrl, $modulename, $director
 	// Extract the block for this module (modulename in yaml may use different case than $modulename)
 	$moduleBlock = '';
 	$pattern = '/^  - modulename:\s*[\'"]' . preg_quote($modulename, '/') . '[\'"]/im';
+	$reg = array();
 	if (preg_match($pattern, $content, $reg, PREG_OFFSET_CAPTURE)) {
 		$start = $reg[0][1];
 		$rest = substr($content, $start + strlen($reg[0][0]));
+		$reg2 = array();
 		if (preg_match('/^  - modulename:/m', $rest, $reg2, PREG_OFFSET_CAPTURE)) {
 			$moduleBlock = substr($content, $start, strlen($reg[0][0]) + $reg2[0][1]);
 		} else {
