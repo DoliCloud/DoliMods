@@ -78,7 +78,7 @@ class GContact
 			$this->from='dolibarr';
 			$this->dolID = $dolID;
 
-			$useremail = getDolGlobalSting("GOOGLE_CONTACT_LOGIN", '');
+			$useremail = getDolGlobalString("GOOGLE_CONTACT_LOGIN", '');
 
 			if ($type == 'thirdparty') {
 				$this->fetchThirdpartyFromDolibarr($gdata, $useremail);
@@ -167,7 +167,7 @@ class GContact
 		self::appendTextElement($el, "gdata:street", $addr->street);
 		self::appendTextElement($el, "gdata:postcode", $addr->zip);
 		self::appendTextElement($el, "gdata:city", $addr->town);
-		self::appendTextElement($el, "gdata:region", dolEscapeXMLWithNoAnd($addr->state));		// La region pose des pb si il y a &amp; dedans alors que ok pour le street. Note dans ce mode on retrouve du &#38 alors que &amp; en mode update simple dans le source xml. On les remplace par -.
+		self::appendTextElement($el, "gdata:region", dolEscapeXMLWithNoAnd($addr->state));		// La region pose des pb si il y a &amp; dedans alors que ok pour le street. Note dans ce mode on retrouve du &#38 alors que &amp; en mode update simple dans le source xml. We replace with -.
 		self::appendTextElement($el, "gdata:country", $addr->country);
 		$this->atomEntry->appendChild($el);
 	}
@@ -844,7 +844,7 @@ class GContact
 	}
 
 	/**
-	 * Retreive a googleGroupID for a given groupName.
+	 * Retrieve a googleGroupID for a given groupName.
 	 * If the groupName does not exist on Gmail account, it will be created as a side effect
 	 *
 	 * @param	Gdata	$gdata			Gdata handler
@@ -1127,10 +1127,10 @@ class GContact
 	}
 
 	 /**
-	  * Delete dollibar groups on Gmail account : All groups beginning with 'Dolibarr'
+	  * Delete dolibarr groups on Gmail account : All groups beginning with 'Dolibarr'
 	  *
 	  * @param	Gdata	$gdata		Gdata handler
-	  * @return 	int 				count of contacts deleted
+	  * @return int 				count of contacts deleted
 	  */
 	public static function deleteDolibarrContactGroups($gdata)
 	{

@@ -519,7 +519,7 @@ if (empty($userlogin)) {	// We use setup of user
 	print '<div class="tabsActions">';
 
 	print '<div class="synccal">';
-	if (!getDolGlobalString("GOOGLE_API_SERVICEACCOUNT_EMAIL") || !getDolGlobalString("GOOGLE_DUPLICATE_INTO_GCAL") || !getDolGlobalSting("GOOGLE_LOGIN")) {
+	if (!getDolGlobalString("GOOGLE_API_SERVICEACCOUNT_EMAIL") || !getDolGlobalString("GOOGLE_DUPLICATE_INTO_GCAL") || !getDolGlobalString("GOOGLE_LOGIN")) {
 		print '<a class="butActionRefused" href="#">'.$langs->trans("TestCreateUpdateDelete")."</a>";
 
 		print '<a class="butActionRefused" href="#">'.$langs->trans("TestCreate")."</a>";
