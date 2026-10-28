@@ -338,6 +338,7 @@ class ActionsPayplugDolicloud extends CommonHookActions
 		global $conf, $langs;
 
 		require_once DOL_DOCUMENT_ROOT."/core/lib/geturl.lib.php";
+		require_once DOL_DOCUMENT_ROOT."/core/lib/date.lib.php";
 		include_once DOL_DOCUMENT_ROOT.'/core/lib/security.lib.php';
 		dol_include_once('payplugdolicloud/lib/payplugdolicloud.lib.php');
 
@@ -358,7 +359,8 @@ class ActionsPayplugDolicloud extends CommonHookActions
 		$amount = price2num(GETPOST("amount", 'alpha'));
 
 		if ($action == "returnDoPaymentPayplugDolicloud") {
-			dol_syslog("Data after redirect from payplug payment page with session FinalPaymentAmt = ".$_SESSION["FinalPaymentAmt"]." currencycodeType = ".$_SESSION["currencyCodeType"], LOG_DEBUG);
+			$ref_payment = GETPOST("pendingrefpayment", 'alphanohtml');
+			dol_syslog("Data after redirect from payplug payment page with pendingrefpayment = ".$ref_payment, LOG_DEBUG);
 
 			$payplugrurlapi = "api.payplug.com";
 			if (getDolGlobalInt("PAYPLUG_DOLICLOUD_LIVE")) {
@@ -373,20 +375,36 @@ class ActionsPayplugDolicloud extends CommonHookActions
 			$headers[] = "Content-Type: application/json";
 
 			$jsontosenddata = '{}';
-			// Verify if payment is done
-			$urlforcheckout = "https://".urlencode($payplugrurlapi)."/v1/payments/".$_SESSION["PAYPLUG_DOLICLOUD_PAYMENT_ID"];
-			$ret1 = getURLContent($urlforcheckout, 'GET', $jsontosenddata, 1, $headers);
-
-			$result1 = $ret1["content"];
-			$json1 = json_decode($result1);
+			// The data of the payment come from the database, not from the session (lost on the return from the payment platform)
+			$json_payment = payplugDolicloudPendingPaymentFetch($ref_payment);
+			if ($json_payment === null) {
+				$error++;
+				dol_syslog(__METHOD__." Pending payment ".$ref_payment." not found", LOG_ERR);
+			}
+			$paymentid = empty($json_payment->PAYPLUG_DOLICLOUD_PAYMENT_ID) ? '' : $json_payment->PAYPLUG_DOLICLOUD_PAYMENT_ID;
+			$ret1 = array();
+			$json1 = null;
+			if (!empty($paymentid)) {
+				// Verify if payment is done
+				$urlforcheckout = "https://".urlencode($payplugrurlapi)."/v1/payments/".$paymentid;
+				$ret1 = getURLContent($urlforcheckout, 'GET', $jsontosenddata, 1, $headers);
+				$json1 = json_decode($ret1["content"]);
+			}
 
 			$urlredirect = $urlwithroot.'/public/payment/';
-			if ($ret1["http_code"] == 200 && empty($json1->failure)) {
-				$urlredirect .= "paymentok.php?fulltag=".urlencode($FULLTAG);
+			if (!empty($paymentid) && $ret1["http_code"] == 200 && empty($json1->failure)) {
+				// Key checked by isPaymentOK() to refuse a direct access to paymentok.php
+				$json_payment->paymentoksessioncode = getRandomPassword(true, null, 20);
+				if (payplugDolicloudPendingPaymentUpdate($ref_payment, $json_payment) < 0) {
+					dol_syslog("Failed to save paymentoksessioncode for pendingrefpayment = ".$ref_payment, LOG_ERR);
+					header("Location: ".$urlredirect."paymentko.php?fulltag=".urlencode($FULLTAG));
+					exit;
+				}
+				$urlredirect .= "paymentok.php?fulltag=".urlencode($FULLTAG)."&paymentoksessioncode=".urlencode($json_payment->paymentoksessioncode)."&pendingrefpayment=".urlencode($ref_payment);
 				header("Location: ".$urlredirect);
 				exit;
 			} else {
-				$_SESSION['errormessage'] = $json1->failure->message;
+				$_SESSION['errormessage'] = empty($json1->failure->message) ? '' : $json1->failure->message;
 				$urlredirect .= "paymentko.php?fulltag=".urlencode($FULLTAG);
 				header("Location: ".$urlredirect);
 				exit;
@@ -447,7 +465,9 @@ class ActionsPayplugDolicloud extends CommonHookActions
 				$urlback .= 'lang='.urlencode($getpostlang).'&';
 			}
 			$cancel_url = $urlback;
+			$new_ref_payment = uniqid("", true);	// Key to find the data of this payment on the return page
 			$urlback .= 'action=returnDoPaymentPayplugDolicloud';
+			$urlback .= '&pendingrefpayment='.$new_ref_payment;
 
 			if (!$error) {
 				$payerarray = array();
@@ -541,16 +561,27 @@ class ActionsPayplugDolicloud extends CommonHookActions
 						if ($ret2["http_code"] == 201) {
 							$result2 = $ret2["content"];
 							$json2 = json_decode($result2);
-							$_SESSION["PAYPLUG_DOLICLOUD_PAYMENT_ID"] = urlencode($json2->id);
-							// Bind the payment to the paid object, so its return can't be used for another one
-							$_SESSION["PAYPLUG_DOLICLOUD_FULLTAG"] = $FULLTAG;
 							$urlforredirect = $json2->hosted_payment->payment_url;
 
-							// Gestion redirection
-							dol_syslog("Send redirect to ".$urlforredirect);
+							// Clean the old pending payments
+							payplugDolicloudPendingPaymentPurge(dol_now() - (getDolGlobalInt("PAYPLUG_DOLICLOUD_NB_DAY_PENDING_PAYMENT", 10) * 86400));
 
-							header("Location: ".$urlforredirect);
-							exit;
+							$json_data_payment = array(
+								"PAYPLUG_DOLICLOUD_PAYMENT_ID" => urlencode($json2->id),
+								"fulltag" => $FULLTAG,	// Bind the payment to the paid object, so its return can't be used for another one
+								"FinalPaymentAmt" => $FinalPaymentAmt,
+								"currencyCodeType" => $currencyCodeType
+							);
+							if (payplugDolicloudPendingPaymentSave($new_ref_payment, $json_data_payment) < 0) {
+								$error++;
+								$errors[] = $langs->trans("Error");
+							} else {
+								// Gestion redirection
+								dol_syslog("Send redirect to ".$urlforredirect);
+
+								header("Location: ".$urlforredirect);
+								exit;
+							}
 						} else {
 							$arrayofmessage = array();
 							if (!empty($ret2['content'])) {
@@ -615,6 +646,7 @@ class ActionsPayplugDolicloud extends CommonHookActions
 
 		$error = 0;
 		$paymentId = '';
+		$ref_payment = '';
 		if (in_array($parameters['paymentmethod'], array('payplug'))) {
 			$code = GETPOST("code");
 
@@ -624,13 +656,21 @@ class ActionsPayplugDolicloud extends CommonHookActions
 			} else {
 				// Ensure the amount matches the requested value
 				// Compare session amount from doPayment with PayPlug API response
-				$paymentId = isset($_SESSION["PAYPLUG_DOLICLOUD_PAYMENT_ID"]) ? $_SESSION["PAYPLUG_DOLICLOUD_PAYMENT_ID"] : '';
-				$amounttotest = isset($_SESSION["FinalPaymentAmt"]) ? $_SESSION["FinalPaymentAmt"] : 0;
-				$currencyCodeTypetotest = isset($_SESSION["currencyCodeType"]) ? $_SESSION["currencyCodeType"] : '';
-				$fulltagtotest = isset($_SESSION["PAYPLUG_DOLICLOUD_FULLTAG"]) ? $_SESSION["PAYPLUG_DOLICLOUD_FULLTAG"] : '';
+				$ref_payment = GETPOST("pendingrefpayment", 'alphanohtml');
+				$json_payment = payplugDolicloudPendingPaymentFetch($ref_payment);
+				$paymentId = empty($json_payment->PAYPLUG_DOLICLOUD_PAYMENT_ID) ? '' : $json_payment->PAYPLUG_DOLICLOUD_PAYMENT_ID;
+				$amounttotest = empty($json_payment->FinalPaymentAmt) ? 0 : $json_payment->FinalPaymentAmt;
+				$currencyCodeTypetotest = empty($json_payment->currencyCodeType) ? '' : $json_payment->currencyCodeType;
+				$fulltagtotest = empty($json_payment->fulltag) ? '' : $json_payment->fulltag;
 				$fulltag = GETPOST('FULLTAG') ? GETPOST('FULLTAG') : GETPOST('fulltag');
 
-				if (empty($paymentId) || empty($amounttotest) || empty($currencyCodeTypetotest)) {
+				// Prevents direct access to the paymentok page without a valid flow
+				$_SESSION['paymentoksessioncode'] = empty($json_payment->paymentoksessioncode) ? '' : $json_payment->paymentoksessioncode;
+				if (empty($_SESSION['paymentoksessioncode']) || GETPOST('paymentoksessioncode') !== $_SESSION['paymentoksessioncode']) {
+					$error++;
+					dol_syslog('Attempted direct access to the paymentok page without a valid session.', LOG_ERR, 0, '_payment');
+					$this->errors[] = $langs->trans("ErrorSessionNotFound");
+				} elseif (empty($paymentId) || empty($amounttotest) || empty($currencyCodeTypetotest)) {
 					$error++;
 					$this->errors[] = $langs->trans("ErrorSessionNotFound");
 				} elseif (empty($fulltagtotest) || $fulltagtotest !== $fulltag) {
@@ -664,7 +704,7 @@ class ActionsPayplugDolicloud extends CommonHookActions
 
 
 					if ($ret1["http_code"] == 200 && empty($json1->failure) && !empty($json1->is_paid) && !$error) {
-						if (empty($json1->id) || $json1->id != $_SESSION["PAYPLUG_DOLICLOUD_PAYMENT_ID"]) {
+						if (empty($json1->id) || $json1->id != $paymentId) {
 							$error++;
 							$this->errors[] = $langs->trans("ErrorPaymentNotFound");
 						}
@@ -689,9 +729,14 @@ class ActionsPayplugDolicloud extends CommonHookActions
 
 		if (!$error) {
 			if (in_array($parameters['paymentmethod'], array('payplug'))) {
-				// Let the core refuse a second record of this transaction, and consume it so it can't be replayed
+				// Consume the pending payment so it can't be replayed. Only the request that deletes it may record it.
+				if (payplugDolicloudPendingPaymentConsume($ref_payment) < 0) {
+					dol_syslog('PayPlug pending payment '.$ref_payment.' already consumed', LOG_WARNING, 0, '_payment');
+					$this->errors[] = $langs->trans("ErrorPaymentNotFound");
+					return -1;
+				}
+				// Let the core refuse a second record of this transaction
 				$_SESSION['TRANSACTIONID'] = $paymentId;
-				unset($_SESSION["PAYPLUG_DOLICLOUD_PAYMENT_ID"], $_SESSION["PAYPLUG_DOLICLOUD_FULLTAG"]);
 			}
 			$this->results["ispaymentok"] = true;
 			return 1;

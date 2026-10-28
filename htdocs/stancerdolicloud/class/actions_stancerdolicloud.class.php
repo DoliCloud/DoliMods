@@ -432,15 +432,10 @@ class ActionsStancerDolicloud extends CommonHookActions
 			$headers[] = "Authorization: Basic ".$encodedkey;
 			$headers[] = "Content-Type: application/json";
 			$ref_payment = GETPOST("pendingrefpayment");
-			$json = new stdClass();
-			$sql = "SELECT data FROM ".MAIN_DB_PREFIX."stancerdolicloud_pending_payments WHERE ref_payment = '".$this->db->escape($ref_payment)."'";
-			$res = $this->db->query($sql);
-			if ($res) {
-				$obj = $this->db->fetch_object($res);
-				$json = json_decode($obj->data);
-			} else {
+			$json = stancerDolicloudPendingPaymentFetch($ref_payment);
+			if ($json === null) {
 				$error++;
-				dol_syslog(__METHOD__."SQL Error on SELECT:".$this->db->lasterror(), "LOG_ERR");
+				dol_syslog(__METHOD__." Pending payment ".$ref_payment." not found", LOG_ERR, 0, '_payment');
 			}
 			$jsontosenddata = '{}';
 			$ret1 = array();
@@ -454,10 +449,8 @@ class ActionsStancerDolicloud extends CommonHookActions
 			if ($ret1["http_code"] == 200 && !$error) {
 				$this->db->begin();
 				$json->paymentoksessioncode = $_SESSION['paymentoksessioncode'];
-				$encodeddata = json_encode($json);
-				$sql = "UPDATE ".MAIN_DB_PREFIX."stancerdolicloud_pending_payments SET data = '".$this->db->escape($encodeddata)."' WHERE ref_payment = '".$this->db->escape($ref_payment)."'";
-				$res = $this->db->query($sql);
-				if ($res == false) {
+				$res = stancerDolicloudPendingPaymentUpdate($ref_payment, $json);
+				if ($res < 0) {
 					dol_print_error($this->db);
 					$this->db->rollback();
 					exit;
@@ -578,20 +571,16 @@ class ActionsStancerDolicloud extends CommonHookActions
 
 								$this->db->begin();
 							// Clean table pending_payment
-							$daybeforedelete = getDolGlobalInt("STANCER_DOLICLOUD_NB_DAY_PENDING_PAYMENT", 10) * -1;
-							$datetodelete = dol_time_plus_duree(dol_now(), $daybeforedelete, 'd');
-							$sql = "DELETE FROM ".MAIN_DB_PREFIX."stancerdolicloud_pending_payments WHERE date_creation <= '".$this->db->idate($datetodelete)."'";
-							$res = $this->db->query($sql);
-							if ($res == false) {
+							$datetodelete = dol_now() - (getDolGlobalInt("STANCER_DOLICLOUD_NB_DAY_PENDING_PAYMENT", 10) * 86400);
+							$res = stancerDolicloudPendingPaymentPurge($datetodelete);
+							if ($res < 0) {
 								dol_print_error($this->db);
 								$error++;
 							}
 
 							// Create pending_payment entry
-							$encodeddata = json_encode($json_data_payment);
-							$sql = "INSERT INTO ".MAIN_DB_PREFIX."stancerdolicloud_pending_payments (ref_payment, data, date_creation) VALUES ('".$this->db->escape($new_ref_payment) ."','".$this->db->escape($encodeddata)."', '".$this->db->idate(dol_now())."')";
-							$res = $this->db->query($sql);
-							if ($res == false) {
+							$res = stancerDolicloudPendingPaymentSave($new_ref_payment, $json_data_payment);
+							if ($res < 0) {
 								dol_print_error($this->db);
 								$error++;
 							}
@@ -661,6 +650,7 @@ class ActionsStancerDolicloud extends CommonHookActions
 
 		require_once DOL_DOCUMENT_ROOT."/core/lib/geturl.lib.php";
 		include_once DOL_DOCUMENT_ROOT.'/core/lib/security.lib.php';
+		dol_include_once('stancerdolicloud/lib/stancerdolicloud.lib.php');
 
 		$error = 0; // Error counter
 		$ispaymentok = false;
@@ -668,18 +658,14 @@ class ActionsStancerDolicloud extends CommonHookActions
 		if (in_array($parameters['paymentmethod'], array('stancerdolicloud'))) {
 			$json = new stdClass();
 			$ref_payment = GETPOST("pendingrefpayment");
-			$sql = "SELECT data FROM ".MAIN_DB_PREFIX."stancerdolicloud_pending_payments WHERE ref_payment = '".$this->db->escape($ref_payment)."'";
-			$res = $this->db->query($sql);
-			if ($res) {
-				$obj = $this->db->fetch_object($res);
-				$json_payment = json_decode($obj->data);
-			} else {
+			$json_payment = stancerDolicloudPendingPaymentFetch($ref_payment);
+			if ($json_payment === null) {
 				$error++;
-				dol_syslog(__METHOD__."SQL Error on SELECT:".$this->db->lasterror(), "LOG_ERR");
+				dol_syslog(__METHOD__." Pending payment ".$ref_payment." not found", LOG_ERR, 0, '_payment');
 			}
 
 			// Prevents direct access to the paymentok page without a valid session flow.
-			$_SESSION['paymentoksessioncode'] = $json_payment->paymentoksessioncode;
+			$_SESSION['paymentoksessioncode'] = $json_payment->paymentoksessioncode ?? null;
 			if (GETPOST('paymentoksessioncode') !== $_SESSION['paymentoksessioncode']) {
 				$error++;
 				$errmsg = 'Attempted direct access to the paymentok page without a valid session.';
@@ -725,7 +711,6 @@ class ActionsStancerDolicloud extends CommonHookActions
 				$headers[] = "Authorization: Basic ".$encodedkey;
 				$headers[] = "Content-Type: application/json";
 
-				$FinalPaymentID = $json_payment->STANCER_DOLICLOUD_PAYMENT_ID;
 				$urlforcheckout = "https://".urlencode($stancerurlapi)."/v2/payment_intents/".$FinalPaymentID;
 				dol_syslog("Send Get to url=".$urlforcheckout." with session STANCER_DOLICLOUD_PAYMENT_ID = ".$FinalPaymentID, LOG_DEBUG, 0, '_payment');
 				$ret1 = getURLContent($urlforcheckout, 'GET', "", 1, $headers);
@@ -799,9 +784,7 @@ class ActionsStancerDolicloud extends CommonHookActions
 			}
 			if (!$error && $ispaymentok) {
 				// Consume the pending payment so it can't be replayed. Only the request that deletes it may record it.
-				$sql = "DELETE FROM ".MAIN_DB_PREFIX."stancerdolicloud_pending_payments WHERE ref_payment = '".$this->db->escape($ref_payment)."'";
-				$res = $this->db->query($sql);
-				if (!$res || $this->db->affected_rows($res) != 1) {
+				if (stancerDolicloudPendingPaymentConsume($ref_payment) < 0) {
 					$error++;
 					dol_syslog('Stancer pending payment '.$ref_payment.' already consumed', LOG_WARNING, 0, '_payment');
 				} else {
