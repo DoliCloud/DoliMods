@@ -118,14 +118,14 @@ class mywidgetwidget1 extends ModeleBoxes
 			// Add a link
 			'sublink' => '',
 			// Sublink icon placed after the text
-			'subpicto' => 'object_mywidget@mywidget',
+			'subpicto' => 'generic',
 			// Sublink icon HTML alt text
 			'subtext' => '',
 			// Sublink HTML target
 			'target' => '',
 			// HTML class attached to the picto and link
 			'subclass' => 'center',
-			// Limit and truncate with "…" the displayed text lenght, 0 = disabled
+			// Limit and truncate with "…" the displayed text length, 0 = disabled
 			'limit' => 0,
 			// Adds translated " (Graph)" to a hidden form value's input (?)
 			'graph' => false
@@ -147,7 +147,7 @@ class mywidgetwidget1 extends ModeleBoxes
 					'target'       => '_blank',
 					// Fist line logo (deprecated. Include instead logo html code into text or text2, and set asis property to true to avoid HTML cleaning)
 					//'logo'         => 'monmodule@monmodule',
-					// Unformatted text, added after text. Usefull to add/load javascript code
+					// Unformatted text, added after text. Useful to add/load javascript code
 					'textnoformat' => '',
 					// Main text for content of cell (other method)
 					//'text2'        => '<p><strong>Another text</strong></p>',
@@ -163,7 +163,7 @@ class mywidgetwidget1 extends ModeleBoxes
 	}
 
 	/**
-	 * Method to show box. Called by Dolibarr eatch time it wants to display the box.
+	 * Method to show box. Called by Dolibarr each time it wants to display the box.
 	 *
 	 * @param array $head      Array with properties of box title
 	 * @param array $contents  Array with properties of box lines
