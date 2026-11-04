@@ -69,7 +69,7 @@ then
     			    #echo $f lines into file $fic;
     			    if [ $f = 1 ]
     			    then
-    			        echo Only one line remainging into file $fic, we delete it;
+    			        echo Only one line remaining into file $fic, we delete it;
     			        rm $fic
     			    fi;
     			done
