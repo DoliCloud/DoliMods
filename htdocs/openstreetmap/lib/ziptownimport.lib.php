@@ -78,6 +78,7 @@ function openstreetmap_ziptown_read_zip($zipcontent, $entry = '')
 	if (!class_exists('ZipArchive')) {
 		return -3;
 	}
+	include_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 	$dir = DOL_DATA_ROOT.'/openstreetmap/temp';
 	if (!is_dir($dir) && dol_mkdir($dir) < 0) {
 		return -2;
@@ -131,16 +132,17 @@ function openstreetmap_ziptown_parse($content, $countrycode)
 		}
 		if (strpos($line, "\t") !== false) {
 			$cols = explode("\t", $line);
-			if (count($cols) >= 3 && preg_match('/^[A-Z]{2}$/', $cols[0])) {
-				// GeoNames: country code, postal code, place name, ...
-				if ($cols[0] != $countrycode) {
+			if (count($cols) >= 3) {
+				// GeoNames postal codes: country code, postal code, place name, ... Other files with more than
+				// 2 columns (for example the GeoNames gazetteer, which has no postal code) are not read.
+				if (!preg_match('/^[A-Z]{2}$/', $cols[0]) || $cols[0] != $countrycode) {
 					continue;
 				}
 				$zip = $cols[1];
 				$town = $cols[2];
 			} else {
 				$zip = $cols[0];
-				$town = isset($cols[1]) ? $cols[1] : '';
+				$town = $cols[1];
 			}
 		} else {
 			$cols = str_getcsv($line, (strpos($line, ';') !== false ? ';' : ','), '"', '\\');
@@ -161,6 +163,24 @@ function openstreetmap_ziptown_parse($content, $countrycode)
 		$rows[] = array($zip, $town);
 	}
 	return $rows;
+}
+
+/**
+ *  Tell if a file is a GeoNames gazetteer extract (export/dump/XX.zip: all geographical names of a country,
+ *  19 tab separated columns starting with the geonameid, without postal codes) instead of the postal codes
+ *  (export/zip/XX.zip)
+ *
+ *  @param		string		$content		Content of the file
+ *  @return		bool
+ */
+function openstreetmap_ziptown_is_gazetteer($content)
+{
+	$line = strtok(ltrim((string) substr((string) $content, 0, 65536)), "\r\n");
+	if ($line === false) {
+		return false;
+	}
+	$cols = explode("\t", $line);
+	return (count($cols) >= 19 && ctype_digit($cols[0]));
 }
 
 /**

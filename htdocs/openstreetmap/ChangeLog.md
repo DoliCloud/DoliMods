@@ -8,6 +8,7 @@
 * Photon: the language is only sent when Photon supports it (en, de, fr); for the other languages (for example Greek) the public server answered with an error, so no suggestion was shown.
 * New optional connector to Postcode.eu (paid, own key) for the selected countries. The key and secret are stored encrypted; answers are not cached.
 * New tab "Zip codes and towns": complete the dictionary of zip codes and towns of Dolibarr per country with GeoNames postal codes (download or file). The town of a postcode is taken from this dictionary first.
+  The GeoNames gazetteer (export/dump, all geographical names without postal codes) is recognised and refused, and the max size of an upload on the server is shown and checked before sending.
 * Requests to external services use short timeouts (3 s to connect, 8 s to answer, constants OPENSTREETMAP_CONNECT_TIMEOUT and OPENSTREETMAP_RESPONSE_TIMEOUT).
 * The setup and the README say what to expect in each country.
 

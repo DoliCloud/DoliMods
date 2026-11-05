@@ -83,7 +83,7 @@ if ($action == 'import') {
 		$file = isset($_FILES['ziptownfile']) && is_array($_FILES['ziptownfile']) ? $_FILES['ziptownfile'] : array();
 		if (empty($file['tmp_name']) || !is_uploaded_file($file['tmp_name']) || !empty($file['error'])) {
 			setEventMessages($langs->trans("ErrorFieldRequired", $langs->transnoentitiesnoconv("File")), null, 'errors');
-		} elseif ($file['size'] > 20 * 1024 * 1024) {
+		} elseif ($file['size'] > 20 * 1024 * 1024) {	// Larger files are refused before by the browser and by PHP
 			setEventMessages($langs->trans("OpenStreetMapZiptownFileTooLarge"), null, 'errors');
 		} else {
 			$data = (string) file_get_contents($file['tmp_name']);
@@ -97,6 +97,13 @@ if ($action == 'import') {
 				$content = $data;
 			}
 		}
+	}
+	if ($content !== '' && openstreetmap_ziptown_is_gazetteer($content)) {
+		setEventMessages($langs->trans("OpenStreetMapZiptownGazetteer"), null, 'errors');
+		$content = '';
+	} elseif (strlen($content) > 30 * 1024 * 1024) {
+		setEventMessages($langs->trans("OpenStreetMapZiptownFileTooLarge"), null, 'errors');
+		$content = '';
 	}
 	if ($content !== '') {
 		if (!mb_check_encoding($content, 'UTF-8')) {
@@ -152,9 +159,15 @@ print '</div>';
 print '</form>';
 print '<br>';
 
-// Import
+// Import. The size of an upload is limited by PHP (upload_max_filesize, post_max_size): above it the form arrives
+// empty and is refused, so the size is shown and checked in the browser before sending.
+$maxsizes = getMaxFileSizeArray();
+$maxkb = (int) $maxsizes['maxmin'];
+if ($maxkb <= 0 || $maxkb > 20480) {
+	$maxkb = 20480;
+}
 print load_fiche_titre($langs->trans("OpenStreetMapZiptownImport"), '', '');
-print '<form action="'.$_SERVER["PHP_SELF"].'" method="post" enctype="multipart/form-data">';
+print '<form id="ziptownimport" action="'.$_SERVER["PHP_SELF"].'" method="post" enctype="multipart/form-data">';
 print '<input type="hidden" name="token" value="'.newToken().'">';
 print '<input type="hidden" name="action" value="import">';
 print '<div class="div-table-responsive-no-min">';
@@ -167,11 +180,21 @@ print '<input type="radio" id="source_geonames" name="source" value="geonames"'.
 print '<input type="radio" id="source_file" name="source" value="file"'.($source == 'file' ? ' checked' : '').'> <label for="source_file">'.$langs->trans("OpenStreetMapZiptownSourceFile").'</label> ';
 print '<input type="file" name="ziptownfile" accept=".zip,.txt,.csv,.tsv">';
 print '<br><span class="opacitymedium small">'.$langs->trans("OpenStreetMapZiptownFileFormat").'</span>';
+print '<br><span class="opacitymedium small">'.$langs->trans("OpenStreetMapZiptownMaxSize", dol_print_size($maxkb * 1024, 1)).'</span>';
 print '</td></tr>';
 print '</table>';
 print '</div>';
 print '<div class="center"><input type="submit" class="button" value="'.$langs->trans("OpenStreetMapZiptownImportButton").'"></div>';
 print '</form>';
+print '<script>
+document.getElementById("ziptownimport").addEventListener("submit", function(e) {
+	var input = this.querySelector("input[name=ziptownfile]");
+	if (document.getElementById("source_file").checked && input.files.length && input.files[0].size > '.((int) $maxkb * 1024).') {
+		e.preventDefault();
+		alert("'.dol_escape_js($langs->transnoentitiesnoconv("OpenStreetMapZiptownFileTooLarge").' '.$langs->transnoentitiesnoconv("OpenStreetMapZiptownMaxSize", dol_print_size($maxkb * 1024, 1))).'");
+	}
+});
+</script>';
 print '<br><span class="opacitymedium small">'.$langs->trans("OpenStreetMapZiptownGeonamesLicense").'</span><br><br>';
 
 // Content of the dictionary
