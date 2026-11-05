@@ -97,10 +97,12 @@ function openstreetmap_ziptown_download_geonames($countrycode, $destfile)
  *  @param		string		$countrycode	ISO 3166-1 alpha-2 code
  *  @param		string		$file			File on disk (zip archive or text file), not changed
  *  @param		string		$name			Name of the file to show
+ *  @param		string		$mode			'add': add the missing zip codes and towns; 'replace': also remove, at the end, the
+ *  										rows added before by this module for this country that are not in the file anymore
  *  @return		array<string,mixed>|int		Job if OK, or <0 if KO: -1 file, -2 no ZipArchive, -3 bad zip,
  *  										-4 GeoNames gazetteer, -5 too many lines (see openstreetmap_ziptown_max_rows())
  */
-function openstreetmap_ziptown_job_create($db, $countryid, $countrycode, $file, $name)
+function openstreetmap_ziptown_job_create($db, $countryid, $countrycode, $file, $name, $mode = 'add')
 {
 	$dir = openstreetmap_ziptown_queue_dir();
 	if ($dir === '' || !is_readable($file)) {
@@ -156,6 +158,8 @@ function openstreetmap_ziptown_job_create($db, $countryid, $countrycode, $file, 
 		'done' => 0,
 		'added' => 0,
 		'existing' => 0,
+		'removed' => 0,
+		'mode' => ($mode == 'replace' && openstreetmap_ziptown_tracking_ok($db)) ? 'replace' : 'add',
 		'status' => 'queued',
 		'created' => dol_now(),
 		'updated' => dol_now(),
@@ -340,17 +344,22 @@ function openstreetmap_ziptown_parse($content, $countrycode)
  *  Add the zip code / town pairs that are not yet in the dictionary of a country.
  *  The pairs already present are searched in the database by groups of 500 zip codes, so the memory used does not
  *  depend on the size of the dictionary.
+ *  With an import key, the rows added are recorded in llx_openstreetmap_ziptown, and the rows added before by the
+ *  module that are in the file again get this key: an import in mode "replace" can then remove, at the end, the
+ *  rows of the module that were not in the file. Rows of other sources are never recorded nor changed.
  *
  *  @param		DoliDB		$db			Database handler
  *  @param		int			$countryid	Id of country in llx_c_country
  *  @param		array<int,array{0:string,1:string}>	$rows	List of array(zip, town)
+ *  @param		string		$importkey	Id of the import, or '' to record nothing
  *  @return		array{added:int,existing:int}|int	Numbers of rows added and already present, or -1 if KO
  */
-function openstreetmap_ziptown_import($db, $countryid, $rows)
+function openstreetmap_ziptown_import($db, $countryid, $rows, $importkey = '')
 {
 	if ($countryid <= 0) {
 		return -1;
 	}
+	$track = ($importkey !== '' && openstreetmap_ziptown_tracking_ok($db));
 	$added = 0;
 	$nbexisting = 0;
 	$seen = array();
@@ -360,24 +369,24 @@ function openstreetmap_ziptown_import($db, $countryid, $rows)
 			$zips[$row[0]] = "'".$db->escape($row[0])."'";
 		}
 		// Pairs already in the dictionary (compared without case, so "Athina" and "ATHINA" are the same town)
-		$existing = array();
-		$sql = "SELECT zip, town FROM ".MAIN_DB_PREFIX."c_ziptown WHERE fk_pays = ".((int) $countryid)." AND zip IN (".implode(',', $zips).")";
-		$resql = $db->query($sql);
-		if (!$resql) {
-			dol_syslog("openstreetmap_ziptown_import: ".$db->lasterror(), LOG_ERR);
+		$existing = openstreetmap_ziptown_rowids($db, $countryid, $zips);
+		if ($existing === null) {
 			return -1;
 		}
-		while ($obj = $db->fetch_object($resql)) {
-			$existing[$obj->zip.'|'.mb_strtolower($obj->town)] = 1;
-		}
 		$values = array();
+		$keysadded = array();
+		$rowidsseen = array();
 		foreach ($group as $row) {
 			$key = $row[0].'|'.mb_strtolower($row[1]);
 			if (isset($existing[$key]) || isset($seen[$key])) {
 				$nbexisting++;
+				if (isset($existing[$key])) {
+					$rowidsseen[] = $existing[$key];
+				}
 				continue;
 			}
 			$seen[$key] = 1;
+			$keysadded[$key] = 1;
 			$values[] = "('".$db->escape($row[0])."', '".$db->escape($row[1])."', '".$db->escape(dol_strtoupper($row[1]))."', ".((int) $countryid).", 1)";
 		}
 		if (count($values)) {
@@ -385,8 +394,119 @@ function openstreetmap_ziptown_import($db, $countryid, $rows)
 			$added += $nb;
 			$nbexisting += count($values) - $nb;
 		}
+		if ($track) {
+			// Rows of the module seen again: they get the key of this import
+			if (count($rowidsseen)) {
+				$sql = "UPDATE ".MAIN_DB_PREFIX."openstreetmap_ziptown SET import_key = '".$db->escape($importkey)."'";
+				$sql .= " WHERE fk_ziptown IN (".implode(',', array_map('intval', $rowidsseen)).")";
+				if (!$db->query($sql)) {
+					dol_syslog("openstreetmap_ziptown_import: ".$db->lasterror(), LOG_WARNING);
+				}
+			}
+			// Rows added now: recorded as rows of the module
+			if (count($keysadded)) {
+				$after = openstreetmap_ziptown_rowids($db, $countryid, $zips);
+				$tracking = array();
+				foreach (array_keys($keysadded) as $key) {
+					if ($after !== null && isset($after[$key])) {
+						$tracking[] = "(".((int) $after[$key]).", ".((int) $countryid).", '".$db->escape($importkey)."')";
+					}
+				}
+				if (count($tracking)) {
+					$sql = "INSERT INTO ".MAIN_DB_PREFIX."openstreetmap_ziptown (fk_ziptown, fk_pays, import_key) VALUES ".implode(', ', $tracking);
+					if (!$db->query($sql)) {
+						dol_syslog("openstreetmap_ziptown_import: ".$db->lasterror(), LOG_WARNING);
+					}
+				}
+			}
+		}
 	}
 	return array('added' => $added, 'existing' => $nbexisting);
+}
+
+/**
+ *  Return the rows of the dictionary of a country for some zip codes
+ *
+ *  @param		DoliDB		$db			Database handler
+ *  @param		int			$countryid	Id of country
+ *  @param		array<string,string>	$zips	Zip codes, already escaped and quoted
+ *  @return		array<string,int>|null	'zip|town in lower case' => rowid, or null if KO
+ */
+function openstreetmap_ziptown_rowids($db, $countryid, $zips)
+{
+	$rowids = array();
+	if (!count($zips)) {
+		return $rowids;
+	}
+	$sql = "SELECT rowid, zip, town FROM ".MAIN_DB_PREFIX."c_ziptown WHERE fk_pays = ".((int) $countryid)." AND zip IN (".implode(',', $zips).")";
+	$resql = $db->query($sql);
+	if (!$resql) {
+		dol_syslog("openstreetmap_ziptown_rowids: ".$db->lasterror(), LOG_ERR);
+		return null;
+	}
+	while ($obj = $db->fetch_object($resql)) {
+		$rowids[$obj->zip.'|'.mb_strtolower($obj->town)] = (int) $obj->rowid;
+	}
+	return $rowids;
+}
+
+/**
+ *  Tell if the table recording the rows added by the module exists (created when the module is enabled)
+ *
+ *  @param		DoliDB		$db			Database handler
+ *  @return		bool
+ */
+function openstreetmap_ziptown_tracking_ok($db)
+{
+	static $ok = null;
+	if ($ok === null) {
+		$ok = (bool) $db->query("SELECT rowid FROM ".MAIN_DB_PREFIX."openstreetmap_ziptown WHERE 1 = 0");
+	}
+	return $ok;
+}
+
+/**
+ *  End of an import in mode "replace": remove the rows added before by the module for this country that were not
+ *  in the file (they do not have the key of this import). Rows of other sources are not concerned.
+ *
+ *  @param		DoliDB		$db			Database handler
+ *  @param		int			$countryid	Id of country
+ *  @param		string		$importkey	Id of the import
+ *  @return		int						Number of rows removed, or -1 if KO
+ */
+function openstreetmap_ziptown_remove_old($db, $countryid, $importkey)
+{
+	$removed = 0;
+	while (true) {
+		$ids = array();
+		$sql = "SELECT fk_ziptown FROM ".MAIN_DB_PREFIX."openstreetmap_ziptown";
+		$sql .= " WHERE fk_pays = ".((int) $countryid)." AND import_key <> '".$db->escape($importkey)."'".$db->plimit(2000);
+		$resql = $db->query($sql);
+		if (!$resql) {
+			dol_syslog("openstreetmap_ziptown_remove_old: ".$db->lasterror(), LOG_ERR);
+			return -1;
+		}
+		while ($obj = $db->fetch_object($resql)) {
+			$ids[] = (int) $obj->fk_ziptown;
+		}
+		if (!count($ids)) {
+			return $removed;
+		}
+		$in = implode(',', $ids);
+		$db->begin();
+		$ok = $db->query("DELETE FROM ".MAIN_DB_PREFIX."c_ziptown WHERE rowid IN (".$in.") AND fk_pays = ".((int) $countryid));
+		$nb = $ok ? $db->affected_rows($ok) : 0;
+		if ($ok) {
+			$ok = $db->query("DELETE FROM ".MAIN_DB_PREFIX."openstreetmap_ziptown WHERE fk_ziptown IN (".$in.")");
+		}
+		if (!$ok) {
+			$db->rollback();
+			dol_syslog("openstreetmap_ziptown_remove_old: ".$db->lasterror(), LOG_ERR);
+			return -1;
+		}
+		$db->commit();
+		$removed += (int) $nb;
+	}
 }
 
 /**
@@ -552,7 +672,7 @@ function openstreetmap_ziptown_job_run($db, $id, $maxseconds = 15, $maxlines = 2
 				$rows[] = $row;
 			}
 		}
-		$result = openstreetmap_ziptown_import($db, $job['countryid'], $rows);
+		$result = openstreetmap_ziptown_import($db, $job['countryid'], $rows, $job['id']);
 		if (!is_array($result)) {
 			$job['status'] = 'error';
 			break;
@@ -574,6 +694,17 @@ function openstreetmap_ziptown_job_run($db, $id, $maxseconds = 15, $maxlines = 2
 	} elseif ($eof && $job['status'] == 'running') {
 		$job['status'] = 'done';
 		$job['done'] = $job['lines'];
+		if (isset($job['mode']) && $job['mode'] == 'replace' && $job['added'] + $job['existing'] == 0) {
+			// No zip code of this country in the file (wrong file or wrong country): nothing is removed
+			$job['status'] = 'error';
+		} elseif (isset($job['mode']) && $job['mode'] == 'replace') {
+			$removed = openstreetmap_ziptown_remove_old($db, $job['countryid'], $job['id']);
+			if ($removed < 0) {
+				$job['status'] = 'error';
+			} else {
+				$job['removed'] = $removed;
+			}
+		}
 		dol_delete_file($dir.'/'.$id.'.txt', 0, 1);
 		openstreetmap_ziptown_job_save($job);
 	}
@@ -594,6 +725,16 @@ function openstreetmap_ziptown_job_run($db, $id, $maxseconds = 15, $maxlines = 2
 function openstreetmap_ziptown_run_queue($db, $maxseconds = 15)
 {
 	$start = microtime(true);
+	// One process at a time imports the queue (scheduled job or setup page), in the order of the files: an import in
+	// mode "replace" must not run at the same time as another import of the same country
+	$dir = openstreetmap_ziptown_queue_dir();
+	$lock = ($dir !== '' && $maxseconds > 0) ? fopen($dir.'/queue.lock', 'c') : false;
+	if ($maxseconds > 0 && (!$lock || !flock($lock, LOCK_EX | LOCK_NB))) {
+		if ($lock) {
+			fclose($lock);
+		}
+		return openstreetmap_ziptown_jobs();
+	}
 	foreach (openstreetmap_ziptown_jobs() as $job) {
 		if (in_array($job['status'], array('done', 'error')) && $job['updated'] < dol_now() - 7 * 86400) {
 			openstreetmap_ziptown_job_delete($job['id']);
@@ -619,6 +760,10 @@ function openstreetmap_ziptown_run_queue($db, $maxseconds = 15)
 	}
 	if (!$waiting) {
 		openstreetmap_ziptown_cron_enable($db, 0);
+	}
+	if ($lock) {
+		flock($lock, LOCK_UN);
+		fclose($lock);
 	}
 	return $jobs;
 }

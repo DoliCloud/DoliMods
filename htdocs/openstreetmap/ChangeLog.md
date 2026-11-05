@@ -1,6 +1,12 @@
 # ChangeLog MODULE OPENSTREETMAP FOR <a href="https://www.dolibarr.org">DOLIBARR ERP CRM</a>
 
 
+## 4.3.1
+
+* Zip codes and towns: new mode "Replace". After the import, the rows added before by this module for this country that are not in the new file anymore are removed. The rows added by the module are recorded in the new table llx_openstreetmap_ziptown; rows of other sources (other modules, added by hand, or imported before this version) are never removed. Nothing is removed when the file has no zip code of the country.
+* One process at a time imports the queue (scheduled job or setup page), in the order of the files.
+* Disable and enable the module after the upgrade, so the new table is created.
+
 ## 4.3.0
 
 * Zip codes and towns: a file is not imported at once anymore. It is put in a queue (documents/openstreetmap/ziptown), extracted on disk and read line by line by parts, so the memory used does not depend on the size of the file (16 MB for the 1.8 million lines of GB_full) and no request of the web server runs for long. Duplicates are checked in the database by groups.

@@ -101,6 +101,8 @@ foreach ($jobs as $job) {
 		'lines' => (int) $job['lines'],
 		'added' => (int) $job['added'],
 		'existing' => (int) $job['existing'],
+		'removed' => isset($job['removed']) ? (int) $job['removed'] : 0,
+		'mode' => isset($job['mode']) ? $job['mode'] : 'add',
 		'status' => $job['status'],
 		'statuslabel' => $langs->transnoentitiesnoconv("OpenStreetMapZiptownStatus".ucfirst($job['status'])),
 	);

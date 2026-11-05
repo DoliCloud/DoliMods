@@ -53,6 +53,7 @@ $langs->loadLangs(array("admin", "other", "companies", "openstreetmap@openstreet
 $action = GETPOST('action', 'aZ09');
 $countryid = GETPOSTINT('country_id');
 $source = GETPOST('source', 'aZ09');
+$mode = (GETPOST('mode', 'aZ09') == 'replace') ? 'replace' : 'add';
 
 
 /*
@@ -98,7 +99,7 @@ if ($action == 'import') {
 	}
 	if ($file !== '') {
 		// The file is put in the queue: extracted on disk and imported afterwards by parts, in the background
-		$job = openstreetmap_ziptown_job_create($db, $countryid, $countrycode, $file, $name);
+		$job = openstreetmap_ziptown_job_create($db, $countryid, $countrycode, $file, $name, $mode);
 		if (is_array($job)) {
 			setEventMessages($langs->trans("OpenStreetMapZiptownQueued", $job['name'], $job['lines']), null, 'mesgs');
 		} elseif ($job == -4) {
@@ -204,6 +205,15 @@ print '<input type="file" name="ziptownfile" accept=".zip,.txt,.csv,.tsv">';
 print '<br><span class="opacitymedium small">'.$langs->trans("OpenStreetMapZiptownFileFormat").'</span>';
 print '<br><span class="opacitymedium small">'.$langs->trans("OpenStreetMapZiptownMaxSize", dol_print_size($maxkb * 1024, 1)).'</span>';
 print '</td></tr>';
+print '<tr class="oddeven"><td>'.$langs->trans("OpenStreetMapZiptownMode").'</td><td>';
+print '<input type="radio" id="mode_add" name="mode" value="add" checked> <label for="mode_add">'.$langs->trans("OpenStreetMapZiptownModeAdd").'</label><br>';
+if (openstreetmap_ziptown_tracking_ok($db)) {
+	print '<input type="radio" id="mode_replace" name="mode" value="replace"> <label for="mode_replace">'.$langs->trans("OpenStreetMapZiptownModeReplace").'</label>';
+	print '<br><span class="opacitymedium small">'.$langs->trans("OpenStreetMapZiptownModeReplaceDesc").'</span>';
+} else {
+	print '<span class="opacitymedium small">'.$langs->trans("OpenStreetMapZiptownModeReplaceNeedsReload").'</span>';
+}
+print '</td></tr>';
 print '</table>';
 print '</div>';
 print '<div class="center"><input type="submit" class="button" value="'.$langs->trans("OpenStreetMapZiptownImportButton").'"></div>';
@@ -228,17 +238,18 @@ if (count($jobs)) {
 	print '<div class="div-table-responsive-no-min">';
 	print '<table class="noborder centpercent" id="ziptownjobs">';
 	print '<tr class="liste_titre"><td>'.$langs->trans("Country").'</td><td>'.$langs->trans("File").'</td><td>'.$langs->trans("OpenStreetMapZiptownProgress").'</td>';
-	print '<td class="right">'.$langs->trans("OpenStreetMapZiptownLines").'</td><td class="right">'.$langs->trans("OpenStreetMapZiptownAdded").'</td><td class="right">'.$langs->trans("OpenStreetMapZiptownExisting").'</td><td>'.$langs->trans("Status").'</td><td></td></tr>';
+	print '<td class="right">'.$langs->trans("OpenStreetMapZiptownLines").'</td><td class="right">'.$langs->trans("OpenStreetMapZiptownAdded").'</td><td class="right">'.$langs->trans("OpenStreetMapZiptownExisting").'</td><td class="right">'.$langs->trans("OpenStreetMapZiptownRemoved").'</td><td>'.$langs->trans("Status").'</td><td></td></tr>';
 	foreach ($jobs as $job) {
 		$percent = openstreetmap_ziptown_job_percent($job);
 		print '<tr class="oddeven" data-job="'.dol_escape_htmltag($job['id']).'">';
 		print '<td>'.dol_escape_htmltag($job['countrycode']).'</td>';
-		print '<td>'.dol_escape_htmltag($job['name']).'</td>';
+		print '<td>'.dol_escape_htmltag($job['name']).(isset($job['mode']) && $job['mode'] == 'replace' ? ' <span class="opacitymedium">('.$langs->trans("OpenStreetMapZiptownModeReplaceShort").')</span>' : '').'</td>';
 		print '<td class="minwidth200"><div style="background: #ddd; border-radius: 3px; height: 14px; width: 100%;"><div class="osm-bar" style="background: #3c8dbc; border-radius: 3px; height: 14px; width: '.((int) $percent).'%;"></div></div>';
 		print '<span class="osm-percent">'.((int) $percent).'</span>%</td>';
 		print '<td class="right"><span class="osm-done">'.((int) $job['done']).'</span> / '.((int) $job['lines']).'</td>';
 		print '<td class="right osm-added">'.((int) $job['added']).'</td>';
 		print '<td class="right osm-existing">'.((int) $job['existing']).'</td>';
+		print '<td class="right osm-removed">'.(isset($job['mode']) && $job['mode'] == 'replace' ? (int) (isset($job['removed']) ? $job['removed'] : 0) : '').'</td>';
 		print '<td class="osm-status" data-status="'.dol_escape_htmltag($job['status']).'">'.$langs->trans("OpenStreetMapZiptownStatus".ucfirst($job['status'])).'</td>';
 		print '<td class="right">';
 		if (in_array($job['status'], array('queued', 'running'))) {
@@ -273,6 +284,9 @@ if (count($jobs)) {
 			tr.querySelector(".osm-done").textContent = j.done;
 			tr.querySelector(".osm-added").textContent = j.added;
 			tr.querySelector(".osm-existing").textContent = j.existing;
+			if (j.mode === "replace") {
+				tr.querySelector(".osm-removed").textContent = j.removed;
+			}
 			var st = tr.querySelector(".osm-status");
 			st.setAttribute("data-status", j.status);
 			st.textContent = j.statuslabel;
