@@ -16,9 +16,11 @@
 /**
  *       \file       htdocs/openstreetmap/ajax/address.php
  *       \ingroup    openstreetmap
- *       \brief      Address autofill for countries other than the Netherlands:
- *                   lookup=zip    -> towns of a postcode (Nominatim, one request per postcode, cached)
- *                   lookup=street -> streets matching the typed text (Photon, search-as-you-type, cached)
+ *       \brief      Address autofill on the forms of third parties, contacts and members:
+ *                   lookup=zip     -> towns of a postcode (dictionary of Dolibarr, then Nominatim, cached)
+ *                   lookup=suggest -> addresses matching the typed text, with the service chosen for the country
+ *                                     (Photon on OpenStreetMap data by default, PDOK for the Netherlands, Postcode.eu if set up)
+ *                   lookup=details -> parts of an address chosen in the suggestions of Postcode.eu
  *                   The request is done by the Dolibarr server, so the browser of the user never contacts an external service.
  */
 
@@ -49,6 +51,7 @@ if (! $res) die("Include of main fails");
  */
 
 dol_include_once("/openstreetmap/lib/openstreetmap.lib.php");
+dol_include_once("/openstreetmap/lib/postcodeeu.lib.php");
 
 top_httphead('application/json');
 
@@ -66,7 +69,7 @@ function openstreetmap_address_answer($data, $httpcode = 200)
 	exit;
 }
 
-if (!isModEnabled('openstreetmap') || !getDolGlobalString('OPENSTREETMAP_EU_AUTOFILL')) {
+if (!isModEnabled('openstreetmap')) {
 	openstreetmap_address_answer(array('error' => 'DISABLED'), 403);
 }
 if (!$user->hasRight('societe', 'lire') && !$user->hasRight('societe', 'contact', 'lire') && !$user->hasRight('adherent', 'lire')) {
@@ -74,21 +77,31 @@ if (!$user->hasRight('societe', 'lire') && !$user->hasRight('societe', 'contact'
 }
 
 $lookup = GETPOST('lookup', 'aZ09');
-$countrycode = openstreetmap_country_code($db, GETPOSTINT('country_id'));
-if ($countrycode == '' || $countrycode == 'NL') {
-	// The Netherlands use PDOK (ajax/pdok.php)
+$countryid = GETPOSTINT('country_id');
+$countrycode = openstreetmap_country_code($db, $countryid);
+if ($countrycode == '') {
 	openstreetmap_address_answer(array('error' => 'BAD_COUNTRY'), 400);
 }
-$zip = trim(GETPOST('zip', 'alphanohtml'));
-if ($zip !== '' && !preg_match('/^[A-Za-z0-9][A-Za-z0-9 \-]{1,9}$/', $zip)) {
-	openstreetmap_address_answer(array('error' => 'BAD_POSTCODE'), 400);
+$lang = substr((string) $langs->defaultlang, 0, 2);
+$provider = openstreetmap_address_provider($countrycode);
+
+// The answer may take a few seconds: release the session so the other pages of the user are not blocked
+if ($provider == 'postcodeeu') {
+	openstreetmap_postcodeeu_session();
+}
+if (session_status() == PHP_SESSION_ACTIVE) {
+	session_write_close();
 }
 
 if ($lookup == 'zip') {
-	if ($zip === '') {
+	if (!getDolGlobalString('OPENSTREETMAP_EU_AUTOFILL')) {
+		openstreetmap_address_answer(array('error' => 'DISABLED'), 403);
+	}
+	$zip = trim(GETPOST('zip', 'alphanohtml'));
+	if (!preg_match('/^[A-Za-z0-9][A-Za-z0-9 \-]{1,9}$/', $zip)) {
 		openstreetmap_address_answer(array('error' => 'BAD_POSTCODE'), 400);
 	}
-	$towns = openstreetmap_postcode_towns($zip, $countrycode);
+	$towns = openstreetmap_postcode_towns($db, $countryid, $countrycode, $zip);
 	if (!is_array($towns)) {
 		dol_syslog("openstreetmap ajax/address.php: Nominatim request failed: ".$towns, LOG_WARNING);
 		openstreetmap_address_answer(array('error' => 'SERVICE_UNAVAILABLE'), 502);
@@ -96,18 +109,37 @@ if ($lookup == 'zip') {
 	openstreetmap_address_answer(array('towns' => $towns));
 }
 
-if ($lookup == 'street') {
+if ($lookup == 'suggest') {
+	if ($provider == '') {
+		openstreetmap_address_answer(array('error' => 'DISABLED'), 403);
+	}
 	$q = trim(GETPOST('q', 'alphanohtml'));
-	$town = trim(GETPOST('town', 'alphanohtml'));
-	if (dol_strlen($q) < 3 || dol_strlen($q) > 100 || dol_strlen($town) > 100) {
+	$context = GETPOST('context', 'alphanohtml');
+	if (($context === '' && dol_strlen($q) < 3) || dol_strlen($q) > 100 || dol_strlen($context) > 300) {
 		openstreetmap_address_answer(array('error' => 'BAD_QUERY'), 400);
 	}
-	$streets = openstreetmap_photon_streets($q, $countrycode, $zip, $town, substr((string) $langs->defaultlang, 0, 2));
-	if (!is_array($streets)) {
-		dol_syslog("openstreetmap ajax/address.php: Photon request failed: ".$streets, LOG_WARNING);
-		openstreetmap_address_answer(array('error' => 'SERVICE_UNAVAILABLE'), 502);
+	$hint = trim(GETPOST('zip', 'alphanohtml'));
+	if ($hint === '' || dol_strlen($hint) > 10) {
+		$hint = trim(GETPOST('town', 'alphanohtml'));
 	}
-	openstreetmap_address_answer(array('streets' => $streets));
+	$result = openstreetmap_address_suggest($q, $countrycode, $lang, $context, dol_trunc($hint, 100, 'right', 'UTF-8', 1));
+	if (!is_array($result)) {
+		dol_syslog("openstreetmap ajax/address.php: ".$provider." request failed: ".$result, LOG_WARNING);
+		openstreetmap_address_answer(array('error' => 'SERVICE_UNAVAILABLE', 'provider' => $provider), 502);
+	}
+	openstreetmap_address_answer($result);
+}
+
+if ($lookup == 'details') {
+	if ($provider != 'postcodeeu') {
+		openstreetmap_address_answer(array('error' => 'DISABLED'), 403);
+	}
+	$details = openstreetmap_postcodeeu_details(GETPOST('context', 'alphanohtml'));
+	if (!is_array($details)) {
+		dol_syslog("openstreetmap ajax/address.php: Postcode.eu details failed: ".$details, LOG_WARNING);
+		openstreetmap_address_answer(array('error' => 'SERVICE_UNAVAILABLE', 'provider' => $provider), 502);
+	}
+	openstreetmap_address_answer(array('address' => $details));
 }
 
 openstreetmap_address_answer(array('error' => 'BAD_LOOKUP'), 400);

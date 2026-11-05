@@ -1,6 +1,16 @@
 # ChangeLog MODULE OPENSTREETMAP FOR <a href="https://www.dolibarr.org">DOLIBARR ERP CRM</a>
 
 
+## 4.2.0
+
+* Map of all objects: the page shows at once the addresses already located. The other ones are located afterwards by the browser, one at a time (ajax/geocode.php), with the session released and short timeouts, and the search stops after 3 errors of the service. Before, up to 25 addresses were located while the page was loading, which could make Dolibarr unresponsive with a slow service.
+* Address suggestions for all countries while typing the address: street, house number, postcode and town, with Photon on OpenStreetMap data (default, free), PDOK for the Netherlands, or Postcode.eu.
+* Photon: the language is only sent when Photon supports it (en, de, fr); for the other languages (for example Greek) the public server answered with an error, so no suggestion was shown.
+* New optional connector to Postcode.eu (paid, own key) for the selected countries. The key and secret are stored encrypted; answers are not cached.
+* New tab "Zip codes and towns": complete the dictionary of zip codes and towns of Dolibarr per country with GeoNames postal codes (download or file). The town of a postcode is taken from this dictionary first.
+* Requests to external services use short timeouts (3 s to connect, 8 s to answer, constants OPENSTREETMAP_CONNECT_TIMEOUT and OPENSTREETMAP_RESPONSE_TIMEOUT).
+* The setup and the README say what to expect in each country.
+
 ## 4.1.3
 
 * Map of all objects: the map now fills the remaining height of the window (at least 400px) and follows when the window is resized, instead of a fixed height of 600px.

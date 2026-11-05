@@ -8,8 +8,17 @@ This module provides OpenStreet Map integration into Dolibarr, without any Googl
 * Addresses in the Netherlands are located with the PDOK Locatieserver (Dutch government service using the BAG, free, no key). Other countries use Nominatim (OpenStreetMap), at most 1 request per second as required by its usage policy.
 * Coordinates are stored in the database and searched again only when the address changes.
 * For Dutch addresses, enter postcode and house number on third party, contact or member forms: street and town are filled automatically. The request is done by the Dolibarr server, the browser of the user never contacts an external service.
-* For other countries: the town is filled from the postcode (Nominatim) and street names are suggested while typing the address (Photon). Also through the Dolibarr server, with a cache.
+* For all countries: addresses (street, house number, postcode, town) are suggested while typing the address, with Photon on OpenStreetMap data by default (free), PDOK for the Netherlands, or optionally Postcode.eu with your own key. Outside the Netherlands the town is also filled from the postcode. Also through the Dolibarr server, with a cache.
+* The dictionary of zip codes and towns of Dolibarr can be completed per country with the free postal codes of GeoNames, or with your own file. The module takes the town of a postcode from it first.
+* The map of all objects shows at once the addresses already located; the other ones are located afterwards in the background, one at a time, so Dolibarr stays responsive.
 * Maps are displayed with Leaflet, served from the module itself (no external CDN).
+
+## What to expect in each country
+* Outside the Netherlands, addresses come from OpenStreetMap. How complete they are depends on the country: good in most of Western Europe, while house numbers or postcodes may be missing in some countries (for example Greece and parts of Eastern Europe). Then only the street is suggested and the house number is typed by hand.
+* The public servers of Photon and Nominatim are free for fair use, without guarantee. Answers are stored, so each address is asked only once. With many users, set the URL of your own Photon or Nominatim server in the setup.
+* In the Netherlands, PDOK (Dutch government, BAG) gives complete and up to date addresses.
+* Postcode.eu is a paid service (own subscription and key, billed per search) covering 14 European countries. The addresses typed are then sent to Postcode.eu: a data processing agreement with this provider is needed (GDPR). Its answers are not stored by the module.
+* Without any external service, the towns of postcodes can come from the dictionary of zip codes and towns of Dolibarr (tab "Zip codes and towns" of the setup).
 
 ## Upgrade from a previous version
 Disable and enable the module again after the upgrade, so the table of stored coordinates is created.
@@ -17,3 +26,6 @@ Disable and enable the module again after the upgrade, so the table of stored co
 ## Third party libraries
 * Leaflet 1.9.4 (BSD 2-Clause), includes/leaflet
 * Leaflet.markercluster 1.5.3 (MIT), includes/markercluster
+
+## Data
+* Postal codes of GeoNames (www.geonames.org), Creative Commons Attribution 4.0, downloaded on request of the administrator.

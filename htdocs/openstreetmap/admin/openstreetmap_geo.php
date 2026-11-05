@@ -42,6 +42,7 @@ if (! $res) die("Include of main fails");
 
 require_once DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php";
 dol_include_once("/openstreetmap/lib/openstreetmap.lib.php");
+dol_include_once("/openstreetmap/lib/postcodeeu.lib.php");
 
 if (!$user->admin) {
 	accessforbidden();
@@ -57,6 +58,7 @@ $textconsts = array(
 	'OPENSTREETMAP_PHOTON_URL' => 'alphanohtml',
 	'OPENSTREETMAP_TILE_URL' => 'alphanohtml',
 	'OPENSTREETMAP_TILE_ATTRIBUTION' => 'restricthtml',
+	'OPENSTREETMAP_POSTCODEEU_KEY' => 'alphanohtml',
 );
 
 
@@ -89,6 +91,26 @@ if ($action == 'save') {
 			$error++;
 		}
 	}
+	// Secret of Postcode.eu: an empty field keeps the stored secret (it is never shown), the checkbox removes it
+	$secret = trim(GETPOST('OPENSTREETMAP_POSTCODEEU_SECRET', 'none'));
+	if (GETPOSTINT('OPENSTREETMAP_POSTCODEEU_SECRET_CLEAR')) {
+		if (dolibarr_del_const($db, 'OPENSTREETMAP_POSTCODEEU_SECRET', $conf->entity) < 0) {
+			$error++;
+		}
+	} elseif ($secret !== '') {
+		if (!preg_match('/^[\x21-\x7E]{1,128}$/', $secret)) {
+			setEventMessages($langs->trans("ErrorBadValueForParameter", '', 'OPENSTREETMAP_POSTCODEEU_SECRET'), null, 'errors');
+			$error++;
+		} elseif (dolibarr_set_const($db, 'OPENSTREETMAP_POSTCODEEU_SECRET', $secret, 'chaine', 0, '', $conf->entity) < 0) {
+			$error++;
+		}
+	}
+	$pccountries = GETPOST('OPENSTREETMAP_POSTCODEEU_COUNTRIES', 'array:aZ09');
+	$pccountries = array_values(array_intersect(array_keys(openstreetmap_postcodeeu_countries()), is_array($pccountries) ? $pccountries : array()));
+	if (dolibarr_set_const($db, 'OPENSTREETMAP_POSTCODEEU_COUNTRIES', implode(',', $pccountries), 'chaine', 0, '', $conf->entity) < 0) {
+		$error++;
+	}
+
 	if (!$error) {
 		$db->commit();
 		setEventMessages($langs->trans("SetupSaved"), null, 'mesgs');
@@ -130,6 +152,15 @@ print dol_get_fiche_head($head, 'geocoding', $langs->trans("OpenStreetMapTools")
 
 print '<span class="opacitymedium">'.$langs->trans("OpenStreetMapGeocodingDesc").'</span><br><br>';
 
+// What the module can do in each country
+print '<div class="info">'.$langs->trans("OpenStreetMapQualityTitle").'<ul>';
+print '<li>'.$langs->trans("OpenStreetMapQualityOSM").'</li>';
+print '<li>'.$langs->trans("OpenStreetMapQualityFairUse").'</li>';
+print '<li>'.$langs->trans("OpenStreetMapQualityNL").'</li>';
+print '<li>'.$langs->trans("OpenStreetMapQualityDictionary").'</li>';
+print '<li>'.$langs->trans("OpenStreetMapQualityPaid").'</li>';
+print '</ul></div><br>';
+
 print '<div class="div-table-responsive-no-min">';
 print '<table class="noborder centpercent">';
 print '<tr class="liste_titre"><td>'.$langs->trans("Parameter").'</td><td>'.$langs->trans("Value").'</td></tr>';
@@ -160,6 +191,29 @@ print '</td></tr>';
 
 print '<tr class="oddeven"><td>'.$langs->trans("OpenStreetMapTileAttribution").'<br><span class="opacitymedium small">'.$langs->trans("OpenStreetMapEmptyForDefault").'</span></td><td>';
 print '<input type="text" class="flat minwidth500" name="OPENSTREETMAP_TILE_ATTRIBUTION" value="'.dol_escape_htmltag(getDolGlobalString('OPENSTREETMAP_TILE_ATTRIBUTION')).'">';
+print '</td></tr>';
+
+// Optional paid service: Postcode.eu
+print '<tr class="liste_titre"><td colspan="2">'.$langs->trans("OpenStreetMapPostcodeEu").'</td></tr>';
+print '<tr class="oddeven"><td colspan="2"><span class="opacitymedium small">'.$langs->trans("OpenStreetMapPostcodeEuDesc").'</span>';
+print '<br><span class="warning small">'.$langs->trans("OpenStreetMapPostcodeEuPrivacy").'</span></td></tr>';
+print '<tr class="oddeven"><td>'.$langs->trans("OpenStreetMapPostcodeEuKey").'</td><td>';
+print '<input type="text" class="flat minwidth300" name="OPENSTREETMAP_POSTCODEEU_KEY" autocomplete="off" value="'.dol_escape_htmltag(getDolGlobalString('OPENSTREETMAP_POSTCODEEU_KEY')).'">';
+print '</td></tr>';
+print '<tr class="oddeven"><td>'.$langs->trans("OpenStreetMapPostcodeEuSecret").'</td><td>';
+print '<input type="password" class="flat minwidth300" name="OPENSTREETMAP_POSTCODEEU_SECRET" autocomplete="new-password" value="" placeholder="'.dol_escape_htmltag(getDolGlobalString('OPENSTREETMAP_POSTCODEEU_SECRET') ? $langs->trans("OpenStreetMapPostcodeEuSecretSet") : '').'">';
+if (getDolGlobalString('OPENSTREETMAP_POSTCODEEU_SECRET')) {
+	print ' <input type="checkbox" id="pcclear" name="OPENSTREETMAP_POSTCODEEU_SECRET_CLEAR" value="1"> <label for="pcclear">'.$langs->trans("Delete").'</label>';
+}
+print '</td></tr>';
+print '<tr class="oddeven"><td>'.$langs->trans("OpenStreetMapPostcodeEuCountries").'<br><span class="opacitymedium small">'.$langs->trans("OpenStreetMapPostcodeEuCountriesDesc").'</span></td><td>';
+$pcchoices = array();
+foreach (array_keys(openstreetmap_postcodeeu_countries()) as $code) {
+	$label = $langs->transnoentitiesnoconv("Country".$code);
+	$pcchoices[$code] = ($label != "Country".$code ? $label : $code);
+}
+asort($pcchoices);
+print $form->multiselectarray('OPENSTREETMAP_POSTCODEEU_COUNTRIES', $pcchoices, openstreetmap_postcodeeu_selected_countries(), 0, 0, 'minwidth300');
 print '</td></tr>';
 
 print '</table>';

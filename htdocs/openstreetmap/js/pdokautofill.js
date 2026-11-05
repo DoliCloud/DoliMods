@@ -5,8 +5,9 @@
  *
  * Module OpenStreetMap: address autofill on third party, contact and member forms.
  * - Netherlands: street and town from postcode and house number, PDOK Locatieserver (BAG), via ajax/pdok.php.
- * - Other countries: town from postcode (Nominatim) and street suggestions while typing (Photon), via ajax/address.php.
- *   A postcode there covers many streets, so the street is chosen from suggestions instead of being guessed.
+ * - All countries: address suggestions while typing on the last line of the address, via ajax/address.php, with the
+ *   service chosen for the country (Photon on OpenStreetMap data by default, PDOK for the Netherlands, Postcode.eu if set up).
+ * - Other countries: town from postcode (dictionary of Dolibarr, then Nominatim), via ajax/address.php.
  * All requests go through the Dolibarr server. Only active on forms with the fields zipcode, address, town and country_id.
  */
 
@@ -23,7 +24,7 @@
 		notfound: dutch ? 'Adres niet gevonden in de BAG' : 'Address not found in the BAG',
 		unavailable: dutch ? 'PDOK niet bereikbaar' : 'PDOK not reachable',
 		othertowns: dutch ? 'Andere plaatsen bij deze postcode:' : 'Other towns for this postcode:',
-		streethelp: dutch ? 'Begin de straatnaam te typen voor suggesties' : 'Start typing the street name for suggestions'
+		streethelp: dutch ? 'Begin het adres te typen voor suggesties' : 'Start typing the address for suggestions'
 	};
 
 	function init() {
@@ -123,38 +124,35 @@
 	}
 
 	/*
-	 * Other countries than the Netherlands
+	 * Town from postcode (countries other than the Netherlands) and address suggestions (all countries)
 	 */
 	function initOtherCountries($, $zip, $address, $town, $country, isNL) {
 		if (!endpointeu) {
 			return;
 		}
-		var disabled = false;
+		var zipdisabled = false;
+		var disabledcountries = {};	// Countries for which the server answered that suggestions are disabled
 		var timer = null;
 		var lastzip = '';
 		var autotown = '';	// Last town filled by us, so we may replace it but never a town typed by the user
+		var context = '';	// Postcode.eu: context of the street or town chosen, to search further in it
+		var contextvalue = '';
 		var $msg = $('<span id="osm_eu_message" class="opacitymedium small paddingleft"></span>');
 		$town.after($msg);
 
-		function active() {
-			return !disabled && !isNL() && String($country.val() || '') !== '' && String($country.val()) !== '0';
-		}
-
-		function fail(xhr) {
-			if (xhr.status === 403) {
-				disabled = true;
-				$msg.text('');
-			}
+		function countryId() {
+			var c = String($country.val() || '');
+			return (c === '' || c === '0' || c === '-1') ? '' : c;
 		}
 
 		// Town from postcode
 		function lookupZip() {
 			var zip = ($zip.val() || '').trim();
-			if (!active() || zip.length < 2 || zip + '|' + $country.val() === lastzip) {
+			if (zipdisabled || isNL() || !countryId() || zip.length < 2 || zip + '|' + countryId() === lastzip) {
 				return;
 			}
-			lastzip = zip + '|' + $country.val();
-			$.ajax({url: endpointeu, data: {lookup: 'zip', zip: zip, country_id: $country.val()}, dataType: 'json'})
+			lastzip = zip + '|' + countryId();
+			$.ajax({url: endpointeu, data: {lookup: 'zip', zip: zip, country_id: countryId()}, dataType: 'json'})
 				.done(function (data) {
 					$msg.empty();
 					if (!data || !data.towns || !data.towns.length) {
@@ -178,11 +176,14 @@
 				})
 				.fail(function (xhr) {
 					lastzip = '';
-					fail(xhr);
+					if (xhr.status === 403) {
+						zipdisabled = true;
+						$msg.empty();
+					}
 				});
 		}
 		$zip.on('change keyup', function () {
-			if (($zip.val() || '').trim() + '|' + $country.val() !== lastzip) {
+			if (($zip.val() || '').trim() + '|' + countryId() !== lastzip) {
 				$msg.empty();
 			}
 			clearTimeout(timer);
@@ -190,10 +191,11 @@
 		});
 		$country.on('change', function () {
 			lastzip = '';
+			context = '';
 			$msg.empty();
 		});
 
-		// Street suggestions while typing, on the last line of the address
+		// Address suggestions while typing, on the last line of the address
 		if (typeof $.fn.autocomplete !== 'function') {
 			return;
 		}
@@ -201,25 +203,54 @@
 			var lines = ($address.val() || '').split(/\r?\n/);
 			var last = lines[lines.length - 1];
 			var m = last.match(/^(.*?)(?:\s+(\d{1,5}\s*[A-Za-z]{0,3}(?:\s*[-\/]\s*\w{1,4})?))?\s*$/);
-			return {lines: lines, street: m ? m[1] : last, number: (m && m[2]) ? m[2] : ''};
+			return {lines: lines, last: last, street: m ? m[1] : last, number: (m && m[2]) ? m[2] : ''};
+		}
+		function setLastLine(text) {
+			var parts = splitLastLine();
+			parts.lines[parts.lines.length - 1] = text;
+			$address.val(parts.lines.join('\n')).trigger('change');
+		}
+		// Fill the form with a complete address chosen in the suggestions
+		function fill(a) {
+			var parts = splitLastLine();
+			var number = a.housenumber ? a.housenumber : parts.number;
+			setLastLine(a.street + (number ? ' ' + number : ' '));
+			if (a.zip) {
+				$zip.val(a.zip).trigger('change');
+				lastzip = a.zip + '|' + countryId();
+			}
+			if (a.town) {
+				autotown = a.town;
+				$town.val(a.town).trigger('change');
+			}
+			$msg.empty();
+			context = '';
 		}
 		$address.attr('title', txt.streethelp).autocomplete({
 			minLength: 3,
 			delay: 400,
 			source: function (request, response) {
 				var parts = splitLastLine();
-				if (!active() || parts.street.trim().length < 3) {
+				var cid = countryId();
+				var q = parts.last.trim();
+				if (!cid || disabledcountries[cid] || (q.length < 3 && !context)) {
 					response([]);
 					return;
 				}
-				$.ajax({url: endpointeu, data: {lookup: 'street', q: parts.street.trim(), zip: ($zip.val() || '').trim(), town: ($town.val() || '').trim(), country_id: $country.val()}, dataType: 'json'})
+				// The context of Postcode.eu is only valid while the line still starts with the value chosen
+				if (context && q.indexOf(contextvalue.trim()) !== 0) {
+					context = '';
+				}
+				$.ajax({url: endpointeu, data: {lookup: 'suggest', q: q, context: context, zip: ($zip.val() || '').trim(), town: ($town.val() || '').trim(), country_id: cid}, dataType: 'json'})
 					.done(function (data) {
-						response((data && data.streets ? data.streets : []).map(function (s) {
-							return {label: s.street + ((s.zip || s.town) ? ' (' + [s.zip, s.town].filter(Boolean).join(' ') + ')' : ''), value: s.street, item: s};
+						response((data && data.items ? data.items : []).map(function (s) {
+							return {label: s.label, value: s.label, item: s};
 						}));
 					})
 					.fail(function (xhr) {
-						fail(xhr);
+						if (xhr.status === 403) {
+							disabledcountries[cid] = true;
+						}
 						response([]);
 					});
 			},
@@ -227,20 +258,28 @@
 				return false;
 			},
 			select: function (event, ui) {
-				var parts = splitLastLine();
-				parts.lines[parts.lines.length - 1] = ui.item.item.street + (parts.number ? ' ' + parts.number : ' ');
-				$address.val(parts.lines.join('\n')).trigger('change');
-				var curzip = ($zip.val() || '').trim();
-				if (!curzip && ui.item.item.zip) {
-					curzip = ui.item.item.zip;
-					$zip.val(curzip).trigger('change');
+				var s = ui.item.item;
+				if (!s.final) {
+					// Postcode.eu: a street or a town, search further in it
+					context = s.context;
+					contextvalue = s.value || '';
+					setLastLine(contextvalue);
+					setTimeout(function () {
+						$address.autocomplete('search', contextvalue);
+					}, 0);
+					return false;
 				}
-				// Change the town only when it stays consistent with the postcode
-				var samezip = !ui.item.item.zip || curzip.replace(/\s+/g, '').toUpperCase() === ui.item.item.zip.replace(/\s+/g, '').toUpperCase();
-				if (samezip && (!($town.val() || '').trim() || $town.val() === autotown) && ui.item.item.town) {
-					autotown = ui.item.item.town;
-					$town.val(autotown).trigger('change');
+				if (s.street) {
+					fill(s);
+					return false;
 				}
+				// Postcode.eu: ask the details of the address
+				$.ajax({url: endpointeu, data: {lookup: 'details', context: s.context, country_id: countryId()}, dataType: 'json'})
+					.done(function (data) {
+						if (data && data.address) {
+							fill(data.address);
+						}
+					});
 				return false;
 			}
 		});

@@ -44,18 +44,17 @@ dol_include_once("/openstreetmap/lib/openstreetmap.lib.php");
 
 $langs->loadLangs(array("openstreetmap@openstreetmap", "companies", "commercial", "categories", "members"));
 
-// url is:  maps_all.php?mode=thirdparty|contact|member&max=max
+// url is:  maps_all.php?mode=thirdparty|contact|member
 
 $mode = GETPOST('mode', 'aZ09');
 if (empty($mode)) {
 	$mode = 'thirdparty';
 }
-$max = GETPOSTISSET('max') ? GETPOST('max', 'int') : 25;	// Max number of new addresses to geocode on this page load
-$socid = GETPOST('socid', 'int');
+$socid = GETPOSTINT('socid');
 
-$search_sale = GETPOST('search_sale', 'int');
-$search_tag_customer = GETPOST('search_tag_customer', 'int');
-$search_tag_member = GETPOST('search_tag_member', 'int');
+$search_sale = GETPOSTINT('search_sale');
+$search_tag_customer = GETPOSTINT('search_tag_customer');
+$search_tag_member = GETPOSTINT('search_tag_member');
 $search_customer = GETPOST('search_customer', 'alpha');
 $search_supplier = GETPOST('search_supplier', 'alpha');
 $search_status = GETPOST('search_status', 'intcomma');
@@ -80,93 +79,37 @@ if ($mode == 'thirdparty') {
 	accessforbidden('Bad value for mode param into url');
 }
 
+$filters = array(
+	'socid' => $socid,
+	'search_sale' => $search_sale,
+	'search_tag_customer' => $search_tag_customer,
+	'search_tag_member' => $search_tag_member,
+	'search_customer' => $search_customer,
+	'search_supplier' => $search_supplier,
+	'search_status' => $search_status,
+);
+
 
 /*
  * View
  */
 
-// Geocoding with Nominatim is limited to 1 request per second
-@set_time_limit(600);
-
 $form = new Form($db);
 $formother = new FormOther($db);
 
-$sqlselect = "c.code as country_code, c.label as country,";
-$sqlselect .= " g.rowid as gid, g.latitude, g.longitude, g.address as gaddress, g.result_code, g.result_label";
-
 if ($mode == 'thirdparty') {
 	$title = $langs->trans("OpenStreetMapMapOfThirdparties");
-	$sql = "SELECT s.rowid as id, s.nom as name, s.address, s.zip, s.town, s.phone, s.email, ".$sqlselect;
-	$sql .= " FROM ".MAIN_DB_PREFIX."societe as s";
-	$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."c_country as c ON s.fk_pays = c.rowid";
-	$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."openstreetmap_geo as g ON s.rowid = g.fk_object AND g.type_object = 'thirdparty' AND g.entity = ".((int) $conf->entity);
-	$sql .= " WHERE s.entity IN (".getEntity('societe').")";
-	if (!$user->hasRight('societe', 'client', 'voir') && !$socid) {
-		$sql .= " AND s.rowid IN (SELECT sc.fk_soc FROM ".MAIN_DB_PREFIX."societe_commerciaux as sc WHERE sc.fk_user = ".((int) $user->id).")";
-	}
-	if ($search_sale > 0) {
-		$sql .= " AND s.rowid IN (SELECT sc.fk_soc FROM ".MAIN_DB_PREFIX."societe_commerciaux as sc WHERE sc.fk_user = ".((int) $search_sale).")";
-	}
-	if ($socid > 0) {
-		$sql .= " AND s.rowid = ".((int) $socid);
-	}
-	if ($search_tag_customer > 0) {
-		$sql .= " AND s.rowid IN (SELECT cs.fk_soc FROM ".MAIN_DB_PREFIX."categorie_societe as cs WHERE cs.fk_categorie = ".((int) $search_tag_customer).")";
-	}
-	if ($search_customer != '' && $search_customer != '-1') {
-		$filterclient = '1,2,3';
-		if ($search_customer == 2) {
-			$filterclient = '2,3';
-		}
-		if ($search_customer == 1) {
-			$filterclient = '1,3';
-		}
-		$sql .= " AND s.client IN (".$db->sanitize($filterclient).")";
-	}
-	if ($search_supplier != '' && $search_supplier != '-1') {
-		$sql .= " AND s.fournisseur = ".((int) $search_supplier);
-	}
-	if ($search_status != '' && $search_status != '-1') {
-		$sql .= " AND s.status = ".((int) $search_status);
-	}
 } elseif ($mode == 'contact') {
 	$title = $langs->trans("OpenStreetMapMapOfContacts");
-	$sql = "SELECT s.rowid as id, s.lastname, s.firstname, s.address, s.zip, s.town, s.phone, s.email, ".$sqlselect;
-	$sql .= " FROM ".MAIN_DB_PREFIX."socpeople as s";
-	$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."c_country as c ON s.fk_pays = c.rowid";
-	$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."openstreetmap_geo as g ON s.rowid = g.fk_object AND g.type_object = 'contact' AND g.entity = ".((int) $conf->entity);
-	$sql .= " WHERE s.entity IN (".getEntity('contact').")";
-	$sql .= " AND (s.priv = 0 OR s.fk_user_creat = ".((int) $user->id).")";
-	if (!$user->hasRight('societe', 'client', 'voir') && !$socid) {
-		$sql .= " AND (s.fk_soc IS NULL OR s.fk_soc IN (SELECT sc.fk_soc FROM ".MAIN_DB_PREFIX."societe_commerciaux as sc WHERE sc.fk_user = ".((int) $user->id)."))";
-	}
-	if ($socid > 0) {
-		$sql .= " AND s.fk_soc = ".((int) $socid);
-	}
-	if ($search_status != '' && $search_status != '-1') {
-		$sql .= " AND s.statut = ".((int) $search_status);
-	}
 } else {
 	$title = $langs->trans("OpenStreetMapMapOfMembers");
-	$sql = "SELECT s.rowid as id, s.lastname, s.firstname, s.societe, s.address, s.zip, s.town, s.phone, s.email, ".$sqlselect;
-	$sql .= " FROM ".MAIN_DB_PREFIX."adherent as s";
-	$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."c_country as c ON s.country = c.rowid";
-	$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."openstreetmap_geo as g ON s.rowid = g.fk_object AND g.type_object = 'member' AND g.entity = ".((int) $conf->entity);
-	$sql .= " WHERE s.statut = 1";
-	$sql .= " AND s.entity IN (".getEntity('adherent').")";
-	if ($search_tag_member > 0) {
-		$sql .= " AND s.rowid IN (SELECT cs.fk_member FROM ".MAIN_DB_PREFIX."categorie_member as cs WHERE cs.fk_categorie = ".((int) $search_tag_member).")";
-	}
 }
-// Addresses never searched first, so each page load completes the map
-$sql .= " ORDER BY g.rowid ASC, s.rowid ASC";
 
 llxHeader('', $title);
 
 print load_fiche_titre($title, '', ($mode == 'member' ? 'member' : ($mode == 'contact' ? 'contact' : 'company')));
 
 // Filters
-$param = '';
 print '<form name="formsearch" method="POST" action="'.$_SERVER["PHP_SELF"].'">';
 print '<input type="hidden" name="token" value="'.newToken().'">';
 print '<input type="hidden" name="mode" value="'.dol_escape_htmltag($mode).'">';
@@ -209,21 +152,15 @@ if ($mode == 'member' && (isModEnabled('category') || !empty($conf->modules['cat
 print '<input type="submit" class="button smallpaddingimp" value="'.$langs->trans("Search").'">';
 print '</form><br>';
 
-foreach (array('search_customer', 'search_supplier', 'search_sale', 'search_tag_customer', 'search_tag_member', 'search_status') as $key) {
-	if ($$key != '' && $$key != '-1') {
-		$param .= '&'.$key.'='.urlencode($$key);
-	}
-}
-
-// Load and geocode addresses
+// Load the objects with their stored coordinates. No external service is called here: addresses not located
+// yet are located afterwards by the browser, one by one (ajax/geocode.php), so this page shows at once.
 $markers = array();
 $errors = array();
-$nbnew = 0;
-$nbpending = 0;
+$pending = array();
 $num = 0;
 
 dol_syslog("openstreetmap maps_all search addresses", LOG_DEBUG);
-$resql = $db->query($sql);
+$resql = $db->query(openstreetmap_list_sql($db, $user, $mode, $filters));
 if (!$resql) {
 	dol_syslog("openstreetmap maps_all: ".$db->lasterror(), LOG_ERR);
 	setEventMessages($langs->trans("Error"), null, 'errors');
@@ -233,54 +170,66 @@ if (!$resql) {
 		if (empty($obj->country_code)) {
 			$obj->country_code = $mysoc->country_code;
 		}
-		$name = !empty($obj->name) ? $obj->name : trim((!empty($obj->societe) ? $obj->societe.' - ' : '').$obj->firstname.' '.$obj->lastname);
 		$cached = array('rowid' => $obj->gid, 'latitude' => $obj->latitude, 'longitude' => $obj->longitude, 'address' => $obj->gaddress, 'result_code' => $obj->result_code, 'result_label' => $obj->result_label);
-
-		$nosearch = ($max > 0 && $nbnew >= $max) ? 1 : 0;
-		$point = openstreetmap_get_coordinates($db, $mode, $obj->id, $obj, $cached, $nosearch);
-		if (empty($point['cached']) && empty($point['pending'])) {
-			$nbnew++;
-		}
+		$point = openstreetmap_get_coordinates($db, $mode, $obj->id, $obj, $cached, 1);
 
 		if (isset($point['lat'])) {
-			if ($mode == 'thirdparty') {
-				$url = DOL_URL_ROOT.'/societe/card.php?socid='.$obj->id;
-			} elseif ($mode == 'contact') {
-				$url = DOL_URL_ROOT.'/contact/card.php?id='.$obj->id;
-			} else {
-				$url = DOL_URL_ROOT.'/adherents/card.php?rowid='.$obj->id;
-			}
-			$popup = '<a href="'.dol_escape_htmltag($url).'"><b>'.dol_escape_htmltag($name).'</b></a>';
-			$popup .= '<br>'.dol_escape_htmltag(dol_format_address($obj, 1, ', '));
-			if (!empty($obj->phone)) {
-				$popup .= '<br>'.dol_escape_htmltag($obj->phone);
-			}
-			if (!empty($obj->email)) {
-				$popup .= '<br>'.dol_escape_htmltag($obj->email);
-			}
-			$markers[] = array('lat' => (float) $point['lat'], 'lon' => (float) $point['lon'], 'popup' => $popup);
+			$markers[] = array('lat' => (float) $point['lat'], 'lon' => (float) $point['lon'], 'popup' => openstreetmap_list_popup($mode, $obj));
 		} elseif (!empty($point['pending'])) {
-			$nbpending++;
+			$pending[] = (int) $obj->id;
 		} elseif ($point['error'] != 'NO_ADDRESS') {
-			$errors[] = array('id' => $obj->id, 'name' => $name, 'address' => dol_format_address($obj, 1, ', '), 'label' => $point['label']);
+			$errors[] = array('name' => openstreetmap_list_name($obj), 'address' => dol_format_address($obj, 1, ', '), 'label' => $point['label']);
 		}
 	}
 }
 
-print '<div class="info">'.$langs->trans("OpenStreetMapCountGeo", $num, count($markers), count($errors), $nbpending).'</div>';
-if ($nbpending > 0) {
-	print $langs->trans("OpenStreetMapClickToGeocodeMore").': ';
-	foreach (array(25, 50, 100, 250) as $nb) {
-		print ' &nbsp; <a href="'.$_SERVER["PHP_SELF"].'?mode='.urlencode($mode).'&max='.$nb.$param.'">'.$nb.'</a>';
-	}
-	print '<br><span class="opacitymedium">'.$langs->trans("OpenStreetMapNominatimSlow").'</span><br>';
+print '<div class="info">';
+// The counters are updated by the script below while the addresses are located
+print '<span id="osm_count">'.str_replace(
+	array('__NBMARKERS__', '__NBERRORS__', '__NBPENDING__'),
+	array('<span id="osm_nbmarkers">'.count($markers).'</span>', '<span id="osm_nberrors">'.count($errors).'</span>', '<span id="osm_nbpending">'.count($pending).'</span>'),
+	$langs->trans("OpenStreetMapCountGeo", $num, '__NBMARKERS__', '__NBERRORS__', '__NBPENDING__')
+).'</span>';
+if (count($pending)) {
+	print '<div id="osm_progress" class="paddingtop">';
+	print '<span id="osm_progress_text">'.$langs->trans("OpenStreetMapGeocodingInProgress").'</span>';
+	print ' <a href="#" id="osm_stop" class="button smallpaddingimp">'.$langs->trans("OpenStreetMapStopGeocoding").'</a>';
+	print '<br><span class="opacitymedium small">'.$langs->trans("OpenStreetMapNominatimSlow").'</span>';
+	print '</div>';
 }
+print '</div>';
 print '<br>';
 
 print openstreetmap_include_leaflet(1);
 print '<div id="map" class="divmap" style="width: 100%; height: 600px; min-height: 400px;"></div>';
+print '<div id="osm_errors_title"'.(count($errors) ? '' : ' class="hidden"').'><br>'.$langs->trans("OpenStreetMapFollowingAddressCantBeLocalized").'</div>';
+print '<ul id="osm_errors">';
+foreach ($errors as $err) {
+	print '<li>'.dol_escape_htmltag($err['name']).' - '.dol_escape_htmltag($err['address']).' <span class="opacitymedium">('.dol_escape_htmltag($err['label']).')</span></li>';
+}
+print '</ul>';
+
+$jsconf = array(
+	'markers' => $markers,
+	'pending' => $pending,
+	'url' => dol_buildpath('/openstreetmap/ajax/geocode.php', 1),
+	'mode' => $mode,
+	'filters' => $filters,
+	'lat' => (float) getDolGlobalString('OPENSTREETMAP_DEFAULT_LAT', '52.2'),
+	'lon' => (float) getDolGlobalString('OPENSTREETMAP_DEFAULT_LON', '5.3'),
+	'tileurl' => openstreetmap_get_tile_url(),
+	'attribution' => openstreetmap_get_tile_attribution(),
+	'txt' => array(
+		'done' => $langs->transnoentitiesnoconv("OpenStreetMapGeocodingDone"),
+		'stopped' => $langs->transnoentitiesnoconv("OpenStreetMapGeocodingStopped"),
+		'unavailable' => $langs->transnoentitiesnoconv("OpenStreetMapGeocodingServiceUnavailable"),
+		'inprogress' => $langs->transnoentitiesnoconv("OpenStreetMapGeocodingInProgress"),
+	),
+);
 print '<script>
 (function() {
+	var cfg = '.openstreetmap_json_for_script($jsconf).';
+
 	// Fit the map to the remaining height of the window (at least 400px), also after resizing the window
 	var el = document.getElementById("map");
 	function fitHeight() {
@@ -292,21 +241,19 @@ print '<script>
 		el.style.height = height + "px";
 	}
 	fitHeight();
-	var markers = '.str_replace(array('<', '>', '&'), array('\\u003C', '\\u003E', '\\u0026'), (string) json_encode($markers)).';
-	var map = L.map("map").setView(['.(float) getDolGlobalString('OPENSTREETMAP_DEFAULT_LAT', '52.2').', '.(float) getDolGlobalString('OPENSTREETMAP_DEFAULT_LON', '5.3').'], 7);
-	L.tileLayer("'.dol_escape_js(openstreetmap_get_tile_url()).'", {
-		maxZoom: 19,
-		attribution: "'.dol_escape_js(openstreetmap_get_tile_attribution()).'"
-	}).addTo(map);
+
+	var map = L.map("map").setView([cfg.lat, cfg.lon], 7);
+	L.tileLayer(cfg.tileurl, {maxZoom: 19, attribution: cfg.attribution}).addTo(map);
 	L.control.scale().addTo(map);
 	var group = (typeof L.markerClusterGroup === "function") ? L.markerClusterGroup() : L.featureGroup();
-	markers.forEach(function(m) {
+	cfg.markers.forEach(function(m) {
 		L.marker([m.lat, m.lon]).bindPopup(m.popup).addTo(group);
 	});
 	map.addLayer(group);
-	if (markers.length > 0) {
+	if (cfg.markers.length > 0) {
 		map.fitBounds(group.getBounds(), {padding: [20, 20], maxZoom: 15});
 	}
+
 	var timer = null;
 	window.addEventListener("resize", function() {
 		clearTimeout(timer);
@@ -315,18 +262,87 @@ print '<script>
 			map.invalidateSize();
 		}, 150);
 	});
+
+	// Locate the addresses not located yet, one request at a time, so the server and the external
+	// services are never asked more than one address at once. Stop after 3 errors of the service in a row.
+	var queue = cfg.pending.slice(0);
+	var stopped = false;
+	var serviceerrors = 0;
+	var nbmarkers = cfg.markers.length;
+	var nberrors = parseInt(document.getElementById("osm_nberrors").textContent, 10) || 0;
+	function setText(id, value) {
+		var e = document.getElementById(id);
+		if (e) {
+			e.textContent = value;
+		}
+	}
+	function finish(message) {
+		setText("osm_progress_text", message);
+		var stop = document.getElementById("osm_stop");
+		if (stop) {
+			stop.style.display = "none";
+		}
+	}
+	function next() {
+		if (stopped) {
+			finish(cfg.txt.stopped);
+			return;
+		}
+		if (!queue.length) {
+			finish(cfg.txt.done);
+			return;
+		}
+		var id = queue.shift();
+		var params = new URLSearchParams(cfg.filters);
+		params.set("mode", cfg.mode);
+		params.set("id", id);
+		fetch(cfg.url + "?" + params.toString(), {credentials: "same-origin"})
+			.then(function(r) { return r.json().catch(function() { return {error: "BAD_JSON"}; }); })
+			.then(function(data) {
+				if (data && typeof data.lat === "number") {
+					serviceerrors = 0;
+					L.marker([data.lat, data.lon]).bindPopup(data.popup).addTo(group);
+					nbmarkers++;
+				} else if (data && data.error === "SERVICE_UNAVAILABLE") {
+					serviceerrors++;
+				} else if (data && data.error && data.error !== "NO_ADDRESS") {
+					serviceerrors = 0;
+					nberrors++;
+					var li = document.createElement("li");
+					li.textContent = (data.name || "") + " - " + (data.address || "") + " (" + (data.label || data.error) + ")";
+					document.getElementById("osm_errors").appendChild(li);
+					document.getElementById("osm_errors_title").classList.remove("hidden");
+				}
+				setText("osm_nbmarkers", nbmarkers);
+				setText("osm_nberrors", nberrors);
+				setText("osm_nbpending", queue.length);
+				if (serviceerrors >= 3) {
+					finish(cfg.txt.unavailable);
+					return;
+				}
+				next();
+			})
+			.catch(function() {
+				serviceerrors++;
+				if (serviceerrors >= 3) {
+					finish(cfg.txt.unavailable);
+					return;
+				}
+				next();
+			});
+	}
+	var stop = document.getElementById("osm_stop");
+	if (stop) {
+		stop.addEventListener("click", function(e) {
+			e.preventDefault();
+			stopped = true;
+		});
+	}
+	if (queue.length) {
+		next();
+	}
 })();
 </script>';
-
-// Addresses that could not be located
-if (count($errors)) {
-	print '<br>'.$langs->trans("OpenStreetMapFollowingAddressCantBeLocalized", count($errors)).':<br>';
-	print '<ul>';
-	foreach ($errors as $err) {
-		print '<li>'.dol_escape_htmltag($err['name']).' - '.dol_escape_htmltag($err['address']).' <span class="opacitymedium">('.dol_escape_htmltag($err['label']).')</span></li>';
-	}
-	print '</ul>';
-}
 
 llxFooter();
 

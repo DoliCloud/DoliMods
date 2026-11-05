@@ -43,6 +43,11 @@ function openstreetmapadmin_prepare_head()
 	$head[$h][2] = 'geocoding';
 	$h++;
 
+	$head[$h][0] = dol_buildpath("/openstreetmap/admin/openstreetmap_ziptown.php", 1);
+	$head[$h][1] = $langs->trans("OpenStreetMapZiptown");
+	$head[$h][2] = 'ziptown';
+	$h++;
+
 	$head[$h][0] = dol_buildpath("/openstreetmap/admin/about.php", 1);
 	$head[$h][1] = $langs->trans("About");
 	$head[$h][2] = 'tababout';
@@ -95,20 +100,39 @@ function openstreetmap_include_leaflet($withcluster = 0)
 /**
  *  Call an external geocoding service and return decoded JSON
  *
- *  @param		string		$url		URL to call
+ *  The request has short timeouts (OPENSTREETMAP_CONNECT_TIMEOUT, OPENSTREETMAP_RESPONSE_TIMEOUT), so a slow
+ *  or unreachable service can not keep a page of Dolibarr waiting for a long time.
+ *
+ *  @param		string			$url			URL to call
+ *  @param		array<int,string>	$extraheaders	Additional HTTP headers (for example an authorization)
  *  @return		array<mixed>|string		Decoded JSON array if OK, error message string if KO
  */
-function openstreetmap_get_json($url)
+function openstreetmap_get_json($url, $extraheaders = array())
 {
-	global $dolibarr_main_url_root;
+	global $conf, $dolibarr_main_url_root;
 
 	include_once DOL_DOCUMENT_ROOT.'/core/lib/geturl.lib.php';
 
 	// Services of OpenStreetMap foundation require an identifying User-Agent
 	$host = parse_url((string) $dolibarr_main_url_root, PHP_URL_HOST);
-	$headers = array('User-Agent: Dolibarr-module-OpenStreetMap'.($host ? ' ('.$host.')' : ''), 'Accept: application/json');
+	$headers = array_merge(array('User-Agent: Dolibarr-module-OpenStreetMap'.($host ? ' ('.$host.')' : ''), 'Accept: application/json'), $extraheaders);
+
+	// getURLContent() reads the timeouts from the setup of Dolibarr: use shorter ones for this request only
+	$savedconnect = isset($conf->global->MAIN_USE_CONNECT_TIMEOUT) ? $conf->global->MAIN_USE_CONNECT_TIMEOUT : null;
+	$savedresponse = isset($conf->global->MAIN_USE_RESPONSE_TIMEOUT) ? $conf->global->MAIN_USE_RESPONSE_TIMEOUT : null;
+	$conf->global->MAIN_USE_CONNECT_TIMEOUT = getDolGlobalInt('OPENSTREETMAP_CONNECT_TIMEOUT', 3);
+	$conf->global->MAIN_USE_RESPONSE_TIMEOUT = getDolGlobalInt('OPENSTREETMAP_RESPONSE_TIMEOUT', 8);
 
 	$result = getURLContent($url, 'GET', '', 1, $headers, array('https'), 0, -1);
+
+	foreach (array('MAIN_USE_CONNECT_TIMEOUT' => $savedconnect, 'MAIN_USE_RESPONSE_TIMEOUT' => $savedresponse) as $key => $saved) {
+		if ($saved === null) {
+			unset($conf->global->$key);
+		} else {
+			$conf->global->$key = $saved;
+		}
+	}
+
 	if (!empty($result['curl_error_no'])) {
 		return 'CURL_'.$result['curl_error_no'].' '.$result['curl_error_msg'];
 	}
@@ -428,14 +452,22 @@ function openstreetmap_country_code($db, $countryid)
 }
 
 /**
- *  Return the towns of a postcode with Nominatim (one request per postcode, answers cached).
+ *  Return the towns of a postcode. The dictionary of zip codes and towns of Dolibarr (llx_c_ziptown) is read
+ *  first; Nominatim is asked only when the postcode is not in it (one request per postcode, answers cached).
  *
- *  @param		string		$zip			Postcode
+ *  @param		DoliDB		$db				Database handler
+ *  @param		int			$countryid		Id of country in llx_c_country
  *  @param		string		$countrycode	ISO country code
+ *  @param		string		$zip			Postcode
  *  @return		array<int,string>|string	List of town names, or error message string if KO
  */
-function openstreetmap_postcode_towns($zip, $countrycode)
+function openstreetmap_postcode_towns($db, $countryid, $countrycode, $zip)
 {
+	$towns = openstreetmap_ziptown_towns($db, $countryid, $zip);
+	if (count($towns)) {
+		return $towns;
+	}
+
 	$key = 'postcode|'.strtoupper($countrycode).'|'.strtoupper($zip);
 	$cached = openstreetmap_cache_get($key);
 	if ($cached !== null) {
@@ -472,56 +504,394 @@ function openstreetmap_postcode_towns($zip, $countrycode)
 }
 
 /**
- *  Return streets matching a text, in a country and near a postcode or town, with Photon
- *  (search-as-you-type service on OpenStreetMap data; answers cached).
+ *  Return the towns of a postcode found in the dictionary of zip codes and towns of Dolibarr (llx_c_ziptown).
+ *  The postcode is compared without spaces and dashes, so "123 45" matches "12345".
  *
- *  @param		string		$q				Beginning of the street name typed by the user
- *  @param		string		$countrycode	ISO country code
- *  @param		string		$zip			Postcode (optional)
- *  @param		string		$town			Town (optional)
- *  @param		string		$lang			Language code for the names (optional, 2 letters)
- *  @return		array<int,array<string,string>>|string	List of array('street'=>, 'zip'=>, 'town'=>), or error message string if KO
+ *  @param		DoliDB		$db				Database handler
+ *  @param		int			$countryid		Id of country in llx_c_country
+ *  @param		string		$zip			Postcode
+ *  @return		array<int,string>			List of town names (empty if none)
  */
-function openstreetmap_photon_streets($q, $countrycode, $zip = '', $town = '', $lang = '')
+function openstreetmap_ziptown_towns($db, $countryid, $zip)
 {
-	$query = trim($q.' '.($zip ? $zip : $town));
-	$key = 'street|'.strtoupper($countrycode).'|'.$lang.'|'.mb_strtolower($query);
+	$towns = array();
+	$zipclean = openstreetmap_clean_zip($zip);
+	if ($countryid <= 0 || $zipclean === '') {
+		return $towns;
+	}
+	$sql = "SELECT zip, town FROM ".MAIN_DB_PREFIX."c_ziptown";
+	$sql .= " WHERE fk_pays = ".((int) $countryid)." AND active = 1";
+	$sql .= " AND zip LIKE '".$db->escape(substr($zipclean, 0, 2))."%'";
+	$sql .= " ORDER BY town";
+	$resql = $db->query($sql);
+	if (!$resql) {
+		dol_syslog("openstreetmap_ziptown_towns: ".$db->lasterror(), LOG_WARNING);
+		return $towns;
+	}
+	while ($obj = $db->fetch_object($resql)) {
+		if (openstreetmap_clean_zip($obj->zip) === $zipclean && !in_array($obj->town, $towns)) {
+			$towns[] = $obj->town;
+		}
+	}
+	return $towns;
+}
+
+/**
+ *  Return a postcode in upper case without spaces and dashes, to compare postcodes written in different ways
+ *
+ *  @param		string		$zip		Postcode
+ *  @return		string					Cleaned postcode
+ */
+function openstreetmap_clean_zip($zip)
+{
+	return strtoupper(str_replace(array(' ', '-'), '', trim((string) $zip)));
+}
+
+/**
+ *  Return the service used for address suggestions in a country:
+ *  - 'postcodeeu': Postcode.eu, only when a key is set and the country is selected for it in the setup;
+ *  - 'pdok': PDOK Locatieserver for the Netherlands (free, Dutch government), when OPENSTREETMAP_PDOK_AUTOFILL is on;
+ *  - 'photon': Photon on OpenStreetMap data, the free default for all countries, when OPENSTREETMAP_EU_AUTOFILL is on;
+ *  - '': no address suggestions.
+ *
+ *  @param		string		$countrycode	ISO country code
+ *  @return		string						'postcodeeu', 'pdok', 'photon' or ''
+ */
+function openstreetmap_address_provider($countrycode)
+{
+	$countrycode = strtoupper((string) $countrycode);
+	if (!preg_match('/^[A-Z]{2}$/', $countrycode)) {
+		return '';
+	}
+	dol_include_once('/openstreetmap/lib/postcodeeu.lib.php');
+	if (openstreetmap_postcodeeu_enabled_for($countrycode)) {
+		return 'postcodeeu';
+	}
+	if ($countrycode == 'NL' && getDolGlobalString('OPENSTREETMAP_PDOK_AUTOFILL')) {
+		return 'pdok';
+	}
+	if (getDolGlobalString('OPENSTREETMAP_EU_AUTOFILL')) {
+		return 'photon';
+	}
+	return '';
+}
+
+/**
+ *  Return address suggestions for a text typed by the user, with the service chosen for the country.
+ *  Each suggestion is an array with:
+ *  - 'label': text shown in the list,
+ *  - 'final': 1 if the suggestion is a complete address (street, house number when known, postcode, town),
+ *             0 if it is a step to search further in (Postcode.eu: a street or a town),
+ *  - 'context': for a step or for Postcode.eu, the value to send back (to search further, or to get the details),
+ *  - 'street', 'housenumber', 'zip', 'town': parts of the address (for final suggestions of PDOK and Photon).
+ *
+ *  @param		string		$q				Text typed by the user
+ *  @param		string		$countrycode	ISO country code
+ *  @param		string		$lang			Language of the user (2 letters)
+ *  @param		string		$context		Context to search in (Postcode.eu only, from a previous suggestion)
+ *  @param		string		$hint			Postcode or town already filled in the form, added to the search of PDOK and
+ *  										Photon when the text does not contain it yet (Postcode.eu works with its context)
+ *  @return		array{provider:string,items:array<int,array<string,mixed>>}|string	Result, or error message string if KO
+ */
+function openstreetmap_address_suggest($q, $countrycode, $lang = '', $context = '', $hint = '')
+{
+	$provider = openstreetmap_address_provider($countrycode);
+	$hint = trim((string) $hint);
+	$qwithhint = ($hint !== '' && mb_stripos($q, $hint) === false) ? trim($q.' '.$hint) : $q;
+	if ($provider == 'postcodeeu') {
+		$items = openstreetmap_postcodeeu_suggest($q, $countrycode, $lang, $context);
+	} elseif ($provider == 'pdok') {
+		$items = openstreetmap_pdok_suggest($qwithhint);
+	} elseif ($provider == 'photon') {
+		$items = openstreetmap_photon_suggest($qwithhint, $countrycode, $lang);
+	} else {
+		return 'DISABLED';
+	}
+	if (!is_array($items)) {
+		return $items;
+	}
+	return array('provider' => $provider, 'items' => $items);
+}
+
+/**
+ *  Return address suggestions from the PDOK Locatieserver (Netherlands, free search on BAG addresses, answers cached)
+ *
+ *  @param		string		$q		Text typed by the user
+ *  @return		array<int,array<string,mixed>>|string	Suggestions, or error message string if KO
+ */
+function openstreetmap_pdok_suggest($q)
+{
+	$key = 'pdoksuggest|'.mb_strtolower(trim($q));
+	$cached = openstreetmap_cache_get($key, 86400);
+	if ($cached !== null) {
+		return $cached;
+	}
+	$docs = openstreetmap_pdok_search($q, 'adres', 10);
+	if (!is_array($docs)) {
+		return $docs;
+	}
+	$items = array();
+	foreach ($docs as $doc) {
+		if (!is_array($doc) || empty($doc['straatnaam']) || empty($doc['woonplaatsnaam'])) {
+			continue;
+		}
+		$number = (isset($doc['huisnummer']) ? (string) $doc['huisnummer'] : '').(!empty($doc['huisletter']) ? $doc['huisletter'] : '').(!empty($doc['huisnummertoevoeging']) ? '-'.$doc['huisnummertoevoeging'] : '');
+		$zip = isset($doc['postcode']) ? (string) $doc['postcode'] : '';
+		if (preg_match('/^([0-9]{4})([A-Z]{2})$/', $zip, $reg)) {
+			$zip = $reg[1].' '.$reg[2];
+		}
+		$items[] = array(
+			'label' => isset($doc['weergavenaam']) ? (string) $doc['weergavenaam'] : trim($doc['straatnaam'].' '.$number.', '.$zip.' '.$doc['woonplaatsnaam']),
+			'final' => 1,
+			'street' => (string) $doc['straatnaam'],
+			'housenumber' => $number,
+			'zip' => $zip,
+			'town' => (string) $doc['woonplaatsnaam'],
+		);
+	}
+	openstreetmap_cache_set($key, $items);
+	return $items;
+}
+
+/**
+ *  Return the language to send to Photon. The public Photon server only knows a few languages and answers
+ *  with an error for the others, so any other language is not sent: Photon then returns the local names.
+ *
+ *  @param		string		$lang		Language of the user (2 letters)
+ *  @return		string					'en', 'de', 'fr' or '' (local names)
+ */
+function openstreetmap_photon_lang($lang)
+{
+	$lang = strtolower(substr((string) $lang, 0, 2));
+	return in_array($lang, array('en', 'de', 'fr')) ? $lang : '';
+}
+
+/**
+ *  Return address suggestions from Photon (search-as-you-type service on OpenStreetMap data; answers cached).
+ *  House numbers are returned where OpenStreetMap knows them, otherwise the street only.
+ *
+ *  @param		string		$q				Text typed by the user (street, house number, postcode or town)
+ *  @param		string		$countrycode	ISO country code
+ *  @param		string		$lang			Language of the user (2 letters)
+ *  @return		array<int,array<string,mixed>>|string	Suggestions, or error message string if KO
+ */
+function openstreetmap_photon_suggest($q, $countrycode, $lang = '')
+{
+	$lang = openstreetmap_photon_lang($lang);
+	$query = trim(preg_replace('/\s+/', ' ', (string) $q));
+	$key = 'photon|'.strtoupper($countrycode).'|'.$lang.'|'.mb_strtolower($query);
 	$cached = openstreetmap_cache_get($key, 604800);
 	if ($cached !== null) {
 		return $cached;
 	}
 
 	$url = getDolGlobalString('OPENSTREETMAP_PHOTON_URL', 'https://photon.komoot.io/api');
-	$url .= '?q='.urlencode($query).'&layer=street&limit=10&countrycode='.urlencode(strtoupper($countrycode));
-	if (preg_match('/^[a-z]{2}$/', $lang)) {
+	$url .= '?q='.urlencode($query).'&layer=house&layer=street&limit=10&countrycode='.urlencode(strtoupper($countrycode));
+	if ($lang) {
 		$url .= '&lang='.$lang;
 	}
 	$data = openstreetmap_get_json($url);
 	if (!is_array($data)) {
 		return $data;
 	}
+	$items = openstreetmap_photon_parse($data, $countrycode);
+	if (!is_array($items)) {
+		return $items;
+	}
+	openstreetmap_cache_set($key, $items);
+	return $items;
+}
+
+/**
+ *  Convert an answer of Photon (GeoJSON) into address suggestions
+ *
+ *  @param		array<mixed>	$data			Decoded answer of Photon
+ *  @param		string			$countrycode	ISO country code (results of other countries are ignored)
+ *  @return		array<int,array<string,mixed>>|string	Suggestions, or 'BAD_RESPONSE'
+ */
+function openstreetmap_photon_parse($data, $countrycode)
+{
 	if (!isset($data['features']) || !is_array($data['features'])) {
 		return 'BAD_RESPONSE';
 	}
-
-	$streets = array();
+	$items = array();
 	foreach ($data['features'] as $feature) {
 		$prop = (is_array($feature) && isset($feature['properties']) && is_array($feature['properties'])) ? $feature['properties'] : array();
 		if (!empty($prop['countrycode']) && strtoupper((string) $prop['countrycode']) != strtoupper($countrycode)) {
 			continue;
 		}
-		$name = !empty($prop['street']) ? $prop['street'] : (isset($prop['name']) ? $prop['name'] : '');
-		if (!is_string($name) || $name === '') {
+		$isstreet = (isset($prop['type']) && $prop['type'] == 'street');
+		$street = ($isstreet && isset($prop['name'])) ? $prop['name'] : (isset($prop['street']) ? $prop['street'] : '');
+		if (!is_string($street) || $street === '') {
 			continue;
 		}
-		$item = array(
-			'street' => $name,
-			'zip' => (isset($prop['postcode']) && is_string($prop['postcode'])) ? $prop['postcode'] : '',
-			'town' => (isset($prop['city']) && is_string($prop['city'])) ? $prop['city'] : ((isset($prop['district']) && is_string($prop['district'])) ? $prop['district'] : ''),
+		$number = (!$isstreet && isset($prop['housenumber']) && is_scalar($prop['housenumber'])) ? (string) $prop['housenumber'] : '';
+		$zip = (isset($prop['postcode']) && is_scalar($prop['postcode'])) ? (string) $prop['postcode'] : '';
+		$town = '';
+		foreach (array('city', 'town', 'village', 'district', 'county') as $k) {
+			if (!empty($prop[$k]) && is_string($prop[$k])) {
+				$town = $prop[$k];
+				break;
+			}
+		}
+		$label = trim($street.' '.$number);
+		if ($zip !== '' || $town !== '') {
+			$label .= ', '.trim($zip.' '.$town);
+		}
+		$items[$label] = array(
+			'label' => $label,
+			'final' => 1,
+			'street' => $street,
+			'housenumber' => $number,
+			'zip' => $zip,
+			'town' => $town,
 		);
-		$streets[implode('|', $item)] = $item;
 	}
-	$streets = array_values($streets);
-	openstreetmap_cache_set($key, $streets);
-	return $streets;
+	return array_values($items);
+}
+
+/**
+ *  Return the SQL request listing the objects shown on the map of all objects, with their cached coordinates.
+ *  The same request is used by maps_all.php and ajax/geocode.php, so both apply the same permissions.
+ *
+ *  @param		DoliDB		$db			Database handler
+ *  @param		User		$user		User
+ *  @param		string		$mode		'thirdparty', 'contact' or 'member'
+ *  @param		array<string,mixed>	$filters	Filters: socid, search_sale, search_tag_customer, search_tag_member,
+ *  											search_customer, search_supplier, search_status
+ *  @param		int			$onlyid		Id of one object to return, or 0 for all
+ *  @return		string					SQL request
+ */
+function openstreetmap_list_sql($db, $user, $mode, $filters, $onlyid = 0)
+{
+	global $conf;
+
+	$socid = empty($filters['socid']) ? 0 : (int) $filters['socid'];
+	$search_status = isset($filters['search_status']) ? (string) $filters['search_status'] : '';
+
+	$sqlselect = "c.code as country_code, c.label as country,";
+	$sqlselect .= " g.rowid as gid, g.latitude, g.longitude, g.address as gaddress, g.result_code, g.result_label";
+
+	if ($mode == 'thirdparty') {
+		$sql = "SELECT s.rowid as id, s.nom as name, s.address, s.zip, s.town, s.phone, s.email, ".$sqlselect;
+		$sql .= " FROM ".MAIN_DB_PREFIX."societe as s";
+		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."c_country as c ON s.fk_pays = c.rowid";
+		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."openstreetmap_geo as g ON s.rowid = g.fk_object AND g.type_object = 'thirdparty' AND g.entity = ".((int) $conf->entity);
+		$sql .= " WHERE s.entity IN (".getEntity('societe').")";
+		if (!$user->hasRight('societe', 'client', 'voir') && !$socid) {
+			$sql .= " AND s.rowid IN (SELECT sc.fk_soc FROM ".MAIN_DB_PREFIX."societe_commerciaux as sc WHERE sc.fk_user = ".((int) $user->id).")";
+		}
+		if (!empty($filters['search_sale']) && $filters['search_sale'] > 0) {
+			$sql .= " AND s.rowid IN (SELECT sc.fk_soc FROM ".MAIN_DB_PREFIX."societe_commerciaux as sc WHERE sc.fk_user = ".((int) $filters['search_sale']).")";
+		}
+		if ($socid > 0) {
+			$sql .= " AND s.rowid = ".((int) $socid);
+		}
+		if (!empty($filters['search_tag_customer']) && $filters['search_tag_customer'] > 0) {
+			$sql .= " AND s.rowid IN (SELECT cs.fk_soc FROM ".MAIN_DB_PREFIX."categorie_societe as cs WHERE cs.fk_categorie = ".((int) $filters['search_tag_customer']).")";
+		}
+		$search_customer = isset($filters['search_customer']) ? (string) $filters['search_customer'] : '';
+		if ($search_customer != '' && $search_customer != '-1') {
+			$filterclient = '1,2,3';
+			if ($search_customer == '2') {
+				$filterclient = '2,3';
+			}
+			if ($search_customer == '1') {
+				$filterclient = '1,3';
+			}
+			$sql .= " AND s.client IN (".$db->sanitize($filterclient).")";
+		}
+		$search_supplier = isset($filters['search_supplier']) ? (string) $filters['search_supplier'] : '';
+		if ($search_supplier != '' && $search_supplier != '-1') {
+			$sql .= " AND s.fournisseur = ".((int) $search_supplier);
+		}
+		if ($search_status != '' && $search_status != '-1') {
+			$sql .= " AND s.status = ".((int) $search_status);
+		}
+	} elseif ($mode == 'contact') {
+		$sql = "SELECT s.rowid as id, s.lastname, s.firstname, s.address, s.zip, s.town, s.phone, s.email, ".$sqlselect;
+		$sql .= " FROM ".MAIN_DB_PREFIX."socpeople as s";
+		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."c_country as c ON s.fk_pays = c.rowid";
+		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."openstreetmap_geo as g ON s.rowid = g.fk_object AND g.type_object = 'contact' AND g.entity = ".((int) $conf->entity);
+		$sql .= " WHERE s.entity IN (".getEntity('contact').")";
+		$sql .= " AND (s.priv = 0 OR s.fk_user_creat = ".((int) $user->id).")";
+		if (!$user->hasRight('societe', 'client', 'voir') && !$socid) {
+			$sql .= " AND (s.fk_soc IS NULL OR s.fk_soc IN (SELECT sc.fk_soc FROM ".MAIN_DB_PREFIX."societe_commerciaux as sc WHERE sc.fk_user = ".((int) $user->id)."))";
+		}
+		if ($socid > 0) {
+			$sql .= " AND s.fk_soc = ".((int) $socid);
+		}
+		if ($search_status != '' && $search_status != '-1') {
+			$sql .= " AND s.statut = ".((int) $search_status);
+		}
+	} else {
+		$sql = "SELECT s.rowid as id, s.lastname, s.firstname, s.societe, s.address, s.zip, s.town, s.phone, s.email, ".$sqlselect;
+		$sql .= " FROM ".MAIN_DB_PREFIX."adherent as s";
+		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."c_country as c ON s.country = c.rowid";
+		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."openstreetmap_geo as g ON s.rowid = g.fk_object AND g.type_object = 'member' AND g.entity = ".((int) $conf->entity);
+		$sql .= " WHERE s.statut = 1";
+		$sql .= " AND s.entity IN (".getEntity('adherent').")";
+		if (!empty($filters['search_tag_member']) && $filters['search_tag_member'] > 0) {
+			$sql .= " AND s.rowid IN (SELECT cs.fk_member FROM ".MAIN_DB_PREFIX."categorie_member as cs WHERE cs.fk_categorie = ".((int) $filters['search_tag_member']).")";
+		}
+	}
+	if ($onlyid > 0) {
+		$sql .= " AND s.rowid = ".((int) $onlyid);
+	}
+	// Addresses never searched first
+	$sql .= " ORDER BY g.rowid ASC, s.rowid ASC";
+	return $sql;
+}
+
+/**
+ *  Return the name of an object of the map of all objects (row of openstreetmap_list_sql())
+ *
+ *  @param		object		$obj		Row
+ *  @return		string					Name
+ */
+function openstreetmap_list_name($obj)
+{
+	if (!empty($obj->name)) {
+		return (string) $obj->name;
+	}
+	return trim((!empty($obj->societe) ? $obj->societe.' - ' : '').(isset($obj->firstname) ? $obj->firstname : '').' '.(isset($obj->lastname) ? $obj->lastname : ''));
+}
+
+/**
+ *  Return the HTML of the popup of a marker on the map of all objects (all values escaped)
+ *
+ *  @param		string		$mode		'thirdparty', 'contact' or 'member'
+ *  @param		object		$obj		Row of openstreetmap_list_sql()
+ *  @return		string					HTML
+ */
+function openstreetmap_list_popup($mode, $obj)
+{
+	if ($mode == 'thirdparty') {
+		$url = DOL_URL_ROOT.'/societe/card.php?socid='.((int) $obj->id);
+	} elseif ($mode == 'contact') {
+		$url = DOL_URL_ROOT.'/contact/card.php?id='.((int) $obj->id);
+	} else {
+		$url = DOL_URL_ROOT.'/adherents/card.php?rowid='.((int) $obj->id);
+	}
+	$popup = '<a href="'.dol_escape_htmltag($url).'"><b>'.dol_escape_htmltag(openstreetmap_list_name($obj)).'</b></a>';
+	$popup .= '<br>'.dol_escape_htmltag(dol_format_address($obj, 1, ', '));
+	if (!empty($obj->phone)) {
+		$popup .= '<br>'.dol_escape_htmltag($obj->phone);
+	}
+	if (!empty($obj->email)) {
+		$popup .= '<br>'.dol_escape_htmltag($obj->email);
+	}
+	return $popup;
+}
+
+/**
+ *  Return the JSON of data to put in a script tag, escaped so it can not close the tag
+ *  (same escaping as JSON_HEX_TAG and JSON_HEX_AMP)
+ *
+ *  @param		mixed		$data		Data
+ *  @return		string					JSON
+ */
+function openstreetmap_json_for_script($data)
+{
+	return str_replace(array('<', '>', '&'), array('\\u003C', '\\u003E', '\\u0026'), (string) json_encode($data));
 }
