@@ -1,6 +1,13 @@
 # ChangeLog MODULE OPENSTREETMAP FOR <a href="https://www.dolibarr.org">DOLIBARR ERP CRM</a>
 
 
+## 4.3.0
+
+* Zip codes and towns: a file is not imported at once anymore. It is put in a queue (documents/openstreetmap/ziptown), extracted on disk and read line by line by parts, so the memory used does not depend on the size of the file (16 MB for the 1.8 million lines of GB_full) and no request of the web server runs for long. Duplicates are checked in the database by groups.
+* The queue is imported in the background by a scheduled job of the module (enabled only while files are waiting, disabled again when the queue is empty), and by the setup page while it is open. The page shows the progress in percent; the list of scheduled jobs of Dolibarr shows it too.
+* New setting: maximum number of lines of a file (default 500000), with the effect on the autocompletion of towns of Dolibarr.
+* Disable and enable the module after the upgrade, so the scheduled job is created.
+
 ## 4.2.2
 
 * Zip codes and towns: the size of the file inside a zip is checked before it is read, so a very large file (for example GB_full of GeoNames, 178 MB) is refused with a message instead of exhausting the memory of PHP.

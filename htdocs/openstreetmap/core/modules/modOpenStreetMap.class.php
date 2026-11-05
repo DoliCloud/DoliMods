@@ -46,7 +46,7 @@ class modOpenStreetMap extends DolibarrModules
 		$this->editor_name = 'DoliCloud';
 		$this->editor_url = 'https://www.dolicloud.com?origin=dolimods';
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
-		$this->version = '4.2.2';
+		$this->version = '4.3.0';
 		// Key used in llx_const table to save module status enabled/disabled (where MYMODULE is value of property name of module in uppercase)
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
 		// Name of image file used for this module.
@@ -85,6 +85,26 @@ class modOpenStreetMap extends DolibarrModules
 
 		// Boxes
 		$this->boxes = array();			// List of boxes
+
+		// Scheduled job: import of the zip codes and towns waiting in the queue (tab "Zip codes and towns" of the setup).
+		// Disabled by default: it is enabled when a file is put in the queue and disabled again when the queue is empty.
+		// Without the module Scheduled jobs, the import runs while the setup page is open.
+		$this->cronjobs = array(
+			0 => array(
+				'label' => 'OpenStreetMapZiptownImportJob',
+				'jobtype' => 'method',
+				'class' => '/openstreetmap/class/ziptownjob.class.php',
+				'objectname' => 'OpenStreetMapZiptownJob',
+				'method' => 'runQueue',
+				'parameters' => '',
+				'comment' => 'OpenStreetMapZiptownImportJobDesc',
+				'frequency' => 5,
+				'unitfrequency' => 60,
+				'priority' => 50,
+				'status' => 0,
+				'test' => 'isModEnabled("openstreetmap")',
+			),
+		);
 
 		// Permissions
 		$this->rights = array();		// Permission array used by this module

@@ -70,61 +70,66 @@ if ($action == 'setdictionary') {
 
 if ($action == 'import') {
 	$countrycode = openstreetmap_country_code($db, $countryid);
-	$content = '';
+	$dir = openstreetmap_ziptown_queue_dir();
+	$file = '';
+	$name = '';
+	$todelete = '';
 	if ($countrycode == '') {
 		setEventMessages($langs->trans("ErrorFieldRequired", $langs->transnoentitiesnoconv("Country")), null, 'errors');
+	} elseif ($dir === '') {
+		setEventMessages($langs->trans("Error"), null, 'errors');
 	} elseif ($source == 'geonames') {
-		$content = openstreetmap_ziptown_download_geonames($countrycode);
-		if (!is_string($content)) {
+		$file = $todelete = $dir.'/download_'.bin2hex(random_bytes(8)).'.zip';
+		$name = basename(openstreetmap_ziptown_geonames_url($countrycode));
+		if (openstreetmap_ziptown_download_geonames($countrycode, $file) < 0) {
 			setEventMessages($langs->trans("OpenStreetMapZiptownDownloadFailed"), null, 'errors');
-			$content = '';
+			$file = '';
 		}
 	} elseif ($source == 'file') {
-		$file = isset($_FILES['ziptownfile']) && is_array($_FILES['ziptownfile']) ? $_FILES['ziptownfile'] : array();
-		if (empty($file['tmp_name']) || !is_uploaded_file($file['tmp_name']) || !empty($file['error'])) {
+		$upload = isset($_FILES['ziptownfile']) && is_array($_FILES['ziptownfile']) ? $_FILES['ziptownfile'] : array();
+		if (empty($upload['tmp_name']) || !is_uploaded_file($upload['tmp_name']) || !empty($upload['error'])) {
 			setEventMessages($langs->trans("ErrorFieldRequired", $langs->transnoentitiesnoconv("File")), null, 'errors');
-		} elseif ($file['size'] > 20 * 1024 * 1024) {	// Larger files are refused before by the browser and by PHP
+		} elseif ($upload['size'] > 100 * 1024 * 1024) {	// Larger files are refused before by the browser and by PHP
 			setEventMessages($langs->trans("OpenStreetMapZiptownFileTooLarge"), null, 'errors');
 		} else {
-			$data = (string) file_get_contents($file['tmp_name']);
-			if (strpos($data, "PK\x03\x04") === 0) {
-				$content = openstreetmap_ziptown_read_zip($data, $countrycode.'.txt');
-				if ($content === -4) {
-					setEventMessages($langs->trans("OpenStreetMapZiptownContentTooLarge"), null, 'errors');
-					$content = '';
-				} elseif (!is_string($content)) {
-					setEventMessages($langs->trans("OpenStreetMapZiptownBadFile"), null, 'errors');
-					$content = '';
-				}
-			} else {
-				$content = $data;
-			}
+			$file = $upload['tmp_name'];
+			$name = $upload['name'];
 		}
 	}
-	if ($content !== '' && openstreetmap_ziptown_is_gazetteer($content)) {
-		setEventMessages($langs->trans("OpenStreetMapZiptownGazetteer"), null, 'errors');
-		$content = '';
-	} elseif (strlen($content) > 30 * 1024 * 1024) {
-		setEventMessages($langs->trans("OpenStreetMapZiptownContentTooLarge"), null, 'errors');
-		$content = '';
-	}
-	if ($content !== '') {
-		if (!mb_check_encoding($content, 'UTF-8')) {
-			$content = mb_convert_encoding($content, 'UTF-8', 'ISO-8859-1');
-		}
-		@set_time_limit(300);
-		$rows = openstreetmap_ziptown_parse($content, $countrycode);
-		if (!count($rows)) {
-			setEventMessages($langs->trans("OpenStreetMapZiptownBadFile"), null, 'errors');
+	if ($file !== '') {
+		// The file is put in the queue: extracted on disk and imported afterwards by parts, in the background
+		$job = openstreetmap_ziptown_job_create($db, $countryid, $countrycode, $file, $name);
+		if (is_array($job)) {
+			setEventMessages($langs->trans("OpenStreetMapZiptownQueued", $job['name'], $job['lines']), null, 'mesgs');
+		} elseif ($job == -4) {
+			setEventMessages($langs->trans("OpenStreetMapZiptownGazetteer"), null, 'errors');
+		} elseif ($job == -5) {
+			setEventMessages($langs->trans("OpenStreetMapZiptownTooManyLines", openstreetmap_ziptown_max_rows()), null, 'errors');
 		} else {
-			$result = openstreetmap_ziptown_import($db, $countryid, $rows);
-			if (is_array($result)) {
-				setEventMessages($langs->trans("OpenStreetMapZiptownImported", $result['added'], $result['existing']), null, 'mesgs');
-			} else {
-				setEventMessages($langs->trans("Error"), null, 'errors');
-			}
+			setEventMessages($langs->trans("OpenStreetMapZiptownBadFile"), null, 'errors');
 		}
 	}
+	if ($todelete !== '' && is_file($todelete)) {
+		dol_delete_file($todelete, 0, 1);
+	}
+	header("Location: ".$_SERVER["PHP_SELF"]);
+	exit;
+}
+
+if ($action == 'setmaxrows') {
+	$maxrows = max(1000, min(5000000, GETPOSTINT('OPENSTREETMAP_ZIPTOWN_MAX_ROWS')));
+	if (dolibarr_set_const($db, 'OPENSTREETMAP_ZIPTOWN_MAX_ROWS', (string) $maxrows, 'chaine', 0, '', $conf->entity) > 0) {
+		setEventMessages($langs->trans("SetupSaved"), null, 'mesgs');
+	} else {
+		setEventMessages($langs->trans("Error"), null, 'errors');
+	}
+}
+
+if ($action == 'canceljob') {
+	openstreetmap_ziptown_job_delete(GETPOST('job', 'aZ09'));
+	openstreetmap_ziptown_run_queue($db, 0);	// Disables the scheduled job if nothing is waiting anymore
+	header("Location: ".$_SERVER["PHP_SELF"]);
+	exit;
 }
 
 
@@ -153,9 +158,23 @@ print '<input type="hidden" name="value" value="'.(getDolGlobalString('MAIN_USE_
 print '<div class="div-table-responsive-no-min">';
 print '<table class="noborder centpercent">';
 print '<tr class="liste_titre"><td>'.$langs->trans("Parameter").'</td><td>'.$langs->trans("Value").'</td></tr>';
-print '<tr class="oddeven"><td>'.$langs->trans("OpenStreetMapZiptownUseDictionary").'<br><span class="opacitymedium small">'.$langs->trans("OpenStreetMapZiptownUseDictionaryDesc").'</span></td><td>';
+print '<tr class="oddeven"><td>'.$langs->trans("OpenStreetMapZiptownUseDictionary").'<br><span class="opacitymedium small">'.$langs->trans("OpenStreetMapZiptownUseDictionaryDesc").'</span></td><td class="nowraponall">';
 print (getDolGlobalString('MAIN_USE_ZIPTOWN_DICTIONNARY') ? $langs->trans("Yes") : $langs->trans("No")).' ';
 print '<input type="submit" class="button smallpaddingimp" value="'.(getDolGlobalString('MAIN_USE_ZIPTOWN_DICTIONNARY') ? $langs->trans("Disable") : $langs->trans("Activate")).'">';
+print '</td></tr>';
+print '</table>';
+print '</div>';
+print '</form>';
+
+// Max number of lines of a file
+print '<form action="'.$_SERVER["PHP_SELF"].'" method="post">';
+print '<input type="hidden" name="token" value="'.newToken().'">';
+print '<input type="hidden" name="action" value="setmaxrows">';
+print '<div class="div-table-responsive-no-min">';
+print '<table class="noborder centpercent">';
+print '<tr class="oddeven"><td>'.$langs->trans("OpenStreetMapZiptownMaxRows").'<br><span class="opacitymedium small">'.$langs->trans("OpenStreetMapZiptownMaxRowsDesc").'</span></td><td class="nowraponall">';
+print '<input type="number" class="flat width100" min="1000" max="5000000" step="1000" name="OPENSTREETMAP_ZIPTOWN_MAX_ROWS" value="'.openstreetmap_ziptown_max_rows().'"> ';
+print '<input type="submit" class="button smallpaddingimp" value="'.$langs->trans("Save").'">';
 print '</td></tr>';
 print '</table>';
 print '</div>';
@@ -166,8 +185,8 @@ print '<br>';
 // empty and is refused, so the size is shown and checked in the browser before sending.
 $maxsizes = getMaxFileSizeArray();
 $maxkb = (int) $maxsizes['maxmin'];
-if ($maxkb <= 0 || $maxkb > 20480) {
-	$maxkb = 20480;
+if ($maxkb <= 0 || $maxkb > 102400) {
+	$maxkb = 102400;
 }
 print load_fiche_titre($langs->trans("OpenStreetMapZiptownImport"), '', '');
 print '<form id="ziptownimport" action="'.$_SERVER["PHP_SELF"].'" method="post" enctype="multipart/form-data">';
@@ -199,6 +218,95 @@ document.getElementById("ziptownimport").addEventListener("submit", function(e) 
 });
 </script>';
 print '<br><span class="opacitymedium small">'.$langs->trans("OpenStreetMapZiptownGeonamesLicense").'</span><br><br>';
+
+// Queue of imports, with their progress. While this page is open, the browser asks the server to import the
+// next parts; the scheduled job of the module does the same when the page is closed.
+$jobs = openstreetmap_ziptown_jobs();
+if (count($jobs)) {
+	print load_fiche_titre($langs->trans("OpenStreetMapZiptownQueue"), '', '');
+	print '<span class="opacitymedium small">'.$langs->trans("OpenStreetMapZiptownQueueDesc").'</span><br>';
+	print '<div class="div-table-responsive-no-min">';
+	print '<table class="noborder centpercent" id="ziptownjobs">';
+	print '<tr class="liste_titre"><td>'.$langs->trans("Country").'</td><td>'.$langs->trans("File").'</td><td>'.$langs->trans("OpenStreetMapZiptownProgress").'</td>';
+	print '<td class="right">'.$langs->trans("OpenStreetMapZiptownLines").'</td><td class="right">'.$langs->trans("OpenStreetMapZiptownAdded").'</td><td class="right">'.$langs->trans("OpenStreetMapZiptownExisting").'</td><td>'.$langs->trans("Status").'</td><td></td></tr>';
+	foreach ($jobs as $job) {
+		$percent = openstreetmap_ziptown_job_percent($job);
+		print '<tr class="oddeven" data-job="'.dol_escape_htmltag($job['id']).'">';
+		print '<td>'.dol_escape_htmltag($job['countrycode']).'</td>';
+		print '<td>'.dol_escape_htmltag($job['name']).'</td>';
+		print '<td class="minwidth200"><div style="background: #ddd; border-radius: 3px; height: 14px; width: 100%;"><div class="osm-bar" style="background: #3c8dbc; border-radius: 3px; height: 14px; width: '.((int) $percent).'%;"></div></div>';
+		print '<span class="osm-percent">'.((int) $percent).'</span>%</td>';
+		print '<td class="right"><span class="osm-done">'.((int) $job['done']).'</span> / '.((int) $job['lines']).'</td>';
+		print '<td class="right osm-added">'.((int) $job['added']).'</td>';
+		print '<td class="right osm-existing">'.((int) $job['existing']).'</td>';
+		print '<td class="osm-status" data-status="'.dol_escape_htmltag($job['status']).'">'.$langs->trans("OpenStreetMapZiptownStatus".ucfirst($job['status'])).'</td>';
+		print '<td class="right">';
+		if (in_array($job['status'], array('queued', 'running'))) {
+			print '<form action="'.$_SERVER["PHP_SELF"].'" method="post" class="inline-block">';
+			print '<input type="hidden" name="token" value="'.newToken().'">';
+			print '<input type="hidden" name="action" value="canceljob">';
+			print '<input type="hidden" name="job" value="'.dol_escape_htmltag($job['id']).'">';
+			print '<input type="submit" class="button smallpaddingimp" value="'.$langs->trans("Cancel").'">';
+			print '</form>';
+		}
+		print '</td></tr>';
+	}
+	print '</table>';
+	print '</div><br>';
+
+	print '<script>
+(function() {
+	var url = "'.dol_escape_js(dol_buildpath('/openstreetmap/ajax/ziptown.php', 1)).'";
+	var token = "'.dol_escape_js(newToken()).'";
+	var finished = false;
+	function running() {
+		return document.querySelectorAll("#ziptownjobs td.osm-status[data-status=queued], #ziptownjobs td.osm-status[data-status=running]").length > 0;
+	}
+	function update(jobs) {
+		jobs.forEach(function(j) {
+			var tr = document.querySelector("#ziptownjobs tr[data-job=\"" + j.id + "\"]");
+			if (!tr) {
+				return;
+			}
+			tr.querySelector(".osm-bar").style.width = j.percent + "%";
+			tr.querySelector(".osm-percent").textContent = j.percent;
+			tr.querySelector(".osm-done").textContent = j.done;
+			tr.querySelector(".osm-added").textContent = j.added;
+			tr.querySelector(".osm-existing").textContent = j.existing;
+			var st = tr.querySelector(".osm-status");
+			st.setAttribute("data-status", j.status);
+			st.textContent = j.statuslabel;
+			if (j.status === "done" || j.status === "error") {
+				finished = true;
+			}
+		});
+	}
+	function next() {
+		if (!running()) {
+			if (finished) {
+				window.location.reload();	// Show the new content of the dictionary
+			}
+			return;
+		}
+		var body = new URLSearchParams();
+		body.set("op", "run");
+		body.set("token", token);
+		fetch(url, {method: "POST", body: body, credentials: "same-origin"})
+			.then(function(r) { return r.json(); })
+			.then(function(data) {
+				if (data && data.jobs) {
+					update(data.jobs);
+				}
+				setTimeout(next, 500);
+			})
+			.catch(function() {
+				setTimeout(next, 10000);
+			});
+	}
+	next();
+})();
+</script>';
+}
 
 // Content of the dictionary
 print load_fiche_titre($langs->trans("OpenStreetMapZiptownContent"), '', '');
