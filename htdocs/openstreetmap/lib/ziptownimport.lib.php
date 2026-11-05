@@ -71,7 +71,7 @@ function openstreetmap_ziptown_download_geonames($countrycode)
  *
  *  @param		string		$zipcontent		Content of the zip archive
  *  @param		string		$entry			Name of the entry to read, or '' for the first .txt or .csv entry
- *  @return		string|int					Content, or <0 if KO (-2 file, -3 zip)
+ *  @return		string|int					Content, or <0 if KO (-2 file, -3 zip, -4 content larger than 30 MB)
  */
 function openstreetmap_ziptown_read_zip($zipcontent, $entry = '')
 {
@@ -101,9 +101,15 @@ function openstreetmap_ziptown_read_zip($zipcontent, $entry = '')
 			}
 		}
 		if ($entry !== '') {
-			$data = $zip->getFromName($entry);
-			if ($data !== false) {
-				$content = $data;
+			// Check the size before reading: a very large file (for example GB_full, 178 MB) would exhaust the memory
+			$stat = $zip->statName($entry);
+			if (is_array($stat) && $stat['size'] > 30 * 1024 * 1024) {
+				$content = -4;
+			} else {
+				$data = $zip->getFromName($entry);
+				if ($data !== false) {
+					$content = $data;
+				}
 			}
 		}
 		$zip->close();

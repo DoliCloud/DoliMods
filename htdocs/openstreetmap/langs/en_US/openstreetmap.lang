@@ -77,6 +77,7 @@ OpenStreetMapZiptownImported=%s zip codes and towns added, %s already present.
 OpenStreetMapZiptownDownloadFailed=The list of GeoNames could not be downloaded. Download it yourself and upload the file.
 OpenStreetMapZiptownBadFile=No zip code and town found in this file for this country.
 OpenStreetMapZiptownFileTooLarge=The file is too large.
+OpenStreetMapZiptownContentTooLarge=The content of this file is too large (more than 30 MB). For Great Britain, use GB.zip (postcode districts, for example AL3) instead of GB_full: the town of a full postcode is then found with its first part.
 OpenStreetMapZiptownMaxSize=Max size of a file on this server: %s.
 OpenStreetMapZiptownGazetteer=This file is the GeoNames gazetteer (all geographical names, without postal codes). Use the postal codes file instead: https://download.geonames.org/export/zip/ (same country code, for example GR.zip).
 OpenStreetMapZiptownGeonamesLicense=Data of GeoNames (www.geonames.org) is licensed under the Creative Commons Attribution 4.0 License.

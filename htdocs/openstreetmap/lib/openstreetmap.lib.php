@@ -519,6 +519,10 @@ function openstreetmap_ziptown_towns($db, $countryid, $zip)
 	if ($countryid <= 0 || $zipclean === '') {
 		return $towns;
 	}
+	// Some lists only have the first part of the postcodes (for example GeoNames for Great Britain and Canada:
+	// "AL3" for "AL3 8QE"): when the full postcode is not found, its first part is searched.
+	$parts = preg_split('/[\s\-]+/', trim((string) $zip));
+	$outward = (count($parts) > 1) ? strtoupper($parts[0]) : '';
 	$sql = "SELECT zip, town FROM ".MAIN_DB_PREFIX."c_ziptown";
 	$sql .= " WHERE fk_pays = ".((int) $countryid)." AND active = 1";
 	$sql .= " AND zip LIKE '".$db->escape(substr($zipclean, 0, 2))."%'";
@@ -528,12 +532,16 @@ function openstreetmap_ziptown_towns($db, $countryid, $zip)
 		dol_syslog("openstreetmap_ziptown_towns: ".$db->lasterror(), LOG_WARNING);
 		return $towns;
 	}
+	$outwardtowns = array();
 	while ($obj = $db->fetch_object($resql)) {
-		if (openstreetmap_clean_zip($obj->zip) === $zipclean && !in_array($obj->town, $towns)) {
+		$rowzip = openstreetmap_clean_zip($obj->zip);
+		if ($rowzip === $zipclean && !in_array($obj->town, $towns)) {
 			$towns[] = $obj->town;
+		} elseif ($outward !== '' && $rowzip === $outward && !in_array($obj->town, $outwardtowns)) {
+			$outwardtowns[] = $obj->town;
 		}
 	}
-	return $towns;
+	return count($towns) ? $towns : $outwardtowns;
 }
 
 /**

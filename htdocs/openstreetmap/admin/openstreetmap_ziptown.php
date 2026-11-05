@@ -89,7 +89,10 @@ if ($action == 'import') {
 			$data = (string) file_get_contents($file['tmp_name']);
 			if (strpos($data, "PK\x03\x04") === 0) {
 				$content = openstreetmap_ziptown_read_zip($data, $countrycode.'.txt');
-				if (!is_string($content)) {
+				if ($content === -4) {
+					setEventMessages($langs->trans("OpenStreetMapZiptownContentTooLarge"), null, 'errors');
+					$content = '';
+				} elseif (!is_string($content)) {
 					setEventMessages($langs->trans("OpenStreetMapZiptownBadFile"), null, 'errors');
 					$content = '';
 				}
@@ -102,7 +105,7 @@ if ($action == 'import') {
 		setEventMessages($langs->trans("OpenStreetMapZiptownGazetteer"), null, 'errors');
 		$content = '';
 	} elseif (strlen($content) > 30 * 1024 * 1024) {
-		setEventMessages($langs->trans("OpenStreetMapZiptownFileTooLarge"), null, 'errors');
+		setEventMessages($langs->trans("OpenStreetMapZiptownContentTooLarge"), null, 'errors');
 		$content = '';
 	}
 	if ($content !== '') {

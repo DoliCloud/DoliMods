@@ -1,6 +1,11 @@
 # ChangeLog MODULE OPENSTREETMAP FOR <a href="https://www.dolibarr.org">DOLIBARR ERP CRM</a>
 
 
+## 4.2.2
+
+* Zip codes and towns: the size of the file inside a zip is checked before it is read, so a very large file (for example GB_full of GeoNames, 178 MB) is refused with a message instead of exhausting the memory of PHP.
+* Zip codes and towns: when a full postcode is not in the dictionary, its first part is searched (for example AL3 for AL3 8QE), so the lists of GeoNames that only have the first part (GB, CA) can be used.
+
 ## 4.2.1
 
 * Zip codes and towns: a file of the GeoNames gazetteer (export/dump, all geographical names without postal codes) was read as a list of zip codes. It is now recognised and refused, with a link to the postal codes files (export/zip).
