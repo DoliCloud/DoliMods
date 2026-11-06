@@ -1,11 +1,16 @@
 ---
 # Take the oldest open issue of type/label "Bug", send it to the Mistral API
 # and open a pull request with the proposed fix.
+#
 # Requires the repository secret MISTRAL_API_KEY and the setting
 # "Settings > Actions > General > Allow GitHub Actions to create and approve pull requests".
-# Optional secret AI_PUSH_TOKEN: a token of a maintainer (classic PAT with "public_repo"). When defined, the branch
-# is pushed and the PR created with it, so the CI of the PR starts at once. Without it, they are done with
+#
+# Optional secret AI_PUSH_TOKEN: a token of a maintainer (classic PAT with "public_repo" or a fine-grained
+# token created from https://github.com/settings/personal-access-tokens/new with owner of the repo and permissions: Content:Read/Write, Pull requests:Read/Write, Issues:Read/Write).
+# When defined, the branch is pushed and the PR created with it, so the CI of the PR starts at once. Without it, they are done with
 # GITHUB_TOKEN and the CI of the PR waits for the approval of a maintainer ("Approve and run" button).
+#
+
 name: "Mistral - Fix oldest bug"
 
 on:
@@ -80,10 +85,13 @@ jobs:
           fi
           branch="ai/fix-issue-${ISSUE_NUMBER}"
           git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          #git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config user.email "883887+eldy@users.noreply.github.com"
           git checkout -b "$branch"
+          echo Commit the fix
           git add -A
           git commit -m "$PR_TITLE" -m "Fix #${ISSUE_NUMBER}" -m "Generated with the Mistral API."
+          echo Push on origin with git push origin "$branch"
           git push origin "$branch"
           pr_url=$(gh pr create --base "$BASE_BRANCH" --head "$branch" --title "$PR_TITLE" --body-file "$PR_BODY_FILE")
           echo "PR created: $pr_url" >> "$GITHUB_STEP_SUMMARY"
