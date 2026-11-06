@@ -107,9 +107,9 @@ function openstreetmap_include_leaflet($withcluster = 0)
  *  @param		array<int,string>	$extraheaders	Additional HTTP headers (for example an authorization)
  *  @return		array<mixed>|string		Decoded JSON array if OK, error message string if KO
  */
-function openstreetmap_get_json($url, $extraheaders = array())
+function openstreetmap_get_json($url, $extraheaders = array(), $timeoutconnect = 0, $timeoutresponse = 0)
 {
-	global $conf, $dolibarr_main_url_root;
+	global $dolibarr_main_url_root;
 
 	include_once DOL_DOCUMENT_ROOT.'/core/lib/geturl.lib.php';
 
@@ -117,21 +117,9 @@ function openstreetmap_get_json($url, $extraheaders = array())
 	$host = parse_url((string) $dolibarr_main_url_root, PHP_URL_HOST);
 	$headers = array_merge(array('User-Agent: Dolibarr-module-OpenStreetMap'.($host ? ' ('.$host.')' : ''), 'Accept: application/json'), $extraheaders);
 
-	// getURLContent() reads the timeouts from the setup of Dolibarr: use shorter ones for this request only
-	$savedconnect = isset($conf->global->MAIN_USE_CONNECT_TIMEOUT) ? $conf->global->MAIN_USE_CONNECT_TIMEOUT : null;
-	$savedresponse = isset($conf->global->MAIN_USE_RESPONSE_TIMEOUT) ? $conf->global->MAIN_USE_RESPONSE_TIMEOUT : null;
-	$conf->global->MAIN_USE_CONNECT_TIMEOUT = getDolGlobalInt('OPENSTREETMAP_CONNECT_TIMEOUT', 3);
-	$conf->global->MAIN_USE_RESPONSE_TIMEOUT = getDolGlobalInt('OPENSTREETMAP_RESPONSE_TIMEOUT', 8);
-
-	$result = getURLContent($url, 'GET', '', 1, $headers, array('https'), 0, -1);
-
-	foreach (array('MAIN_USE_CONNECT_TIMEOUT' => $savedconnect, 'MAIN_USE_RESPONSE_TIMEOUT' => $savedresponse) as $key => $saved) {
-		if ($saved === null) {
-			unset($conf->global->$key);
-		} else {
-			$conf->global->$key = $saved;
-		}
-	}
+	$timeoutconnect = ($timeoutconnect > 0 ? (int) $timeoutconnect : getDolGlobalInt('OPENSTREETMAP_CONNECT_TIMEOUT', 3));
+	$timeoutresponse = ($timeoutresponse > 0 ? (int) $timeoutresponse : getDolGlobalInt('OPENSTREETMAP_RESPONSE_TIMEOUT', 8));
+	$result = openstreetmap_url_content($url, $headers, $timeoutconnect, $timeoutresponse);
 
 	if (!empty($result['curl_error_no'])) {
 		return 'CURL_'.$result['curl_error_no'].' '.$result['curl_error_msg'];
@@ -144,6 +132,56 @@ function openstreetmap_get_json($url, $extraheaders = array())
 		return 'BAD_JSON';
 	}
 	return $data;
+}
+
+/**
+ *  Call getURLContent() with timeouts for this request only.
+ *  Recent versions of Dolibarr accept the timeouts as parameters. Older ones (before the parameters existed) only
+ *  read MAIN_USE_CONNECT_TIMEOUT and MAIN_USE_RESPONSE_TIMEOUT: for them only, these settings are changed during
+ *  the call and restored after it.
+ *
+ *  @param		string				$url				URL to call (GET)
+ *  @param		array<int,string>	$headers			HTTP headers
+ *  @param		int					$timeoutconnect		Timeout to connect (seconds)
+ *  @param		int					$timeoutresponse	Timeout for the whole request (seconds)
+ *  @return		array<string,mixed>						Result of getURLContent()
+ */
+function openstreetmap_url_content($url, $headers, $timeoutconnect, $timeoutresponse)
+{
+	global $conf;
+
+	static $withtimeoutparams = null;
+	if ($withtimeoutparams === null) {
+		$withtimeoutparams = false;
+		try {
+			$reflection = new ReflectionFunction('getURLContent');
+			foreach ($reflection->getParameters() as $parameter) {
+				if ($parameter->getName() == 'timeoutconnect') {
+					$withtimeoutparams = true;
+				}
+			}
+		} catch (Exception $e) {
+			dol_syslog("openstreetmap_url_content: ".$e->getMessage(), LOG_WARNING);
+		}
+	}
+	if ($withtimeoutparams) {
+		return getURLContent($url, 'GET', '', 1, $headers, array('https'), 0, -1, $timeoutconnect, $timeoutresponse);
+	}
+
+	$saved = array();
+	foreach (array('MAIN_USE_CONNECT_TIMEOUT' => $timeoutconnect, 'MAIN_USE_RESPONSE_TIMEOUT' => $timeoutresponse) as $key => $value) {
+		$saved[$key] = isset($conf->global->$key) ? $conf->global->$key : null;
+		$conf->global->$key = $value;
+	}
+	$result = getURLContent($url, 'GET', '', 1, $headers, array('https'), 0, -1);
+	foreach ($saved as $key => $value) {
+		if ($value === null) {
+			unset($conf->global->$key);
+		} else {
+			$conf->global->$key = $value;
+		}
+	}
+	return $result;
 }
 
 /**
@@ -362,22 +400,45 @@ function openstreetmap_get_coordinates($db, $type, $id, $obj, $cached = null, $n
 }
 
 /**
- *  Wait so that Nominatim gets at most 1 request per second from this server, also between
- *  concurrent PHP processes (a lock file holds the time of the last request).
+ *  Return the minimum delay between two requests to Nominatim, in milliseconds.
+ *  The public server of the OpenStreetMap foundation allows at most 1 request per second (1100 ms is used).
+ *  For an own Nominatim server (OPENSTREETMAP_NOMINATIM_URL), there is no delay by default.
+ *  OPENSTREETMAP_NOMINATIM_DELAY_MS sets another delay; it can not be lower than 1100 ms for the public server.
+ *
+ *  @return		int		Delay in milliseconds
+ */
+function openstreetmap_nominatim_delay()
+{
+	$url = getDolGlobalString('OPENSTREETMAP_NOMINATIM_URL', 'https://nominatim.openstreetmap.org/search');
+	$public = (bool) preg_match('/^https?:\/\/([a-z0-9\-]+\.)*openstreetmap\.org(\/|:|$)/i', $url);
+	$delay = getDolGlobalString('OPENSTREETMAP_NOMINATIM_DELAY_MS') !== '' ? max(0, getDolGlobalInt('OPENSTREETMAP_NOMINATIM_DELAY_MS')) : ($public ? 1100 : 0);
+	if ($public) {
+		$delay = max(1100, $delay);
+	}
+	return $delay;
+}
+
+/**
+ *  Wait so that Nominatim gets at most one request per delay (openstreetmap_nominatim_delay()) from this server,
+ *  also between concurrent PHP processes (a lock file holds the time of the last request).
  *
  *  @return		void
  */
 function openstreetmap_nominatim_throttle()
 {
+	$delay = openstreetmap_nominatim_delay() / 1000;
+	if ($delay <= 0) {
+		return;
+	}
 	$dir = openstreetmap_cache_dir();
 	$fp = ($dir ? @fopen($dir.'/nominatim.lock', 'c+') : false);
 	if (!$fp) {
-		usleep(1100000);	// No lock file possible: always wait, never exceed the limit
+		usleep((int) ($delay * 1000000));	// No lock file possible: always wait, never exceed the limit
 		return;
 	}
 	flock($fp, LOCK_EX);
 	$last = (float) stream_get_contents($fp);
-	$wait = 1.1 - (microtime(true) - $last);
+	$wait = $delay - (microtime(true) - $last);
 	if ($wait > 0) {
 		usleep((int) ($wait * 1000000));
 	}
@@ -522,11 +583,21 @@ function openstreetmap_ziptown_towns($db, $countryid, $zip)
 	// Some lists only have the first part of the postcodes (for example GeoNames for Great Britain and Canada:
 	// "AL3" for "AL3 8QE"): when the full postcode is not found, its first part is searched.
 	$parts = preg_split('/[\s\-]+/', trim((string) $zip));
-	$outward = (count($parts) > 1) ? strtoupper($parts[0]) : '';
+	$outward = (count($parts) > 1) ? openstreetmap_clean_zip($parts[0]) : '';
+	$searched = array("'".$db->escape($zipclean)."'");
+	if ($outward !== '' && $outward !== $zipclean) {
+		$searched[] = "'".$db->escape($outward)."'";
+	}
+	// The prefix lets the database use the index on zip; the exact comparison (without spaces and dashes) is done
+	// by the database too, so only the matching rows are returned, whatever the size of the dictionary.
+	$prefix = substr($zipclean, 0, 2);
+	$prefix = method_exists($db, 'escapeforlike') ? $db->escapeforlike($db->escape($prefix)) : $db->escape($prefix);
 	$sql = "SELECT zip, town FROM ".MAIN_DB_PREFIX."c_ziptown";
 	$sql .= " WHERE fk_pays = ".((int) $countryid)." AND active = 1";
-	$sql .= " AND zip LIKE '".$db->escape(substr($zipclean, 0, 2))."%'";
+	$sql .= " AND zip LIKE '".$prefix."%'";
+	$sql .= " AND UPPER(REPLACE(REPLACE(zip, ' ', ''), '-', '')) IN (".implode(',', $searched).")";
 	$sql .= " ORDER BY town";
+	$sql .= $db->plimit(200);
 	$resql = $db->query($sql);
 	if (!$resql) {
 		dol_syslog("openstreetmap_ziptown_towns: ".$db->lasterror(), LOG_WARNING);
@@ -548,11 +619,11 @@ function openstreetmap_ziptown_towns($db, $countryid, $zip)
  *  Return a postcode in upper case without spaces and dashes, to compare postcodes written in different ways
  *
  *  @param		string		$zip		Postcode
- *  @return		string					Cleaned postcode
+ *  @return		string					Cleaned postcode (letters and digits only)
  */
 function openstreetmap_clean_zip($zip)
 {
-	return strtoupper(str_replace(array(' ', '-'), '', trim((string) $zip)));
+	return strtoupper((string) preg_replace('/[^A-Za-z0-9]/', '', (string) $zip));
 }
 
 /**
@@ -595,7 +666,7 @@ function openstreetmap_address_provider($countrycode)
  *
  *  @param		string		$q				Text typed by the user
  *  @param		string		$countrycode	ISO country code
- *  @param		string		$lang			Language of the user (2 letters)
+ *  @param		string		$lang			Language of the user (for example el_GR or 2 letters)
  *  @param		string		$context		Context to search in (Postcode.eu only, from a previous suggestion)
  *  @param		string		$hint			Postcode or town already filled in the form, added to the search of PDOK and
  *  										Photon when the text does not contain it yet (Postcode.eu works with its context)
@@ -662,16 +733,24 @@ function openstreetmap_pdok_suggest($q)
 }
 
 /**
- *  Return the language to send to Photon. The public Photon server only knows a few languages and answers
- *  with an error for the others, so any other language is not sent: Photon then returns the local names.
+ *  Return the language to send to Photon. The public Photon server only knows a few languages (en, de, fr) and
+ *  answers with an error for the others, so any other language is not sent: Photon then returns the local names.
+ *  An own Photon server may support more: OPENSTREETMAP_PHOTON_LANGS lists them (comma separated, default "en,de,fr").
  *
- *  @param		string		$lang		Language of the user (2 letters)
- *  @return		string					'en', 'de', 'fr' or '' (local names)
+ *  @param		string		$lang		Language of the user (2 letters, or a code like el_GR)
+ *  @return		string					Language to send, or '' (local names)
  */
 function openstreetmap_photon_lang($lang)
 {
 	$lang = strtolower(substr((string) $lang, 0, 2));
-	return in_array($lang, array('en', 'de', 'fr')) ? $lang : '';
+	$supported = array();
+	foreach (explode(',', getDolGlobalString('OPENSTREETMAP_PHOTON_LANGS', 'en,de,fr')) as $code) {
+		$code = strtolower(trim($code));
+		if (preg_match('/^[a-z]{2}$/', $code)) {
+			$supported[] = $code;
+		}
+	}
+	return in_array($lang, $supported) ? $lang : '';
 }
 
 /**
@@ -680,7 +759,7 @@ function openstreetmap_photon_lang($lang)
  *
  *  @param		string		$q				Text typed by the user (street, house number, postcode or town)
  *  @param		string		$countrycode	ISO country code
- *  @param		string		$lang			Language of the user (2 letters)
+ *  @param		string		$lang			Language of the user (for example el_GR or 2 letters)
  *  @return		array<int,array<string,mixed>>|string	Suggestions, or error message string if KO
  */
 function openstreetmap_photon_suggest($q, $countrycode, $lang = '')
@@ -693,12 +772,30 @@ function openstreetmap_photon_suggest($q, $countrycode, $lang = '')
 		return $cached;
 	}
 
-	$url = getDolGlobalString('OPENSTREETMAP_PHOTON_URL', 'https://photon.komoot.io/api');
-	$url .= '?q='.urlencode($query).'&layer=house&layer=street&limit=10&countrycode='.urlencode(strtoupper($countrycode));
-	if ($lang) {
-		$url .= '&lang='.$lang;
+	$base = getDolGlobalString('OPENSTREETMAP_PHOTON_URL', 'https://photon.komoot.io/api');
+	$base .= '?q='.urlencode($query).'&limit=10'.($lang ? '&lang='.$lang : '');
+	// Filters of the request, from the most to the least precise. Versions of Photon that do not know a filter answer
+	// HTTP 400: the next level is then used, and remembered for one day. The country and the types of results are
+	// checked again on the answer (openstreetmap_photon_parse()), so the suggestions are the same at each level.
+	$levels = array(
+		'&layer=house&layer=street&countrycode='.urlencode(strtoupper($countrycode)),
+		'&layer=house&layer=street',
+		'',
+	);
+	$levelkey = 'photonlevel|'.md5(getDolGlobalString('OPENSTREETMAP_PHOTON_URL', 'https://photon.komoot.io/api'));
+	$cachedlevel = openstreetmap_cache_get($levelkey, 86400);
+	$level = (isset($cachedlevel['level']) && isset($levels[(int) $cachedlevel['level']])) ? (int) $cachedlevel['level'] : 0;
+	$data = 'HTTP_400';
+	for ($i = $level; $i < count($levels); $i++) {
+		$data = openstreetmap_get_json($base.$levels[$i]);
+		if ($data !== 'HTTP_400') {
+			break;
+		}
+		dol_syslog("openstreetmap_photon_suggest: filter ".$levels[$i]." refused by Photon (HTTP 400), next level", LOG_DEBUG);
 	}
-	$data = openstreetmap_get_json($url);
+	if (is_array($data) && $i != $level) {
+		openstreetmap_cache_set($levelkey, array('level' => $i));
+	}
 	if (!is_array($data)) {
 		return $data;
 	}
@@ -846,8 +943,8 @@ function openstreetmap_list_sql($db, $user, $mode, $filters, $onlyid = 0)
 	if ($onlyid > 0) {
 		$sql .= " AND s.rowid = ".((int) $onlyid);
 	}
-	// Addresses never searched first
-	$sql .= " ORDER BY g.rowid ASC, s.rowid ASC";
+	// Addresses never searched first (CASE because NULL values are sorted first by MySQL but last by PostgreSQL)
+	$sql .= " ORDER BY (CASE WHEN g.rowid IS NULL THEN 0 ELSE 1 END) ASC, g.rowid ASC, s.rowid ASC";
 	return $sql;
 }
 
