@@ -11,7 +11,7 @@
 # GITHUB_TOKEN and the CI of the PR waits for the approval of a maintainer ("Approve and run" button).
 #
 
-name: "Mistral - Fix oldest bug"
+name: "Mistral - Fix oldest open bug"
 
 on:
   workflow_dispatch:
@@ -43,6 +43,8 @@ concurrency:
   cancel-in-progress: false
 
 env:
+  # Directory with one subdirectory per module (empty = the repository is a single module)
+  MODULES_DIR: "htdocs"
   DONE_LABEL: ai-pr
   FAILED_LABEL: ai-pr-failed
 
@@ -57,9 +59,27 @@ jobs:
           # Token used by the "git push" of the PR branch
           token: ${{ secrets.AI_PUSH_TOKEN || secrets.GITHUB_TOKEN }}
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v7
         with:
           python-version: "3.12"
+
+      # Only the first 8 chars of each token are shown, to check which secret is used
+      - name: Show configuration
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          MISTRAL_API_KEY: ${{ secrets.MISTRAL_API_KEY }}
+          AI_PUSH_TOKEN: ${{ secrets.AI_PUSH_TOKEN }}
+          MISTRAL_MODEL: ${{ inputs.model }}
+          ISSUE_NUMBER: ${{ inputs.issue_number }}
+          BASE_BRANCH: ${{ inputs.base_branch || github.event.repository.default_branch || github.ref_name }}
+        run: |
+          for v in GITHUB_TOKEN MISTRAL_API_KEY AI_PUSH_TOKEN; do
+            val="${!v}"
+            if [ -n "$val" ]; then echo "$v=${val:0:8}... (${#val} chars)"; else echo "$v=(empty)"; fi
+          done
+          for v in GITHUB_EVENT_NAME GITHUB_REPOSITORY GITHUB_REF_NAME BASE_BRANCH MISTRAL_MODEL ISSUE_NUMBER MODULES_DIR DONE_LABEL FAILED_LABEL; do
+            echo "$v=${!v}"
+          done
 
       - name: Ask Mistral for a fix
         id: fix
@@ -85,13 +105,10 @@ jobs:
           fi
           branch="ai/fix-issue-${ISSUE_NUMBER}"
           git config user.name "github-actions[bot]"
-          #git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git config user.email "883887+eldy@users.noreply.github.com"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git checkout -b "$branch"
-          echo Commit the fix
           git add -A
           git commit -m "$PR_TITLE" -m "Fix #${ISSUE_NUMBER}" -m "Generated with the Mistral API."
-          echo Push on origin with git push origin "$branch"
           git push origin "$branch"
           pr_url=$(gh pr create --base "$BASE_BRANCH" --head "$branch" --title "$PR_TITLE" --body-file "$PR_BODY_FILE")
           echo "PR created: $pr_url" >> "$GITHUB_STEP_SUMMARY"
