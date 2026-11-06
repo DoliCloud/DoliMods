@@ -36,7 +36,6 @@ concurrency:
   cancel-in-progress: false
 
 env:
-  PROJECT_DESCRIPTION: "DoliMed, an external module for the Dolibarr ERP/CRM to manage medical offices (patients, consultations, prescriptions...). The module lives in htdocs/cabinetmed/."
   # Directory with one subdirectory per module (empty = the repository is a single module)
   MODULES_DIR: "htdocs"
   FAILED_LABEL: ai-ci-fix-failed
@@ -72,7 +71,7 @@ jobs:
             val="${!v}"
             if [ -n "$val" ]; then echo "$v=${val:0:8}... (${#val} chars)"; else echo "$v=(empty)"; fi
           done
-          for v in GITHUB_EVENT_NAME GITHUB_REPOSITORY GITHUB_REF_NAME MISTRAL_MODEL PR_NUMBER PROJECT_DESCRIPTION MODULES_DIR FAILED_LABEL IGNORED_CHECKS; do
+          for v in GITHUB_EVENT_NAME GITHUB_REPOSITORY GITHUB_REF_NAME MISTRAL_MODEL PR_NUMBER MODULES_DIR FAILED_LABEL IGNORED_CHECKS; do
             echo "$v=${!v}"
           done
 
