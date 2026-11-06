@@ -10,7 +10,7 @@ exposes some values into $GITHUB_OUTPUT.
 Environment variables:
   GITHUB_TOKEN, GITHUB_REPOSITORY  Provided by GitHub Actions
   MISTRAL_API_KEY                  Mistral API key (repository secret)
-  MISTRAL_MODEL                    Mistral model to use (default: mistral-large-latest)
+  MISTRAL_MODEL                    Mistral model to use (default: devstral-medium-latest)
   ISSUE_NUMBER                     Optional: force the issue to process
   BUG_LABEL                        Label of bug issues (default: Bug)
   BUG_TYPE                         Issue type of bug issues (default: Bug)
@@ -22,11 +22,19 @@ Environment variables:
 
 The rules for AI agents of the project (.agents/AGENTS.md, or AGENTS.md) are added to the system prompt,
 with the SKILL.md of the skills it references (.agents/skills/<name>/SKILL.md).
+
+Before a fix is kept, the lines it re-indents for no reason get back their original text, the modified files
+are checked with php -l, phpcs (dev/setup/codesniffer/ruleset.xml) and PHPStan (dev/tools/phpstan/phpstan.sh,
+only when DOLIBARR_HTDOCS points to a Dolibarr core), and the AI reviews its own diff against the rules of
+the project. Only the errors the fix adds are reported, the tools and their configuration are always taken
+from the checkout of the workflow.
 """
 
+import difflib
 import json
 import os
 import re
+import shutil
 import subprocess
 import sys
 import time
@@ -39,7 +47,7 @@ MISTRAL_API = "https://api.mistral.ai/v1/chat/completions"
 REPO = os.environ["GITHUB_REPOSITORY"]
 GITHUB_TOKEN = os.environ["GITHUB_TOKEN"]
 MISTRAL_API_KEY = os.environ.get("MISTRAL_API_KEY", "")
-MISTRAL_MODEL = os.environ.get("MISTRAL_MODEL") or "mistral-large-latest"
+MISTRAL_MODEL = os.environ.get("MISTRAL_MODEL") or "devstral-medium-latest"
 ISSUE_NUMBER = (os.environ.get("ISSUE_NUMBER") or "").strip()
 BUG_LABEL = os.environ.get("BUG_LABEL") or "Bug"
 BUG_TYPE = os.environ.get("BUG_TYPE") or "Bug"
@@ -64,6 +72,28 @@ MAX_TOTAL_CHARS = 250000
 MAX_RETRIES = 2
 MAX_AGENTS_CHARS = 40000
 MAX_SKILLS = 3
+MAX_CHECK_ERRORS = 30
+
+PHPCS_RULESET = os.path.join(REPO_ROOT, "dev/setup/codesniffer/ruleset.xml")
+PHPSTAN_SCRIPT = os.path.join(REPO_ROOT, "dev/tools/phpstan/phpstan.sh")
+
+# The rules of AGENTS.md the AI breaks the most often, checked again on the diff by the review step
+REVIEW_CHECKLIST = (
+	"1. Only the lines needed by the fix are modified: no line re-indented, reformatted or rewritten without need.\n"
+	"2. Indentation uses tabs, never spaces.\n"
+	"3. Inputs are read with GETPOST() and a type, in the action part at the top of the page; the logic is in "
+	"the /* Actions */ part, the rendering only in the /* View */ part.\n"
+	"4. Nothing Dolibarr already provides is rewritten: use the core functions (dol_is_file, dol_sanitizePathName, "
+	"dol_mkdir, dol_delete_file, dol_move, getDolGlobalString/Int/Bool, isModEnabled, $user->hasRight, "
+	"getURLContent...) and the methods of the object instead of PHP native functions or custom code.\n"
+	"5. Security: SQL values are escaped with $db->escape() or cast to (int)/(float), HTML output is escaped, "
+	"file paths built from inputs are sanitized and kept in their directory, POST forms have a CSRF token.\n"
+	"6. No hardcoded user-facing string: $langs->trans() with a PascalCase key added only in langs/en_US.\n"
+	"7. Compatible with the lowest PHP version and all the Dolibarr versions supported by the module: a core "
+	"function or method of a recent Dolibarr is called only after a function_exists()/method_exists()/version test.\n"
+	"8. No SQL query in a loop; SQL on shared tables is filtered on entity.\n"
+	"9. Comments are in English, short, and describe the code, not the issue or the fix.\n"
+)
 
 TEXT_EXTENSIONS = (
 	".php", ".inc", ".js", ".css", ".tpl", ".html", ".htm", ".sql", ".lang",
@@ -333,6 +363,247 @@ def compute_edits(edits):
 	return new_contents, errors
 
 
+def indent_of(line):
+	return line[:len(line) - len(line.lstrip(" \t"))]
+
+
+def keep_unchanged_lines(old, new):
+	"""
+	Give back their original text to the lines the AI changed only by their whitespace (re-indentation...),
+	and remove the same extra indentation from the lines it added next to them.
+	A block of lines stays re-indented when it follows a line added that opens a block or a line removed that
+	opened one, like an existing code wrapped into a new if.
+	"""
+	old_lines = old.split("\n")
+	new_lines = new.split("\n")
+	opcodes = difflib.SequenceMatcher(
+		None, [normalize(x) for x in old_lines], [normalize(x) for x in new_lines], autojunk=False,
+	).get_opcodes()
+
+	# Extra indentation added by the AI to each block of unchanged lines that must be restored (None = keep it)
+	extra = {}
+	opens_block = False
+	for n, (tag, i1, i2, j1, j2) in enumerate(opcodes):
+		if tag != "equal":
+			opens_block = any(
+				lines and lines[-1].endswith(("{", ":"))
+				for lines in ([x.strip() for x in old_lines[i1:i2] if x.strip()], [x.strip() for x in new_lines[j1:j2] if x.strip()])
+			)
+			continue
+		if opens_block:
+			continue
+		pairs = [(o, w) for o, w in zip(old_lines[i1:i2], new_lines[j1:j2]) if o.strip()]
+		added = {indent_of(w)[:len(indent_of(w)) - len(indent_of(o))] for o, w in pairs if indent_of(w).endswith(indent_of(o))}
+		extra[n] = added.pop() if len(added) == 1 and len(pairs) and all(indent_of(w).endswith(indent_of(o)) for o, w in pairs) else ""
+
+	result = []
+	for n, (tag, i1, i2, j1, j2) in enumerate(opcodes):
+		if tag == "equal":
+			result += new_lines[j1:j2] if n not in extra else old_lines[i1:i2]
+			continue
+		# A line added between re-indented lines got the same extra indentation
+		shift = extra.get(n - 1) or extra.get(n + 1) or ""
+		result += [x[len(shift):] if shift and x.startswith(shift) else x for x in new_lines[j1:j2]]
+	return "\n".join(result)
+
+
+def read_file(path):
+	with open(path, encoding="utf-8", errors="surrogateescape", newline="") as fh:
+		return fh.read()
+
+
+def write_files(contents):
+	for path, content in contents.items():
+		os.makedirs(os.path.dirname(path) or ".", exist_ok=True)
+		with open(path, "w", encoding="utf-8", errors="surrogateescape", newline="") as fh:
+			fh.write(content)
+
+
+def run_json(label, cmd):
+	"""Run a tool printing a JSON report on stdout. Return the report, or None if the tool failed."""
+	res = subprocess.run(cmd, capture_output=True, text=True, errors="replace")
+	try:
+		return json.loads(res.stdout)
+	except json.JSONDecodeError:
+		log(f"::warning::{label} gave no report, check skipped: {(res.stderr or res.stdout).strip()[-500:]}")
+		return None
+
+
+def check_files(paths):
+	"""Run php -l, phpcs and PHPStan on the PHP files. Return {path: [(tool, line, message)]}."""
+	paths = [p for p in paths if p.endswith(".php") and os.path.isfile(p)]
+	messages = {p: [] for p in paths}
+	if not paths:
+		return messages
+	by_realpath = {os.path.realpath(p): p for p in paths}
+
+	for path in paths:
+		res = subprocess.run(["php", "-l", path], capture_output=True, text=True, errors="replace")
+		if res.returncode != 0:
+			messages[path].append(("php -l", 0, (res.stdout + res.stderr).strip()[:500]))
+
+	if shutil.which("phpcs") and os.path.isfile(PHPCS_RULESET):
+		report = run_json("phpcs", ["phpcs", "-q", "--report=json", f"--standard={PHPCS_RULESET}", *paths])
+		for name, data in ((report or {}).get("files") or {}).items():
+			path = by_realpath.get(os.path.realpath(name))
+			for m in data.get("messages", []) if path else []:
+				messages[path].append(("phpcs", m.get("line", 0), f"{m.get('message')} ({m.get('source')})"))
+
+	if os.environ.get("DOLIBARR_HTDOCS") and os.path.isfile(PHPSTAN_SCRIPT):
+		cmd = [PHPSTAN_SCRIPT, "--no-progress", "--error-format=json", *[os.path.abspath(p) for p in paths]]
+		report = run_json("PHPStan", cmd)
+		for name, data in ((report or {}).get("files") or {}).items():
+			# Errors of a trait are reported on "file (in context of class X)"
+			path = by_realpath.get(os.path.realpath(name.split(" (in context of ")[0]))
+			for m in data.get("messages", []) if path else []:
+				messages[path].append(("PHPStan", m.get("line", 0), m.get("message", "")))
+	return messages
+
+
+def new_errors(path, before, after):
+	"""Return the messages of after that were not in before (line numbers move, they are not compared)."""
+	remaining = {}
+	for tool, _, message in before:
+		remaining[(tool, message)] = remaining.get((tool, message), 0) + 1
+	errors = []
+	for tool, line, message in after:
+		if remaining.get((tool, message)):
+			remaining[(tool, message)] -= 1
+		else:
+			errors.append(f"{path}:{line}: {tool}: {message}")
+	return errors
+
+
+# Content of the files before any edit (None for a created file), and messages of the checks on them
+ORIGINALS = {}
+CHECKS_BEFORE = {}
+
+
+def restore_originals():
+	for path, content in ORIGINALS.items():
+		if content is not None:
+			write_files({path: content})
+		elif os.path.exists(path):
+			os.remove(path)
+
+
+def apply_and_check(edits, allowed=None, keep_indent=True, check=True):
+	"""
+	Apply the edits (always on the original files) and check the result, unless check is False (edits already
+	checked). The files are kept written when there is no error, else the original files are restored.
+	Return (new contents, errors).
+	"""
+	restore_originals()
+	errors = []
+	if allowed is not None:
+		refused = [e for e in edits if safe_path(e.get("path", "")) not in allowed]
+		errors += [f"Refused path {e.get('path')}: only the files of the pull request can be modified" for e in refused]
+		edits = [e for e in edits if e not in refused]
+	new_contents, edit_errors = compute_edits(edits)
+	errors += edit_errors
+	if errors:
+		return {}, errors
+
+	for path, content in new_contents.items():
+		if path not in ORIGINALS:
+			ORIGINALS[path] = read_file(path) if os.path.isfile(path) else None
+		if keep_indent and ORIGINALS[path] is not None:
+			new_contents[path] = keep_unchanged_lines(ORIGINALS[path], content)
+	if not check:
+		write_files(new_contents)
+		return new_contents, []
+	todo = [p for p in new_contents if p not in CHECKS_BEFORE]
+	before = check_files([p for p in todo if ORIGINALS[p] is not None])
+	for path in todo:
+		CHECKS_BEFORE[path] = before.get(path, [])
+
+	write_files(new_contents)
+	after = check_files(list(new_contents))
+	for path in new_contents:
+		errors += new_errors(path, CHECKS_BEFORE[path], after.get(path, []))
+	if errors:
+		restore_originals()
+	return new_contents, errors[:MAX_CHECK_ERRORS]
+
+
+def fix_with_checks(answer, history, system, explanation_key, allowed=None, keep_indent=True):
+	"""
+	Apply the edits of the answer of the AI, asking it again while they can't be applied or the checks fail.
+	Return (answer, history, new contents, None) or (answer, history, None, reason of the failure).
+	"""
+	for attempt in range(MAX_RETRIES + 1):
+		if not answer.get("fixable") or not answer.get("edits"):
+			reason = answer.get(explanation_key) or "No explanation"
+			log(f"::warning::Mistral could not propose a fix: {reason[:300]}")
+			return answer, history, None, reason
+		log(f"Applying and checking {len(answer['edits'])} edit(s) proposed by Mistral (attempt {attempt + 1})")
+		new_contents, errors = apply_and_check(answer["edits"], allowed, keep_indent)
+		if not errors:
+			return answer, history, new_contents, None
+		for e in errors:
+			log(f"::warning::Rejected (attempt {attempt + 1}): {e}")
+		if attempt < MAX_RETRIES:
+			answer, history = mistral(f"fix, retry {attempt + 1}", system, (
+				"Your edits were rejected:\n- " + "\n- ".join(errors) + "\n\n"
+				"Return the complete JSON object again, with ALL the edits (not only the failing ones), still "
+				"relative to the original source files given above. Each \"search\" block must be copied character "
+				"by character from these files, with the same lines, the same indentation (tabs) and no line added, "
+				"removed or modified. Errors of php -l, phpcs or PHPStan are new errors added by your edits: fix "
+				"them in the code, do not hide them."
+			), history)
+	log(f"::error::The edits could not be applied or checked after {MAX_RETRIES + 1} attempts")
+	return answer, history, None, "The edits proposed by Mistral were rejected:\n- " + "\n- ".join(errors)
+
+
+def review_fix(answer, history, system, new_contents, allowed=None, keep_indent=True):
+	"""
+	Ask the AI to review the diff of its fix against the rules of the project, and apply its corrections.
+	The files stay written. Return (answer, history, new contents, review notes left to the human reviewer).
+	"""
+	diff = "".join(
+		"".join(difflib.unified_diff(
+			(ORIGINALS.get(path) or "").splitlines(True), content.splitlines(True), f"a/{path}", f"b/{path}",
+		))
+		for path, content in new_contents.items()
+	)
+	review, history = mistral("review", system, (
+		f"Here is the diff of your fix, as applied:\n```diff\n{diff[:60000]}\n```\n\n"
+		"Review it line by line against the rules of the project, and first against this checklist:\n"
+		f"{REVIEW_CHECKLIST}\n"
+		"Return a JSON object with this structure:\n"
+		"{\n"
+		'  "problems": ["each rule broken by the diff, with the file and the code concerned"],\n'
+		'  "edits": [{"path": "file path", "search": "exact text to replace", "replace": "new text"}]\n'
+		"}\n"
+		"If the diff respects all the rules, return empty problems and edits. Otherwise return in edits the "
+		"complete new list of edits of the fix, replacing the previous one, relative to the original source "
+		"files given before (not to the diff), with the same rules for search and replace."
+	), history)
+	problems = [str(p) for p in review.get("problems") or [] if str(p).strip()]
+	if not problems:
+		log("Review: no problem found")
+		return answer, history, new_contents, []
+	group("Problems found by the review", "\n".join(problems))
+	edits = review.get("edits") or []
+	if edits:
+		new_contents, errors = apply_and_check(edits, allowed, keep_indent)
+		if not errors:
+			log(f"Review: {len(problems)} problem(s) fixed with {len(edits)} edit(s)")
+			return dict(answer, edits=edits), history, new_contents, []
+		for e in errors:
+			log(f"::warning::Edits of the review rejected: {e}")
+	log("::warning::The problems found by the review are not fixed, the fix is kept as it was")
+	new_contents, _ = apply_and_check(answer["edits"], allowed, keep_indent, check=False)
+	return answer, history, new_contents, problems
+
+
+def review_notes(problems):
+	"""Markdown telling the human reviewer what the AI review found and could not fix."""
+	if not problems:
+		return ""
+	return "\n\n### Review notes not fixed by the AI\n\n" + "".join(f"- {p}\n" for p in problems)
+
+
 def git_files():
 	out = subprocess.run(["git", "ls-files"], capture_output=True, text=True, check=True).stdout
 	return [f for f in out.splitlines() if f]
@@ -436,7 +707,7 @@ def main():
 	log(f"  {len(comments)} comment(s), {len(bug)} chars sent as bug report")
 	files = git_files()
 
-	step("Step 1/3: finding the modules concerned")
+	step("Step 1/4: finding the modules concerned")
 	if not MODULES_DIR:
 		# The repository is a single module: all files are candidates
 		chosen_modules = []
@@ -465,7 +736,7 @@ def main():
 		log(f"Modules chosen: {chosen_modules or 'none (only root files will be proposed)'}")
 		prefixes = tuple(f"{MODULES_DIR}/{m}/" for m in chosen_modules)
 
-	step("Step 2/3: finding the files concerned")
+	step("Step 2/4: finding the files concerned")
 	candidates = [
 		f for f in files
 		if (f.startswith(prefixes) or f.count("/") <= 1)
@@ -489,7 +760,7 @@ def main():
 	if not chosen_files:
 		fail("Mistral did not find any relevant file")
 
-	step("Step 3/3: asking for the fix")
+	step("Step 3/4: asking for the fix")
 	sources = ""
 	for f in chosen_files:
 		with open(f, encoding="utf-8", errors="replace") as fh:
@@ -505,7 +776,8 @@ def main():
 	answer, history = mistral("step 3 - fix", SYSTEM, (
 		f"Bug report:\n<<<\n{bug}\n>>>\n\n"
 		f"Source files:\n{sources}\n\n"
-		"Fix the bug with a minimal change, keeping the existing code style (tabs for indentation). "
+		"Fix the bug with a minimal change, keeping the existing code style (tabs for indentation), and check "
+		f"your fix against this checklist before answering:\n{REVIEW_CHECKLIST}\n"
 		"Return a JSON object with this structure:\n"
 		"{\n"
 		'  "fixable": true|false,\n'
@@ -519,44 +791,22 @@ def main():
 		"If you cannot find a reliable fix, set fixable to false, explain why in pr_body and return no edits."
 	))
 
-	for attempt in range(MAX_RETRIES + 1):
-		if not answer.get("fixable") or not answer.get("edits"):
-			log(f"::warning::Mistral could not fix the bug: {answer.get('pr_body', '')[:300]}")
-			set_output("fixed", "false")
-			set_output("reason", answer.get("pr_body", "No explanation"))
-			return
-		log(f"Applying {len(answer['edits'])} edit(s) proposed by Mistral (attempt {attempt + 1})")
-		new_contents, errors = compute_edits(answer["edits"])
-		if not errors:
-			break
-		for e in errors:
-			log(f"::warning::Edit error (attempt {attempt + 1}): {e}")
-		if attempt < MAX_RETRIES:
-			answer, history = mistral(f"step 3 - fix, retry {attempt + 1}", SYSTEM, (
-				"Your edits could not be applied:\n- " + "\n- ".join(errors) + "\n\n"
-				"Return the complete JSON object again, with ALL the edits (not only the failing ones). "
-				"Each \"search\" block must be copied character by character from the source files given above, "
-				"with the same lines, the same indentation (tabs) and no line added, removed or modified."
-			), history)
-	else:
-		log(f"::error::Edits could not be applied after {MAX_RETRIES + 1} attempts")
+	answer, history, new_contents, reason = fix_with_checks(answer, history, SYSTEM, "pr_body")
+	if new_contents is None:
 		set_output("fixed", "false")
-		set_output("reason", "The edits proposed by Mistral could not be applied:\n- " + "\n- ".join(errors))
+		set_output("reason", reason)
 		return
 
-	for path, content in new_contents.items():
-		os.makedirs(os.path.dirname(path) or ".", exist_ok=True)
-		with open(path, "w", encoding="utf-8", errors="surrogateescape", newline="") as fh:
-			fh.write(content)
-	applied = len(answer["edits"])
+	step("Step 4/4: reviewing the fix against the rules of the project")
+	answer, history, new_contents, problems = review_fix(answer, history, SYSTEM, new_contents)
 
-	log(f"{applied} edit(s) applied on {len(new_contents)} file(s)")
+	log(f"{len(answer['edits'])} edit(s) applied on {len(new_contents)} file(s)")
 	diff = subprocess.run(["git", "diff"], capture_output=True, text=True).stdout
 	group("Diff of the fix", diff)
-	summary(f"### Proposed fix\n\n{answer.get('pr_body', '')}\n\n<details><summary>Diff</summary>\n\n"
-		f"```diff\n{diff[:60000]}\n```\n</details>\n")
+	summary(f"### Proposed fix\n\n{answer.get('pr_body', '')}{review_notes(problems)}\n\n"
+		f"<details><summary>Diff</summary>\n\n```diff\n{diff[:60000]}\n```\n</details>\n")
 	body = (
-		f"Fix #{number}\n\n{answer.get('pr_body', '')}\n\n---\n"
+		f"Fix #{number}\n\n{answer.get('pr_body', '')}{review_notes(problems)}\n\n---\n"
 		f"_This PR was generated automatically by the Mistral API (model `{MISTRAL_MODEL}`). "
 		"Please review it carefully before merging._\n"
 	)

@@ -23,7 +23,7 @@ on:
       model:
         description: "Mistral model"
         required: false
-        default: "mistral-large-latest"
+        default: "devstral-medium-latest"
         type: string
       base_branch:
         description: "Base branch of the PR (empty = default branch)"
@@ -47,6 +47,8 @@ env:
   MODULES_DIR: "htdocs"
   DONE_LABEL: ai-pr
   FAILED_LABEL: ai-pr-failed
+  # Dolibarr core the fix is checked against with PHPStan (oldest version supported by the modules)
+  DOLIBARR_CORE: "18.0.0"
 
 jobs:
   fix-bug:
@@ -62,6 +64,28 @@ jobs:
       - uses: actions/setup-python@v7
         with:
           python-version: "3.12"
+
+      # PHP, phpcs and a Dolibarr core are used to check the fix before it is proposed (php -l, phpcs, PHPStan).
+      # The oldest supported core finds the calls to functions that only exist in newer versions.
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          coverage: none
+          tools: phpcs
+          extensions: mbstring, intl, dom, simplexml, zip, curl
+
+      - name: Checkout Dolibarr ${{ env.DOLIBARR_CORE }}
+        uses: actions/checkout@v7
+        with:
+          repository: Dolibarr/dolibarr
+          ref: ${{ env.DOLIBARR_CORE }}
+          path: .dolibarr-core
+          persist-credentials: false
+
+      # The core is checked out inside the repository: keep it out of the commit of the fix
+      - name: Exclude the Dolibarr core from git
+        run: echo "/.dolibarr-core/" >> .git/info/exclude
 
       # Only the first 8 chars of each token are shown, to check which secret is used
       - name: Show configuration
@@ -88,6 +112,7 @@ jobs:
           MISTRAL_API_KEY: ${{ secrets.MISTRAL_API_KEY }}
           MISTRAL_MODEL: ${{ inputs.model }}
           ISSUE_NUMBER: ${{ inputs.issue_number }}
+          DOLIBARR_HTDOCS: ${{ github.workspace }}/.dolibarr-core/htdocs
         run: python3 .github/scripts/mistral_fix_bug.py
 
       - name: Create pull request

@@ -7,7 +7,8 @@ Used by .github/workflows/ci-on-demand-mistral-fix-pr-ci.yml in 2 modes:
   select  Find the PR to process and expose its head repository/branch into $GITHUB_OUTPUT,
           so the workflow can checkout it.
   fix     Run into the checkout of the PR (current directory): collect the errors of the
-          failed checks, ask Mistral for a fix, apply and lint the edits.
+          failed checks, ask Mistral for a fix, apply and check the edits (php -l, phpcs, PHPStan),
+          then ask Mistral to review its diff against the rules of the project.
 The commit / push / comment are done by the calling workflow.
 
 The common helpers (Mistral call, edits, logs) come from mistral_fix_bug.py.
@@ -15,7 +16,7 @@ The common helpers (Mistral call, edits, logs) come from mistral_fix_bug.py.
 Environment variables:
   GITHUB_TOKEN, GITHUB_REPOSITORY  Provided by GitHub Actions
   MISTRAL_API_KEY                  Mistral API key (repository secret)
-  MISTRAL_MODEL                    Mistral model to use (default: mistral-large-latest)
+  MISTRAL_MODEL                    Mistral model to use (default: devstral-medium-latest)
   PR_NUMBER                        Optional in select mode: force the PR to process. Required in fix mode.
   HAS_PUSH_TOKEN                   'true' if the AI_PUSH_TOKEN secret is defined (needed for PRs from forks)
   IGNORED_CHECKS                   Comma separated names of checks that can't be fixed by a code change
@@ -31,7 +32,8 @@ import sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from mistral_fix_bug import (  # noqa: E402
 	REPO, MISTRAL_API_KEY, MISTRAL_MODEL, TEXT_EXTENSIONS, PROJECT_DESCRIPTION, PROJECT_RULES, AGENTS_FILE, SKILL_FILES,
-	log, step, group, summary, fail, set_output, gh, mistral, compute_edits, safe_path,
+	REVIEW_CHECKLIST, log, step, group, summary, fail, set_output, gh, mistral, safe_path, fix_with_checks, review_fix,
+	review_notes,
 )
 
 PR_NUMBER = (os.environ.get("PR_NUMBER") or "").strip()
@@ -48,10 +50,11 @@ MAX_FILE_CHARS = 60000
 MAX_TOTAL_CHARS = 250000
 MAX_LOG_LINES = 150
 MAX_LOG_CHARS = 30000
-MAX_RETRIES = 2
 
 # Noise in the annotations of failed jobs
 IGNORED_ANNOTATIONS = re.compile(r"^Process completed with exit code \d+\.?$")
+# CI errors about whitespace: the fix may then re-indent lines
+WHITESPACE_ERRORS = re.compile(r"indent|whitespace|\btabs?\b|\bspaces?\b", re.I)
 # Noise in the logs of jobs (progress of git, hints...)
 IGNORED_LOG_LINES = re.compile(r"^(hint:|remote:|Updating files:|Receiving objects:|Resolving deltas:|##\[(end)?group\])")
 
@@ -194,35 +197,6 @@ def collect_errors(checks):
 	return text, files
 
 
-def php_lint(path, content):
-	"""Return the error of php -l on the content, or None."""
-	if not path.endswith(".php"):
-		return None
-	res = subprocess.run(["php", "-l"], input=content, capture_output=True, text=True)
-	if res.returncode == 0:
-		return None
-	return f"{path}: php -l failed: {(res.stdout + res.stderr).strip()[:500]}"
-
-
-def apply_edits(edits, allowed):
-	"""Validate the edits in memory. Return (new contents, errors)."""
-	errors = []
-	kept = []
-	for edit in edits:
-		path = safe_path(edit.get("path", ""))
-		if path not in allowed:
-			errors.append(f"Refused path {edit.get('path')}: only the files of the pull request can be modified")
-			continue
-		kept.append(edit)
-	new_contents, edit_errors = compute_edits(kept)
-	errors += edit_errors
-	for path, content in new_contents.items():
-		error = php_lint(path, content)
-		if error:
-			errors.append(error)
-	return new_contents, errors
-
-
 SYSTEM = (
 	f"You are a senior PHP developer working on {PROJECT_DESCRIPTION} "
 	f"{PROJECT_RULES}"
@@ -244,7 +218,7 @@ def fix():
 	if head != pr["head"]["sha"]:
 		fail(f"Checkout is on {head} but head of PR #{number} is now {pr['head']['sha']}, run again")
 
-	step("Step 1/3: collecting the errors of the CI")
+	step("Step 1/4: collecting the errors of the CI")
 	checks = failed_checks(head)
 	if not checks:
 		fail(f"PR #{number} has no failed check anymore")
@@ -265,7 +239,7 @@ def fix():
 	if not allowed:
 		fail("No text file of the PR can be modified")
 
-	step("Step 2/3: finding the files concerned")
+	step("Step 2/4: finding the files concerned")
 	files = sorted(f for f in allowed if f in annotated_files)
 	if len(allowed) <= MAX_FILES:
 		files = sorted(allowed)
@@ -281,7 +255,7 @@ def fix():
 	log(f"Files sent: {files}")
 	summary(f"**Failed checks:** {', '.join(c['name'] for c in checks)}  \n**Files read:** {', '.join(files)}\n")
 
-	step("Step 3/3: asking for the fix")
+	step("Step 3/4: asking for the fix")
 	sources = ""
 	for f in files:
 		with open(f, encoding="utf-8", errors="replace") as fh:
@@ -301,7 +275,8 @@ def fix():
 		"Fix the errors of the CI with a minimal change that keeps the purpose of the pull request, "
 		"keeping the existing code style (tabs for indentation). Fix the real cause of the error; use a "
 		"@phpstan-ignore comment only when the code is correct and the error can't be avoided otherwise "
-		"(for example a call reserved to a newer Dolibarr version). "
+		"(for example a call reserved to a newer Dolibarr version). Check your fix against this checklist "
+		f"before answering:\n{REVIEW_CHECKLIST}\n"
 		"Return a JSON object with this structure:\n"
 		"{\n"
 		'  "fixable": true|false,\n'
@@ -316,34 +291,19 @@ def fix():
 		"or you cannot find a reliable fix, set fixable to false, explain why in explanation and return no edits."
 	))
 
-	for attempt in range(MAX_RETRIES + 1):
-		if not answer.get("fixable") or not answer.get("edits"):
-			log(f"::warning::Mistral could not fix the errors: {answer.get('explanation', '')[:300]}")
-			set_output("fixed", "false")
-			set_output("reason", answer.get("explanation", "No explanation"))
-			return
-		log(f"Applying {len(answer['edits'])} edit(s) proposed by Mistral (attempt {attempt + 1})")
-		new_contents, errors = apply_edits(answer["edits"], set(files))
-		if not errors:
-			break
-		for e in errors:
-			log(f"::warning::Edit error (attempt {attempt + 1}): {e}")
-		if attempt < MAX_RETRIES:
-			answer, history = mistral(f"step 3 - fix, retry {attempt + 1}", SYSTEM, (
-				"Your edits could not be applied:\n- " + "\n- ".join(errors) + "\n\n"
-				"Return the complete JSON object again, with ALL the edits (not only the failing ones). "
-				"Each \"search\" block must be copied character by character from the source files given above, "
-				"with the same lines, the same indentation (tabs) and no line added, removed or modified."
-			), history)
-	else:
-		log(f"::error::Edits could not be applied after {MAX_RETRIES + 1} attempts")
+	keep_indent = not WHITESPACE_ERRORS.search(errors_text)
+	answer, history, new_contents, reason = fix_with_checks(
+		answer, history, SYSTEM, "explanation", set(files), keep_indent,
+	)
+	if new_contents is None:
 		set_output("fixed", "false")
-		set_output("reason", "The edits proposed by Mistral could not be applied:\n- " + "\n- ".join(errors))
+		set_output("reason", reason)
 		return
 
-	for path, content in new_contents.items():
-		with open(path, "w", encoding="utf-8", errors="surrogateescape", newline="") as fh:
-			fh.write(content)
+	step("Step 4/4: reviewing the fix against the rules of the project")
+	answer, history, new_contents, problems = review_fix(
+		answer, history, SYSTEM, new_contents, set(files), keep_indent,
+	)
 
 	diff = subprocess.run(["git", "diff"], capture_output=True, text=True).stdout
 	if not diff:
@@ -352,7 +312,7 @@ def fix():
 		return
 	log(f"{len(answer['edits'])} edit(s) applied on {len(new_contents)} file(s)")
 	group("Diff of the fix", diff)
-	explanation = answer.get("explanation", "")
+	explanation = answer.get("explanation", "") + review_notes(problems)
 	summary(f"### Proposed fix\n\n{explanation}\n\n<details><summary>Diff</summary>\n\n"
 		f"```diff\n{diff[:60000]}\n```\n</details>\n")
 

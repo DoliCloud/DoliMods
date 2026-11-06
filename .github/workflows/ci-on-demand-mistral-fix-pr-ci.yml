@@ -18,7 +18,7 @@ on:
       model:
         description: "Mistral model"
         required: false
-        default: "mistral-large-latest"
+        default: "devstral-medium-latest"
         type: string
   # Every day at 23:00 Paris time in winter (CET), 00:00 in summer (cron is in UTC)
   schedule:
@@ -40,6 +40,8 @@ env:
   # Directory with one subdirectory per module (empty = the repository is a single module)
   MODULES_DIR: "htdocs"
   FAILED_LABEL: ai-ci-fix-failed
+  # Dolibarr core the fix is checked against with PHPStan (oldest version supported by the modules)
+  DOLIBARR_CORE: "18.0.0"
   # Checks that can't be fixed by a change of code
   IGNORED_CHECKS: "Check PR quota per user,Check PR title and description"
 
@@ -93,6 +95,26 @@ jobs:
           token: ${{ secrets.AI_PUSH_TOKEN || secrets.GITHUB_TOKEN }}
           path: pr
 
+      # PHP, phpcs and a Dolibarr core are used to check the fix before it is proposed (php -l, phpcs, PHPStan).
+      # The oldest supported core finds the calls to functions that only exist in newer versions.
+      - name: Setup PHP
+        if: steps.select.outputs.found == 'true'
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          coverage: none
+          tools: phpcs
+          extensions: mbstring, intl, dom, simplexml, zip, curl
+
+      - name: Checkout Dolibarr ${{ env.DOLIBARR_CORE }}
+        if: steps.select.outputs.found == 'true'
+        uses: actions/checkout@v7
+        with:
+          repository: Dolibarr/dolibarr
+          ref: ${{ env.DOLIBARR_CORE }}
+          path: dolibarr
+          persist-credentials: false
+
       - name: Ask Mistral for a fix
         id: fix
         if: steps.select.outputs.found == 'true'
@@ -103,6 +125,7 @@ jobs:
           MISTRAL_API_KEY: ${{ secrets.MISTRAL_API_KEY }}
           MISTRAL_MODEL: ${{ inputs.model }}
           PR_NUMBER: ${{ steps.select.outputs.pr_number }}
+          DOLIBARR_HTDOCS: ${{ github.workspace }}/dolibarr/htdocs
         run: python3 "$GITHUB_WORKSPACE/.github/scripts/mistral_fix_pr_ci.py" fix
 
       - name: Push the fix on the PR
