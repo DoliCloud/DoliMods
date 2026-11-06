@@ -61,6 +61,14 @@ $textconsts = array(
 	'OPENSTREETMAP_POSTCODEEU_KEY' => 'alphanohtml',
 );
 
+// Numeric settings: min, max, default (an empty field restores the default; null default = automatic)
+$numconsts = array(
+	'OPENSTREETMAP_GEOCODE_PER_VISIT' => array(1, 1000, 25),
+	'OPENSTREETMAP_NOMINATIM_DELAY_MS' => array(0, 10000, null),
+	'OPENSTREETMAP_CONNECT_TIMEOUT' => array(1, 30, 3),
+	'OPENSTREETMAP_RESPONSE_TIMEOUT' => array(1, 120, 8),
+);
+
 
 /*
  * Actions
@@ -91,6 +99,34 @@ if ($action == 'save') {
 			$error++;
 		}
 	}
+	foreach ($numconsts as $key => $limits) {
+		$value = trim(GETPOST($key, 'alphanohtml'));
+		if ($value === '') {
+			$res = dolibarr_del_const($db, $key, $conf->entity);
+		} elseif (!ctype_digit($value) || (int) $value < $limits[0] || (int) $value > $limits[1]) {
+			setEventMessages($langs->trans("OpenStreetMapErrorNumberBetween", $langs->transnoentitiesnoconv($key), $limits[0], $limits[1]), null, 'errors');
+			$error++;
+			continue;
+		} else {
+			$res = dolibarr_set_const($db, $key, (string) ((int) $value), 'chaine', 0, '', $conf->entity);
+		}
+		if ($res < 0) {
+			$error++;
+		}
+	}
+	// Languages known by the Photon server: 2 letter codes separated by commas
+	$photonlangs = strtolower(str_replace(' ', '', GETPOST('OPENSTREETMAP_PHOTON_LANGS', 'alphanohtml')));
+	if ($photonlangs === '') {
+		if (dolibarr_del_const($db, 'OPENSTREETMAP_PHOTON_LANGS', $conf->entity) < 0) {
+			$error++;
+		}
+	} elseif (!preg_match('/^[a-z]{2}(,[a-z]{2})*$/', $photonlangs)) {
+		setEventMessages($langs->trans("OpenStreetMapErrorPhotonLangs"), null, 'errors');
+		$error++;
+	} elseif (dolibarr_set_const($db, 'OPENSTREETMAP_PHOTON_LANGS', implode(',', array_unique(explode(',', $photonlangs))), 'chaine', 0, '', $conf->entity) < 0) {
+		$error++;
+	}
+
 	// Secret of Postcode.eu: an empty field keeps the stored secret (it is never shown), the checkbox removes it
 	$secret = trim(GETPOST('OPENSTREETMAP_POSTCODEEU_SECRET', 'none'));
 	if (GETPOSTINT('OPENSTREETMAP_POSTCODEEU_SECRET_CLEAR')) {
@@ -185,6 +221,16 @@ print '<tr class="oddeven"><td>'.$langs->trans("OpenStreetMapPhotonUrl").'<br><s
 print '<input type="text" class="flat minwidth500" name="OPENSTREETMAP_PHOTON_URL" placeholder="https://photon.komoot.io/api" value="'.dol_escape_htmltag(getDolGlobalString('OPENSTREETMAP_PHOTON_URL')).'">';
 print '</td></tr>';
 
+// Languages of Photon and delay of Nominatim, useful with own servers
+print '<tr class="oddeven"><td>'.$langs->trans("OPENSTREETMAP_PHOTON_LANGS").'<br><span class="opacitymedium small">'.$langs->trans("OPENSTREETMAP_PHOTON_LANGSDesc").'</span></td><td>';
+print '<input type="text" class="flat width200" name="OPENSTREETMAP_PHOTON_LANGS" placeholder="en,de,fr" value="'.dol_escape_htmltag(getDolGlobalString('OPENSTREETMAP_PHOTON_LANGS')).'">';
+print '</td></tr>';
+
+print '<tr class="oddeven"><td>'.$langs->trans("OPENSTREETMAP_NOMINATIM_DELAY_MS").'<br><span class="opacitymedium small">'.$langs->trans("OPENSTREETMAP_NOMINATIM_DELAY_MSDesc").'</span></td><td>';
+print '<input type="number" class="flat width100" min="0" max="10000" step="100" name="OPENSTREETMAP_NOMINATIM_DELAY_MS" placeholder="'.dol_escape_htmltag($langs->trans("OpenStreetMapAutomatic")).'" value="'.dol_escape_htmltag(getDolGlobalString('OPENSTREETMAP_NOMINATIM_DELAY_MS')).'"> ms';
+print ' <span class="opacitymedium small">('.$langs->trans("OpenStreetMapDelayInUse", openstreetmap_nominatim_delay()).')</span>';
+print '</td></tr>';
+
 print '<tr class="oddeven"><td>'.$langs->trans("OpenStreetMapTileUrl").'<br><span class="opacitymedium small">'.$langs->trans("OpenStreetMapEmptyForDefault").'</span></td><td>';
 print '<input type="text" class="flat minwidth500" name="OPENSTREETMAP_TILE_URL" placeholder="https://tile.openstreetmap.org/{z}/{x}/{y}.png" value="'.dol_escape_htmltag(getDolGlobalString('OPENSTREETMAP_TILE_URL')).'">';
 print '</td></tr>';
@@ -192,6 +238,14 @@ print '</td></tr>';
 print '<tr class="oddeven"><td>'.$langs->trans("OpenStreetMapTileAttribution").'<br><span class="opacitymedium small">'.$langs->trans("OpenStreetMapEmptyForDefault").'</span></td><td>';
 print '<input type="text" class="flat minwidth500" name="OPENSTREETMAP_TILE_ATTRIBUTION" value="'.dol_escape_htmltag(getDolGlobalString('OPENSTREETMAP_TILE_ATTRIBUTION')).'">';
 print '</td></tr>';
+
+// Limits
+print '<tr class="liste_titre"><td colspan="2">'.$langs->trans("OpenStreetMapLimits").'</td></tr>';
+foreach (array('OPENSTREETMAP_GEOCODE_PER_VISIT' => '', 'OPENSTREETMAP_CONNECT_TIMEOUT' => 's', 'OPENSTREETMAP_RESPONSE_TIMEOUT' => 's') as $key => $unit) {
+	print '<tr class="oddeven"><td>'.$langs->trans($key).'<br><span class="opacitymedium small">'.$langs->trans($key.'Desc').'</span></td><td>';
+	print '<input type="number" class="flat width100" min="'.((int) $numconsts[$key][0]).'" max="'.((int) $numconsts[$key][1]).'" name="'.$key.'" placeholder="'.((int) $numconsts[$key][2]).'" value="'.dol_escape_htmltag(getDolGlobalString($key)).'">'.($unit ? ' '.$unit : '');
+	print '</td></tr>';
+}
 
 // Optional paid service: Postcode.eu
 print '<tr class="liste_titre"><td colspan="2">'.$langs->trans("OpenStreetMapPostcodeEu").'</td></tr>';
@@ -215,6 +269,16 @@ foreach (array_keys(openstreetmap_postcodeeu_countries()) as $code) {
 asort($pcchoices);
 print $form->multiselectarray('OPENSTREETMAP_POSTCODEEU_COUNTRIES', $pcchoices, openstreetmap_postcodeeu_selected_countries(), 0, 0, 'minwidth300');
 print '</td></tr>';
+$pcencrypted = openstreetmap_postcodeeu_stored_encrypted($db);
+if ($pcencrypted >= 0) {
+	print '<tr class="oddeven"><td>'.$langs->trans("OpenStreetMapPostcodeEuStorage").'</td><td>';
+	if ($pcencrypted) {
+		print $langs->trans("OpenStreetMapPostcodeEuStoredEncrypted");
+	} else {
+		print '<span class="warning">'.$langs->trans("OpenStreetMapPostcodeEuStoredPlain").'</span>';
+	}
+	print '</td></tr>';
+}
 
 print '</table>';
 print '</div>';
