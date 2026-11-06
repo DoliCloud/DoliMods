@@ -44,11 +44,23 @@ dol_include_once("/openstreetmap/lib/openstreetmap.lib.php");
 
 $langs->loadLangs(array("openstreetmap@openstreetmap", "companies", "commercial", "categories", "members"));
 
-// url is:  maps_all.php?mode=thirdparty|contact|member
+// url is:  maps_all.php?mode=thirdparty|contact|member&max=max
+// max = number of addresses not located yet to locate during this visit (default OPENSTREETMAP_GEOCODE_PER_VISIT, 25),
+// or 'max' (also 0) for all of them. The limit keeps the use of the free services fair: without it, each visit of
+// each user would ask them for all the addresses not located yet.
 
 $mode = GETPOST('mode', 'aZ09');
 if (empty($mode)) {
 	$mode = 'thirdparty';
+}
+$maxparam = GETPOST('max', 'aZ09');
+if ($maxparam === 'max' || $maxparam === '0') {
+	$max = 0;	// All
+} elseif ($maxparam !== '' && ctype_digit($maxparam)) {
+	$max = (int) $maxparam;
+} else {
+	$maxparam = '';
+	$max = max(1, getDolGlobalInt('OPENSTREETMAP_GEOCODE_PER_VISIT', 25));
 }
 $socid = GETPOSTINT('socid');
 
@@ -113,6 +125,9 @@ print load_fiche_titre($title, '', ($mode == 'member' ? 'member' : ($mode == 'co
 print '<form name="formsearch" method="POST" action="'.$_SERVER["PHP_SELF"].'">';
 print '<input type="hidden" name="token" value="'.newToken().'">';
 print '<input type="hidden" name="mode" value="'.dol_escape_htmltag($mode).'">';
+if ($maxparam !== '') {
+	print '<input type="hidden" name="max" value="'.dol_escape_htmltag($maxparam).'">';
+}
 if ($mode == 'thirdparty') {
 	print '<div class="divsearchfield">'.$langs->trans('ProspectCustomer').': ';
 	print '<select class="flat" name="search_customer">';
@@ -183,6 +198,16 @@ if (!$resql) {
 	}
 }
 
+$togeocode = ($max > 0) ? array_slice($pending, 0, $max) : $pending;
+
+// Link to locate all the addresses not located yet, with the same filters
+$param = '&mode='.urlencode($mode).'&max=max';
+foreach ($filters as $key => $value) {
+	if ((string) $value !== '' && (string) $value !== '-1' && (string) $value !== '0') {
+		$param .= '&'.urlencode($key).'='.urlencode((string) $value);
+	}
+}
+
 print '<div class="info">';
 // The counters are updated by the script below while the addresses are located
 print '<span id="osm_count">'.str_replace(
@@ -190,11 +215,17 @@ print '<span id="osm_count">'.str_replace(
 	array('<span id="osm_nbmarkers">'.count($markers).'</span>', '<span id="osm_nberrors">'.count($errors).'</span>', '<span id="osm_nbpending">'.count($pending).'</span>'),
 	$langs->trans("OpenStreetMapCountGeo", $num, '__NBMARKERS__', '__NBERRORS__', '__NBPENDING__')
 ).'</span>';
-if (count($pending)) {
+if (count($togeocode)) {
 	print '<div id="osm_progress" class="paddingtop">';
 	print '<span id="osm_progress_text">'.$langs->trans("OpenStreetMapGeocodingInProgress").'</span>';
 	print ' <a href="#" id="osm_stop" class="button smallpaddingimp">'.$langs->trans("OpenStreetMapStopGeocoding").'</a>';
 	print '<br><span class="opacitymedium small">'.$langs->trans("OpenStreetMapNominatimSlow").'</span>';
+	print '</div>';
+}
+if (count($pending) > count($togeocode)) {
+	print '<div id="osm_more" class="paddingtop">';
+	print '<span class="opacitymedium small">'.$langs->trans("OpenStreetMapGeocodePerVisit", count($togeocode)).'</span> ';
+	print '<a class="button smallpaddingimp" href="'.$_SERVER["PHP_SELF"].'?'.ltrim($param, '&').'">'.$langs->trans("OpenStreetMapGeocodeAll", count($pending)).'</a>';
 	print '</div>';
 }
 print '</div>';
@@ -211,7 +242,8 @@ print '</ul>';
 
 $jsconf = array(
 	'markers' => $markers,
-	'pending' => $pending,
+	'pending' => $togeocode,
+	'nbpending' => count($pending),
 	'url' => dol_buildpath('/openstreetmap/ajax/geocode.php', 1),
 	'mode' => $mode,
 	'filters' => $filters,
@@ -223,6 +255,7 @@ $jsconf = array(
 		'done' => $langs->transnoentitiesnoconv("OpenStreetMapGeocodingDone"),
 		'stopped' => $langs->transnoentitiesnoconv("OpenStreetMapGeocodingStopped"),
 		'unavailable' => $langs->transnoentitiesnoconv("OpenStreetMapGeocodingServiceUnavailable"),
+		'session' => $langs->transnoentitiesnoconv("OpenStreetMapGeocodingSessionLost"),
 		'inprogress' => $langs->transnoentitiesnoconv("OpenStreetMapGeocodingInProgress"),
 	),
 );
@@ -264,11 +297,13 @@ print '<script>
 	});
 
 	// Locate the addresses not located yet, one request at a time, so the server and the external
-	// services are never asked more than one address at once. Stop after 3 errors of the service in a row.
+	// services are never asked more than one address at once. Stop after 3 errors of the service in a row,
+	// and at once when the session is lost (answer that is not JSON, for example the login page) or refused.
 	var queue = cfg.pending.slice(0);
 	var stopped = false;
 	var serviceerrors = 0;
 	var nbmarkers = cfg.markers.length;
+	var nbpending = cfg.nbpending;
 	var nberrors = parseInt(document.getElementById("osm_nberrors").textContent, 10) || 0;
 	function setText(id, value) {
 		var e = document.getElementById(id);
@@ -283,6 +318,18 @@ print '<script>
 			stop.style.display = "none";
 		}
 	}
+	function located() {
+		/* The address has a final result: it is not pending anymore */
+		nbpending = Math.max(0, nbpending - 1);
+	}
+	function serviceError() {
+		serviceerrors++;
+		if (serviceerrors >= 3) {
+			finish(cfg.txt.unavailable);
+			return false;
+		}
+		return true;
+	}
 	function next() {
 		if (stopped) {
 			finish(cfg.txt.stopped);
@@ -296,39 +343,59 @@ print '<script>
 		var params = new URLSearchParams(cfg.filters);
 		params.set("mode", cfg.mode);
 		params.set("id", id);
-		fetch(cfg.url + "?" + params.toString(), {credentials: "same-origin"})
-			.then(function(r) { return r.json().catch(function() { return {error: "BAD_JSON"}; }); })
-			.then(function(data) {
-				if (data && typeof data.lat === "number") {
+		fetch(cfg.url + "?" + params.toString(), {credentials: "same-origin", headers: {"Accept": "application/json"}})
+			.then(function(r) {
+				return r.text().then(function(text) {
+					var data = null;
+					try {
+						data = JSON.parse(text);
+					} catch (e) {
+						data = null;
+					}
+					return {status: r.status, data: (data && typeof data === "object") ? data : null};
+				});
+			})
+			.then(function(res) {
+				var data = res.data;
+				var goon = true;
+				if (!data || res.status === 401 || res.status === 403) {
+					/* Not JSON (login page after the end of the session) or access refused: no need to go on */
+					finish(cfg.txt.session);
+					return;
+				}
+				if (typeof data.lat === "number" && typeof data.lon === "number") {
 					serviceerrors = 0;
-					L.marker([data.lat, data.lon]).bindPopup(data.popup).addTo(group);
+					L.marker([data.lat, data.lon]).bindPopup(data.popup).addTo(group);	/* popup escaped by the server */
 					nbmarkers++;
-				} else if (data && data.error === "SERVICE_UNAVAILABLE") {
-					serviceerrors++;
-				} else if (data && data.error && data.error !== "NO_ADDRESS") {
+					located();
+				} else if (data.error === "NOT_FOUND" || data.error === "NO_ADDRESS") {
+					/* Deleted, filtered out meanwhile, or no address: nothing to show */
 					serviceerrors = 0;
+					located();
+				} else if (data.error === "ZERO_RESULTS") {
+					serviceerrors = 0;
+					located();
 					nberrors++;
 					var li = document.createElement("li");
 					li.textContent = (data.name || "") + " - " + (data.address || "") + " (" + (data.label || data.error) + ")";
 					document.getElementById("osm_errors").appendChild(li);
 					document.getElementById("osm_errors_title").classList.remove("hidden");
+				} else {
+					/* SERVICE_UNAVAILABLE, or an error of the server (HTTP 4xx/5xx): the address stays pending */
+					goon = serviceError();
 				}
 				setText("osm_nbmarkers", nbmarkers);
 				setText("osm_nberrors", nberrors);
-				setText("osm_nbpending", queue.length);
-				if (serviceerrors >= 3) {
-					finish(cfg.txt.unavailable);
-					return;
+				setText("osm_nbpending", nbpending);
+				if (goon) {
+					next();
 				}
-				next();
 			})
 			.catch(function() {
-				serviceerrors++;
-				if (serviceerrors >= 3) {
-					finish(cfg.txt.unavailable);
-					return;
+				/* Network error */
+				if (serviceError()) {
+					next();
 				}
-				next();
 			});
 	}
 	var stop = document.getElementById("osm_stop");
