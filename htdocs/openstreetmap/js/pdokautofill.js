@@ -24,7 +24,8 @@
 		notfound: dutch ? 'Adres niet gevonden in de BAG' : 'Address not found in the BAG',
 		unavailable: dutch ? 'PDOK niet bereikbaar' : 'PDOK not reachable',
 		othertowns: dutch ? 'Andere plaatsen bij deze postcode:' : 'Other towns for this postcode:',
-		streethelp: dutch ? 'Begin het adres te typen voor suggesties' : 'Start typing the address for suggestions'
+		streethelp: dutch ? 'Begin het adres te typen voor suggesties' : 'Start typing the address for suggestions',
+		kept: dutch ? 'Postcode en plaats zoals ingevuld behouden; suggestie:' : 'Postcode and town kept as typed; suggested:'
 	};
 
 	function init() {
@@ -135,6 +136,7 @@
 		var timer = null;
 		var lastzip = '';
 		var autotown = '';	// Last town filled by us, so we may replace it but never a town typed by the user
+		var autozip = '';	// Last postcode filled by us, same rule
 		var context = '';	// Postcode.eu: context of the street or town chosen, to search further in it
 		var contextvalue = '';
 		var $msg = $('<span id="osm_eu_message" class="opacitymedium small paddingleft"></span>');
@@ -211,19 +213,44 @@
 			$address.val(parts.lines.join('\n')).trigger('change');
 		}
 		// Fill the form with a complete address chosen in the suggestions
+		// A postcode or a town typed by the user is never replaced: they are filled only when empty, when filled
+		// before by the module, or when they are the same (written in another way). The town is changed only when
+		// the postcode of the form is the one of the suggestion, so postcode and town stay consistent.
+		function normZip(z) {
+			return String(z || '').replace(/[\s\-]+/g, '').toUpperCase();
+		}
 		function fill(a) {
 			var parts = splitLastLine();
 			var number = a.housenumber ? a.housenumber : parts.number;
 			setLastLine(a.street + (number ? ' ' + number : ' '));
+			$msg.empty();
+			var curzip = ($zip.val() || '').trim();
+			var curtown = ($town.val() || '').trim();
+			var zipok = true;
 			if (a.zip) {
-				$zip.val(a.zip).trigger('change');
-				lastzip = a.zip + '|' + countryId();
+				if (curzip === '' || curzip === autozip || normZip(curzip) === normZip(a.zip)) {
+					autozip = a.zip;
+					lastzip = a.zip + '|' + countryId();
+					if (curzip !== a.zip) {
+						$zip.val(a.zip).trigger('change');
+					}
+				} else {
+					zipok = false;
+				}
 			}
 			if (a.town) {
-				autotown = a.town;
-				$town.val(a.town).trigger('change');
+				if (zipok && (curtown === '' || curtown === autotown || curtown.toLowerCase() === String(a.town).toLowerCase())) {
+					autotown = a.town;
+					if (curtown !== a.town) {
+						$town.val(a.town).trigger('change');
+					}
+				} else if (curtown.toLowerCase() !== String(a.town).toLowerCase()) {
+					zipok = false;
+				}
 			}
-			$msg.empty();
+			if (!zipok) {
+				$msg.text(txt.kept + ' ' + [a.zip, a.town].filter(Boolean).join(' '));
+			}
 			context = '';
 		}
 		$address.attr('title', txt.streethelp).autocomplete({
