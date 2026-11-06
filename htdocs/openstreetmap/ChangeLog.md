@@ -15,6 +15,7 @@
 * Zip codes and towns: the setup page stops refreshing the progress when its session ends or on an error, instead of asking the server again and again. It sends the token of the current page.
 * Timeouts of the requests to external services are given to getURLContent() for each request, instead of changing the settings of Dolibarr during the request (older versions of Dolibarr without these parameters keep the previous way).
 * The scheduled job of the import is enabled and disabled with the Cronjob class of Dolibarr.
+* The scheduled job of the import is really disabled when the queue is empty: the scheduler of Dolibarr saves the job again after it has run, which enabled it again; it is now disabled at the end of the script.
 * Setup, tab Geocoding: new fields for the addresses located per visit of the map, the delay between requests to Nominatim (with the delay in use), the languages of the Photon server, and the timeouts of the requests to external services. Values are checked when saved; an empty field restores the default.
 * Zip codes and towns: new mode "Replace". After the import, the rows added before by this module for this country that are not in the new file anymore are removed. The rows added by the module are recorded in the new table llx_openstreetmap_ziptown; rows of other sources (other modules, added by hand, or imported before this version) are never removed. Nothing is removed when the file has no zip code of the country.
 * One process at a time imports the queue (scheduled job or setup page), in the order of the files.

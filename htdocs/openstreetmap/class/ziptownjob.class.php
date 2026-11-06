@@ -61,7 +61,7 @@ class OpenStreetMapZiptownJob
 		dol_include_once('/openstreetmap/lib/ziptownimport.lib.php');
 		$langs->load("openstreetmap@openstreetmap");
 
-		$jobs = openstreetmap_ziptown_run_queue($this->db, getDolGlobalInt('OPENSTREETMAP_ZIPTOWN_CRON_SECONDS', 50));
+		$jobs = openstreetmap_ziptown_run_queue($this->db, getDolGlobalInt('OPENSTREETMAP_ZIPTOWN_CRON_SECONDS', 50), 1);
 		$lines = array();
 		$error = 0;
 		foreach ($jobs as $job) {

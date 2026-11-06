@@ -105,6 +105,8 @@ function openstreetmap_include_leaflet($withcluster = 0)
  *
  *  @param		string			$url			URL to call
  *  @param		array<int,string>	$extraheaders	Additional HTTP headers (for example an authorization)
+ *  @param		int				$timeoutconnect		Timeout to connect in seconds, or 0 for OPENSTREETMAP_CONNECT_TIMEOUT (3)
+ *  @param		int				$timeoutresponse	Timeout of the request in seconds, or 0 for OPENSTREETMAP_RESPONSE_TIMEOUT (8)
  *  @return		array<mixed>|string		Decoded JSON array if OK, error message string if KO
  */
 function openstreetmap_get_json($url, $extraheaders = array(), $timeoutconnect = 0, $timeoutresponse = 0)
@@ -165,7 +167,9 @@ function openstreetmap_url_content($url, $headers, $timeoutconnect, $timeoutresp
 		}
 	}
 	if ($withtimeoutparams) {
-		return getURLContent($url, 'GET', '', 1, $headers, array('https'), 0, -1, $timeoutconnect, $timeoutresponse);
+		// Called by name: the static analysis of older versions does not know the 2 parameters added later
+		$params = array($url, 'GET', '', 1, $headers, array('https'), 0, -1, $timeoutconnect, $timeoutresponse);
+		return call_user_func_array('getURLContent', $params);
 	}
 
 	$saved = array();
@@ -786,7 +790,9 @@ function openstreetmap_photon_suggest($q, $countrycode, $lang = '')
 	$cachedlevel = openstreetmap_cache_get($levelkey, 86400);
 	$level = (isset($cachedlevel['level']) && isset($levels[(int) $cachedlevel['level']])) ? (int) $cachedlevel['level'] : 0;
 	$data = 'HTTP_400';
-	for ($i = $level; $i < count($levels); $i++) {
+	$nblevels = count($levels);
+	$i = $level;
+	for (; $i < $nblevels; $i++) {
 		$data = openstreetmap_get_json($base.$levels[$i]);
 		if ($data !== 'HTTP_400') {
 			break;

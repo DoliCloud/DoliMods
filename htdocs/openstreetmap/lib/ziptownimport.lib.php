@@ -188,11 +188,13 @@ function openstreetmap_ziptown_cron_enable($db, $enable)
 		if ($enable) {
 			$cronjob->datenextrun = dol_now();	// Run as soon as possible
 		}
-		$cronuser = (is_object($user) && !empty($user->id)) ? $user : null;
-		if ($cronjob->update($cronuser) > 0) {
-			return;
+		// Cronjob::update() needs a user (fk_user_mod); without one, only the status is changed below
+		if (is_object($user) && !empty($user->id)) {
+			if ($cronjob->update($user) > 0) {
+				return;
+			}
+			dol_syslog("openstreetmap_ziptown_cron_enable: update of scheduled job failed: ".$cronjob->error.' '.implode(', ', (array) $cronjob->errors), LOG_WARNING);
 		}
-		dol_syslog("openstreetmap_ziptown_cron_enable: update of scheduled job failed: ".$cronjob->error.' '.implode(', ', (array) $cronjob->errors), LOG_WARNING);
 	}
 
 	// Versions of Dolibarr where the scheduled job can not be found or saved with the class: change only its status
@@ -726,15 +728,32 @@ function openstreetmap_ziptown_job_run($db, $id, $maxseconds = 15, $maxlines = 2
 }
 
 /**
+ *  Disable the scheduled job if nothing is waiting in the queue (called at the end of the script of the scheduler)
+ *
+ *  @param		DoliDB		$db				Database handler
+ *  @return		void
+ */
+function openstreetmap_ziptown_cron_disable_if_empty($db)
+{
+	foreach (openstreetmap_ziptown_jobs() as $job) {
+		if (in_array($job['status'], array('queued', 'running'))) {
+			return;
+		}
+	}
+	openstreetmap_ziptown_cron_enable($db, 0);
+}
+
+/**
  *  Import parts of the jobs of the queue, oldest first, for at most $maxseconds seconds.
  *  Finished jobs older than 7 days are removed from the list. When nothing is waiting anymore, the scheduled job
  *  is disabled.
  *
  *  @param		DoliDB		$db				Database handler
  *  @param		int			$maxseconds		Max duration
+ *  @param		int			$fromcron		1 if called by the scheduled job (it is then disabled at the end of the script)
  *  @return		array<int,array<string,mixed>>	Jobs of the queue after this run
  */
-function openstreetmap_ziptown_run_queue($db, $maxseconds = 15)
+function openstreetmap_ziptown_run_queue($db, $maxseconds = 15, $fromcron = 0)
 {
 	$start = microtime(true);
 	// One process at a time imports the queue (scheduled job or setup page), in the order of the files: an import in
@@ -771,7 +790,13 @@ function openstreetmap_ziptown_run_queue($db, $maxseconds = 15)
 		}
 	}
 	if (!$waiting) {
-		openstreetmap_ziptown_cron_enable($db, 0);
+		if ($fromcron) {
+			// The scheduler of Dolibarr saves its own copy of the job (still enabled) after this method returns, which
+			// would enable it again: the job is disabled at the end of the script, if the queue is still empty then.
+			register_shutdown_function('openstreetmap_ziptown_cron_disable_if_empty', $db);
+		} else {
+			openstreetmap_ziptown_cron_enable($db, 0);
+		}
 	}
 	if ($lock) {
 		flock($lock, LOCK_UN);
