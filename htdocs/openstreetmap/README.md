@@ -15,7 +15,7 @@ This module provides OpenStreet Map integration into Dolibarr, without any Googl
 
 ## What to expect in each country
 * Outside the Netherlands, addresses come from OpenStreetMap. How complete they are depends on the country: good in most of Western Europe, while house numbers or postcodes may be missing in some countries (for example Greece and parts of Eastern Europe). Then only the street is suggested and the house number is typed by hand.
-* The public servers of Photon and Nominatim are free for fair use, without guarantee. Answers are stored, so each address is asked only once. With many users, set the URL of your own Photon or Nominatim server in the setup.
+* The public servers of Photon and Nominatim are free for fair use, without guarantee. Answers are stored, so each address is asked only once, and the map searches at most 25 new addresses per visit (OPENSTREETMAP_GEOCODE_PER_VISIT) unless "Locate all" is used. With many users, set the URL of your own Photon or Nominatim server in the setup: an own Nominatim server is asked without delay (OPENSTREETMAP_NOMINATIM_DELAY_MS to set one), and OPENSTREETMAP_PHOTON_LANGS lists the languages an own Photon server knows.
 * In the Netherlands, PDOK (Dutch government, BAG) gives complete and up to date addresses.
 * Postcode.eu is a paid service (own subscription and key, billed per search) covering 14 European countries. The addresses typed are then sent to Postcode.eu: a data processing agreement with this provider is needed (GDPR). Its answers are not stored by the module.
 * Without any external service, the towns of postcodes can come from the dictionary of zip codes and towns of Dolibarr (tab "Zip codes and towns" of the setup).
