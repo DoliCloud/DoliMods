@@ -82,7 +82,7 @@ $countrycode = openstreetmap_country_code($db, $countryid);
 if ($countrycode == '') {
 	openstreetmap_address_answer(array('error' => 'BAD_COUNTRY'), 400);
 }
-$lang = substr((string) $langs->defaultlang, 0, 2);
+$lang = (string) $langs->defaultlang;	// Full code (for example el_GR): each service keeps what it supports
 $provider = openstreetmap_address_provider($countrycode);
 
 // The answer may take a few seconds: release the session so the other pages of the user are not blocked

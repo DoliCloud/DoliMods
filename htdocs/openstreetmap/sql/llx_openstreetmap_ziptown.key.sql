@@ -13,6 +13,6 @@
 -- along with this program. If not, see <http://www.gnu.org/licenses/>.
 -- ===================================================================
 
--- The cache is kept per entity (multicompany): a shared third party has one row per company.
+-- One row per row of llx_c_ziptown added by the module; the import in mode "replace" reads them by country and import key.
 ALTER TABLE llx_openstreetmap_ziptown ADD UNIQUE INDEX uk_openstreetmap_ziptown (fk_ziptown);
 ALTER TABLE llx_openstreetmap_ziptown ADD INDEX idx_openstreetmap_ziptown_pays (fk_pays, import_key);

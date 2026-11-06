@@ -235,6 +235,7 @@ $jobs = openstreetmap_ziptown_jobs();
 if (count($jobs)) {
 	print load_fiche_titre($langs->trans("OpenStreetMapZiptownQueue"), '', '');
 	print '<span class="opacitymedium small">'.$langs->trans("OpenStreetMapZiptownQueueDesc").'</span><br>';
+	print '<div id="ziptownerror" class="error hidden"></div>';
 	print '<div class="div-table-responsive-no-min">';
 	print '<table class="noborder centpercent" id="ziptownjobs">';
 	print '<tr class="liste_titre"><td>'.$langs->trans("Country").'</td><td>'.$langs->trans("File").'</td><td>'.$langs->trans("OpenStreetMapZiptownProgress").'</td>';
@@ -268,8 +269,16 @@ if (count($jobs)) {
 	print '<script>
 (function() {
 	var url = "'.dol_escape_js(dol_buildpath('/openstreetmap/ajax/ziptown.php', 1)).'";
-	var token = "'.dol_escape_js(newToken()).'";
+	// Token of the current page: the background request does not renew the token (NOTOKENRENEWAL)
+	var token = "'.dol_escape_js(currentToken()).'";
+	var txtstopped = "'.dol_escape_js($langs->transnoentitiesnoconv("OpenStreetMapZiptownRefreshStopped")).'";
 	var finished = false;
+	var networkerrors = 0;
+	function stopWithError(detail) {
+		var e = document.getElementById("ziptownerror");
+		e.textContent = txtstopped + (detail ? " (" + detail + ")" : "");
+		e.classList.remove("hidden");
+	}
 	function running() {
 		return document.querySelectorAll("#ziptownjobs td.osm-status[data-status=queued], #ziptownjobs td.osm-status[data-status=running]").length > 0;
 	}
@@ -305,15 +314,36 @@ if (count($jobs)) {
 		var body = new URLSearchParams();
 		body.set("op", "run");
 		body.set("token", token);
-		fetch(url, {method: "POST", body: body, credentials: "same-origin"})
-			.then(function(r) { return r.json(); })
-			.then(function(data) {
-				if (data && data.jobs) {
-					update(data.jobs);
+		fetch(url, {method: "POST", body: body, credentials: "same-origin", headers: {"Accept": "application/json"}})
+			.then(function(r) {
+				return r.text().then(function(text) {
+					var data = null;
+					try {
+						data = JSON.parse(text);
+					} catch (e) {
+						data = null;
+					}
+					return {ok: r.ok, status: r.status, data: data};
+				});
+			})
+			.then(function(res) {
+				networkerrors = 0;
+				if (!res.ok || !res.data || !res.data.jobs) {
+					/* Session ended (login page), access refused or error of the server: stop asking. The scheduled
+						job goes on in the background; the page shows the progress again when it is reloaded. */
+					stopWithError(res.data && res.data.error ? res.data.error : "HTTP " + res.status);
+					return;
 				}
+				update(res.data.jobs);
 				setTimeout(next, 500);
 			})
 			.catch(function() {
+				/* Network error: try again a few times, then stop */
+				networkerrors++;
+				if (networkerrors >= 5) {
+					stopWithError("");
+					return;
+				}
 				setTimeout(next, 10000);
 			});
 	}

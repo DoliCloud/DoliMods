@@ -64,22 +64,14 @@ function openstreetmap_ziptown_queue_dir()
  */
 function openstreetmap_ziptown_download_geonames($countrycode, $destfile)
 {
-	global $conf;
-
 	include_once DOL_DOCUMENT_ROOT.'/core/lib/geturl.lib.php';
+	dol_include_once('/openstreetmap/lib/openstreetmap.lib.php');
 
 	$url = openstreetmap_ziptown_geonames_url($countrycode);
 	if (!preg_match('/^https:\/\//i', $url)) {
 		return -1;
 	}
-	$saved = isset($conf->global->MAIN_USE_RESPONSE_TIMEOUT) ? $conf->global->MAIN_USE_RESPONSE_TIMEOUT : null;
-	$conf->global->MAIN_USE_RESPONSE_TIMEOUT = 60;
-	$result = getURLContent($url, 'GET', '', 1, array('User-Agent: Dolibarr-module-OpenStreetMap'), array('https'), 0, -1);
-	if ($saved === null) {
-		unset($conf->global->MAIN_USE_RESPONSE_TIMEOUT);
-	} else {
-		$conf->global->MAIN_USE_RESPONSE_TIMEOUT = $saved;
-	}
+	$result = openstreetmap_url_content($url, array('User-Agent: Dolibarr-module-OpenStreetMap'), getDolGlobalInt('OPENSTREETMAP_CONNECT_TIMEOUT', 3), 60);
 	if (!empty($result['curl_error_no']) || empty($result['http_code']) || $result['http_code'] != 200 || empty($result['content'])) {
 		dol_syslog("openstreetmap_ziptown_download_geonames: download of ".$url." failed: ".(!empty($result['curl_error_msg']) ? $result['curl_error_msg'] : 'HTTP '.(empty($result['http_code']) ? '' : $result['http_code'])), LOG_WARNING);
 		return -1;
@@ -182,14 +174,34 @@ function openstreetmap_ziptown_job_create($db, $countryid, $countrycode, $file, 
  */
 function openstreetmap_ziptown_cron_enable($db, $enable)
 {
-	global $conf;
+	global $conf, $user;
 
-	$sql = "UPDATE ".MAIN_DB_PREFIX."cronjob SET status = ".($enable ? 1 : 0);
+	include_once DOL_DOCUMENT_ROOT.'/cron/class/cronjob.class.php';
+
+	$status = ($enable ? 1 : 0);	// Cronjob::STATUS_ENABLED / Cronjob::STATUS_DISABLED
+	$cronjob = new Cronjob($db);
+	if ($cronjob->fetch(0, 'OpenStreetMapZiptownJob', 'runQueue') > 0 && !empty($cronjob->id)) {
+		if ((int) $cronjob->status == $status) {
+			return;
+		}
+		$cronjob->status = $status;
+		if ($enable) {
+			$cronjob->datenextrun = dol_now();	// Run as soon as possible
+		}
+		$cronuser = (is_object($user) && !empty($user->id)) ? $user : null;
+		if ($cronjob->update($cronuser) > 0) {
+			return;
+		}
+		dol_syslog("openstreetmap_ziptown_cron_enable: update of scheduled job failed: ".$cronjob->error.' '.implode(', ', (array) $cronjob->errors), LOG_WARNING);
+	}
+
+	// Versions of Dolibarr where the scheduled job can not be found or saved with the class: change only its status
+	$sql = "UPDATE ".MAIN_DB_PREFIX."cronjob SET status = ".((int) $status);
 	if ($enable) {
 		$sql .= ", datenextrun = '".$db->idate(dol_now())."'";
 	}
 	$sql .= " WHERE classesname = '/openstreetmap/class/ziptownjob.class.php' AND methodename = 'runQueue'";
-	$sql .= " AND entity IN (0, ".((int) $conf->entity).") AND status <> ".($enable ? 1 : 0);
+	$sql .= " AND entity IN (0, ".((int) $conf->entity).") AND status <> ".((int) $status);
 	if (!$db->query($sql)) {
 		dol_syslog("openstreetmap_ziptown_cron_enable: ".$db->lasterror(), LOG_WARNING);
 	}

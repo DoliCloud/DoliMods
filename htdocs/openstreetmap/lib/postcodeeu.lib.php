@@ -70,6 +70,68 @@ function openstreetmap_postcodeeu_enabled_for($countrycode)
 }
 
 /**
+ *  Return the language tag to send to Postcode.eu for the language of the user.
+ *  The API only knows some languages (en-GB, en-US, nl-NL, de-DE, da-DK, es-ES, fi-FI, fr-BE, fr-FR, no-NO). For any
+ *  other language (for example Greek), no language is sent and the API answers in its default language (en-GB).
+ *
+ *  @param		string		$lang		Language of the user (for example fr_BE, el_GR, or 2 letters)
+ *  @return		string					Language tag, or '' to send none
+ */
+function openstreetmap_postcodeeu_lang($lang)
+{
+	$supported = array('en-GB', 'en-US', 'nl-NL', 'de-DE', 'da-DK', 'es-ES', 'fi-FI', 'fr-BE', 'fr-FR', 'no-NO');
+	$lang = str_replace('_', '-', trim((string) $lang));
+	if (preg_match('/^([a-z]{2})-([a-z]{2})$/i', $lang, $reg)) {
+		$tag = strtolower($reg[1]).'-'.strtoupper($reg[2]);
+		if (in_array($tag, $supported)) {
+			return $tag;
+		}
+	}
+	// Same language, other country (for example de_AT -> de-DE, nb_NO -> no-NO)
+	$short = strtolower(substr($lang, 0, 2));
+	if ($short == 'nb' || $short == 'nn') {
+		$short = 'no';
+	}
+	foreach ($supported as $tag) {
+		if (strpos($tag, $short.'-') === 0) {
+			return $tag;
+		}
+	}
+	return '';
+}
+
+/**
+ *  Tell if the key and the secret of Postcode.eu are stored encrypted in the database.
+ *  Dolibarr encrypts the settings with a sensitive name (ending with _KEY, _SECRET...) only in recent versions;
+ *  older versions store them as typed. The setup page shows the result, so the administrator knows.
+ *
+ *  @param		DoliDB		$db			Database handler
+ *  @return		int						1 if all stored values are encrypted, 0 if one is not, -1 if nothing is stored
+ */
+function openstreetmap_postcodeeu_stored_encrypted($db)
+{
+	global $conf;
+
+	$names = array("'OPENSTREETMAP_POSTCODEEU_KEY'", "'OPENSTREETMAP_POSTCODEEU_SECRET'");
+	$sql = "SELECT ".$db->decrypt('value')." as value FROM ".MAIN_DB_PREFIX."const";
+	$sql .= " WHERE ".$db->decrypt('name')." IN (".implode(',', $names).")";
+	$sql .= " AND entity IN (0, ".((int) $conf->entity).")";
+	$resql = $db->query($sql);
+	if (!$resql) {
+		dol_syslog("openstreetmap_postcodeeu_stored_encrypted: ".$db->lasterror(), LOG_WARNING);
+		return -1;
+	}
+	$found = 0;
+	while ($obj = $db->fetch_object($resql)) {
+		$found++;
+		if (strpos((string) $obj->value, 'dolcrypt:') !== 0) {
+			return 0;
+		}
+	}
+	return $found ? 1 : -1;
+}
+
+/**
  *  Return the identifier of the autocomplete session, required by Postcode.eu for the billing of a search
  *  (all requests of a user while filling one address belong to the same session)
  *
@@ -109,7 +171,7 @@ function openstreetmap_postcodeeu_call($path)
  *
  *  @param		string		$q				Text typed by the user
  *  @param		string		$countrycode	ISO 3166-1 alpha-2 code
- *  @param		string		$lang			Language of the user (2 letters)
+ *  @param		string		$lang			Language of the user (for example fr_BE or el_GR)
  *  @param		string		$context		Context of a previous suggestion, or '' to search in the whole country
  *  @return		array<int,array<string,mixed>>|string	Suggestions, or error message string if KO
  */
@@ -124,10 +186,13 @@ function openstreetmap_postcodeeu_suggest($q, $countrycode, $lang = '', $context
 		$context = $countries[$countrycode];
 	}
 	$path = 'international/v1/autocomplete/'.rawurlencode($context).'/'.rawurlencode(trim((string) $q));
-	if (preg_match('/^[a-z]{2}$/', (string) $lang)) {
-		$path .= '/'.rawurlencode($lang);
+	$tag = openstreetmap_postcodeeu_lang($lang);
+	$data = openstreetmap_postcodeeu_call($path.($tag !== '' ? '/'.rawurlencode($tag) : ''));
+	if ($data === 'HTTP_400' && $tag !== '') {
+		// Language refused: search again in the default language of the API
+		dol_syslog("openstreetmap_postcodeeu_suggest: language ".$tag." refused (HTTP 400), search again without language", LOG_DEBUG);
+		$data = openstreetmap_postcodeeu_call($path);
 	}
-	$data = openstreetmap_postcodeeu_call($path);
 	if (!is_array($data)) {
 		return $data;
 	}
