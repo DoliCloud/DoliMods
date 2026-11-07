@@ -43,9 +43,7 @@ dol_include_once("/openstreetmap/lib/openstreetmap.lib.php");
 if (!$user->admin) accessforbidden();
 
 
-$langs->load("admin");
-$langs->load("other");
-$langs->load("openstreetmap@openstreetmap");
+$langs->loadLangs(array("admin", "other", "openstreetmap@openstreetmap"));
 
 
 /**
@@ -56,12 +54,11 @@ $help_url='';
 llxHeader('', '', $help_url);
 
 $linkback='<a href="'.DOL_URL_ROOT.'/admin/modules.php?restore_lastsearch_values=1">'.$langs->trans("BackToModuleList").'</a>';
-print_fiche_titre($langs->trans("OpenStreetMapSetup"), $linkback, 'setup');
-print '<br>';
+print load_fiche_titre($langs->trans("OpenStreetMapSetup"), $linkback, 'setup');
 
 $head=openstreetmapadmin_prepare_head();
 
-dol_fiche_head($head, 'tababout', $langs->trans("OpenStreetMapTools"));
+print dol_get_fiche_head($head, 'tababout', $langs->trans("OpenStreetMapTools"), -1);
 
 dol_include_once('/openstreetmap/core/modules/modOpenStreetMap.class.php');
 $tmpmodule = new modOpenStreetMap($db);
@@ -87,7 +84,7 @@ print '<a href="'.$url.'" target="_blank"><img border="0" width="180" src="../im
 
 print '<br>';
 
-dol_fiche_end();
+print dol_get_fiche_end();
 
 
 llxFooter();
