@@ -165,8 +165,40 @@ if ($action == 'confirm_deletefile' && $confirm == 'yes') {
 	exit;
 }
 
+// Map between the module directory and the key used into CONCATPDF_PRESELECTED_MODELS
+$modulekey = array('proposals'=>'proposal', 'orders'=>'order', 'invoices'=>'invoice', 'supplier_proposals'=>'supplier_proposal', 'supplier_orders'=>'supplier_order', 'supplier_invoices'=>'supplier_invoice', 'contracts'=>'contract');
+
 if ($action == 'save') {
-	dolibarr_set_const($db, 'CONCATPDF_PRESELECTED_MODELS', GETPOST('CONCATPDF_PRESELECTED_MODELS'), 'chaine', 0, '', $conf->entity);
+	$value = '';
+
+	// Rebuild the CONCATPDF_PRESELECTED_MODELS string from the checked files
+	// Allowed keys are those matching an enabled module, values are whitelisted against the real directory content.
+	foreach ($modules as $module => $moduletrans) {
+		$selectedfiles = GETPOST('defaultfiles_'.$module, 'array');
+		if (empty($selectedfiles)) {
+			continue;
+		}
+
+		$outputdir = $conf->concatpdf->dir_output.'/'.$module;
+		$listoffiles = dol_dir_list($outputdir, 'files', 0, '', array('^SPECIMEN\.pdf$'));
+		$offilekeys = array();
+		foreach ($listoffiles as $file) {
+			$offilekeys[] = basename($file['name'], ".pdf");
+		}
+
+		$filesforentry = array();
+		foreach ($selectedfiles as $selectedfile) {
+			if (in_array($selectedfile, $offilekeys)) {
+				$filesforentry[] = $selectedfile;
+			}
+		}
+
+		if (!empty($filesforentry)) {
+			$value .= ($value ? ';' : '').$modulekey[$module].':'.implode(',', $filesforentry);
+		}
+	}
+
+	dolibarr_set_const($db, 'CONCATPDF_PRESELECTED_MODELS', $value, 'chaine', 0, '', $conf->entity);
 }
 
 /*
@@ -276,10 +308,16 @@ print '</td></tr>';
 print '</table>';
 
 
-// Show for to add a file
-$select_module = $form->selectarray('module', $modules, GETPOST('module'), 1, 0, 0, '', 1);
+// Show form to add a file
+$select_module = $form->selectarray('module', $modules, GETPOST('module'), $langs->transnoentitiesnoconv("TargetDocumentType"), 0, 0, '', 1);
 
-$formfile->form_attach_new_file($_SERVER['PHP_SELF'], $langs->trans("AddFilesToConcat"), 0, 0, 1, 50, '', $select_module, false, '', 0);
+print '<br>';
+// The title is printed here so the upload form can be wrapped into a div, under the title.
+print load_fiche_titre($langs->trans("AddFilesToConcat"), '', '');
+print '<div class="neutral">';
+$formfile->form_attach_new_file($_SERVER['PHP_SELF'], 'none', 0, 0, 1, 50, '', $select_module, false, '', 0);
+print '</div>';
+print '<br>';
 
 
 dol_fiche_end();
@@ -288,27 +326,71 @@ dol_fiche_end();
 
 foreach ($modules as $module => $moduletrans) {
 	$outputdir = $conf->concatpdf->dir_output.'/'.$module;
+
+	// Title with the object label, the path of the directory with files to concat is shown into a tooltip on the info picto
+	$title = $moduletrans['picto'].$langs->transnoentitiesnoconv($moduletrans['label']).' '.$form->textwithpicto('', $langs->trans("PathDirectory").' '.$outputdir, 1, 'info');
+
 	$listoffiles = dol_dir_list($outputdir, 'files', 0, '', array('^SPECIMEN\.pdf$'));
 	if (count($listoffiles)) {
-		print $formfile->showdocuments('concatpdf', $module, $outputdir, $_SERVER["PHP_SELF"].'?module='.$module, 0, $user->admin, '', 0, 0, 0, 0, 0, '', $moduletrans['picto'].$langs->trans("PathDirectory").' '.$outputdir);
+		print $formfile->showdocuments('concatpdf', $module, $outputdir, $_SERVER["PHP_SELF"].'?module='.$module, 0, $user->admin, '', 0, 0, 0, 0, 0, '', $title);
 	} else {
-		print '<div class="titre paddingbottom wordwrap">'.$moduletrans['picto'].$langs->trans("PathDirectory").' '.$outputdir.'</div>';
+		print '<div class="titre paddingbottom">'.$title.'</div>';
 		print '<span class="opacitymedium">'.$langs->trans("NoPDFFileFound").'</span><br>';
 	}
 
 	print '<br><br>';
 }
 
-// TODO
-// Replace this with a checkbox on each file line
+// Selection of default files to concat
+// $modulekey is defined into the Actions section
+
+// Get the array of default files saved into CONCATPDF_PRESELECTED_MODELS, indexed by key ('proposal' => array('file1', 'file2'), ...)
+$arrayofdefaultfiles = array();
+$tmparray = explode(';', getDolGlobalString('CONCATPDF_PRESELECTED_MODELS'));
+foreach ($tmparray as $val) {
+	$tmp = explode(':', $val);
+	if (!empty($tmp[1])) {
+		$arrayofdefaultfiles[$tmp[0]] = explode(',', $tmp[1]);
+	}
+}
+
 print '<form action="'.$_SERVER["PHP_SELF"].'" method="POST">';
 print '<input type="hidden" name="page_y">';
 print '<input type="hidden" name="action" value="save">';
 print '<input type="hidden" name="token" value="'.newToken().'">';
-print '<div class="">';
-print 'CONCATPDF_PRESELECTED_MODELS = <input type="text" class="minwidth300" name="CONCATPDF_PRESELECTED_MODELS" value="'.dol_escape_htmltag(getDolGlobalString('CONCATPDF_PRESELECTED_MODELS')).'">';
-print '<input type="submit" class="button smallpaddingimp reposition" value="'.$langs->trans("Save").'">';
-print '</div>';
+
+print load_fiche_titre($langs->trans("DefaultFilesToConcat"), '', '');
+
+print '<table class="noborder centpercent">';
+
+foreach ($modules as $module => $moduletrans) {
+	$outputdir = $conf->concatpdf->dir_output.'/'.$module;
+	$listoffiles = dol_dir_list($outputdir, 'files', 0, '', array('^SPECIMEN\.pdf$'));
+	if (count($listoffiles) < 1) {
+		continue;
+	}
+
+	$arrayofselectedforsubdir = isset($arrayofdefaultfiles[$modulekey[$module]]) ? $arrayofdefaultfiles[$modulekey[$module]] : array();
+
+	print '<tr class="liste_titre">';
+	print '<td>'.$moduletrans['picto'].$langs->transnoentitiesnoconv($moduletrans['label']).'</td>';
+	print '<td class="center">'.$langs->trans("Default").'</td>';
+	print '</tr>';
+
+	foreach ($listoffiles as $file) {
+		$filekey = basename($file['name'], ".pdf");
+
+		print '<tr class="oddeven">';
+		print '<td>'.dol_escape_htmltag($file['name']).'</td>';
+		print '<td class="center">';
+		print '<input type="checkbox" name="defaultfiles_'.$module.'[]" value="'.dol_escape_htmltag($filekey).'"'.(in_array($filekey, $arrayofselectedforsubdir) ? ' checked' : '').'>';
+		print '</td>';
+		print '</tr>';
+	}
+}
+
+print '</table>';
+print '<div class="center"><input type="submit" class="button button-save reposition" name="save" value="'.$langs->trans("Save").'"></div>';
 print '</form>';
 
 print '<br><br>';

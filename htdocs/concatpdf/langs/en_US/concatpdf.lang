@@ -20,3 +20,6 @@ CompatibleWithDoliDroid=This modules is also compatible with DoliDroid, the Andr
 ErrorFileMustBeAPdf=Error, file must be a PDF file
 WarningConcatPDFIsNotCompatibleWithOptionReadOnlyPDF=Concat PDF is not compatible with PDF option : %s
 AddFilesToConcat=Upload file(s) to concat
+DefaultFilesToConcat=Default file(s) to concat
+PathDirectory=Directory with files to concat
+TargetDocumentType=Target document type
