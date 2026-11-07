@@ -35,8 +35,9 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  # The version the Dolibarr core runs in its own CI, and the one dev/tools/phpstan/phpstan.sh pins.
-  PHPSTAN_VERSION: 2.1.12
+  # The same minor line as before, past 2.1.21 where PHP-Parser 5.6.0 learned the internals
+  # PHP 8.5 exposes (like the function clone()) that made PHPStan 2.1.12 and older crash on it.
+  PHPSTAN_VERSION: 2.1.56
 
 jobs:
   # Which cores to analyse against. A pull request answers on the two ends of the supported range,

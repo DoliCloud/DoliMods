@@ -571,12 +571,6 @@ parameters:
 			path: ../../../htdocs/ecotaxdeee/class/ecotaxdeee.class.php
 
 		-
-			message: '#^Method InterfaceEcotaxdeee\:\:runTrigger\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: ../../../htdocs/ecotaxdeee/core/triggers/interface_50_modEcotaxdeee_Ecotaxdeee.class.php
-
-		-
 			message: '#^Parameter \#1 \$db of function dol_print_error expects DoliDB\|string, int given\.$#'
 			identifier: argument.type
 			count: 1
@@ -781,6 +775,12 @@ parameters:
 			path: ../../../htdocs/google/gmaps.php
 
 		-
+			message: '#^Variable \$object might not be defined\.$#'
+			identifier: variable.undefined
+			count: 3
+			path: ../../../htdocs/google/gmaps.php
+
+		-
 			message: '#^Parameter \#4 \$outputlangs of function dol_format_address expects Translate, string given\.$#'
 			identifier: argument.type
 			count: 1
@@ -799,10 +799,22 @@ parameters:
 			path: ../../../htdocs/google/gmaps_all.php
 
 		-
+			message: '#^Variable \$search_tag_member might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: ../../../htdocs/google/gmaps_all.php
+
+		-
 			message: '#^Variable \$sql might not be defined\.$#'
 			identifier: variable.undefined
 			count: 2
 			path: ../../../htdocs/google/gmaps_all.php
+
+		-
+			message: '#^Parameter \#2 \$start of function dol_substr expects string, int given\.$#'
+			identifier: argument.type
+			count: 2
+			path: ../../../htdocs/google/lib/google_calendar.lib.php
 
 		-
 			message: '#^Parameter \#2 \$b of function dol_html_entity_decode expects string, int given\.$#'
@@ -1201,42 +1213,6 @@ parameters:
 			path: ../../../htdocs/numberingpack/core/modules/societe/mod_codeclient_lion.php
 
 		-
-			message: '#^Default value of the parameter \#1 \$objsoc \(int\) of method mod_codeclient_lion\:\:getNextValue\(\) is incompatible with type Societe\.$#'
-			identifier: parameter.defaultValue
-			count: 1
-			path: ../../../htdocs/numberingpack/core/modules/societe/mod_codeclient_lion.php
-
-		-
-			message: '#^Method mod_codeclient_lion\:\:verif\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: ../../../htdocs/numberingpack/core/modules/societe/mod_codeclient_lion.php
-
-		-
-			message: '#^Method mod_codeclient_lion\:\:verif\(\) has parameter \$code with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: ../../../htdocs/numberingpack/core/modules/societe/mod_codeclient_lion.php
-
-		-
-			message: '#^Method mod_codeclient_lion\:\:verif\(\) has parameter \$db with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: ../../../htdocs/numberingpack/core/modules/societe/mod_codeclient_lion.php
-
-		-
-			message: '#^Method mod_codeclient_lion\:\:verif\(\) has parameter \$soc with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: ../../../htdocs/numberingpack/core/modules/societe/mod_codeclient_lion.php
-
-		-
-			message: '#^Method mod_codeclient_lion\:\:verif\(\) has parameter \$type with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: ../../../htdocs/numberingpack/core/modules/societe/mod_codeclient_lion.php
-
-		-
 			message: '#^Property mod_codeclient_lion\:\:\$code_auto has no type specified\.$#'
 			identifier: missingType.property
 			count: 1
@@ -1275,42 +1251,6 @@ parameters:
 		-
 			message: '#^Access to an undefined property mod_codeclient_zebre\:\:\$name\.$#'
 			identifier: property.notFound
-			count: 1
-			path: ../../../htdocs/numberingpack/core/modules/societe/mod_codeclient_zebre.php
-
-		-
-			message: '#^Default value of the parameter \#1 \$objsoc \(int\) of method mod_codeclient_zebre\:\:getNextValue\(\) is incompatible with type Societe\.$#'
-			identifier: parameter.defaultValue
-			count: 1
-			path: ../../../htdocs/numberingpack/core/modules/societe/mod_codeclient_zebre.php
-
-		-
-			message: '#^Method mod_codeclient_zebre\:\:verif\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: ../../../htdocs/numberingpack/core/modules/societe/mod_codeclient_zebre.php
-
-		-
-			message: '#^Method mod_codeclient_zebre\:\:verif\(\) has parameter \$code with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: ../../../htdocs/numberingpack/core/modules/societe/mod_codeclient_zebre.php
-
-		-
-			message: '#^Method mod_codeclient_zebre\:\:verif\(\) has parameter \$db with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: ../../../htdocs/numberingpack/core/modules/societe/mod_codeclient_zebre.php
-
-		-
-			message: '#^Method mod_codeclient_zebre\:\:verif\(\) has parameter \$soc with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: ../../../htdocs/numberingpack/core/modules/societe/mod_codeclient_zebre.php
-
-		-
-			message: '#^Method mod_codeclient_zebre\:\:verif\(\) has parameter \$type with no type specified\.$#'
-			identifier: missingType.parameter
 			count: 1
 			path: ../../../htdocs/numberingpack/core/modules/societe/mod_codeclient_zebre.php
 
@@ -1375,6 +1315,18 @@ parameters:
 			path: ../../../htdocs/openstreetmap/maps.php
 
 		-
+			message: '#^Variable \$object might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: ../../../htdocs/openstreetmap/maps.php
+
+		-
+			message: '#^Parameter \#2 \$start of function dol_substr expects string, int given\.$#'
+			identifier: argument.type
+			count: 2
+			path: ../../../htdocs/ovh/admin/ovh_setup.php
+
+		-
 			message: '#^Parameter \#4 \$deliveryreceipt of class CSMSFile constructor expects int, array\|string given\.$#'
 			identifier: argument.type
 			count: 1
@@ -1419,12 +1371,6 @@ parameters:
 		-
 			message: '#^Parameter \#7 \$class of class CSMSFile constructor expects int, array\|string given\.$#'
 			identifier: argument.type
-			count: 1
-			path: ../../../htdocs/ovh/class/actions_ovh.class.php
-
-		-
-			message: '#^Property ActionComm\:\:\$socpeopleassigned \(array\<int\>\) does not accept array\<null\>\.$#'
-			identifier: assign.propertyType
 			count: 1
 			path: ../../../htdocs/ovh/class/actions_ovh.class.php
 
@@ -1457,18 +1403,6 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: ../../../htdocs/ovh/class/ovhserver.class.php
-
-		-
-			message: '#^Access to an undefined property OvhSms\:\:\$session\.$#'
-			identifier: property.notFound
-			count: 7
-			path: ../../../htdocs/ovh/class/ovhsms.class.php
-
-		-
-			message: '#^Method InterfaceOvhTriggers\:\:runTrigger\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: ../../../htdocs/ovh/core/triggers/interface_99_modOvh_OvhTriggers.class.php
 
 		-
 			message: '#^Parameter \#3 \$duration_unit of function dol_time_plus_duree expects int, string given\.$#'
@@ -1705,18 +1639,6 @@ parameters:
 			path: ../../../htdocs/stancerdolicloud/admin/setup.php
 
 		-
-			message: '#^Parameter \#2 \$level of function dol_syslog expects int, string given\.$#'
-			identifier: argument.type
-			count: 2
-			path: ../../../htdocs/stancerdolicloud/class/actions_stancerdolicloud.class.php
-
-		-
-			message: '#^Parameter \#3 \$duration_unit of function dol_time_plus_duree expects int, string given\.$#'
-			identifier: argument.type
-			count: 1
-			path: ../../../htdocs/stancerdolicloud/class/actions_stancerdolicloud.class.php
-
-		-
 			message: '#^Access to an undefined property modStancerDolicloud\:\:\$editor_squarred_logo\.$#'
 			identifier: property.notFound
 			count: 1
@@ -1749,7 +1671,7 @@ parameters:
 		-
 			message: '#^Parameter \#1 \$amount of function price expects float, string given\.$#'
 			identifier: argument.type
-			count: 14
+			count: 13
 			path: ../../../htdocs/tvacerfa/quadri_detail.php
 
 		-
@@ -1823,19 +1745,19 @@ parameters:
 			path: ../../../htdocs/alumni/survey_card.php
 
 		-
-			message: '#^Parameter \#1 \$links of function dol_fiche_head expects array\<string, array\<int\<0, 5\>, string\>\>, array\{array\{mixed, mixed, ''tabsetup''\}, array\{''about\.php'', mixed, ''tababout''\}\} given\.$#'
+			message: '#^Parameter \#1 \$links of function dol_fiche_head expects array\<string, array\<int\<0, 5\>, string\>\>, array\{array\{mixed, string, ''tabsetup''\}, array\{''about\.php'', string, ''tababout''\}\} given\.$#'
 			identifier: argument.type
 			count: 1
 			path: ../../../htdocs/billedonorders/admin/billedonorders.php
 
 		-
-			message: '#^Parameter \#1 \$links of function dol_fiche_head expects array\<string, array\<int\<0, 5\>, string\>\>, array\{array\{''concatpdf\.php'', mixed, ''tabsetup''\}, array\{mixed, mixed, ''tababout''\}\} given\.$#'
+			message: '#^Parameter \#1 \$links of function dol_fiche_head expects array\<string, array\<int\<0, 5\>, string\>\>, array\{array\{''concatpdf\.php'', string, ''tabsetup''\}, array\{mixed, string, ''tababout''\}\} given\.$#'
 			identifier: argument.type
 			count: 1
 			path: ../../../htdocs/concatpdf/admin/about.php
 
 		-
-			message: '#^Parameter \#1 \$links of function dol_fiche_head expects array\<string, array\<int\<0, 5\>, string\>\>, array\{array\{mixed, mixed, ''tabsetup''\}, array\{''about\.php'', mixed, ''tababout''\}\} given\.$#'
+			message: '#^Parameter \#1 \$links of function dol_fiche_head expects array\<string, array\<int\<0, 5\>, string\>\>, array\{array\{mixed, string, ''tabsetup''\}, array\{''about\.php'', string, ''tababout''\}\} given\.$#'
 			identifier: argument.type
 			count: 1
 			path: ../../../htdocs/concatpdf/admin/concatpdf.php
@@ -1895,7 +1817,7 @@ parameters:
 			path: ../../../htdocs/ecotaxdeee/class/ecotaxdeee.class.php
 
 		-
-			message: '#^Parameter \#1 \$links of function dol_fiche_head expects array\<string, array\<int\<0, 5\>, string\>\>, array\{array\{mixed, mixed, ''tabsetup''\}, array\{''about\.php'', mixed, ''tababout''\}\} given\.$#'
+			message: '#^Parameter \#1 \$links of function dol_fiche_head expects array\<string, array\<int\<0, 5\>, string\>\>, array\{array\{mixed, string, ''tabsetup''\}, array\{''about\.php'', string, ''tababout''\}\} given\.$#'
 			identifier: argument.type
 			count: 1
 			path: ../../../htdocs/externalbackup/admin/externalbackup.php
@@ -1919,7 +1841,7 @@ parameters:
 			path: ../../../htdocs/google/core/boxes/box_googlemaps.php
 
 		-
-			message: '#^Parameter \#1 \$links of function dol_fiche_head expects array\<string, array\<int\<0, 5\>, string\>\>, array\{array\{''setup\.php'', mixed, ''setup''\}\} given\.$#'
+			message: '#^Parameter \#1 \$links of function dol_fiche_head expects array\<string, array\<int\<0, 5\>, string\>\>, array\{array\{''setup\.php'', string, ''setup''\}\} given\.$#'
 			identifier: argument.type
 			count: 1
 			path: ../../../htdocs/ipphone/admin/setup.php
@@ -1973,28 +1895,10 @@ parameters:
 			path: ../../../htdocs/moretemplates/core/modules/facture/doc/pdf_tourteau.modules.php
 
 		-
-			message: '#^Default value of the parameter \#1 \$objsoc \(int\) of method mod_codeclient_lion\:\:getNextValue\(\) is incompatible with type Societe\|string\.$#'
-			identifier: parameter.defaultValue
-			count: 1
-			path: ../../../htdocs/numberingpack/core/modules/societe/mod_codeclient_lion.php
-
-		-
-			message: '#^Default value of the parameter \#1 \$objsoc \(int\) of method mod_codeclient_zebre\:\:getNextValue\(\) is incompatible with type Societe\|string\.$#'
-			identifier: parameter.defaultValue
-			count: 1
-			path: ../../../htdocs/numberingpack/core/modules/societe/mod_codeclient_zebre.php
-
-		-
-			message: '#^Property ActionComm\:\:\$socpeopleassigned \(array\<int, array\{id\: int, mandatory\: int\<0, 1\>, answer_status\: int, transparency\: int\<0, 1\>\}\>\) does not accept non\-empty\-array\<null\>\.$#'
+			message: '#^Property FormSms\:\:\$withbody \(int\) does not accept string\.$#'
 			identifier: assign.propertyType
 			count: 1
-			path: ../../../htdocs/ovh/class/actions_ovh.class.php
-
-		-
-			message: '#^Property CSMSFile\:\:\$nostop \(bool\) does not accept array\|string\.$#'
-			identifier: assign.propertyType
-			count: 1
-			path: ../../../htdocs/ovh/class/actions_ovh.class.php
+			path: ../../../htdocs/ovh/admin/ovh_sms_setup.php
 
 		-
 			message: '#^Property FormSms\:\:\$withto \(int\) does not accept string\.$#'
@@ -2015,37 +1919,19 @@ parameters:
 			path: ../../../htdocs/ovh/class/ovhserver.class.php
 
 		-
-			message: '#^Parameter \#1 \$links of function dol_fiche_head expects array\<string, array\<int\<0, 5\>, string\>\>, array\<int, array\<int, string\>\> given\.$#'
-			identifier: argument.type
-			count: 1
-			path: ../../../htdocs/ovh/sms_member.php
-
-		-
-			message: '#^Property CSMSFile\:\:\$nostop \(bool\) does not accept array\|string\.$#'
-			identifier: assign.propertyType
-			count: 1
-			path: ../../../htdocs/ovh/sms_member.php
-
-		-
-			message: '#^Property CSMSFile\:\:\$nostop \(bool\) does not accept array\|string\.$#'
-			identifier: assign.propertyType
-			count: 1
-			path: ../../../htdocs/ovh/sms_thirdparty.php
-
-		-
-			message: '#^Parameter \#1 \$links of function dol_fiche_head expects array\<string, array\<int\<0, 5\>, string\>\>, array\{array\{string, mixed, ''fasteditor''\}, array\{string, mixed, ''advancededitor''\}\} given\.$#'
+			message: '#^Parameter \#1 \$links of function dol_fiche_head expects array\<string, array\<int\<0, 5\>, string\>\>, array\{array\{string, string, ''fasteditor''\}, array\{string, string, ''advancededitor''\}\} given\.$#'
 			identifier: argument.type
 			count: 1
 			path: ../../../htdocs/skincoloreditor/admin/advancededitor.php
 
 		-
-			message: '#^Parameter \#1 \$links of function dol_fiche_head expects array\<string, array\<int\<0, 5\>, string\>\>, array\{array\{string, mixed, ''fasteditor''\}, array\{''about\.php'', mixed, ''tababout''\}\} given\.$#'
+			message: '#^Parameter \#1 \$links of function dol_fiche_head expects array\<string, array\<int\<0, 5\>, string\>\>, array\{array\{string, string, ''fasteditor''\}, array\{''about\.php'', string, ''tababout''\}\} given\.$#'
 			identifier: argument.type
 			count: 1
 			path: ../../../htdocs/skincoloreditor/admin/quickeditor.php
 
 		-
-			message: '#^Parameter \#1 \$links of function dol_fiche_head expects array\<string, array\<int\<0, 5\>, string\>\>, array\{array\{''setup\.php'', mixed, ''tabsetup''\}, array\{mixed, mixed, ''tababout''\}\} given\.$#'
+			message: '#^Parameter \#1 \$links of function dol_fiche_head expects array\<string, array\<int\<0, 5\>, string\>\>, array\{array\{''setup\.php'', string, ''tabsetup''\}, array\{mixed, string, ''tababout''\}\} given\.$#'
 			identifier: argument.type
 			count: 1
 			path: ../../../htdocs/tawkto/admin/about.php
@@ -2057,7 +1943,7 @@ parameters:
 			path: ../../../htdocs/tawkto/admin/setup.php
 
 		-
-			message: '#^Parameter \#1 \$links of function dol_fiche_head expects array\<string, array\<int\<0, 5\>, string\>\>, array\{array\{mixed, mixed, ''tabsetup''\}, array\{''about\.php'', mixed, ''tababout''\}\} given\.$#'
+			message: '#^Parameter \#1 \$links of function dol_fiche_head expects array\<string, array\<int\<0, 5\>, string\>\>, array\{array\{mixed, string, ''tabsetup''\}, array\{''about\.php'', string, ''tababout''\}\} given\.$#'
 			identifier: argument.type
 			count: 1
 			path: ../../../htdocs/zipautofillfr/admin/zipautofillfr.php
@@ -2356,12 +2242,6 @@ parameters:
 			path: ../../../htdocs/ovh/class/actions_ovh.class.php
 
 		-
-			message: '#^Property CSMSFile\:\:\$nostop \(bool\) does not accept array\<mixed\>\|string\.$#'
-			identifier: assign.propertyType
-			count: 1
-			path: ../../../htdocs/ovh/class/actions_ovh.class.php
-
-		-
 			message: '#^Property FormSms\:\:\$withto \(int\<0, 1\>\) does not accept non\-falsy\-string\.$#'
 			identifier: assign.propertyType
 			count: 1
@@ -2428,12 +2308,6 @@ parameters:
 			path: ../../../htdocs/ovh/sms_member.php
 
 		-
-			message: '#^Property CSMSFile\:\:\$nostop \(bool\) does not accept array\<mixed\>\|string\.$#'
-			identifier: assign.propertyType
-			count: 1
-			path: ../../../htdocs/ovh/sms_member.php
-
-		-
 			message: '#^Parameter \#4 \$deliveryreceipt of class CSMSFile constructor expects int, array\<mixed\>\|string given\.$#'
 			identifier: argument.type
 			count: 1
@@ -2454,12 +2328,6 @@ parameters:
 		-
 			message: '#^Parameter \#7 \$class of class CSMSFile constructor expects int, array\<mixed\>\|string given\.$#'
 			identifier: argument.type
-			count: 1
-			path: ../../../htdocs/ovh/sms_thirdparty.php
-
-		-
-			message: '#^Property CSMSFile\:\:\$nostop \(bool\) does not accept array\<mixed\>\|string\.$#'
-			identifier: assign.propertyType
 			count: 1
 			path: ../../../htdocs/ovh/sms_thirdparty.php
 
@@ -2500,6 +2368,12 @@ parameters:
 			path: ../../../htdocs/prestashopget/index.php
 
 		-
+			message: '#^Property DolibarrModules\:\:\$menu \(1\|array\<array\{commentgroup\?\: string, mainmenu\: string, leftmenu\: string, langs\: string, enabled\: int\|string, target\: string, titre\: string, user\: int, \.\.\.\}\>\) does not accept non\-empty\-array\<array\{commentgroup\?\: string, mainmenu\: string, leftmenu\: string, langs\: string, enabled\: int\|string, target\: string, titre\: string, user\: int, \.\.\.\}\>\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: ../../../htdocs/saftpt/core/modules/modSaftPt.class.php
+
+		-
 			message: '#^Parameter \#4 \$month of function dol_mktime expects int, array\<mixed\>\|string given\.$#'
 			identifier: argument.type
 			count: 4
@@ -2534,6 +2408,12 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: ../../../htdocs/sendgrid/importinvoice.php
+
+		-
+			message: '#^Property DolibarrModules\:\:\$menu \(1\|array\<array\{commentgroup\?\: string, mainmenu\: string, leftmenu\: string, langs\: string, enabled\: int\|string, target\: string, titre\: string, user\: int, \.\.\.\}\>\) does not accept non\-empty\-array\<array\{commentgroup\?\: string, mainmenu\: string, leftmenu\: string, langs\: string, enabled\: int\|string, target\: string, titre\: string, user\: int, \.\.\.\}\>\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: ../../../htdocs/tvacerfa/core/modules/modTvaCerfa.class.php
 
 		-
 			message: '#^Parameter \#1 \$year of function dol_get_first_day expects int, array\<mixed\>\|string given\.$#'
@@ -2592,21 +2472,3 @@ parameters:
 			identifier: property.phpDocType
 			count: 1
 			path: ../../../htdocs/ovh/class/ovhserver.class.php
-
-		-
-			message: '#^Parameter \#2 \$start of function dol_substr expects string, int given\.$#'
-			identifier: argument.type
-			count: 1
-			path: ../../../htdocs/google/gmaps_all.php
-
-		-
-			message: '#^Parameter \#2 \$start of function dol_substr expects string, int given\.$#'
-			identifier: argument.type
-			count: 2
-			path: ../../../htdocs/google/lib/google_calendar.lib.php
-
-		-
-			message: '#^Parameter \#2 \$start of function dol_substr expects string, int given\.$#'
-			identifier: argument.type
-			count: 2
-			path: ../../../htdocs/ovh/admin/ovh_setup.php

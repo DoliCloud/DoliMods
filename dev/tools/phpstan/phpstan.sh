@@ -12,7 +12,7 @@
 set -euo pipefail
 
 # The version the Dolibarr core runs in its own CI, so both projects report the same things.
-PHPSTAN_VERSION="${PHPSTAN_VERSION:-2.1.12}"
+PHPSTAN_VERSION="${PHPSTAN_VERSION:-2.1.56}"
 
 repo_root=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/../../.." && pwd)
 cache_dir="$repo_root/.run-phpstan"
