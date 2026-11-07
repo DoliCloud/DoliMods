@@ -43,8 +43,6 @@ if (! $res) die("Include of main fails");
  * @var User $user
  */
 
-global $langs, $user;
-
 // Libraries
 require_once DOL_DOCUMENT_ROOT . "/core/lib/admin.lib.php";
 require_once '../lib/facturxutil.lib.php';

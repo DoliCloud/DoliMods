@@ -55,9 +55,9 @@ if (!$res) {
 }
 /**
  * @var Conf $conf
+ * @var Translate $langs
+ * @var User $user
  */
-
-global $langs, $user;
 
 // Libraries
 require_once DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php";

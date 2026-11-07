@@ -55,10 +55,10 @@ if (!$res && file_exists("../../../../../main.inc.php")) {
 if (!$res) {
 	die("Include of main fails");
 }
-
-global $langs, $user;
 /**
  * @var Conf $conf
+ * @var Translate $langs
+ * @var User $user
  */
 
 // Libraries
