@@ -46,7 +46,7 @@ env:
 
 jobs:
   fix-pr-ci:
-    name: Fix CI of oldest PR with Mistral
+    name: Fix oldest PR in CI error with Mistral
     runs-on: ubuntu-latest
     steps:
       # The scripts are always taken from the branch of the workflow, never from the PR
