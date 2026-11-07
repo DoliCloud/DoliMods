@@ -108,7 +108,7 @@ class ActionsConcatPdf
 		$arraydefaultselection = array();
 		if (getDolGlobalString('CONCATPDF_PRESELECTED_MODELS')) {
 			// List of value key into setup -> value for modulepart
-			$altkey=array('proposal'=>'propal', 'order'=>'commande', 'invoice'=>'facture', 'supplier_order'=>'commande_fournisseur', 'invoice_order'=>'facture_fournisseur');
+			$altkey=array('proposal'=>'propal', 'order'=>'commande', 'invoice'=>'facture', 'supplier_order'=>'commande_fournisseur', 'supplier_invoice'=>'facture_fournisseur', 'invoice_order'=>'facture_fournisseur');
 
 			// getDolGlobalString('CONCATPDF_PRESELECTED_MODELS') may contains value of preselected model with format
 			// propal:model1a,model1b;invoice:model2;...
@@ -240,7 +240,7 @@ class ActionsConcatPdf
 			//var_dump(getDolGlobalString('CONCATPDF_PRESELECTED_MODELS'));
 			if ($preselected == -1 && getDolGlobalString('CONCATPDF_PRESELECTED_MODELS')) {
 				// List of value key into setup -> value for modulepart
-				$altkey=array('proposal'=>'propal', 'order'=>'commande', 'invoice'=>'facture', 'supplier_order'=>'order_supplier', 'supplier_invoice'=>'invoice_supplier');
+				$altkey=array('proposal'=>'propal', 'order'=>'commande', 'invoice'=>'facture', 'supplier_order'=>'order_supplier', 'supplier_invoice'=>'invoice_supplier', 'contract'=>'contrat');
 
 				// getDolGlobalString('CONCATPDF_PRESELECTED_MODELS') may contains value of preselected model with format
 				// proposal:model1a,model1b;invoice:model2;...
