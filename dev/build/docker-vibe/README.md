@@ -83,6 +83,10 @@ The hooks environments are preloaded into the image when it is built (they are t
 They are stored into the directory `/var/cache/pre-commit`, declared with `PRE_COMMIT_HOME` in the Dockerfile, and are already present at the first run into the container.
 If the `.pre-commit-config.yaml` of the repository changes after the image was built (new revision of a hook), only the changed hooks are downloaded at the first run.
 
+The entrypoint reinstalls the hooks of the repositories mounted from the host (the working directory and the sibling directory dolibarr_dev or dolibarr) at each start of the container.
+The `.git` directory is shared with the host, and a hook generated on the host hardcodes the python of the host, that has no `pre_commit` package into the image (the commits would fail with `No module named pre_commit`).
+The hooks reinstalled by the entrypoint point to the python of the image; on the host, that path does not exist, so the hook falls back on the `pre-commit` binary found into the `PATH` of the host and committing from the host keeps working.
+
 ## Transifex CLI
 
 The Transifex client `tx` is installed into the image (see https://github.com/transifex/cli).
