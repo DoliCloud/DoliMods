@@ -32,6 +32,10 @@ if (! $res && file_exists("../../main.inc.php")) $res=@include "../../main.inc.p
 if (! $res && file_exists("../../../main.inc.php")) $res=@include "../../../main.inc.php";
 if (! $res) die("Include of main fails");
 /**
+ * @var Translate $langs
+ * @var Conf $conf
+ */
+/**
  * @var DoliDb $db
  * @var User $user
  */

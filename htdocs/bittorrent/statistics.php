@@ -1,5 +1,8 @@
 <?php
 include "./pre.inc.php";
+/**
+ * @var Translate $langs
+ */
 require_once "funcsv2.php";
 
 $tracker_url = $website_url . substr($_SERVER['REQUEST_URI'], 0, -15) . "announce.php";

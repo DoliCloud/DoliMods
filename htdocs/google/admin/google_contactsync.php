@@ -953,7 +953,7 @@ if (!getDolGlobalString('GOOGLE_CONTACT_LOGIN') ||  !getDolGlobalString('OAUTH_G
 	$redirect_uri	.=	'?state=dolibarrtokenrequest-googleadmincontactsync';		// To know we are coming from this page
 	$redirect_uri	.=	'&scope='.urlencode('https://www.googleapis.com/auth/contacts');
 	$redirect_uri	.=	'&shortscope='.urlencode($shortscope);
-	$redirect_uri	.=	'&backtourl='.urlencode(DOL_URL_ROOT.'/custom/google/admin/google_contactsync.php');
+	$redirect_uri	.=	'&backtourl='.urlencode(dol_buildpath('/google/admin/google_contactsync.php', 1));
 	$redirect_uri	.=	'&servicename='.urlencode($servicename);
 
 	$urltodelete = $redirect_uri.'&action=delete';

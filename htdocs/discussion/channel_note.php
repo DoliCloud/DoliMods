@@ -78,6 +78,10 @@ if (!$res && file_exists("../../../main.inc.php")) {
 if (!$res) {
 	die("Include of main fails");
 }
+/**
+ * @var Translate $langs
+ * @var Conf $conf
+ */
 
 dol_include_once('/discussion/class/channel.class.php');
 dol_include_once('/discussion/lib/discussion_channel.lib.php');

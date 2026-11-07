@@ -435,48 +435,48 @@ class GoogleMapAPI
 				if (empty($mode) || $mode == 'company' || $mode == 'thirdparty') {
 					switch ($elem->client) {
 						case 0:
-							$icon = DOL_URL_ROOT.'/custom/google/images/red-dot.png';
+							$icon = dol_buildpath('/google/images/red-dot.png', 1);
 							break;
 						case 1:
-							$icon = DOL_URL_ROOT.'/custom/google/images/blue-dot.png';	// customer
+							$icon = dol_buildpath('/google/images/blue-dot.png', 1);	// customer
 							break;
 						case 2:
 							if (! empty($conf->global->GOOGLE_CAN_USE_PROSPECT_ICONS)) {
 								switch ($elem->statusprospet) {
 									case -1:
-										$icon = DOL_URL_ROOT.'/custom/google/images/stcomm-1.png';
+										$icon = dol_buildpath('/google/images/stcomm-1.png', 1);
 										break;
 									case 0:
-										$icon = DOL_URL_ROOT.'/custom/google/images/stcomm0.png';
+										$icon = dol_buildpath('/google/images/stcomm0.png', 1);
 										break;
 									case 1:
-										$icon = DOL_URL_ROOT.'/custom/google/images/stcomm1.png';
+										$icon = dol_buildpath('/google/images/stcomm1.png', 1);
 										break;
 									case 2:
-										$icon = DOL_URL_ROOT.'/custom/google/images/stcomm2.png';
+										$icon = dol_buildpath('/google/images/stcomm2.png', 1);
 										break;
 									case 3:
-										$icon = DOL_URL_ROOT.'/custom/google/images/stcomm3.png';
+										$icon = dol_buildpath('/google/images/stcomm3.png', 1);
 										break;
 									case 4:
-										$icon = DOL_URL_ROOT.'/custom/google/images/stcomm4.png';
+										$icon = dol_buildpath('/google/images/stcomm4.png', 1);
 										break;
 									default:
-										$icon = DOL_URL_ROOT.'/custom/google/images/stcomm0.png';
+										$icon = dol_buildpath('/google/images/stcomm0.png', 1);
 										break;
 								}
 							} else {
-								$icon = DOL_URL_ROOT.'/custom/google/images/blue-dot.png';
+								$icon = dol_buildpath('/google/images/blue-dot.png', 1);
 							}
 							break;
 						case 3:
-							$icon = DOL_URL_ROOT.'/custom/google/images/green-dot.png';
+							$icon = dol_buildpath('/google/images/green-dot.png', 1);
 							break;
 						default:
-							$icon = DOL_URL_ROOT.'/custom/google/images/red-dot.png';
+							$icon = dol_buildpath('/google/images/red-dot.png', 1);
 							break;
 					}
-				} else $icon = DOL_URL_ROOT.'/custom/google/images/red-dot.png';
+				} else $icon = dol_buildpath('/google/images/red-dot.png', 1);
 				if ($sforhttps) $icon=preg_replace('/^http:/', 'https:', $icon);
 			}
 

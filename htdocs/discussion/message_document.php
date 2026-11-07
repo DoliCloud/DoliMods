@@ -77,6 +77,10 @@ if (!$res && file_exists("../../../main.inc.php")) {
 if (!$res) {
 	die("Include of main fails");
 }
+/**
+ * @var Translate $langs
+ * @var Conf $conf
+ */
 
 require_once DOL_DOCUMENT_ROOT.'/core/lib/company.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';

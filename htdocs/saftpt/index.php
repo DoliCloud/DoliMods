@@ -24,6 +24,10 @@
  */
 
 require '../main.inc.php';
+/**
+ * @var Translate $langs
+ * @var Conf $conf
+ */
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.formfile.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 

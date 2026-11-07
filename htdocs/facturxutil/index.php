@@ -13,6 +13,9 @@ if (! $res && file_exists("../../main.inc.php")) $res=@include "../../main.inc.p
 if (! $res && file_exists("../../../main.inc.php")) $res=@include "../../../main.inc.php";
 if (! $res && file_exists("../../../../main.inc.php")) $res=@include "../../../../main.inc.php";
 if (! $res) die("Include of main fails");
+/**
+ * @var Conf $conf
+ */
 
 require_once DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php";
 require_once DOL_DOCUMENT_ROOT."/core/lib/files.lib.php";

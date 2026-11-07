@@ -57,6 +57,9 @@ if (! $res && file_exists("../../../master.inc.php")) $res=@include "../../../ma
 if (! $res && preg_match('/\/nltechno([^\/]*)\//', $_SERVER["PHP_SELF"], $reg)) $res=@include $path."../../../dolibarr".$reg[1]."/htdocs/master.inc.php"; // Used on dev env only
 if (! $res && preg_match('/\/nltechno([^\/]*)\//', $_SERVER["PHP_SELF"], $reg)) $res=@include "../../../dolibarr".$reg[1]."/htdocs/master.inc.php"; // Used on dev env only
 if (! $res) die("Failed to include master.inc.php file\n");
+/**
+ * @var Conf $conf
+ */
 
 // After this $db, $mysoc, $langs and $conf->entity are defined. Opened handler to database will be closed at end of file.
 

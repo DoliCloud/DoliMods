@@ -7,8 +7,11 @@
 						$tmpfiles = dol_dir_list($tmpdir, 'files', 0, '\.od(s|t)$', '', 'name', SORT_ASC, 0);
 						print '<td class="center"><a href="'.DOL_URL_ROOT.'/product/stock/product.php?dwid='.$object->id.'&id='.$objp->rowid.'&action=transfert&token='.newToken().'&backtopage='.urlencode($_SERVER["PHP_SELF"].'?id='.$id).'">';
 					$dateemail = dol_stringtotime((string) $overview[0]->udate, 'gmt');
+					$errortext='Failed to find string "'.$object['checkkey'].'" into reponse string.\nResponse string is '.$result['content'];
 					$pice = '<i class="fas fa-briefcase inline-block"></i>';
 					$typea = ($data[$j]->typea == 'birth') ? $picb : $pice;
+					// Chargement de la classe
+					// Pour des raisons de securite, on ne permet pas cette fonction via l'IHM,
 					GETPOSTINT("mouvement"),
 					dol_syslog("msgid=".$overview[0]->message_id." date=".dol_print_date($overview[0]->udate, 'dayrfc', 'gmt')." from=".$overview[0]->from." to=".$overview[0]->to." subject=".$overview[0]->subject);
 					jQuery("#mouvement option").removeAttr("selected").change();
@@ -23,9 +26,12 @@
 				$this->periode = $this->db->jdate($obj->period);
 				$tmp = array('id_users' => $obj->id_users, 'nom' => $obj->name, 'reponses' => $obj->reponses);
 				$tmpfiles = dol_dir_list($tmpdir, 'files', 0, '\.od(s|t)$', '', 'name', SORT_ASC, 0, 1); // Disable hook for the moment
+				// Define message to recommand from command line
+				// Pour des raisons de securite, on ne permet pas cette fonction via l'IHM,
 				//si les reponses ne concerne pas la colonne effacée, on concatenate
 				GETPOST("mouvement", 'alpha'),
 				GETPOSTINT("mouvement"),
+				dol_syslog("Seach if invoice exists sql=".$sql);
 				if (jQuery("#mouvement").val() == \'0\') jQuery("#unitprice").removeAttr("disabled");
 				print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&action=transfert&token='.newToken().'">'.$langs->trans("TransferStock").'</a>';
 			$action = 'transfert';
@@ -44,7 +50,10 @@
 			$sql2 .= " SET reponses = '".$db->escape($newcar)."'";
 			$this->category->childs = array();
 			$tmpcrit = preg_replace('/^.*(:[!<>=\s]+:|:in:|:notin:|:like:|:notlike:)/', '\1', $tmpcrit);	// the condition after the name of the field
+			// Boucle sur chaque adresse et envoie le mail
+			// exists only if GD 2.0.1 is avaliable
 			// mise a jour des reponses utilisateurs dans la base
+			dol_syslog("Seach if invoice exists sql=".$sql);
 			if ($user->hasRight('stock', 'mouvement', 'lire')) {
 			if (empty($reyear) || empty($remonth) || empty($reday)) {
 			jQuery("#mouvement").change(function() {
@@ -62,6 +71,7 @@
 		$ensemblereponses = $obj->reponses;
 		$head[$h][1] = $langs->trans("Referers");
 		$head[$tab][1] = $langs->trans("Referers");
+		$msgishtml=-1;	// Inconnu par defaut
 		$out .= "<b>".$langs->trans("Referer").":</b> ".(isset($_SERVER["HTTP_REFERER"]) ? dol_htmlentities($_SERVER["HTTP_REFERER"], ENT_COMPAT) : '')."<br>\n";
 		$reday = GETPOSTINT('reday');
 		$sql .= "   (cs.periode IS NOT NULL AND cs.periode between '".$db->idate(dol_get_first_day($year))."' AND '".$db->idate(dol_get_last_day($year))."')";
@@ -76,10 +86,16 @@
 		$this->periode = $this->date_creation + 3600 * 24 * 30;
 		$title = $langs->trans('Product')." ".$shortlabel." - ".$langs->trans('Referers');
 		$title = $langs->trans('Service')." ".$shortlabel." - ".$langs->trans('Referers');
+		die("Cant connect to: ".$server.':'.$port);
+		echo " An error occured while trying to retrieve your tokens \n";
+		echo "An error occured :".dol_escape_htmltag($_GET['error'])."\n";
 		if (!empty($arrayfields['cs.periode']['checked'])) {
 		if ($newamount == 0 || empty($this->date_ech) || (empty($this->period) && empty($this->periode))) {
 		if ($user->hasRight('stock', 'mouvement', 'creer')) {
 		if (GETPOSTISSET("reday") && GETPOSTISSET("remonth") && GETPOSTISSET("reyear")) {
+		print '<td>Groupe de donnees</td>';
+		print 'Les emails sont definis dans T_ADRESSES (inscription via adresse)+T_PERSONNES (inscription via la box)+FORUM_USERS (incription par forum)<br>';
+		print 'Si ML_XXX=1,  s\'est inscrit (explicitement ou auto car avant loi optin)<br>';
 	 *  @param  float|string	$selectedrate       Force preselected vat rate. Can be '8.5' or '8.5 (NOO)' for example. Use '' for no forcing.
 	$datepaid = dol_mktime(12, 0, 0, GETPOSTINT("remonth"), GETPOSTINT("reday"), GETPOSTINT("reyear"));
 	$datepaye = dol_mktime(12, 0, 0, GETPOSTINT("remonth"), GETPOSTINT("reday"), GETPOSTINT("reyear"));
@@ -105,12 +121,16 @@
 	$title = $langs->trans('Batch')." ".$shortlabel." - ".$langs->trans('Referers');
 	$value = preg_replace('/([a-z\.]+)\s*([!<>=]+|in|notin|like|notlike)\s*/', '\1:\2:', $value); // Clean string 'x < 10' into 'x:<:10' so we can then explode on space to get all AND tests to do
 	'cs.periode'	=> array('label' => "PeriodEndDate", 'checked' => 1, 'position' => 50),
+	// Connexion base
 	// Ligne de la periode d'analyse du rapport
+	// Loop until end of all processes (array is empty for childs end)
 	// ceci afin d'etre compatible avec les cas ou la periode n'etait pas obligatoire
 	<strong>TaskItem(<em>pID, pName, pStart, pEnd, pColor, pLink, pMile, pRes, pComp, pGroup, pParent, pOpen, pDepend, pCaption, pNotes, pGantt</em>)</strong></p>
 	if ($action == "transfert") {
 	if (GETPOST('reday')) {
 	if (GETPOSTINT("reyear") && GETPOSTINT("remonth") && GETPOSTINT("reday")) {
+	if (count($x_coll) == 0) {   // Show a total ine if nothing shown
+	if (count($x_paye) == 0) {   // Show a total ine if nothing shown
 	print '<option value="1"'.(GETPOST('mouvement') ? ' selected="selected"' : '').'>'.$langs->trans("Delete").'</option>';
 	print '<select name="mouvement" id="mouvement" class="minwidth100 valignmiddle">';
 	print '<td class="left" width="25%">'.$langs->trans("Referers").'</td>';
@@ -130,6 +150,9 @@
           - creat,unitl,alltime,datas,referers
           - informations,medias,uptodate,reenable,crypted,developpers
           - ned
+ *   Liens Payes/Non payes
+ *   Nouvelle syntaxe a utiliser
+ * @return multitype:multitype:number unknown  Ambigous <multitype:multitype: , unknown>
  * Copyright (C) 2019		Cedric Ancelin			<icedo.anc@gmail.com>
 $permissiontoadd = $user->hasRight('stock', 'mouvement', 'creer');
 $permissiontodelete = $user->hasRight('stock', 'mouvement', 'creer'); // There is no deletion permission for stock movement as we should never delete
@@ -151,6 +174,14 @@ $usercanupdatestock = $user->hasRight('stock', 'mouvement', 'creer');
 * The private array ->status_short, ->statuts and ->status_long are now array ->labelStatusShort and ->labelStatus everywhere.
 - Fix: [ bug #485 ] Configurated amount for public auto-subscription form is not taken into account
 - New: Add proposals into referer page of thirdparty.
+.ui-layout-resizer-dragging {   /* resizer beging 'dragging' */
+/* Classe pour masquer */
+/* Copyright (C) 2005-2012 Laurent Destailleur  <eldy@uers.sourceforge.net>
+/* Lien plier /deplier tout */
+/* Nouvelle syntaxe a utiliser */
+/***** Styles par defaut *****/
+// Securite acces client
+// TODO This should be useless. Because entity must be retreive from object ref and not from url.
 NEW: ModuleBuilder: Checkin comments begin and end before each actions
 Vous pouvez voir la progression du ticket en cliquant sur le lien
 for /F "tokens=2 delims=," %%i in ('tasklist /FI "IMAGENAME eq php.exe" /FO CSV /NH') do (

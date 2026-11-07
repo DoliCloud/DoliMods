@@ -89,6 +89,9 @@ if (!$res) {
 	print "Include of master fails";
 	exit(-1);
 }
+/**
+ * @var Translate $langs
+ */
 // After this $db, $mysoc, $langs, $conf and $hookmanager are defined (Opened $db handler to database will be closed at end of file).
 // $user is created but empty.
 

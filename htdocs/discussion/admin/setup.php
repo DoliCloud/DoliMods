@@ -53,6 +53,9 @@ if (!$res && file_exists("../../../main.inc.php")) {
 if (!$res) {
 	die("Include of main fails");
 }
+/**
+ * @var Conf $conf
+ */
 
 global $langs, $user;
 

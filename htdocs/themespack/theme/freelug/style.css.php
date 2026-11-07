@@ -42,6 +42,10 @@ if (! $res && file_exists("../../../../main.inc.php")) $res=@include "../../../.
 if (! $res && file_exists("../../../../../main.inc.php")) $res=@include "../../../../../main.inc.php";
 if (! $res && preg_match('/\/nltechno([^\/]*)\//', $_SERVER["PHP_SELF"], $reg)) $res=@include "../../../../../dolibarr".$reg[1]."/htdocs/main.inc.php"; // Used on dev env only
 if (! $res) die("Include of main fails");
+/**
+ * @var Translate $langs
+ * @var Conf $conf
+ */
 
 // Load user to have $user->conf loaded (not done into main because of NOLOGIN constant defined)
 if (empty($user->id) && ! empty($_SESSION['dol_login'])) $user->fetch('', $_SESSION['dol_login']);

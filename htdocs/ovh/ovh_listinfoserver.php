@@ -38,6 +38,10 @@ if (! $res && file_exists("../main.inc.php")) $res=@include "../main.inc.php";
 if (! $res && file_exists("../../main.inc.php")) $res=@include "../../main.inc.php";
 if (! $res && file_exists("../../../main.inc.php")) $res=@include "../../../main.inc.php";
 if (! $res) die("Include of main fails");
+/**
+ * @var Translate $langs
+ * @var Conf $conf
+ */
 
 dol_include_once('/ovh/class/ovhserver.class.php');
 dol_include_once("/ovh/lib/ovh.lib.php");

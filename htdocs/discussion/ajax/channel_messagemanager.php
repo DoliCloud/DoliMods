@@ -14,7 +14,7 @@
  */
 
 /**
- *	\file       /htdocs/custom/discussion/ajax/channel_messagemanager.php
+ *	\file       discussion/ajax/channel_messagemanager.php
  *	\brief      File to make Ajax action on webhook
  */
 
@@ -75,6 +75,9 @@ if (!$res && file_exists("../../../main.inc.php")) {
 if (!$res) {
 	die("Include of main fails");
 }
+/**
+ * @var Conf $conf
+ */
 
 dol_include_once('/discussion/class/channel.class.php');
 dol_include_once('/discussion/class/message.class.php');

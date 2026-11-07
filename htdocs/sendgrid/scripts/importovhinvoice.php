@@ -49,6 +49,9 @@ if (! $res && file_exists("../../../master.inc.php")) $res=@include "../../../ma
 if (! $res && preg_match('/\/nltechno([^\/]*)\//', $_SERVER["PHP_SELF"], $reg)) $res=@include $path."../../../dolibarr".$reg[1]."/htdocs/master.inc.php"; // Used on dev env only
 if (! $res && preg_match('/\/nltechno([^\/]*)\//', $_SERVER["PHP_SELF"], $reg)) $res=@include "../../../dolibarr".$reg[1]."/htdocs/master.inc.php"; // Used on dev env only
 if (! $res) die("Failed to include master.inc.php file\n");
+/**
+ * @var Translate $langs
+ */
 require_once DOL_DOCUMENT_ROOT."/user/class/user.class.php";
 require_once DOL_DOCUMENT_ROOT.'/fourn/class/paiementfourn.class.php';
 require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.facture.class.php';

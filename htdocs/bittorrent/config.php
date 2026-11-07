@@ -1,4 +1,7 @@
 <?php
+/**
+ * @var Conf $conf
+ */
 
 $GLOBALS['scrape'] = false;
 $GLOBALS['report_interval'] = 1800;

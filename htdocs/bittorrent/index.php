@@ -1,6 +1,9 @@
 <?php
 
 include "./pre.inc.php";
+/**
+ * @var Translate $langs
+ */
 require_once "funcsv2.php";
 
 

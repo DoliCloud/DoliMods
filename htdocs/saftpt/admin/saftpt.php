@@ -24,6 +24,10 @@
  */
 
 require '../../main.inc.php';
+/**
+ * @var Translate $langs
+ * @var Conf $conf
+ */
 require_once DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php';
 dol_include_once('/saftpt/class/html.formsaftpt.class.php');
 

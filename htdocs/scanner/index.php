@@ -35,6 +35,10 @@ if (! $res && file_exists("../main.inc.php")) $res=@include "../main.inc.php";
 if (! $res && file_exists("../../main.inc.php")) $res=@include "../../main.inc.php";
 if (! $res && file_exists("../../../main.inc.php")) $res=@include "../../../main.inc.php";
 if (! $res) die("Include of main fails");
+/**
+ * @var Translate $langs
+ * @var Conf $conf
+ */
 
 include_once DOL_DOCUMENT_ROOT."/core/class/html.formfile.class.php";
 include_once DOL_DOCUMENT_ROOT."/core/lib/files.lib.php";
