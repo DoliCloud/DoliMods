@@ -52,7 +52,7 @@ class modGoogle extends DolibarrModules
 		// Name of image file used for this module.
 		// If file is in theme/yourtheme/img directory under name object_pictovalue.png, use this->picto='pictovalue'
 		// If file is in module/img directory under name object_pictovalue.png, use this->picto='pictovalue@module'
-		$this->picto='google@google';
+		$this->picto='google@custom/google';
 
 		// Defined if the directory /mymodule/inc/triggers/ contains triggers or not
 		$this->module_parts = array(
@@ -68,14 +68,14 @@ class modGoogle extends DolibarrModules
 		//$this->dirs[1] = DOL_DATA_ROOT.'/mymodule/temp;
 
 		// Config pages. Put here list of php page names stored in admmin directory used to setup module
-		$this->config_page_url = array('google_contactsync.php@google');
+		$this->config_page_url = array('google_contactsync.php@custom/google');
 
 		// Dependencies
 		$this->depends = array();		// List of modules id that must be enabled if this module is enabled
 		$this->requiredby = array();	// List of modules id to disable if this one is disabled
 		$this->phpmin = array(7,2);					// Minimum version of PHP required by module
 		$this->need_dolibarr_version = array(18, 0, -4);	// Minimum version of Dolibarr required by module
-		$this->langfiles = array("google@google");
+		$this->langfiles = array("google@custom/google");
 
 		// Constants
 		$this->const = array(0 => array('GOOGLE_DEBUG', 'chaine', '0', 'This is to enable Google debug', 1, 'allentities', 1));
@@ -88,9 +88,9 @@ class modGoogle extends DolibarrModules
 							'contact:+gmaps:GMaps:google@google:$conf->google->enabled&&$conf->global->GOOGLE_ENABLE_GMAPS_CONTACTS:/google/gmaps.php?mode=contact&id=__ID__',
 							'member:+gmaps:GMaps:google@google:$conf->google->enabled&&$conf->global->GOOGLE_ENABLE_GMAPS_MEMBERS:/google/gmaps.php?mode=member&id=__ID__',
 						);*/
-		//$this->tabs = array('agenda:+gcal:MenuAgendaGoogle:google@google:$conf->google->enabled && $conf->global->GOOGLE_ENABLE_AGENDA:/google/index.php');
-		$this->tabs = array('agenda:+gcal:MenuAgendaGoogle:google@google:isModEnabled("google") && getDolGlobalString("GOOGLE_ENABLE_AGENDA"):/google/index.php'
-							,'user:+gsetup:GoogleUserConf:google@google:isModEnabled("google") && getDolGlobalString("GOOGLE_DUPLICATE_INTO_GCAL"):/google/admin/google_calsync_user.php?id=__ID__'
+		//$this->tabs = array('agenda:+gcal:MenuAgendaGoogle:google@custom/google:$conf->google->enabled && $conf->global->GOOGLE_ENABLE_AGENDA:/custom/google/index.php');
+		$this->tabs = array('agenda:+gcal:MenuAgendaGoogle:google@custom/google:isModEnabled("google") && getDolGlobalString("GOOGLE_ENABLE_AGENDA"):/custom/google/index.php'
+					,'user:+gsetup:GoogleUserConf:google@custom/google:isModEnabled("google") && getDolGlobalString("GOOGLE_DUPLICATE_INTO_GCAL"):/custom/google/admin/google_calsync_user.php?id=__ID__'
 							);
 
 		// Boxes
@@ -163,10 +163,10 @@ class modGoogle extends DolibarrModules
 		$sql = array();
 
 		// Declare box
-		$this->boxes[0]['file'] = "box_googlemaps@google";
+		$this->boxes[0]['file'] = "box_googlemaps@custom/google";
 		$this->boxes[0]['enabledbydefaulton'] = 1;
 
-		$result = $this->_load_tables('/google/sql/');
+		$result = $this->_load_tables('/custom/google/sql/');
 
 		return $this->_init($sql, $options);
 	}
@@ -183,7 +183,7 @@ class modGoogle extends DolibarrModules
 	{
 		$sql = array();
 
-		$this->boxes[0]['file'] = "box_googlemaps.php@google";
+		$this->boxes[0]['file'] = "box_googlemaps.php@custom/google";
 
 		return $this->_remove($sql, $options);
 	}
