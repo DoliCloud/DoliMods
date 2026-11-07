@@ -38,7 +38,7 @@ concurrency:
 env:
   # Directory with one subdirectory per module (empty = the repository is a single module)
   MODULES_DIR: "htdocs"
-  FAILED_LABEL: ai-ci-fix-failed
+  FAILED_LABEL: ai-pr-failed
   # Dolibarr core the fix is checked against with PHPStan (oldest version supported by the modules)
   DOLIBARR_CORE: "18.0.0"
   # Checks that can't be fixed by a change of code
