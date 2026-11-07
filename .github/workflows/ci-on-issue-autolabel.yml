@@ -4,7 +4,7 @@ name: "Add label Bug or Feature request on new issues"
 
 on:
   issues:
-    types: [opened, typed]
+    types: [opened]
 
 permissions: {} # none
 
