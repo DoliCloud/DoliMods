@@ -37,6 +37,8 @@ if (! $res && file_exists("../../../main.inc.php")) $res=@include "../../../main
 if (! $res) die("Include of main fails");
 /**
  * @var DoliDB $db
+ * @var Translate $langs
+ * @var Conf $conf
  */
 require_once DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php";
 require_once DOL_DOCUMENT_ROOT."/core/lib/files.lib.php";
@@ -173,7 +175,7 @@ if ($action == 'save') {
 	// Allowed keys are those matching an enabled module, values are whitelisted against the real directory content.
 	foreach ($modules as $module => $moduletrans) {
 		$selectedfiles = GETPOST('defaultfiles_'.$module, 'array');
-		if (empty($selectedfiles) || empty($modulekey[$module])) {
+		if (empty($selectedfiles)) {
 			continue;
 		}
 
