@@ -44,7 +44,7 @@ include_once './includes/setasign/fpdf/fpdf.php';
 			$resultHeaderClass = 'warning';
 			$resultHeaderHtml = '';
 			$resultBodyHtml = '';
-if ($_FILES['pdf_facturx_extract']) {
+if (!empty($_FILES['pdf_facturx_extract'])) {
 	$resultHeaderHtml = 'Extract Factur-X XML from PDF result';
 	$facturx = new \Atgp\FacturX\Facturx();
 	$resultBodyHtml .= "<h4 class='text-primary'>File ".$_FILES['pdf_facturx_extract']['name'].' : </h4>';
@@ -65,7 +65,7 @@ if ($_FILES['pdf_facturx_extract']) {
 		$resultBodyHtml .= '<textarea lang="xml" class="centpercent" style="height: 300px">'.htmlentities($doc->saveXML()).'</textarea>';
 	}
 }
-if ($_FILES['xml_facturx_check']) {
+if (!empty($_FILES['xml_facturx_check'])) {
 	$facturx = new \Atgp\FacturX\Facturx();
 	$resultHeaderHtml = 'Check XML Factur-X result';
 	$resultBodyHtml = "<h4 class='text-primary'>File ".$_FILES['xml_facturx_check']['name'].' : </h4>';
@@ -81,11 +81,11 @@ if ($_FILES['xml_facturx_check']) {
 		$resultBodyHtml .= '<div class="alert alert-warning">XML Factur-X invalid.</div>';
 	}
 }
-if ($_FILES['pdf_classic'] && $_FILES['xml_facturx_tolink']) {
+if (!empty($_FILES['pdf_classic']) && !empty($_FILES['xml_facturx_tolink'])) {
 	$facturx = new \Atgp\FacturX\Facturx();
 	$resultHeaderHtml = 'Generate PDF Factur-X from PDF and Factur-X XML result';
 	try {
-		if ($_POST['file_as_string'] == 'true') {
+		if (GETPOST('file_as_string') == 'true') {
 			$pdf = file_get_contents($_FILES['pdf_classic']['tmp_name']);
 			$facturx_xml = file_get_contents($_FILES['xml_facturx_tolink']['tmp_name']);
 		} else {
@@ -96,7 +96,7 @@ if ($_FILES['pdf_classic'] && $_FILES['xml_facturx_tolink']) {
 		if (!empty($_FILES['attachment']['tmp_name'])) {
 			$attachment_files[] = array(
 				'name' => $_FILES['attachment']['name'],
-				'desc' => $_POST['attachment_desc'],
+				'desc' => GETPOST('attachment_desc', 'alphanohtml'),
 				'path' => $_FILES['attachment']['tmp_name'],
 			);
 		}
