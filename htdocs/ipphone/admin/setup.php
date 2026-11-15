@@ -48,6 +48,7 @@ if (! $res) die("Include of main fails");
  */
 
 include_once DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php';
+require_once DOL_DOCUMENT_ROOT.'/core/class/html.form.class.php';
 
 $langs->load("admin");
 $langs->load("ipphone@ipphone");
@@ -58,6 +59,17 @@ if (!$user->admin) {
 
 $action = GETPOST('action', 'aZ09');
 
+$form = new Form($db);
+
+$contactNameFormats = array(
+	'thirdparty_first_last' => $langs->trans('ContactNameFormatThirdpartyFirstLast'),
+	'thirdparty_last_first' => $langs->trans('ContactNameFormatThirdpartyLastFirst'),
+	'first_last'            => $langs->trans('ContactNameFormatFirstLast'),
+	'last_first'            => $langs->trans('ContactNameFormatLastFirst'),
+	'first_last_thirdparty' => $langs->trans('ContactNameFormatFirstLastThirdparty'),
+	'last_first_thirdparty' => $langs->trans('ContactNameFormatLastFirstThirdparty'),
+);
+
 
 /*
  * Actions
@@ -65,14 +77,20 @@ $action = GETPOST('action', 'aZ09');
 
 // Save parameters (POST only, so main.inc.php checks the CSRF token)
 if ($action == 'update' && $_SERVER['REQUEST_METHOD'] == 'POST') {
-	$i=0;
+	$i = 0;
+
+	$contactNameFormat = GETPOST('IPPHONE_CONTACT_NAME_FORMAT', 'aZ09');
+	if (!array_key_exists($contactNameFormat, $contactNameFormats)) {
+		$contactNameFormat = 'thirdparty_first_last';
+	}
 
 	$db->begin();
 
-	$i+=dolibarr_set_const($db, 'IPPHONE_XMLTAG', trim(GETPOST('IPPHONE_XMLTAG', 'alpha')), 'chaine', 0, '', $conf->entity);
-	$i+=dolibarr_set_const($db, 'IPPHONE_EXPORTKEY', trim(GETPOST('IPPHONE_EXPORTKEY', 'alpha')), 'chaine', 0, '', $conf->entity);
+	$i += dolibarr_set_const($db, 'IPPHONE_XMLTAG', trim(GETPOST('IPPHONE_XMLTAG', 'alpha')), 'chaine', 0, '', $conf->entity);
+	$i += dolibarr_set_const($db, 'IPPHONE_EXPORTKEY', trim(GETPOST('IPPHONE_EXPORTKEY', 'alpha')), 'chaine', 0, '', $conf->entity);
+	$i += dolibarr_set_const($db, 'IPPHONE_CONTACT_NAME_FORMAT', $contactNameFormat, 'chaine', 0, '', $conf->entity);
 
-	if ($i >= 2) {
+	if ($i >= 3) {
 		$db->commit();
 		setEventMessage($langs->trans("SetupSaved"));
 	} else {
@@ -139,6 +157,18 @@ print '<td class="fieldrequired">'.$langs->trans("PasswordToallowRead")."</td>";
 print '<td><input required="required" type="text" class="flat minwidth300" id="IPPHONE_EXPORTKEY" name="IPPHONE_EXPORTKEY" value="' . (GETPOSTISSET('IPPHONE_EXPORTKEY')?GETPOST('IPPHONE_EXPORTKEY', 'alpha') : getDolGlobalString('IPPHONE_EXPORTKEY')) . '">';
 if (! empty($conf->use_javascript_ajax))
 	print '&nbsp;'.img_picto($langs->trans('Generate'), 'refresh', 'id="generate_token" class="linkobject"');
+print '</td>';
+print "<td>&nbsp;</td>";
+print "</tr>";
+
+$currentContactFormat = GETPOSTISSET('IPPHONE_CONTACT_NAME_FORMAT') ? GETPOST('IPPHONE_CONTACT_NAME_FORMAT', 'aZ09') : getDolGlobalString('IPPHONE_CONTACT_NAME_FORMAT', 'thirdparty_first_last');
+if (!array_key_exists($currentContactFormat, $contactNameFormats)) {
+	$currentContactFormat = 'thirdparty_first_last';
+}
+print '<tr class="oddeven">';
+print '<td>'.$langs->trans("ContactNameFormat")."</td>";
+print '<td>';
+print $form->selectarray('IPPHONE_CONTACT_NAME_FORMAT', $contactNameFormats, $currentContactFormat, 0, 0, 0, '', 0, 0, 0, '', 'minwidth300');
 print '</td>';
 print "<td>&nbsp;</td>";
 print "</tr>";
