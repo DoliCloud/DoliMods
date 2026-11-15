@@ -69,7 +69,10 @@ if (! $res && file_exists("../../main.inc.php")) $res=@include "../../main.inc.p
 if (! $res && file_exists("../../../main.inc.php")) $res=@include "../../../main.inc.php";
 if (! $res) die("Include of main fails");
 /**
+ * @var Conf $conf
+ * @var DoliDB $db
  * @var Translate $langs
+ * @var User $user
  */
 
 $search = GETPOST("search", 'alphanohtml');      	// search criteria
@@ -78,6 +81,7 @@ $type = GETPOST("type", 'aZ09');					// type 'contacts', 'thirdparties', 'contac
 $format = GETPOST('format', 'alpha')?GETPOST('format', 'alpha'):'xml';
 
 $phonetag = getDolGlobalString('IPPHONE_XMLTAG', 'CiscoIPPhoneDirectory');	// May be also 'ThompsonDirectory, YeaLinkDirectory, ...'
+$includeMembers = isModEnabled('member') ? getDolGlobalInt('IPPHONE_INCLUDE_MEMBERS', 0) : 0;
 
 if (!isModEnabled("ipphone")) {
 	accessforbidden('', 1, 1, 1);
@@ -197,6 +201,62 @@ if ($resql) {
 		}
 
 		$i++;
+	}
+
+	if ($includeMembers) {
+		$sqlMembers = "SELECT a.rowid, a.lastname, a.firstname, a.societe, s.nom as socname,";
+		$sqlMembers .= " a.phone, a.phone_perso, a.phone_mobile";
+		$sqlMembers .= " FROM ".MAIN_DB_PREFIX."adherent as a";
+		$sqlMembers .= " LEFT JOIN ".MAIN_DB_PREFIX."societe as s ON s.rowid = a.fk_soc";
+		$sqlMembers .= " WHERE a.entity IN (".getEntity('adherent').")";
+		$sqlMembers .= " AND a.statut = 1";
+		if ($search) {
+			$sqlMembers .= " AND (a.lastname LIKE '".$db->escape($search)."%'";
+			$sqlMembers .= " OR a.firstname LIKE '".$db->escape($search)."%'";
+			$sqlMembers .= " OR a.societe LIKE '".$db->escape($search)."%'";
+			$sqlMembers .= " OR s.nom LIKE '".$db->escape($search)."%')";
+		}
+
+		dol_syslog("ipphone members sql=".$sqlMembers);
+		$resqlMembers = $db->query($sqlMembers);
+		if ($resqlMembers) {
+			$numMembers = $db->num_rows($resqlMembers);
+			$j = 0;
+			while ($j < $numMembers) {
+				$objMember = $db->fetch_object($resqlMembers);
+				$memberCompany = !empty($objMember->socname) ? (string) $objMember->socname : trim((string) $objMember->societe);
+				$memberName = dolGetFirstLastname((string) $objMember->firstname, (string) $objMember->lastname);
+				if ($memberCompany !== '' && $memberName !== '') {
+					$memberLabel = $memberCompany." - ".$memberName;
+				} else {
+					$memberLabel = ($memberName !== '' ? $memberName : $memberCompany);
+				}
+
+				$memberPhones = array();
+				foreach (array($objMember->phone, $objMember->phone_perso, $objMember->phone_mobile) as $rawPhone) {
+					$cleanPhone = str_replace(' ', '', trim((string) $rawPhone));
+					if ($cleanPhone !== '' && !in_array($cleanPhone, $memberPhones, true)) {
+						$memberPhones[] = $cleanPhone;
+					}
+				}
+
+				foreach ($memberPhones as $memberPhone) {
+					if ($format == 'xml') {
+						print "<DirectoryEntry>\n";
+						print "\t<Name>".dolXMLEncodeipphone($memberLabel)."</Name>\n";
+						print "\t<Telephone>".dolXMLEncodeipphone($memberPhone)."</Telephone>\n";
+						print "</DirectoryEntry>\n";
+					}
+					if ($format == 'csv') {
+						print '"'.$memberLabel.'","'.$memberPhone.'"'."\n";
+					}
+				}
+				$j++;
+			}
+			$db->free($resqlMembers);
+		} else {
+			dol_print_error($db);
+		}
 	}
 
 	/*
