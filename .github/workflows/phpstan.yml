@@ -46,6 +46,9 @@ jobs:
   # The oldest core stays in the pull request list even when it is also in the push list: an error a
   # core reports alone is found by whoever can still fix it, rather than on a master nobody is looking
   # at. It is the cheap half of the matrix - PHPStan indexes the core, it does not analyse it.
+  #
+  # The supported range is Dolibarr 18 to 25. Dolibarr 25 is not released yet: its branch develop is used
+  # until a 25.0.0 tag exists (it moves, so a new report on it may come from the core, not from the PR).
   cores:
     name: Cores to analyse against
     runs-on: ubuntu-latest
@@ -54,8 +57,8 @@ jobs:
     steps:
       - id: pick
         run: |
-          all='["18.0.0","24.0.0"]'
-          review='["18.0.0","24.0.0"]'
+          all='["18.0.0","24.0.0","develop"]'
+          review='["18.0.0","develop"]'
           if [ "${{ github.event_name }}" = "pull_request" ]; then
             echo "matrix=$review" >> "$GITHUB_OUTPUT"
           else

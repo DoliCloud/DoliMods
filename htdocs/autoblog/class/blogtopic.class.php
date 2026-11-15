@@ -602,6 +602,7 @@ class BlogTopic extends CommonObject
 
 		$ai = new Ai($this->db);
 		$result['service'] = $ai->getApiService();
+		// @phpstan-ignore function.alreadyNarrowedType, function.alreadyNarrowedType (added to Dolibarr 25 alpha on 2026-11-12 only)
 		if (method_exists($ai, 'buildPayload') && method_exists($ai, 'getModel')) {
 			$result['model'] = $ai->getModel('auto', self::AI_FUNCTION);
 			$builtpayload = $ai->buildPayload($prompt, $result['model'], self::AI_FUNCTION, 'html');
