@@ -68,6 +68,11 @@ class modBitTorrent extends DolibarrModules
 		// Png file must be in theme/yourtheme/img directory under name object_pictovalue.png.
 		$this->picto='bittorrent@bittorrent';
 
+		// Module parts
+		$this->module_parts = array(
+								'icon' => 'bittorrent_menu',						// Image (img/bittorrent_menu.png) or fa-xxx used for the top menu entry
+		);
+
 		// Data directories to create when module is enabled.
 		$this->dirs = array("/bittorrent/torrents","/bittorrent/rss","/bittorrent/files");
 
@@ -139,6 +144,7 @@ class modBitTorrent extends DolibarrModules
 		$this->menu[$r]=array(	'fk_menu'=>'r=0',		// Use r=value where r is index key used for the parent menu entry (higher parent must be a top menu entry)
 									'type'=>'left',			// This is a Left menu entry
 									'titre'=>'Admin',
+								'prefix' => img_picto('', $this->picto, 'class="paddingright pictofixedwidth valignmiddle"'),
 									'mainmenu'=>'bittorrent',
 									'url'=>'/bittorrent/admin.php',
 									'langs'=>'bittorrent',	// Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.

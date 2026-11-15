@@ -67,6 +67,11 @@ class modScanner extends DolibarrModules
 		// If file is in module/img directory under name object_pictovalue.png, use this->picto='pictovalue@module'
 		$this->picto='scanner@scanner';
 
+		// Module parts
+		$this->module_parts = array(
+								'icon' => 'scanner_menu',						// Image (img/scanner_menu.png) or fa-xxx used for the top menu entry
+		);
+
 		// Data directories to create when module is enabled.
 		// Example: this->dirs = array("/scanner/temp");
 		$this->dirs = array("/scanner/temp");

@@ -531,7 +531,7 @@ $etime = dol_now();
 // Format HTML
 $html =	'';
 
-print_fiche_titre(' &nbsp; '.$langs->trans("AWStatsSummary"), '', dol_buildpath('/awstats/images/awstats.png', 1), 1);
+print_fiche_titre(' &nbsp; '.$langs->trans("AWStatsSummary"), '', dol_buildpath('/awstats/img/awstats.png', 1), 1);
 
 print '<form action="'.$_SERVER["PHP_SELF"].'" method="POST">';
 print '<input type="hidden" name="token" value="'.newToken().'">';

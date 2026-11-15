@@ -273,8 +273,8 @@ repos:
     hooks:
       - id: sqlfluff-lint
         stages: [pre-commit, manual]  # manual needed for ci
-        # Dialect is forced on the command line, so no .sqlfluff config file is needed
-        args: [--dialect, mysql]
+        # Dialect and rules are defined into the config file (same file than into the Dolibarr core project)
+        args: [--config=dev/setup/sqlfluff/config]
         exclude: (?x)^
           (dev/initdemo/mysqldump_.*\.sql
           |htdocs/core/menus/init_menu_auguria\.sql

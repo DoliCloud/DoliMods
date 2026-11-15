@@ -53,7 +53,9 @@ class modAWStats extends DolibarrModules
 		// Name of image file used for this module.
 		// If file is in theme/yourtheme/img directory under name object_pictovalue.png, use this->picto='pictovalue'
 		// If file is in module/img directory under name object_pictovalue.png, use this->picto='pictovalue@module'
-		$this->picto='awstats@awstats';
+		// Used for the module card on setup page and left menu (img/awstats.png).
+		// The logo used for the top menu entry comes from module_parts 'icon' (awstats_menu.png).
+		$this->picto = 'awstats@awstats';
 
 		// Defined all module parts (triggers, login, substitutions, menus, css, etc...)
 		// for default path (eg: /mymodule/core/xxxxx) (0=disable, 1=enable)
@@ -67,6 +69,7 @@ class modAWStats extends DolibarrModules
 		//							'barcode' => 0,                                  // Set this to 1 if module has its own barcode directory
 		//							'models' => 0,                                   // Set this to 1 if module has its own models directory
 									'css' => '/awstats/css/awstats.css.php',       // Set this to relative path of css if module has its own css file
+									'icon' => 'awstats_menu',						// Image (img/awstats_menu.png) or fa-xxx used for the top menu entry
 		//							'hooks' => array('hookcontext1','hookcontext2')  // Set here all hooks context managed by module
 		);
 

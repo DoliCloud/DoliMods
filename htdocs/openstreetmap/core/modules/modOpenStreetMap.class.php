@@ -57,6 +57,8 @@ class modOpenStreetMap extends DolibarrModules
 		// Defined if the directory /mymodule/inc/triggers/ contains triggers or not
 		$this->module_parts = array(
 			'triggers' => 0,
+			// Hook context 'main' is used to allow the map tiles into the Content Security Policy (see class/actions_openstreetmap.class.php)
+			'hooks' => array('main'),
 			// Address autofill on third party, contact and member forms (OPENSTREETMAP_PDOK_AUTOFILL and OPENSTREETMAP_EU_AUTOFILL)
 			'js' => array('/openstreetmap/js/pdokautofill.js'),
 		);

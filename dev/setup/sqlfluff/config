@@ -1,0 +1,15 @@
+# sqlfluff configuration (used by pre-commit hook sqlfluff-lint)
+# Usage: sqlfluff lint --config dev/setup/sqlfluff/config <files>
+#
+# max_line_length: SQL statements (ALTER/INSERT) can not always be split without changing SQL,
+# so we allow lines longer than the sqlfluff default of 80 chars
+[sqlfluff]
+dialect = mysql
+max_line_length = 500
+# Same rules excluded as into the pyproject.toml of the Dolibarr core project, to accept the Dolibarr SQL style
+# (tab indentation, 'llx_table(' and 'ENGINE=innodb', and RF04 for usual column names like rowid, entity, ref, label, status)
+exclude_rules = LT01,LT02,LT05,LT12,LT13,LT14,LT15,CP01,CP02,CP04,CP05,RF04
+large_file_skip_byte_limit = 100000
+
+[sqlfluff:indentation]
+indent_unit = tab
