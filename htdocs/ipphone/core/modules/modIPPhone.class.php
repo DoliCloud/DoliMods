@@ -148,7 +148,7 @@ class modIPPhone extends DolibarrModules
 	{
 		$sql = array();
 
-		$result=$this->_load_tables();
+		$result = $this->_load_tables('/ipphone/sql/');
 
 		return $this->_init($sql, $options);
 	}
