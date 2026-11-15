@@ -24,6 +24,12 @@ here, and PHPStan needs none of it to know the symbols.
 supports seven cores guards its calls with version tests; pinning the constant to the version of
 the checkout under analysis would let PHPStan call every one of those guards dead code.
 
+A module whose `need_dolibarr_version` is newer than the core under analysis is not analysed against
+it: `phpstan.sh` reads the version of the core, lists these modules ("Not analysed: ..." on stderr)
+and excludes them through a configuration it generates in `.run-phpstan/`, which includes
+`phpstan.neon.dist`. The symbols they use do not exist yet in that core, so every report would be
+noise. Passing your own `-c` disables this.
+
 ## Running it
 
 ```bash

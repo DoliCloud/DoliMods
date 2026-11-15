@@ -26,6 +26,7 @@ declare(strict_types=1);
 // Load Dolibarr environment
 $res = 0;
 // Try main.inc.php into web root known defined into CONTEXT_DOCUMENT_ROOT (not always defined)
+// @phpstan-ignore booleanNot.alwaysTrue (standard header of module pages, $res is still 0 here)
 if (!$res && !empty($_SERVER["CONTEXT_DOCUMENT_ROOT"])) {
 	$res = @include str_replace("..", "", $_SERVER["CONTEXT_DOCUMENT_ROOT"])."/main.inc.php";
 }
@@ -323,7 +324,7 @@ $num = $db->num_rows($resql);
 $arrayofselected = is_array($toselect) ? $toselect : array();
 
 $param = '';
-if (!empty($contextpage) && $contextpage != 'blogtopiclist') {
+if ($contextpage != 'blogtopiclist') {
 	$param .= '&contextpage='.urlencode($contextpage);
 }
 if ($limit > 0 && $limit != $conf->liste_limit) {
@@ -394,7 +395,7 @@ if ($search_all) {
 	print '<div class="divsearchfieldfilter">'.$langs->trans("FilterOnInto", $search_all).implode(', ', $fieldstosearchall).'</div>'."\n";
 }
 
-$varpage = empty($contextpage) ? $_SERVER["PHP_SELF"] : $contextpage;
+$varpage = $contextpage;
 $htmlofselectarray = $form->multiSelectArrayWithCheckbox('selectedfields', $arrayfields, $varpage, $conf->main_checkbox_left_column, 1);  // This also change content of $arrayfields with user setup
 $selectedfields = $htmlofselectarray;
 $selectedfields .= (count($arrayofmassactions) ? $form->showCheckAddButtons('checkforselect', 1) : '');
