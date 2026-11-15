@@ -68,6 +68,38 @@ function openstreetmap_get_tile_url()
 }
 
 /**
+ *  Return the source of the tile server to allow into a Content Security Policy.
+ *  A placeholder in the host name (like {s} for the subdomains a, b, c) becomes a wildcard on the leftmost labels.
+ *
+ *  @param	?string	$tileurl	URL template of the tile server (null = the one of the setup)
+ *  @return	string				Source (example: 'https://*.tile.example.com'), '' if the URL is not valid
+ */
+function openstreetmap_get_tile_csp_source($tileurl = null)
+{
+	$tileurl = ($tileurl === null) ? openstreetmap_get_tile_url() : (string) $tileurl;
+	if (!preg_match('/^(https?):\/\/([^\/?#]+)/i', $tileurl, $reg)) {
+		return '';
+	}
+	$scheme = strtolower($reg[1]);
+	$host = strtolower(preg_replace('/^[^@]*@/', '', $reg[2]));	// Remove user:password@
+
+	// CSP accepts a wildcard only as the leftmost label: all labels up to the last one with a placeholder are replaced
+	$labels = explode('.', $host);
+	for ($i = count($labels) - 1; $i >= 0; $i--) {
+		if (strpos($labels[$i], '{') !== false) {
+			$labels = array_merge(array('*'), array_slice($labels, $i + 1));
+			break;
+		}
+	}
+	$host = implode('.', $labels);
+	if (!preg_match('/^(\*\.)?[a-z0-9.-]+(:[0-9]+)?$/', $host) || $host === '*.') {
+		return '';
+	}
+
+	return $scheme.'://'.$host;
+}
+
+/**
  *  Return attribution to show on maps (required by the OpenStreetMap license)
  *
  *  @return		string		HTML attribution
