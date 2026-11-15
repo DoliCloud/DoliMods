@@ -204,7 +204,7 @@ if (! $error) {
 	// Action
 	print '<div class="tabsAction">';
 	if (is_array($arraycache)) {
-		print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?action=clear">'.$langs->trans("FlushCache").'</a>';
+		print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?action=clear&token='.newToken().'">'.$langs->trans("FlushCache").'</a>';
 	} else {
 		print '<a class="butActionRefused" href="#">'.$langs->trans("FlushCache").'</a>';
 	}
