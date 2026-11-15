@@ -55,7 +55,8 @@ class modOpenStreetMap extends DolibarrModules
 		$this->picto='openstreetmap@openstreetmap';
 
 		// Defined if the directory /mymodule/inc/triggers/ contains triggers or not
-		$this->module_parts = array('triggers' => 0);
+		// Hook context 'main' is used to allow the map tiles into the Content Security Policy (see class/actions_openstreetmap.class.php)
+		$this->module_parts = array('triggers' => 0, 'hooks' => array('main'));
 
 		// Data directories to create when module is enabled
 		$this->dirs = array();
