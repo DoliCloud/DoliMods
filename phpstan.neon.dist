@@ -151,6 +151,15 @@ parameters:
 		-
 			message: '#^(Call to method \w+\(\)|Access to property \$\w+) on an unknown class (ActionsMulticompany|DaoMulticompany)\.$#'
 
+		# Module descriptors. The PHPDoc shapes of $menu and $module_parts in the core do not match what the core
+		# reads: $menu requires fk_parent and positionfull and refuses prefix (the modulebuilder template of the core
+		# itself sets prefix and none of the two others), $module_parts lacks icon and types css as an array while
+		# its own example gives a string. The message holds the whole array, so a baseline entry breaks on each edit.
+		-
+			identifier: assign.propertyType
+			message: '#^Property DolibarrModules\:\:\$(menu|module_parts) \(.*\) does not accept .*\.$#'
+			path: htdocs/*/core/modules/mod*.class.php
+
 		# Core files that only exist from a given Dolibarr version (see bootstrap.php for their classes).
 		# The message holds the path of the core checkout, so a baseline can not carry it.
 		-

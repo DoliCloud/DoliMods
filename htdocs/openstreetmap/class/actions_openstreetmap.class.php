@@ -64,7 +64,8 @@ class ActionsOpenstreetmap
 	}
 
 	/**
-	 * Allow the tiles of OpenStreetMap into the Content Security Policy of the pages of the module
+	 * Allow the tiles of the tile server of the setup (OPENSTREETMAP_TILE_URL) into the Content Security Policy
+	 * of the pages of the module
 	 *
 	 * @param	array<string,mixed>	$parameters		Hook parameters ('contentsecuritypolicy', 'mode')
 	 * @param	?CommonObject		$object			Not used
@@ -80,7 +81,12 @@ class ActionsOpenstreetmap
 			return 0;
 		}
 
-		$newcsp = openstreetmap_csp_add_img_source($csp, '*.openstreetmap.org');
+		$source = openstreetmap_get_tile_csp_source();
+		if ($source === '') {
+			dol_syslog("openstreetmap: tile URL not usable for the Content Security Policy: ".openstreetmap_get_tile_url(), LOG_WARNING);
+			return 0;
+		}
+		$newcsp = openstreetmap_csp_add_img_source($csp, $source);
 		if ($newcsp === $csp) {
 			return 0;
 		}
