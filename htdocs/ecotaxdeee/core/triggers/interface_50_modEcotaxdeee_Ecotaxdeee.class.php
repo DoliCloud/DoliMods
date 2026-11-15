@@ -406,7 +406,7 @@ class InterfaceEcotaxdeee extends DolibarrTriggers
 					$localtaxarray = getLocalTaxesFromRate($tmpecotaxline[$ecocateg]->tva_tx, 0, $buyer, $seller);
 					$tmparray = calcul_price_total($tmpecotaxline[$ecocateg]->qty, $tmpecotaxline[$ecocateg]->subprice, $tmpecotaxline[$ecocateg]->remise_percent, $tmpecotaxline[$ecocateg]->tva_tx, 0, 0, 0, 'HT', $tmpecotaxline[$ecocateg]->info_bits, isset($tmpecotaxline[$ecocateg]->type) ? $tmpecotaxline[$ecocateg]->type : $tmpecotaxline[$ecocateg]->product_type, $seller, $localtaxarray);
 
-					$tmpecotaxline[$ecocateg]->subprice_ttc = $tmparray[5];
+					$tmpecotaxline[$ecocateg]->subprice_ttc = (float) $tmparray[5];
 
 					$tmpecotaxline[$ecocateg]->total_ht = $tmparray[0];
 					$tmpecotaxline[$ecocateg]->total_tva = $tmparray[1];
@@ -416,7 +416,7 @@ class InterfaceEcotaxdeee extends DolibarrTriggers
 
 					// For multicurrency fields
 					$tmpecotaxline[$ecocateg]->multicurrency_subprice = $tmparray[19];
-					$tmpecotaxline[$ecocateg]->multicurrency_subprice_ttc = $tmparray[21];
+					$tmpecotaxline[$ecocateg]->multicurrency_subprice_ttc = (float) $tmparray[21];
 					$tmpecotaxline[$ecocateg]->multicurrency_total_ht = $tmparray[16];
 					$tmpecotaxline[$ecocateg]->multicurrency_total_tva = $tmparray[17];
 					$tmpecotaxline[$ecocateg]->multicurrency_total_ttc = $tmparray[18];

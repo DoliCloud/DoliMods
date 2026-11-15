@@ -72,7 +72,7 @@ if ($action == 'save') {
 
 	$ecotax = new Ecotaxdeee($db);
 	$ecotax->code = dol_escape_htmltag($code);
-	$ecotax->amount = dol_escape_htmltag($amount);
+	$ecotax->amount = $amount;
 
 	if (!$error) {
 		$result = $ecotax->create($user);

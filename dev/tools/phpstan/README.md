@@ -112,5 +112,5 @@ module already carried now has a `/** @var X $y */` next to it, which is the for
 ## CI
 
 `.github/workflows/phpstan.yml`. A pull request is analysed against the two ends of the supported
-range, what lands on `main` against all seven cores. No database, no instance: a checkout of the
-core and the phar.
+range, Dolibarr 18.0.0 and 25 (branch `develop` until 25.0.0 is tagged), what lands on `master`
+against 18.0.0, 24.0.0 and `develop`. No database, no instance: a checkout of the core and the phar.

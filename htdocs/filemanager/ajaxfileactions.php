@@ -245,7 +245,7 @@ if ($action == 'save') {   // Remove a file
 
 	$sizeofcontent=GETPOST('sizeofcontent');
 	$textformat=GETPOST('textformat');
-	$content=GETPOST('str', 2);
+	$content=GETPOST('str', 'none');	// Raw content of the edited file (2 was not a valid check)
 	if ($textformat == 'ISO' && utf8_check($content)) $content=utf8_decode($content);
 
 	if (strlen($content) != $sizeofcontent) {
