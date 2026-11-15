@@ -59,7 +59,7 @@ function openstreetmapadmin_prepare_head()
 	if (versioncompare($dolibarrversionarray,$dolibarrversionok) >= 0)
 	{
 		$head[$h][0] = dol_buildpath("/openstreetmap/admin/openstreetmap_an.php",1);
-		$head[$h][1] = $langs->trans("Analitycs");
+		$head[$h][1] = $langs->trans("Analytics");
 		$head[$h][2] = 'analytics';
 		$h++;
 	}
@@ -71,4 +71,51 @@ function openstreetmapadmin_prepare_head()
 	$h++;
 
 	return $head;
+}
+
+/**
+ *  Add a source of images into a Content Security Policy, without changing the other rules.
+ *  The source is added to img-src. When there is no img-src, images use default-src: an img-src is then
+ *  created with the sources of default-src that apply to images, plus the new source.
+ *
+ *  @param	string	$csp		Content Security Policy (example: "default-src 'self'; frame-ancestors 'self'")
+ *  @param	string	$source		Source to allow (example: '*.openstreetmap.org')
+ *  @return	string				Content Security Policy with the source allowed for images
+ */
+function openstreetmap_csp_add_img_source($csp, $source)
+{
+	$directives = array();
+	foreach (explode(';', (string) $csp) as $directive) {
+		$tokens = preg_split('/\s+/', trim($directive), -1, PREG_SPLIT_NO_EMPTY);
+		if (!empty($tokens)) {
+			$directives[strtolower(array_shift($tokens))] = $tokens;
+		}
+	}
+
+	// No img-src and no default-src: images are not restricted
+	if (isset($directives['img-src'])) {
+		$name = 'img-src';
+		$sources = $directives['img-src'];
+	} elseif (isset($directives['default-src'])) {
+		$name = 'img-src';
+		// Keywords of default-src that are only for scripts and styles are not copied
+		$sources = preg_grep("/^'(unsafe-inline|unsafe-eval|unsafe-hashes|wasm-unsafe-eval|strict-dynamic|report-sample|nonce-.*|sha(256|384|512)-.*)'$/i", $directives['default-src'], PREG_GREP_INVERT);
+	} else {
+		return $csp;
+	}
+	if (in_array('*', $sources) || in_array($source, $sources)) {
+		return $csp;
+	}
+
+	// 'none' must be the only source of a directive
+	$sources = array_diff($sources, array("'none'"));
+	$sources[] = $source;
+	$directives[$name] = array_values($sources);
+
+	$result = array();
+	foreach ($directives as $directivename => $tokens) {
+		$result[] = trim($directivename.' '.implode(' ', $tokens));
+	}
+
+	return implode('; ', $result).';';
 }
