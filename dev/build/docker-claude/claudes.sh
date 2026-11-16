@@ -195,6 +195,14 @@ if [ "$IS_DOLIBARR_CORE" -eq 0 ]; then
     done
 fi
 
+# Dedicated directory for the documents produced by the AI agent and shared with the host
+# (reports, slides, graphs, exports, ...): it is mounted into the container at the same path.
+# The directory is created when missing, docker refusing a bind mount with a missing source.
+# /tmp is purged at reboot: the documents must be taken out of the host before.
+AGENTS_DOCUMENTS_DIR=/tmp/agents_documents
+mkdir -p "$AGENTS_DOCUMENTS_DIR"
+EXTRA_MOUNTS+=(--mount "type=bind,src=$AGENTS_DOCUMENTS_DIR,dst=$AGENTS_DOCUMENTS_DIR")
+
 # Pass the host graphical session to the container so that Claude Code can read
 # the clipboard of the host (xclip on the X server or XWayland, wl-paste) and
 # open links in the browser of the host (open-on-host through the D-Bus
@@ -253,7 +261,7 @@ done
 if [ "${#MAIL_LOG_GIDS[@]}" -gt 0 ]; then
     LOG_ARGS+=(-e "HOST_MAIL_LOG_GIDS=${MAIL_LOG_GIDS[*]}")
 fi
-echo "LOG_ARGS=${LOG_ARGS[@]}"
+echo "LOG_ARGS=${LOG_ARGS[*]}"
 
 # Share the Transifex credentials of the host with the tx client of the container (read-only mount).
 TX_ARGS=()
