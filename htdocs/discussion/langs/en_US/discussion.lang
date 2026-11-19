@@ -20,19 +20,25 @@
 # Module label 'ModuleDiscussionName'
 ModuleDiscussionName = Discussion
 # Module description 'ModuleDiscussionDesc'
-ModuleDiscussionDesc = Discussion description
+ModuleDiscussionDesc = Discussion channels to exchange instant messages between users
 
 #
 # Admin page
 #
 DiscussionSetup = Discussion setup
 Settings = Settings
-DiscussionSetupPage = Discussion setup page
+DiscussionSetupPage = The last messages of each channel are kept in a shared cache, so they are sent in real time to the users connected to the channel.
 NewSection=New section
 DISCUSSION_MYPARAM1 = My param 1
 DISCUSSION_MYPARAM1Tooltip = My param 1 tooltip
 DISCUSSION_MYPARAM2=My param 2
 DISCUSSION_MYPARAM2Tooltip=My param 2 tooltip
+DISCUSSION_CACHE_NAME_PREFIX = Prefix of the name of the cache of a channel
+DISCUSSION_CACHE_NAME_PREFIXTooltip = The cache of a channel is named with this prefix followed by the ID of the channel. Change it only if several Dolibarr instances use the same cache server.
+DISCUSSION_CACHE_SIZE = Maximum number of messages in the cache of a channel
+DISCUSSION_CACHE_SIZETooltip = When this number is reached, the oldest messages are removed from the cache. They are still saved in the database.
+DISCUSSION_CACHE_TTL = Lifetime of a message in the cache (seconds)
+DISCUSSION_CACHE_TTLTooltip = Delay during which a new message is kept in the cache to be sent to the users connected to the channel. It is still saved in the database.
 
 
 #
@@ -61,3 +67,8 @@ StartConversation= Send a message to start the conversation
 SendMessage = Send message
 OnlyChannelContacts=Only channel's contacts
 ErrorDeleteNotAllowed=Delete is not allowed for your level of permission
+DiscussionOpenFullPage=Open in full page
+ChannelMessages=Messages
+DiscussionWriteMessage=Write a message...
+DiscussionOnlineUsersTooltip=Green: other users are connected to this channel
+DiscussionNoOnlineUserTooltip=Grey: no other user is connected to this channel

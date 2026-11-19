@@ -1298,6 +1298,45 @@ class Channel extends CommonObject
 	}
 
 	/**
+	 * Return the validated channels the user is a contact of (administrator or contributor), so he can read their messages
+	 *
+	 * @param	int						$userid		Id of user
+	 * @return	array<int,string>|int<-1,-1>		Array of id of channel => ref and label of channel, -1 if KO
+	 */
+	public function getChannelsOfUser($userid)
+	{
+		$channels = array();
+
+		$sql = "SELECT DISTINCT t.rowid, t.ref, t.label";
+		$sql .= " FROM ".$this->db->prefix().$this->table_element." as t";
+		$sql .= " JOIN ".$this->db->prefix()."element_contact as ec ON ec.element_id = t.rowid";
+		$sql .= " JOIN ".$this->db->prefix()."c_type_contact as ctc ON ctc.rowid = ec.fk_c_type_contact";
+		$sql .= " WHERE ctc.code IN ('CHANNELADMIN', 'CHANNELCONTRIBUTOR')";
+		$sql .= " AND ctc.active = 1";
+		$sql .= " AND ctc.element = '".$this->db->escape($this->element)."'";
+		$sql .= " AND ec.fk_socpeople = ".((int) $userid);
+		$sql .= " AND t.status = ".((int) self::STATUS_VALIDATED);
+		if (isset($this->ismultientitymanaged) && $this->ismultientitymanaged == 1) {
+			$sql .= " AND t.entity IN (".getEntity($this->element).")";
+		}
+		$sql .= " ORDER BY t.label, t.ref";
+		$sql .= $this->db->plimit(500);
+
+		$resql = $this->db->query($sql);
+		if (!$resql) {
+			$this->error = $this->db->lasterror();
+			dol_syslog(__METHOD__.' '.$this->error, LOG_ERR);
+			return -1;
+		}
+		while ($obj = $this->db->fetch_object($resql)) {
+			$channels[(int) $obj->rowid] = $obj->ref.($obj->label ? ' - '.$obj->label : '');
+		}
+		$this->db->free($resql);
+
+		return $channels;
+	}
+
+	/**
 	 * Init the list of users of the channel into the cache, from the authors of its messages
 	 *
 	 * @return	int		>0 if OK, 1 if already in cache, <0 if KO

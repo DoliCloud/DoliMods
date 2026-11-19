@@ -11,7 +11,7 @@ packages:
     description:
       fr: "Add pibarcode generator to generate barcodes"
       en: "Add pibarcode generator to generate barcodes"
-    status: 'enabled'
+    status: 'deprecated'
     created_at: '2010-06-04'
     last_updated_at: 'auto'
     category: ''

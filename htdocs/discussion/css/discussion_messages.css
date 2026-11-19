@@ -1,0 +1,102 @@
+/* Copyright (C) 2026 Laurent Destailleur <eldy@users.sourceforge.net>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <https://www.gnu.org/licenses/>.
+ */
+
+/*
+ * List of messages: no vertical bar of the timeline of the theme, so no left margin kept for it either
+ */
+#timelineul.timeline:before {
+	display: none;
+}
+
+#timelineul.timeline > li > .timeline-item {
+	margin-left: 0;
+}
+
+/*
+ * Input area of the page of messages of a channel (channel_messages.php), same look as the one of the
+ * AI assistant of Dolibarr: the textarea and the send button are into a single rounded box.
+ */
+.discussion-input-pill {
+	display: flex;
+	align-items: flex-end;
+	gap: 6px;
+	border: 1px solid var(--inputbordercolor, rgba(0, 0, 0, 0.15));
+	background: var(--inputbackgroundcolor, #fff);
+	border-radius: 5px;
+	padding: 5px 6px 5px 12px;
+	transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.discussion-input-pill:focus-within {
+	border-color: var(--colortextlink, #2b6cb0);
+	box-shadow: 0 0 0 3px color-mix(in srgb, var(--colortextlink, #2b6cb0) 18%, transparent);
+}
+
+/* One line at start, grows with its content (see js/discussion_messages.js) up to the max height */
+.discussion-input-pill textarea#channelmessage {
+	flex-grow: 1;
+	min-width: 0;
+	height: 40px;
+	min-height: 40px;
+	max-height: 150px;
+	box-sizing: border-box;
+	margin: 0;
+	padding: 9px 4px;
+	border: none;
+	border-radius: 0;
+	background: transparent;
+	color: var(--colortext, #333);
+	box-shadow: none;
+	outline: none;
+	resize: none;
+	overflow-y: auto;
+	scrollbar-width: none;
+	font-family: inherit;
+	font-size: 0.92rem;
+	line-height: 1.4;
+}
+
+.discussion-input-pill textarea#channelmessage::-webkit-scrollbar {
+	display: none;
+}
+
+.discussion-input-pill textarea#channelmessage:focus {
+	border: none;
+	box-shadow: none;
+}
+
+#sendmessage.discussion-send-btn {
+	flex-shrink: 0;
+	width: 44px;
+	height: 44px;
+	min-width: 44px;
+	margin: 0;
+	padding: 0;
+	border: none;
+	border-radius: 5px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: var(--colorbackhmenu1, #2b2f3a);
+	color: var(--colortextbackhmenu, #fff);
+	font-size: 0.95rem;
+	cursor: pointer;
+	transition: filter 0.15s;
+}
+
+#sendmessage.discussion-send-btn:hover {
+	filter: brightness(1.2);
+}

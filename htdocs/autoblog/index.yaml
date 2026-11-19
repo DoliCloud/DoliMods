@@ -11,7 +11,7 @@ packages:
     description:
       fr: "Générer avec l'IA les articles de blog de vos sites web, depuis une file de sujets traitée par une tâche planifiée, puis les publier après relecture."
       en: "Generate blog articles of your websites with AI, from a queue of topics processed by a scheduled job, then publish them after review."
-    status: 'enabled'
+    status: 'experimental'
     created_at: '2026-11-12'
     last_updated_at: 'auto'
     category: ''

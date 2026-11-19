@@ -20,7 +20,7 @@
 # Module label 'ModuleNetatmoName'
 ModuleNetatmoName = Netatmo
 # Module description 'ModuleNetatmoDesc'
-ModuleNetatmoDesc = Netatmo description
+ModuleNetatmoDesc = Provides an endpoint allowing a Netatmo camera to push an event into the agenda
 
 #
 # Admin page

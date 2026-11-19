@@ -55,7 +55,7 @@ class modExternalBackup extends DolibarrModules
 		$this->editor_url = 'https://www.dolicloud.com?origin=dolimods';
 
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
-		$this->version = '4.0';
+		$this->version = 'development';
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
 		$this->picto='externalbackup@externalbackup';
 
