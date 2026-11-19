@@ -427,7 +427,7 @@ class ActionsDiscussion extends CommonHookActions
 
 		$out = '<link rel="stylesheet" href="'.$urlcss.'">';
 		// Same markup as the pictos of the group of tools (AI assistant, bookmarks...): the JS moves it into this group
-		$out .= '<div id="topmenu-discussion-dropdown" class="atoplogin dropdown inline-block">';
+		$out .= '<div id="topmenu-discussion-dropdown" class="atoplogin dropdown inline-block topmenu-any">';
 		$out .= '<a accesskey="d" href="#" id="topmenu-discussion-toggle" class="login-dropdown-a nofocusvisible" title="'.dol_escape_htmltag($labelwithshortcut).'"><span class="fa fa-comment"></span></a>';
 		$out .= '</div>';
 		$out .= '<div id="topmenu-discussion-popover" class="discussion-popover" role="dialog" aria-modal="false" aria-label="'.dol_escape_htmltag($label).'">';

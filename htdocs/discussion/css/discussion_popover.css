@@ -18,6 +18,8 @@
  * Popover of the module Discussion, opened from the picto of the top right menu
  * (see printTopRightMenu() in class/actions_discussion.class.php). Same layout as the
  * popover of the AI assistant of Dolibarr: anchored top right, under the top menu.
+ * The container of the picto into top menu applies the class topmenu-any of the core,
+ * that sets the same padding as the other pictos of the group of tools.
  */
 .discussion-popover {
 	position: fixed;
