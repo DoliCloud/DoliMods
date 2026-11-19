@@ -87,26 +87,26 @@ print $langs->trans("OpenStreetMapEnableThisToolThirdParties").': ';
 if (isModEnabled('societe')) {
 	print $form->selectyesno("OPENSTREETMAP_ENABLE_MAPS", GETPOSTISSET('OPENSTREETMAP_ENABLE_MAPS') ? GETPOSTINT('OPENSTREETMAP_ENABLE_MAPS') : getDolGlobalInt('OPENSTREETMAP_ENABLE_MAPS'), 1);
 } else print $langs->trans("ModuleMustBeEnabledFirst", $langs->transnoentitiesnoconv("Module1Name"));
-print '<br>';
+print '<br><br>';
 
 print $langs->trans("OpenStreetMapEnableThisToolContacts").': ';
 if (isModEnabled('societe')) {
 	print $form->selectyesno("OPENSTREETMAP_ENABLE_MAPS_CONTACTS", GETPOSTISSET('OPENSTREETMAP_ENABLE_MAPS_CONTACTS') ? GETPOSTINT('OPENSTREETMAP_ENABLE_MAPS_CONTACTS') : getDolGlobalInt('OPENSTREETMAP_ENABLE_MAPS_CONTACTS'), 1);
 } else print $langs->trans("ModuleMustBeEnabledFirst", $langs->transnoentitiesnoconv("Module1Name"));
-print '<br>';
+print '<br><br>';
 
 print $langs->trans("OpenStreetMapMenuMapContacts").': ';
 if (isModEnabled('societe')) {
 	print $form->selectyesno("OPENSTREETMAP_MENU_MAP_CONTACTS", GETPOSTISSET('OPENSTREETMAP_MENU_MAP_CONTACTS') ? GETPOSTINT('OPENSTREETMAP_MENU_MAP_CONTACTS') : getDolGlobalInt('OPENSTREETMAP_MENU_MAP_CONTACTS'), 1);
 	print ' <span class="opacitymedium small">'.$langs->trans("OpenStreetMapMenuMapContactsDesc").'</span>';
 } else print $langs->trans("ModuleMustBeEnabledFirst", $langs->transnoentitiesnoconv("Module1Name"));
-print '<br>';
+print '<br><br>';
 
 print $langs->trans("OpenStreetMapEnableThisToolMembers").': ';
 if (isModEnabled('member') || !empty($conf->modules['adherent'])) {	// 'member' is known by isModEnabled() only on recent versions
 	print $form->selectyesno("OPENSTREETMAP_ENABLE_MAPS_MEMBERS", GETPOSTISSET('OPENSTREETMAP_ENABLE_MAPS_MEMBERS') ? GETPOSTINT('OPENSTREETMAP_ENABLE_MAPS_MEMBERS') : getDolGlobalInt('OPENSTREETMAP_ENABLE_MAPS_MEMBERS'), 1);
 } else print $langs->trans("ModuleMustBeEnabledFirst", $langs->transnoentitiesnoconv("Module310Name"));
-print '<br>';
+print '<br><br>';
 
 print $langs->trans("OpenStreetMapZoomLevel", 2, 18).': ';
 print '<input class="flat" name="OPENSTREETMAP_MAPS_ZOOM_LEVEL" id="OPENSTREETMAP_MAPS_ZOOM_LEVEL" value="'.(GETPOSTISSET("OPENSTREETMAP_MAPS_ZOOM_LEVEL") ? GETPOST("OPENSTREETMAP_MAPS_ZOOM_LEVEL", 'int') : getDolGlobalInt('OPENSTREETMAP_MAPS_ZOOM_LEVEL', 15)).'" size="2">';

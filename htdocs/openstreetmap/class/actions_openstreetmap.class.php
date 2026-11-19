@@ -70,12 +70,18 @@ class ActionsOpenstreetmap
 	 * @param	array<string,mixed>	$parameters		Hook parameters ('contentsecuritypolicy', 'mode')
 	 * @param	?CommonObject		$object			Not used
 	 * @param	?string				$action			Not used
-	 * @param	HookManager			$hookmanager	Hook manager
+	 * @param	HookManager			$hookmanager	Hook manager (->resPrint is the policy changed by the previous hooks)
 	 * @return	int									0 to keep the policy, 1 to replace it with $this->resprints
 	 */
 	public function setContentSecurityPolicy($parameters, &$object, &$action, $hookmanager)
 	{
 		$csp = empty($parameters['contentsecuritypolicy']) ? '' : (string) $parameters['contentsecuritypolicy'];
+		// Complete the policy of the previous hooks of this call, if any, so their changes are kept
+		if ($hookmanager->resNbOfHooks > 1 && !empty($hookmanager->resPrint)) {
+			$csp = (string) $hookmanager->resPrint;
+		}
+		// Give the policy to the next hooks, even if not changed, so they never read a value of another call
+		$hookmanager->resPrint = $csp;
 		// Only the pages of the module show maps
 		if ($csp === '' || strpos((string) $_SERVER['PHP_SELF'], '/openstreetmap/') === false) {
 			return 0;
@@ -91,6 +97,8 @@ class ActionsOpenstreetmap
 			return 0;
 		}
 		$this->resprints = $newcsp;
+		// Give the result to the next hooks (older Dolibarr versions do not do it)
+		$hookmanager->resPrint = $newcsp;
 
 		return 1;
 	}

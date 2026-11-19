@@ -148,7 +148,7 @@ class modSubmitEveryWhere extends DolibarrModules
 									'prefix' => img_picto('', $this->picto, 'class="paddingright pictofixedwidth valignmiddle"'),
 									'mainmenu'=>'tools',
 									'leftmenu'=>'submiteverywhere',
-									'url'=>'/submiteverywhere/index.php',
+									'url'=>'/submiteverywhere/index.php?leftmenu=submiteverywhere',
 									'langs'=>'submiteverywhere@submiteverywhere',	// Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 									'position'=>100,
 									'enabled'=>'$conf->submiteverywhere->enabled',			// Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
@@ -160,7 +160,7 @@ class modSubmitEveryWhere extends DolibarrModules
 		$this->menu[$r]=array(	'fk_menu'=>'fk_mainmenu=tools,fk_leftmenu=submiteverywhere',
 									'type'=>'left',			// This is a Left menu entry
 									'titre'=>'NewMessage',
-									'url'=>'/submiteverywhere/card.php?action=create',
+									'url'=>'/submiteverywhere/card.php?action=create&leftmenu=submiteverywhere',
 									'langs'=>'submiteverywhere@submiteverywhere',	// Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 									'position'=>110,
 									'enabled'=>'$conf->submiteverywhere->enabled',			// Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
@@ -172,7 +172,7 @@ class modSubmitEveryWhere extends DolibarrModules
 		$this->menu[$r]=array(	'fk_menu'=>'fk_mainmenu=tools,fk_leftmenu=submiteverywhere',
 									'type'=>'left',			// This is a Left menu entry
 									'titre'=>'List',
-									'url'=>'/submiteverywhere/list.php',
+									'url'=>'/submiteverywhere/list.php?leftmenu=submiteverywhere',
 									'langs'=>'submiteverywhere@submiteverywhere',	// Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 									'position'=>120,
 									'enabled'=>'$conf->submiteverywhere->enabled',			// Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
