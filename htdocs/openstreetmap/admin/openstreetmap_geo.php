@@ -282,9 +282,10 @@ if ($pcencrypted >= 0) {
 print '</table>';
 print '</div>';
 
-print dol_get_fiche_end();
-
+// Button inside the tab, just under the table, like the setup pages made with FormSetup
 print '<div class="center"><input type="submit" class="button button-save" value="'.$langs->trans("Save").'"></div>';
+
+print dol_get_fiche_end();
 print '</form>';
 
 // Cache of coordinates
