@@ -101,7 +101,7 @@ AutoBlogErrorAliasAlreadyUsed = A page with alias "%s" already exists on the web
 #
 # Editorial setup of websites
 #
-WebsitesEditorialSetupDesc = Information on each website, sent to the AI with the instructions of each article generated for this website.
+WebsitesEditorialSetupDesc = Information on each website, and additional generic instructions sent to the AI when requesting the generation of an article.
 AutoBlogEditorialSetup = Editorial setup
 AutoBlogWebsiteOnline = Online
 AutoBlogWebsiteOffline = Offline
