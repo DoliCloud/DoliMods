@@ -186,10 +186,9 @@ print '<input type="hidden" name="action" value="save">';
 
 print dol_get_fiche_head($head, 'geocoding', $langs->trans("OpenStreetMapTools"), -1);
 
-print '<span class="opacitymedium">'.$langs->trans("OpenStreetMapGeocodingDesc").'</span><br><br>';
-
-// What the module can do in each country
-print '<div class="info">'.$langs->trans("OpenStreetMapQualityTitle").'<ul>';
+// How addresses are located, then what the module can do in each country
+print '<div class="info">'.$langs->trans("OpenStreetMapGeocodingDesc").'<br><br>';
+print $langs->trans("OpenStreetMapQualityTitle").'<ul>';
 print '<li>'.$langs->trans("OpenStreetMapQualityOSM").'</li>';
 print '<li>'.$langs->trans("OpenStreetMapQualityFairUse").'</li>';
 print '<li>'.$langs->trans("OpenStreetMapQualityNL").'</li>';
@@ -199,7 +198,7 @@ print '</ul></div><br>';
 
 print '<div class="div-table-responsive-no-min">';
 print '<table class="noborder centpercent">';
-print '<tr class="liste_titre"><td>'.$langs->trans("Parameter").'</td><td>'.$langs->trans("Value").'</td></tr>';
+print '<tr class="liste_titre"><td>'.$langs->trans("Parameter").'</td><td></td></tr>';
 
 print '<tr class="oddeven"><td>'.$langs->trans("OpenStreetMapPdokAutofill").'<br><span class="opacitymedium small">'.$langs->trans("OpenStreetMapPdokAutofillDesc").'</span></td><td>';
 print $form->selectyesno('OPENSTREETMAP_PDOK_AUTOFILL', getDolGlobalInt('OPENSTREETMAP_PDOK_AUTOFILL'), 1);

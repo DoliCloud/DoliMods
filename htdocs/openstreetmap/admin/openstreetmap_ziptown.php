@@ -60,9 +60,14 @@ $mode = (GETPOST('mode', 'aZ09') == 'replace') ? 'replace' : 'add';
  * Actions
  */
 
-if ($action == 'setdictionary') {
-	$value = GETPOSTINT('value') ? '1' : '0';
-	if (dolibarr_set_const($db, 'MAIN_USE_ZIPTOWN_DICTIONNARY', $value, 'chaine', 0, '', $conf->entity) > 0) {
+// Links of the on/off switch of the constant when Ajax is disabled (with Ajax, the switch saves the constant itself)
+if ($action == 'set_MAIN_USE_ZIPTOWN_DICTIONNARY' || $action == 'del_MAIN_USE_ZIPTOWN_DICTIONNARY') {
+	if ($action == 'set_MAIN_USE_ZIPTOWN_DICTIONNARY') {
+		$result = dolibarr_set_const($db, 'MAIN_USE_ZIPTOWN_DICTIONNARY', '1', 'chaine', 0, '', $conf->entity);
+	} else {
+		$result = dolibarr_del_const($db, 'MAIN_USE_ZIPTOWN_DICTIONNARY', $conf->entity);
+	}
+	if ($result > 0) {
 		setEventMessages($langs->trans("SetupSaved"), null, 'mesgs');
 	} else {
 		setEventMessages($langs->trans("Error"), null, 'errors');
@@ -149,30 +154,21 @@ $head = openstreetmapadmin_prepare_head();
 
 print dol_get_fiche_head($head, 'ziptown', $langs->trans("OpenStreetMapTools"), -1);
 
-print '<span class="opacitymedium">'.$langs->trans("OpenStreetMapZiptownDesc").'</span><br><br>';
+print '<div class="info">'.$langs->trans("OpenStreetMapZiptownDesc").'</div><br>';
 
-// Use of the dictionary by Dolibarr itself
-print '<form action="'.$_SERVER["PHP_SELF"].'" method="post">';
-print '<input type="hidden" name="token" value="'.newToken().'">';
-print '<input type="hidden" name="action" value="setdictionary">';
-print '<input type="hidden" name="value" value="'.(getDolGlobalString('MAIN_USE_ZIPTOWN_DICTIONNARY') ? '0' : '1').'">';
-print '<div class="div-table-responsive-no-min">';
-print '<table class="noborder centpercent">';
-print '<tr class="liste_titre"><td>'.$langs->trans("Parameter").'</td><td>'.$langs->trans("Value").'</td></tr>';
-print '<tr class="oddeven"><td>'.$langs->trans("OpenStreetMapZiptownUseDictionary").'<br><span class="opacitymedium small">'.$langs->trans("OpenStreetMapZiptownUseDictionaryDesc").'</span></td><td class="nowraponall">';
-print (getDolGlobalString('MAIN_USE_ZIPTOWN_DICTIONNARY') ? $langs->trans("Yes") : $langs->trans("No")).' ';
-print '<input type="submit" class="button smallpaddingimp" value="'.(getDolGlobalString('MAIN_USE_ZIPTOWN_DICTIONNARY') ? $langs->trans("Disable") : $langs->trans("Activate")).'">';
-print '</td></tr>';
-print '</table>';
-print '</div>';
-print '</form>';
-
-// Max number of lines of a file
 print '<form action="'.$_SERVER["PHP_SELF"].'" method="post">';
 print '<input type="hidden" name="token" value="'.newToken().'">';
 print '<input type="hidden" name="action" value="setmaxrows">';
 print '<div class="div-table-responsive-no-min">';
 print '<table class="noborder centpercent">';
+print '<tr class="liste_titre"><td>'.$langs->trans("Parameter").'</td><td></td></tr>';
+
+// Use of the dictionary by Dolibarr itself
+print '<tr class="oddeven"><td>'.$langs->trans("OpenStreetMapZiptownUseDictionary").'<br><span class="opacitymedium small">'.$langs->trans("OpenStreetMapZiptownUseDictionaryDesc").'</span></td><td class="nowraponall">';
+print ajax_constantonoff('MAIN_USE_ZIPTOWN_DICTIONNARY');
+print '</td></tr>';
+
+// Max number of lines of a file
 print '<tr class="oddeven"><td>'.$langs->trans("OpenStreetMapZiptownMaxRows").'<br><span class="opacitymedium small">'.$langs->trans("OpenStreetMapZiptownMaxRowsDesc").'</span></td><td class="nowraponall">';
 print '<input type="number" class="flat width100" min="1000" max="5000000" step="1000" name="OPENSTREETMAP_ZIPTOWN_MAX_ROWS" value="'.openstreetmap_ziptown_max_rows().'"> ';
 print '<input type="submit" class="button smallpaddingimp" value="'.$langs->trans("Save").'">';
@@ -204,6 +200,7 @@ print '<input type="radio" id="source_file" name="source" value="file"'.($source
 print '<input type="file" name="ziptownfile" accept=".zip,.txt,.csv,.tsv">';
 print '<br><span class="opacitymedium small">'.$langs->trans("OpenStreetMapZiptownFileFormat").'</span>';
 print '<br><span class="opacitymedium small">'.$langs->trans("OpenStreetMapZiptownMaxSize", dol_print_size($maxkb * 1024, 1)).'</span>';
+print '<br><span class="opacitymedium small">'.$langs->trans("OpenStreetMapZiptownGeonamesLicense").'</span>';
 print '</td></tr>';
 print '<tr class="oddeven"><td>'.$langs->trans("OpenStreetMapZiptownMode").'</td><td>';
 print '<input type="radio" id="mode_add" name="mode" value="add" checked> <label for="mode_add">'.$langs->trans("OpenStreetMapZiptownModeAdd").'</label><br>';
@@ -227,7 +224,7 @@ document.getElementById("ziptownimport").addEventListener("submit", function(e) 
 	}
 });
 </script>';
-print '<br><span class="opacitymedium small">'.$langs->trans("OpenStreetMapZiptownGeonamesLicense").'</span><br><br>';
+print '<br>';
 
 // Queue of imports, with their progress. While this page is open, the browser asks the server to import the
 // next parts; the scheduled job of the module does the same when the page is closed.

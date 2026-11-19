@@ -37,24 +37,38 @@ if (!$user->admin) {
 
 $langs->loadLangs(array("admin", "other", "openstreetmap@openstreetmap"));
 
+$action = GETPOST('action', 'aZ09');
 $actionsave = GETPOST('save', 'alpha');
+
+// Constants set with an on/off switch
+$switchconsts = array('OPENSTREETMAP_ENABLE_MAPS', 'OPENSTREETMAP_ENABLE_MAPS_CONTACTS', 'OPENSTREETMAP_MENU_MAP_CONTACTS', 'OPENSTREETMAP_ENABLE_MAPS_MEMBERS');
 
 
 /*
  * Actions
  */
 
+// Links of the on/off switches when Ajax is disabled (with Ajax, the switch saves the constant itself)
+if (preg_match('/^(set|del)_([A-Z0-9_]+)$/', $action, $reg) && in_array($reg[2], $switchconsts)) {
+	if ($reg[1] == 'set') {
+		$result = dolibarr_set_const($db, $reg[2], '1', 'chaine', 0, '', $conf->entity);
+	} else {
+		$result = dolibarr_del_const($db, $reg[2], $conf->entity);
+	}
+	if ($result > 0) {
+		setEventMessages($langs->trans("SetupSaved"), null, 'mesgs');
+	} else {
+		setEventMessages($langs->trans("Error"), null, 'errors');
+	}
+}
+
 if ($actionsave) {
 	$db->begin();
 
 	$res=0;
-	$res+=dolibarr_set_const($db, 'OPENSTREETMAP_ENABLE_MAPS', (GETPOSTINT('OPENSTREETMAP_ENABLE_MAPS') ? '1' : '0'), 'chaine', 0, '', $conf->entity);
-	$res+=dolibarr_set_const($db, 'OPENSTREETMAP_ENABLE_MAPS_CONTACTS', (GETPOSTINT('OPENSTREETMAP_ENABLE_MAPS_CONTACTS') ? '1' : '0'), 'chaine', 0, '', $conf->entity);
-	$res+=dolibarr_set_const($db, 'OPENSTREETMAP_MENU_MAP_CONTACTS', (GETPOSTINT('OPENSTREETMAP_MENU_MAP_CONTACTS') ? '1' : '0'), 'chaine', 0, '', $conf->entity);
-	$res+=dolibarr_set_const($db, 'OPENSTREETMAP_ENABLE_MAPS_MEMBERS', (GETPOSTINT('OPENSTREETMAP_ENABLE_MAPS_MEMBERS') ? '1' : '0'), 'chaine', 0, '', $conf->entity);
 	$res+=dolibarr_set_const($db, 'OPENSTREETMAP_MAPS_ZOOM_LEVEL', (string) max(2, min(18, GETPOSTINT('OPENSTREETMAP_MAPS_ZOOM_LEVEL') ? GETPOSTINT('OPENSTREETMAP_MAPS_ZOOM_LEVEL') : 15)), 'chaine', 0, '', $conf->entity);
 
-	if ($res == 5) {
+	if ($res == 1) {
 		$db->commit();
 		setEventMessages($langs->trans("SetupSaved"), null, 'mesgs');
 	} else {
@@ -83,33 +97,37 @@ print '<input type="hidden" name="token" value="'.newToken().'">';
 
 print dol_get_fiche_head($head, 'maps', $langs->trans("OpenStreetMapTools"), -1);
 
+print '<div class="neutral">';
+
 print $langs->trans("OpenStreetMapEnableThisToolThirdParties").': ';
 if (isModEnabled('societe')) {
-	print $form->selectyesno("OPENSTREETMAP_ENABLE_MAPS", GETPOSTISSET('OPENSTREETMAP_ENABLE_MAPS') ? GETPOSTINT('OPENSTREETMAP_ENABLE_MAPS') : getDolGlobalInt('OPENSTREETMAP_ENABLE_MAPS'), 1);
+	print ajax_constantonoff('OPENSTREETMAP_ENABLE_MAPS', array(), null, 0, 0, 1);	// Reload to show the change of the menu
 } else print $langs->trans("ModuleMustBeEnabledFirst", $langs->transnoentitiesnoconv("Module1Name"));
 print '<br><br>';
 
 print $langs->trans("OpenStreetMapEnableThisToolContacts").': ';
 if (isModEnabled('societe')) {
-	print $form->selectyesno("OPENSTREETMAP_ENABLE_MAPS_CONTACTS", GETPOSTISSET('OPENSTREETMAP_ENABLE_MAPS_CONTACTS') ? GETPOSTINT('OPENSTREETMAP_ENABLE_MAPS_CONTACTS') : getDolGlobalInt('OPENSTREETMAP_ENABLE_MAPS_CONTACTS'), 1);
+	print ajax_constantonoff('OPENSTREETMAP_ENABLE_MAPS_CONTACTS', array(), null, 0, 0, 1);
 } else print $langs->trans("ModuleMustBeEnabledFirst", $langs->transnoentitiesnoconv("Module1Name"));
 print '<br><br>';
 
 print $langs->trans("OpenStreetMapMenuMapContacts").': ';
 if (isModEnabled('societe')) {
-	print $form->selectyesno("OPENSTREETMAP_MENU_MAP_CONTACTS", GETPOSTISSET('OPENSTREETMAP_MENU_MAP_CONTACTS') ? GETPOSTINT('OPENSTREETMAP_MENU_MAP_CONTACTS') : getDolGlobalInt('OPENSTREETMAP_MENU_MAP_CONTACTS'), 1);
+	print ajax_constantonoff('OPENSTREETMAP_MENU_MAP_CONTACTS', array(), null, 0, 0, 1);
 	print ' <span class="opacitymedium small">'.$langs->trans("OpenStreetMapMenuMapContactsDesc").'</span>';
 } else print $langs->trans("ModuleMustBeEnabledFirst", $langs->transnoentitiesnoconv("Module1Name"));
 print '<br><br>';
 
 print $langs->trans("OpenStreetMapEnableThisToolMembers").': ';
 if (isModEnabled('member') || !empty($conf->modules['adherent'])) {	// 'member' is known by isModEnabled() only on recent versions
-	print $form->selectyesno("OPENSTREETMAP_ENABLE_MAPS_MEMBERS", GETPOSTISSET('OPENSTREETMAP_ENABLE_MAPS_MEMBERS') ? GETPOSTINT('OPENSTREETMAP_ENABLE_MAPS_MEMBERS') : getDolGlobalInt('OPENSTREETMAP_ENABLE_MAPS_MEMBERS'), 1);
+	print ajax_constantonoff('OPENSTREETMAP_ENABLE_MAPS_MEMBERS', array(), null, 0, 0, 1);
 } else print $langs->trans("ModuleMustBeEnabledFirst", $langs->transnoentitiesnoconv("Module310Name"));
 print '<br><br>';
 
 print $langs->trans("OpenStreetMapZoomLevel", 2, 18).': ';
 print '<input class="flat" name="OPENSTREETMAP_MAPS_ZOOM_LEVEL" id="OPENSTREETMAP_MAPS_ZOOM_LEVEL" value="'.(GETPOSTISSET("OPENSTREETMAP_MAPS_ZOOM_LEVEL") ? GETPOST("OPENSTREETMAP_MAPS_ZOOM_LEVEL", 'int') : getDolGlobalInt('OPENSTREETMAP_MAPS_ZOOM_LEVEL', 15)).'" size="2">';
+
+print '</div>';
 
 print dol_get_fiche_end();
 
