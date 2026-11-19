@@ -174,7 +174,9 @@ if (!$permissiontoread) {
 	accessforbidden();
 }
 
-if (!empty($object->id) && !$object->isChannelContact($user->id)) {
+// With the read permission, a public channel (private = 0) can be read by anybody,
+// a private one (private = 1) only by its contacts
+if (!empty($object->id) && !empty($object->private) && !$object->isChannelContact($user->id)) {
 	accessforbidden();
 }
 $error = 0;

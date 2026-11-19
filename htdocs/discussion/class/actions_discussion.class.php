@@ -389,19 +389,24 @@ class ActionsDiscussion extends CommonHookActions
 	{
 		global $conf, $langs, $user;
 
-		$channelid = getDolGlobalInt('DISCUSSION_TOPMENU_CHANNEL_ID', 1);
-		if ($channelid <= 0 || !$user->hasRight('discussion', 'channel', 'read')) {
-			return 0;
-		}
+		$channelid = max(getDolGlobalInt('DISCUSSION_TOPMENU_CHANNEL_ID', 1), 0);
 
-		// Channels the user can open. The one of the setup is shown first, if the user is one of its contacts.
+		// The picto is shown to everybody. The channels are filled only with the read permission:
+		// without this permission, or without any channel to read (no public channel, no private
+		// channel the user is a contact of), the popover shows an adapted message instead of a channel.
 		dol_include_once('/discussion/class/channel.class.php');
 		$channelstatic = new Channel($this->db);
-		$channels = $channelstatic->getChannelsOfUser($user->id);
-		if (!is_array($channels) || empty($channels)) {
-			return 0;
+		$channels = array();
+		if ($user->hasRight('discussion', 'channel', 'read')) {
+			$channels = $channelstatic->getChannelsOfUser($user->id);
+			if (!is_array($channels)) {
+				$channels = array();
+			}
 		}
-		if (!isset($channels[$channelid])) {
+		if ($channelid <= 0 || empty($channels)) {
+			$channelid = 0;
+		} elseif (!isset($channels[$channelid])) {
+			// The channel of the setup is shown first when the user can read it, else the first one
 			reset($channels);
 			$channelid = (int) key($channels);
 		}
@@ -409,7 +414,7 @@ class ActionsDiscussion extends CommonHookActions
 
 		$label = $langs->trans('ModuleDiscussionName');
 		$urlpagebase = dol_buildpath('/discussion/channel_messages.php', 1).'?id=';
-		$urlpage = $urlpagebase.$channelid;
+		$urlpage = ($channelid > 0 ? $urlpagebase.$channelid : dol_buildpath('/discussion/channel_list.php', 1));
 		$picto = '<span class="fa fa-comment atoplogin valignmiddle"></span>';
 		// Keyboard shortcut "d", like "c" for the quick add of Dolibarr: the click on the picto is done by the browser
 		$labelwithshortcut = $label.' ('.$conf->browser->stringforfirstkey.' d)';
@@ -441,11 +446,19 @@ class ActionsDiscussion extends CommonHookActions
 			$out .= '<span>'.dol_escape_htmltag($label).'</span>';
 		}
 		$out .= '</span>';
-		$out .= '<a href="'.$urlpage.'" id="topmenu-discussion-fullpage" data-urlbase="'.dol_escape_htmltag($urlpagebase).'" title="'.dol_escape_htmltag($langs->trans('DiscussionOpenFullPage')).'"><span class="fa fa-expand"></span></a>';
+		if ($channelid > 0) {
+			$out .= '<a href="'.$urlpage.'" id="topmenu-discussion-fullpage" data-urlbase="'.dol_escape_htmltag($urlpagebase).'" title="'.dol_escape_htmltag($langs->trans('DiscussionOpenFullPage')).'"><span class="fa fa-expand"></span></a>';
+		}
 		$out .= '<a href="#" class="discussion-popover-close" title="'.dol_escape_htmltag($langs->trans('Close')).'"><span class="fa fa-times"></span></a>';
 		$out .= '</div>';
-		// The page of messages of the channel is loaded into an iframe by the JS on first open, without menus, tabs and banner
-		$out .= '<div class="discussion-popover-body" data-channel="'.((int) $channelid).'" data-urlbase="'.dol_escape_htmltag(dol_buildpath('/discussion/channel_messages.php', 1).'?dol_hide_topmenu=1&dol_hide_leftmenu=1&dol_openinpopup=discussionchannel&id=').'"></div>';
+		if ($channelid > 0) {
+			// The page of messages of the channel is loaded into an iframe by the JS on first open, without menus, tabs and banner
+			$out .= '<div class="discussion-popover-body" data-channel="'.((int) $channelid).'" data-urlbase="'.dol_escape_htmltag(dol_buildpath('/discussion/channel_messages.php', 1).'?dol_hide_topmenu=1&dol_hide_leftmenu=1&dol_openinpopup=discussionchannel&id=').'"></div>';
+		} else {
+			// No channel to read: adapted message into the popover
+			$message = $user->hasRight('discussion', 'channel', 'read') ? $langs->trans('DiscussionNoChannelAvailable') : $langs->trans('NotEnoughPermissions');
+			$out .= '<div class="discussion-popover-body discussion-popover-empty"><div class="discussion-popover-nomessage">'.dol_escape_htmltag($message).'</div></div>';
+		}
 		$out .= '</div>';
 		$out .= '<script nonce="'.getNonce().'" src="'.$urljs.'"></script>';
 

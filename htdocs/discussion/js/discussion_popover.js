@@ -58,6 +58,7 @@
 	}
 
 	// Show the messages of a channel into the iframe, and make the link to the full page follow it
+	// (there is no channel and no link when the user has nothing to read: the popover shows a message)
 	var fullpage = document.getElementById("topmenu-discussion-fullpage");
 	function loadChannel(channelid) {
 		var iframe = body.querySelector("iframe");
@@ -73,7 +74,9 @@
 			body.appendChild(iframe);
 		}
 		iframe.src = body.dataset.urlbase + encodeURIComponent(channelid);
-		fullpage.href = fullpage.dataset.urlbase + encodeURIComponent(channelid);
+		if (fullpage) {
+			fullpage.href = fullpage.dataset.urlbase + encodeURIComponent(channelid);
+		}
 		body.dataset.channel = channelid;
 	}
 
@@ -111,10 +114,13 @@
 		}
 		positionPopover();
 		if (popover.classList.toggle("open")) {
-			if (body.querySelector("iframe")) {
-				focusInput();
-			} else {
-				loadChannel(body.dataset.channel);
+			// Without channel to read, the popover shows a message: there is nothing to load
+			if (body.dataset.urlbase) {
+				if (body.querySelector("iframe")) {
+					focusInput();
+				} else {
+					loadChannel(body.dataset.channel);
+				}
 			}
 		}
 	});

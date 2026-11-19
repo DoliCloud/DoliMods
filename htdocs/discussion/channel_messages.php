@@ -123,8 +123,10 @@ if ($res <= 0) {
 // Set $enablepermissioncheck to 1 to enable a minimum low level of checks
 $enablepermissioncheck = 1;
 $ischannelcontact = $object->isChannelContact($user->id);
+// With the read permission, a public channel (private = 0) can be read by anybody, a private one (private = 1) only by its contacts
+$ischannelreader = $ischannelcontact || empty($object->private);
 if ($enablepermissioncheck) {
-	$permissiontoread = $user->hasRight('discussion', 'channel', 'read') && $ischannelcontact;
+	$permissiontoread = $user->hasRight('discussion', 'channel', 'read') && $ischannelreader;
 	$permissiontoadd = $user->hasRight('discussion', 'channel', 'write') && $ischannelcontact;
 	$permissionnote = $user->hasRight('discussion', 'channel', 'write') && $ischannelcontact; // Used by the include of actions_setnotes.inc.php
 } else {

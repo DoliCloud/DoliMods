@@ -105,6 +105,18 @@
 	border: 0;
 }
 
+/* No channel to read: the popover shows an adapted message instead of the messages */
+.discussion-popover-body.discussion-popover-empty {
+	align-items: center;
+	justify-content: center;
+}
+
+.discussion-popover-empty .discussion-popover-nomessage {
+	padding: 24px;
+	text-align: center;
+	opacity: 0.75;
+}
+
 /* Small screens: full width panel */
 @media (max-width: 480px) {
 	.discussion-popover {

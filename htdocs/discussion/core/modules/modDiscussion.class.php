@@ -305,11 +305,6 @@ class modDiscussion extends DolibarrModules
 		$this->rights[$r][4] = 'channel';
 		$this->rights[$r][5] = 'delete';
 		$r++;
-		$this->rights[$r][0] = $this->numero . sprintf('%02d', (0 * 10) + 3 + 1);
-		$this->rights[$r][1] = 'Read all Channel object of Discussion';
-		$this->rights[$r][4] = 'channel';
-		$this->rights[$r][5] = 'readall';
-		$r++;
 
 		/* END MODULEBUILDER PERMISSIONS */
 

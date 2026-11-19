@@ -1298,7 +1298,8 @@ class Channel extends CommonObject
 	}
 
 	/**
-	 * Return the validated channels the user is a contact of (administrator or contributor), so he can read their messages
+	 * Return the validated channels the user can read: the public channels and the private
+	 * channels he is a contact of (administrator or contributor)
 	 *
 	 * @param	int						$userid		Id of user
 	 * @return	array<int,string>|int<-1,-1>		Array of id of channel => ref and label of channel, -1 if KO
@@ -1309,12 +1310,13 @@ class Channel extends CommonObject
 
 		$sql = "SELECT DISTINCT t.rowid, t.ref, t.label";
 		$sql .= " FROM ".$this->db->prefix().$this->table_element." as t";
-		$sql .= " JOIN ".$this->db->prefix()."element_contact as ec ON ec.element_id = t.rowid";
-		$sql .= " JOIN ".$this->db->prefix()."c_type_contact as ctc ON ctc.rowid = ec.fk_c_type_contact";
-		$sql .= " WHERE ctc.code IN ('CHANNELADMIN', 'CHANNELCONTRIBUTOR')";
+		$sql .= " LEFT JOIN ".$this->db->prefix()."element_contact as ec ON ec.element_id = t.rowid";
+		$sql .= " LEFT JOIN ".$this->db->prefix()."c_type_contact as ctc ON ctc.rowid = ec.fk_c_type_contact";
+		$sql .= " WHERE (t.private = 0";
+		$sql .= " OR (ctc.code IN ('CHANNELADMIN', 'CHANNELCONTRIBUTOR')";
 		$sql .= " AND ctc.active = 1";
 		$sql .= " AND ctc.element = '".$this->db->escape($this->element)."'";
-		$sql .= " AND ec.fk_socpeople = ".((int) $userid);
+		$sql .= " AND ec.fk_socpeople = ".((int) $userid)."))";
 		$sql .= " AND t.status = ".((int) self::STATUS_VALIDATED);
 		if (isset($this->ismultientitymanaged) && $this->ismultientitymanaged == 1) {
 			$sql .= " AND t.entity IN (".getEntity($this->element).")";

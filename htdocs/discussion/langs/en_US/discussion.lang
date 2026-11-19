@@ -68,6 +68,7 @@ SendMessage = Send message
 OnlyChannelContacts=Only channel's contacts
 ErrorDeleteNotAllowed=Delete is not allowed for your level of permission
 DiscussionOpenFullPage=Open in full page
+DiscussionNoChannelAvailable=There is no channel you can read. You must be a contact of a private channel, or a public channel must be available.
 ChannelMessages=Messages
 DiscussionWriteMessage=Write a message...
 DiscussionOnlineUsersTooltip=Green: other users are connected to this channel
