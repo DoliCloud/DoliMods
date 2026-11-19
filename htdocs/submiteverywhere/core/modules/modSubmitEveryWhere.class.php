@@ -197,7 +197,7 @@ class modSubmitEveryWhere extends DolibarrModules
 	{
 		$sql = array();
 
-		$result=$this->load_tables('/submiteverywhere/sql/');
+		$result = $this->_load_tables('/submiteverywhere/sql/');
 		if ($result <= 0) return $result;
 
 		return $this->_init($sql, $options);

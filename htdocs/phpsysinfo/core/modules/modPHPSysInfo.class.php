@@ -161,7 +161,7 @@ class modPHPSysInfo extends DolibarrModules
 	{
 		$sql = array();
 
-		$result=$this->load_tables('/phpsysinfo/sql/');
+		$result = $this->_load_tables('/phpsysinfo/sql/');
 
 		return $this->_init($sql, $options);
 	}

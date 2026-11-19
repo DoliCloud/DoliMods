@@ -196,7 +196,7 @@ class modScanner extends DolibarrModules
 	{
 		$sql = array();
 
-		$result=$this->load_tables('/scanner/sql/');
+		$result = $this->_load_tables('/scanner/sql/');
 
 		return $this->_init($sql, $options);
 	}

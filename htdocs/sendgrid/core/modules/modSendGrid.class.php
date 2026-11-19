@@ -189,7 +189,7 @@ class modSendgrid extends DolibarrModules
 	{
 		$sql = array();
 
-		$result=$this->load_tables('/sendgrid/sql/');
+		$result = $this->_load_tables('/sendgrid/sql/');
 
 		return $this->_init($sql, $options);
 	}

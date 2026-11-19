@@ -150,7 +150,7 @@ class modSkinColorEditor extends DolibarrModules
 	 */
 	public function init($options = '')
 	{
-		$result = $this->load_tables('/skincoloreditor/sql/');
+		$result = $this->_load_tables('/skincoloreditor/sql/');
 
 		$sql = array();
 
