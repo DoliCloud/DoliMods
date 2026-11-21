@@ -48,6 +48,10 @@ if (!$user->admin)
 accessforbidden();
 if (! empty($dolibarr_memcached_setup_disable) || ($op == 2 && ! empty($dolibarr_memcached_view_disable)))	// Hidden variable to add to conf file to disabled setup or disable browsing only
 accessforbidden();
+// Delete and flush go through GET with 'op', which the CSRF check of main.inc.php does not cover.
+if (in_array($op, array(5, 6)) && GETPOST('token', 'alpha') !== currentToken()) {
+	accessforbidden('Bad value for CSRF token');
+}
 
 $langs->load("admin");
 $langs->load("errors");
@@ -967,7 +971,7 @@ EOB;
 			 " <br/>flag:",$r['VALUE'][$theKey]['stat']['flag'],
 			 " <br/>Size:",dol_print_size($r['VALUE'][$theKey]['stat']['size'], 1),
 			 "</td><td>",chunk_split($r['VALUE'][$theKey]['value'], 40),"</td>",
-			 '<td><a href="',$PHP_SELF,'&op=5&server=',(int) $_GET['server'],'&key=',base64_encode($theKey),"\">Delete</a></td>","</tr>";
+			 '<td><a href="',$PHP_SELF,'&op=5&server=',(int) $_GET['server'],'&key=',base64_encode($theKey),'&token=',newToken(),"\">Delete</a></td>","</tr>";
 		echo <<<EOB
 			</tbody></table>
 EOB;
