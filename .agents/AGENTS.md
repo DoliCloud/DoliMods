@@ -70,6 +70,7 @@ Before writing any code, the agent **must**:
 - Write short, readable, and testable functions
 - Avoid side effects
 - Prefer typed properties and return types when PHP version allows
+- Loading and calling functions must be explicit to imported functions: Do not write dynamic closure functions, do not use `call_user_func` and `call_user_func_array` or `spl_autoload_functions`
 
 ---
 
@@ -154,6 +155,7 @@ Before writing any code, the agent **must**:
 - Use `dol_syslog()` for all logging (with appropriate log level: `LOG_DEBUG`, `LOG_WARNING`, `LOG_ERR`)
 - Do not leave `var_dump()`, `print_r()`, or `die()` in committed code
 - Use Dolibarr's `setEventMessages()` to display user-facing messages
+- Log files are called `dolibarr_*.log`
 
 ---
 
@@ -193,6 +195,15 @@ If adding a unit test was explicitely requested:
 - When commiting, keep your commit comment short (NEVER exceed 50 lines) and add a line "Co-authored-by:" to mention the AI agent name
 - When making a Pull Request, keep the PR description short (never exceed 50 lines) and mention the AI agent name in the description with a line like "Submited with <AI agent name> (see commit comments for attributions)"
 - A pull request can contain database structure change only, or one new feature, or one bug fix, or a refactoring but never a mix of these. 
+
+---
+
+## Documents produced for the user
+
+- Files produced as deliverables for the user, that are not code changes of the project (reports, slides, graphs, exports, test artifacts, ...), must be written into `/tmp/agents_documents/` (directory shared between the host and all the AI agent containers, see `dev/build/docker-vibe/vibes.sh` and `dev/build/docker-claude/claudes.sh`).
+- That directory is shared by several agents: write into the subdirectory named after the agent (`/tmp/agents_documents/vibe/` for Vibe, `/tmp/agents_documents/claude/` for Claude Code), never directly at its root, and never into the subdirectory of another agent.
+- Inside a git repository, never place such documents into the git working directory: keep the code changes and the documents for the user separated.
+- `/tmp` is purged at reboot: warn the user that the documents must be taken out of the directory before a reboot of the host.
 
 ---
 

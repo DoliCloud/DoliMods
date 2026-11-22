@@ -86,7 +86,7 @@ class modFileManager extends DolibarrModules
 
 		// Constantes
 		//-----------
-		$this->const = array();
+		$this->const = array(0 => array('FILEMANAGER_TRANSIFEX_PROJECT', 'chaine', 'dolicloud/dolimods', 'The Transifex project (organisation/project) where translations of this module are hosted', 0, 'allentities', 1));
 
 		// New pages on tabs
 		// -----------------

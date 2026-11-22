@@ -85,7 +85,7 @@ class modSkinColorEditor extends DolibarrModules
 		//                             1=>array('MYMODULE_MYNEWCONST2','chaine','myvalue','This is another constant to add',0)
 		//                             2=>array('MAIN_MODULE_MYMODULE_HOOKS','chaine','hookcontext1:hookcontext2','To say: This module manage hooks in hookcontext1 and hookcontext2',1,'current',1)
 		// );
-		$this->const = array();
+		$this->const = array(0 => array('SKINCOLOREDITOR_TRANSIFEX_PROJECT', 'chaine', 'dolicloud/dolimods', 'The Transifex project (organisation/project) where translations of this module are hosted', 0, 'allentities', 1));
 
 		// Array to add new pages in new tabs
 		$this->tabs = array('user:+tabskincoloreditors:ColorEditor:skincoloreditor@skincoloreditor:/skincoloreditor/usercolors.php?id=__ID__');

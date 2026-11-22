@@ -139,6 +139,8 @@ class modRevertInvoice extends DolibarrModules
 		$this->const = array(
 			// 1 => array('REVERTINVOICE_MYCONSTANT', 'chaine', 'avalue', 'This is a constant to add', 1, 'allentities', 1)
 		);
+		// Name of the Transifex project where the translations of this module are hosted
+		$this->const[] = array('REVERTINVOICE_TRANSIFEX_PROJECT', 'chaine', 'dolicloud/dolimods', 'The Transifex project (organisation/project) where translations of this module are hosted', 0, 'allentities', 1);
 
 		// Some keys to add into the overwriting translation tables
 		/*$this->overwrite_translation = array(

@@ -54,6 +54,7 @@ if (!isModEnabled('openstreetmap')) {
 $mode=GETPOST('mode', 'aZ09');
 $address='';
 $object=null;
+$dol_openinpopup=GETPOST('dol_openinpopup', 'aZ09');	// Name of popup if page is opened into a dialog popup, empty if opened in a standard page
 
 // Load third party
 if (empty($mode) || $mode=='societe' || $mode=='thirdparty') {
@@ -147,47 +148,50 @@ if ($mode=='user') {
 	$picto='user';
 }
 
-print dol_get_fiche_head($head, 'gmaps', $title, -1, $picto);
+// Hide the header with tabs and banner when the page is opened into a dialog popup
+if (empty($dol_openinpopup)) {
+	print dol_get_fiche_head($head, 'gmaps', $title, -1, $picto);
 
 
-print '<table class="border" width="100%">';
+	print '<table class="border" width="100%">';
 
-// Name
-print '<tr><td width="20%">'.$langs->trans('ThirdPartyName').'</td>';
-print '<td colspan="3">';
-print $form->showrefnav($object, 'id', '', (empty($user->socid) ? 1 : 0), 'rowid', 'nom', '', '&mode='.$mode);
-print '</td>';
-print '</tr>';
+	// Name
+	print '<tr><td width="20%">'.$langs->trans('ThirdPartyName').'</td>';
+	print '<td colspan="3">';
+	print $form->showrefnav($object, 'id', '', (empty($user->socid) ? 1 : 0), 'rowid', 'nom', '', '&mode='.$mode);
+	print '</td>';
+	print '</tr>';
 
 
-// Status
-print '<tr><td>'.$langs->trans("Status").'</td>';
-print '<td colspan="'.(2+(($showlogo || $showbarcode)?0:1)).'">';
-print $object->getLibStatut(2);
-print '</td>';
-print '</tr>';
+	// Status
+	print '<tr><td>'.$langs->trans("Status").'</td>';
+	print '<td colspan="'.(2+(($showlogo || $showbarcode)?0:1)).'">';
+	print $object->getLibStatut(2);
+	print '</td>';
+	print '</tr>';
 
-// Address
-print "<tr><td valign=\"top\">".$langs->trans('Address').'</td><td colspan="'.(2+(($showlogo || $showbarcode)?0:1)).'">';
-dol_print_address($object->address, 'gmap', $mode, $object->id);
-print "</td></tr>";
+	// Address
+	print "<tr><td valign=\"top\">".$langs->trans('Address').'</td><td colspan="'.(2+(($showlogo || $showbarcode)?0:1)).'">';
+	dol_print_address($object->address, 'gmap', $mode, $object->id);
+	print "</td></tr>";
 
-// Zip / Town
-print '<tr><td width="25%">'.$langs->trans('Zip').' / '.$langs->trans("Town").'</td><td colspan="'.(2+(($showlogo || $showbarcode)?0:1)).'">';
-print dol_escape_htmltag($object->zip).($object->zip && $object->town?" / ":"").dol_escape_htmltag($object->town);
-print "</td>";
-print '</tr>';
+	// Zip / Town
+	print '<tr><td width="25%">'.$langs->trans('Zip').' / '.$langs->trans("Town").'</td><td colspan="'.(2+(($showlogo || $showbarcode)?0:1)).'">';
+	print dol_escape_htmltag($object->zip).($object->zip && $object->town?" / ":"").dol_escape_htmltag($object->town);
+	print "</td>";
+	print '</tr>';
 
-// Country
-print '<tr><td>'.$langs->trans("Country").'</td><td colspan="'.(2+(($showlogo || $showbarcode)?0:1)).'" nowrap="nowrap">';
-$img=picto_from_langcode($object->country_code);
-print ($img?$img.' ':'').dol_escape_htmltag($object->country);
-print '</td></tr>';
+	// Country
+	print '<tr><td>'.$langs->trans("Country").'</td><td colspan="'.(2+(($showlogo || $showbarcode)?0:1)).'" nowrap="nowrap">';
+	$img=picto_from_langcode($object->country_code);
+	print ($img?$img.' ':'').dol_escape_htmltag($object->country);
+	print '</td></tr>';
 
-// State
-if (!getDolGlobalString('SOCIETE_DISABLE_STATE')) print '<tr><td>'.$langs->trans('State').'</td><td colspan="'.(2+(($showlogo || $showbarcode)?0:1)).'">'.dol_escape_htmltag($object->state).'</td>';
+	// State
+	if (!getDolGlobalString('SOCIETE_DISABLE_STATE')) print '<tr><td>'.$langs->trans('State').'</td><td colspan="'.(2+(($showlogo || $showbarcode)?0:1)).'">'.dol_escape_htmltag($object->state).'</td>';
 
-print '</table>';
+	print '</table>';
+}
 
 
 // Show maps
@@ -209,7 +213,7 @@ if ($address && $address != $object->country) {
 		$zoom = getDolGlobalInt('OPENSTREETMAP_MAPS_ZOOM_LEVEL', 15);
 
 		print openstreetmap_include_leaflet(0);
-		print '<div id="map" class="divmap" style="width: 90%; height: 500px; margin: 0 auto;"></div>';
+		print '<div id="map" class="divmap" style="width: '.($dol_openinpopup ? '100%' : '90%').'; height: 500px; margin: 0 auto;"></div>';
 		print '<script>
 		(function() {
 			var map = L.map("map").setView(['.((float) $point['lat']).', '.((float) $point['lon']).'], '.((int) $zoom).');

@@ -51,7 +51,7 @@ class modSubmitEveryWhere extends DolibarrModules
 
 		// Family can be 'crm','financial','hr','projects','products','ecm','technic','other'
 		// It is used to group modules in module setup page
-		$this->family = "other";
+		$this->family = "interface";
 		// Module label (no space allowed), used if translation string 'ModuleXXXName' not found (where XXX is value of numeric property 'numero' of module)
 		$this->name = preg_replace('/^mod/i', '', get_class($this));
 		// Module description, used if translation string 'ModuleXXXDesc' not found (where XXX is value of numeric property 'numero' of module)
@@ -88,7 +88,7 @@ class modSubmitEveryWhere extends DolibarrModules
 		// Constants
 		// Example: $this->const=array(0=>array('NewsSubmitter_MYNEWCONST1','chaine','myvalue','This is a constant to add',0),
 		//                             1=>array('NewsSubmitter_MYNEWCONST2','chaine','myvalue','This is another constant to add',0) );
-		$this->const = array();			// List of particular constants to add when module is enabled (key, 'chaine', value, desc, visible, 0 or 'allentities')
+		$this->const = array(0 => array('SUBMITEVERYWHERE_TRANSIFEX_PROJECT', 'chaine', 'dolicloud/dolimods', 'The Transifex project (organisation/project) where translations of this module are hosted', 0, 'allentities', 1));			// List of particular constants to add when module is enabled (key, 'chaine', value, desc, visible, 0 or 'allentities')
 
 		// Array to add new pages in new tabs
 		$this->tabs = array();

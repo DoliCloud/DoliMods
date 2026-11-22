@@ -68,7 +68,7 @@ class modPrestashopGet extends DolibarrModules
 		$this->editor_url = 'https://www.dolicloud.com?origin=dolimods';
 
 		// Possible values for version are: 'development', 'experimental', 'dolibarr', 'dolibarr_deprecated' or a version string like 'x.y.z'
-		$this->version = '1.0';
+		$this->version = 'deprecated';
 
 		//Url to the file with your last numberversion of this module
 		//$this->url_last_version = 'http://www.example.com/versionmodule.txt';
@@ -120,7 +120,7 @@ class modPrestashopGet extends DolibarrModules
 		// Example: $this->const=array(0=>array('PRESTASHOPGET_MYNEWCONST1','chaine','myvalue','This is a constant to add',1),
 		//                             1=>array('PRESTASHOPGET_MYNEWCONST2','chaine','myvalue','This is another constant to add',0, 'current', 1)
 		// );
-		$this->const = array();
+		$this->const = array(0 => array('PRESTASHOPGET_TRANSIFEX_PROJECT', 'chaine', 'dolicloud/dolimods', 'The Transifex project (organisation/project) where translations of this module are hosted', 0, 'allentities', 1));
 
 		// Some keys to add into the overwriting translation tables
 		/*$this->overwrite_translation = array(

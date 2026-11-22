@@ -127,6 +127,8 @@ class modAutoBlog extends DolibarrModules
 			2 => array('AUTOBLOG_AI_TIMEOUT', 'chaine', '120', 'Timeout in seconds of a request to the AI service', 0, 'current', 0),
 			3 => array('AUTOBLOG_TARGET_WORDS', 'chaine', '800', 'Target number of words of a generated article', 0, 'current', 0),
 		);
+		// Name of the Transifex project where the translations of this module are hosted
+		$this->const[] = array('AUTOBLOG_TRANSIFEX_PROJECT', 'chaine', 'dolicloud/dolimods', 'The Transifex project (organisation/project) where translations of this module are hosted', 0, 'allentities', 1);
 
 		if (!isModEnabled("autoblog")) {
 			$conf->autoblog = new stdClass();

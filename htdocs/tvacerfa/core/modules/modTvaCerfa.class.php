@@ -76,7 +76,7 @@ class modTvaCerfa extends DolibarrModules
 		$this->langfiles = array("tvacerfa@tvacerfa");
 
 		// Constants
-		$this->const = array();			// List of parameters
+		$this->const = array(0 => array('TVACERFA_TRANSIFEX_PROJECT', 'chaine', 'dolicloud/dolimods', 'The Transifex project (organisation/project) where translations of this module are hosted', 0, 'allentities', 1));			// List of parameters
 
 		// Boxes
 		$this->boxes = array();			// List of boxes

@@ -97,6 +97,8 @@ class modMyWidgets extends DolibarrModules
 			0=>array('MYWIDGET_TITLE_1','chaine','1','Title 1',1),
 			1=>array('MYWIDGET_BODY_1','chaine','1','This is content of MyWidget 1',1)
 		);
+		// Name of the Transifex project where the translations of this module are hosted
+		$this->const[] = array('MYWIDGETS_TRANSIFEX_PROJECT', 'chaine', 'dolicloud/dolimods', 'The Transifex project (organisation/project) where translations of this module are hosted', 0, 'allentities', 1);
 
 		// Boxes
 		$this->boxes = array(

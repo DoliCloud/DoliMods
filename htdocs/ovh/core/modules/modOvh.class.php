@@ -110,6 +110,8 @@ class modOvh extends DolibarrModules
 							 4=>array('MAIN_AGENDA_ACTIONAUTO_COMPANY_SENTBYSMS','chaine','1','To enable module tools entry',0,'allentities',1),
 							 5=>array('MAIN_AGENDA_ACTIONAUTO_MEMBER_SENTBYSMS','chaine','1','To enable module tools entry',0,'allentities',1),
 		);			// List of particular constants to add when module is enabled
+		// Name of the Transifex project where the translations of this module are hosted
+		$this->const[] = array('OVH_TRANSIFEX_PROJECT', 'chaine', 'dolicloud/dolimods', 'The Transifex project (organisation/project) where translations of this module are hosted', 0, 'allentities', 1);
 
 		// Array to add new pages in new tabs
 		// Example: $this->tabs = array('objecttype:+tabname1:Title1:langfile@mymodule:$user->rights->mymodule->read:/mymodule/mynewtab1.php?id=__ID__',  // To add a new tab identified by code tabname1

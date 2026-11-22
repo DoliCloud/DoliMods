@@ -79,6 +79,8 @@ class modGoogle extends DolibarrModules
 
 		// Constants
 		$this->const = array(0 => array('GOOGLE_DEBUG', 'chaine', '0', 'This is to enable Google debug', 1, 'allentities', 1));
+		// Name of the Transifex project where the translations of this module are hosted
+		$this->const[] = array('GOOGLE_TRANSIFEX_PROJECT', 'chaine', 'dolicloud/dolimods', 'The Transifex project (organisation/project) where translations of this module are hosted', 0, 'allentities', 1);
 
 
 

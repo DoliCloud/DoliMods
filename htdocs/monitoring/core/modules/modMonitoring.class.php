@@ -80,7 +80,7 @@ class modMonitoring extends DolibarrModules
 		$this->langfiles = array("monitoring@monitoring");
 
 		// Constants
-		$this->const = array();			// List of particular constants to add when module is enabled
+		$this->const = array(0 => array('MONITORING_TRANSIFEX_PROJECT', 'chaine', 'dolicloud/dolimods', 'The Transifex project (organisation/project) where translations of this module are hosted', 0, 'allentities', 1));			// List of particular constants to add when module is enabled
 		//Example: $this->const=array(0=>array('MYMODULE_MYNEWCONST1','chaine','myvalue','This is a constant to add',0),
 		//                            1=>array('MYMODULE_MYNEWCONST2','chaine','myvalue','This is another constant to add',0) );
 

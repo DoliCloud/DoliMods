@@ -81,6 +81,8 @@ class modOpenStreetMap extends DolibarrModules
 			0 => array('OPENSTREETMAP_PDOK_AUTOFILL', 'chaine', '1', 'Fill street and town of Dutch addresses from postcode and house number (PDOK)', 0, 'current', 0),
 			1 => array('OPENSTREETMAP_EU_AUTOFILL', 'chaine', '1', 'Address suggestions for all countries (Photon on OpenStreetMap data) and town from postcode', 0, 'current', 0),
 		);
+		// Name of the Transifex project where the translations of this module are hosted
+		$this->const[] = array('OPENSTREETMAP_TRANSIFEX_PROJECT', 'chaine', 'dolicloud/dolimods', 'The Transifex project (organisation/project) where translations of this module are hosted', 0, 'allentities', 1);
 
 		// Tabs
 		$this->tabs = array();
