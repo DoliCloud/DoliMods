@@ -144,7 +144,7 @@ if ($resql) {
 		$obj = $db->fetch_object($resql);
 		//debug
 		//var_dump($obj);
-		if ($obj->phone || (getDolGlobalBool('IPPHONE_SHOW_NO_PHONE') && (empty($obj->contactid) || (empty($obj->contactphone) && empty($obj->contactphonemobile))))) {
+		if ($obj->phone || (getDolGlobalInt('IPPHONE_SHOW_NO_PHONE') && (empty($obj->contactid) || (empty($obj->contactphone) && empty($obj->contactphonemobile))))) {
 			// Record for thirdparty (only if not already output)
 			if (empty($phoneaddedforthisthird[$obj->rowid])) {
 				if ($format == 'xml') {
