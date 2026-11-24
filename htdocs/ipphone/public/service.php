@@ -144,7 +144,7 @@ if ($resql) {
 		$obj = $db->fetch_object($resql);
 		//debug
 		//var_dump($obj);
-		if ($obj->phone || (! empty($conf->global->IPPHONE_SHOW_NO_PHONE) && ((empty($obj->contact_id) && empty($obj->contactid)) || (empty($obj->contactphone) && empty($obj->contactphonemobile))))) {
+		if ($obj->phone || (getDolGlobalBool('IPPHONE_SHOW_NO_PHONE') && (empty($obj->contactid) || (empty($obj->contactphone) && empty($obj->contactphonemobile))))) {
 			// Record for thirdparty (only if not already output)
 			if (empty($phoneaddedforthisthird[$obj->rowid])) {
 				if ($format == 'xml') {
@@ -154,15 +154,15 @@ if ($resql) {
 					print dolXMLEncodeipphone($obj->name);
 					print "</Name>\n";
 					print "\t<Telephone>";
-					print dolXMLEncodeipphone(str_replace(' ', '', $obj->phone));
+					print dolXMLEncodeipphone(str_replace(' ', '', (string) $obj->phone));
 					print "</Telephone>\n";
 					print "</DirectoryEntry>\n";
 				}
 				if ($format == 'csv') {
-					print '"'.$obj->name.'","'.str_replace(' ', '', $obj->phone).'"'."\n";
+					print '"'.str_replace('"', '""', (string) $obj->name).'","'.str_replace(' ', '', (string) $obj->phone).'"'."\n";
 				}
 			}
-			$phoneaddedforthisthird[$obj->rowid]=$obj->rowid.'_'.str_replace(' ', '', $obj->phone);
+			$phoneaddedforthisthird[$obj->rowid]=$obj->rowid.'_'.str_replace(' ', '', (string) $obj->phone);
 		}
 		$contactLabel = ipphoneFormatContactName($obj->firstname, $obj->lastname, $obj->name, $contactNameFormat);
 		if ($obj->contactphone) {
@@ -173,12 +173,12 @@ if ($resql) {
 				print dolXMLEncodeipphone($contactLabel);
 				print "</Name>\n";
 				print "\t<Telephone>";
-				print dolXMLEncodeipphone(str_replace(' ', '', $obj->contactphone));
+				print dolXMLEncodeipphone(str_replace(' ', '', (string) $obj->contactphone));
 				print "</Telephone>\n";
 				print "</DirectoryEntry>\n";
 			}
 			if ($format == 'csv') {
-				print '"'.$contactLabel.'","'.str_replace(' ', '', $obj->contactphone).'"'."\n";
+				print '"'.str_replace('"', '""', $contactLabel).'","'.str_replace(' ', '', (string) $obj->contactphone).'"'."\n";
 			}
 		}
 		if ($obj->contactphonemobile) {
@@ -189,12 +189,12 @@ if ($resql) {
 				print dolXMLEncodeipphone($contactLabel);
 				print "</Name>\n";
 				print "\t<Telephone>";
-				print dolXMLEncodeipphone(str_replace(' ', '', $obj->contactphonemobile));
+				print dolXMLEncodeipphone(str_replace(' ', '', (string) $obj->contactphonemobile));
 				print "</Telephone>\n";
 				print "</DirectoryEntry>\n";
 			}
 			if ($format == 'csv') {
-				print '"'.$contactLabel.'","'.str_replace(' ', '', $obj->contactphonemobile).'"'."\n";
+				print '"'.str_replace('"', '""', $contactLabel).'","'.str_replace(' ', '', (string) $obj->contactphonemobile).'"'."\n";
 			}
 		}
 
@@ -281,5 +281,5 @@ function ipphoneFormatContactName($firstname, $lastname, $thirdpartyName = '', $
  */
 function dolXMLEncodeipphone($string)
 {
-	return strtr($string, array('\''=>'&apos;','"'=>'&quot;','&'=>'&amp;','<'=>'&lt;','>'=>'&gt;'));
+	return strtr((string) $string, array('\''=>'&apos;','"'=>'&quot;','&'=>'&amp;','<'=>'&lt;','>'=>'&gt;'));
 }
