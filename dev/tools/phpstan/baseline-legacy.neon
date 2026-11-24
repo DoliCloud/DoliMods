@@ -355,12 +355,6 @@ parameters:
 			path: ../../../htdocs/discussion/class/channel.class.php
 
 		-
-			message: '#^Property CommonObject\:\:\$ismultientitymanaged \(int\) in isset\(\) is not nullable\.$#'
-			identifier: isset.property
-			count: 1
-			path: ../../../htdocs/discussion/class/channel.class.php
-
-		-
 			message: '#^Property CommonObject\:\:\$oldref \(CommonObject\) does not accept string\.$#'
 			identifier: assign.propertyType
 			count: 1
