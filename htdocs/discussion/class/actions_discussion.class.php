@@ -441,7 +441,7 @@ class ActionsDiscussion extends CommonHookActions
 		if (count($channels) > 1) {
 			// Choice of the channel: the JS loads the selected one into the iframe
 			require_once DOL_DOCUMENT_ROOT.'/core/class/html.form.class.php';
-			$out .= Form::selectarray('topmenu-discussion-channel', $channels, $channelid, 0, 0, 0, 'aria-label="'.dol_escape_htmltag($langs->trans('Channel')).'"', 0, 0, 0, '', 'discussion-popover-channel', 0);
+			$out .= Form::selectarray('topmenu-discussion-channel', $channels, (string) $channelid, 0, 0, 0, 'aria-label="'.dol_escape_htmltag($langs->trans('Channel')).'"', 0, 0, 0, '', 'discussion-popover-channel', 0);
 		} else {
 			$out .= '<span>'.dol_escape_htmltag($label).'</span>';
 		}

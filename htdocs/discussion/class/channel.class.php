@@ -438,7 +438,7 @@ class Channel extends CommonObject
 		if (isset($this->isextrafieldmanaged) && $this->isextrafieldmanaged == 1) {
 			$sql .= " LEFT JOIN ".$this->db->prefix().$this->table_element."_extrafields as te ON te.fk_object = t.rowid";
 		}
-		if (isset($this->ismultientitymanaged) && $this->ismultientitymanaged == 1) {
+		if ($this->ismultientitymanaged == 1) {
 			$sql .= " WHERE t.entity IN (".getEntity($this->element).")";
 		} else {
 			$sql .= " WHERE 1 = 1";
@@ -1318,7 +1318,7 @@ class Channel extends CommonObject
 		$sql .= " AND ctc.element = '".$this->db->escape($this->element)."'";
 		$sql .= " AND ec.fk_socpeople = ".((int) $userid)."))";
 		$sql .= " AND t.status = ".((int) self::STATUS_VALIDATED);
-		if (isset($this->ismultientitymanaged) && $this->ismultientitymanaged == 1) {
+		if ($this->ismultientitymanaged == 1) {
 			$sql .= " AND t.entity IN (".getEntity($this->element).")";
 		}
 		$sql .= " ORDER BY t.label, t.ref";
