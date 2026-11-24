@@ -15,6 +15,15 @@
  */
 
 /*
+ * Color of the picto into the top right menu. The theme md colors the pictos of the group of tools
+ * (search, AI assistant, bookmarks...) one by one, so a picto of a module must set its own color.
+ * The theme eldy already applies the same color to the class atoplogin.
+ */
+#topmenu-discussion-toggle, #topmenu-discussion-toggle:hover {
+	color: var(--colortextbackhmenu, #fff);
+}
+
+/*
  * Popover of the module Discussion, opened from the picto of the top right menu
  * (see printTopRightMenu() in class/actions_discussion.class.php). Same layout as the
  * popover of the AI assistant of Dolibarr: anchored top right, under the top menu.
