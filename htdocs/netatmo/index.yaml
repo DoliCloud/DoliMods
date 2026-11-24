@@ -9,8 +9,8 @@ packages:
       fr: "Netatmo"
       en: "Netatmo"
     description:
-      fr: "Description de Netatmo"
-      en: "Netatmo description"
+      fr: "Offre un endpoint permettant à une caméra Netatmo de pousser un événement dans l'agenda"
+      en: "Provides an endpoint allowing a Netatmo camera to push an event into the agenda"
     status: 'enabled'
     created_at: '2019-07-18'
     last_updated_at: 'auto'

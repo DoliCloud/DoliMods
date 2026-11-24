@@ -186,10 +186,9 @@ print '<input type="hidden" name="action" value="save">';
 
 print dol_get_fiche_head($head, 'geocoding', $langs->trans("OpenStreetMapTools"), -1);
 
-print '<span class="opacitymedium">'.$langs->trans("OpenStreetMapGeocodingDesc").'</span><br><br>';
-
-// What the module can do in each country
-print '<div class="info">'.$langs->trans("OpenStreetMapQualityTitle").'<ul>';
+// How addresses are located, then what the module can do in each country
+print '<div class="info">'.$langs->trans("OpenStreetMapGeocodingDesc").'<br><br>';
+print $langs->trans("OpenStreetMapQualityTitle").'<ul>';
 print '<li>'.$langs->trans("OpenStreetMapQualityOSM").'</li>';
 print '<li>'.$langs->trans("OpenStreetMapQualityFairUse").'</li>';
 print '<li>'.$langs->trans("OpenStreetMapQualityNL").'</li>';
@@ -199,7 +198,7 @@ print '</ul></div><br>';
 
 print '<div class="div-table-responsive-no-min">';
 print '<table class="noborder centpercent">';
-print '<tr class="liste_titre"><td>'.$langs->trans("Parameter").'</td><td>'.$langs->trans("Value").'</td></tr>';
+print '<tr class="liste_titre"><td>'.$langs->trans("Parameter").'</td><td></td></tr>';
 
 print '<tr class="oddeven"><td>'.$langs->trans("OpenStreetMapPdokAutofill").'<br><span class="opacitymedium small">'.$langs->trans("OpenStreetMapPdokAutofillDesc").'</span></td><td>';
 print $form->selectyesno('OPENSTREETMAP_PDOK_AUTOFILL', getDolGlobalInt('OPENSTREETMAP_PDOK_AUTOFILL'), 1);
@@ -251,15 +250,6 @@ foreach (array('OPENSTREETMAP_GEOCODE_PER_VISIT' => '', 'OPENSTREETMAP_CONNECT_T
 print '<tr class="liste_titre"><td colspan="2">'.$langs->trans("OpenStreetMapPostcodeEu").'</td></tr>';
 print '<tr class="oddeven"><td colspan="2"><span class="opacitymedium small">'.$langs->trans("OpenStreetMapPostcodeEuDesc").'</span>';
 print '<br><span class="warning small">'.$langs->trans("OpenStreetMapPostcodeEuPrivacy").'</span></td></tr>';
-print '<tr class="oddeven"><td>'.$langs->trans("OpenStreetMapPostcodeEuKey").'</td><td>';
-print '<input type="text" class="flat minwidth300" name="OPENSTREETMAP_POSTCODEEU_KEY" autocomplete="off" value="'.dol_escape_htmltag(getDolGlobalString('OPENSTREETMAP_POSTCODEEU_KEY')).'">';
-print '</td></tr>';
-print '<tr class="oddeven"><td>'.$langs->trans("OpenStreetMapPostcodeEuSecret").'</td><td>';
-print '<input type="password" class="flat minwidth300" name="OPENSTREETMAP_POSTCODEEU_SECRET" autocomplete="new-password" value="" placeholder="'.dol_escape_htmltag(getDolGlobalString('OPENSTREETMAP_POSTCODEEU_SECRET') ? $langs->trans("OpenStreetMapPostcodeEuSecretSet") : '').'">';
-if (getDolGlobalString('OPENSTREETMAP_POSTCODEEU_SECRET')) {
-	print ' <input type="checkbox" id="pcclear" name="OPENSTREETMAP_POSTCODEEU_SECRET_CLEAR" value="1"> <label for="pcclear">'.$langs->trans("Delete").'</label>';
-}
-print '</td></tr>';
 print '<tr class="oddeven"><td>'.$langs->trans("OpenStreetMapPostcodeEuCountries").'<br><span class="opacitymedium small">'.$langs->trans("OpenStreetMapPostcodeEuCountriesDesc").'</span></td><td>';
 $pcchoices = array();
 foreach (array_keys(openstreetmap_postcodeeu_countries()) as $code) {
@@ -268,6 +258,15 @@ foreach (array_keys(openstreetmap_postcodeeu_countries()) as $code) {
 }
 asort($pcchoices);
 print $form->multiselectarray('OPENSTREETMAP_POSTCODEEU_COUNTRIES', $pcchoices, openstreetmap_postcodeeu_selected_countries(), 0, 0, 'minwidth300');
+print '</td></tr>';
+print '<tr class="oddeven"><td>'.$langs->trans("OpenStreetMapPostcodeEuKey").'</td><td>';
+print '<input type="text" class="flat minwidth300" name="OPENSTREETMAP_POSTCODEEU_KEY" autocomplete="off" value="'.dol_escape_htmltag(getDolGlobalString('OPENSTREETMAP_POSTCODEEU_KEY')).'">';
+print '</td></tr>';
+print '<tr class="oddeven"><td>'.$langs->trans("OpenStreetMapPostcodeEuSecret").'</td><td>';
+print '<input type="password" class="flat minwidth300" name="OPENSTREETMAP_POSTCODEEU_SECRET" autocomplete="new-password" value="" placeholder="'.dol_escape_htmltag(getDolGlobalString('OPENSTREETMAP_POSTCODEEU_SECRET') ? $langs->trans("OpenStreetMapPostcodeEuSecretSet") : '').'">';
+if (getDolGlobalString('OPENSTREETMAP_POSTCODEEU_SECRET')) {
+	print ' <input type="checkbox" id="pcclear" name="OPENSTREETMAP_POSTCODEEU_SECRET_CLEAR" value="1"> <label for="pcclear">'.$langs->trans("Delete").'</label>';
+}
 print '</td></tr>';
 $pcencrypted = openstreetmap_postcodeeu_stored_encrypted($db);
 if ($pcencrypted >= 0) {
@@ -283,9 +282,10 @@ if ($pcencrypted >= 0) {
 print '</table>';
 print '</div>';
 
-print dol_get_fiche_end();
-
+// Button inside the tab, just under the table, like the setup pages made with FormSetup
 print '<div class="center"><input type="submit" class="button button-save" value="'.$langs->trans("Save").'"></div>';
+
+print dol_get_fiche_end();
 print '</form>';
 
 // Cache of coordinates

@@ -54,7 +54,7 @@ class modDiscussion extends DolibarrModules
 
 		// Family can be 'base' (core modules),'crm','financial','hr','projects','products','ecm','technic' (transverse modules),'interface' (link with external tools),'other','...'
 		// It is used to group modules by family in module setup page
-		$this->family = "other";
+		$this->family = "technic";
 
 		// Module position in the family on 2 digits ('01', '10', '20', ...)
 		$this->module_position = '90';
@@ -122,6 +122,7 @@ class modDiscussion extends DolibarrModules
 			'hooks' => array(
 				  'data' => array(
 					  'discussionmessages',
+					  'toprightmenu',		// Picto to open the messages of a channel in a popup
 				  ),
 				//   'entity' => '0',
 			),
@@ -168,7 +169,7 @@ class modDiscussion extends DolibarrModules
 		// Example: $this->const=array(1 => array('DISCUSSION_MYNEWCONST1', 'chaine', 'myvalue', 'This is a constant to add', 1),
 		//                             2 => array('DISCUSSION_MYNEWCONST2', 'chaine', 'myvalue', 'This is another constant to add', 0, 'current', 1)
 		// );
-		$this->const = array();
+		$this->const = array(0 => array('DISCUSSION_TRANSIFEX_PROJECT', 'chaine', 'dolicloud/dolimods', 'The Transifex project (organisation/project) where translations of this module are hosted', 0, 'allentities', 1));
 
 		// Some keys to add into the overwriting translation tables
 		/*$this->overwrite_translation = array(
@@ -220,7 +221,7 @@ class modDiscussion extends DolibarrModules
 		/* Example:
 		 $this->dictionaries=array(
 		 'langs' => 'discussion@discussion',
-		 // List of tables we want to see into dictonnary editor
+		 // List of tables we want to see into dictionary editor
 		 'tabname' => array("table1", "table2", "table3"),
 		 // Label of tables
 		 'tablib' => array("Table1", "Table2", "Table3"),
@@ -304,11 +305,6 @@ class modDiscussion extends DolibarrModules
 		$this->rights[$r][4] = 'channel';
 		$this->rights[$r][5] = 'delete';
 		$r++;
-		$this->rights[$r][0] = $this->numero . sprintf('%02d', (0 * 10) + 3 + 1);
-		$this->rights[$r][1] = 'Read all Channel object of Discussion';
-		$this->rights[$r][4] = 'channel';
-		$this->rights[$r][5] = 'readall';
-		$r++;
 
 		/* END MODULEBUILDER PERMISSIONS */
 
@@ -318,21 +314,7 @@ class modDiscussion extends DolibarrModules
 		$r = 0;
 		// Add here entries to declare new menus
 		/* BEGIN MODULEBUILDER TOPMENU */
-		$this->menu[$r++] = array(
-			'fk_menu' => '', // '' if this is a top menu. For left menu, use 'fk_mainmenu=xxx' or 'fk_mainmenu=xxx,fk_leftmenu=yyy' where xxx is mainmenucode and yyy is a leftmenucode
-			'type' => 'top', // This is a Top menu entry
-			'titre' => 'ModuleDiscussionName',
-			'prefix' => img_picto('', $this->picto, 'class="pictofixedwidth valignmiddle"'),
-			'mainmenu' => 'discussion',
-			'leftmenu' => '',
-			'url' => '/discussion/discussionindex.php',
-			'langs' => 'discussion@discussion', // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
-			'position' => 1000 + $r,
-			'enabled' => 'isModEnabled("discussion")', // Define condition to show or hide menu entry. Use 'isModEnabled("discussion")' if entry must be visible if module is enabled.
-			'perms' => '1', // Use 'perms'=>'$user->hasRight("discussion", "channel", "read")' if you want your menu with a permission rules
-			'target' => '',
-			'user' => 2, // 0=Menu for internal users, 1=external users, 2=both
-		);
+		// No top menu: the entries of the module are in the left menu of the Tools menu
 		/* END MODULEBUILDER TOPMENU */
 
 
@@ -340,13 +322,13 @@ class modDiscussion extends DolibarrModules
 
 		/* BEGIN MODULEBUILDER LEFTMENU MYOBJECT */
 		$this->menu[$r++] = array(
-			'fk_menu' => 'fk_mainmenu=discussion',      // '' if this is a top menu. For left menu, use 'fk_mainmenu=xxx' or 'fk_mainmenu=xxx,fk_leftmenu=yyy' where xxx is mainmenucode and yyy is a leftmenucode
+			'fk_menu' => 'fk_mainmenu=tools',      // '' if this is a top menu. For left menu, use 'fk_mainmenu=xxx' or 'fk_mainmenu=xxx,fk_leftmenu=yyy' where xxx is mainmenucode and yyy is a leftmenucode
 			'type' => 'left',                          // This is a Left menu entry
-			'titre' => 'Channel',
+			'titre' => 'ModuleDiscussionName',
 			'prefix' => img_picto('', $this->picto, 'class="pictofixedwidth valignmiddle paddingright"'),
-			'mainmenu' => 'discussion',
-			'leftmenu' => 'channel',
-			'url' => '/discussion/discussionindex.php',
+			'mainmenu' => 'tools',
+			'leftmenu' => 'discussion_channel',
+			'url' => '/discussion/discussionindex.php?leftmenu=discussion_channel',
 			'langs' => 'discussion@discussion',	        // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 			'position' => 1000 + $r,
 			'enabled' => 'isModEnabled("discussion")', // Define condition to show or hide menu entry. Use 'isModEnabled("discussion")' if entry must be visible if module is enabled.
@@ -356,12 +338,12 @@ class modDiscussion extends DolibarrModules
 			'object' => 'Channel'
 		);
 		$this->menu[$r++] = array(
-			'fk_menu' => 'fk_mainmenu=discussion,fk_leftmenu=channel',	    // '' if this is a top menu. For left menu, use 'fk_mainmenu=xxx' or 'fk_mainmenu=xxx,fk_leftmenu=yyy' where xxx is mainmenucode and yyy is a leftmenucode
+			'fk_menu' => 'fk_mainmenu=tools,fk_leftmenu=discussion_channel',	    // '' if this is a top menu. For left menu, use 'fk_mainmenu=xxx' or 'fk_mainmenu=xxx,fk_leftmenu=yyy' where xxx is mainmenucode and yyy is a leftmenucode
 			'type' => 'left',			                // This is a Left menu entry
 			'titre' => 'NewChannel',
-			'mainmenu' => 'discussion',
+			'mainmenu' => 'tools',
 			'leftmenu' => 'discussion_channel_new',
-			'url' => '/discussion/channel_card.php?action=create',
+			'url' => '/discussion/channel_card.php?action=create&leftmenu=discussion_channel',
 			'langs' => 'discussion@discussion',	        // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 			'position' => 1000 + $r,
 			'enabled' => 'isModEnabled("discussion")', // Define condition to show or hide menu entry. Use 'isModEnabled("discussion")' if entry must be visible if module is enabled. Use '$leftmenu==\'system\'' to show if leftmenu system is selected.
@@ -371,12 +353,12 @@ class modDiscussion extends DolibarrModules
 			'object' => 'Channel'
 		);
 		$this->menu[$r++] = array(
-			'fk_menu' => 'fk_mainmenu=discussion,fk_leftmenu=channel',	    // '' if this is a top menu. For left menu, use 'fk_mainmenu=xxx' or 'fk_mainmenu=xxx,fk_leftmenu=yyy' where xxx is mainmenucode and yyy is a leftmenucode
+			'fk_menu' => 'fk_mainmenu=tools,fk_leftmenu=discussion_channel',	    // '' if this is a top menu. For left menu, use 'fk_mainmenu=xxx' or 'fk_mainmenu=xxx,fk_leftmenu=yyy' where xxx is mainmenucode and yyy is a leftmenucode
 			'type' => 'left',			                // This is a Left menu entry
 			'titre' => 'ListChannel',
-			'mainmenu' => 'discussion',
+			'mainmenu' => 'tools',
 			'leftmenu' => 'discussion_channel_list',
-			'url' => '/discussion/channel_list.php',
+			'url' => '/discussion/channel_list.php?leftmenu=discussion_channel',
 			'langs' => 'discussion@discussion',	        // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 			'position' => 1000 + $r,
 			'enabled' => 'isModEnabled("discussion")', // Define condition to show or hide menu entry. Use 'isModEnabled("discussion")' if entry must be visible if module is enabled.

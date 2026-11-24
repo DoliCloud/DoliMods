@@ -110,6 +110,8 @@ class modOvh extends DolibarrModules
 							 4=>array('MAIN_AGENDA_ACTIONAUTO_COMPANY_SENTBYSMS','chaine','1','To enable module tools entry',0,'allentities',1),
 							 5=>array('MAIN_AGENDA_ACTIONAUTO_MEMBER_SENTBYSMS','chaine','1','To enable module tools entry',0,'allentities',1),
 		);			// List of particular constants to add when module is enabled
+		// Name of the Transifex project where the translations of this module are hosted
+		$this->const[] = array('OVH_TRANSIFEX_PROJECT', 'chaine', 'dolicloud/dolimods', 'The Transifex project (organisation/project) where translations of this module are hosted', 0, 'allentities', 1);
 
 		// Array to add new pages in new tabs
 		// Example: $this->tabs = array('objecttype:+tabname1:Title1:langfile@mymodule:$user->rights->mymodule->read:/mymodule/mynewtab1.php?id=__ID__',  // To add a new tab identified by code tabname1
@@ -180,26 +182,43 @@ class modOvh extends DolibarrModules
 
 		// Main menu entries
 		$r=0;
+		// Parent entry, not clickable, visible if user can see at least one sub entry
 		$this->menu[$r]=array(	'fk_menu'=>'fk_mainmenu=tools',		    // Use 'fk_mainmenu=xxx' or 'fk_mainmenu=xxx,fk_leftmenu=yyy' where xxx is mainmenucode and yyy is a leftmenucode
 									'type'=>'left',			                // This is a Left menu entry
-									'titre'=>'OvhInvoiceImportShort',
-									'url'=>'/ovh/importovhinvoice.php',
+									'titre'=>'OVH',
 									'prefix'=>img_picto('', $this->picto, 'class="paddingright pictofixedwidth valignmiddle" height="16"'),
-									'langs'=>'ovh@ovh',	        // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
+									'mainmenu'=>'tools',
+									'leftmenu'=>'ovh',
+									'url'=>'',
 									'position'=>500,
+									'enabled'=>'isModEnabled("ovh")',
+									'perms'=>'$user->hasRight("ovh", "importinvoice") || $user->hasRight("ovh", "sysadmin")',
+									'target'=>'',
+									'user'=>2);				                // 0=Menu for internal users, 1=external users, 2=both
+		$r++;
+
+		$this->menu[$r]=array(	'fk_menu'=>'fk_mainmenu=tools,fk_leftmenu=ovh',		    // Use 'fk_mainmenu=xxx' or 'fk_mainmenu=xxx,fk_leftmenu=yyy' where xxx is mainmenucode and yyy is a leftmenucode
+									'type'=>'left',			                // This is a Left menu entry
+									'titre'=>'OvhInvoiceImportShort',
+									'mainmenu'=>'tools',
+									'leftmenu'=>'ovh_importinvoice',
+									'url'=>'/ovh/importovhinvoice.php?leftmenu=ovh',
+									'langs'=>'ovh@ovh',	        // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
+									'position'=>501,
 									'enabled'=>'isModEnabled("ovh")',
 									'perms'=>'$user->hasRight("ovh", "importinvoice")',	// Use 'perms'=>'$user->rights->mymodule->level1->level2' if you want your menu with a permission rules
 									'target'=>'',
 									'user'=>2);				                // 0=Menu for internal users, 1=external users, 2=both
 		$r++;
 
-		$this->menu[$r]=array(	'fk_menu'=>'fk_mainmenu=tools',		    // Use 'fk_mainmenu=xxx' or 'fk_mainmenu=xxx,fk_leftmenu=yyy' where xxx is mainmenucode and yyy is a leftmenucode
+		$this->menu[$r]=array(	'fk_menu'=>'fk_mainmenu=tools,fk_leftmenu=ovh',		    // Use 'fk_mainmenu=xxx' or 'fk_mainmenu=xxx,fk_leftmenu=yyy' where xxx is mainmenucode and yyy is a leftmenucode
 									'type'=>'left',			                // This is a Left menu entry
 									'titre'=>'OvhServers',
-									'url'=>'/ovh/ovh_listinfoserver.php',
-									'prefix'=>img_picto('', $this->picto, 'class="paddingright pictofixedwidth valignmiddle" height="16"'),
+									'mainmenu'=>'tools',
+									'leftmenu'=>'ovh_servers',
+									'url'=>'/ovh/ovh_listinfoserver.php?leftmenu=ovh',
 									'langs'=>'ovh@ovh',	        // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
-									'position'=>500,
+									'position'=>502,
 									'enabled'=>'isModEnabled("ovh")',
 									'perms'=>'$user->hasRight("ovh", "sysadmin")',	// Use 'perms'=>'$user->rights->mymodule->level1->level2' if you want your menu with a permission rules
 									'target'=>'',

@@ -163,7 +163,7 @@ class modStancerDolicloud extends DolibarrModules
 		// Example: $this->const=array(1 => array('STANCER_DOLICLOUD_MYNEWCONST1', 'chaine', 'myvalue', 'This is a constant to add', 1),
 		//                             2 => array('STANCER_DOLICLOUD_MYNEWCONST2', 'chaine', 'myvalue', 'This is another constant to add', 0, 'current', 1)
 		// );
-		$this->const = array();
+		$this->const = array(0 => array('STANCERDOLICLOUD_TRANSIFEX_PROJECT', 'chaine', 'dolicloud/dolimods', 'The Transifex project (organisation/project) where translations of this module are hosted', 0, 'allentities', 1));
 
 		// Some keys to add into the overwriting translation tables
 		/*$this->overwrite_translation = array(
@@ -191,7 +191,7 @@ class modStancerDolicloud extends DolibarrModules
 		// 'intervention'     to add a tab in intervention view
 		// 'invoice'          to add a tab in customer invoice view
 		// 'invoice_supplier' to add a tab in supplier invoice view
-		// 'member'           to add a tab in fundation member view
+		// 'member'           to add a tab in foundation member view
 		// 'opensurveypoll'	  to add a tab in opensurvey poll view
 		// 'order'            to add a tab in sale order view
 		// 'order_supplier'   to add a tab in supplier order view
@@ -208,7 +208,7 @@ class modStancerDolicloud extends DolibarrModules
 		/* Example:
 		 $this->dictionaries=array(
 		 'langs'=>'stancerdolicloud@stancerdolicloud',
-		 // List of tables we want to see into dictonnary editor
+		 // List of tables we want to see into dictionary editor
 		 'tabname'=>array("table1", "table2", "table3"),
 		 // Label of tables
 		 'tablib'=>array("Table1", "Table2", "Table3"),

@@ -51,7 +51,7 @@ class modSubmitEveryWhere extends DolibarrModules
 
 		// Family can be 'crm','financial','hr','projects','products','ecm','technic','other'
 		// It is used to group modules in module setup page
-		$this->family = "other";
+		$this->family = "interface";
 		// Module label (no space allowed), used if translation string 'ModuleXXXName' not found (where XXX is value of numeric property 'numero' of module)
 		$this->name = preg_replace('/^mod/i', '', get_class($this));
 		// Module description, used if translation string 'ModuleXXXDesc' not found (where XXX is value of numeric property 'numero' of module)
@@ -88,7 +88,7 @@ class modSubmitEveryWhere extends DolibarrModules
 		// Constants
 		// Example: $this->const=array(0=>array('NewsSubmitter_MYNEWCONST1','chaine','myvalue','This is a constant to add',0),
 		//                             1=>array('NewsSubmitter_MYNEWCONST2','chaine','myvalue','This is another constant to add',0) );
-		$this->const = array();			// List of particular constants to add when module is enabled (key, 'chaine', value, desc, visible, 0 or 'allentities')
+		$this->const = array(0 => array('SUBMITEVERYWHERE_TRANSIFEX_PROJECT', 'chaine', 'dolicloud/dolimods', 'The Transifex project (organisation/project) where translations of this module are hosted', 0, 'allentities', 1));			// List of particular constants to add when module is enabled (key, 'chaine', value, desc, visible, 0 or 'allentities')
 
 		// Array to add new pages in new tabs
 		$this->tabs = array();
@@ -148,7 +148,7 @@ class modSubmitEveryWhere extends DolibarrModules
 									'prefix' => img_picto('', $this->picto, 'class="paddingright pictofixedwidth valignmiddle"'),
 									'mainmenu'=>'tools',
 									'leftmenu'=>'submiteverywhere',
-									'url'=>'/submiteverywhere/index.php',
+									'url'=>'/submiteverywhere/index.php?leftmenu=submiteverywhere',
 									'langs'=>'submiteverywhere@submiteverywhere',	// Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 									'position'=>100,
 									'enabled'=>'$conf->submiteverywhere->enabled',			// Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
@@ -160,7 +160,7 @@ class modSubmitEveryWhere extends DolibarrModules
 		$this->menu[$r]=array(	'fk_menu'=>'fk_mainmenu=tools,fk_leftmenu=submiteverywhere',
 									'type'=>'left',			// This is a Left menu entry
 									'titre'=>'NewMessage',
-									'url'=>'/submiteverywhere/card.php?action=create',
+									'url'=>'/submiteverywhere/card.php?action=create&leftmenu=submiteverywhere',
 									'langs'=>'submiteverywhere@submiteverywhere',	// Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 									'position'=>110,
 									'enabled'=>'$conf->submiteverywhere->enabled',			// Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
@@ -172,7 +172,7 @@ class modSubmitEveryWhere extends DolibarrModules
 		$this->menu[$r]=array(	'fk_menu'=>'fk_mainmenu=tools,fk_leftmenu=submiteverywhere',
 									'type'=>'left',			// This is a Left menu entry
 									'titre'=>'List',
-									'url'=>'/submiteverywhere/list.php',
+									'url'=>'/submiteverywhere/list.php?leftmenu=submiteverywhere',
 									'langs'=>'submiteverywhere@submiteverywhere',	// Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 									'position'=>120,
 									'enabled'=>'$conf->submiteverywhere->enabled',			// Define condition to show or hide menu entry. Use '$conf->NewsSubmitter->enabled' if entry must be visible if module is enabled.
@@ -197,7 +197,7 @@ class modSubmitEveryWhere extends DolibarrModules
 	{
 		$sql = array();
 
-		$result=$this->load_tables('/submiteverywhere/sql/');
+		$result = $this->_load_tables('/submiteverywhere/sql/');
 		if ($result <= 0) return $result;
 
 		return $this->_init($sql, $options);

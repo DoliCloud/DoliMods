@@ -98,6 +98,8 @@ class modBilledOnOrders extends DolibarrModules
 			2=>array('BILLEDONORDERS_DISABLE_REMAINTOBILLEXCLTAX','chaine','1','Show total of columns', 0),
 			5=>array('BILLEDONORDERS_SHOW_TOTAL','chaine','0','Show total of columns', 0)
 		);
+		// Name of the Transifex project where the translations of this module are hosted
+		$this->const[] = array('BILLEDONORDERS_TRANSIFEX_PROJECT', 'chaine', 'dolicloud/dolimods', 'The Transifex project (organisation/project) where translations of this module are hosted', 0, 'allentities', 1);
 
 		// Boxes
 		$this->boxes = array();			// List of boxes

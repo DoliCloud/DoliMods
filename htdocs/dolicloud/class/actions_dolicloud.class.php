@@ -53,10 +53,11 @@ class ActionsDoliCloud
 	{
 		global $langs, $user, $conf;
 
-		$url='https://www.on.dolicloud.com/';
-		if (! empty($conf->global->DOLICLOUD_FORCE_URL)) $url=$conf->global->DOLICLOUD_FORCE_URL;
+		$url = getDolGlobalString('DOLICLOUD_FORCE_URL', 'https://myaccount.dolicloud.com');
 		//$out='<td>';
-		$out.='<div class="login_block_elem" id="linkdolicloud"><a href="'.$url.'" target="_blank">DoliCloud</a></div>';
+		$out = '<div class="login_block_elem" id="linkdolicloud"><a href="'.dol_escape_htmltag($url).'" target="_blank" rel="noopener">';
+		$out .= img_picto('DoliCloud', 'dolicloud_favicon.png@dolicloud', 'class="valignmiddle" width="16" height="16"');
+		$out .= '</a></div>';
 		//$out.='</td>';
 
 		$this->resprints=$out;

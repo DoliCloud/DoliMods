@@ -35,8 +35,6 @@ function channelPrepareHead($object)
 
 	$showtabofpagecontact = $object->isChannelAdmin($user->id);
 	$showtabofpagenote = $object->isChannelAdmin($user->id);
-	$showtabofpagedocument = $object->isChannelAdmin($user->id);
-	$showtabofpageagenda = $object->isChannelAdmin($user->id);
 
 	$h = 0;
 	$head = array();
@@ -72,34 +70,7 @@ function channelPrepareHead($object)
 		}
 	}
 
-	if ($showtabofpagedocument) {
-		require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
-		require_once DOL_DOCUMENT_ROOT.'/core/class/link.class.php';
-		$upload_dir = $conf->discussion->dir_output."/channel/".dol_sanitizeFileName($object->ref);
-		$nbFiles = count(dol_dir_list($upload_dir, 'files', 0, '', '(\.meta|_preview.*\.png)$'));
-		$nbLinks = Link::count($db, $object->element, $object->id);
-		$head[$h][0] = dol_buildpath("/discussion/channel_document.php", 1).'?id='.$object->id;
-		$head[$h][1] = $langs->trans('Documents');
-		if (($nbFiles + $nbLinks) > 0) {
-			$head[$h][1] .= '<span class="badge marginleftonlyshort">'.($nbFiles + $nbLinks).'</span>';
-		}
-		$head[$h][2] = 'document';
-		$h++;
-	}
-
-	if ($showtabofpageagenda) {
-		$head[$h][0] = dol_buildpath("/discussion/channel_agenda.php", 1).'?id='.$object->id;
-		$head[$h][1] = $langs->trans("Events");
-		$head[$h][2] = 'agenda';
-		$h++;
-	}
-
-	if ($object->status == $object::STATUS_VALIDATED) {
-		$head[$h][0] = dol_buildpath("/discussion/channel_messages.php", 1).'?id='.$object->id;
-		$head[$h][1] = $langs->trans("Messages");
-		$head[$h][2] = 'messages';
-		$h++;
-	}
+	// No tab for the messages: channel_messages.php is a page of its own (button on the card of the channel)
 	// Show more tabs from modules
 	// Entries must be declared in modules descriptor with line
 	//$this->tabs = array(

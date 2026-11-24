@@ -327,9 +327,9 @@ if ($object->ismultientitymanaged == 1) {
 	$sql .= " WHERE 1 = 1";
 }
 
-if (!$user->hasRight('discussion', 'channel', 'readall')) {
-	$sql .= " AND ( t.private = 0 OR (t.private = 1 AND s.fk_socpeople = ".((int) $user->id)." AND tc.element = '".$object->element."'))";
-}
+// With the read permission, everybody can read the public channels (private = 0),
+// the private channels (private = 1) are reserved to their contacts
+$sql .= " AND ( t.private = 0 OR (t.private = 1 AND s.fk_socpeople = ".((int) $user->id)." AND tc.element = '".$object->element."'))";
 
 foreach ($search as $key => $val) {
 	if (array_key_exists($key, $object->fields)) {
@@ -421,7 +421,8 @@ $sql .= empty($hookmanager->resPrint) ? "" : " HAVING 1=1 ".$hookmanager->resPri
 $nbtotalofrecords = '';
 if (!getDolGlobalInt('MAIN_DISABLE_FULL_SCANLIST')) {
 	/* The fast and low memory method to get and count full list converts the sql into a sql count */
-	$sqlforcount = preg_replace('/^'.preg_quote($sqlfields, '/').'/', 'SELECT COUNT(*) as nbtotalofrecords', $sql);
+	// COUNT(DISTINCT t.rowid) and not COUNT(*) because the join on the contacts makes one line by contact
+	$sqlforcount = preg_replace('/^'.preg_quote($sqlfields, '/').'/', 'SELECT COUNT(DISTINCT t.rowid) as nbtotalofrecords', $sql);
 	$sqlforcount = preg_replace('/GROUP BY .*$/', '', $sqlforcount);
 
 	$resql = $db->query($sqlforcount);

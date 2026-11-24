@@ -87,7 +87,7 @@ class modEcoTaxDeee extends DolibarrModules
 		// List of particular constants to add when module is enabled
 		//Example: $this->const=array(0=>array('MODULE_MY_NEW_CONST1','chaine','myvalue','This is a constant to add',0),
 		//                            1=>array('MODULE_MY_NEW_CONST2','chaine','myvalue','This is another constant to add',0) );
-		$this->const=array();
+		$this->const=array(0 => array('ECOTAXDEEE_TRANSIFEX_PROJECT', 'chaine', 'dolicloud/dolimods', 'The Transifex project (organisation/project) where translations of this module are hosted', 0, 'allentities', 1));
 
 		// New pages on tabs
 		$this->tabs = array();

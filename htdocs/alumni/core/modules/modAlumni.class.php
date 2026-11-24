@@ -139,7 +139,7 @@ class modAlumni extends DolibarrModules
 		// Example: $this->const=array(1 => array('ALUMNI_MYNEWCONST1', 'chaine', 'myvalue', 'This is a constant to add', 1),
 		//                             2 => array('ALUMNI_MYNEWCONST2', 'chaine', 'myvalue', 'This is another constant to add', 0, 'current', 1)
 		// );
-		$this->const = array();
+		$this->const = array(0 => array('ALUMNI_TRANSIFEX_PROJECT', 'chaine', 'dolicloud/dolimods', 'The Transifex project (organisation/project) where translations of this module are hosted', 0, 'allentities', 1));
 		// Some keys to add into the overwriting translation tables
 		/*$this->overwrite_translation = array(
 			'en_US:ParentCompany'=>'Parent company or reseller',
@@ -292,7 +292,7 @@ class modAlumni extends DolibarrModules
 			 'titre' => 'EventChoices',
 			 'mainmenu' => 'alumni',
 			 'leftmenu' => 'survey',
-			 'url' => '/alumni/survey_list.php',
+			 'url' => '/alumni/survey_list.php?leftmenu=survey',
 			 'langs' => 'alumni@alumni',
 			 'position' => 1001 + $r,
 			 'enabled' => 'isModEnabled(\'alumni\')',
@@ -308,7 +308,7 @@ class modAlumni extends DolibarrModules
 			'titre' => 'NewVoteEntry',
 			'mainmenu' => 'alumni',
 			'leftmenu' => 'survey_list_new',
-			'url' => '/alumni/survey_card.php?action=create',
+			'url' => '/alumni/survey_card.php?action=create&leftmenu=survey',
 			'langs' => 'alumni@alumni',
 			'position' => 1002 + $r,
 			'enabled' => 'isModEnabled(\'alumni\')',
@@ -324,7 +324,7 @@ class modAlumni extends DolibarrModules
 			 'titre' => 'Results',
 			 'mainmenu' => 'alumni',
 			 'leftmenu' => 'survey_list',
-			 'url' => '/alumni/survey_list.php',
+			 'url' => '/alumni/survey_list.php?leftmenu=survey',
 			 'langs' => 'alumni@alumni',
 			 'position' => 1003 + $r,
 			 'enabled' => 'isModEnabled(\'alumni\')',
@@ -340,7 +340,7 @@ class modAlumni extends DolibarrModules
 			'titre' => 'CustomReports',
 			'mainmenu' => 'alumni',
 			'leftmenu' => 'survey_list_report',
-			'url' => '/core/customreports.php?objecttype='.urlencode('survey@alumni'),
+			'url' => '/core/customreports.php?objecttype='.urlencode('survey@alumni').'&leftmenu=survey',
 			'langs' => 'alumni@alumni',
 			'position' => 1004 + $r,
 			'enabled' => 'isModEnabled(\'alumni\')',

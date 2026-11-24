@@ -70,7 +70,7 @@ class modAutoBlog extends DolibarrModules
 		$this->editor_squarred_logo = '';
 
 		// Possible values for version are: 'development', 'experimental', 'dolibarr', 'dolibarr_deprecated', 'experimental_deprecated' or a version string like 'x.y.z'
-		$this->version = '1.0';
+		$this->version = 'experimental';
 
 		// Key used in llx_const table to save module status enabled/disabled
 		$this->const_name = 'MAIN_MODULE_'.dol_strtoupper($this->name);
@@ -127,6 +127,8 @@ class modAutoBlog extends DolibarrModules
 			2 => array('AUTOBLOG_AI_TIMEOUT', 'chaine', '120', 'Timeout in seconds of a request to the AI service', 0, 'current', 0),
 			3 => array('AUTOBLOG_TARGET_WORDS', 'chaine', '800', 'Target number of words of a generated article', 0, 'current', 0),
 		);
+		// Name of the Transifex project where the translations of this module are hosted
+		$this->const[] = array('AUTOBLOG_TRANSIFEX_PROJECT', 'chaine', 'dolicloud/dolimods', 'The Transifex project (organisation/project) where translations of this module are hosted', 0, 'allentities', 1);
 
 		if (!isModEnabled("autoblog")) {
 			$conf->autoblog = new stdClass();
@@ -204,7 +206,7 @@ class modAutoBlog extends DolibarrModules
 			'prefix' => img_picto('', $this->picto, 'class="pictofixedwidth valignmiddle paddingright"'),
 			'mainmenu' => 'tools',
 			'leftmenu' => 'autoblog_blogtopic',
-			'url' => '/autoblog/blogtopic_list.php',
+			'url' => '/autoblog/blogtopic_list.php?leftmenu=autoblog_blogtopic',
 			'langs' => 'autoblog@autoblog',
 			'position' => 1000 + $r,
 			'enabled' => 'isModEnabled("autoblog")',
@@ -219,7 +221,7 @@ class modAutoBlog extends DolibarrModules
 			'titre' => 'NewBlogTopic',
 			'mainmenu' => 'tools',
 			'leftmenu' => 'autoblog_blogtopic_new',
-			'url' => '/autoblog/blogtopic_card.php?action=create',
+			'url' => '/autoblog/blogtopic_card.php?action=create&leftmenu=autoblog_blogtopic',
 			'langs' => 'autoblog@autoblog',
 			'position' => 1000 + $r,
 			'enabled' => 'isModEnabled("autoblog")',
@@ -234,7 +236,7 @@ class modAutoBlog extends DolibarrModules
 			'titre' => 'List',
 			'mainmenu' => 'tools',
 			'leftmenu' => 'autoblog_blogtopic_list',
-			'url' => '/autoblog/blogtopic_list.php',
+			'url' => '/autoblog/blogtopic_list.php?leftmenu=autoblog_blogtopic',
 			'langs' => 'autoblog@autoblog',
 			'position' => 1000 + $r,
 			'enabled' => 'isModEnabled("autoblog")',
@@ -249,7 +251,7 @@ class modAutoBlog extends DolibarrModules
 			'titre' => 'WebsitesEditorialSetup',
 			'mainmenu' => 'tools',
 			'leftmenu' => 'autoblog_websitesetup',
-			'url' => '/autoblog/autoblogwebsite_list.php',
+			'url' => '/autoblog/autoblogwebsite_list.php?leftmenu=autoblog_blogtopic',
 			'langs' => 'autoblog@autoblog',
 			'position' => 1000 + $r,
 			'enabled' => 'isModEnabled("autoblog")',

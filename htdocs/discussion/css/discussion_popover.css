@@ -1,0 +1,170 @@
+/* Copyright (C) 2026 Laurent Destailleur <eldy@users.sourceforge.net>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <https://www.gnu.org/licenses/>.
+ */
+
+/*
+ * Color of the picto into the top right menu. The theme md colors the pictos of the group of tools
+ * (search, AI assistant, bookmarks...) one by one, so a picto of a module must set its own color.
+ * The theme eldy already applies the same color to the class atoplogin.
+ */
+#topmenu-discussion-toggle, #topmenu-discussion-toggle:hover {
+	color: var(--colortextbackhmenu, #fff);
+}
+
+/*
+ * Popover of the module Discussion, opened from the picto of the top right menu
+ * (see printTopRightMenu() in class/actions_discussion.class.php). Same layout as the
+ * popover of the AI assistant of Dolibarr: anchored top right, under the top menu.
+ * The container of the picto into top menu applies the class topmenu-any of the core,
+ * that sets the same padding as the other pictos of the group of tools.
+ */
+.discussion-popover {
+	position: fixed;
+	top: var(--discussion-popover-top, 48px);
+	right: 12px;
+	width: min(460px, calc(100vw - 24px));
+	height: min(600px, calc(100vh - var(--discussion-popover-top, 48px) - 16px));
+	z-index: 1010;
+	display: flex;
+	flex-direction: column;
+	background: var(--colorbackbody, #fff);
+	color: var(--colortext, #333);
+	border: 1px solid var(--inputbordercolor, rgba(0, 0, 0, 0.15));
+	border-radius: 12px;
+	box-shadow: 0 12px 32px rgba(0, 0, 0, 0.18);
+	overflow: hidden;
+	opacity: 0;
+	visibility: hidden;
+	transform: translateY(-8px);
+	transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s;
+}
+
+.discussion-popover.open {
+	opacity: 1;
+	visibility: visible;
+	transform: none;
+}
+
+.discussion-popover-header {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	padding: 8px 12px;
+	background: var(--colorbackhmenu1, #3d3e40);
+	color: var(--colortextbackhmenu, #fff);
+}
+
+.discussion-popover-header a,
+.discussion-popover-header a:hover {
+	color: var(--colortextbackhmenu, #fff);
+}
+
+.discussion-popover-title {
+	flex: 1;
+	min-width: 0;
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	font-weight: bold;
+}
+
+/* Choice of the channel, shown into the title bar when the user has several channels */
+.discussion-popover-header select.discussion-popover-channel {
+	flex: 1;
+	min-width: 0;
+	max-width: 100%;
+	margin: 0;
+	padding: 2px 4px;
+	border: 1px solid rgba(255, 255, 255, 0.35);
+	border-radius: 4px;
+	background: transparent;
+	color: var(--colortextbackhmenu, #fff);
+	font-weight: bold;
+	cursor: pointer;
+}
+
+.discussion-popover-header select.discussion-popover-channel option {
+	color: var(--colortext, #333);
+	background: var(--colorbackbody, #fff);
+	font-weight: normal;
+}
+
+.discussion-popover-body {
+	flex: 1;
+	min-height: 0;
+	display: flex;
+}
+
+.discussion-popover-body iframe {
+	flex: 1;
+	width: 100%;
+	height: 100%;
+	border: 0;
+}
+
+/* No channel to read: the popover shows an adapted message instead of the messages */
+.discussion-popover-body.discussion-popover-empty {
+	align-items: center;
+	justify-content: center;
+}
+
+.discussion-popover-empty .discussion-popover-nomessage {
+	padding: 24px;
+	text-align: center;
+	opacity: 0.75;
+}
+
+/* Small screens: full width panel */
+@media (max-width: 480px) {
+	.discussion-popover {
+		right: 0;
+		left: 0;
+		width: auto;
+		border-radius: 0;
+		height: calc(100vh - var(--discussion-popover-top, 48px));
+	}
+}
+
+/*
+ * Page of messages (channel_messages.php) shown inside the popover: only the discussion,
+ * that fills the panel, with the input area always visible at the bottom.
+ */
+.discussion-popupcontent {
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	display: flex;
+	flex-direction: column;
+	padding: 0 0 14px 0;
+	box-sizing: border-box;
+	background: var(--colorbackbody, #fff);
+}
+
+/* The margins are inside the list, so the list and its scrollbar go up to the top and right edges of the popover */
+.discussion-popupcontent #channelmessagediv {
+	flex: 1 1 auto;
+	min-height: 0;
+	overflow: auto;
+	padding: 14px 16px 0 16px;
+	box-sizing: border-box;
+}
+
+.discussion-popupcontent .discussion-input {
+	flex: 0 0 auto;
+	padding: 12px 16px 0 16px;
+	box-sizing: border-box;	/* Its class fichecenter has a width of 100% */
+}

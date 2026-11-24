@@ -67,7 +67,8 @@ class ActionsGoogle
 	 */
 	public function setContentSecurityPolicy($parameters, &$object, &$action, &$hookmanager)
 	{
-		$tmp = ($hookmanager->resPrint ? $hookmanager->resPrint : $parameters['contentsecuritypolicy']);
+		// Complete the policy of the previous hooks of this call, if any (when first, resPrint may come from another call)
+		$tmp = (($hookmanager->resNbOfHooks > 1 && $hookmanager->resPrint) ? $hookmanager->resPrint : $parameters['contentsecuritypolicy']);
 
 		// Add google to Content-Security-Policy
 		$tmp = preg_replace('/script-src \'self\'/', 'script-src \'self\' *.googleapis.com *.google.com *.google-analytics.com', $tmp);
@@ -75,7 +76,8 @@ class ActionsGoogle
 		$tmp = preg_replace('/connect-src \'self\'/', 'connect-src \'self\' *.google.com', $tmp);
 		$tmp = preg_replace('/frame-src \'self\'/', 'frame-src \'self\' *.google.com', $tmp);
 
-		$hookmanager->resPrint = '';
+		// Give the result to the next hooks (older Dolibarr versions do not do it)
+		$hookmanager->resPrint = $tmp;
 
 		$this->resprints = $tmp;
 

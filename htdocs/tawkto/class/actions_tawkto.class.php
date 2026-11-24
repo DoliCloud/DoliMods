@@ -16,16 +16,19 @@ class ActionsTawkto
 	 */
 	public function setContentSecurityPolicy($parameters, &$object, &$action, &$hookmanager)
 	{
-		$tmp = ($hookmanager->resPrint ? $hookmanager->resPrint : $parameters['contentsecuritypolicy']);
+		// Complete the policy of the previous hooks of this call, if any (when first, resPrint may come from another call)
+		$tmp = (($hookmanager->resNbOfHooks > 1 && $hookmanager->resPrint) ? $hookmanager->resPrint : $parameters['contentsecuritypolicy']);
 
 		$tmp = preg_replace('/script-src-elem \'self\'/', 'script-src-elem \'self\' *.tawk.to *.jsdelivr.net', $tmp);
 		$tmp = preg_replace('/script-src \'self\'/', 'script-src \'self\' *.tawk.to *.jsdelivr.net', $tmp);
 		$tmp = preg_replace('/font-src \'self\'/', 'font-src \'self\' *.tawk.to', $tmp);
 		$tmp = preg_replace('/connect-src \'self\'/', 'connect-src \'self\' *.tawk.to wss:', $tmp);
 		$tmp = preg_replace('/frame-src \'self\'/', 'frame-src \'self\' *.tawk.to', $tmp);
+		$tmp = preg_replace('/img-src \'self\'/', 'img-src \'self\' *.tawk.to', $tmp);
 		$tmp = preg_replace('/default-src \'self\'/', 'default-src \'self\' *.tawk.to', $tmp);
 
-		$hookmanager->resPrint = '';
+		// Give the result to the next hooks (older Dolibarr versions do not do it)
+		$hookmanager->resPrint = $tmp;
 
 		$this->resprints = $tmp;
 		return 1;

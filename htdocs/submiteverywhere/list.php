@@ -57,7 +57,7 @@ if ($user->societe_id > 0) {
 
 $sortfield = GETPOST("sortfield", 'aZ09comma');
 $sortorder = GETPOST("sortorder", 'aZ09comma');
-$page = GETPOST("page", 'int');
+$page = GETPOSTINT("page");
 if ($page == -1) { $page = 0; }
 $offset = $conf->liste_limit * $page;
 $pageprev = $page - 1;

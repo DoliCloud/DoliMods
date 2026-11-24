@@ -45,6 +45,7 @@ $langs->loadLangs(array("companies", "google@google"));
 
 $mode=GETPOST('mode', 'alpha');
 $address='';
+$dol_openinpopup=GETPOST('dol_openinpopup', 'aZ09');	// Name of popup if page is opened into a dialog popup, empty if opened in a standard page
 
 // Security check
 if (!isModEnabled('google')) {
@@ -121,54 +122,57 @@ if ($mode=='member') {
 	$picto='user';
 }
 
-dol_fiche_head($head, 'gmaps', $title, 0, $picto);
+// Hide the header with tabs and banner when the page is opened into a dialog popup
+if (empty($dol_openinpopup)) {
+	dol_fiche_head($head, 'gmaps', $title, 0, $picto);
 
 
-if (function_exists('dol_banner_tab')) { // 3.9+
-	dol_banner_tab($object, 'id', '', 1);
-} else {
-	print '<table class="border" width="100%">';
+	if (function_exists('dol_banner_tab')) { // 3.9+
+		dol_banner_tab($object, 'id', '', 1);
+	} else {
+		print '<table class="border" width="100%">';
 
-	// Name
-	print '<tr><td class="titlefield">'.$langs->trans('ThirdPartyName').'</td>';
-	print '<td colspan="3">';
-	print $form->showrefnav($object, 'id', '', ($user->societe_id?0:1), 'rowid', 'nom', '', '&mode='.$mode);
-	print '</td>';
-	print '</tr>';
+		// Name
+		print '<tr><td class="titlefield">'.$langs->trans('ThirdPartyName').'</td>';
+		print '<td colspan="3">';
+		print $form->showrefnav($object, 'id', '', ($user->societe_id?0:1), 'rowid', 'nom', '', '&mode='.$mode);
+		print '</td>';
+		print '</tr>';
 
 
-	// Status
-	print '<tr><td>'.$langs->trans("Status").'</td>';
-	print '<td colspan="'.(2+(($showlogo || $showbarcode)?0:1)).'">';
-	print $object->getLibStatut(2);
-	print '</td>';
-	print '</tr>';
+		// Status
+		print '<tr><td>'.$langs->trans("Status").'</td>';
+		print '<td colspan="'.(2+(($showlogo || $showbarcode)?0:1)).'">';
+		print $object->getLibStatut(2);
+		print '</td>';
+		print '</tr>';
 
-	// Address
-	print "<tr><td class=\"tdtop\">".$langs->trans('Address').'</td><td colspan="'.(2+(($showlogo || $showbarcode)?0:1)).'">';
-	dol_print_address($object->address, 'gmap', $mode, $object->id);
-	print "</td></tr>";
+		// Address
+		print "<tr><td class=\"tdtop\">".$langs->trans('Address').'</td><td colspan="'.(2+(($showlogo || $showbarcode)?0:1)).'">';
+		dol_print_address($object->address, 'gmap', $mode, $object->id);
+		print "</td></tr>";
 
-	// Zip / Town
-	print '<tr><td>'.$langs->trans('Zip').' / '.$langs->trans("Town").'</td><td colspan="'.(2+(($showlogo || $showbarcode)?0:1)).'">';
-	print $object->zip.($object->zip && $object->town?" / ":"").$object->town;
-	print "</td>";
-	print '</tr>';
+		// Zip / Town
+		print '<tr><td>'.$langs->trans('Zip').' / '.$langs->trans("Town").'</td><td colspan="'.(2+(($showlogo || $showbarcode)?0:1)).'">';
+		print $object->zip.($object->zip && $object->town?" / ":"").$object->town;
+		print "</td>";
+		print '</tr>';
 
-	// Country
-	print '<tr><td>'.$langs->trans("Country").'</td><td colspan="'.(2+(($showlogo || $showbarcode)?0:1)).'" nowrap="nowrap">';
-	$img=picto_from_langcode($object->country_code);
-	print ($img?$img.' ':'').$object->country;
-	print '</td></tr>';
+		// Country
+		print '<tr><td>'.$langs->trans("Country").'</td><td colspan="'.(2+(($showlogo || $showbarcode)?0:1)).'" nowrap="nowrap">';
+		$img=picto_from_langcode($object->country_code);
+		print ($img?$img.' ':'').$object->country;
+		print '</td></tr>';
 
-	// State
-	if (empty($conf->global->SOCIETE_DISABLE_STATE)) print '<tr><td>'.$langs->trans('State').'</td><td colspan="'.(2+(($showlogo || $showbarcode)?0:1)).'">'.$object->state.'</td>';
+		// State
+		if (empty($conf->global->SOCIETE_DISABLE_STATE)) print '<tr><td>'.$langs->trans('State').'</td><td colspan="'.(2+(($showlogo || $showbarcode)?0:1)).'">'.$object->state.'</td>';
 
-	print '</table>';
+		print '</table>';
+	}
+
+
+	dol_fiche_end();
 }
-
-
-dol_fiche_end();
 
 // Show maps
 if ($address && $address != $object->country) {		// $address != $object->country to exclude address of country only
@@ -246,7 +250,7 @@ if ($address && $address != $object->country) {		// $address != $object->country
 
 <br>
 <div align="center">
-<div id="map" class="divmap" style="width: 90%; height: 500px;" ></div>
+<div id="map" class="divmap" style="width: <?php print $dol_openinpopup ? '100%' : '90%'; ?>; height: 500px;" ></div>
 </div>
 <br>
 

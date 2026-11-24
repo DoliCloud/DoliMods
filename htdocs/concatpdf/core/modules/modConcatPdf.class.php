@@ -92,7 +92,7 @@ class modConcatPdf extends DolibarrModules
 		// Constants
 		// Example: $this->const=array(0=>array('MODULE_MY_NEW_CONST1','chaine','myvalue','This is a constant to add',1),
 		//                             1=>array('MODULE_MY_NEW_CONST2','chaine','myvalue','This is another constant to add',1) );
-		$this->const = array();
+		$this->const = array(0 => array('CONCATPDF_TRANSIFEX_PROJECT', 'chaine', 'dolicloud/dolimods', 'The Transifex project (organisation/project) where translations of this module are hosted', 0, 'allentities', 1));
 
 		// Boxes
 		$this->boxes = array();			// List of boxes

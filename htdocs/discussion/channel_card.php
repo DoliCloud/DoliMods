@@ -174,7 +174,9 @@ if (!$permissiontoread) {
 	accessforbidden();
 }
 
-if (!empty($object->id) && !$object->isChannelContact($user->id)) {
+// With the read permission, a public channel (private = 0) can be read by anybody,
+// a private one (private = 1) only by its contacts
+if (!empty($object->id) && !empty($object->private) && !$object->isChannelContact($user->id)) {
 	accessforbidden();
 }
 $error = 0;
@@ -555,6 +557,11 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 				print dolGetButtonAction('', $langs->trans('SetToDraft'), 'default', $_SERVER["PHP_SELF"].'?id='.$object->id.'&action=confirm_setdraft&confirm=yes&token='.newToken(), '', $permissiontoadd);
 			}*/
 
+			// Messages, on a page of its own (no tabs)
+			if ($object->status == $object::STATUS_VALIDATED) {
+				print dolGetButtonAction('', $langs->trans('ChannelMessages'), 'default', dol_buildpath('/discussion/channel_messages.php', 1).'?id='.$object->id, '', $permissiontoread);
+			}
+
 			// Modify
 			print dolGetButtonAction('', $langs->trans('Modify'), 'default', $_SERVER["PHP_SELF"].'?id='.$object->id.'&action=edit&token='.newToken(), '', $permissiontoadd && $ischanneladmin);
 
@@ -598,7 +605,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 
 			// Disable
 			if ($object->status == $object::STATUS_VALIDATED) {
-				print dolGetButtonAction('', $langs->trans('Disable'), 'delete', $_SERVER["PHP_SELF"].'?id='.$object->id.'&action=confirm_setdraft&confirm=yes&token='.newToken(), '', $permissiontoadd && $ischanneladmin);
+				print dolGetButtonAction('', $langs->trans('Disable'), 'default', $_SERVER["PHP_SELF"].'?id='.$object->id.'&action=confirm_setdraft&confirm=yes&token='.newToken(), '', $permissiontoadd && $ischanneladmin);
 			}
 
 			// Delete (with preloaded confirm popup)

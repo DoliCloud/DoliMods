@@ -82,6 +82,7 @@ $format = GETPOST('format', 'alpha')?GETPOST('format', 'alpha'):'xml';
 
 $phonetag = getDolGlobalString('IPPHONE_XMLTAG', 'CiscoIPPhoneDirectory');	// May be also 'ThompsonDirectory, YeaLinkDirectory, ...'
 $includeMembers = isModEnabled('member') ? getDolGlobalInt('IPPHONE_INCLUDE_MEMBERS', 0) : 0;
+$contactNameFormat = getDolGlobalString('IPPHONE_CONTACT_NAME_FORMAT', 'thirdparty_first_last');
 
 if (!isModEnabled("ipphone")) {
 	accessforbidden('', 1, 1, 1);
@@ -167,12 +168,13 @@ if ($resql) {
 			}
 			$phoneaddedforthisthird[$obj->rowid]=$obj->rowid.'_'.str_replace(' ', '', $obj->phone);
 		}
+		$contactLabel = ipphoneFormatContactName($obj->firstname, $obj->lastname, $obj->name, $contactNameFormat);
 		if ($obj->contactphone) {
 			if ($format == 'xml') {
 				print "<DirectoryEntry>\n";
 				print "\t<Name>";
 				//print $obj->rowid.'/'.$obj->contact_id.' ';
-				print dolXMLEncodeipphone($obj->name." - ".dolGetFirstLastname($obj->firstname, $obj->lastname));
+				print dolXMLEncodeipphone($contactLabel);
 				print "</Name>\n";
 				print "\t<Telephone>";
 				print dolXMLEncodeipphone(str_replace(' ', '', $obj->contactphone));
@@ -180,7 +182,7 @@ if ($resql) {
 				print "</DirectoryEntry>\n";
 			}
 			if ($format == 'csv') {
-				print '"'.$obj->name." - ".dolGetFirstLastname($obj->firstname, $obj->lastname).'","'.str_replace(' ', '', $obj->contactphone).'"'."\n";
+				print '"'.$contactLabel.'","'.str_replace(' ', '', $obj->contactphone).'"'."\n";
 			}
 		}
 		if ($obj->contactphonemobile) {
@@ -188,7 +190,7 @@ if ($resql) {
 				print "<DirectoryEntry>\n";
 				print "\t<Name>";
 				//print $obj->rowid.'/'.$obj->contact_id.' ';
-				print dolXMLEncodeipphone($obj->name." - ".dolGetFirstLastname($obj->firstname, $obj->lastname));
+				print dolXMLEncodeipphone($contactLabel);
 				print "</Name>\n";
 				print "\t<Telephone>";
 				print dolXMLEncodeipphone(str_replace(' ', '', $obj->contactphonemobile));
@@ -196,7 +198,7 @@ if ($resql) {
 				print "</DirectoryEntry>\n";
 			}
 			if ($format == 'csv') {
-				print '"'.$obj->name." - ".dolGetFirstLastname($obj->firstname, $obj->lastname).'","'.str_replace(' ', '', $obj->contactphonemobile).'"'."\n";
+				print '"'.$contactLabel.'","'.str_replace(' ', '', $obj->contactphonemobile).'"'."\n";
 			}
 		}
 
@@ -276,6 +278,59 @@ if ($resql) {
 } else dol_print_error($db);
 
 $db->close();
+
+
+/**
+ * Format contact display name according to module setup
+ *
+ * @param	string	$firstname		Firstname
+ * @param	string	$lastname		Lastname
+ * @param	string	$thirdpartyName	Thirdparty name
+ * @param	string	$format			Format key
+ * @return	string					Formatted name
+ */
+function ipphoneFormatContactName($firstname, $lastname, $thirdpartyName = '', $format = 'thirdparty_first_last')
+{
+	$firstname = trim((string) $firstname);
+	$lastname = trim((string) $lastname);
+	$thirdpartyName = trim((string) $thirdpartyName);
+
+	$firstLast = trim($firstname.' '.$lastname);
+	$lastFirst = trim($lastname.' '.$firstname);
+
+	switch ($format) {
+		case 'thirdparty_last_first':
+			if ($thirdpartyName !== '' && $lastFirst !== '') {
+				return $thirdpartyName.' - '.$lastFirst;
+			}
+			return $lastFirst !== '' ? $lastFirst : $thirdpartyName;
+
+		case 'first_last':
+			return $firstLast !== '' ? $firstLast : $thirdpartyName;
+
+		case 'last_first':
+			return $lastFirst !== '' ? $lastFirst : $thirdpartyName;
+
+		case 'first_last_thirdparty':
+			if ($thirdpartyName !== '' && $firstLast !== '') {
+				return $firstLast.' ('.$thirdpartyName.')';
+			}
+			return $firstLast !== '' ? $firstLast : $thirdpartyName;
+
+		case 'last_first_thirdparty':
+			if ($thirdpartyName !== '' && $lastFirst !== '') {
+				return $lastFirst.' ('.$thirdpartyName.')';
+			}
+			return $lastFirst !== '' ? $lastFirst : $thirdpartyName;
+
+		case 'thirdparty_first_last':
+		default:
+			if ($thirdpartyName !== '' && $firstLast !== '') {
+				return $thirdpartyName.' - '.$firstLast;
+			}
+			return $firstLast !== '' ? $firstLast : $thirdpartyName;
+	}
+}
 
 
 /**

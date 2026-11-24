@@ -56,7 +56,7 @@ class modMoreTemplates extends DolibarrModules
 		$this->editor_name = 'DoliCloud';
 		$this->editor_url = 'https://www.dolicloud.com?origin=dolimods';
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
-		$this->version = '3.4';
+		$this->version = 'experimental';
 		// Key used in llx_const table to save module status enabled/disabled (XXX is id value)
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
 		// Name of png file (without png) used for this module
@@ -78,7 +78,7 @@ class modMoreTemplates extends DolibarrModules
 		// Constants
 		// Example: $this->const=array(0=>array('MODULE_MY_NEW_CONST1','chaine','myvalue','This is a constant to add',1),
 		//                             1=>array('MODULE_MY_NEW_CONST2','chaine','myvalue','This is another constant to add',1) );
-		$this->const = array();
+		$this->const = array(0 => array('MORETEMPLATES_TRANSIFEX_PROJECT', 'chaine', 'dolicloud/dolimods', 'The Transifex project (organisation/project) where translations of this module are hosted', 0, 'allentities', 1));
 
 		// Defined all module parts (triggers, login, substitutions, menus, css, etc...)
 		$this->module_parts = array('models' => 1);

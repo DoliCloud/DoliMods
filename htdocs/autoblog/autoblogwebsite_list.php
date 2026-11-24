@@ -192,7 +192,7 @@ foreach ($websites as $website) {
 	print '<tr class="oddeven">';
 
 	// Website
-	print '<td class="tdoverflowmax200"><a href="'.$urlcard.'">'.img_picto('', 'website', 'class="pictofixedwidth"').dol_escape_htmltag((string) $website->ref).'</a>';
+	print '<td class="tdoverflowmax200 tdlineheightsmall"><a href="'.$urlcard.'">'.img_picto('', 'website', 'class="pictofixedwidth"').dol_escape_htmltag((string) $website->ref).'</a>';
 	if (!empty($website->description)) {
 		print '<br><span class="opacitymedium small">'.dol_escape_htmltag(dol_trunc((string) $website->description, 60)).'</span>';
 	}

@@ -55,7 +55,7 @@ class modExternalBackup extends DolibarrModules
 		$this->editor_url = 'https://www.dolicloud.com?origin=dolimods';
 
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
-		$this->version = '4.0';
+		$this->version = 'development';
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
 		$this->picto='externalbackup@externalbackup';
 
@@ -76,6 +76,8 @@ class modExternalBackup extends DolibarrModules
 		//                             1=>array('MYMODULE_MYNEWCONST2','chaine','myvalue','This is another constant to add',0) );
 		//                             2=>array('MAIN_MODULE_MYMODULE_NEEDSMARTY','chaine',1,'Constant to say module need smarty',1)
 		$this->const = array(0=>array('EXTERNAL_BACKUP_RCLONE_PATH','chaine','/usr/sbin/rclone','Full path to rclone tool',0,'current',1));
+		// Name of the Transifex project where the translations of this module are hosted
+		$this->const[] = array('EXTERNALBACKUP_TRANSIFEX_PROJECT', 'chaine', 'dolicloud/dolimods', 'The Transifex project (organisation/project) where translations of this module are hosted', 0, 'allentities', 1);
 
 		// Dictionaries
 		$this->dictionaries=array(

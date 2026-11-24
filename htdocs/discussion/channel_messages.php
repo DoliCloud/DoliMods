@@ -97,6 +97,7 @@ $action = GETPOST('action', 'aZ09');
 $cancel     = GETPOST('cancel', 'aZ09');
 $backtopage = GETPOST('backtopage', 'alpha');
 $limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$openinpopup = GETPOST('dol_openinpopup', 'aZ09');	// Set when the page is shown into the popover of the top right menu
 
 // Initialize a technical objects
 $object = new Channel($db);
@@ -122,8 +123,10 @@ if ($res <= 0) {
 // Set $enablepermissioncheck to 1 to enable a minimum low level of checks
 $enablepermissioncheck = 1;
 $ischannelcontact = $object->isChannelContact($user->id);
+// With the read permission, a public channel (private = 0) can be read by anybody, a private one (private = 1) only by its contacts
+$ischannelreader = $ischannelcontact || empty($object->private);
 if ($enablepermissioncheck) {
-	$permissiontoread = $user->hasRight('discussion', 'channel', 'read') && $ischannelcontact;
+	$permissiontoread = $user->hasRight('discussion', 'channel', 'read') && $ischannelreader;
 	$permissiontoadd = $user->hasRight('discussion', 'channel', 'write') && $ischannelcontact;
 	$permissionnote = $user->hasRight('discussion', 'channel', 'write') && $ischannelcontact; // Used by the include of actions_setnotes.inc.php
 } else {
@@ -184,47 +187,61 @@ if ($action == 'addmessage') {
 
 $form = new Form($db);
 
-$title = $langs->trans('Channel').' - '.$langs->trans("Messages");
+$title = $langs->trans('Channel').' - '.$langs->trans("ChannelMessages");
 //$title = $object->ref." - ".$langs->trans("Notes");
 $help_url = '';
 //$help_url='EN:Customers_Orders|FR:Commandes_Clients|ES:Pedidos de clientes';
 
-llxHeader('', $title, $help_url, '', 0, 0, '', '', '', 'mod-discussion page-card_messages');
+// Into the popover, the page shows only the discussion (see css/discussion_popover.css)
+$arrayofjs = array('/discussion/js/discussion_messages.js');
+$arrayofcss = array('/discussion/css/discussion_messages.css');
+if ($openinpopup) {
+	$arrayofcss[] = '/discussion/css/discussion_popover.css';
+}
+llxHeader('', $title, $help_url, '', 0, 0, $arrayofjs, $arrayofcss, '', 'mod-discussion page-card_messages');
 
 if ($id > 0 || !empty($ref)) {
 	$object->fetch_thirdparty();
 
-	$head = channelPrepareHead($object);
-
-	print dol_get_fiche_head($head, 'messages', $langs->trans("Channel"), -1, $object->picto);
-
-	// Object card
+	// Page of its own, never shown with the tabs of the channel
 	// ------------------------------------------------------------
-	$linkback = '<a href="'.dol_buildpath('/discussion/channel_list.php', 1).'?restore_lastsearch_values=1'.(!empty($socid) ? '&socid='.$socid : '').'">'.$langs->trans("BackToList").'</a>';
-
+	// Presence of the other users of the channel: green dot if some are connected, grey dot otherwise. The JS of the
+	// page switches them. A title into badgeParams gives the HTML tooltip of Dolibarr, that explains the color.
 	$onlineusers = $object->channelGetOnlineUsers($user);
-	$nbonlineusers = count($onlineusers);
-	$tooltip = "";
-	foreach ($onlineusers as $key => $usr) {
-		$tooltip .= '<div id="onlineuser_'.$key.'">'.$usr->name.'</div>';
+	$nbonlineusers = (is_array($onlineusers) ? count($onlineusers) : 0);
+	$onlinenames = array();
+	foreach ((is_array($onlineusers) ? $onlineusers : array()) as $usr) {
+		$onlinenames[] = dol_escape_htmltag($usr->name);
 	}
 	$param = array();
-	$param["tooltip"] = $tooltip;
-	$param["badgeParams"]["attr"] = array("id" => "channelonline_status");
+	$param["badgeParams"]["attr"] = array("id" => "channelonline_status", "title" => $langs->trans("DiscussionOnlineUsersTooltip").'<br>'.implode(', ', $onlinenames));
 	$morehtmlref = '<span id="channelonline" class="'.($nbonlineusers > 0 ? '': 'hidden').'">'.dolGetStatus('', '', '', 'status4', 3, '', $param)."</span>";
 	$param = array();
-	$param["badgeParams"]["attr"] = array("id" => "channeloffline_status");
-	$morehtmlref .= '<span id="channeloffline" class="' .($nbonlineusers == 0 ? '': 'hidden').'">'.dolGetStatus('', '', '', 'status0', 3, '', $param)."</span>";
-	dol_banner_tab($object, 'ref', $linkback, 1, 'ref', 'ref', $morehtmlref);
+	$param["badgeParams"]["attr"] = array("id" => "channeloffline_status", "title" => $langs->trans("DiscussionNoOnlineUserTooltip"));
+	$morehtmlref .= '<span id="channeloffline" class="' .($nbonlineusers == 0 ? '': 'hidden').'">'.dolGetStatus('', '', '', 'status6', 3, '', $param)."</span>";
+	// Into the popover, its header already shows the title and the choice of the channel
+	if (!$openinpopup) {
+		// Choice of the channel (when the user has several channels), see js/discussion_messages.js
+		$morehtmlright = $morehtmlref;
+		$channels = $object->getChannelsOfUser($user->id);
+		if (is_array($channels)) {
+			if (!isset($channels[$object->id])) {	// Channel not validated: kept into the list so it stays selected
+				$channels[$object->id] = $object->ref.($object->label ? ' - '.$object->label : '');
+			}
+			if (count($channels) > 1) {
+				$morehtmlright .= ' '.$form->selectarray('discussionchannelselect', $channels, $object->id, 0, 0, 0, 'data-urlbase="'.dol_escape_htmltag(dol_buildpath('/discussion/channel_messages.php', 1).'?id=').'"', 0, 0, 0, '', 'minwidth200 maxwidth300');
+			}
+		}
+		print load_fiche_titre(dol_escape_htmltag($object->ref.($object->label ? ' - '.$object->label : '')), $morehtmlright, $object->picto);
+	}
 
 	$arraymessage = $messagestatic->fetchAll('DESC', 'date_creation', $limit, 0, '((fk_discussion_channel:=:'.((int) $id).'))');
 	$arraymessage = array_reverse($arraymessage, true);
 
 	// Loop on record
 	// --------------------------------------------------------------------
-	print '<div class="fichecenter">';
-	print '<div class="underbanner clearboth"></div>';
-	print '<div id="channelmessagediv" style="max-height: 700px; overflow: auto;min-height:500px">';
+	print '<div class="fichecenter'.($openinpopup ? ' discussion-popupcontent' : '').'">';
+	print '<div id="channelmessagediv"'.($openinpopup ? '' : ' style="max-height: 700px; overflow: auto;min-height:500px"').'>';
 	print '<ul class="timeline" id="timelineul">';
 
 	$selfuser = 0;
@@ -286,14 +303,15 @@ if ($id > 0 || !empty($ref)) {
 	print "</table>";
 	print '</div>';
 
-	print '<div class="fichecenter ">';
+	print '<div class="fichecenter discussion-input">';
 	print '<form action="'.$_SERVER["PHP_SELF"].'?id='.((int) $id).'" method="POST">';
 	print '<input type="hidden" name="action" value="addmessage">';
 
-	require_once DOL_DOCUMENT_ROOT.'/core/class/doleditor.class.php';
-	$doleditor = new DolEditor('channelmessage', '', '', '100', 'dolibarr_notes', 'In', false, false, false, ROWS_5, '80%');
-	$doleditor->Create(0, '', true, '', '', '', $morecss);
-	print '<input type="button" id="sendmessage" class="button valignmiddle" value="'.$langs->trans("SendMessage").'">';
+	// Textarea and send button into a single rounded box, like the AI assistant (see css/discussion_messages.css)
+	print '<div class="discussion-input-pill">';
+	print '<textarea id="channelmessage" name="channelmessage" rows="1" autocomplete="off" placeholder="'.dol_escape_htmltag($langs->trans("DiscussionWriteMessage")).'"></textarea>';
+	print '<button type="button" id="sendmessage" class="discussion-send-btn" title="'.dol_escape_htmltag($langs->trans("SendMessage")).'">'.img_picto('', 'fa-paper-plane').'</button>';
+	print '</div>';
 	print '</div>';
 
 	// Chat message send
@@ -374,6 +392,11 @@ if ($id > 0 || !empty($ref)) {
 	$(document).ready(function(){
 		$("#sendmessage").on("click", function(){
 			msg = $("#channelmessage").val();
+			// Nothing to send for an empty message (or with only spaces). Also used by the Enter key (js/discussion_messages.js).
+			if (msg.trim() === "") {
+				$("#channelmessage").focus();
+				return;
+			}
 			data = { action : "addmessage", channelmessage : msg, channelid : '.((int) $id).' , token : "'.currentToken().'"};
 
 			$.ajax({
@@ -381,7 +404,7 @@ if ($id > 0 || !empty($ref)) {
 				url : "'.dol_buildpath('/discussion/ajax/channel_messagemanager.php', 1).'",
 				data : data,
 				success : function(r){
-					$("#channelmessage").val("");
+					$("#channelmessage").val("").trigger("input");	// Back to one line (see js/discussion_messages.js)
 					console.log(r);
 				}
 			});
@@ -450,13 +473,14 @@ if ($id > 0 || !empty($ref)) {
 			if (data.nbuserconnected > 1){
 				$("#channeloffline").hide();
 				$("#channelonline").show();
+				// Tooltip of the green dot: what the color means, then the names of the connected users (escaped, the tooltip is HTML)
 				var titleonline = "";
 				userarray.forEach(function (element){
-					if (element.id != selfuserid && element.status){
-						titleonline += (titleonline != "" ? ", " + element.name : element.name)
+					if (element.id != selfuserid && element.status == "connected"){
+						titleonline += (titleonline != "" ? ", " : "") + $("<div>").text(element.name).html();
 					}
 				})
-				$("#channelonline_status").attr("title", titleonline);
+				$("#channelonline_status").attr("title", "'.dol_escape_js($langs->transnoentities("DiscussionOnlineUsersTooltip"), 2).'<br>" + titleonline);
 			} else {
 			 	$("#channeloffline").show();
 				$("#channelonline").hide();
@@ -482,8 +506,6 @@ if ($id > 0 || !empty($ref)) {
 		};
 	})
 	</script>';
-
-	print dol_get_fiche_end();
 }
 
 // End of page

@@ -9,8 +9,8 @@ packages:
       fr: "Discussion"
       en: "Discussion"
     description:
-      fr: "Discussion description"
-      en: "Discussion description"
+      fr: "Canaux de discussion pour échanger des messages instantanés entre utilisateurs"
+      en: "Discussion channels to exchange instant messages between users"
     status: 'enabled'
     created_at: '2025-06-24'
     last_updated_at: 'auto'

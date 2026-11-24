@@ -375,4 +375,95 @@ class ActionsDiscussion extends CommonHookActions
 			return -1;
 		}
 	}
+
+	/**
+	 * Add a picto into the top right menu to open the messages of a channel into a popover
+	 *
+	 * @param	array<string,mixed>	$parameters		Hook metadata (context, etc...)
+	 * @param	?CommonObject		$object			Not used
+	 * @param	?string				$action			Not used
+	 * @param	HookManager			$hookmanager	Hook manager
+	 * @return	int									0 to add the picto to the standard top right menu
+	 */
+	public function printTopRightMenu($parameters, &$object, &$action, $hookmanager)
+	{
+		global $conf, $langs, $user;
+
+		$channelid = max(getDolGlobalInt('DISCUSSION_TOPMENU_CHANNEL_ID', 1), 0);
+
+		// The picto is shown to everybody. The channels are filled only with the read permission:
+		// without this permission, or without any channel to read (no public channel, no private
+		// channel the user is a contact of), the popover shows an adapted message instead of a channel.
+		dol_include_once('/discussion/class/channel.class.php');
+		$channelstatic = new Channel($this->db);
+		$channels = array();
+		if ($user->hasRight('discussion', 'channel', 'read')) {
+			$channels = $channelstatic->getChannelsOfUser($user->id);
+			if (!is_array($channels)) {
+				$channels = array();
+			}
+		}
+		if ($channelid <= 0 || empty($channels)) {
+			$channelid = 0;
+		} elseif (!isset($channels[$channelid])) {
+			// The channel of the setup is shown first when the user can read it, else the first one
+			reset($channels);
+			$channelid = (int) key($channels);
+		}
+		$langs->load('discussion@discussion');
+
+		$label = $langs->trans('ModuleDiscussionName');
+		$urlpagebase = dol_buildpath('/discussion/channel_messages.php', 1).'?id=';
+		$urlpage = ($channelid > 0 ? $urlpagebase.$channelid : dol_buildpath('/discussion/channel_list.php', 1));
+		$picto = '<span class="fa fa-comment atoplogin valignmiddle"></span>';
+		// Keyboard shortcut "d", like "c" for the quick add of Dolibarr: the click on the picto is done by the browser
+		$labelwithshortcut = $label.' ('.$conf->browser->stringforfirstkey.' d)';
+
+		// Without javascript or on smartphone, the picto is a link to the page of messages
+		if (empty($conf->use_javascript_ajax) || !empty($conf->dol_optimize_smallscreen)) {
+			$this->resprints = '<div class="login_block_elem"><a accesskey="d" href="'.$urlpage.'" title="'.dol_escape_htmltag($labelwithshortcut).'">'.$picto.'</a></div>';
+			return 0;
+		}
+
+		// Popover anchored under the top menu, like the one of the AI assistant (CSS and JS of the module, versioned
+		// with the date of the file so a change is not hidden by the browser cache)
+		$urlcss = dol_buildpath('/discussion/css/discussion_popover.css', 1).'?v='.((int) @filemtime(dol_buildpath('/discussion/css/discussion_popover.css', 0)));
+		$urljs = dol_buildpath('/discussion/js/discussion_popover.js', 1).'?v='.((int) @filemtime(dol_buildpath('/discussion/js/discussion_popover.js', 0)));
+
+		$out = '<link rel="stylesheet" href="'.$urlcss.'">';
+		// Same markup as the pictos of the group of tools (AI assistant, bookmarks...): the JS moves it into this group
+		$out .= '<div id="topmenu-discussion-dropdown" class="atoplogin dropdown inline-block topmenu-any">';
+		$out .= '<a accesskey="d" href="#" id="topmenu-discussion-toggle" class="login-dropdown-a nofocusvisible" title="'.dol_escape_htmltag($labelwithshortcut).'"><span class="fa fa-comment"></span></a>';
+		$out .= '</div>';
+		$out .= '<div id="topmenu-discussion-popover" class="discussion-popover" role="dialog" aria-modal="false" aria-label="'.dol_escape_htmltag($label).'">';
+		$out .= '<div class="discussion-popover-header">';
+		$out .= '<span class="discussion-popover-title"><span class="fa fa-comment"></span>';
+		if (count($channels) > 1) {
+			// Choice of the channel: the JS loads the selected one into the iframe
+			require_once DOL_DOCUMENT_ROOT.'/core/class/html.form.class.php';
+			$out .= Form::selectarray('topmenu-discussion-channel', $channels, $channelid, 0, 0, 0, 'aria-label="'.dol_escape_htmltag($langs->trans('Channel')).'"', 0, 0, 0, '', 'discussion-popover-channel', 0);
+		} else {
+			$out .= '<span>'.dol_escape_htmltag($label).'</span>';
+		}
+		$out .= '</span>';
+		if ($channelid > 0) {
+			$out .= '<a href="'.$urlpage.'" id="topmenu-discussion-fullpage" data-urlbase="'.dol_escape_htmltag($urlpagebase).'" title="'.dol_escape_htmltag($langs->trans('DiscussionOpenFullPage')).'"><span class="fa fa-expand"></span></a>';
+		}
+		$out .= '<a href="#" class="discussion-popover-close" title="'.dol_escape_htmltag($langs->trans('Close')).'"><span class="fa fa-times"></span></a>';
+		$out .= '</div>';
+		if ($channelid > 0) {
+			// The page of messages of the channel is loaded into an iframe by the JS on first open, without menus, tabs and banner
+			$out .= '<div class="discussion-popover-body" data-channel="'.((int) $channelid).'" data-urlbase="'.dol_escape_htmltag(dol_buildpath('/discussion/channel_messages.php', 1).'?dol_hide_topmenu=1&dol_hide_leftmenu=1&dol_openinpopup=discussionchannel&id=').'"></div>';
+		} else {
+			// No channel to read: adapted message into the popover
+			$message = $user->hasRight('discussion', 'channel', 'read') ? $langs->trans('DiscussionNoChannelAvailable') : $langs->trans('NotEnoughPermissions');
+			$out .= '<div class="discussion-popover-body discussion-popover-empty"><div class="discussion-popover-nomessage">'.dol_escape_htmltag($message).'</div></div>';
+		}
+		$out .= '</div>';
+		$out .= '<script nonce="'.getNonce().'" src="'.$urljs.'"></script>';
+
+		$this->resprints = $out;
+
+		return 0;
+	}
 }

@@ -56,7 +56,7 @@ class modMyWidgets extends DolibarrModules
 		$this->editor_name = 'DoliCloud';
 		$this->editor_url = 'https://www.dolicloud.com?origin=dolimods';
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
-		$this->version = '1.0';
+		$this->version = 'development';
 		// Key used in llx_const table to save module status enabled/disabled (XXX is id value)
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
 		// Name of png file (without png) used for this module
@@ -97,6 +97,8 @@ class modMyWidgets extends DolibarrModules
 			0=>array('MYWIDGET_TITLE_1','chaine','1','Title 1',1),
 			1=>array('MYWIDGET_BODY_1','chaine','1','This is content of MyWidget 1',1)
 		);
+		// Name of the Transifex project where the translations of this module are hosted
+		$this->const[] = array('MYWIDGETS_TRANSIFEX_PROJECT', 'chaine', 'dolicloud/dolimods', 'The Transifex project (organisation/project) where translations of this module are hosted', 0, 'allentities', 1);
 
 		// Boxes
 		$this->boxes = array(

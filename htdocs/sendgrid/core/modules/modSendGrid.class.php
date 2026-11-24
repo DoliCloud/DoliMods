@@ -106,6 +106,8 @@ class modSendgrid extends DolibarrModules
 		$this->const = array(0=>array('MAIN_MODULE_SENDGRID_SMS','chaine','sendgrid','This is to enable SENDGRID SMS module',0,'current',1),
 							 1=>array('MAIN_MENU_ENABLE_MODULETOOLS','chaine','1','To enable module tools entry',0,'allentities',1)
 		);			// List of particular constants to add when module is enabled
+		// Name of the Transifex project where the translations of this module are hosted
+		$this->const[] = array('SENDGRID_TRANSIFEX_PROJECT', 'chaine', 'dolicloud/dolimods', 'The Transifex project (organisation/project) where translations of this module are hosted', 0, 'allentities', 1);
 
 		// Array to add new pages in new tabs
 		// Example: $this->tabs = array('objecttype:+tabname1:Title1:langfile@mymodule:$user->rights->mymodule->read:/mymodule/mynewtab1.php?id=__ID__',  // To add a new tab identified by code tabname1
@@ -189,7 +191,7 @@ class modSendgrid extends DolibarrModules
 	{
 		$sql = array();
 
-		$result=$this->load_tables('/sendgrid/sql/');
+		$result = $this->_load_tables('/sendgrid/sql/');
 
 		return $this->_init($sql, $options);
 	}

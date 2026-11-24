@@ -57,7 +57,7 @@ class modIFTTT extends DolibarrModules
 		$this->editor_name = 'DoliCloud';
 		$this->editor_url = 'https://www.dolicloud.com?origin=dolimods';
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or 'dolibarr_deprecated' or version
-		$this->version = '1.0';
+		$this->version = 'deprecated';
 		// Key used in llx_const table to save module status enabled/disabled (where MYMODULE is value of property name of module in uppercase)
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
 		// Can be enabled / disabled only in the main company with superadmin account
@@ -89,7 +89,7 @@ class modIFTTT extends DolibarrModules
 		// Example: $this->const=array(0=>array('MYMODULE_MYNEWCONST1','chaine','myvalue','This is a constant to add',1),
 		//                             1=>array('MYMODULE_MYNEWCONST2','chaine','myvalue','This is another constant to add',0, 'current', 1)
 		// );
-		$this->const = array();
+		$this->const = array(0 => array('IFTTT_TRANSIFEX_PROJECT', 'chaine', 'dolicloud/dolimods', 'The Transifex project (organisation/project) where translations of this module are hosted', 0, 'allentities', 1));
 
 		// Array to add new pages in new tabs
 		// Example: $this->tabs = array('objecttype:+tabname1:Title1:mylangfile@api:$user->rights->ifttt->read:/api/mynewtab1.php?id=__ID__',  					// To add a new tab identified by code tabname1
@@ -103,7 +103,7 @@ class modIFTTT extends DolibarrModules
 		// 'intervention'     to add a tab in intervention view
 		// 'invoice'          to add a tab in customer invoice view
 		// 'invoice_supplier' to add a tab in supplier invoice view
-		// 'member'           to add a tab in fundation member view
+		// 'member'           to add a tab in foundation member view
 		// 'opensurveypoll'	  to add a tab in opensurvey poll view
 		// 'order'            to add a tab in customer order view
 		// 'order_supplier'   to add a tab in supplier order view

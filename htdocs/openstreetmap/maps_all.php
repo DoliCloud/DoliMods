@@ -165,7 +165,7 @@ if ($mode == 'member' && (isModEnabled('category') || !empty($conf->modules['cat
 	print '</div>';
 }
 print '<input type="submit" class="button smallpaddingimp" value="'.$langs->trans("Search").'">';
-print '</form><br>';
+print '</form>';
 
 // Load the objects with their stored coordinates. No external service is called here: addresses not located
 // yet are located afterwards by the browser, one by one (ajax/geocode.php), so this page shows at once.

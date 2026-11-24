@@ -50,7 +50,7 @@ class modNetatmo extends DolibarrModules
 		$this->rights_class = 'netatmo';
 		// Family can be 'base' (core modules),'crm','financial','hr','projects','products','ecm','technic' (transverse modules),'interface' (link with external tools),'other','...'
 		// It is used to group modules by family in module setup page
-		$this->family = "other";
+		$this->family = "interface";
 		// Module position in the family on 2 digits ('01', '10', '20', ...)
 		$this->module_position = '90';
 		// Gives the possibility for the module, to provide his own family info and position of this family (Overwrite $this->family and $this->module_position. Avoid this)
@@ -139,6 +139,8 @@ class modNetatmo extends DolibarrModules
 		$this->const = array(
 			// 1 => array('NETATMO_MYCONSTANT', 'chaine', 'avalue', 'This is a constant to add', 1, 'allentities', 1)
 		);
+		// Name of the Transifex project where the translations of this module are hosted
+		$this->const[] = array('NETATMO_TRANSIFEX_PROJECT', 'chaine', 'dolicloud/dolimods', 'The Transifex project (organisation/project) where translations of this module are hosted', 0, 'allentities', 1);
 
 		// Some keys to add into the overwriting translation tables
 		/*$this->overwrite_translation = array(
