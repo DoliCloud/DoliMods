@@ -78,6 +78,7 @@ $contactNameFormats = array(
 // Save parameters (POST only, so main.inc.php checks the CSRF token)
 if ($action == 'update' && $_SERVER['REQUEST_METHOD'] == 'POST') {
 	$i = 0;
+	$expected = 3;
 
 	$contactNameFormat = GETPOST('IPPHONE_CONTACT_NAME_FORMAT', 'aZ09');
 	if (!array_key_exists($contactNameFormat, $contactNameFormats)) {
@@ -90,7 +91,13 @@ if ($action == 'update' && $_SERVER['REQUEST_METHOD'] == 'POST') {
 	$i += dolibarr_set_const($db, 'IPPHONE_EXPORTKEY', trim(GETPOST('IPPHONE_EXPORTKEY', 'alpha')), 'chaine', 0, '', $conf->entity);
 	$i += dolibarr_set_const($db, 'IPPHONE_CONTACT_NAME_FORMAT', $contactNameFormat, 'chaine', 0, '', $conf->entity);
 
-	if ($i >= 3) {
+	if (isModEnabled('member')) {
+		$includeMembers = GETPOSTINT('IPPHONE_INCLUDE_MEMBERS') ? '1' : '0';
+		$i += dolibarr_set_const($db, 'IPPHONE_INCLUDE_MEMBERS', $includeMembers, 'chaine', 0, '', $conf->entity);
+		$expected++;
+	}
+
+	if ($i >= $expected) {
 		$db->commit();
 		setEventMessage($langs->trans("SetupSaved"));
 	} else {
@@ -161,6 +168,16 @@ print '</td>';
 print "<td>&nbsp;</td>";
 print "</tr>";
 
+if (isModEnabled('member')) {
+	$currentIncludeMembers = GETPOSTISSET('IPPHONE_INCLUDE_MEMBERS') ? GETPOSTINT('IPPHONE_INCLUDE_MEMBERS') : getDolGlobalInt('IPPHONE_INCLUDE_MEMBERS', 0);
+	print '<tr class="oddeven">';
+	print '<td>'.$langs->trans("IncludeMembersContacts")."</td>";
+	print '<td>';
+	print $form->selectyesno('IPPHONE_INCLUDE_MEMBERS', $currentIncludeMembers, 1);
+	print '</td>';
+	print '<td>'.$langs->trans("IncludeMembersContactsHelp").'</td>';
+	print "</tr>";
+}
 $currentContactFormat = GETPOSTISSET('IPPHONE_CONTACT_NAME_FORMAT') ? GETPOST('IPPHONE_CONTACT_NAME_FORMAT', 'aZ09') : getDolGlobalString('IPPHONE_CONTACT_NAME_FORMAT', 'thirdparty_first_last');
 if (!array_key_exists($currentContactFormat, $contactNameFormats)) {
 	$currentContactFormat = 'thirdparty_first_last';
